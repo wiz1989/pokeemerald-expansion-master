@@ -9,6 +9,16 @@ While the branch is intended to be used in cases where the in-game clock has bee
 
 I don't have a setting for it, but you can manually change the clock to a 24-hour mode if you prefer. Just change the conditional at the top of `ShowTimeWindow` in `start_menu.c`.
 
-Lastly, if you do speed up the in-game clock, it's possible the start menu clock won't refresh as fast as you'd like it to. You can increase the refresh rate by adjusting the `if (!GetSafariZoneFlag() && !InBattlePyramid() && gSaveBlock2Ptr->playTimeSeconds == 0) ` condition in the `HandleStartMenuInput` function.
+Lastly, if you do speed up the in-game clock, it's possible the start menu clock won't refresh as fast as you'd like it to. You can increase the refresh rate by adding a conditional just before the the last return statement in `HandleStartMenuInput`, here:
+https://github.com/Pawkkie/pokeemerald-expansion/blob/f9cceba5e07af02719079d869a3e6d57fd3f5269/src/start_menu.c#L699
 
-By default the clock refreshes every time playTimeSeconds hits 0. Feel free to change this as you see fit.
+
+    if (!GetSafariZoneFlag() && !InBattlePyramid() && gSaveBlock2Ptr->playTimeSeconds == 0) 
+    {
+        RemoveExtraStartMenuWindows();
+        UpdateClockDisplay();
+    }
+
+By default the clock refreshes every time playTimeSeconds hits 0. Feel free to change this as you see fit, I have a dramatically sped up in-game clock and have  `&& gSaveBlock2Ptr->playTimeSeconds == 0` removed entirely.
+
+Feel free to reach out to Pawkkie on Discord if you've got any concerns, but please do so in a romhacking channels so other's can also benefit :)
