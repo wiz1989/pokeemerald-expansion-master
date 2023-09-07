@@ -21,4 +21,4 @@ https://github.com/Pawkkie/pokeemerald-expansion/blob/f9cceba5e07af02719079d869a
 
 By default the clock refreshes every time playTimeSeconds hits 0. Feel free to change this as you see fit, I have a dramatically sped up in-game clock and have  `&& gSaveBlock2Ptr->playTimeSeconds == 0` removed entirely.
 
-Feel free to reach out to Pawkkie on Discord if you've got any concerns, but please do so in a romhacking channels so other's can also benefit :)
+Feel free to reach out to Pawkkie on Discord if you've got any concerns, but please do so in a romhacking channel so others can also benefit :)
