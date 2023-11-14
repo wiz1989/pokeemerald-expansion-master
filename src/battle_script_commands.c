@@ -62,6 +62,8 @@
 #include "battle_util.h"
 #include "constants/pokemon.h"
 #include "config/battle.h"
+#include "field_weather.h" //added @wiz1989
+#include "constants/weather.h" //added @wiz1989
 
 // Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
 //
@@ -1256,6 +1258,36 @@ static bool32 TryAegiFormChange(void)
     return TRUE;
 }
 
+//enhanced @wiz1989
+bool32 CastformTriggerWeatherChange(u32 battler, u32 move, u32 moveType)
+{
+    u32 species;
+    species = gBattleMons[battler].species;
+    moveType = gBattleMoves[move].type;
+
+    //set current weather based on chosen move and return TRUE
+    if (species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY || species == SPECIES_CASTFORM_SNOWY) {
+        if (moveType == TYPE_WATER || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
+            SetCurrentAndNextWeather(WEATHER_DOWNPOUR);
+            return TRUE;
+        }
+        if (moveType == TYPE_FIRE || move == MOVE_SOLAR_BEAM || move == MOVE_SOLAR_BLADE || move == MOVE_SYNTHESIS || move == MOVE_MORNING_SUN || move == MOVE_MOONLIGHT || move == MOVE_GROWTH) {
+            SetCurrentAndNextWeather(WEATHER_DROUGHT);
+            return TRUE;
+        }
+        if (moveType == TYPE_ICE || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
+            SetCurrentAndNextWeather(WEATHER_SNOW);
+            return TRUE;
+        }
+        if (moveType == TYPE_GROUND || moveType == TYPE_ROCK) {
+            SetCurrentAndNextWeather(WEATHER_SANDSTORM);
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+//enhancement end
+
 bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType)
 {
       if ((ability == ABILITY_PROTEAN || ability == ABILITY_LIBERO)
@@ -1324,6 +1356,15 @@ static void Cmd_attackcanceler(void)
         PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
         return;
     }
+
+    //enhancement @wiz1989
+    // Execute Castform weather change before attacking
+    if (CastformTriggerWeatherChange(gBattlerAttacker, gCurrentMove, moveType))
+    {
+        if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, 0, 0, 0))
+            return;
+    }
+    //enhancement end
 
     // Check Protean activation.
     if (ProteanTryChangeType(gBattlerAttacker, attackerAbility, gCurrentMove, moveType))
