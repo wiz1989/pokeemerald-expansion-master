@@ -1089,6 +1089,7 @@ const u16 *const gTeachableLearnsets[NUM_SPECIES] =
     [SPECIES_CASTFORM_SUNNY] = sCastformTeachableLearnset,
     [SPECIES_CASTFORM_RAINY] = sCastformTeachableLearnset,
     [SPECIES_CASTFORM_SNOWY] = sCastformTeachableLearnset,
+    [SPECIES_CASTFORM_SANDSTORM] = sCastformTeachableLearnset,
     // Deoxys
     [SPECIES_DEOXYS_ATTACK] = sDeoxysAttackTeachableLearnset,
     [SPECIES_DEOXYS_DEFENSE] = sDeoxysDefenseTeachableLearnset,

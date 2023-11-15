@@ -346,6 +346,7 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_CASTFORM_SUNNY] = sCastformFormSpeciesIdTable,
     [SPECIES_CASTFORM_RAINY] = sCastformFormSpeciesIdTable,
     [SPECIES_CASTFORM_SNOWY] = sCastformFormSpeciesIdTable,
+    [SPECIES_CASTFORM_SANDSTORM] = sCastformFormSpeciesIdTable,
     // Deoxys
     [SPECIES_DEOXYS_ATTACK] = sDeoxysFormSpeciesIdTable,
     [SPECIES_DEOXYS_DEFENSE] = sDeoxysFormSpeciesIdTable,

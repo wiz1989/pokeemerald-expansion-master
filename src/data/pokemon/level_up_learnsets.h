@@ -7353,6 +7353,7 @@ static const struct LevelUpMove sAggronLevelUpLearnset[] = {
     LEVEL_UP_END
 };
 
+/*standard legacy settings
 static const struct LevelUpMove sCastformLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE(10, MOVE_WATER_GUN),
@@ -7367,6 +7368,25 @@ static const struct LevelUpMove sCastformLevelUpLearnset[] = {
     LEVEL_UP_MOVE(35, MOVE_FIRE_BLAST),
     LEVEL_UP_MOVE(35, MOVE_BLIZZARD),
     LEVEL_UP_MOVE(45, MOVE_HURRICANE),
+    LEVEL_UP_END
+};
+*/
+
+static const struct LevelUpMove sCastformLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE(10, MOVE_WATER_GUN),
+    LEVEL_UP_MOVE(10, MOVE_EMBER),
+    LEVEL_UP_MOVE(10, MOVE_POWDER_SNOW),
+    LEVEL_UP_MOVE(15, MOVE_HEADBUTT),
+    LEVEL_UP_MOVE(20, MOVE_SCALD),
+    LEVEL_UP_MOVE(20, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE(20, MOVE_ICE_BEAM),
+    LEVEL_UP_MOVE(25, MOVE_POWER_GEM),
+    LEVEL_UP_MOVE(35, MOVE_HYDRO_PUMP),
+    LEVEL_UP_MOVE(35, MOVE_FIRE_BLAST),
+    LEVEL_UP_MOVE(35, MOVE_BLIZZARD),
+    LEVEL_UP_MOVE(45, MOVE_HURRICANE),
+    LEVEL_UP_MOVE(55, MOVE_METEOR_BEAM),
     LEVEL_UP_END
 };
 

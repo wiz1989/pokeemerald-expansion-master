@@ -14584,6 +14584,13 @@ static const u16 sCastformTeachableLearnset[] = {
     MOVE_SWAGGER,
     MOVE_SWIFT,
     MOVE_THUNDER_WAVE,
+    //additions below
+    MOVE_ANCIENT_POWER,
+    MOVE_ROCK_POLISH,
+    MOVE_ROCK_TOMB,
+    MOVE_EARTHQUAKE,
+    MOVE_METEOR_BEAM,
+    MOVE_POWER_GEM,
     MOVE_UNAVAILABLE,
 };
 

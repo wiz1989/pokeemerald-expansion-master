@@ -88,10 +88,10 @@
 
 #define CASTFORM_SPECIES_INFO(type, color)            \
     {                                                 \
-        .baseHP        = 70,                          \
-        .baseAttack    = 70,                          \
+        .baseHP        = 80,                          \
+        .baseAttack    = 30,                          \
         .baseDefense   = 70,                          \
-        .baseSpeed     = 70,                          \
+        .baseSpeed     = 100,                         \
         .baseSpAttack  = 70,                          \
         .baseSpDefense = 70,                          \
         .types = { type, type },                      \
@@ -23509,6 +23509,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_CASTFORM_SUNNY] = CASTFORM_SPECIES_INFO(TYPE_FIRE, BODY_COLOR_RED),
     [SPECIES_CASTFORM_RAINY] = CASTFORM_SPECIES_INFO(TYPE_WATER, BODY_COLOR_BLUE),
     [SPECIES_CASTFORM_SNOWY] = CASTFORM_SPECIES_INFO(TYPE_ICE, BODY_COLOR_WHITE),
+    [SPECIES_CASTFORM_SANDSTORM] = CASTFORM_SPECIES_INFO(TYPE_ROCK, BODY_COLOR_BROWN),
 
     [SPECIES_DEOXYS_ATTACK] =
     {
