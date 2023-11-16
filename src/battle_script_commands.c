@@ -1290,7 +1290,6 @@ bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move)
                 return TRUE;
             }
         }
-        return FALSE;
     }
     return FALSE;
 }
@@ -1312,8 +1311,6 @@ bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType)
 
 static void Cmd_attackcanceler(void)
 {
-    u32 weather; //added @wiz1989
-
     CMD_ARGS();
 
     s32 i, moveType;
@@ -1372,6 +1369,7 @@ static void Cmd_attackcanceler(void)
     // Check Castform weather change
     if (CastformTriggerWeatherChange(gBattlerAttacker, attackerAbility, gCurrentMove))
     {
+        //this function sets the weather and brings up the battle strings
         if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, 0, 0, 0))
             return;
     }
@@ -1953,7 +1951,7 @@ static void Cmd_ppreduce(void)
 
 // The chance is 1/N for each stage.
 #if B_CRIT_CHANCE >= GEN_7
-    static const u8 sCriticalHitChance[] = {255, 255, 255, 255, 255}; //deactivate crits | wiz1989
+    static const u8 sCriticalHitChance[] = {24, 8, 2, 1, 1};
 #elif B_CRIT_CHANCE == GEN_6
     static const u8 sCriticalHitChance[] = {16, 8, 2, 1, 1};
 #else
@@ -15298,15 +15296,7 @@ static void Cmd_trysetcaughtmondexflags(void)
     }
     else
     {
-        HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);
-
-        if(species == SPECIES_SCYTHER) {
-            FlagSet(FLAG_P01_SCYTHER);
-        }
-        if(species == SPECIES_GIRAFARIG) {
-            FlagSet(FLAG_P01_GIRAFARIG);
-        }
-        
+        HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);        
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
