@@ -1269,7 +1269,7 @@ bool32 CastformTriggerWeatherChange(u32 battler, u32 move, u32 moveType)
     DebugPrintf("Type: %d", moveType);
     DebugPrintf("Species: %S", gSpeciesNames[species]);
 
-    if (species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY || species == SPECIES_CASTFORM_SNOWY) {
+    if (species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM) {
         DebugPrintf("is Castform");
         if (moveType == TYPE_WATER || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
             //BattleScriptExecute(gBattlescriptCurrInstr);
@@ -1380,14 +1380,6 @@ static void Cmd_attackcanceler(void)
 
         if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, 0, 0, 0))
             return;
-        /*
-        PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
-        gBattlerAbility = gBattlerAttacker;
-        BattleScriptPushCursor();
-        PrepareStringBattle(STRINGID_EMPTYSTRING3, gBattlerAttacker);
-        gBattleCommunication[MSG_DISPLAY] = 1;
-        gBattlescriptCurrInstr = BattleScript_ProteanActivates;
-        */
     }
     //enhancement end
 
