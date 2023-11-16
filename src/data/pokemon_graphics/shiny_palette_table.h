@@ -1088,6 +1088,7 @@ const struct CompressedSpritePalette gMonShinyPaletteTable[NUM_SPECIES + 1] =
     SPECIES_SHINY_PAL(CASTFORM_SUNNY, gMonShinyPalette_CastformSunny),
     SPECIES_SHINY_PAL(CASTFORM_RAINY, gMonShinyPalette_CastformRainy),
     SPECIES_SHINY_PAL(CASTFORM_SNOWY, gMonShinyPalette_CastformSnowy),
+    SPECIES_SHINY_PAL(CASTFORM_SANDSTORM, gMonShinyPalette_CastformSandstorm),
 
     SPECIES_SHINY_PAL(DEOXYS_ATTACK, gMonShinyPalette_DeoxysAttack),
     SPECIES_SHINY_PAL(DEOXYS_DEFENSE, gMonShinyPalette_DeoxysDefense),

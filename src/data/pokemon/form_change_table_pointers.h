@@ -68,6 +68,7 @@ const struct FormChange *const gFormChangeTablePointers[NUM_SPECIES] =
     [SPECIES_CASTFORM_SUNNY] = sCastformFormChangeTable,
     [SPECIES_CASTFORM_RAINY] = sCastformFormChangeTable,
     [SPECIES_CASTFORM_SNOWY] = sCastformFormChangeTable,
+    [SPECIES_CASTFORM_SANDSTORM] = sCastformFormChangeTable,
     [SPECIES_BANETTE] = sBanetteFormChangeTable,
     [SPECIES_BANETTE_MEGA] = sBanetteFormChangeTable,
     [SPECIES_AGGRON] = sAggronFormChangeTable,

@@ -1639,6 +1639,7 @@ gCryTable::
 	cry Cry_Castform
 	cry Cry_Castform
 	cry Cry_Castform
+	cry Cry_Castform
 	@ Deoxys
 	cry Cry_Deoxys
 	cry Cry_Deoxys
@@ -3762,6 +3763,7 @@ gCryTable_Reverse::
 	cry_reverse Cry_Unown
 	cry_reverse Cry_Unown
 	@ Castform
+	cry_reverse Cry_Castform
 	cry_reverse Cry_Castform
 	cry_reverse Cry_Castform
 	cry_reverse Cry_Castform

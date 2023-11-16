@@ -1087,6 +1087,7 @@ const struct CompressedSpritePalette gMonPaletteTable[NUM_SPECIES + 1] =
     SPECIES_PAL(CASTFORM_SUNNY, gMonPalette_CastformSunny),
     SPECIES_PAL(CASTFORM_RAINY, gMonPalette_CastformRainy),
     SPECIES_PAL(CASTFORM_SNOWY, gMonPalette_CastformSnowy),
+    SPECIES_PAL(CASTFORM_SANDSTORM, gMonPalette_CastformSandstorm),
 
     SPECIES_PAL(DEOXYS_ATTACK, gMonPalette_DeoxysAttack),
     SPECIES_PAL(DEOXYS_DEFENSE, gMonPalette_DeoxysDefense),
