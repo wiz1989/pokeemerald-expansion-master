@@ -1290,7 +1290,6 @@ bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move)
                 return TRUE;
             }
         }
-        return FALSE;
     }
     return FALSE;
 }
