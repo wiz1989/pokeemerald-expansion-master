@@ -1951,7 +1951,7 @@ static void Cmd_ppreduce(void)
 
 // The chance is 1/N for each stage.
 #if B_CRIT_CHANCE >= GEN_7
-    static const u8 sCriticalHitChance[] = {24, 8, 2, 1, 1};
+    static const u8 sCriticalHitChance[] = {255, 255, 255, 255, 255}; //deactivate crits | wiz1989
 #elif B_CRIT_CHANCE == GEN_6
     static const u8 sCriticalHitChance[] = {16, 8, 2, 1, 1};
 #else
@@ -15296,7 +15296,15 @@ static void Cmd_trysetcaughtmondexflags(void)
     }
     else
     {
-        HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);        
+        HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);  
+
+        if(species == SPECIES_SCYTHER) {
+            FlagSet(FLAG_P01_SCYTHER);
+        }
+        if(species == SPECIES_GIRAFARIG) {
+            FlagSet(FLAG_P01_GIRAFARIG);
+        }
+              
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
