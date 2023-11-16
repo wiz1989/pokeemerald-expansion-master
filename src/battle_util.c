@@ -4175,6 +4175,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     u32 effect = 0;
     u32 speciesAtk, speciesDef;
     u32 moveType, move;
+    u32 species; //added wiz1989
     u32 i, j;
 
     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
@@ -4296,6 +4297,16 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         }
         if (effect != 0)
         {
+            //enhancement wiz1989
+            species = gBattleMons[battler].species;
+            if ((species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY 
+                || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM) 
+                && (ability == ABILITY_FORECAST))
+            {
+                PrepareStringBattle(STRINGID_CASTFORMCHANGEDWEATHER, battler);
+                gBattleCommunication[MSG_DISPLAY] = 1;
+            }
+            //enhancement end
             gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
             BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
         }
