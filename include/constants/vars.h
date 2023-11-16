@@ -21,7 +21,7 @@
 #define VAR_TEMP_C                 (TEMP_VARS_START + 0xC)
 #define VAR_TEMP_D                 (TEMP_VARS_START + 0xD)
 #define VAR_TEMP_E                 (TEMP_VARS_START + 0xE)
-#define VAR_TEMP_F                 (TEMP_VARS_START + 0xF)
+#define VAR_TEMP_F                 (TEMP_VARS_START + 0xF) //used for temporary battle weather
 #define TEMP_VARS_END              VAR_TEMP_F
 #define NUM_TEMP_VARS              (TEMP_VARS_END - TEMP_VARS_START + 1)
 
@@ -272,7 +272,7 @@
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
-#define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
+#define VAR_TEMP_WEATHER                                 0x40FF // Unused Var
 
 #define VARS_END                                         0x40FF
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)

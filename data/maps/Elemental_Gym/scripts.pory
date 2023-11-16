@@ -1,0 +1,132 @@
+// ############### Mapscripts ###############
+mapscripts Elemental_Gym_MapScripts {}
+
+
+// ############### Doors & Warps ###############
+
+script ElementalGym_R1_ExitDoor {
+	lock
+	msgbox(format("Do you want to enter the next room?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		warp(MAP_ELEMENTAL_GYM, 14, 66)
+		setvar(VAR_UNUSED_0x40F7, 0) //deactivate warp trigger
+		setvar(VAR_UNUSED_0x40F8, 1) //activate reset trigger
+	}
+	waitmessage
+	release
+	end
+}
+
+script ElementalGym_R2_ExitDoor {
+	lock
+	if (defeated(TRAINER_ARCHIE)) {
+		msgbox(format("Do you want to enter the next room?"), MSGBOX_YESNO)
+		if (var(VAR_RESULT) == YES) {
+			warp(MAP_ELEMENTAL_GYM, 7, 54)
+			setvar(VAR_UNUSED_0x40F7, 0) //deactivate warp trigger
+		setvar(VAR_UNUSED_0x40F8, 1) //activate reset trigger
+		}
+		waitmessage
+	}
+	release
+	end
+}
+
+script ElementalGym_R3_ExitDoor {
+	lock
+	msgbox(format("Do you want to enter the next room?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		warp(MAP_ELEMENTAL_GYM, 14, 50)
+	}
+	waitmessage
+	release
+	end
+}
+
+script ElementalGym_R2_Warpback {
+	lock
+	msgbox(format("Do you really want to exit the gym battles? If so, you will have to start all over again."), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		warp(MAP_ELEMENTAL_GYM, 14, 74)
+	}
+	waitmessage
+	setvar(VAR_UNUSED_0x40F7, 0) //deactivate warp trigger
+	setvar(VAR_UNUSED_0x40F8, 1) //activate reset trigger
+	
+	//clear all trainer flags
+	cleartrainerflag(TRAINER_ARCHIE)
+	cleartrainerflag(TRAINER_MAXIE_MOSSDEEP)
+	release
+	end
+}
+
+script ElementalGym_R2_ResetWarpback {
+	setvar(VAR_UNUSED_0x40F7, 1) //activate warp trigger
+	setvar(VAR_UNUSED_0x40F8, 0) //deactivate reset trigger
+	end
+}
+
+script ElementalGym_R3_Warpback {
+	lock
+	setvar(VAR_UNUSED_0x40F7, 0) //deactivate warp trigger
+	setvar(VAR_UNUSED_0x40F8, 1) //activate reset trigger
+	warp(MAP_ELEMENTAL_GYM, 7, 62)
+	release
+	end
+}
+
+script ElementalGym_R3_ResetWarpback {
+	setvar(VAR_UNUSED_0x40F7, 1) //activate warp trigger
+	setvar(VAR_UNUSED_0x40F8, 0) //deactivate reset trigger
+	end
+}
+
+
+// ############### NPCs ###############
+
+script ElementalGym_R1_Man01 {
+	lock
+	faceplayer
+	msgbox(format("Welcome {PLAYER} to the Elemental Gym. \pYou will have to battle all the trainers here in order to reach the gym leader."))
+	waitmessage
+	msgbox(format("If you decide to leave the gym you will have to start all over again. \pYou will have the opportunity to heal your team in every room. \pStill, make sure to bring the right team to conquer this challenge. \pGood luck!"), MSGBOX_DEFAULT)
+	waitmessage
+	givemon(SPECIES_CASTFORM, 100)
+	release
+	end
+}
+
+script ElementalGym_R2_Archie04 {
+	setvar(VAR_TEMP_F, WEATHER_RAIN)
+	faceplayer
+	trainerbattle_single(TRAINER_ARCHIE, "Feel the wrath of the sea!", "It's all Pawkkie's fault!")
+	lock
+	msgbox(format("May the tides be on your side."), MSGBOX_AUTOCLOSE)
+	release
+	end
+}
+
+script ElementalGym_R3_Maxie05 {
+	setvar(VAR_TEMP_F, WEATHER_SUNNY)
+	faceplayer
+	trainerbattle_single(TRAINER_MAXIE_MOSSDEEP, "I will burn you to ashes!", "I got my fingers burned.")
+	lock
+	msgbox(format("A fire is burning inside you."), MSGBOX_AUTOCLOSE)
+	release
+	end
+}
+
+script ElementalGym_Nurse {
+	lock
+	faceplayer
+	msgbox(format("Hello {PLAYER}, I just healed your party. Good luck!"))
+	waitmessage
+	special(HealPlayerParty)
+	release
+	end
+}
+
+
+// ############### texts ###############
+
+

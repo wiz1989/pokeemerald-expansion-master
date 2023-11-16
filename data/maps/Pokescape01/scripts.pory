@@ -1,0 +1,737 @@
+// ############### Mapscripts ###############
+
+mapscripts Pokescape01_MapScripts {
+    #MAP_SCRIPT_ON_TRANSITION: OnTransition
+    MAP_SCRIPT_ON_RESUME: OnResume 
+}
+
+script OnResume {
+	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
+		givemon(SPECIES_MAKUHITA, 15)
+		givemonpc(SPECIES_YAMASK, 16, ITEM_RARE_CANDY, 7, 19)
+		setinitialmovesPC(MOVE_ASTONISH, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT)
+		setflag(FLAG_SYS_POKEMON_GET)
+		addpcitem(ITEM_TM_DIG, 1)
+		setvar(VAR_LITTLEROOT_TOWN_STATE, 1)
+	}
+
+	if(flag(FLAG_P01_MASTER_BALL)) {
+		setflag(FLAG_TEMP_3)
+	}
+
+	setrespawn(HEAL_LOCATION_POKESCAPE01)
+	//set all badges so Pokemon will always obey
+	setflag(FLAG_BADGE01_GET)
+	setflag(FLAG_BADGE02_GET)
+	setflag(FLAG_BADGE03_GET)
+	setflag(FLAG_BADGE04_GET)
+	setflag(FLAG_BADGE05_GET)
+	setflag(FLAG_BADGE06_GET)
+	setflag(FLAG_BADGE07_GET)
+	setflag(FLAG_BADGE08_GET)
+	setflag(FLAG_SYS_POKEDEX_GET)
+	end
+}
+
+script OnTransition {
+	setvar(VAR_LITTLEROOT_TOWN_STATE, 0)
+}
+
+
+// ############### Regular Outside Scripts ###############
+
+script Pokescape01_EventScript_Azurill02 {
+    lock
+    faceplayer
+    msgbox("...Rill...")
+    waitmessage
+    setobjectmovementtype(1, MOVEMENT_TYPE_WANDER_AROUND)
+    release
+    end
+}
+
+script Pokescape01_EventScript_Kirlia10 {
+    lock
+    setflag(FLAG_P01_KIRLIA)
+    faceplayer
+    msgbox(format("Kirlia looks very hungry."))
+    waitmessage
+    checkitem(ITEM_SWEET_APPLE)
+    
+    if(var(VAR_RESULT) == TRUE){
+    	msgbox(format("Oh, you have a Sweet Apple. Do you want to give it to Kirlia?"), MSGBOX_YESNO)
+    	if (var(VAR_RESULT) == YES) {
+    		msgbox(format("Kirlia is very thankful and joins your team."))
+    		waitmessage
+    		removeitem(ITEM_SWEET_APPLE)
+    		fadescreen(FADE_TO_BLACK)
+    		removeobject(10)
+    		fadescreen(FADE_FROM_BLACK)
+    		givemon(SPECIES_KIRLIA, 20, ITEM_EVERSTONE)
+    		clearflag(FLAG_P01_KIRLIA)
+    		setflag(FLAG_P01_GOTKIRLIA)
+    		setflag(FLAG_HIDE_KIRLIA)
+    	}
+    	else {
+    		msgbox(format("Poor Kirlia."))
+    		waitmessage
+    		setobjectmovementtype(10, MOVEMENT_TYPE_WANDER_AROUND)
+    	}
+    }
+    else {
+    	setobjectmovementtype(10, MOVEMENT_TYPE_WANDER_AROUND)
+    }
+    release
+    end
+}
+
+script Pokescape01_EventScript_Swimmer12 {
+    lock
+    faceplayer
+    msgbox(format("These trainers on the hill look pretty strong. \pBut you should be able to fight and pass them without a lot of grinding."))
+    waitmessage
+    msgbox(format("I heard their specialty is grass and electric type moves. But what do I know?"))
+    waitmessage
+    setobjectmovementtype(12, MOVEMENT_TYPE_WANDER_AROUND)
+    release
+    end
+}
+
+script Pokescape01_EventScript_PokecenterSign {
+    lockall
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
+    waitmessage
+    releaseall
+    end
+}
+
+script Pokescape01_EventScript_Building01Sign {
+    lockall
+    msgbox("Hooray, you made it!")
+    waitmessage
+    releaseall
+    end
+}
+
+script Pokescape01_EventScript_SignGrass {
+	lockall
+    msgbox("Two species are typically found here.")
+    showmonpic(SPECIES_GIRAFARIG, 10, 3)
+	msgbox(format("Girafarig, the two brain pokemon. \pWatch out, these are brilliant thieves!"))
+	waitmessage
+	hidemonpic
+	showmonpic(SPECIES_SCYTHER, 10, 3)
+	msgbox(format("Scyther, the mantis pokemon. \pWith its sharp scythes it holds the secret to even cutting bushes."))
+	waitmessage
+	hidemonpic
+    releaseall
+    end
+}
+
+script Pokescape01_EventScript_PokecenterTriggers {
+	if(var(VAR_UNUSED_0x408B) == 0) {
+	    lockall
+	    special(ChangePlayerName)
+	    waitmessage
+
+	    msgbox("So your name is {PLAYER}?", MSGBOX_YESNO)
+	    while (var(VAR_RESULT) == NO) {
+	        msgbox("So your name is {PLAYER}?", MSGBOX_YESNO)
+		}
+
+	    setvar(VAR_UNUSED_0x408B, 1)
+	    releaseall
+    }
+    end
+}
+
+script Pokescape01_EventScript_TriggerLittleGirl {
+	lockall
+	checkpartymon(SPECIES_SCYTHER)
+	if(var(VAR_RESULT)) {
+		applymovement(15, Move01)
+		waitmovement(0)
+		applymovement(OBJ_EVENT_ID_PLAYER, MovePlayer01)
+		waitmovement(0)
+		msgbox(format("Eek! Your Scyther looks so scary. \pPlease don't bring it up here."))
+	    waitmessage
+	    applymovement(OBJ_EVENT_ID_PLAYER, Move02)
+	    waitmovement(0)
+	}
+	releaseall
+	end
+}
+
+script Pokescape01_EventScript_ItemMasterBall {
+    lock
+    msgbox(format("You found a lost Master Ball on the ground. \pMake sure to make good use of it!"))
+    waitmessage
+    giveitem(ITEM_MASTER_BALL, 1)
+    removeobject(5)
+    setflag(FLAG_P01_MASTER_BALL)
+    setflag(FLAG_TEMP_3) //to remove the ball completely so it doesn't respawn during map load
+    release
+    end
+}
+
+script Pokescape01_EventScript_ItemEviolite {
+    lock
+    giveitem(ITEM_EVIOLITE, 1)
+    fadescreen(FADE_TO_BLACK)
+	removeobject(16)
+	fadescreen(FADE_FROM_BLACK)
+    setflag(FLAG_P01_EVIOLITE)
+    release
+    end
+}
+
+script Pokescape01_EventScript_AppleTree {
+    lock
+    
+    //apple already picked?
+    if(var(VAR_UNUSED_0x40F7) == 0) {
+    	//only give apple, if Girafarig was already caught
+    	checkpartymon(SPECIES_GIRAFARIG)
+		if(var(VAR_RESULT)) {
+			setflag(FLAG_P01_GOTGIRAFARIG)
+		}
+		else {
+			clearflag(FLAG_P01_GOTGIRAFARIG)
+		}
+
+		if (flag(FLAG_P01_GOTGIRAFARIG)) {
+		    msgbox(format("{PLAYER} found a Sweet Apple in the tree."))
+		    giveitem(ITEM_SWEET_APPLE, 1)
+		    setvar(VAR_UNUSED_0x40F7, 1)
+		}
+		 else {
+		 	msgbox(format("There is an apple growing in the tree. You should go catch more Pokemon and return later to pick it."))
+		 }
+    }
+    else {
+		msgbox(format("There's nothing to find in the tree."))
+    }
+    release
+    end
+}
+
+script Pokescape01_EventScript_LittleGirl15 {
+	lockall
+    faceplayer
+    msgbox(format("Did you know that some species can have access to completely new moves after evolving? \pThere is so much to learn about Pokemon."))
+    waitmessage
+    releaseall
+    end
+}
+
+
+// ############### Battles ###############
+
+script Pokescape01_EventScript_Geodude {
+	if(defeated(TRAINER_POKESCAPE01_01) == FALSE) {
+		playmoncry(SPECIES_GEODUDE, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		setwildbattle(SPECIES_GEODUDE, 14)
+		dowildbattle
+	}
+	else  {
+		lockall
+		msgbox(format("Geodude is tired of fighting."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		releaseall
+	}
+	end
+}
+
+script Pokescape01_EventScript_Battle01 {
+	trainerbattle_single(TRAINER_POKESCAPE01_01, "I'll blow you away!", "I'm blown away!")
+	lock //don't lock before the fight or the trainer won't move towards the player
+	msgbox(format("What a day! First I lost an item and now I lost a fight."))
+	waitmessage
+	release
+	end
+}
+
+script Pokescape01_EventScript_BattleDouble02 {
+	trainerbattle_double(TRAINER_POKESCAPE01_02, format("Mom said we are too young, but we are already grown up!"), "Mommy!!!", Text_NotEnoughMons)
+	lockall
+	if(flag(FLAG_UNUSED_0x95E) == FALSE) {
+		checkpartymon(SPECIES_MAKUHITA) //returns bool VAR_RESULT
+		if (var(VAR_RESULT)){
+			msgbox(format("I don't wanna play with my Wooper anymore. Can I trade it for your Makuhita?"), MSGBOX_YESNO)
+			if (var(VAR_RESULT) == YES) {
+				setflag(FLAG_UNUSED_0x95D) //last flag for nurse Joy
+				setflag(FLAG_UNUSED_0x95E) //flag for handing over Wooper
+				getpartymonslot(SPECIES_MAKUHITA)
+				special(DeletePartyMon) //using VAR_RESULT from above macro
+				givemon(SPECIES_WOOPER, 19)
+				//setinitialmoves(2, MOVE_WATER_GUN, MOVE_MUD_SHOT, MOVE_TAIL_WHIP, MOVE_SURF)
+				msgbox(format("{PLAYER} traded Wooper for Makuhita."))
+				waitmessage
+				msgbox(format("Have you heard? Nurse Joy is well again!"))
+				waitmessage
+			}
+			else {
+				msgbox(format("Don't like yours anyway."))
+				waitmessage
+			}
+		}
+		else {
+			checkpartymon(SPECIES_HARIYAMA) //returns bool VAR_RESULT
+			if (var(VAR_RESULT)){
+				msgbox(format("I don't wanna play with my Wooper anymore. Can I trade it for your Hariyama?"), MSGBOX_YESNO)
+				if (var(VAR_RESULT) == YES) {
+					setflag(FLAG_UNUSED_0x95D) //last flag for nurse Joy
+					setflag(FLAG_UNUSED_0x95E) //flag for handing over Wooper
+					getpartymonslot(SPECIES_HARIYAMA)
+					special(DeletePartyMon) //using VAR_RESULT from above macro
+					givemon(SPECIES_WOOPER, 18)
+					msgbox(format("{PLAYER} traded Wooper for Hariyama."))
+					waitmessage
+					msgbox(format("Have you heard? Nurse Joy is well again!"))
+					waitmessage
+				}
+				else {
+					msgbox(format("Don't like yours anyway."))
+					waitmessage
+				}	
+			}
+			else {
+				msgbox(format("Wooper is so weak! I'd rather wanna have a fighting type."))
+				waitmessage
+			}
+		}
+	}
+	else {
+		msgbox(format("Mommy!!!"))
+		waitmessage
+	}
+	releaseall
+	end
+}
+
+script Pokescape01_EventScript_BattleDouble03 {
+	trainerbattle_double(TRAINER_POKESCAPE01_03, format("Hey there, we found that strange Pokemon. \pLooks like it ate a special stone or something."), "Go ahead, you're almost there.", Text_NotEnoughMons)
+	setflag(FLAG_UNUSED_0x95C) //flag for winning fight03
+	end
+}
+
+
+// ############### Pokecenter ###############
+
+script Pokescape01_Pokecenter_EventScript_Picture01 {
+	lock
+	showmonpic(SPECIES_MEGANIUM, 10, 3)
+	msgbox(format("Solar Beam, Sweet Scent, Synthesis, Protect"))
+	waitmessage
+	hidemonpic
+	release
+	end
+}
+
+script Pokescape01_Pokecenter_EventScript_Picture02 {
+	lock
+	showmonpic(SPECIES_CLEFABLE, 10, 3)
+	msgbox("Misty Explosion")
+	waitmessage
+	hidemonpic
+	release
+	end
+}
+
+script Pokescape01_Pokecenter_EventScript_Nurse {
+	lock
+	if(defeated(TRAINER_POKESCAPE01_01) == FALSE) {
+		call(Common_EventScript_PkmnCenterNurse)
+		waitmessage
+		msgbox("...cough...sniff...")
+		waitmessage
+	}
+	elif (flag(FLAG_UNUSED_0x95D) == FALSE) {
+		msgbox(format("I am sorry I caught a flu. I have to take care of myself first. ...cough...sniff..."))
+		waitmessage
+	}
+	else {
+		call(Common_EventScript_PkmnCenterNurse)
+		waitmessage
+	}
+	release
+	end
+}
+
+script Pokescape01_Pokecenter_EventScript_Boy {
+	lock
+	faceplayer
+	if(defeated(TRAINER_POKESCAPE01_01) == FALSE) {
+		msgbox(format("Nurse Joy sounds a little sick. I hope she will get well soon!"))
+		waitmessage
+	}
+	elif (flag(FLAG_UNUSED_0x95D) == FALSE) {
+		msgbox(format("Oh no! Who takes care of the Pokemons now?"))
+		waitmessage
+	}
+	else {
+		msgbox(format("Woohoo, nurse Joy is feeling well again!"))
+		waitmessage
+	}
+	release
+	end
+}
+
+script Pokescape01_Pokecenter_EventScript_Gentleman {
+	lock
+	clearflag(FLAG_P01_ADD30MIN)
+	clearflag(FLAG_P01_GIVE_ADVICE)
+	faceplayer
+	msgbox(format("I am the game master. \pI will give you helpful advice for each situation, but it adds an additional 30min to your play clock."))
+	waitmessage
+	msgbox(format("Do you want me to give you a hint?"), MSGBOX_YESNO)
+	if (var(VAR_RESULT) == YES) {
+		setflag(FLAG_P01_GIVE_ADVICE)
+
+		//handle "Yamask still in PC" hint before anything else
+		//Yamask still in the PC
+		getpartysize
+		if (!defeated(TRAINER_POKESCAPE01_01) && var(VAR_RESULT) <= 1) {
+			setflag(FLAG_P01_ADD30MIN)
+			msgbox(Text_TipCheckPC)
+		}
+		else {
+			//only give advice, if there are no Pokemon in the PC
+			specialvar(VAR_RESULT, IsPcEmpty)
+			if(var(VAR_RESULT) == FALSE)  {
+				msgbox(format("You still have Pokemon in your PC. I can only give you tips when it's empty. \pOf course, you won't be charged 30 minutes this time."))
+				clearflag(FLAG_P01_GIVE_ADVICE)
+			}
+			else {
+
+				//handle all different scenarios below
+
+				//first fight not yet won
+				if (!defeated(TRAINER_POKESCAPE01_01)) {
+
+					//Yamask still in the PC
+					getpartysize
+					if (var(VAR_RESULT) <= 1) {
+						setflag(FLAG_P01_ADD30MIN)
+						msgbox(Text_TipCheckPC)
+					}
+					else {
+
+						//Rare candy already used?
+						if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
+							setflag(FLAG_P01_ADD30MIN)
+							//setflag(FLAG_P01_GIVE_RARE_CANDY)
+							msgbox(Text_TipRareCandy)
+							giveitem(ITEM_RARE_CANDY, 1)
+							clearflag(FLAG_P01_RARE_CANDY)
+						}
+						else {
+
+							//How to win the first fight?
+							setflag(FLAG_P01_ADD30MIN)
+							msgbox(Text_TipFirstFight)
+						}				
+					}
+				}
+
+				//between the first two fights
+				if (defeated(TRAINER_POKESCAPE01_01) && !defeated(TRAINER_POKESCAPE01_02)) {
+
+					//Rare candy already used?
+					if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
+						setflag(FLAG_P01_ADD30MIN)
+						msgbox(Text_TipRareCandyRevive)
+						giveitem(ITEM_RARE_CANDY, 1)
+						clearflag(FLAG_P01_RARE_CANDY)
+					}
+					else {
+
+						//explain usage of rare candy
+						setflag(FLAG_P01_ADD30MIN)
+						msgbox(Text_TipRareCandyUse)
+					}
+				}
+
+				//last chapter to be checked before 2nd&3rd
+				
+				checkpartymon(SPECIES_WOOPER)
+				if(var(VAR_RESULT)) {
+					setflag(FLAG_P01_GOTWOOPER)
+				}
+				else {
+					clearflag(FLAG_P01_GOTWOOPER)
+				}
+
+				checkpartymon(SPECIES_QUAGSIRE)
+				if(var(VAR_RESULT)) {
+					setflag(FLAG_P01_GOTQUAGSIRE)
+				}
+				else {
+					clearflag(FLAG_P01_GOTQUAGSIRE)
+				}
+
+				checkpartymon(SPECIES_GALLADE)
+				if(var(VAR_RESULT)) {
+					setflag(FLAG_P01_GOTGALLADE)
+				}
+				else {
+					clearflag(FLAG_P01_GOTGALLADE)
+				}
+
+				checkpartymon(SPECIES_GARDEVOIR)
+				if(var(VAR_RESULT)) {
+					setflag(FLAG_P01_GOTGARDEVOIR)
+				}
+				else {
+					clearflag(FLAG_P01_GOTGARDEVOIR)
+				}
+
+				checkitem(ITEM_HM_CUT)
+				if(var(VAR_RESULT)) {
+					setflag(FLAG_P01_HM_CUT)
+				}
+				else {
+					clearflag(FLAG_P01_HM_CUT)
+				}
+
+				if (flag(FLAG_P01_GOTKIRLIA) && flag(FLAG_P01_HM_CUT)) {
+
+					//Wooper or Quagsire in team?
+					if (flag(FLAG_P01_GOTWOOPER)) {
+						setflag(FLAG_P01_ADD30MIN)
+						msgbox(format("Oh you are still accompanied by Wooper? \pYou should think about evolving it! It can do stuff that Wooper can't."))
+					}
+					elif (flag(FLAG_P01_GOTGARDEVOIR)) {
+						setflag(FLAG_P01_ADD30MIN)
+						msgbox(Text_TipGardevoir)
+						waitmessage
+						getpartymonslot(SPECIES_GARDEVOIR)
+						special(DeletePartyMon)
+						msgbox("{PLAYER}: Good bye, Gardevoir.")
+						givemon(SPECIES_KIRLIA, 20, ITEM_EVERSTONE)
+
+						checkitem(ITEM_EVERSTONE)
+						if (var(VAR_RESULT) == TRUE) {
+							waitmessage
+							removeitem(ITEM_EVERSTONE)
+							msgbox(format("GAME MASTER: I also took all items you might have acquired from Kirlia before."))
+						}
+					}
+					else {
+
+						//no Gallade available, yet
+						if (flag(FLAG_P01_GOTQUAGSIRE) && !flag(FLAG_P01_GOTGALLADE)) {
+							setflag(FLAG_P01_ADD30MIN)
+							msgbox(format("Your Girafarig and Quagsire are a great tag team! \pPlayed right Quagsire can become quite invincible against some Pokemon. \pHowever, you should not try to defeat the couple on the hill. But their Venusaur is hiding something very interesting for you."))
+						}
+						elif (flag(FLAG_P01_GOTGALLADE)) {
+							setflag(FLAG_P01_ADD30MIN)
+							msgbox(format("You are almost there. \pTry sneaking past the couple by having only one Pokemon in your party."))
+						}
+					}
+				}
+				else {
+
+					//between the second and third fight
+					if (defeated(TRAINER_POKESCAPE01_02)) {
+						
+						//Master Ball not found
+						if (!flag(FLAG_P01_MASTER_BALL)) {
+							setflag(FLAG_P01_ADD30MIN)
+							msgbox(Text_TipMasterBall)
+						}
+						else {
+
+							//Scyther was caught instead of Girafarig
+							if (flag(FLAG_P01_SCYTHER) && !flag(FLAG_P01_GIRAFARIG)) {
+								setflag(FLAG_P01_ADD30MIN)
+								msgbox(Text_TipScyther)
+								waitmessage
+								getpartymonslot(SPECIES_SCYTHER)
+								//if (var(VAR_RESULT) >= 0) -> only execute DeletePartyMon, when the mon is in the party
+								special(DeletePartyMon)
+								giveitem(ITEM_MASTER_BALL, 1)
+								msgbox("{PLAYER}: Good bye, Scyther.")
+
+								checkitem(ITEM_HM_CUT)
+								if (var(VAR_RESULT) == TRUE) {
+									waitmessage
+									clearflag(FLAG_P01_HM_CUT)
+									removeitem(ITEM_HM_CUT)
+									msgbox(format("GAME MASTER: I also took all items you might have acquired through catching Scyther."))
+								}
+
+								//delete the Scyther flag so this hint doesn't duplicate
+								clearflag(FLAG_P01_SCYTHER)
+							}
+
+							//catch another mon
+							elif (!flag(FLAG_P01_SCYTHER) && !flag(FLAG_P01_GIRAFARIG)) {
+								setflag(FLAG_P01_ADD30MIN)
+								msgbox(Text_TipCatch)
+							}
+
+							//Girafarig was caught
+							else {
+
+								//HM Cut
+								checkitem(ITEM_HM_CUT)
+								if (var(VAR_RESULT) == FALSE) {
+									setflag(FLAG_P01_ADD30MIN)
+									msgbox(Text_TipHMCut)
+								}
+								//have already talked to Kirlia?
+								elif (flag(FLAG_P01_KIRLIA) == TRUE) {
+
+									//Kirlia
+									setflag(FLAG_P01_ADD30MIN)
+									msgbox(Text_TipKirlia)
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else {
+		msgbox(format("Come back whenever you need me."))
+	}
+	waitmessage
+
+	//add 30min to play clock
+	if (flag(FLAG_P01_ADD30MIN) == TRUE) {
+		playtimeaddmin(30)
+	}
+
+	//default message for missing branches
+	if (flag(FLAG_P01_GIVE_ADVICE) == TRUE && flag(FLAG_P01_ADD30MIN) == FALSE) {
+		msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokemon, talking to NPCs and winning battles. \pOf course, you won't be charged 30 minutes this time."))
+	}
+
+	release
+	end
+}
+
+script Pokescape01_Pokecenter_EventScript_Scientist {
+	lock
+	faceplayer
+	getpartysize
+	if (!defeated(TRAINER_POKESCAPE01_01) && var(VAR_RESULT) <= 1) {
+		checkpartymove(MOVE_TRICK_ROOM)
+		if (var(VAR_RESULT) != PARTY_SIZE) {
+			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
+		}
+		else {
+			msgbox(format("You have so little pokemon in your party. I'm not talking to such a wannabe."))
+		}
+	}
+	else {
+		msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
+	}
+	waitmessage
+	release
+	end
+}
+
+
+// ############### Final House ###############
+
+script Pokescape01_House_EventScript_Birch {
+	lock
+	special(StopPlayTimer)
+	faceplayer
+	specialvar(VAR_RESULT, GetPlayTimeHours)
+	buffernumberstring(STR_VAR_1, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeMinutes)
+	buffernumberstring(STR_VAR_2, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeSeconds)
+	buffernumberstring(STR_VAR_3, VAR_RESULT)
+	msgbox(Text_Finale)
+	waitmessage
+	setobjectmovementtype(1, MOVEMENT_TYPE_WANDER_AROUND)
+	release
+	end
+}
+
+script Pokescape01_House_EventScript_Pikachu {
+    lock
+    faceplayer
+    msgbox("...Pika...")
+    waitmessage
+    setobjectmovementtype(2, MOVEMENT_TYPE_WANDER_AROUND)
+    release
+    end
+}
+
+
+// ############### movements ###############
+
+movement Move01 {
+	emote_exclamation_mark
+}
+
+movement MovePlayer01 {
+	face_left
+}
+
+movement Move02 {
+	face_down
+	walk_down
+}
+
+// ############### texts ###############
+
+text Text_NotEnoughMons {
+	format("You don't have enough Pokemons to fight us. Poor boy!")
+}
+
+text Text_TipCheckPC {
+	format("Your team is too small. You should check out that PC over there. \pAlso look out for some items in there.")
+}
+
+text Text_TipRareCandy {
+	format("Oh, you have already used your Rare Candy? \pYou should be a little more thoughtful about spending stuff! \pHere, I can give you another one. But make sure to keep it for now!")
+}
+
+text Text_TipFirstFight {
+	format("Your exquisite team could probably release a toxic storm at the opponent. \pMakuhita is the key to do so. You could do some sparring with Geodude outside.")
+}
+
+text Text_TipRareCandyRevive {
+	format("Nurse Joy is sick and you have already used your Rare Candy? \pYou should be a little more thoughtful about spending stuff! \pHere, I can give you another one.")
+}
+
+text Text_TipRareCandyUse {
+	format("Nurse Joy is sick and you are looking for a way to revive your Pokemon? \pYou should go check the medicine box in your bag.")
+}
+
+text Text_TipMasterBall {
+	format("People often get excited close to the Pokemon Center. \pSometimes they even drop stuff around there.")
+}
+
+text Text_TipScyther {
+	format("Nice Scyther you got there! I just don't think catching it was a good idea. \pLet me take it and give you back another Master Ball.")
+}
+
+text Text_TipCatch {
+	format("Oh, you found a Master Ball? \pYou should go and catch another Pokemon for your party.")
+}
+
+text Text_TipHMCut {
+	format("You are looking for HM Cut? I heard there are Scythers in the area holding on to it. \pOr has your Girafarig already stolen it?")
+}
+
+text Text_TipKirlia {
+	format("You are looking for some food for Kirlia? \pThere's a unique tree in the woods that should provide some tasty fruits.")
+}
+
+text Text_TipGardevoir {
+	format("Oh your Kirlia evolved into Gardevoir? \pI don't think that's helpful. It should have kept holding its Everstone. \pYou don't want it to evolve uncontrolledly. \pLet me take your Gardevoir and give you a Kirlia back for it.")
+}
+
+text Text_Finale {
+	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}")
+}

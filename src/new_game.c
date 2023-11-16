@@ -126,7 +126,7 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-    SetWarpDestination(MAP_GROUP(INSIDE_OF_TRUCK), MAP_NUM(INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
+    SetWarpDestination(MAP_GROUP(POKESCAPE01), MAP_NUM(POKESCAPE01), WARP_ID_NONE, 35, 12);
     WarpIntoMap();
 }
 
@@ -144,6 +144,11 @@ void ResetMenuAndMonGlobals(void)
     ZeroEnemyPartyMons();
     ResetBagScrollPositions();
     ResetPokeblockScrollPositions();
+}
+
+void SetDefaultEnvironment(void)
+{
+    //do nothing
 }
 
 void NewGameInitData(void)
@@ -204,6 +209,8 @@ void NewGameInitData(void)
     WipeTrainerNameRecords();
     ResetTrainerHillResults();
     ResetContestLinkResults();
+
+    SetDefaultEnvironment();
 }
 
 static void ResetMiniGamesRecords(void)

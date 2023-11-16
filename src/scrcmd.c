@@ -1692,6 +1692,21 @@ bool8 ScrCmd_givemon(struct ScriptContext *ctx)
     return FALSE;
 }
 
+bool8 ScrCmd_givemonpc(struct ScriptContext *ctx)
+{
+    u16 species = VarGet(ScriptReadHalfword(ctx));
+    u8 level = ScriptReadByte(ctx);
+    u16 item = VarGet(ScriptReadHalfword(ctx));
+    u8 boxNo = ScriptReadByte(ctx);
+    u8 boxPos = ScriptReadByte(ctx);
+    u32 unkParam1 = ScriptReadWord(ctx);
+    u32 unkParam2 = ScriptReadWord(ctx);
+    u8 unkParam3 = ScriptReadByte(ctx);
+
+    gSpecialVar_Result = ScriptGiveMonPC(species, level, item, boxNo, boxPos, unkParam1, unkParam2, unkParam3);
+    return FALSE;
+}
+
 bool8 ScrCmd_giveegg(struct ScriptContext *ctx)
 {
     u16 species = VarGet(ScriptReadHalfword(ctx));

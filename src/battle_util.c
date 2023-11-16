@@ -337,6 +337,12 @@ void HandleAction_UseMove(void)
     SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker);
     GET_MOVE_TYPE(gChosenMove, moveType);
 
+    //wiz1989 debug
+    DebugPrintf("%d", (gBattleTypeFlags & BATTLE_TYPE_DOUBLE));
+    DebugPrintf("%d", TRUE);
+    DebugPrintf("Species var decimal: %d", gBattleMons[gBattlerAttacker].species);
+    DebugPrintf("Species const decimal: %d", SPECIES_SCEPTILE);
+
     // choose target
     side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
     if (IsAffectedByFollowMe(gBattlerAttacker, side, gCurrentMove)
@@ -345,6 +351,26 @@ void HandleAction_UseMove(void)
     {
         gBattleStruct->moveTarget[gBattlerAttacker] = gBattlerTarget = gSideTimers[side].followmeTarget; // follow me moxie fix
     }
+    //wiz1989 force Sceptile to always attack the first slot in double battles
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_SCEPTILE)
+    {
+        DebugPrintf("Double battle attack Sceptile");
+        gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+        if (!IsBattlerAlive(gBattlerTarget))
+        {
+            if (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+            else
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(gBattlerAttacker)));
+                if (!IsBattlerAlive(gBattlerTarget))
+                    gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+        }
+    }
+    //end
     else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
            && gSideTimers[side].followmeTimer == 0
            && (gBattleMoves[gCurrentMove].power != 0 || (moveTarget != MOVE_TARGET_USER && moveTarget != MOVE_TARGET_ALL_BATTLERS))
@@ -397,6 +423,7 @@ void HandleAction_UseMove(void)
             }
             else
             {
+                //if 
                 gBattlerTarget = *(gBattleStruct->moveTarget + gBattlerAttacker);
             }
 
@@ -3824,8 +3851,6 @@ u8 AtkCanceller_UnableToUseMove2(void)
             if (gFieldStatuses & STATUS_FIELD_PSYCHIC_TERRAIN
                 && IsBattlerGrounded(gBattlerTarget)
                 && GetChosenMovePriority(gBattlerAttacker) > 0
-                && gBattleMoves[gCurrentMove].target != MOVE_TARGET_ALL_BATTLERS
-                && gBattleMoves[gCurrentMove].target != MOVE_TARGET_OPPONENTS_FIELD
                 && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
             {
                 CancelMultiTurnMoves(gBattlerAttacker);
@@ -4161,13 +4186,6 @@ static uq4_12_t GetSupremeOverlordModifier(u32 battler)
     }
 
     return modifier;
-}
-
-static bool32 HadMoreThanHalfHpNowHasLess(u32 battler)
-{
-    // Had more than half of hp before, now has less
-     return (gBattleStruct->hpBefore[battler] >= gBattleMons[battler].maxHP / 2
-             && gBattleMons[battler].hp < gBattleMons[battler].maxHP / 2);
 }
 
 u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 moveArg)
@@ -5137,9 +5155,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 #endif
                 }
             }
-
-            if (effect)
-                gMultiHitCounter = 0; // Prevent multi-hit moves from hitting more than once after move has been absorbed.
         }
         break;
     case ABILITYEFFECT_MOVE_END: // Think contact abilities.
@@ -5204,7 +5219,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && TARGET_TURN_DAMAGED
              && IsBattlerAlive(battler)
-             && HadMoreThanHalfHpNowHasLess(battler)
+            // Had more than half of hp before, now has less
+             && gBattleStruct->hpBefore[battler] >= gBattleMons[battler].maxHP / 2
+             && gBattleMons[battler].hp < gBattleMons[battler].maxHP / 2
              && (gMultiHitCounter == 0 || gMultiHitCounter == 1)
              && !(TestSheerForceFlag(gBattlerAttacker, gCurrentMove))
              && CompareStat(battler, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
@@ -5241,8 +5258,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
              && TARGET_TURN_DAMAGED
              && IsBattlerAlive(battler)
              && IS_MOVE_PHYSICAL(gCurrentMove)
-             && (CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN) // Don't activate if both Speed and Defense cannot be raised.
-               || CompareStat(battler, STAT_DEF, MIN_STAT_STAGE, CMP_GREATER_THAN)))
+             && (CompareStat(battler, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN) // Don't activate if speed cannot be raised
+               || CompareStat(battler, STAT_DEF, MIN_STAT_STAGE, CMP_GREATER_THAN))) // Don't activate if defense cannot be lowered
             {
                 if (gBattleMoves[gCurrentMove].effect == EFFECT_HIT_ESCAPE && CanBattlerSwitch(gBattlerAttacker))
                     gProtectStructs[battler].disableEjectPack = TRUE;  // Set flag for target
@@ -5683,9 +5700,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
              && !gProtectStructs[gBattlerAttacker].confusionSelfDmg
              && TARGET_TURN_DAMAGED
-             && (gMultiHitCounter == 0 || gMultiHitCounter == 1) // Activates after all hits from a multi-hit move.
              && IsBattlerAlive(gBattlerTarget)
-             && HadMoreThanHalfHpNowHasLess(gBattlerTarget)
+             && (gBattleMons[gBattlerTarget].hp <= gBattleMons[gBattlerTarget].maxHP / 2)
              && !(TestSheerForceFlag(gBattlerAttacker, gCurrentMove)))
             {
                 gBattlerAttacker = gBattlerTarget;
@@ -6286,6 +6302,7 @@ bool32 CanBattlerEscape(u32 battler) // no ability check
 
 void BattleScriptExecute(const u8 *BS_ptr)
 {
+    DebugPrintf("BattleScriptExecute"); //wiz1989 debug
     gBattlescriptCurrInstr = BS_ptr;
     gBattleResources->battleCallbackStack->function[gBattleResources->battleCallbackStack->size++] = gBattleMainFunc;
     gBattleMainFunc = RunBattleScriptCommands_PopCallbacksStack;
@@ -6326,7 +6343,6 @@ bool32 CanSleep(u32 battler)
     if (ability == ABILITY_INSOMNIA
       || ability == ABILITY_VITAL_SPIRIT
       || ability == ABILITY_COMATOSE
-      || ability == ABILITY_PURIFYING_SALT
       || gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityOnSide(battler, ABILITY_SWEET_VEIL)
@@ -6345,7 +6361,6 @@ bool32 CanBePoisoned(u32 battlerAttacker, u32 battlerTarget)
      || gBattleMons[battlerTarget].status1 & STATUS1_ANY
      || ability == ABILITY_IMMUNITY
      || ability == ABILITY_COMATOSE
-     || ability == ABILITY_PURIFYING_SALT
      || IsAbilityOnSide(battlerTarget, ABILITY_PASTEL_VEIL)
      || IsAbilityStatusProtected(battlerTarget)
      || IsBattlerTerrainAffected(battlerTarget, STATUS_FIELD_MISTY_TERRAIN))
@@ -6363,7 +6378,6 @@ bool32 CanBeBurned(u32 battler)
       || ability == ABILITY_WATER_BUBBLE
       || ability == ABILITY_COMATOSE
       || ability == ABILITY_THERMAL_EXCHANGE
-      || ability == ABILITY_PURIFYING_SALT
       || IsAbilityStatusProtected(battler)
       || IsBattlerTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN))
         return FALSE;
@@ -6380,7 +6394,6 @@ bool32 CanBeParalyzed(u32 battler)
         gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD
         || ability == ABILITY_LIMBER
         || ability == ABILITY_COMATOSE
-        || ability == ABILITY_PURIFYING_SALT
         || gBattleMons[battler].status1 & STATUS1_ANY
         || IsAbilityStatusProtected(battler)
         || IsBattlerTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN))
@@ -6396,7 +6409,6 @@ bool32 CanBeFrozen(u32 battler)
       || gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD
       || ability == ABILITY_MAGMA_ARMOR
       || ability == ABILITY_COMATOSE
-      || ability == ABILITY_PURIFYING_SALT
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battler)
       || IsBattlerTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN))
@@ -6411,7 +6423,6 @@ bool32 CanGetFrostbite(u32 battler)
       || gSideStatuses[GetBattlerSide(battler)] & SIDE_STATUS_SAFEGUARD
       || ability == ABILITY_MAGMA_ARMOR
       || ability == ABILITY_COMATOSE
-      || ability == ABILITY_PURIFYING_SALT
       || gBattleMons[battler].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battler)
       || IsBattlerTerrainAffected(battler, STATUS_FIELD_MISTY_TERRAIN))
@@ -9039,6 +9050,18 @@ static inline u32 CalcMoveBasePowerAfterModifiers(u32 move, u32 battlerAtk, u32 
             modifier = uq4_12_multiply(modifier, UQ_4_12(1.33));
     }
 
+    if (IsAbilityOnField(ABILITY_VESSEL_OF_RUIN) && atkAbility != ABILITY_VESSEL_OF_RUIN && IS_MOVE_SPECIAL(gCurrentMove))
+        modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
+
+    if (IsAbilityOnField(ABILITY_SWORD_OF_RUIN) && defAbility != ABILITY_SWORD_OF_RUIN && IS_MOVE_PHYSICAL(gCurrentMove))
+        modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
+
+    if (IsAbilityOnField(ABILITY_TABLETS_OF_RUIN) && atkAbility != ABILITY_TABLETS_OF_RUIN && IS_MOVE_PHYSICAL(gCurrentMove))
+        modifier = uq4_12_multiply(modifier, UQ_4_12(0.75));
+
+    if (IsAbilityOnField(ABILITY_BEADS_OF_RUIN) && defAbility != ABILITY_BEADS_OF_RUIN && IS_MOVE_SPECIAL(gCurrentMove))
+        modifier = uq4_12_multiply(modifier, UQ_4_12(1.25));
+
     // attacker partner's abilities
     if (IsBattlerAlive(BATTLE_PARTNER(battlerAtk)))
     {
@@ -9327,13 +9350,6 @@ static inline u32 CalcAttackStat(u32 move, u32 battlerAtk, u32 battlerDef, u32 m
         }
     }
 
-    // field abilities
-    if (IsAbilityOnField(ABILITY_VESSEL_OF_RUIN) && atkAbility != ABILITY_VESSEL_OF_RUIN && IS_MOVE_SPECIAL(move))
-        modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));
-
-    if (IsAbilityOnField(ABILITY_TABLETS_OF_RUIN) && atkAbility != ABILITY_TABLETS_OF_RUIN && IS_MOVE_PHYSICAL(move))
-        modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));
-
     // attacker's hold effect
     switch (holdEffectAtk)
     {
@@ -9482,13 +9498,6 @@ static inline u32 CalcDefenseStat(u32 move, u32 battlerAtk, u32 battlerDef, u32 
             break;
         }
     }
-
-    // field abilities
-    if (IsAbilityOnField(ABILITY_SWORD_OF_RUIN) && defAbility != ABILITY_SWORD_OF_RUIN && usesDefStat)
-        modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));
-
-    if (IsAbilityOnField(ABILITY_BEADS_OF_RUIN) && defAbility != ABILITY_BEADS_OF_RUIN && !usesDefStat)
-        modifier = uq4_12_multiply_half_down(modifier, UQ_4_12(0.75));
 
     // target's hold effects
     switch (holdEffectDef)

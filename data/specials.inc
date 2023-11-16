@@ -536,3 +536,16 @@ gSpecials::
 	def_special TrySetBattleTowerLinkType
 	def_special SetTotemBoost
 	def_special TrySpecialOverworldEvo
+	def_special SetBoxMonMoves
+	def_special SetMonMoves
+	def_special ChangePlayerName
+	def_special SetMonAbility
+	def_special IsPokemonInParty
+	def_special GetMonPartySlot
+	def_special DeletePartyMon
+	def_special PlayTimeAddMin
+	def_special IsPcEmpty
+	def_special GetPlayTimeHours
+	def_special GetPlayTimeMinutes
+	def_special GetPlayTimeSeconds
+	def_special StopPlayTimer

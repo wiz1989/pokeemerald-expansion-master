@@ -66,6 +66,7 @@
 #include "constants/metatile_labels.h"
 #include "palette.h"
 #include "battle_util.h"
+#include "play_time.h"
 
 #define TAG_ITEM_ICON 5500
 
@@ -4204,4 +4205,173 @@ void SetPlayerGotFirstFans(void)
 u8 Script_TryGainNewFanFromCounter(void)
 {
     return TryGainNewFanFromCounter(gSpecialVar_0x8004);
+}
+
+void SetBoxMonMoves(void)
+{
+    struct BoxPokemon *boxMon;
+    u16 moves[4];
+    int i;
+
+    boxMon = GetBoxedMonPtr(gSpecialVar_MonBoxId, gSpecialVar_MonBoxPos);
+    
+    moves[0] = VarGet(VAR_TEMP_1);
+    moves[1] = VarGet(VAR_TEMP_2);
+    moves[2] = VarGet(VAR_TEMP_3);
+    moves[3] = VarGet(VAR_TEMP_4);
+    
+    for(i=0; i<=3; i++)
+    {
+        if (moves[i] == MOVE_NONE)
+        {
+            // do nothing
+        }
+        else
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+}
+
+void SetMonMoves(void)
+{
+    struct Pokemon *mon;
+    u16 moves[4];
+    int i;
+    int partypos;
+
+    partypos = VarGet(VAR_TEMP_1);
+    moves[0] = VarGet(VAR_TEMP_2);
+    moves[1] = VarGet(VAR_TEMP_3);
+    moves[2] = VarGet(VAR_TEMP_4);
+    moves[3] = VarGet(VAR_TEMP_5);
+
+    mon = &gPlayerParty[partypos];
+    
+    for(i=0; i<=3; i++)
+    {
+        if (moves[i] == MOVE_NONE)
+        {
+            // do nothing
+        }
+        else
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToMon(mon, moves[i]);
+        }
+    }
+}
+
+void SetMonAbility(void)
+{
+    struct Pokemon *mon;
+    u16 ability;
+    int i;
+    int partypos;
+
+    partypos = VarGet(VAR_TEMP_1);
+    ability = VarGet(VAR_TEMP_2);
+    mon = &gPlayerParty[partypos];
+    
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &ability);
+}
+
+bool8 IsPokemonInParty(void)
+{
+    u16 species;
+    species = VarGet(VAR_TEMP_1);
+
+    if (CheckPartyPokemon(gPlayerParty, species) != 10) {
+        DebugPrintf("Species found: %S\n", gSpeciesNames[species]);
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+u8 GetMonPartySlot(void)
+{
+    u16 species;
+    u8 slot;
+    species = VarGet(VAR_TEMP_1);
+    slot = 0;
+
+    slot = CheckPartyPokemon(gPlayerParty, species);
+
+    DebugPrintf("Species found at slot: %d\n", slot);
+
+    return slot;
+}
+
+void DeletePartyMon(void)
+{
+    u8 slot;
+    slot = VarGet(VAR_RESULT);
+    DebugPrintf("Deletion slot: %d\n", slot);
+
+    ZeroMonData(&gPlayerParty[slot]);
+    CompactPartySlots();
+}
+
+void PlayTimeAddMin(void)
+{
+    s8 minutes;
+    minutes = VarGet(VAR_TEMP_1);
+
+    PlayTimeCounter_AddMin(minutes);
+}
+
+bool8 IsPcEmpty(void)
+{
+    u8 boxId;
+    u8 boxPosition;
+    u8 counter = 0;
+
+    //loop all boxes
+    for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
+    {
+        //loop all box positions
+        for (boxPosition = 0; boxPosition < IN_BOX_COUNT; boxPosition++)
+        {
+            if (GetBoxMonData(GetBoxedMonPtr(boxId, boxPosition), MON_DATA_SPECIES, 0) != SPECIES_NONE)
+            {
+                counter++;
+            }
+        }
+    }
+
+    if (counter > 0)
+        return FALSE;
+    else
+        return TRUE;
+}
+
+u8 GetPlayTimeHours(void)
+{
+    s8 hours;
+
+    hours = gSaveBlock2Ptr->playTimeHours;
+    return hours;
+}
+
+u8 GetPlayTimeMinutes(void)
+{
+    s8 minutes;
+
+    minutes = gSaveBlock2Ptr->playTimeMinutes;
+    return minutes;
+}
+
+u8 GetPlayTimeSeconds(void)
+{
+    s8 seconds;
+
+    seconds = gSaveBlock2Ptr->playTimeSeconds;
+    return seconds;
+}
+
+void StopPlayTimer(void)
+{
+    PlayTimeCounter_Stop();
 }

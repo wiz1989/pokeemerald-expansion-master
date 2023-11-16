@@ -3,7 +3,6 @@
 
 // TODO: time of day and seconds in a day defines
 
-void InitTimeBasedEvents(void);
 void DoTimeBasedEvents(void);
 
 #endif // GUARD_CLOCK_H

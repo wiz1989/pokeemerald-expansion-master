@@ -15,3 +15,11 @@ gText_AccessedPlayersPC::
 
 gText_AccessedLanettesPC::
 	.string "Accessed LANETTE's PC.$"
+
+Text_BootUpPCDamaged:
+	.string "ADMIN: The Pokemon storage \n"
+	.string "system is currently corrupted.$"
+
+gText_NoStorageSystem::
+	.string "ADMIN: Can't access the \n"
+	.string "Pokemon storage system.$"

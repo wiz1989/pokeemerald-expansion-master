@@ -3418,6 +3418,7 @@ void ZeroEnemyPartyMons(void)
 void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId)
 {
     u32 mail;
+
     ZeroMonData(mon);
     CreateBoxMon(&mon->box, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId);
     SetMonData(mon, MON_DATA_LEVEL, &level);
@@ -3432,9 +3433,14 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u32 personality;
     u32 value;
     u16 checksum;
+    u32 shinyValue;
     u8 i;
     u8 availableIVs[NUM_STATS];
     u8 selectedIvs[LEGENDARY_PERFECT_IV_COUNT];
+    u16 moves[4]; //added var
+    u8 nature; //added var
+    u32 otId; //added var
+    bool8 isShiny; //added var
 
     ZeroBoxMonData(boxMon);
 
@@ -3444,9 +3450,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         personality = Random32();
 
     // Determine original trainer ID
-    if (otIdType == OT_ID_RANDOM_NO_SHINY)
+    if (otIdType == OT_ID_RANDOM_NO_SHINY) //Pokemon cannot be shiny
     {
-        u32 shinyValue;
         do
         {
             // Choose random OT IDs until one that results in a non-shiny Pokémon
@@ -3464,6 +3469,21 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
               | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
               | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
               | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
+
+        //added START
+              /*
+        if (FlagGet(FLAG_SHINY_CREATION))
+        {
+            u8 nature = personality % NUM_NATURES;  // keep current nature
+            do {
+                personality = Random32();
+                personality = ((((Random() % SHINY_ODDS) ^ (HIHALF(value) ^ LOHALF(value))) ^ LOHALF(personality)) << 16) | LOHALF(personality);
+            } while (nature != GetNatureFromPersonality(personality));
+        }
+        */
+        //added END
+
+    otId = value; //line added
 
 #if P_FLAG_FORCE_NO_SHINY != 0
         if (FlagGet(P_FLAG_FORCE_NO_SHINY))
@@ -3605,6 +3625,16 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     #endif
     }
+    if (species == SPECIES_YAMASK) {
+        u32 iv;
+        iv = MAX_PER_STAT_IVS;
+        SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
+        SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
+        SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
+        SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
+        SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
+        SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
+    }
 
     if (gSpeciesInfo[species].abilities[1])
     {
@@ -3613,6 +3643,114 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     }
 
     GiveBoxMonInitialMoveset(boxMon);
+
+    //Pokescape01 special function START #############################################################################################
+    //set moves for Makuhita
+    if (species == SPECIES_MAKUHITA) {
+        moves[0] = MOVE_BULLET_PUNCH;
+        moves[1] = MOVE_VITAL_THROW;
+        moves[2] = MOVE_ARM_THRUST;
+        moves[3] = MOVE_SAND_ATTACK;
+
+        for(i=0; i<=3; i++)
+        {
+            if (moves[i] == MOVE_NONE)
+            {
+                // do nothing
+            }
+            else
+            {
+                //set move
+                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+            }
+        }
+    //give any encountered Girafarig the ability Sap Sipper and set moves
+    }if (species == SPECIES_GIRAFARIG) {
+        value = ITEM_TM_THIEF;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+
+        value = 2; //hidden ability
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
+
+        moves[0] = MOVE_PSYBEAM;
+        moves[1] = MOVE_THIEF;
+        moves[2] = MOVE_SKILL_SWAP;
+        moves[3] = MOVE_PROTECT;
+
+        for(i=0; i<=3; i++)
+        {
+            if (moves[i] == MOVE_NONE)
+            {
+                // do nothing
+            }
+            else
+            {
+                //set move
+                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+            }
+        }
+    }
+    if (species == SPECIES_SCYTHER) {
+        value = ITEM_HM_CUT;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+
+        moves[0] = MOVE_QUICK_ATTACK;
+        moves[1] = MOVE_AGILITY;
+        moves[2] = MOVE_FOCUS_ENERGY;
+        moves[3] = MOVE_FALSE_SWIPE;
+
+        for(i=0; i<=3; i++)
+        {
+            if (moves[i] == MOVE_NONE)
+            {
+                // do nothing
+            }
+            else
+            {
+                //set move
+                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+            }
+        }
+    }
+    if (species == SPECIES_KIRLIA) {
+        moves[0] = MOVE_PSYCHIC;
+        moves[1] = MOVE_SUBSTITUTE;
+        moves[2] = MOVE_THIEF;
+        moves[3] = MOVE_SHADOW_SNEAK;
+
+        for(i=0; i<=3; i++)
+        {
+            if (moves[i] == MOVE_NONE)
+            {
+                // do nothing
+            }
+            else
+            {
+                //set move
+                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+            }
+        }
+    }
+    if (species == SPECIES_WOOPER) {
+        moves[0] = MOVE_ICE_BEAM;
+        moves[1] = MOVE_MUD_SHOT;
+        moves[2] = MOVE_TAIL_WHIP;
+        moves[3] = MOVE_SURF;
+
+        for(i=0; i<=3; i++)
+        {
+            if (moves[i] == MOVE_NONE)
+            {
+                // do nothing
+            }
+            else
+            {
+                //set move
+                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+            }
+        }
+    }
+    //Pokescape01 special function END ###############################################################################################
 }
 
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature)
@@ -5461,6 +5599,16 @@ u8 GiveMonToPlayer(struct Pokemon *mon)
     return MON_GIVEN_TO_PARTY;
 }
 
+u8 GiveMonToPlayerPC(struct Pokemon *mon, u8 boxNo, u8 boxPos)
+{
+    DebugPrintf("__FUNCTION__ = %s\n", __FUNCTION__);
+    SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
+    SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
+    SetMonData(mon, MON_DATA_OT_ID, gSaveBlock2Ptr->playerTrainerId);
+
+    return SendMonToPCdef(mon, boxNo, boxPos);
+}
+
 u8 SendMonToPC(struct Pokemon* mon)
 {
     s32 boxNo, boxPos;
@@ -5491,6 +5639,26 @@ u8 SendMonToPC(struct Pokemon* mon)
         if (boxNo == TOTAL_BOXES_COUNT)
             boxNo = 0;
     } while (boxNo != StorageGetCurrentBox());
+
+    return MON_CANT_GIVE;
+}
+
+u8 SendMonToPCdef(struct Pokemon* mon, u8 boxNo, u8 boxPos)
+{
+    //DebugPrintf("__FUNCTION__ = %s\n", __FUNCTION__);
+
+    struct BoxPokemon* checkingMon = GetBoxedMonPtr(boxNo, boxPos);
+    if (GetBoxMonData(checkingMon, MON_DATA_SPECIES, NULL) == SPECIES_NONE)
+    {
+        MonRestorePP(mon);
+        CopyMon(checkingMon, &mon->box, sizeof(mon->box));
+        gSpecialVar_MonBoxId = boxNo;
+        gSpecialVar_MonBoxPos = boxPos;
+        if (GetPCBoxToSendMon() != boxNo)
+            FlagClear(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE);
+        VarSet(VAR_PC_BOX_TO_SEND_MON, boxNo);
+        return MON_GIVEN_TO_PC;
+    }
 
     return MON_CANT_GIVE;
 }
@@ -8692,4 +8860,23 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
     *new3 = *old3;
     boxMon->checksum = CalculateBoxMonChecksum(boxMon);
     EncryptBoxMon(boxMon);
+}
+
+u8 CheckPartyPokemon(struct Pokemon *party, u16 species)
+{
+    u8 retVal;
+    u32 partyCount;
+    retVal = 10; //10 = default false value
+    partyCount = 0;
+
+    while (partyCount < PARTY_SIZE && GetMonData(&party[partyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
+    {
+        if (GetMonData(&party[partyCount], MON_DATA_SPECIES, NULL) == species) {
+            retVal = partyCount;
+            partyCount = PARTY_SIZE; //species found in party
+        }
+        partyCount++;
+    }
+
+    return retVal;
 }

@@ -12,7 +12,7 @@
   "allow_running": false,
   "show_map_name": false,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
-  "connections": null,
+  "connections": 0,
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_NURSE",
@@ -24,20 +24,20 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "OldaleTown_PokemonCenter_1F_EventScript_Nurse",
+      "script": "Pokescape01_Pokecenter_EventScript_Nurse",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
-      "x": 4,
-      "y": 4,
+      "x": 1,
+      "y": 6,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 0,
+      "movement_type": "MOVEMENT_TYPE_WANDER_LEFT_AND_RIGHT",
+      "movement_range_x": 2,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "OldaleTown_PokemonCenter_1F_EventScript_Gentleman",
+      "script": "Pokescape01_Pokecenter_EventScript_Gentleman",
       "flag": "0"
     },
     {
@@ -50,20 +50,20 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "OldaleTown_PokemonCenter_1F_EventScript_Boy",
+      "script": "Pokescape01_Pokecenter_EventScript_Boy",
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
-      "x": 3,
-      "y": 7,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
+      "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
+      "x": 1,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "OldaleTown_PokemonCenter_1F_EventScript_Girl",
+      "script": "Pokescape01_Pokecenter_EventScript_Scientist",
       "flag": "0"
     }
   ],
@@ -72,24 +72,52 @@
       "x": 7,
       "y": 8,
       "elevation": 3,
-      "dest_map": "MAP_OLDALE_TOWN",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_POKESCAPE01",
+      "dest_warp_id": "0"
     },
     {
       "x": 6,
       "y": 8,
       "elevation": 3,
-      "dest_map": "MAP_OLDALE_TOWN",
-      "dest_warp_id": "2"
-    },
-    {
-      "x": 1,
-      "y": 6,
-      "elevation": 4,
-      "dest_map": "MAP_OLDALE_TOWN_POKEMON_CENTER_2F",
+      "dest_map": "MAP_POKESCAPE01",
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
-  "bg_events": []
+  "coord_events": [
+
+  ],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 2,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Pokescape01_Pokecenter_EventScript_Picture01"
+    },
+    {
+      "type": "sign",
+      "x": 3,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Pokescape01_Pokecenter_EventScript_Picture01"
+    },
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Pokescape01_Pokecenter_EventScript_Picture02"
+    },
+    {
+      "type": "sign",
+      "x": 12,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "Pokescape01_Pokecenter_EventScript_Picture02"
+    }
+  ]
 }

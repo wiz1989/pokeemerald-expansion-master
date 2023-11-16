@@ -71,3 +71,16 @@ void PlayTimeCounter_SetToMax(void)
     gSaveBlock2Ptr->playTimeSeconds = 59;
     gSaveBlock2Ptr->playTimeVBlanks = 59;
 }
+
+void PlayTimeCounter_AddMin(s8 minutes)
+{
+    if (gSaveBlock2Ptr->playTimeMinutes < minutes) {
+        gSaveBlock2Ptr->playTimeMinutes = gSaveBlock2Ptr->playTimeMinutes + minutes;
+    }
+    else {
+        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours + 1 + (minutes / 60);
+        gSaveBlock2Ptr->playTimeMinutes = gSaveBlock2Ptr->playTimeMinutes - minutes;
+    }
+    
+    PlayTimeCounter_Update();
+}

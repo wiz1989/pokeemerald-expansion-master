@@ -3,6 +3,20 @@ EventScript_PC::
 	setvar VAR_0x8004, PC_LOCATION_OTHER
 	special DoPCTurnOnEffect
 	playse SE_PC_ON
+	goto_if_unset FLAG_UNUSED_0x95D, EventScript_PC_3
+EventScript_PC_2:
+	msgbox Text_BootUpPC, MSGBOX_DEFAULT
+	goto EventScript_PCMainMenu
+	end
+
+EventScript_PC_3:
+	checktrainerflag TRAINER_POKESCAPE01_01
+	goto_if 1, EventScript_PCDamaged
+	goto EventScript_PC_2
+
+EventScript_PCDamaged::
+	msgbox Text_BootUpPCDamaged, MSGBOX_DEFAULT
+	waitmessage
 	msgbox Text_BootUpPC, MSGBOX_DEFAULT
 	goto EventScript_PCMainMenu
 	end
@@ -34,6 +48,8 @@ EventScript_AccessPlayersPC::
 
 EventScript_AccessPokemonStorage::
 	playse SE_PC_LOGIN
+	goto_if_unset FLAG_UNUSED_0x95D, EventScript_AccessPokemonStorage_3
+EventScript_AccessPokemonStorage_2:
 	call_if_unset FLAG_SYS_PC_LANETTE, EventScript_AccessSomeonesPC
 	call_if_set FLAG_SYS_PC_LANETTE, EventScript_AccessLanettesPC
 	msgbox gText_StorageSystemOpened, MSGBOX_DEFAULT
@@ -42,6 +58,11 @@ EventScript_AccessPokemonStorage::
 	goto EventScript_PCMainMenu
 	end
 
+EventScript_AccessPokemonStorage_3:
+	checktrainerflag TRAINER_POKESCAPE01_01
+	goto_if 1, EventScript_NoStorageSystem
+	goto EventScript_AccessPokemonStorage_2
+
 EventScript_AccessSomeonesPC::
 	msgbox gText_AccessedSomeonesPC, MSGBOX_DEFAULT
 	return
@@ -49,6 +70,11 @@ EventScript_AccessSomeonesPC::
 EventScript_AccessLanettesPC::
 	msgbox gText_AccessedLanettesPC, MSGBOX_DEFAULT
 	return
+
+EventScript_NoStorageSystem::
+	msgbox gText_NoStorageSystem, MSGBOX_AUTOCLOSE
+	waitmessage
+	end
 
 EventScript_TurnOffPC::
 	setvar VAR_0x8004, PC_LOCATION_OTHER

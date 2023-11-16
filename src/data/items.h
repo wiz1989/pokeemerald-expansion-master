@@ -15,7 +15,7 @@
 #endif
 
 #if I_TYPE_BOOST_POWER >= GEN_4 // For non Pokémon-specific type-boosting held items.
-    #define TYPE_BOOST_PARAM 20
+    #define TYPE_BOOST_PARAM 20 
 #else
     #define TYPE_BOOST_PARAM 10
 #endif
@@ -4993,6 +4993,7 @@ const struct Item gItems[] =
         .name = _("Luck Incense"),
         .price = 11000,
         .holdEffect = HOLD_EFFECT_DOUBLE_PRIZE,
+        .holdEffectParam = 10,
         .description = sLuckIncenseDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -5706,6 +5707,7 @@ const struct Item gItems[] =
         .name = _("Amulet Coin"),
         .price = 10000,
         .holdEffect = HOLD_EFFECT_DOUBLE_PRIZE,
+        .holdEffectParam = 10,
         .description = sAmuletCoinDesc,
         .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
@@ -6043,8 +6045,8 @@ const struct Item gItems[] =
         .holdEffectParam = 10,
         .description = sRazorFangDesc,
         .pocket = POCKET_ITEMS,
-        .type = EVO_HELD_ITEM_TYPE,
-        .fieldUseFunc = EVO_HELD_ITEM_FIELD_FUNC,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 30,
     },
 

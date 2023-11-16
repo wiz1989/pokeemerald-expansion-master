@@ -317,18 +317,14 @@ static const struct TrainerMon sParty_ShellySeafloorCavern[] = {
 
 static const struct TrainerMon sParty_Archie[] = {
     {
-    .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
-    .lvl = 41,
-    .species = SPECIES_MIGHTYENA,
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
+    .lvl = 100,
+    .species = SPECIES_BLISSEY,
+    .moves = {MOVE_SOFT_BOILED, MOVE_PROTECT, MOVE_REST, MOVE_SUBSTITUTE},
     },
     {
     .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
-    .lvl = 41,
-    .species = SPECIES_CROBAT,
-    },
-    {
-    .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
-    .lvl = 43,
+    .lvl = 50,
     .species = SPECIES_SHARPEDO,
     }
 };
@@ -9252,19 +9248,14 @@ static const struct TrainerMon sParty_Darcy[] = {
 static const struct TrainerMon sParty_MaxieMossdeep[] = {
     {
     .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
-    .lvl = 42,
-    .species = SPECIES_MIGHTYENA,
+    .lvl = 50,
+    .species = SPECIES_CASTFORM,
     },
     {
     .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
-    .lvl = 43,
-    .species = SPECIES_CROBAT,
+    .lvl = 50,
+    .species = SPECIES_VOLCARONA,
     },
-    {
-    .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
-    .lvl = 44,
-    .species = SPECIES_CAMERUPT,
-    }
 };
 
 static const struct TrainerMon sParty_Pete[] = {
@@ -11802,5 +11793,62 @@ static const struct TrainerMon sParty_MayLinkPlaceholder[] = {
     {
     .lvl = 5,
     .species = SPECIES_KYOGRE,
+    }
+};
+
+static const struct TrainerMon sParty_Pokescape0101[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .lvl = 40,
+    .species = SPECIES_MEGANIUM,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_SOLAR_BEAM, MOVE_SWEET_SCENT, MOVE_SYNTHESIS, MOVE_PROTECT}
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .lvl = 40,
+    .species = SPECIES_CLEFABLE,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_MISTY_EXPLOSION}
+    }
+};
+
+static const struct TrainerMon sParty_Pokescape0102[] = {
+    {
+    .lvl = 19,
+    .species = SPECIES_ZIGZAGOON,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_TACKLE, MOVE_TAIL_WHIP, MOVE_PIN_MISSILE, MOVE_SAND_ATTACK}
+    },
+    {
+    .lvl = 19,
+    .species = SPECIES_WOOPER,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_TAIL_WHIP, MOVE_MUD_SHOT, MOVE_TAIL_WHIP, MOVE_SURF}
+    }
+};
+
+static const struct TrainerMon sParty_Pokescape0103[] = {
+    {
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .lvl = 40,
+    .species = SPECIES_SCEPTILE,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_THUNDER_PUNCH, MOVE_MEGA_DRAIN, MOVE_GRASS_KNOT, MOVE_SCREECH}
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .lvl = 40,
+    .species = SPECIES_BRELOOM,
+    .heldItem = ITEM_NONE,
+    .moves = {MOVE_SAFEGUARD, MOVE_THUNDER_PUNCH, MOVE_MEGA_DRAIN, MOVE_ENERGY_BALL}
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .lvl = 100,
+    .species = SPECIES_VENUSAUR,
+    .heldItem = ITEM_DAWN_STONE,
+    .isShiny = TRUE,
+    .moves = {MOVE_SKULL_BASH, MOVE_GIGA_DRAIN, MOVE_INGRAIN, MOVE_SEED_BOMB}
     }
 };

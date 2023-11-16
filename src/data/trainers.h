@@ -10259,4 +10259,40 @@ const struct Trainer gTrainers[] = {
         .aiFlags = 0,
         .party = TRAINER_PARTY(sParty_MayLinkPlaceholder),
     },
+
+    [TRAINER_POKESCAPE01_01] =
+    {
+        .trainerClass = TRAINER_CLASS_RS_PROTAG,
+        .encounterMusic_gender = F_TRAINER_FEMALE | TRAINER_ENCOUNTER_MUSIC_MALE,
+        .trainerPic = TRAINER_PIC_RS_MAY,
+        .trainerName = _("MAY"),
+        .items = {},
+        .doubleBattle = FALSE,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_PREFER_STRONGEST_MOVE,
+        .party = TRAINER_PARTY(sParty_Pokescape0101),
+    },
+
+        [TRAINER_POKESCAPE01_02] =
+    {
+        .trainerClass = TRAINER_CLASS_TWINS,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_TWINS,
+        .trainerPic = TRAINER_PIC_TWINS,
+        .trainerName = _("ANNA & MEG"),
+        .items = {},
+        .doubleBattle = TRUE,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE,
+        .party = TRAINER_PARTY(sParty_Pokescape0102),
+    },
+
+        [TRAINER_POKESCAPE01_03] =
+    {
+        .trainerClass = TRAINER_CLASS_YOUNG_COUPLE,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_GIRL,
+        .trainerPic = TRAINER_PIC_YOUNG_COUPLE,
+        .trainerName = _("ELLI & JOE"),
+        .items = {},
+        .doubleBattle = TRUE,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT | AI_FLAG_PREFER_STRONGEST_MOVE | AI_FLAG_ACE_POKEMON,
+        .party = TRAINER_PARTY(sParty_Pokescape0103),
+    },
 };

@@ -64,6 +64,8 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "cable_club.h"
+#include "field_weather.h" //added wiz1989
+#include "constants/weather.h" //added wiz1989
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
@@ -510,6 +512,31 @@ static void CB2_InitBattleInternal(void)
 {
     s32 i;
     u16 targetSpecies;
+    u32 weather; //added var wiz1989
+
+
+    //set temporary battle weather wiz1989
+    weather = VarGet(VAR_TEMP_F);
+    DebugPrintf("CB2_InitBattleInternal. Initiate. %d", weather);
+
+    if (weather == WEATHER_RAIN) {
+        SetCurrentAndNextWeather(WEATHER_RAIN);
+        DebugPrintf("Set weather to rain.");
+    }
+    else if (weather == WEATHER_SUNNY) {
+        SetCurrentAndNextWeather(WEATHER_DROUGHT);
+        DebugPrintf("Set weather to sunny.");
+    }
+    else if (weather == WEATHER_SANDSTORM) {
+        SetCurrentAndNextWeather(WEATHER_SANDSTORM);
+    }
+    else if (weather == WEATHER_SNOW) {
+        SetCurrentAndNextWeather(WEATHER_SNOW);
+    }
+    else {
+        SetCurrentAndNextWeather(B_WEATHER_NONE);
+    }
+    //end
 
     SetHBlankCallback(NULL);
     SetVBlankCallback(NULL);
@@ -1896,7 +1923,7 @@ static u32 GeneratePartyHash(const struct Trainer *trainer, u32 i)
 void ModifyPersonalityForNature(u32 *personality, u32 newNature)
 {
     u32 nature = GetNatureFromPersonality(*personality);
-    s32 diff = abs((s32)nature - (s32)newNature);
+    s32 diff = abs(nature - newNature);
     s32 sign = (nature > newNature) ? 1 : -1;
     if (diff > NUM_NATURES / 2)
     {

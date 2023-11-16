@@ -4410,6 +4410,26 @@
       "secondary_tileset": "gTileset_MysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/map.bin"
+    },
+    {
+      "id": "LAYOUT_POKESCAPE01",
+      "name": "Pokescape01_Layout",
+      "width": 40,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/Pokescape01/border.bin",
+      "blockdata_filepath": "data/layouts/Pokescape01/map.bin"
+    },
+    {
+      "id": "LAYOUT_ELEMENTAL_GYM",
+      "name": "Elemental_Gym_Layout",
+      "width": 20,
+      "height": 80,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_PetalburgGym",
+      "border_filepath": "data/layouts/Elemental_Gym/border.bin",
+      "blockdata_filepath": "data/layouts/Elemental_Gym/map.bin"
     }
   ]
 }

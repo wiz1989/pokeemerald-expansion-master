@@ -62,8 +62,8 @@
 #include "battle_util.h"
 #include "constants/pokemon.h"
 #include "config/battle.h"
-#include "field_weather.h" //added @wiz1989
-#include "constants/weather.h" //added @wiz1989
+#include "field_weather.h" //added wiz1989
+#include "constants/weather.h" //added wiz1989
 
 // Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
 //
@@ -1258,35 +1258,43 @@ static bool32 TryAegiFormChange(void)
     return TRUE;
 }
 
-//enhanced @wiz1989
+//enhanced by wiz1989
 bool32 CastformTriggerWeatherChange(u32 battler, u32 move, u32 moveType)
 {
     u32 species;
     species = gBattleMons[battler].species;
     moveType = gBattleMoves[move].type;
 
-    //set current weather based on chosen move and return TRUE
+    DebugPrintf("Move: %S", gMoveNames[move]);
+    DebugPrintf("Type: %d", moveType);
+    DebugPrintf("Species: %S", gSpeciesNames[species]);
+
     if (species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY || species == SPECIES_CASTFORM_SNOWY) {
+        DebugPrintf("is Castform");
         if (moveType == TYPE_WATER || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
+            //BattleScriptExecute(gBattlescriptCurrInstr);
             SetCurrentAndNextWeather(WEATHER_DOWNPOUR);
             return TRUE;
         }
         if (moveType == TYPE_FIRE || move == MOVE_SOLAR_BEAM || move == MOVE_SOLAR_BLADE || move == MOVE_SYNTHESIS || move == MOVE_MORNING_SUN || move == MOVE_MOONLIGHT || move == MOVE_GROWTH) {
+            //BattleScriptExecute(gBattlescriptCurrInstr);
             SetCurrentAndNextWeather(WEATHER_DROUGHT);
             return TRUE;
         }
         if (moveType == TYPE_ICE || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
+            //BattleScriptExecute(gBattlescriptCurrInstr);
             SetCurrentAndNextWeather(WEATHER_SNOW);
             return TRUE;
         }
         if (moveType == TYPE_GROUND || moveType == TYPE_ROCK) {
+            //BattleScriptExecute(gBattlescriptCurrInstr);
             SetCurrentAndNextWeather(WEATHER_SANDSTORM);
             return TRUE;
         }
     }
     return FALSE;
 }
-//enhancement end
+//enhancement ended
 
 bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType)
 {
@@ -1297,12 +1305,15 @@ bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType)
     {
         SET_BATTLER_TYPE(gBattlerAttacker, moveType);
         return TRUE;
-    }
+    }    
+    
     return FALSE;
 }
 
 static void Cmd_attackcanceler(void)
 {
+    u32 weather; //added @wiz1989
+
     CMD_ARGS();
 
     s32 i, moveType;
@@ -1358,11 +1369,25 @@ static void Cmd_attackcanceler(void)
     }
 
     //enhancement @wiz1989
-    // Execute Castform weather change before attacking
+    // Check Castform weather change
     if (CastformTriggerWeatherChange(gBattlerAttacker, gCurrentMove, moveType))
     {
+        u32 move;
+        move = gCurrentMove;
+
+        weather = GetCurrentWeather();
+        DebugPrintf("Weather: %d", weather);
+
         if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, 0, 0, 0))
             return;
+        /*
+        PREPARE_TYPE_BUFFER(gBattleTextBuff1, moveType);
+        gBattlerAbility = gBattlerAttacker;
+        BattleScriptPushCursor();
+        PrepareStringBattle(STRINGID_EMPTYSTRING3, gBattlerAttacker);
+        gBattleCommunication[MSG_DISPLAY] = 1;
+        gBattlescriptCurrInstr = BattleScript_ProteanActivates;
+        */
     }
     //enhancement end
 
@@ -1942,7 +1967,7 @@ static void Cmd_ppreduce(void)
 
 // The chance is 1/N for each stage.
 #if B_CRIT_CHANCE >= GEN_7
-    static const u8 sCriticalHitChance[] = {24, 8, 2, 1, 1};
+    static const u8 sCriticalHitChance[] = {255, 255, 255, 255, 255}; //deactivate crits | wiz1989
 #elif B_CRIT_CHANCE == GEN_6
     static const u8 sCriticalHitChance[] = {16, 8, 2, 1, 1};
 #else
@@ -2865,7 +2890,7 @@ void SetMoveEffect(bool32 primary, u32 certain)
         && !primary && gBattleScripting.moveEffect <= MOVE_EFFECT_CONFUSION)
         INCREMENT_RESET_RETURN
 
-    if (TestSheerForceFlag(gBattlerAttacker, gCurrentMove) && gBattleScripting.moveEffect != MOVE_EFFECT_CHARGING)
+    if (TestSheerForceFlag(gBattlerAttacker, gCurrentMove) && affectsUser != MOVE_EFFECT_AFFECTS_USER)
         INCREMENT_RESET_RETURN
 
     if (gBattleMons[gEffectBattler].hp == 0 && !activateAfterFaint)
@@ -7086,7 +7111,6 @@ static void Cmd_returntoball(void)
     u32 battler = GetBattlerForBattleScript(cmd->battler);
     BtlController_EmitReturnMonToBall(battler, BUFFER_A, TRUE);
     MarkBattlerForControllerExec(battler);
-    TryBattleFormChange(battler, FORM_CHANGE_BATTLE_SWITCH);
 
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
@@ -9447,6 +9471,37 @@ static void Cmd_various(void)
         else
         {
             gStatuses4[gBattlerTarget] |= STATUS4_ELECTRIFIED;
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
+        return;
+    }
+    case VARIOUS_TRY_REFLECT_TYPE:
+    {
+        VARIOUS_ARGS(const u8 *failInstr);
+        if (gBattleMons[gBattlerTarget].species == SPECIES_ARCEUS || gBattleMons[gBattlerTarget].species == SPECIES_SILVALLY)
+        {
+            gBattlescriptCurrInstr = cmd->failInstr;
+        }
+        else if (GetBattlerType(gBattlerTarget, 0) == TYPE_MYSTERY && GetBattlerType(gBattlerTarget, 1) != TYPE_MYSTERY)
+        {
+            gBattleMons[gBattlerAttacker].type1 = GetBattlerType(gBattlerTarget, 1);
+            gBattleMons[gBattlerAttacker].type2 = GetBattlerType(gBattlerTarget, 1);
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
+        else if (GetBattlerType(gBattlerTarget, 0) != TYPE_MYSTERY && GetBattlerType(gBattlerTarget, 1) == TYPE_MYSTERY)
+        {
+            gBattleMons[gBattlerAttacker].type1 = GetBattlerType(gBattlerTarget, 0);
+            gBattleMons[gBattlerAttacker].type2 = GetBattlerType(gBattlerTarget, 0);
+            gBattlescriptCurrInstr = cmd->nextInstr;
+        }
+        else if (GetBattlerType(gBattlerTarget, 0) == TYPE_MYSTERY && GetBattlerType(gBattlerTarget, 1) == TYPE_MYSTERY)
+        {
+            gBattlescriptCurrInstr = cmd->failInstr;
+        }
+        else
+        {
+            gBattleMons[gBattlerAttacker].type1 = GetBattlerType(gBattlerTarget, 0);
+            gBattleMons[gBattlerAttacker].type2 = GetBattlerType(gBattlerTarget, 1);
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
         return;
@@ -12863,8 +12918,6 @@ static void Cmd_trychoosesleeptalkmove(void)
     }
     else // at least one move can be chosen
     {
-        // Set Sleep Talk as used move, so it works with Last Resort.
-        gDisableStructs[gBattlerAttacker].usedMoves |= gBitTable[gCurrMovePos];
         do
         {
             movePosition = MOD(Random(), MAX_MON_MOVES);
@@ -15260,6 +15313,14 @@ static void Cmd_trysetcaughtmondexflags(void)
     else
     {
         HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);
+
+        if(species == SPECIES_SCYTHER) {
+            FlagSet(FLAG_P01_SCYTHER);
+        }
+        if(species == SPECIES_GIRAFARIG) {
+            FlagSet(FLAG_P01_GIRAFARIG);
+        }
+        
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
@@ -16343,50 +16404,4 @@ void BS_JumpIfTerrainAffected(void)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
-}
-
-void BS_TryReflectType(void)
-{
-    NATIVE_ARGS(const u8 *failInstr);
-    u16 targetBaseSpecies = GET_BASE_SPECIES_ID(gBattleMons[gBattlerTarget].species);
-    u8 targetType1 = GetBattlerType(gBattlerTarget, 0);
-    u8 targetType2 = GetBattlerType(gBattlerTarget, 1);
-    u8 targetType3 = GetBattlerType(gBattlerTarget, 2);
-
-    if (targetBaseSpecies == SPECIES_ARCEUS || targetBaseSpecies == SPECIES_SILVALLY)
-    {
-        gBattlescriptCurrInstr = cmd->failInstr;
-    }
-    else if (IS_BATTLER_TYPELESS(gBattlerTarget))
-    {
-        gBattlescriptCurrInstr = cmd->failInstr;
-    }
-    else if (targetType1 == TYPE_MYSTERY && targetType2 == TYPE_MYSTERY && targetType3 != TYPE_MYSTERY)
-    {
-        gBattleMons[gBattlerAttacker].type1 = TYPE_NORMAL;
-        gBattleMons[gBattlerAttacker].type2 = TYPE_NORMAL;
-        gBattleMons[gBattlerAttacker].type3 = targetType3;
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-    else if (targetType1 == TYPE_MYSTERY && targetType2 != TYPE_MYSTERY)
-    {
-        gBattleMons[gBattlerAttacker].type1 = targetType2;
-        gBattleMons[gBattlerAttacker].type2 = targetType2;
-        gBattleMons[gBattlerAttacker].type3 = targetType3;
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-    else if (targetType1 != TYPE_MYSTERY && targetType2 == TYPE_MYSTERY)
-    {
-        gBattleMons[gBattlerAttacker].type1 = targetType1;
-        gBattleMons[gBattlerAttacker].type2 = targetType1;
-        gBattleMons[gBattlerAttacker].type3 = targetType3;
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
-    else
-    {
-        gBattleMons[gBattlerAttacker].type1 = targetType1;
-        gBattleMons[gBattlerAttacker].type2 = targetType2;
-        gBattleMons[gBattlerAttacker].type3 = targetType3;
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
 }
