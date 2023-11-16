@@ -66,6 +66,7 @@
 #include "constants/metatile_labels.h"
 #include "palette.h"
 #include "battle_util.h"
+#include "play_time.h"
 
 #define TAG_ITEM_ICON 5500
 
@@ -4204,4 +4205,36 @@ void SetPlayerGotFirstFans(void)
 u8 Script_TryGainNewFanFromCounter(void)
 {
     return TryGainNewFanFromCounter(gSpecialVar_0x8004);
+}
+
+void PlayTimeAddMin(void)
+{
+    s8 minutes;
+    minutes = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_AddMin(minutes);
+}
+
+void PlayTimeAddHrs(void)
+{
+    s8 hours;
+    hours = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_AddHrs(hours);
+}
+
+void PlayTimeSubMin(void)
+{
+    s8 minutes;
+    minutes = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_AddMin(minutes);
+}
+
+void PlayTimeSubHrs(void)
+{
+    s8 hours;
+    hours = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_SubHrs(hours);
 }

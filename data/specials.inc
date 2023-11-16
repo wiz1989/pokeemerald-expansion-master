@@ -536,3 +536,7 @@ gSpecials::
 	def_special TrySetBattleTowerLinkType
 	def_special SetTotemBoost
 	def_special TrySpecialOverworldEvo
+	def_special PlayTimeAddMin
+	def_special PlayTimeAddHrs
+	def_special PlayTimeSubMin
+	def_special PlayTimeSubHrs

@@ -2025,3 +2025,27 @@
 	callnative CreateTrainerPartyForPlayer
 	trainerbattle_no_intro \trainer2, NULL
 	.endm
+
+	@ add x min to the play time counter
+	.macro playtimeaddmin minutes: req
+	setvar VAR_0x8004, \minutes
+	special PlayTimeAddMin
+	.endm
+
+	@ add x hrs to the play time counter
+	.macro playtimeaddhrs hours: req
+	setvar VAR_0x8004, \hours
+	special PlayTimeAddHrs
+	.endm
+
+	@ substract x min from the play time counter
+	.macro playtimesubmin minutes: req
+	setvar VAR_0x8004, \minutes
+	special PlayTimeSubMin
+	.endm
+
+	@ substract x hrs from the play time counter
+	.macro playtimesubhrs hours: req
+	setvar VAR_0x8004, \hours
+	special PlayTimeSubHrs
+	.endm

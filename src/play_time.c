@@ -71,3 +71,55 @@ void PlayTimeCounter_SetToMax(void)
     gSaveBlock2Ptr->playTimeSeconds = 59;
     gSaveBlock2Ptr->playTimeVBlanks = 59;
 }
+
+void PlayTimeCounter_AddMin(s8 minutes)
+{
+    if (gSaveBlock2Ptr->playTimeMinutes + minutes < 60) {
+        gSaveBlock2Ptr->playTimeMinutes = gSaveBlock2Ptr->playTimeMinutes + minutes;
+    }
+    else {
+        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours + 1 + (minutes / 60);
+        gSaveBlock2Ptr->playTimeMinutes = (gSaveBlock2Ptr->playTimeMinutes + minutes) % 60;
+    }
+    PlayTimeCounter_Update();
+}
+
+void PlayTimeCounter_AddHrs(s8 hours)
+{
+    if (gSaveBlock2Ptr->playTimeHours + hours > 999) {
+        PlayTimeCounter_SetToMax();
+    }
+    else {
+        gSaveBlock2Ptr->playTimeHours + hours;
+    }
+    PlayTimeCounter_Update();
+}
+
+void PlayTimeCounter_SubMin(s8 minutes)
+{
+    if (gSaveBlock2Ptr->playTimeMinutes - minutes >= 0) {
+        gSaveBlock2Ptr->playTimeMinutes = gSaveBlock2Ptr->playTimeMinutes - minutes;
+    }
+    else {
+        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours - 1 - (minutes / 60);
+        if (((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1) < 60) {
+            gSaveBlock2Ptr->playTimeMinutes = 60 - ((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1);
+        }
+        else {
+            gSaveBlock2Ptr->playTimeMinutes = 60 - ((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1) % 60;
+        }
+    }
+    PlayTimeCounter_Update();
+}
+
+void PlayTimeCounter_SubHrs(s8 hours)
+{
+    if (gSaveBlock2Ptr->playTimeHours - hours < 0) {
+        PlayTimeCounter_Reset();
+        PlayTimeCounter_Start();
+    }
+    else {
+        gSaveBlock2Ptr->playTimeHours - hours;
+        PlayTimeCounter_Update();
+    }
+}
