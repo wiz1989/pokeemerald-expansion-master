@@ -318,14 +318,25 @@ static const struct TrainerMon sParty_ShellySeafloorCavern[] = {
 static const struct TrainerMon sParty_Archie[] = {
     {
     .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
-    .lvl = 100,
-    .species = SPECIES_BLISSEY,
-    .moves = {MOVE_SOFT_BOILED, MOVE_PROTECT, MOVE_REST, MOVE_SUBSTITUTE},
+    .lvl = 50,
+    .species = SPECIES_KYOGRE_PRIMAL,
     },
     {
-    .iv = TRAINER_PARTY_IVS(18, 18, 18, 18, 18, 18),
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
     .lvl = 50,
-    .species = SPECIES_SHARPEDO,
+    .species = SPECIES_BLISSEY,
+    .moves = {MOVE_SOFT_BOILED, MOVE_PROTECT, MOVE_REST, MOVE_GASTRO_ACID},
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
+    .lvl = 50,
+    .species = SPECIES_GROUDON_PRIMAL,
+    },
+    {
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
+    .lvl = 50,
+    .ability = 1, //= Neutralizing gas
+    .species = SPECIES_WEEZING,
     }
 };
 
