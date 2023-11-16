@@ -1259,30 +1259,38 @@ static bool32 TryAegiFormChange(void)
 }
 
 //enhanced by wiz1989
-bool32 CastformTriggerWeatherChange(u32 battler, u32 move, u32 moveType)
+bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move)
 {
+    u32 moveType;
     u32 species;
     species = gBattleMons[battler].species;
     moveType = gBattleMoves[move].type;
 
-    if (species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM) {
-        DebugPrintf("is Castform");
-        if (moveType == TYPE_WATER || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
-            SetCurrentAndNextWeather(WEATHER_DOWNPOUR);
-            return TRUE;
+    //only execute if battler is a castform and ability FORECAST is active
+    if ((species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY 
+        || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM) 
+        && (ability == ABILITY_FORECAST))
+    {
+        //don't execute in primal weather
+        if (!(gBattleWeather & B_WEATHER_SUN_PRIMAL) && !(gBattleWeather & B_WEATHER_RAIN_PRIMAL)) {
+            if (moveType == TYPE_WATER || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
+                SetCurrentAndNextWeather(WEATHER_DOWNPOUR);
+                return TRUE;
+            }
+            if (moveType == TYPE_FIRE || move == MOVE_SOLAR_BEAM || move == MOVE_SOLAR_BLADE || move == MOVE_SYNTHESIS || move == MOVE_MORNING_SUN || move == MOVE_MOONLIGHT || move == MOVE_GROWTH) {
+                SetCurrentAndNextWeather(WEATHER_DROUGHT);
+                return TRUE;
+            }
+            if (moveType == TYPE_ICE || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
+                SetCurrentAndNextWeather(WEATHER_SNOW);
+                return TRUE;
+            }
+            if (moveType == TYPE_GROUND || moveType == TYPE_ROCK) {
+                SetCurrentAndNextWeather(WEATHER_SANDSTORM);
+                return TRUE;
+            }
         }
-        if (moveType == TYPE_FIRE || move == MOVE_SOLAR_BEAM || move == MOVE_SOLAR_BLADE || move == MOVE_SYNTHESIS || move == MOVE_MORNING_SUN || move == MOVE_MOONLIGHT || move == MOVE_GROWTH) {
-            SetCurrentAndNextWeather(WEATHER_DROUGHT);
-            return TRUE;
-        }
-        if (moveType == TYPE_ICE || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
-            SetCurrentAndNextWeather(WEATHER_SNOW);
-            return TRUE;
-        }
-        if (moveType == TYPE_GROUND || moveType == TYPE_ROCK) {
-            SetCurrentAndNextWeather(WEATHER_SANDSTORM);
-            return TRUE;
-        }
+        return FALSE;
     }
     return FALSE;
 }
@@ -1360,7 +1368,7 @@ static void Cmd_attackcanceler(void)
 
     //enhancement @wiz1989
     // Check Castform weather change
-    if (CastformTriggerWeatherChange(gBattlerAttacker, gCurrentMove, moveType))
+    if (CastformTriggerWeatherChange(gBattlerAttacker, attackerAbility, gCurrentMove))
     {
         if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, 0, 0, 0))
             return;
@@ -1943,7 +1951,7 @@ static void Cmd_ppreduce(void)
 
 // The chance is 1/N for each stage.
 #if B_CRIT_CHANCE >= GEN_7
-    static const u8 sCriticalHitChance[] = {255, 255, 255, 255, 255}; //deactivate crits | wiz1989
+    static const u8 sCriticalHitChance[] = {24, 8, 2, 1, 1};
 #elif B_CRIT_CHANCE == GEN_6
     static const u8 sCriticalHitChance[] = {16, 8, 2, 1, 1};
 #else
