@@ -10392,7 +10392,9 @@ BattleScript_EffectSnow::
 
 BattleScript_CastformWeatherStarts::
 	pause 5
-	call BattleScript_AbilityPopUp
+	//call BattleScript_AbilityPopUp
+	showabilitypopup BS_ATTACKER
+	pause B_WAIT_TIME_LONG
 	printstring STRINGID_CASTFORMCHANGEDWEATHER
 	waitmessage B_WAIT_TIME_LONG
 	playanimation_var BS_BATTLER_0, sB_ANIM_ARG1
