@@ -7387,6 +7387,7 @@ static const struct LevelUpMove sCastformLevelUpLearnset[] = {
     LEVEL_UP_MOVE(35, MOVE_BLIZZARD),
     LEVEL_UP_MOVE(45, MOVE_HURRICANE),
     LEVEL_UP_MOVE(55, MOVE_METEOR_BEAM),
+    LEVEL_UP_MOVE(60, MOVE_SOLAR_BEAM),
     LEVEL_UP_END
 };
 

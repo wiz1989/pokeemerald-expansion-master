@@ -1266,13 +1266,12 @@ bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move)
     species = gBattleMons[battler].species;
     moveType = gBattleMoves[move].type;
 
+    DebugPrintf("CastformTriggerWeatherChange");
     //only execute if battler is a castform and ability FORECAST is active
-    if ((species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY 
-        || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM) 
-        && (ability == ABILITY_FORECAST))
+    if (IsCastform(battler) && ability == ABILITY_FORECAST)
     {
         //don't execute in primal weather
-        if (!(gBattleWeather & B_WEATHER_SUN_PRIMAL) && !(gBattleWeather & B_WEATHER_RAIN_PRIMAL)) {
+        if (!(gBattleWeather & B_WEATHER_SUN_PRIMAL) && !(gBattleWeather & B_WEATHER_RAIN_PRIMAL) && !(gBattleWeather & B_WEATHER_STRONG_WINDS)) {
             if (moveType == TYPE_WATER || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
                 SetCurrentAndNextWeather(WEATHER_DOWNPOUR);
                 return TRUE;
@@ -1290,6 +1289,19 @@ bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move)
                 return TRUE;
             }
         }
+    }
+    return FALSE;
+}
+
+bool32 IsCastform(u32 battler)
+{
+    u32 species;
+    species = gBattleMons[battler].species;
+
+    if (species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY 
+        || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM)
+    {
+        return TRUE;
     }
     return FALSE;
 }
@@ -1370,6 +1382,7 @@ static void Cmd_attackcanceler(void)
     if (CastformTriggerWeatherChange(gBattlerAttacker, attackerAbility, gCurrentMove))
     {
         //this function sets the weather and brings up the battle strings
+        DebugPrintf("Execute weather change");
         if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, attackerAbility, 0, 0))
             return;
     }

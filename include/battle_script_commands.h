@@ -45,6 +45,8 @@ u16 GetSecretPowerMoveEffect(void);
 void StealTargetItem(u8 battlerStealer, u8 battlerItem);
 u8 GetCatchingBattler(void);
 u32 GetHighestStatId(u32 battlerId);
+bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move);
+bool32 IsCastform(u32 battler);
 bool32 ProteanTryChangeType(u32 battler, u32 ability, u32 move, u32 moveType);
 bool32 DoSwitchInAbilitiesItems(u32 battlerId);
 u8 GetFirstFaintedPartyIndex(u8 battlerId);
