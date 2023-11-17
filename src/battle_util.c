@@ -4299,16 +4299,22 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         {
             //enhancement wiz1989
             species = gBattleMons[battler].species;
+            //special handling for CASTFORM weather change
             if ((species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY 
                 || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM) 
                 && (ability == ABILITY_FORECAST))
             {
-                PrepareStringBattle(STRINGID_CASTFORMCHANGEDWEATHER, battler);
-                gBattleCommunication[MSG_DISPLAY] = 1;
+                DebugPrintf("BS_CastformWeather");
+                FlagSet(FLAG_INBATTLE_WEATHER_CHANGED);
+                gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
+                BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStarts);
+            }
+            else {
+                DebugPrintf("BS_OverworldWeather");
+                gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
+                BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
             }
             //enhancement end
-            gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
-            BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
         }
         break;
     case ABILITYEFFECT_ON_SWITCHIN: // 0
@@ -6049,6 +6055,28 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         switch (gLastUsedAbility)
         {
         case ABILITY_FORECAST:
+            if ((IsBattlerWeatherAffected(battler, gBattleWeather)
+                 || gBattleWeather == B_WEATHER_NONE
+                 || !WEATHER_HAS_EFFECT) // Air Lock active
+                 && TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER)) 
+            {
+                //differentiate between regular forecast and self inflicted weather change
+                if (FlagGet(FLAG_INBATTLE_WEATHER_CHANGED)) {
+                    DebugPrintf("BS_Castform");
+                    BattleScriptPushCursorAndCallback(BattleScript_CastformFormChangeWithStringEnd3);
+
+                    effect++;
+                }
+                //regular forecast (due to opponent changing the weather)
+                else {
+                    DebugPrintf("BS_Battler");
+                    BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeWithStringEnd3);
+
+                    effect++;
+                }
+            }
+            FlagClear(FLAG_INBATTLE_WEATHER_CHANGED); //always reset the flag 
+            break;
         case ABILITY_FLOWER_GIFT:
             if ((IsBattlerWeatherAffected(battler, gBattleWeather)
                  || gBattleWeather == B_WEATHER_NONE
