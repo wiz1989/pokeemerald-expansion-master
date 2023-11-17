@@ -250,5 +250,6 @@ bool32 AreBattlersOfOppositeGender(u32 battler1, u32 battler2);
 bool32 AreBattlersOfSameGender(u32 battler1, u32 battler2);
 u32 CalcSecondaryEffectChance(u32 battler, u8 secondaryEffectChance);
 u8 GetBattlerType(u32 battler, u8 typeIndex);
+void ChangeWeather(u32 battler, u32 ability, bool32 early);
 
 #endif // GUARD_BATTLE_UTIL_H

@@ -47,6 +47,7 @@
 #include "constants/trainers.h"
 #include "constants/weather.h"
 #include "constants/pokemon.h"
+#include "battle_script_commands.h"
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
@@ -510,6 +511,17 @@ void HandleAction_UseMove(void)
     }
     else
     {
+        //set weather early for move effects, e.g. Solar Beam // wiz1989
+        //u16 battlerAbility;
+        //battler = gBattlerByTurnOrder[var];
+        //battlerAbility = GetBattlerAbility(battler);
+        DebugPrintf("Check CastformTriggerWeatherChange");
+        //if (CastformTriggerWeatherChange(gBattlerAttacker, gBattleMons[gBattlerAttacker].ability, gChosenMove)) {
+        if (IsCastform(battler) && gBattleMons[gBattlerAttacker].ability == ABILITY_FORECAST && gBattleMoves[gCurrentMove].effect == EFFECT_SOLAR_BEAM) {
+            gBattleWeather = (B_WEATHER_SUN_PERMANENT | B_WEATHER_SUN_TEMPORARY);
+            DebugPrintf("SetWeather early");
+            //ChangeWeather(battler, gBattleMons[gBattlerAttacker].ability, TRUE);
+        }
         gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect];
     }
 
@@ -4298,11 +4310,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         if (effect != 0)
         {
             //enhancement wiz1989
-            species = gBattleMons[battler].species;
+            DebugPrintf("Call for Weather Change");
+            ChangeWeather(battler, ability, FALSE);
+            /*species = gBattleMons[battler].species;
             //special handling for CASTFORM weather change
-            if ((species == SPECIES_CASTFORM || species == SPECIES_CASTFORM_SUNNY || species == SPECIES_CASTFORM_RAINY 
-                || species == SPECIES_CASTFORM_SNOWY || species == SPECIES_CASTFORM_SANDSTORM) 
-                && (ability == ABILITY_FORECAST))
+            if (IsCastform(battler) && ability == ABILITY_FORECAST)
             {
                 DebugPrintf("BS_CastformWeather");
                 FlagSet(FLAG_INBATTLE_WEATHER_CHANGED);
@@ -4313,9 +4325,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                 DebugPrintf("BS_OverworldWeather");
                 gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
                 BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
-            }
+            }*/
             //enhancement end
         }
+        DebugPrintf("No Weather Change?");
         break;
     case ABILITYEFFECT_ON_SWITCHIN: // 0
         gBattleScripting.battler = battler;
@@ -11290,3 +11303,30 @@ u8 GetBattlerType(u32 battler, u8 typeIndex)
     return types[typeIndex];
 }
 
+//enhancement wiz1989
+void ChangeWeather(u32 battler, u32 ability, bool32 early)
+{
+    u32 species;
+
+    species = gBattleMons[battler].species;
+    //special handling for CASTFORM weather change
+    if (IsCastform(battler) && ability == ABILITY_FORECAST)
+    {
+        DebugPrintf("BS_CastformWeather");
+        FlagSet(FLAG_INBATTLE_WEATHER_CHANGED);
+        gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
+
+        if (early) {
+            DebugPrintf("BS_CastformWeather - EARLY!");
+            BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStartsEarly);
+        }
+        else
+            BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStarts);
+    }
+    else {
+        DebugPrintf("BS_OverworldWeather");
+        gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
+        BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
+    }
+}
+//enhancement end
