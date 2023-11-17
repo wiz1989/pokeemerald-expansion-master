@@ -1370,7 +1370,7 @@ static void Cmd_attackcanceler(void)
     if (CastformTriggerWeatherChange(gBattlerAttacker, attackerAbility, gCurrentMove))
     {
         //this function sets the weather and brings up the battle strings
-        if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, 0, 0, 0))
+        if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, attackerAbility, 0, 0))
             return;
     }
     //enhancement end

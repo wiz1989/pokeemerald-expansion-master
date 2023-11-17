@@ -319,13 +319,8 @@ static const struct TrainerMon sParty_Archie[] = {
     {
     .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
     .lvl = 50,
-    .species = SPECIES_KYOGRE_PRIMAL,
-    },
-    {
-    .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
-    .lvl = 50,
     .species = SPECIES_BLISSEY,
-    .moves = {MOVE_SOFT_BOILED, MOVE_PROTECT, MOVE_REST, MOVE_GASTRO_ACID},
+    .moves = {MOVE_SOFT_BOILED, MOVE_PROTECT, MOVE_REST, MOVE_NONE},
     },
     {
     .iv = TRAINER_PARTY_IVS(31, 31, 31, 13, 31, 31),
