@@ -1266,15 +1266,11 @@ bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move)
     species = gBattleMons[battler].species;
     moveType = gBattleMoves[move].type;
 
-    //DebugPrintf("CastformTriggerWeatherChange");
-    //only execute if battler is a castform and ability FORECAST is active
+    //only execute if battler is a CASTFORM and ability FORECAST is active
     if (IsCastform(battler) && ability == ABILITY_FORECAST)
     {
-        DebugPrintf("Castform Forecast Check okay");
-        DebugPrintf("move: %S", gMoveNames[move]);
-        //don't execute in primal weather
+        //don't execute in Primal Weather
         if (!(gBattleWeather & B_WEATHER_SUN_PRIMAL) && !(gBattleWeather & B_WEATHER_RAIN_PRIMAL) && !(gBattleWeather & B_WEATHER_STRONG_WINDS)) {
-            DebugPrintf("Primal Weather Check okay");
             if (moveType == TYPE_WATER || move == MOVE_THUNDER || move == MOVE_HURRICANE) {
                 SetCurrentAndNextWeather(WEATHER_DOWNPOUR);
                 return TRUE;
@@ -1293,7 +1289,6 @@ bool32 CastformTriggerWeatherChange(u32 battler, u32 ability, u32 move)
             }
         }
     }
-    DebugPrintf("Return FALSE");
     return FALSE;
 }
 
@@ -1383,12 +1378,9 @@ static void Cmd_attackcanceler(void)
 
     //enhancement @wiz1989
     // Check Castform weather change
-    DebugPrintf("attackcanceler if->CastformTriggerWeatherChange");
     if (CastformTriggerWeatherChange(gBattlerAttacker, attackerAbility, gCurrentMove))
     {
         //this function sets the weather and brings up the battle strings
-        DebugPrintf("### Weather check approved. ###");
-        DebugPrintf("Execute weather change BS");
         if (AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, gBattlerAttacker, attackerAbility, 0, 0))
             return;
     }

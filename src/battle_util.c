@@ -513,18 +513,12 @@ void HandleAction_UseMove(void)
     {
         // enhancement wiz1989
         //use different Battle_Script for move effect of Solar Beam if Castform changes the weather in the same turn
-        DebugPrintf("Check CastformTriggerWeatherChange");
-        DebugPrintf("battler: %S", gSpeciesNames[gBattleMons[gBattlerAttacker].species]);
-        DebugPrintf("ability: %S", gAbilityNames[gBattleMons[gBattlerAttacker].ability]);
-        DebugPrintf("move effect dec: %d", gBattleMoves[gCurrentMove].effect);
-        DebugPrintf("move effect dec: %d", EFFECT_SOLAR_BEAM);
         if (IsCastform(gBattlerAttacker) && gBattleMons[gBattlerAttacker].ability == ABILITY_FORECAST && gBattleMoves[gCurrentMove].effect == EFFECT_SOLAR_BEAM) {
-            DebugPrintf("SetWeather early");
             gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[EFFECT_CASTFORM_SOLAR_BEAM];
         }
         else
             gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect];
-            // enhancement end
+        // enhancement end
     }
 
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
@@ -4262,10 +4256,8 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     break;
     case ABILITYEFFECT_SWITCH_IN_WEATHER:
         gBattleScripting.battler = battler;
-        DebugPrintf("ABILITYEFFECT_SWITCH_IN_WEATHER");
         if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
         {
-            DebugPrintf("weather: %d", GetCurrentWeather());
             switch (GetCurrentWeather())
             {
             case WEATHER_RAIN:
@@ -4313,12 +4305,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         if (effect != 0)
         {
             //enhancement wiz1989
-            DebugPrintf("Call for Weather Change");
             ChangeWeather(battler, ability);
             //enhancement end
         }
-        else //wiz1989
-            DebugPrintf("No Weather Change");
         break;
     case ABILITYEFFECT_ON_SWITCHIN: // 0
         gBattleScripting.battler = battler;
@@ -6063,23 +6052,23 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                  || !WEATHER_HAS_EFFECT) // Air Lock active
                  && TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER)) 
             {
+                //enhancement wiz1989
                 //differentiate between regular forecast and self inflicted weather change
                 if (FlagGet(FLAG_INBATTLE_WEATHER_CHANGED)) {
-                    DebugPrintf("BS_CastformFormChange");
-                    //BattleScriptPushCursorAndCallback(BattleScript_CastformFormChangeWithStringEnd3);
-                    BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeWithStringEnd3);
+                    //BS is skipping some texts and popups as they have already been shown earlier
+                    BattleScriptPushCursorAndCallback(BattleScript_CastformFormChangeWithStringEnd3);
 
                     effect++;
                 }
-                //regular forecast (due to opponent changing the weather)
+                //regular forecast handling
                 else {
-                    DebugPrintf("BS_Battler");
                     BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeWithStringEnd3);
 
                     effect++;
                 }
             }
-            FlagClear(FLAG_INBATTLE_WEATHER_CHANGED); //always reset the flag 
+            FlagClear(FLAG_INBATTLE_WEATHER_CHANGED); //always reset the flag
+            //enhancement end
             break;
         case ABILITY_FLOWER_GIFT:
             if ((IsBattlerWeatherAffected(battler, gBattleWeather)
@@ -11303,13 +11292,11 @@ void ChangeWeather(u32 battler, u32 ability)
     //special handling for CASTFORM weather change
     if (IsCastform(battler) && ability == ABILITY_FORECAST)
     {
-        DebugPrintf("BS_CastformWeather");
         FlagSet(FLAG_INBATTLE_WEATHER_CHANGED);
         gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
         BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStarts);
     }
     else {
-        DebugPrintf("BS_OverworldWeather");
         gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
         BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
     }
