@@ -437,6 +437,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectMortalSpin              @ EFFECT_MORTAL_SPIN
 	.4byte BattleScript_EffectHit                     @ EFFECT_GIGATON_HAMMER
 	.4byte BattleScript_EffectSaltCure                @ EFFECT_SALT_CURE
+	.4byte BattleScript_EffectCastformSolarBeam       @ EFFECT_CASTFORM_SOLAR_BEAM
 
 BattleScript_EffectSaltCure:
 	call BattleScript_EffectHit_Ret
@@ -10400,16 +10401,6 @@ BattleScript_CastformWeatherStarts::
 	call BattleScript_ActivateWeatherAbilities
 	end3
 
-BattleScript_CastformWeatherStartsEarly::
-	pause 5
-	showabilitypopup BS_ATTACKER
-	pause B_WAIT_TIME_LONG
-	printstring STRINGID_CASTFORMCHANGEDWEATHER
-	waitmessage B_WAIT_TIME_LONG
-	playanimation_var BS_BATTLER_0, sB_ANIM_ARG1
-	call BattleScript_ActivateWeatherAbilities
-	end3
-
 BattleScript_CastformFormChangeWithStringEnd3::
 	pause 5
 	handleformchange BS_SCRIPTING, 0
@@ -10418,3 +10409,7 @@ BattleScript_CastformFormChangeWithStringEnd3::
 	waitanimation
 	handleformchange BS_SCRIPTING, 2
 	end3
+
+BattleScript_EffectCastformSolarBeam::
+	attackcanceler
+	goto BattleScript_EffectSolarBeam

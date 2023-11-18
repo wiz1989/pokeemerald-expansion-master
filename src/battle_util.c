@@ -538,18 +538,20 @@ void HandleAction_UseMove(void)
     }
     else
     {
-        //set weather early for move effects, e.g. Solar Beam // wiz1989
-        //u16 battlerAbility;
-        //battler = gBattlerByTurnOrder[var];
-        //battlerAbility = GetBattlerAbility(battler);
+        // enhancement wiz1989
+        //use different Battle_Script for move effect of Solar Beam if Castform changes the weather in the same turn
         DebugPrintf("Check CastformTriggerWeatherChange");
-        //if (CastformTriggerWeatherChange(gBattlerAttacker, gBattleMons[gBattlerAttacker].ability, gChosenMove)) {
-        if (IsCastform(battler) && gBattleMons[gBattlerAttacker].ability == ABILITY_FORECAST && gBattleMoves[gCurrentMove].effect == EFFECT_SOLAR_BEAM) {
-            gBattleWeather = (B_WEATHER_SUN_PERMANENT | B_WEATHER_SUN_TEMPORARY);
+        DebugPrintf("battler: %S", gSpeciesNames[gBattleMons[gBattlerAttacker].species]);
+        DebugPrintf("ability: %S", gAbilityNames[gBattleMons[gBattlerAttacker].ability]);
+        DebugPrintf("move effect dec: %d", gBattleMoves[gCurrentMove].effect);
+        DebugPrintf("move effect dec: %d", EFFECT_SOLAR_BEAM);
+        if (IsCastform(gBattlerAttacker) && gBattleMons[gBattlerAttacker].ability == ABILITY_FORECAST && gBattleMoves[gCurrentMove].effect == EFFECT_SOLAR_BEAM) {
             DebugPrintf("SetWeather early");
-            //ChangeWeather(battler, gBattleMons[gBattlerAttacker].ability, TRUE);
+            gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[EFFECT_CASTFORM_SOLAR_BEAM];
         }
-        gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect];
+        else
+            gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect];
+            // enhancement end
     }
 
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
@@ -4278,8 +4280,10 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
     break;
     case ABILITYEFFECT_SWITCH_IN_WEATHER:
         gBattleScripting.battler = battler;
+        DebugPrintf("ABILITYEFFECT_SWITCH_IN_WEATHER");
         if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
         {
+            DebugPrintf("weather: %d", GetCurrentWeather());
             switch (GetCurrentWeather())
             {
             case WEATHER_RAIN:
@@ -4320,7 +4324,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                         gBattleScripting.animArg1 = B_ANIM_HAIL_CONTINUES;
                         effect++;
                     #endif
-
                 }
                 break;
             }
@@ -4329,24 +4332,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
         {
             //enhancement wiz1989
             DebugPrintf("Call for Weather Change");
-            ChangeWeather(battler, ability, FALSE);
-            /*species = gBattleMons[battler].species;
-            //special handling for CASTFORM weather change
-            if (IsCastform(battler) && ability == ABILITY_FORECAST)
-            {
-                DebugPrintf("BS_CastformWeather");
-                FlagSet(FLAG_INBATTLE_WEATHER_CHANGED);
-                gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
-                BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStarts);
-            }
-            else {
-                DebugPrintf("BS_OverworldWeather");
-                gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
-                BattleScriptPushCursorAndCallback(BattleScript_OverworldWeatherStarts);
-            }*/
+            ChangeWeather(battler, ability);
             //enhancement end
         }
-        DebugPrintf("No Weather Change?");
+        else //wiz1989
+            DebugPrintf("No Weather Change");
         break;
     case ABILITYEFFECT_ON_SWITCHIN: // 0
         gBattleScripting.battler = battler;
@@ -6091,8 +6081,9 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             {
                 //differentiate between regular forecast and self inflicted weather change
                 if (FlagGet(FLAG_INBATTLE_WEATHER_CHANGED)) {
-                    DebugPrintf("BS_Castform");
-                    BattleScriptPushCursorAndCallback(BattleScript_CastformFormChangeWithStringEnd3);
+                    DebugPrintf("BS_CastformFormChange");
+                    //BattleScriptPushCursorAndCallback(BattleScript_CastformFormChangeWithStringEnd3);
+                    BattleScriptPushCursorAndCallback(BattleScript_BattlerFormChangeWithStringEnd3);
 
                     effect++;
                 }
@@ -11312,7 +11303,7 @@ u8 GetBattlerType(u32 battler, u8 typeIndex)
 }
 
 //enhancement wiz1989
-void ChangeWeather(u32 battler, u32 ability, bool32 early)
+void ChangeWeather(u32 battler, u32 ability)
 {
     u32 species;
 
@@ -11323,13 +11314,7 @@ void ChangeWeather(u32 battler, u32 ability, bool32 early)
         DebugPrintf("BS_CastformWeather");
         FlagSet(FLAG_INBATTLE_WEATHER_CHANGED);
         gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeather();
-
-        if (early) {
-            DebugPrintf("BS_CastformWeather - EARLY!");
-            BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStartsEarly);
-        }
-        else
-            BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStarts);
+        BattleScriptPushCursorAndCallback(BattleScript_CastformWeatherStarts);
     }
     else {
         DebugPrintf("BS_OverworldWeather");
