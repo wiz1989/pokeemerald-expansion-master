@@ -200,7 +200,6 @@ void SetNextWeather(u8 weather)
 
 void SetCurrentAndNextWeather(u8 weather)
 {
-    DebugPrintf("SetCurrentAndNextWeather");
     PlayRainStoppingSoundEffect();
     gWeatherPtr->currWeather = weather;
     gWeatherPtr->nextWeather = weather;

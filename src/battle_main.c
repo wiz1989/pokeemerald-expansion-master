@@ -517,15 +517,12 @@ static void CB2_InitBattleInternal(void)
 
     //set temporary battle weather wiz1989
     weather = VarGet(VAR_TEMP_F);
-    DebugPrintf("CB2_InitBattleInternal. Initiate. %d", weather);
 
     if (weather == WEATHER_RAIN) {
         SetCurrentAndNextWeather(WEATHER_RAIN);
-        DebugPrintf("Set weather to rain.");
     }
     else if (weather == WEATHER_SUNNY) {
         SetCurrentAndNextWeather(WEATHER_DROUGHT);
-        DebugPrintf("Set weather to sunny.");
     }
     else if (weather == WEATHER_SANDSTORM) {
         SetCurrentAndNextWeather(WEATHER_SANDSTORM);
