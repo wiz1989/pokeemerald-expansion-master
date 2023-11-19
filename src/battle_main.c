@@ -64,6 +64,8 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "cable_club.h"
+#include "field_weather.h" //added wiz1989
+#include "constants/weather.h" //added wiz1989
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
 
