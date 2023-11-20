@@ -3038,4 +3038,8 @@ extern const u8 gText_TellHimTheWords[];
 extern const u8 gText_ExpShareOn[];
 extern const u8 gText_ExpShareOff[];
 
+// Pokescape01
+extern const u8 gText_P01_REGULAR_MODE[];
+extern const u8 gText_P01_HONOR_MODE[];
+
 #endif // GUARD_STRINGS_H

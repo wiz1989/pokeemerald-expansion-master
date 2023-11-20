@@ -552,3 +552,6 @@ gSpecials::
 	def_special PlayTimeAddHrs
 	def_special PlayTimeSubMin
 	def_special PlayTimeSubHrs
+	def_special RestartPlayTimer
+	def_special SaveGameBackground
+	def_special MultiplyVar

@@ -947,6 +947,12 @@ void SaveGame(void)
     CreateTask(SaveGameTask, 0x50);
 }
 
+void SaveGameBackground(void)
+{
+    SaveMapView();
+    CreateTask(SaveGameTask, 0x50);
+}
+
 static void ShowSaveMessage(const u8 *message, u8 (*saveCallback)(void))
 {
     StringExpandPlaceholders(gStringVar4, message);

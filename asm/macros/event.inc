@@ -2102,3 +2102,10 @@
 	setvar VAR_0x8004, \hours
 	special PlayTimeSubHrs
 	.endm
+
+	@ changes the value of destination by multiplying it with value. Overflow is not prevented (d*v > 0xFFFF).
+	.macro multiplyvars destination:req, value:req
+	setvar VAR_TEMP_1, \destination
+	setvar VAR_TEMP_2, \value
+	specialvar VAR_RESULT, MultiplyVar
+	.endm

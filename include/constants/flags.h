@@ -1242,8 +1242,8 @@
 #define FLAG_SHINY_CREATION                                         0x4A8 // Unused Flag
 #define FLAG_P01_EVIOLITE                                           0x4A9 // Unused Flag
 #define FLAG_HIDE_KIRLIA                                            0x4AA // Unused Flag
-#define FLAG_UNUSED_0x4AB                                           0x4AB // Unused Flag
-#define FLAG_UNUSED_0x4AC                                           0x4AC // Unused Flag
+#define FLAG_P01_HONOR_MODE                                         0x4AB // Unused Flag
+#define FLAG_P01_LOAD_SAVEGAME                                      0x4AC // Unused Flag
 #define FLAG_UNUSED_0x4AD                                           0x4AD // Unused Flag
 #define FLAG_UNUSED_0x4AE                                           0x4AE // Unused Flag
 #define FLAG_UNUSED_0x4AF                                           0x4AF // Unused Flag

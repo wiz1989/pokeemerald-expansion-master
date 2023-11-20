@@ -30,6 +30,18 @@ script OnResume {
 	setflag(FLAG_BADGE07_GET)
 	setflag(FLAG_BADGE08_GET)
 	setflag(FLAG_SYS_POKEDEX_GET)
+
+	//save game after loading when HONOR mode is active
+	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
+        addvar(VAR_P01_PENALTY, 1)
+		clearflag(FLAG_P01_LOAD_SAVEGAME)
+
+		playtimeaddmin(15 * VAR_P01_PENALTY)
+		buffernumberstring(STR_VAR_1, 15 * VAR_P01_PENALTY)
+		//msgbox(format("Your got {STR_VAR_1} minutes added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
+    	//waitmessage
+		//special(SaveGameBackground)
+    }
 	end
 }
 
@@ -99,7 +111,9 @@ script Pokescape01_EventScript_Swimmer12 {
 
 script Pokescape01_EventScript_PokecenterSign {
     lockall
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
+	multiplyvars(VAR_P01_PENALTY, 10)
+	buffernumberstring(STR_VAR_1, VAR_RESULT)
+    msgbox(format("{STR_VAR_1}IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
     waitmessage
     releaseall
     end
@@ -131,14 +145,44 @@ script Pokescape01_EventScript_SignGrass {
 script Pokescape01_EventScript_PokecenterTriggers {
 	if(var(VAR_UNUSED_0x408B) == 0) {
 	    lockall
+		msgbox(format("Welcome, to Pokescape, the Pokémon Escape Challenge. \pThe goal is to reach the house on the left side of this map."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		msgbox(format("You will need to develop unique tactics to battle your opponents and make the right decisions based on all information available."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		msgbox(format("If you are stuck you can approach the Game Master in the Pokecenter for help.\p More details can be found on the sign next to its entrance."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		msgbox(format("This challenge can be completed without any savegame resets. \pWorst case is you have to approach the Game Master to continue."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		msgbox(format("There are two game modes: \nREGULAR MODE and HONOR MODE. \pHONOR MODE will add penalty time to your game clock everytime you restart the game from a savefile. \lREGULAR mode will not do this."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		msgbox(format("The first reset will cost you 15min, the second 30min, the third 45min...\l...you get the idea. \pWhich mode do you want to play with?"), MSGBOX_AUTOCLOSE)
+		waitmessage
+		multichoicedefault(0, 0, MULTI_POKESCAPE_GAME_MODE, 0, TRUE)
+		switch (var(VAR_RESULT)) {
+			case 0:
+				msgbox(format("Oh, you don't have what it takes? \pIt's okay though, at least you are honest."), MSGBOX_AUTOCLOSE)
+				waitmessage
+			case 1:
+				setflag(FLAG_P01_HONOR_MODE)
+				msgbox(format("What an honorable Pokémon trainer you are!"), MSGBOX_AUTOCLOSE)
+				waitmessage
+		}
+		msgbox(format("Please enter your name next."), MSGBOX_AUTOCLOSE)
+		waitmessage
+
 	    special(ChangePlayerName)
 	    waitmessage
 
 	    msgbox("So your name is {PLAYER}?", MSGBOX_YESNO)
 	    while (var(VAR_RESULT) == NO) {
-	        msgbox("So your name is {PLAYER}?", MSGBOX_YESNO)
+			special(ChangePlayerName)
+	    	waitmessage
+			msgbox("So your name is {PLAYER}?", MSGBOX_YESNO)
 		}
 
+		msgbox(format("Good luck! Your play time starts NOW."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		special(RestartPlayTimer)
 	    setvar(VAR_UNUSED_0x408B, 1)
 	    releaseall
     }
@@ -649,9 +693,13 @@ script Pokescape01_House_EventScript_Birch {
 	buffernumberstring(STR_VAR_2, VAR_RESULT)
 	specialvar(VAR_RESULT, GetPlayTimeSeconds)
 	buffernumberstring(STR_VAR_3, VAR_RESULT)
-	msgbox(Text_Finale)
+	if (flag(FLAG_P01_HONOR_MODE)) {
+		msgbox(Text_Finale_honor)
+	}
+	else {
+		msgbox(Text_Finale_regular)
+	}
 	waitmessage
-	setobjectmovementtype(1, MOVEMENT_TYPE_WANDER_AROUND)
 	release
 	end
 }
@@ -732,6 +780,10 @@ text Text_TipGardevoir {
 	format("Oh your Kirlia evolved into Gardevoir? \pI don't think that's helpful. It should have kept holding its Everstone. \pYou don't want it to evolve uncontrolledly. \pLet me take your Gardevoir and give you a Kirlia back for it.")
 }
 
-text Text_Finale {
-	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}")
+text Text_Finale_regular {
+	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3} \lin REGULAR MODE.")
+}
+
+text Text_Finale_honor {
+	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3} \lin HONOR MODE.")
 }

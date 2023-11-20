@@ -1756,6 +1756,10 @@ void CB2_ContinueSavedGame(void)
     else
         InitMapFromSavedGame();
 
+    //enhancement wiz1989
+    FlagSet(FLAG_P01_LOAD_SAVEGAME);
+    //enhancement end
+
     PlayTimeCounter_Start();
     ScriptContext_Init();
     UnlockPlayerFieldControls();

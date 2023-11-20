@@ -19,6 +19,8 @@ OnResume_4:
 	setflag FLAG_BADGE07_GET
 	setflag FLAG_BADGE08_GET
 	setflag FLAG_SYS_POKEDEX_GET
+	goto_if_set FLAG_P01_HONOR_MODE, OnResume_9
+OnResume_7:
 	end
 
 OnResume_2:
@@ -33,6 +35,17 @@ OnResume_2:
 OnResume_5:
 	setflag FLAG_TEMP_3
 	goto OnResume_4
+
+OnResume_8:
+	addvar VAR_P01_PENALTY, 1
+	clearflag FLAG_P01_LOAD_SAVEGAME
+	playtimeaddmin 15 * VAR_P01_PENALTY
+	buffernumberstring STR_VAR_1, 15 * VAR_P01_PENALTY
+	goto OnResume_7
+
+OnResume_9:
+	goto_if_set FLAG_P01_LOAD_SAVEGAME, OnResume_8
+	goto OnResume_7
 
 
 OnTransition::
@@ -101,6 +114,8 @@ Pokescape01_EventScript_Swimmer12::
 
 Pokescape01_EventScript_PokecenterSign::
 	lockall
+	multiplyvars VAR_P01_PENALTY, 10
+	buffernumberstring STR_VAR_1, VAR_RESULT
 	msgbox Pokescape01_EventScript_PokecenterSign_Text_0
 	waitmessage
 	releaseall
@@ -138,19 +153,54 @@ Pokescape01_EventScript_PokecenterTriggers_1:
 
 Pokescape01_EventScript_PokecenterTriggers_2:
 	lockall
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_1, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_3, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_4, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_5, MSGBOX_AUTOCLOSE
+	waitmessage
+	multichoicedefault 0, 0, MULTI_POKESCAPE_GAME_MODE, 0, TRUE
+	switch VAR_RESULT
+	case 0, Pokescape01_EventScript_PokecenterTriggers_6
+	case 1, Pokescape01_EventScript_PokecenterTriggers_7
+Pokescape01_EventScript_PokecenterTriggers_4:
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_8, MSGBOX_AUTOCLOSE
+	waitmessage
 	special ChangePlayerName
 	waitmessage
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_0, MSGBOX_YESNO
-Pokescape01_EventScript_PokecenterTriggers_5:
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_9, MSGBOX_YESNO
+Pokescape01_EventScript_PokecenterTriggers_9:
 	compare VAR_RESULT, NO
-	goto_if_eq Pokescape01_EventScript_PokecenterTriggers_6
+	goto_if_eq Pokescape01_EventScript_PokecenterTriggers_10
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_10, MSGBOX_AUTOCLOSE
+	waitmessage
+	special RestartPlayTimer
 	setvar VAR_UNUSED_0x408B, 1
 	releaseall
 	goto Pokescape01_EventScript_PokecenterTriggers_1
 
 Pokescape01_EventScript_PokecenterTriggers_6:
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_0, MSGBOX_YESNO
-	goto Pokescape01_EventScript_PokecenterTriggers_5
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_6, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto Pokescape01_EventScript_PokecenterTriggers_4
+
+Pokescape01_EventScript_PokecenterTriggers_7:
+	setflag FLAG_P01_HONOR_MODE
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_7, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto Pokescape01_EventScript_PokecenterTriggers_4
+
+Pokescape01_EventScript_PokecenterTriggers_10:
+	special ChangePlayerName
+	waitmessage
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_9, MSGBOX_YESNO
+	goto Pokescape01_EventScript_PokecenterTriggers_9
 
 
 Pokescape01_EventScript_TriggerLittleGirl::
@@ -704,11 +754,16 @@ Pokescape01_House_EventScript_Birch::
 	buffernumberstring STR_VAR_2, VAR_RESULT
 	specialvar VAR_RESULT, GetPlayTimeSeconds
 	buffernumberstring STR_VAR_3, VAR_RESULT
-	msgbox Text_Finale
+	goto_if_set FLAG_P01_HONOR_MODE, Pokescape01_House_EventScript_Birch_2
+	msgbox Text_Finale_regular
+Pokescape01_House_EventScript_Birch_1:
 	waitmessage
-	setobjectmovementtype 1, MOVEMENT_TYPE_WANDER_AROUND
 	release
 	end
+
+Pokescape01_House_EventScript_Birch_2:
+	msgbox Text_Finale_honor
+	goto Pokescape01_House_EventScript_Birch_1
 
 
 Pokescape01_House_EventScript_Pikachu::
@@ -763,7 +818,7 @@ Pokescape01_EventScript_Swimmer12_Text_1:
 	.string "know?$"
 
 Pokescape01_EventScript_PokecenterSign_Text_0:
-	.string "IMPORTANT INFORMATION:\p"
+	.string "{STR_VAR_1}IMPORTANT INFORMATION:\p"
 	.string "1.) This game is featuring gen 5\n"
 	.string "movesets for any Pokemon you control\l"
 	.string "yourself.\p"
@@ -788,7 +843,61 @@ Pokescape01_EventScript_SignGrass_Text_2:
 	.string "secret to even cutting bushes.$"
 
 Pokescape01_EventScript_PokecenterTriggers_Text_0:
+	.string "Welcome, to Pokescape, the Pokémon\n"
+	.string "Escape Challenge.\p"
+	.string "The goal is to reach the house on the\n"
+	.string "left side of this map.$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_1:
+	.string "You will need to develop unique tactics\n"
+	.string "to battle your opponents and make the\l"
+	.string "right decisions based on all\l"
+	.string "information available.$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_2:
+	.string "If you are stuck you can approach the\n"
+	.string "Game Master in the Pokecenter for\l"
+	.string "help.\p"
+	.string "More details can be found on the sign\n"
+	.string "next to its entrance.$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_3:
+	.string "This challenge can be completed\n"
+	.string "without any savegame resets.\p"
+	.string "Worst case is you have to approach the\n"
+	.string "Game Master to continue.$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_4:
+	.string "There are two game modes:\n"
+	.string "REGULAR MODE and HONOR MODE.\p"
+	.string "HONOR MODE will add penalty time to your\n"
+	.string "game clock everytime you restart the\l"
+	.string "game from a savefile.\l"
+	.string "REGULAR mode will not do this.$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_5:
+	.string "The first reset will cost you 15min, the\n"
+	.string "second 30min, the third 45min...\l"
+	.string "...you get the idea.\p"
+	.string "Which mode do you want to play with?$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_6:
+	.string "Oh, you don't have what it takes?\p"
+	.string "It's okay though, at least you are\n"
+	.string "honest.$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_7:
+	.string "What an honorable Pokémon trainer you\n"
+	.string "are!$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_8:
+	.string "Please enter your name next.$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_9:
 	.string "So your name is {PLAYER}?$"
+
+Pokescape01_EventScript_PokecenterTriggers_Text_10:
+	.string "Good luck! Your play time starts NOW.$"
 
 Pokescape01_EventScript_TriggerLittleGirl_Text_0:
 	.string "Eek! Your Scyther looks so scary.\p"
@@ -1049,9 +1158,18 @@ Text_TipGardevoir::
 	.string "Let me take your Gardevoir and give you\n"
 	.string "a Kirlia back for it.$"
 
-Text_Finale::
+Text_Finale_regular::
 	.string "Congratulations {PLAYER}!\p"
 	.string "You have completed the challenge. Well\n"
 	.string "done!\p"
 	.string "Your final time is\n"
-	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}$"
+	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}\l"
+	.string "in REGULAR MODE.$"
+
+Text_Finale_honor::
+	.string "Congratulations {PLAYER}!\p"
+	.string "You have completed the challenge. Well\n"
+	.string "done!\p"
+	.string "Your final time is\n"
+	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}\l"
+	.string "in HONOR MODE.$"

@@ -3,11 +3,13 @@ Elemental_Gym_MapScripts::
 
 
 ElementalGym_R1_ExitDoor::
+	lock
 	msgbox ElementalGym_R1_ExitDoor_Text_0, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq ElementalGym_R1_ExitDoor_2
 ElementalGym_R1_ExitDoor_1:
 	waitmessage
+	release
 	end
 
 ElementalGym_R1_ExitDoor_2:
@@ -18,9 +20,11 @@ ElementalGym_R1_ExitDoor_2:
 
 
 ElementalGym_R2_ExitDoor::
+	lock
 	checktrainerflag TRAINER_ARCHIE
 	goto_if 1, ElementalGym_R2_ExitDoor_2
 ElementalGym_R2_ExitDoor_1:
+	release
 	end
 
 ElementalGym_R2_ExitDoor_2:
@@ -39,11 +43,13 @@ ElementalGym_R2_ExitDoor_5:
 
 
 ElementalGym_R3_ExitDoor::
+	lock
 	msgbox ElementalGym_R1_ExitDoor_Text_0, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq ElementalGym_R3_ExitDoor_2
 ElementalGym_R3_ExitDoor_1:
 	waitmessage
+	release
 	end
 
 ElementalGym_R3_ExitDoor_2:
@@ -52,6 +58,7 @@ ElementalGym_R3_ExitDoor_2:
 
 
 ElementalGym_R2_Warpback::
+	lock
 	msgbox ElementalGym_R2_Warpback_Text_0, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq ElementalGym_R2_Warpback_2
@@ -61,6 +68,7 @@ ElementalGym_R2_Warpback_1:
 	setvar VAR_UNUSED_0x40F8, 1
 	cleartrainerflag TRAINER_ARCHIE
 	cleartrainerflag TRAINER_MAXIE_MOSSDEEP
+	release
 	end
 
 ElementalGym_R2_Warpback_2:
@@ -75,9 +83,11 @@ ElementalGym_R2_ResetWarpback::
 
 
 ElementalGym_R3_Warpback::
+	lock
 	setvar VAR_UNUSED_0x40F7, 0
 	setvar VAR_UNUSED_0x40F8, 1
 	warp MAP_ELEMENTAL_GYM, 7, 62
+	release
 	end
 
 
@@ -88,8 +98,8 @@ ElementalGym_R3_ResetWarpback::
 
 
 ElementalGym_R1_Man01::
-	faceplayer
 	lock
+	faceplayer
 	msgbox ElementalGym_R1_Man01_Text_0
 	waitmessage
 	msgbox ElementalGym_R1_Man01_Text_1, MSGBOX_DEFAULT
@@ -103,7 +113,9 @@ ElementalGym_R2_Archie04::
 	setvar VAR_TEMP_F, WEATHER_RAIN
 	faceplayer
 	trainerbattle_single TRAINER_ARCHIE, ElementalGym_R2_Archie04_Text_0, ElementalGym_R2_Archie04_Text_1
+	lock
 	msgbox ElementalGym_R2_Archie04_Text_2, MSGBOX_AUTOCLOSE
+	release
 	end
 
 
@@ -111,7 +123,9 @@ ElementalGym_R3_Maxie05::
 	setvar VAR_TEMP_F, WEATHER_SUNNY
 	faceplayer
 	trainerbattle_single TRAINER_MAXIE_MOSSDEEP, ElementalGym_R3_Maxie05_Text_0, ElementalGym_R3_Maxie05_Text_1
+	lock
 	msgbox ElementalGym_R3_Maxie05_Text_2, MSGBOX_AUTOCLOSE
+	release
 	end
 
 
