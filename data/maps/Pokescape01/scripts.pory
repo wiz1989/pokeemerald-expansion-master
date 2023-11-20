@@ -35,9 +35,10 @@ script OnResume {
 	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
         addvar(VAR_P01_PENALTY, 1)
 		clearflag(FLAG_P01_LOAD_SAVEGAME)
-
-		playtimeaddmin(15 * VAR_P01_PENALTY)
-		buffernumberstring(STR_VAR_1, 15 * VAR_P01_PENALTY)
+		setvar(VAR_P01_CALC, VAR_P01_PENALTY) //interim save of VAR_P01_PENALTY value
+		multvar(VAR_P01_CALC, 15)
+		playtimeaddmin(VAR_P01_CALC)
+		buffernumberstring(STR_VAR_1, VAR_P01_CALC)
 		//msgbox(format("Your got {STR_VAR_1} minutes added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
     	//waitmessage
 		//special(SaveGameBackground)
@@ -111,9 +112,8 @@ script Pokescape01_EventScript_Swimmer12 {
 
 script Pokescape01_EventScript_PokecenterSign {
     lockall
-	multiplyvars(VAR_P01_PENALTY, 10)
-	buffernumberstring(STR_VAR_1, VAR_RESULT)
-    msgbox(format("{STR_VAR_1}IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
+	// wiz1989
+    msgbox(format("{STR_VAR_1}\pIMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
     waitmessage
     releaseall
     end

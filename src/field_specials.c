@@ -4405,16 +4405,3 @@ void RestartPlayTimer(void)
     PlayTimeCounter_Reset();
     PlayTimeCounter_Start();
 }
-
-u8 MultiplyVar(void)
-{
-    u8 var1;
-    u8 var2;
-    u8 result;
-
-    var1 = VarGet(VAR_TEMP_1);
-    var2 = VarGet(VAR_TEMP_2);
-
-    result = var1*var2;
-    return result;
-}

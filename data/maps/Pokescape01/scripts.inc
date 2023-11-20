@@ -39,8 +39,10 @@ OnResume_5:
 OnResume_8:
 	addvar VAR_P01_PENALTY, 1
 	clearflag FLAG_P01_LOAD_SAVEGAME
-	playtimeaddmin 15 * VAR_P01_PENALTY
-	buffernumberstring STR_VAR_1, 15 * VAR_P01_PENALTY
+	setvar VAR_P01_CALC, VAR_P01_PENALTY
+	multvar VAR_P01_CALC, 15
+	playtimeaddmin VAR_P01_CALC
+	buffernumberstring STR_VAR_1, VAR_P01_CALC
 	goto OnResume_7
 
 OnResume_9:
@@ -114,8 +116,6 @@ Pokescape01_EventScript_Swimmer12::
 
 Pokescape01_EventScript_PokecenterSign::
 	lockall
-	multiplyvars VAR_P01_PENALTY, 10
-	buffernumberstring STR_VAR_1, VAR_RESULT
 	msgbox Pokescape01_EventScript_PokecenterSign_Text_0
 	waitmessage
 	releaseall
@@ -818,7 +818,8 @@ Pokescape01_EventScript_Swimmer12_Text_1:
 	.string "know?$"
 
 Pokescape01_EventScript_PokecenterSign_Text_0:
-	.string "{STR_VAR_1}IMPORTANT INFORMATION:\p"
+	.string "{STR_VAR_1}\p"
+	.string "IMPORTANT INFORMATION:\p"
 	.string "1.) This game is featuring gen 5\n"
 	.string "movesets for any Pokemon you control\l"
 	.string "yourself.\p"

@@ -2339,3 +2339,10 @@ bool8 ScrCmd_warpwhitefade(struct ScriptContext *ctx)
     ResetInitialPlayerAvatarState();
     return TRUE;
 }
+
+bool8 ScrCmd_multvar(struct ScriptContext *ctx)
+{
+    u16 *ptr = GetVarPointer(ScriptReadHalfword(ctx));
+    *ptr *= ScriptReadHalfword(ctx);
+    return FALSE;
+}
