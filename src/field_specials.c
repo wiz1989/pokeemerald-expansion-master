@@ -4314,14 +4314,6 @@ void DeletePartyMon(void)
     CompactPartySlots();
 }
 
-void PlayTimeAddMin(void)
-{
-    s8 minutes;
-    minutes = VarGet(VAR_TEMP_1);
-
-    PlayTimeCounter_AddMin(minutes);
-}
-
 bool8 IsPcEmpty(void)
 {
     u8 boxId;
@@ -4374,4 +4366,36 @@ u8 GetPlayTimeSeconds(void)
 void StopPlayTimer(void)
 {
     PlayTimeCounter_Stop();
+}
+
+void PlayTimeAddMin(void)
+{
+    s8 minutes;
+    minutes = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_AddMin(minutes);
+}
+
+void PlayTimeAddHrs(void)
+{
+    s8 hours;
+    hours = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_AddHrs(hours);
+}
+
+void PlayTimeSubMin(void)
+{
+    s8 minutes;
+    minutes = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_AddMin(minutes);
+}
+
+void PlayTimeSubHrs(void)
+{
+    s8 hours;
+    hours = VarGet(gSpecialVar_0x8004);
+
+    PlayTimeCounter_SubHrs(hours);
 }

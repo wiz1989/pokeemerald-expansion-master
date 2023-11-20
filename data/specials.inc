@@ -543,9 +543,12 @@ gSpecials::
 	def_special IsPokemonInParty
 	def_special GetMonPartySlot
 	def_special DeletePartyMon
-	def_special PlayTimeAddMin
 	def_special IsPcEmpty
 	def_special GetPlayTimeHours
 	def_special GetPlayTimeMinutes
 	def_special GetPlayTimeSeconds
 	def_special StopPlayTimer
+	def_special PlayTimeAddMin
+	def_special PlayTimeAddHrs
+	def_special PlayTimeSubMin
+	def_special PlayTimeSubHrs
