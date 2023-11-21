@@ -2085,3 +2085,10 @@
 	.2byte \destination
 	.2byte \value
 	.endm
+
+	@ Converts the value of input to a decimal string in form "00", and writes that string to the specified buffer.
+	.macro buffertimestring stringVarId:req, input:req
+	.byte 0xe5
+	stringvar \stringVarId
+	.2byte \input
+	.endm

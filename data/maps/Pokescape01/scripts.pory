@@ -113,9 +113,6 @@ script Pokescape01_EventScript_Swimmer12 {
 
 script Pokescape01_EventScript_PokecenterSign {
     lockall
-	// wiz1989
-	setorcopyvar(VAR_0x8004, 100)
-	special(PlayTimeAddMin)
 	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
 	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
     msgbox(format("{STR_VAR_1} - {STR_VAR_2}\pIMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
@@ -412,9 +409,13 @@ script Pokescape01_Pokecenter_EventScript_Nurse {
 script Pokescape01_Pokecenter_EventScript_Boy {
 	lock
 	faceplayer
-	// wiz1989
-	setorcopyvar(VAR_0x8004, 70)
-	special(PlayTimeSubMin)
+	specialvar(VAR_RESULT, GetPlayTimeHours)
+	buffernumberstring(STR_VAR_1, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeMinutes)
+	buffertimestring(STR_VAR_2, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeSeconds)
+	buffertimestring(STR_VAR_3, VAR_RESULT)
+	msgbox(Text_Finale_honor)
 	if(defeated(TRAINER_POKESCAPE01_01) == FALSE) {
 		msgbox(format("Nurse Joy sounds a little sick. I hope she will get well soon!"))
 		waitmessage
@@ -433,9 +434,6 @@ script Pokescape01_Pokecenter_EventScript_Boy {
 
 script Pokescape01_Pokecenter_EventScript_Gentleman {
 	lock
-	// wiz1989
-	setorcopyvar(VAR_0x8004, 2)
-	special(PlayTimeAddHrs)
 	clearflag(FLAG_P01_ADD30MIN)
 	clearflag(FLAG_P01_GIVE_ADVICE)
 	faceplayer
@@ -674,9 +672,6 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 script Pokescape01_Pokecenter_EventScript_Scientist {
 	lock
 	faceplayer
-	// wiz1989
-	setorcopyvar(VAR_0x8004, 1)
-	special(PlayTimeSubHrs)
 	getpartysize
 	if (!defeated(TRAINER_POKESCAPE01_01) && var(VAR_RESULT) <= 1) {
 		checkpartymove(MOVE_TRICK_ROOM)
@@ -705,9 +700,9 @@ script Pokescape01_House_EventScript_Birch {
 	specialvar(VAR_RESULT, GetPlayTimeHours)
 	buffernumberstring(STR_VAR_1, VAR_RESULT)
 	specialvar(VAR_RESULT, GetPlayTimeMinutes)
-	buffernumberstring(STR_VAR_2, VAR_RESULT)
+	buffertimestring(STR_VAR_2, VAR_RESULT)
 	specialvar(VAR_RESULT, GetPlayTimeSeconds)
-	buffernumberstring(STR_VAR_3, VAR_RESULT)
+	buffertimestring(STR_VAR_3, VAR_RESULT)
 	if (flag(FLAG_P01_HONOR_MODE)) {
 		msgbox(Text_Finale_honor)
 	}
@@ -800,5 +795,5 @@ text Text_Finale_regular {
 }
 
 text Text_Finale_honor {
-	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3} \lin HONOR MODE.")
+	format("Congratulations {PLAYER}! \pYou have completed the challenge. \lWell done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3} \lin HONOR MODE.")
 }

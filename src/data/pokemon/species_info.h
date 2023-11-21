@@ -1654,7 +1654,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
             .types = { TYPE_NORMAL, TYPE_NORMAL},
         #endif
         .catchRate = 25,
-        .expYield = 217,
+        .expYield = 0,
         .evYield_HP        = 3,
         .itemRare = ITEM_MOON_STONE,
         .genderRatio = PERCENT_FEMALE(75),

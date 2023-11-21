@@ -116,8 +116,6 @@ Pokescape01_EventScript_Swimmer12::
 
 Pokescape01_EventScript_PokecenterSign::
 	lockall
-	setorcopyvar VAR_0x8004, 100
-	special PlayTimeAddMin
 	buffernumberstring STR_VAR_1, VAR_P01_PENALTY
 	buffernumberstring STR_VAR_2, VAR_P01_CALC
 	msgbox Pokescape01_EventScript_PokecenterSign_Text_0
@@ -433,8 +431,13 @@ Pokescape01_Pokecenter_EventScript_Nurse_3:
 Pokescape01_Pokecenter_EventScript_Boy::
 	lock
 	faceplayer
-	setorcopyvar VAR_0x8004, 70
-	special PlayTimeSubMin
+	specialvar VAR_RESULT, GetPlayTimeHours
+	buffernumberstring STR_VAR_1, VAR_RESULT
+	specialvar VAR_RESULT, GetPlayTimeMinutes
+	buffertimestring STR_VAR_2, VAR_RESULT
+	specialvar VAR_RESULT, GetPlayTimeSeconds
+	buffertimestring STR_VAR_3, VAR_RESULT
+	msgbox Text_Finale_honor
 	checktrainerflag TRAINER_POKESCAPE01_01
 	goto_if 0, Pokescape01_Pokecenter_EventScript_Boy_2
 	goto_if_unset FLAG_UNUSED_0x95D, Pokescape01_Pokecenter_EventScript_Boy_3
@@ -457,8 +460,6 @@ Pokescape01_Pokecenter_EventScript_Boy_3:
 
 Pokescape01_Pokecenter_EventScript_Gentleman::
 	lock
-	setorcopyvar VAR_0x8004, 2
-	special PlayTimeAddHrs
 	clearflag FLAG_P01_ADD30MIN
 	clearflag FLAG_P01_GIVE_ADVICE
 	faceplayer
@@ -726,8 +727,6 @@ Pokescape01_Pokecenter_EventScript_Gentleman_94:
 Pokescape01_Pokecenter_EventScript_Scientist::
 	lock
 	faceplayer
-	setorcopyvar VAR_0x8004, 1
-	special PlayTimeSubHrs
 	getpartysize
 	checktrainerflag TRAINER_POKESCAPE01_01
 	goto_if 0, Pokescape01_Pokecenter_EventScript_Scientist_4
@@ -762,9 +761,9 @@ Pokescape01_House_EventScript_Birch::
 	specialvar VAR_RESULT, GetPlayTimeHours
 	buffernumberstring STR_VAR_1, VAR_RESULT
 	specialvar VAR_RESULT, GetPlayTimeMinutes
-	buffernumberstring STR_VAR_2, VAR_RESULT
+	buffertimestring STR_VAR_2, VAR_RESULT
 	specialvar VAR_RESULT, GetPlayTimeSeconds
-	buffernumberstring STR_VAR_3, VAR_RESULT
+	buffertimestring STR_VAR_3, VAR_RESULT
 	goto_if_set FLAG_P01_HONOR_MODE, Pokescape01_House_EventScript_Birch_2
 	msgbox Text_Finale_regular
 Pokescape01_House_EventScript_Birch_1:
@@ -1180,8 +1179,8 @@ Text_Finale_regular::
 
 Text_Finale_honor::
 	.string "Congratulations {PLAYER}!\p"
-	.string "You have completed the challenge. Well\n"
-	.string "done!\p"
+	.string "You have completed the challenge.\l"
+	.string "Well done!\p"
 	.string "Your final time is\n"
 	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}\l"
 	.string "in HONOR MODE.$"

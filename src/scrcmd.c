@@ -2346,3 +2346,13 @@ bool8 ScrCmd_multvar(struct ScriptContext *ctx)
     *ptr *= ScriptReadHalfword(ctx);
     return FALSE;
 }
+
+bool8 ScrCmd_buffertimestring(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+    u16 num = VarGet(ScriptReadHalfword(ctx));
+    u8 numDigits = 2;
+
+    ConvertIntToDecimalStringN(sScriptStringVars[stringVarIndex], num, STR_CONV_MODE_LEFT_ALIGN, numDigits);
+    return FALSE;
+}

@@ -229,6 +229,7 @@ gScriptCmdTable::
 	.4byte ScrCmd_bufferitemnameplural              @ 0xe2
 	.4byte ScrCmd_givemonpc                         @ 0xe3
 	.4byte ScrCmd_multvar                           @ 0xe4
+	.4byte ScrCmd_buffertimestring					@ 0xe5
 
 gScriptCmdTableEnd::
 	.4byte ScrCmd_nop
