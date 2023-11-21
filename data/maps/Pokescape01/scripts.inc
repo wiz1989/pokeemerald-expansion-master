@@ -1,9 +1,15 @@
 Pokescape01_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, OnResume
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Pokescape01_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
+
+Pokescape01_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+	map_script_2 VAR_TEMP_2, 0, EveryFrame
+	.2byte 0
 
 
 OnResume::
+	setvar VAR_TEMP_2, 0
 	compare VAR_LITTLEROOT_TOWN_STATE, 0
 	goto_if_eq OnResume_2
 OnResume_1:
@@ -19,8 +25,7 @@ OnResume_4:
 	setflag FLAG_BADGE07_GET
 	setflag FLAG_BADGE08_GET
 	setflag FLAG_SYS_POKEDEX_GET
-	goto_if_set FLAG_P01_HONOR_MODE, OnResume_9
-OnResume_7:
+	call load_HONOR_MODE
 	end
 
 OnResume_2:
@@ -36,22 +41,40 @@ OnResume_5:
 	setflag FLAG_TEMP_3
 	goto OnResume_4
 
-OnResume_8:
-	addvar VAR_P01_PENALTY, 1
+
+EveryFrame::
+	goto_if_set FLAG_P01_HONOR_MODE, EveryFrame_3
+EveryFrame_1:
+	setvar VAR_TEMP_2, 1
+	return
+
+EveryFrame_2:
+	lock
 	clearflag FLAG_P01_LOAD_SAVEGAME
+	buffernumberstring STR_VAR_1, VAR_P01_CALC
+	msgbox EveryFrame_Text_0, MSGBOX_AUTOCLOSE
+	release
+	goto EveryFrame_1
+
+EveryFrame_3:
+	goto_if_set FLAG_P01_LOAD_SAVEGAME, EveryFrame_2
+	goto EveryFrame_1
+
+
+load_HONOR_MODE::
+	goto_if_set FLAG_P01_HONOR_MODE, load_HONOR_MODE_2
+	return
+
+load_HONOR_MODE_1:
+	addvar VAR_P01_PENALTY, 1
 	setorcopyvar VAR_P01_CALC, VAR_P01_PENALTY
 	multvar VAR_P01_CALC, 15
 	setorcopyvar VAR_0x8004, VAR_P01_CALC
 	special PlayTimeAddMin
-	goto OnResume_7
+	return
 
-OnResume_9:
-	goto_if_set FLAG_P01_LOAD_SAVEGAME, OnResume_8
-	goto OnResume_7
-
-
-OnTransition::
-	setvar VAR_LITTLEROOT_TOWN_STATE, 0
+load_HONOR_MODE_2:
+	goto_if_set FLAG_P01_LOAD_SAVEGAME, load_HONOR_MODE_1
 	return
 
 
@@ -798,6 +821,12 @@ Move02:
 	face_down
 	walk_down
 	step_end
+
+EveryFrame_Text_0:
+	.string "HONOR MODE MESSAGE:\p"
+	.string "{STR_VAR_1} minutes were added to\n"
+	.string "your play time due to reloading in\l"
+	.string "HONOR mode.$"
 
 Pokescape01_EventScript_Azurill02_Text_0:
 	.string "...Rill...$"

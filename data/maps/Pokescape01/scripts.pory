@@ -1,11 +1,15 @@
 // ############### Mapscripts ###############
 
 mapscripts Pokescape01_MapScripts {
-    #MAP_SCRIPT_ON_TRANSITION: OnTransition
-    MAP_SCRIPT_ON_RESUME: OnResume 
+	MAP_SCRIPT_ON_RESUME: OnResume
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_TEMP_2, 0: EveryFrame
+	]
 }
 
 script OnResume {
+	setvar(VAR_TEMP_2, 0) //var for EveryFrame
+	
 	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
 		givemon(SPECIES_MAKUHITA, 15)
 		givemonpc(SPECIES_YAMASK, 16, ITEM_RARE_CANDY, 7, 19)
@@ -31,24 +35,34 @@ script OnResume {
 	setflag(FLAG_BADGE08_GET)
 	setflag(FLAG_SYS_POKEDEX_GET)
 
+	call(load_HONOR_MODE)
+	end
+}
+
+script EveryFrame {
+	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
+		lock
+		clearflag(FLAG_P01_LOAD_SAVEGAME)
+		buffernumberstring(STR_VAR_1, VAR_P01_CALC)
+		msgbox(format("HONOR MODE MESSAGE:\p{STR_VAR_1} minutes were added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
+		release
+	}
+	setvar(VAR_TEMP_2, 1)
+}
+
+script load_HONOR_MODE {
 	//save game after loading when HONOR mode is active
 	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
         addvar(VAR_P01_PENALTY, 1)
-		clearflag(FLAG_P01_LOAD_SAVEGAME)
 		setorcopyvar(VAR_P01_CALC, VAR_P01_PENALTY) //interim save of VAR_P01_PENALTY value
 		multvar(VAR_P01_CALC, 15)
 		setorcopyvar(VAR_0x8004, VAR_P01_CALC) //set special var for following special
 		special(PlayTimeAddMin)
 		//buffernumberstring(STR_VAR_1, VAR_P01_CALC)
-		//msgbox(format("Your got {STR_VAR_1} minutes added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
+		//msgbox(format("{STR_VAR_1} minutes were added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
     	//waitmessage
 		//special(SaveGameBackground)
     }
-	end
-}
-
-script OnTransition {
-	setvar(VAR_LITTLEROOT_TOWN_STATE, 0)
 }
 
 
