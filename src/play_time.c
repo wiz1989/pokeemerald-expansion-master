@@ -74,52 +74,80 @@ void PlayTimeCounter_SetToMax(void)
 
 void PlayTimeCounter_AddMin(s8 minutes)
 {
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);
+    DebugPrintf("minutes+ = %d", minutes);
     if (gSaveBlock2Ptr->playTimeMinutes + minutes < 60) {
         gSaveBlock2Ptr->playTimeMinutes = gSaveBlock2Ptr->playTimeMinutes + minutes;
     }
     else {
-        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours + 1 + (minutes / 60);
+        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours + 1 * ((gSaveBlock2Ptr->playTimeMinutes + minutes) / 60);
         gSaveBlock2Ptr->playTimeMinutes = (gSaveBlock2Ptr->playTimeMinutes + minutes) % 60;
     }
     PlayTimeCounter_Update();
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("-------------------");
 }
 
 void PlayTimeCounter_AddHrs(s8 hours)
 {
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);
+    DebugPrintf("hours+ = %d", hours);
     if (gSaveBlock2Ptr->playTimeHours + hours > 999) {
         PlayTimeCounter_SetToMax();
     }
     else {
-        gSaveBlock2Ptr->playTimeHours + hours;
+        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours + hours;
     }
     PlayTimeCounter_Update();
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("-------------------");
 }
 
 void PlayTimeCounter_SubMin(s8 minutes)
 {
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);
+    DebugPrintf("minutes- = %d", minutes);
     if (gSaveBlock2Ptr->playTimeMinutes - minutes >= 0) {
         gSaveBlock2Ptr->playTimeMinutes = gSaveBlock2Ptr->playTimeMinutes - minutes;
     }
     else {
-        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours - 1 - (minutes / 60);
-        if (((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1) < 60) {
-            gSaveBlock2Ptr->playTimeMinutes = 60 - ((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1);
+        DebugPrintf("calc1 = %d", (60 - gSaveBlock2Ptr->playTimeMinutes + minutes) / 60);
+        DebugPrintf("calc hours rem = %d", gSaveBlock2Ptr->playTimeHours - 1 * ((60 - gSaveBlock2Ptr->playTimeMinutes + minutes) / 60));
+        if (gSaveBlock2Ptr->playTimeHours - 1 * ((60 - gSaveBlock2Ptr->playTimeMinutes + minutes) / 60) >= 0) {
+            gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours - 1 * ((60 - gSaveBlock2Ptr->playTimeMinutes + minutes) / 60);
+            if (((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1) < 60) {
+                gSaveBlock2Ptr->playTimeMinutes = 60 - ((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1);
+            }
+            else {
+                gSaveBlock2Ptr->playTimeMinutes = 60 - ((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1) % 60;
+            }
         }
         else {
-            gSaveBlock2Ptr->playTimeMinutes = 60 - ((gSaveBlock2Ptr->playTimeMinutes - minutes) * -1) % 60;
+            PlayTimeCounter_Reset();
+            PlayTimeCounter_Start();
         }
     }
     PlayTimeCounter_Update();
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("-------------------");
 }
 
 void PlayTimeCounter_SubHrs(s8 hours)
 {
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);
+    DebugPrintf("hours- = %d", hours);
     if (gSaveBlock2Ptr->playTimeHours - hours < 0) {
         PlayTimeCounter_Reset();
         PlayTimeCounter_Start();
     }
     else {
-        gSaveBlock2Ptr->playTimeHours - hours;
+        gSaveBlock2Ptr->playTimeHours = gSaveBlock2Ptr->playTimeHours - hours;
         PlayTimeCounter_Update();
     }
+    DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
+    DebugPrintf("-------------------");
 }

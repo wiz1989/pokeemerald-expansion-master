@@ -39,10 +39,10 @@ OnResume_5:
 OnResume_8:
 	addvar VAR_P01_PENALTY, 1
 	clearflag FLAG_P01_LOAD_SAVEGAME
-	setvar VAR_P01_CALC, VAR_P01_PENALTY
+	setorcopyvar VAR_P01_CALC, VAR_P01_PENALTY
 	multvar VAR_P01_CALC, 15
-	playtimeaddmin VAR_P01_CALC
-	buffernumberstring STR_VAR_1, VAR_P01_CALC
+	setorcopyvar VAR_0x8004, VAR_P01_CALC
+	special PlayTimeAddMin
 	goto OnResume_7
 
 OnResume_9:
@@ -116,6 +116,10 @@ Pokescape01_EventScript_Swimmer12::
 
 Pokescape01_EventScript_PokecenterSign::
 	lockall
+	setorcopyvar VAR_0x8004, 100
+	special PlayTimeAddMin
+	buffernumberstring STR_VAR_1, VAR_P01_PENALTY
+	buffernumberstring STR_VAR_2, VAR_P01_CALC
 	msgbox Pokescape01_EventScript_PokecenterSign_Text_0
 	waitmessage
 	releaseall
@@ -429,6 +433,8 @@ Pokescape01_Pokecenter_EventScript_Nurse_3:
 Pokescape01_Pokecenter_EventScript_Boy::
 	lock
 	faceplayer
+	setorcopyvar VAR_0x8004, 70
+	special PlayTimeSubMin
 	checktrainerflag TRAINER_POKESCAPE01_01
 	goto_if 0, Pokescape01_Pokecenter_EventScript_Boy_2
 	goto_if_unset FLAG_UNUSED_0x95D, Pokescape01_Pokecenter_EventScript_Boy_3
@@ -451,6 +457,8 @@ Pokescape01_Pokecenter_EventScript_Boy_3:
 
 Pokescape01_Pokecenter_EventScript_Gentleman::
 	lock
+	setorcopyvar VAR_0x8004, 2
+	special PlayTimeAddHrs
 	clearflag FLAG_P01_ADD30MIN
 	clearflag FLAG_P01_GIVE_ADVICE
 	faceplayer
@@ -516,7 +524,8 @@ Pokescape01_Pokecenter_EventScript_Gentleman_59:
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
 Pokescape01_Pokecenter_EventScript_Gentleman_6:
-	playtimeaddmin 30
+	setorcopyvar VAR_0x8004, 30
+	special PlayTimeAddMin
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_5
 
 Pokescape01_Pokecenter_EventScript_Gentleman_8:
@@ -717,6 +726,8 @@ Pokescape01_Pokecenter_EventScript_Gentleman_94:
 Pokescape01_Pokecenter_EventScript_Scientist::
 	lock
 	faceplayer
+	setorcopyvar VAR_0x8004, 1
+	special PlayTimeSubHrs
 	getpartysize
 	checktrainerflag TRAINER_POKESCAPE01_01
 	goto_if 0, Pokescape01_Pokecenter_EventScript_Scientist_4
@@ -818,7 +829,7 @@ Pokescape01_EventScript_Swimmer12_Text_1:
 	.string "know?$"
 
 Pokescape01_EventScript_PokecenterSign_Text_0:
-	.string "{STR_VAR_1}\p"
+	.string "{STR_VAR_1} - {STR_VAR_2}\p"
 	.string "IMPORTANT INFORMATION:\p"
 	.string "1.) This game is featuring gen 5\n"
 	.string "movesets for any Pokemon you control\l"

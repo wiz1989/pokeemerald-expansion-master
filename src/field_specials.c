@@ -4370,8 +4370,10 @@ void StopPlayTimer(void)
 
 void PlayTimeAddMin(void)
 {
-    s8 minutes;
-    minutes = VarGet(gSpecialVar_0x8004);
+    u16 minutes;
+    minutes = gSpecialVar_0x8004;
+
+    DebugPrintf("minutes = %d", minutes);
 
     PlayTimeCounter_AddMin(minutes);
 }
@@ -4379,7 +4381,7 @@ void PlayTimeAddMin(void)
 void PlayTimeAddHrs(void)
 {
     s8 hours;
-    hours = VarGet(gSpecialVar_0x8004);
+    hours = gSpecialVar_0x8004;
 
     PlayTimeCounter_AddHrs(hours);
 }
@@ -4387,7 +4389,7 @@ void PlayTimeAddHrs(void)
 void PlayTimeSubMin(void)
 {
     s8 minutes;
-    minutes = VarGet(gSpecialVar_0x8004);
+    minutes = gSpecialVar_0x8004;
 
     PlayTimeCounter_SubMin(minutes);
 }
@@ -4395,7 +4397,7 @@ void PlayTimeSubMin(void)
 void PlayTimeSubHrs(void)
 {
     s8 hours;
-    hours = VarGet(gSpecialVar_0x8004);
+    hours = gSpecialVar_0x8004;
 
     PlayTimeCounter_SubHrs(hours);
 }

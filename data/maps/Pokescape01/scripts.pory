@@ -35,10 +35,11 @@ script OnResume {
 	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
         addvar(VAR_P01_PENALTY, 1)
 		clearflag(FLAG_P01_LOAD_SAVEGAME)
-		setvar(VAR_P01_CALC, VAR_P01_PENALTY) //interim save of VAR_P01_PENALTY value
+		setorcopyvar(VAR_P01_CALC, VAR_P01_PENALTY) //interim save of VAR_P01_PENALTY value
 		multvar(VAR_P01_CALC, 15)
-		playtimeaddmin(VAR_P01_CALC)
-		buffernumberstring(STR_VAR_1, VAR_P01_CALC)
+		setorcopyvar(VAR_0x8004, VAR_P01_CALC) //set special var for following special
+		special(PlayTimeAddMin)
+		//buffernumberstring(STR_VAR_1, VAR_P01_CALC)
 		//msgbox(format("Your got {STR_VAR_1} minutes added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
     	//waitmessage
 		//special(SaveGameBackground)
@@ -113,7 +114,11 @@ script Pokescape01_EventScript_Swimmer12 {
 script Pokescape01_EventScript_PokecenterSign {
     lockall
 	// wiz1989
-    msgbox(format("{STR_VAR_1}\pIMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
+	setorcopyvar(VAR_0x8004, 100)
+	special(PlayTimeAddMin)
+	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
+	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
+    msgbox(format("{STR_VAR_1} - {STR_VAR_2}\pIMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
     waitmessage
     releaseall
     end
@@ -407,6 +412,9 @@ script Pokescape01_Pokecenter_EventScript_Nurse {
 script Pokescape01_Pokecenter_EventScript_Boy {
 	lock
 	faceplayer
+	// wiz1989
+	setorcopyvar(VAR_0x8004, 70)
+	special(PlayTimeSubMin)
 	if(defeated(TRAINER_POKESCAPE01_01) == FALSE) {
 		msgbox(format("Nurse Joy sounds a little sick. I hope she will get well soon!"))
 		waitmessage
@@ -425,6 +433,9 @@ script Pokescape01_Pokecenter_EventScript_Boy {
 
 script Pokescape01_Pokecenter_EventScript_Gentleman {
 	lock
+	// wiz1989
+	setorcopyvar(VAR_0x8004, 2)
+	special(PlayTimeAddHrs)
 	clearflag(FLAG_P01_ADD30MIN)
 	clearflag(FLAG_P01_GIVE_ADVICE)
 	faceplayer
@@ -647,7 +658,8 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 
 	//add 30min to play clock
 	if (flag(FLAG_P01_ADD30MIN) == TRUE) {
-		playtimeaddmin(30)
+		setorcopyvar(VAR_0x8004, 30)
+		special(PlayTimeAddMin)
 	}
 
 	//default message for missing branches
@@ -662,6 +674,9 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 script Pokescape01_Pokecenter_EventScript_Scientist {
 	lock
 	faceplayer
+	// wiz1989
+	setorcopyvar(VAR_0x8004, 1)
+	special(PlayTimeSubHrs)
 	getpartysize
 	if (!defeated(TRAINER_POKESCAPE01_01) && var(VAR_RESULT) <= 1) {
 		checkpartymove(MOVE_TRICK_ROOM)
