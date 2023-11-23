@@ -576,9 +576,9 @@ void SE12PanpotControl(s8 pan)
 bool8 IsSEPlaying(void)
 {
     if ((gMPlayInfo_SE1.status & MUSICPLAYER_STATUS_PAUSE) && (gMPlayInfo_SE2.status & MUSICPLAYER_STATUS_PAUSE))
-        return FALSE;
+            return FALSE;
     if (!(gMPlayInfo_SE1.status & MUSICPLAYER_STATUS_TRACK) && !(gMPlayInfo_SE2.status & MUSICPLAYER_STATUS_TRACK))
-        return FALSE;
+            return FALSE;
     return TRUE;
 }
 

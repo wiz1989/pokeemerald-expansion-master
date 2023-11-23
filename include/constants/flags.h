@@ -1244,7 +1244,7 @@
 #define FLAG_HIDE_KIRLIA                                            0x4AA // Unused Flag
 #define FLAG_P01_HONOR_MODE                                         0x4AB // Unused Flag
 #define FLAG_P01_LOAD_SAVEGAME                                      0x4AC // Unused Flag
-#define FLAG_UNUSED_0x4AD                                           0x4AD // Unused Flag
+#define FLAG_P01_HONOR_MODE_LOAD                                    0x4AD // Unused Flag
 #define FLAG_UNUSED_0x4AE                                           0x4AE // Unused Flag
 #define FLAG_UNUSED_0x4AF                                           0x4AF // Unused Flag
 #define FLAG_UNUSED_0x4B0                                           0x4B0 // Unused Flag

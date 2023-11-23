@@ -31,3 +31,10 @@ gText_SaveError::
 gText_SavingDontTurnOffPower::
 	.string "SAVING…\n"
 	.string "DON'T TURN OFF THE POWER.$"
+
+gText_SavingHONORMODE::
+	.string "HONOR MODE MESSAGE:\p"
+	.string "{STR_VAR_1} minutes are added to\n"
+	.string "your play time due to reloading in\l"
+	.string "HONOR mode.\p"
+	.string "SAVING new time…$"

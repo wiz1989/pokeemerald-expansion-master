@@ -44,7 +44,8 @@ script EveryFrame {
 		lock
 		clearflag(FLAG_P01_LOAD_SAVEGAME)
 		buffernumberstring(STR_VAR_1, VAR_P01_CALC)
-		msgbox(format("HONOR MODE MESSAGE:\p{STR_VAR_1} minutes were added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
+		call(Common_EventScript_SaveGame)
+		closemessage
 		release
 	}
 	setvar(VAR_TEMP_2, 1)
@@ -58,10 +59,6 @@ script load_HONOR_MODE {
 		multvar(VAR_P01_CALC, 15)
 		setorcopyvar(VAR_0x8004, VAR_P01_CALC) //set special var for following special
 		special(PlayTimeAddMin)
-		//buffernumberstring(STR_VAR_1, VAR_P01_CALC)
-		//msgbox(format("{STR_VAR_1} minutes were added to your play time due to reloading in HONOR mode."), MSGBOX_AUTOCLOSE)
-    	//waitmessage
-		//special(SaveGameBackground)
     }
 }
 

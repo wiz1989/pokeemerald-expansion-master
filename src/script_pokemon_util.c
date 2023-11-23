@@ -33,8 +33,6 @@ void HealPlayerParty(void)
     u8 ppBonuses;
     u8 arg[4];
 
-    DebugPrintf("HealPlayerParty");
-
     // restore HP.
     for(i = 0; i < gPlayerPartyCount; i++)
     {
@@ -104,9 +102,6 @@ u8 ScriptGiveMonPC(u16 species, u8 level, u16 item, u8 boxNo, u8 boxPos, u32 unu
     struct Pokemon mon;
     u16 targetSpecies;
 
-    DebugPrintf("__FUNCTION__ = %s\n", __FUNCTION__);
-
-    DebugPrintf("CreateMon");
     CreateMon(&mon, species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
     heldItem[0] = item;
     heldItem[1] = item >> 8;

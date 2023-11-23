@@ -5603,7 +5603,6 @@ u8 GiveMonToPlayer(struct Pokemon *mon)
 
 u8 GiveMonToPlayerPC(struct Pokemon *mon, u8 boxNo, u8 boxPos)
 {
-    DebugPrintf("__FUNCTION__ = %s\n", __FUNCTION__);
     SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
     SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
     SetMonData(mon, MON_DATA_OT_ID, gSaveBlock2Ptr->playerTrainerId);
@@ -5647,8 +5646,6 @@ u8 SendMonToPC(struct Pokemon* mon)
 
 u8 SendMonToPCdef(struct Pokemon* mon, u8 boxNo, u8 boxPos)
 {
-    //DebugPrintf("__FUNCTION__ = %s\n", __FUNCTION__);
-
     struct BoxPokemon* checkingMon = GetBoxedMonPtr(boxNo, boxPos);
     if (GetBoxMonData(checkingMon, MON_DATA_SPECIES, NULL) == SPECIES_NONE)
     {

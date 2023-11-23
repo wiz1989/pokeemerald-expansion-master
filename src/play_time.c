@@ -72,7 +72,7 @@ void PlayTimeCounter_SetToMax(void)
     gSaveBlock2Ptr->playTimeVBlanks = 59;
 }
 
-void PlayTimeCounter_AddMin(s8 minutes)
+void PlayTimeCounter_AddMin(s16 minutes)
 {
     DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
     DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);
@@ -89,7 +89,7 @@ void PlayTimeCounter_AddMin(s8 minutes)
     DebugPrintf("-------------------");
 }
 
-void PlayTimeCounter_AddHrs(s8 hours)
+void PlayTimeCounter_AddHrs(s16 hours)
 {
     DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
     DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);
@@ -105,7 +105,7 @@ void PlayTimeCounter_AddHrs(s8 hours)
     DebugPrintf("-------------------");
 }
 
-void PlayTimeCounter_SubMin(s8 minutes)
+void PlayTimeCounter_SubMin(s16 minutes)
 {
     DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
     DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);
@@ -135,7 +135,7 @@ void PlayTimeCounter_SubMin(s8 minutes)
     DebugPrintf("-------------------");
 }
 
-void PlayTimeCounter_SubHrs(s8 hours)
+void PlayTimeCounter_SubHrs(s16 hours)
 {
     DebugPrintf("%d:%d", gSaveBlock2Ptr->playTimeHours, gSaveBlock2Ptr->playTimeMinutes);
     DebugPrintf("current hours = %d", gSaveBlock2Ptr->playTimeHours);

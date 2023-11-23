@@ -1758,6 +1758,7 @@ void CB2_ContinueSavedGame(void)
 
     //enhancement wiz1989
     FlagSet(FLAG_P01_LOAD_SAVEGAME);
+    FlagSet(FLAG_P01_HONOR_MODE_LOAD);
     //enhancement end
 
     PlayTimeCounter_Start();

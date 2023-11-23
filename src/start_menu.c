@@ -947,12 +947,6 @@ void SaveGame(void)
     CreateTask(SaveGameTask, 0x50);
 }
 
-void SaveGameBackground(void)
-{
-    SaveMapView();
-    CreateTask(SaveGameTask, 0x50);
-}
-
 static void ShowSaveMessage(const u8 *message, u8 (*saveCallback)(void))
 {
     StringExpandPlaceholders(gStringVar4, message);
@@ -1034,14 +1028,22 @@ static u8 SaveConfirmSaveCallback(void)
     ClearStdWindowAndFrame(GetStartMenuWindowId(), FALSE);
     RemoveStartMenuWindow();
     ShowSaveInfoWindow();
-
-    if (InBattlePyramid())
-    {
-        ShowSaveMessage(gText_BattlePyramidConfirmRest, SaveYesNoCallback);
+    if (FlagGet(FLAG_P01_HONOR_MODE) == TRUE && FlagGet(FLAG_P01_HONOR_MODE_LOAD) == TRUE){
+        gDifferentSaveFile = FALSE;
+        ShowSaveMessage(gText_SavingHONORMODE, SaveDoSaveCallback);
+        FlagClear(FLAG_P01_HONOR_MODE_LOAD);
     }
-    else
-    {
-        ShowSaveMessage(gText_ConfirmSave, SaveYesNoCallback);
+    else {
+        //ShowSaveInfoWindow();
+
+        if (InBattlePyramid())
+        {
+            ShowSaveMessage(gText_BattlePyramidConfirmRest, SaveYesNoCallback);
+        }
+        else
+        {
+            ShowSaveMessage(gText_ConfirmSave, SaveYesNoCallback);
+        }
     }
 
     return SAVE_IN_PROGRESS;
@@ -1140,7 +1142,7 @@ static u8 SaveSavingMessageCallback(void)
 static u8 SaveDoSaveCallback(void)
 {
     u8 saveStatus;
-
+    
     IncrementGameStat(GAME_STAT_SAVED_GAME);
     PausePyramidChallenge();
 

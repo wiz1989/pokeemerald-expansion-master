@@ -52,7 +52,8 @@ EveryFrame_2:
 	lock
 	clearflag FLAG_P01_LOAD_SAVEGAME
 	buffernumberstring STR_VAR_1, VAR_P01_CALC
-	msgbox EveryFrame_Text_0, MSGBOX_AUTOCLOSE
+	call Common_EventScript_SaveGame
+	closemessage
 	release
 	goto EveryFrame_1
 
@@ -821,12 +822,6 @@ Move02:
 	face_down
 	walk_down
 	step_end
-
-EveryFrame_Text_0:
-	.string "HONOR MODE MESSAGE:\p"
-	.string "{STR_VAR_1} minutes were added to\n"
-	.string "your play time due to reloading in\l"
-	.string "HONOR mode.$"
 
 Pokescape01_EventScript_Azurill02_Text_0:
 	.string "...Rill...$"
