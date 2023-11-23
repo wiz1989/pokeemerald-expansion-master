@@ -134,7 +134,7 @@ script Pokescape01_EventScript_PokecenterSign {
 
 script Pokescape01_EventScript_Building01Sign {
     lockall
-    msgbox("Hooray, you made it!")
+    msgbox(format("This ROM hack was made by wiz1989. \lGreat work, you've made it!"))
     waitmessage
     releaseall
     end
@@ -454,6 +454,10 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 	if (var(VAR_RESULT) == YES) {
 		setflag(FLAG_P01_GIVE_ADVICE)
 
+		if(flag(FLAG_P01_GM_SAME_HINT)){
+			msgbox(format("Oh, you already got this hint from me. I will repeat it for you for free."))
+			waitmessage
+		}
 		//handle "Yamask still in PC" hint before anything else
 		//Yamask still in the PC
 		getpartysize
@@ -666,9 +670,10 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 	waitmessage
 
 	//add 30min to play clock
-	if (flag(FLAG_P01_ADD30MIN) == TRUE) {
+	if (flag(FLAG_P01_ADD30MIN) && !flag(FLAG_P01_GM_SAME_HINT)) {
 		setorcopyvar(VAR_0x8004, 30)
 		special(PlayTimeAddMin)
+		setflag(FLAG_P01_GM_SAME_HINT)
 	}
 
 	//default message for missing branches
