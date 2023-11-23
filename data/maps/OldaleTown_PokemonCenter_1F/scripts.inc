@@ -16,10 +16,18 @@ OldaleTown_PokemonCenter_1F_OnFrame:
 	.2byte 0
 
 OldaleTown_PokemonCenter_1F_OnResume:
+	specialvar VAR_0x8001, IsWirelessAdapterConnected
++   goto_if_eq VAR_0x8001, FALSE, CableClub_OnResume_DisableUnionRoomNurseText
 	special InitUnionRoom
 	setvar VAR_TEMP_2, 0
 	call load_HONOR_MODE
 	end
+
+CableClub_OnResume_DisableUnionRoomNurseText:
+	setflag FLAG_NURSE_UNION_ROOM_REMINDER
+	setvar VAR_TEMP_2, 0
+	call load_HONOR_MODE
+    end
 
 OldaleTown_PokemonCenter_1F_EventScript_Nurse::
 	setvar VAR_0x800B, LOCALID_NURSE

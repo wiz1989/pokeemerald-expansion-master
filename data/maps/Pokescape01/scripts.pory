@@ -457,6 +457,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 				setflag(FLAG_P01_ADD30MIN)
 			}
 			msgbox(Text_TipCheckPC)
+			clearflag(FLAG_P01_GIVE_ADVICE)
 		}
 		else {
 			//only give advice, if there are no Pokemon in the PC
@@ -480,6 +481,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 							setflag(FLAG_P01_ADD30MIN)
 						}
 						msgbox(Text_TipCheckPC)
+						clearflag(FLAG_P01_GIVE_ADVICE)
 					}
 					else {
 
@@ -492,6 +494,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 							msgbox(Text_TipRareCandy)
 							giveitem(ITEM_RARE_CANDY, 1)
 							clearflag(FLAG_P01_RARE_CANDY)
+							clearflag(FLAG_P01_GIVE_ADVICE)
 						}
 						else {
 							//How to win the first fight?
@@ -500,6 +503,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								setflag(FLAG_P01_ADD30MIN)
 							}
 							msgbox(Text_TipFirstFight)
+							clearflag(FLAG_P01_GIVE_ADVICE)
 						}				
 					}
 				}
@@ -510,15 +514,16 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 					//Rare candy already used?
 					if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
 						if (!flag(FLAG_P01_Hint05)) {
-								setflag(FLAG_P01_Hint05)
-								setflag(FLAG_P01_ADD30MIN)
-							}
+							setflag(FLAG_P01_Hint05)
+							setflag(FLAG_P01_ADD30MIN)
+						}
 						else {
 							setflag(FLAG_P01_DONT_CHEAT)
 						}
 						msgbox(Text_TipRareCandyRevive)
 						giveitem(ITEM_RARE_CANDY, 1)
 						clearflag(FLAG_P01_RARE_CANDY)
+						clearflag(FLAG_P01_GIVE_ADVICE)
 					}
 					else {
 						//explain usage of rare candy
@@ -527,6 +532,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 							setflag(FLAG_P01_ADD30MIN)
 						}
 						msgbox(Text_TipRareCandyUse)
+						clearflag(FLAG_P01_GIVE_ADVICE)
 					}
 				}
 
@@ -581,6 +587,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 							setflag(FLAG_P01_ADD30MIN)
 						}
 						msgbox(format("Oh you are still accompanied by Wooper? \pYou should think about evolving it! It can do stuff that Wooper can't."))
+						clearflag(FLAG_P01_GIVE_ADVICE)
 					}
 					elif (flag(FLAG_P01_GOTGARDEVOIR)) {
 						if (!flag(FLAG_P01_Hint08)) {
@@ -589,6 +596,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 						}
 						msgbox(Text_TipGardevoir)
 						waitmessage
+						clearflag(FLAG_P01_GIVE_ADVICE)
 						getpartymonslot(SPECIES_GARDEVOIR)
 						special(DeletePartyMon)
 						msgbox("{PLAYER}: Good bye, Gardevoir.")
@@ -610,6 +618,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								setflag(FLAG_P01_ADD30MIN)
 							}
 							msgbox(format("Your Girafarig and Quagsire are a great tag team! \pPlayed right Quagsire can become quite invincible against some Pokemon. \pHowever, you should not try to defeat the couple on the hill. But their Venusaur is hiding something very interesting for you."))
+							clearflag(FLAG_P01_GIVE_ADVICE)
 						}
 						elif (flag(FLAG_P01_GOTGALLADE)) {
 							if (!flag(FLAG_P01_Hint10)) {
@@ -617,6 +626,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								setflag(FLAG_P01_ADD30MIN)
 							}
 							msgbox(format("You are almost there. \pTry sneaking past the couple by having only one Pokemon in your party."))
+							clearflag(FLAG_P01_GIVE_ADVICE)
 						}
 					}
 				}
@@ -632,6 +642,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								setflag(FLAG_P01_ADD30MIN)
 							}
 							msgbox(Text_TipMasterBall)
+							clearflag(FLAG_P01_GIVE_ADVICE)
 						}
 						else {
 
@@ -643,6 +654,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								}
 								msgbox(Text_TipScyther)
 								waitmessage
+								clearflag(FLAG_P01_GIVE_ADVICE)
 								getpartymonslot(SPECIES_SCYTHER)
 								//if (var(VAR_RESULT) >= 0) -> only execute DeletePartyMon, when the mon is in the party
 								special(DeletePartyMon)
@@ -668,6 +680,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 									setflag(FLAG_P01_ADD30MIN)
 								}
 								msgbox(Text_TipCatch)
+								clearflag(FLAG_P01_GIVE_ADVICE)
 							}
 
 							//Girafarig was caught
@@ -681,6 +694,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 										setflag(FLAG_P01_ADD30MIN)
 									}
 									msgbox(Text_TipHMCut)
+									clearflag(FLAG_P01_GIVE_ADVICE)
 								}
 								//have already talked to Kirlia?
 								elif (flag(FLAG_P01_KIRLIA) == TRUE) {
@@ -690,6 +704,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 										setflag(FLAG_P01_ADD30MIN)
 									}
 									msgbox(Text_TipKirlia)
+									clearflag(FLAG_P01_GIVE_ADVICE)
 								}
 							}
 						}
@@ -708,19 +723,24 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 		setorcopyvar(VAR_0x8004, 30)
 		special(PlayTimeAddMin)
 	}
+	else {
+		if (flag(FLAG_P01_DONT_CHEAT)) {
+			setorcopyvar(VAR_0x8004, 30)
+			special(PlayTimeAddMin)
+			clearflag(FLAG_P01_DONT_CHEAT)
+			msgbox(format("Hey, don't try to trick me for additional rare candies! \pI will still charge you 30min for this."))
+			waitmessage
+		}
 
-	if (flag(FLAG_P01_DONT_CHEAT)) {
-		setorcopyvar(VAR_0x8004, 30)
-		special(PlayTimeAddMin)
-		clearflag(FLAG_P01_DONT_CHEAT)
-		msgbox(format("Hey, don't try to trick me for additional rare candies! \pI will still charge you 30min for this."))
-		waitmessage
-	}
-
-	//default message for missing branches
-	if (flag(FLAG_P01_GIVE_ADVICE) == TRUE && flag(FLAG_P01_ADD30MIN) == FALSE) {
-		msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokemon, talking to NPCs and winning battles. \pOf course, you won't be charged 30 minutes this time."))
-		waitmessage
+		//default message for missing branches
+		if (flag(FLAG_P01_GIVE_ADVICE) == TRUE) {
+			msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokemon, talking to NPCs and winning battles. \pOf course, you won't be charged 30 minutes this time."))
+			waitmessage
+		}
+		else {
+			msgbox(format("\p...\pI had already given this hint to you before. \lI guess it's fair if I don't charge you any more time for it."))
+			waitmessage
+		}
 	}
 
 	release
