@@ -126,7 +126,7 @@ script Pokescape01_EventScript_PokecenterSign {
     lockall
 	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
 	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
-    msgbox(format("{STR_VAR_1} - {STR_VAR_2}\pIMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
     waitmessage
     releaseall
     end
@@ -399,6 +399,7 @@ script Pokescape01_Pokecenter_EventScript_Picture02 {
 
 script Pokescape01_Pokecenter_EventScript_Nurse {
 	lock
+	setvar(VAR_0x800B, 1)
 	if(defeated(TRAINER_POKESCAPE01_01) == FALSE) {
 		call(Common_EventScript_PkmnCenterNurse)
 		waitmessage
@@ -420,13 +421,6 @@ script Pokescape01_Pokecenter_EventScript_Nurse {
 script Pokescape01_Pokecenter_EventScript_Boy {
 	lock
 	faceplayer
-	specialvar(VAR_RESULT, GetPlayTimeHours)
-	buffernumberstring(STR_VAR_1, VAR_RESULT)
-	specialvar(VAR_RESULT, GetPlayTimeMinutes)
-	buffertimestring(STR_VAR_2, VAR_RESULT)
-	specialvar(VAR_RESULT, GetPlayTimeSeconds)
-	buffertimestring(STR_VAR_3, VAR_RESULT)
-	msgbox(Text_Finale_honor)
 	if(defeated(TRAINER_POKESCAPE01_01) == FALSE) {
 		msgbox(format("Nurse Joy sounds a little sick. I hope she will get well soon!"))
 		waitmessage
@@ -454,15 +448,14 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 	if (var(VAR_RESULT) == YES) {
 		setflag(FLAG_P01_GIVE_ADVICE)
 
-		if(flag(FLAG_P01_GM_SAME_HINT)){
-			msgbox(format("Oh, you already got this hint from me. I will repeat it for you for free."))
-			waitmessage
-		}
 		//handle "Yamask still in PC" hint before anything else
 		//Yamask still in the PC
 		getpartysize
 		if (!defeated(TRAINER_POKESCAPE01_01) && var(VAR_RESULT) <= 1) {
-			setflag(FLAG_P01_ADD30MIN)
+			if (!flag(FLAG_P01_Hint01)) {
+				setflag(FLAG_P01_Hint01)
+				setflag(FLAG_P01_ADD30MIN)
+			}
 			msgbox(Text_TipCheckPC)
 		}
 		else {
@@ -482,23 +475,30 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 					//Yamask still in the PC
 					getpartysize
 					if (var(VAR_RESULT) <= 1) {
-						setflag(FLAG_P01_ADD30MIN)
+						if (!flag(FLAG_P01_Hint02)) {
+							setflag(FLAG_P01_Hint02)
+							setflag(FLAG_P01_ADD30MIN)
+						}
 						msgbox(Text_TipCheckPC)
 					}
 					else {
 
 						//Rare candy already used?
 						if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
-							setflag(FLAG_P01_ADD30MIN)
-							//setflag(FLAG_P01_GIVE_RARE_CANDY)
+							if (!flag(FLAG_P01_Hint03)) {
+								setflag(FLAG_P01_Hint03)
+								setflag(FLAG_P01_ADD30MIN)
+							}
 							msgbox(Text_TipRareCandy)
 							giveitem(ITEM_RARE_CANDY, 1)
 							clearflag(FLAG_P01_RARE_CANDY)
 						}
 						else {
-
 							//How to win the first fight?
-							setflag(FLAG_P01_ADD30MIN)
+							if (!flag(FLAG_P01_Hint04)) {
+								setflag(FLAG_P01_Hint04)
+								setflag(FLAG_P01_ADD30MIN)
+							}
 							msgbox(Text_TipFirstFight)
 						}				
 					}
@@ -509,15 +509,23 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 
 					//Rare candy already used?
 					if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
-						setflag(FLAG_P01_ADD30MIN)
+						if (!flag(FLAG_P01_Hint05)) {
+								setflag(FLAG_P01_Hint05)
+								setflag(FLAG_P01_ADD30MIN)
+							}
+						else {
+							setflag(FLAG_P01_DONT_CHEAT)
+						}
 						msgbox(Text_TipRareCandyRevive)
 						giveitem(ITEM_RARE_CANDY, 1)
 						clearflag(FLAG_P01_RARE_CANDY)
 					}
 					else {
-
 						//explain usage of rare candy
-						setflag(FLAG_P01_ADD30MIN)
+						if (!flag(FLAG_P01_Hint06)) {
+							setflag(FLAG_P01_Hint06)
+							setflag(FLAG_P01_ADD30MIN)
+						}
 						msgbox(Text_TipRareCandyUse)
 					}
 				}
@@ -568,11 +576,17 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 
 					//Wooper or Quagsire in team?
 					if (flag(FLAG_P01_GOTWOOPER)) {
-						setflag(FLAG_P01_ADD30MIN)
+						if (!flag(FLAG_P01_Hint07)) {
+							setflag(FLAG_P01_Hint07)
+							setflag(FLAG_P01_ADD30MIN)
+						}
 						msgbox(format("Oh you are still accompanied by Wooper? \pYou should think about evolving it! It can do stuff that Wooper can't."))
 					}
 					elif (flag(FLAG_P01_GOTGARDEVOIR)) {
-						setflag(FLAG_P01_ADD30MIN)
+						if (!flag(FLAG_P01_Hint08)) {
+							setflag(FLAG_P01_Hint08)
+							setflag(FLAG_P01_ADD30MIN)
+						}
 						msgbox(Text_TipGardevoir)
 						waitmessage
 						getpartymonslot(SPECIES_GARDEVOIR)
@@ -591,11 +605,17 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 
 						//no Gallade available, yet
 						if (flag(FLAG_P01_GOTQUAGSIRE) && !flag(FLAG_P01_GOTGALLADE)) {
-							setflag(FLAG_P01_ADD30MIN)
+							if (!flag(FLAG_P01_Hint09)) {
+								setflag(FLAG_P01_Hint09)
+								setflag(FLAG_P01_ADD30MIN)
+							}
 							msgbox(format("Your Girafarig and Quagsire are a great tag team! \pPlayed right Quagsire can become quite invincible against some Pokemon. \pHowever, you should not try to defeat the couple on the hill. But their Venusaur is hiding something very interesting for you."))
 						}
 						elif (flag(FLAG_P01_GOTGALLADE)) {
-							setflag(FLAG_P01_ADD30MIN)
+							if (!flag(FLAG_P01_Hint10)) {
+								setflag(FLAG_P01_Hint10)
+								setflag(FLAG_P01_ADD30MIN)
+							}
 							msgbox(format("You are almost there. \pTry sneaking past the couple by having only one Pokemon in your party."))
 						}
 					}
@@ -607,14 +627,20 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 						
 						//Master Ball not found
 						if (!flag(FLAG_P01_MASTER_BALL)) {
-							setflag(FLAG_P01_ADD30MIN)
+							if (!flag(FLAG_P01_Hint11)) {
+								setflag(FLAG_P01_Hint11)
+								setflag(FLAG_P01_ADD30MIN)
+							}
 							msgbox(Text_TipMasterBall)
 						}
 						else {
 
 							//Scyther was caught instead of Girafarig
 							if (flag(FLAG_P01_SCYTHER) && !flag(FLAG_P01_GIRAFARIG)) {
-								setflag(FLAG_P01_ADD30MIN)
+								if (!flag(FLAG_P01_Hint12)) {
+									setflag(FLAG_P01_Hint12)
+									setflag(FLAG_P01_ADD30MIN)
+								}
 								msgbox(Text_TipScyther)
 								waitmessage
 								getpartymonslot(SPECIES_SCYTHER)
@@ -637,7 +663,10 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 
 							//catch another mon
 							elif (!flag(FLAG_P01_SCYTHER) && !flag(FLAG_P01_GIRAFARIG)) {
-								setflag(FLAG_P01_ADD30MIN)
+								if (!flag(FLAG_P01_Hint13)) {
+									setflag(FLAG_P01_Hint13)
+									setflag(FLAG_P01_ADD30MIN)
+								}
 								msgbox(Text_TipCatch)
 							}
 
@@ -647,14 +676,19 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								//HM Cut
 								checkitem(ITEM_HM_CUT)
 								if (var(VAR_RESULT) == FALSE) {
-									setflag(FLAG_P01_ADD30MIN)
+									if (!flag(FLAG_P01_Hint14)) {
+										setflag(FLAG_P01_Hint14)
+										setflag(FLAG_P01_ADD30MIN)
+									}
 									msgbox(Text_TipHMCut)
 								}
 								//have already talked to Kirlia?
 								elif (flag(FLAG_P01_KIRLIA) == TRUE) {
-
 									//Kirlia
-									setflag(FLAG_P01_ADD30MIN)
+									if (!flag(FLAG_P01_Hint15)) {
+										setflag(FLAG_P01_Hint15)
+										setflag(FLAG_P01_ADD30MIN)
+									}
 									msgbox(Text_TipKirlia)
 								}
 							}
@@ -670,15 +704,23 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 	waitmessage
 
 	//add 30min to play clock
-	if (flag(FLAG_P01_ADD30MIN) && !flag(FLAG_P01_GM_SAME_HINT)) {
+	if (flag(FLAG_P01_ADD30MIN)) {
 		setorcopyvar(VAR_0x8004, 30)
 		special(PlayTimeAddMin)
-		setflag(FLAG_P01_GM_SAME_HINT)
+	}
+
+	if (flag(FLAG_P01_DONT_CHEAT)) {
+		setorcopyvar(VAR_0x8004, 30)
+		special(PlayTimeAddMin)
+		clearflag(FLAG_P01_DONT_CHEAT)
+		msgbox(format("Hey, don't try to trick me for additional rare candies! \pI will still charge you 30min for this."))
+		waitmessage
 	}
 
 	//default message for missing branches
 	if (flag(FLAG_P01_GIVE_ADVICE) == TRUE && flag(FLAG_P01_ADD30MIN) == FALSE) {
 		msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokemon, talking to NPCs and winning battles. \pOf course, you won't be charged 30 minutes this time."))
+		waitmessage
 	}
 
 	release

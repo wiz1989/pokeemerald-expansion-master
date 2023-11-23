@@ -3,19 +3,20 @@
 OldaleTown_PokemonCenter_1F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, OldaleTown_PokemonCenter_1F_OnTransition
 	map_script MAP_SCRIPT_ON_RESUME, OldaleTown_PokemonCenter_1F_OnResume
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, Pokecenter_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, OldaleTown_PokemonCenter_1F_OnFrame
 	.byte 0
 
-OldaleTown_PokemonCenter_1F_OnTransition::
+OldaleTown_PokemonCenter_1F_OnTransition:
 	setrespawn HEAL_LOCATION_POKESCAPE01
 	call Common_EventScript_UpdateBrineyLocation
 	end
 
-Pokecenter_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+OldaleTown_PokemonCenter_1F_OnFrame:
 	map_script_2 VAR_TEMP_2, 0, EveryFrame
 	.2byte 0
 
-OldaleTown_PokemonCenter_1F_OnResume::
+OldaleTown_PokemonCenter_1F_OnResume:
+	special InitUnionRoom
 	setvar VAR_TEMP_2, 0
 	call load_HONOR_MODE
 	end
