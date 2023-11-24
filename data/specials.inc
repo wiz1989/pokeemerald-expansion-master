@@ -553,3 +553,5 @@ gSpecials::
 	def_special PlayTimeSubMin
 	def_special PlayTimeSubHrs
 	def_special RestartPlayTimer
+	def_special HasOneUnfaintedMon
+	def_special ItemisHeldInParty

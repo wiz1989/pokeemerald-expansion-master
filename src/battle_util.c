@@ -260,6 +260,8 @@ void HandleAction_UseMove(void)
 {
     u32 battler, i, side, moveType, var = 4;
     u16 moveTarget;
+    u8 target1;
+    u8 target2;
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     if (gBattleStruct->absentBattlerFlags & gBitTable[gBattlerAttacker] || !IsBattlerAlive(gBattlerAttacker))
@@ -338,13 +340,10 @@ void HandleAction_UseMove(void)
     SetTypeBeforeUsingMove(gChosenMove, gBattlerAttacker);
     GET_MOVE_TYPE(gChosenMove, moveType);
 
-    //wiz1989 debug
-    DebugPrintf("%d", (gBattleTypeFlags & BATTLE_TYPE_DOUBLE));
-    DebugPrintf("%d", TRUE);
-    DebugPrintf("Species var decimal: %d", gBattleMons[gBattlerAttacker].species);
-    DebugPrintf("Species const decimal: %d", SPECIES_SCEPTILE);
-
     // choose target
+    target1 = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+    target2 = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
+
     side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
     if (IsAffectedByFollowMe(gBattlerAttacker, side, gCurrentMove)
         && moveTarget == MOVE_TARGET_SELECTED
@@ -352,10 +351,34 @@ void HandleAction_UseMove(void)
     {
         gBattleStruct->moveTarget[gBattlerAttacker] = gBattlerTarget = gSideTimers[side].followmeTarget; // follow me moxie fix
     }
-    //wiz1989 force Sceptile to always attack the first slot in double battles
-    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_SCEPTILE)
+    //wiz1989 force to always attack Quagsire in double battles in Round 1
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && (gBattleMons[gBattlerAttacker].species == SPECIES_SCEPTILE || gBattleMons[gBattlerAttacker].species == SPECIES_BRELOOM)
+        && (GetBattlerTurnOrderNum(gBattlerAttacker) < 4) && ((gBattleMons[target1].species == SPECIES_QUAGSIRE) || (gBattleMons[target2].species == SPECIES_QUAGSIRE)))
     {
-        DebugPrintf("Double battle attack Sceptile");
+        if (gBattleMons[target1].species == SPECIES_QUAGSIRE) {
+            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+        }
+        else if (gBattleMons[target2].species == SPECIES_QUAGSIRE) {
+            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
+        }
+        
+        if (!IsBattlerAlive(gBattlerTarget))
+        {
+            if (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+            else
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(gBattlerAttacker)));
+                if (!IsBattlerAlive(gBattlerTarget))
+                    gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+        }
+    }
+    //wiz1989 force Sceptile to always attack the first slot in double battles in Round 1
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_SCEPTILE && GetBattlerTurnOrderNum(gBattlerAttacker) < 4)
+    {
         gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
         if (!IsBattlerAlive(gBattlerTarget))
         {

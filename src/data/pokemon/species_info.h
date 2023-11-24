@@ -2552,7 +2552,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .baseSpDefense = 30,
         .types = { TYPE_ROCK, TYPE_GROUND },
         .catchRate = 255,
-        .expYield = 54,
+        .expYield = 50,
         .evYield_Defense   = 1,
         .itemRare = ITEM_EVERSTONE,
         .genderRatio = PERCENT_FEMALE(50),
@@ -13733,7 +13733,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_YAMASK] =
     {
-        .baseHP        = 38,
+        .baseHP        = 45,
         .baseAttack    = 30,
         .baseDefense   = 100,
         .baseSpeed     = 30,

@@ -215,10 +215,6 @@ script Pokescape01_EventScript_TriggerLittleGirl {
 	    applymovement(OBJ_EVENT_ID_PLAYER, Move02)
 	    waitmovement(0)
 	}
-	else {
-		msgbox(format("I'm too scared to get off from here...\p Mosquitoes tried to bite me in the grass down there."))
-	    waitmessage
-	}
 	releaseall
 	end
 }
@@ -282,8 +278,8 @@ script Pokescape01_EventScript_AppleTree {
 script Pokescape01_EventScript_LittleGirl15 {
 	lockall
     faceplayer
-    msgbox(format("Did you know that some species can have access to completely new moves after evolving? \pThere is so much to learn about Pokemon."))
-    waitmessage
+    msgbox(format("I'm too scared to get off from here...\p Mosquitoes tried to bite me in the grass down there."))
+	waitmessage
     releaseall
     end
 }
@@ -350,7 +346,7 @@ script Pokescape01_EventScript_BattleDouble02 {
 					setflag(FLAG_UNUSED_0x95E) //flag for handing over Wooper
 					getpartymonslot(SPECIES_HARIYAMA)
 					special(DeletePartyMon) //using VAR_RESULT from above macro
-					givemon(SPECIES_WOOPER, 18)
+					givemon(SPECIES_WOOPER, 19)
 					msgbox(format("{PLAYER} traded Wooper for Hariyama."))
 					waitmessage
 					msgbox(format("Have you heard? Nurse Joy is well again!"))
@@ -376,7 +372,7 @@ script Pokescape01_EventScript_BattleDouble02 {
 }
 
 script Pokescape01_EventScript_BattleDouble03 {
-	trainerbattle_double(TRAINER_POKESCAPE01_03, format("Hey there, we found that strange Pokemon. \pLooks like it ate a special stone or something."), "Go ahead, you're almost there.", Text_NotEnoughMons)
+	trainerbattle_double(TRAINER_POKESCAPE01_03, format("Hey there, we found that strange Pokemon. \pLooks like it swallowed a special stone or something...\l..."), "Go ahead, you're almost there.", Text_NotEnoughMons)
 	setflag(FLAG_UNUSED_0x95C) //flag for winning fight03
 	end
 }
@@ -516,7 +512,8 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 				}
 
 				//between the first two fights
-				if (defeated(TRAINER_POKESCAPE01_01) && !defeated(TRAINER_POKESCAPE01_02)) {
+				specialvar(VAR_RESULT, HasOneUnfaintedMon)
+				if (defeated(TRAINER_POKESCAPE01_01) && !defeated(TRAINER_POKESCAPE01_02) && var(VAR_RESULT)) {
 
 					//Rare candy already used?
 					if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
@@ -593,7 +590,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 							setflag(FLAG_P01_Hint07)
 							setflag(FLAG_P01_ADD30MIN)
 						}
-						msgbox(format("Oh you are still accompanied by Wooper? \pYou should think about evolving it! It can do stuff that Wooper can't."))
+						msgbox(format("Oh you are still accompanied by Wooper? \pYou should think about evolving it! Quagsire can do stuff that Wooper can't."))
 						clearflag(FLAG_P01_GIVE_ADVICE)
 					}
 					elif (flag(FLAG_P01_GOTGARDEVOIR)) {
@@ -696,15 +693,19 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								//HM Cut
 								checkitem(ITEM_HM_CUT)
 								if (var(VAR_RESULT) == FALSE) {
-									if (!flag(FLAG_P01_Hint14)) {
-										setflag(FLAG_P01_Hint14)
-										setflag(FLAG_P01_ADD30MIN)
+									setorcopyvar(VAR_0x8004, ITEM_HM_CUT)
+									specialvar(VAR_RESULT, ItemisHeldInParty)
+									if (var(VAR_RESULT) == FALSE) {
+										if (!flag(FLAG_P01_Hint14)) {
+											setflag(FLAG_P01_Hint14)
+											setflag(FLAG_P01_ADD30MIN)
+										}
+										msgbox(Text_TipHMCut)
+										clearflag(FLAG_P01_GIVE_ADVICE)
 									}
-									msgbox(Text_TipHMCut)
-									clearflag(FLAG_P01_GIVE_ADVICE)
 								}
 								//have already talked to Kirlia?
-								elif (flag(FLAG_P01_KIRLIA) == TRUE) {
+								elif (flag(FLAG_P01_KIRLIA) == TRUE && var(VAR_UNUSED_0x40F7) == 0) {
 									//Kirlia
 									if (!flag(FLAG_P01_Hint15)) {
 										setflag(FLAG_P01_Hint15)
@@ -737,6 +738,8 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 			clearflag(FLAG_P01_DONT_CHEAT)
 			msgbox(format("Hey, don't try to trick me for additional rare candies! \pI will still charge you 30min for this."))
 			waitmessage
+			release
+			end
 		}
 
 		//default message for missing branches
@@ -758,21 +761,18 @@ script Pokescape01_Pokecenter_EventScript_Scientist {
 	lock
 	faceplayer
 	getpartysize
-	if (!defeated(TRAINER_POKESCAPE01_01) && var(VAR_RESULT) <= 1) {
-		checkpartymove(MOVE_TRICK_ROOM)
-
-		if (flag(FLAG_UNUSED_0x95E)) { //got Wooper
-			msgbox(format("Did you know that some species can have access to completely new moves after evolving? \pThere is so much to learn about Pokemon."))
-		}
-		elif (var(VAR_RESULT) != PARTY_SIZE) {
+	//FLAG_UNUSED_0x95E is set when obtaining Wooper
+	if (var(VAR_RESULT) <= 1) {
+		//checkpartymove(MOVE_TRICK_ROOM)
+		msgbox(format("You have so little pokemon in your party. I'm not talking to such a wannabe."))
+	}
+	else {
+		if (!flag(FLAG_UNUSED_0x95E)) {
 			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
 		}
 		else {
-			msgbox(format("You have so little pokemon in your party. I'm not talking to such a wannabe."))
+			msgbox(format("Did you know that some species can have access to completely new moves after evolving? \pThere is so much to learn about Pokemon."))
 		}
-	}
-	else {
-		msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
 	}
 	waitmessage
 	release

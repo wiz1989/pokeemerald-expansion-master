@@ -4407,3 +4407,49 @@ void RestartPlayTimer(void)
     PlayTimeCounter_Reset();
     PlayTimeCounter_Start();
 }
+
+bool8 HasOneUnfaintedMon(void)
+{
+    int i;
+    int j;
+    s32 hp;
+    j = 0;
+
+    for(i = 0; i < PARTY_SIZE; i++)
+    {
+        u32 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+        if (species != SPECIES_NONE
+            && species != SPECIES_EGG)
+        {
+            hp = GetMonData(&gPlayerParty[i], MON_DATA_HP);
+            if (hp > 0) {
+                j++;
+            }
+        }
+    }
+    if (j > 1)
+        return FALSE;
+    return TRUE;
+}
+
+bool8 ItemisHeldInParty(void)
+{
+    int i;
+    u16 item;
+    item = gSpecialVar_0x8004;
+
+    for(i = 0; i < PARTY_SIZE; i++)
+    {
+        u32 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+        if (species != SPECIES_NONE
+            && species != SPECIES_EGG)
+        {
+            DebugPrintf("Item input: %d", item);
+            DebugPrintf("Item input: %d", GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM));
+            if (GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM) == item) {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}

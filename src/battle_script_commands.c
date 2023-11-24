@@ -15301,6 +15301,10 @@ static void Cmd_trysetcaughtmondexflags(void)
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_PERSONALITY, NULL);
 
+    if(species == SPECIES_SCYTHER) {
+        FlagSet(FLAG_P01_SCYTHER);
+    }
+    
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
     {
         gBattlescriptCurrInstr = cmd->failInstr;
@@ -15309,9 +15313,6 @@ static void Cmd_trysetcaughtmondexflags(void)
     {
         HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);  
 
-        if(species == SPECIES_SCYTHER) {
-            FlagSet(FLAG_P01_SCYTHER);
-        }
         if(species == SPECIES_GIRAFARIG) {
             FlagSet(FLAG_P01_GIRAFARIG);
         }
