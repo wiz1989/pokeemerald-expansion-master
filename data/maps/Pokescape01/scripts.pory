@@ -372,6 +372,7 @@ script Pokescape01_EventScript_BattleDouble02 {
 }
 
 script Pokescape01_EventScript_BattleDouble03 {
+	setvar(VAR_BATTLE_TURN, 0)
 	trainerbattle_double(TRAINER_POKESCAPE01_03, format("Hey there, we found that strange Pokemon. \pLooks like it swallowed a special stone or something...\l..."), "Go ahead, you're almost there.", Text_NotEnoughMons)
 	setflag(FLAG_UNUSED_0x95C) //flag for winning fight03
 	end

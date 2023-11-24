@@ -47,6 +47,7 @@
 #include "constants/trainers.h"
 #include "constants/weather.h"
 #include "constants/pokemon.h"
+#include "constants/vars.h"
 #include "battle_script_commands.h"
 
 extern struct Evolution gEvolutionTable[][EVOS_PER_MON];
@@ -262,6 +263,10 @@ void HandleAction_UseMove(void)
     u16 moveTarget;
     u8 target1;
     u8 target2;
+    u8 turn;
+
+    turn = VarGet(VAR_BATTLE_TURN) + 1;
+    DebugPrintf("turn: %d", turn);
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     if (gBattleStruct->absentBattlerFlags & gBitTable[gBattlerAttacker] || !IsBattlerAlive(gBattlerAttacker))
@@ -353,12 +358,12 @@ void HandleAction_UseMove(void)
     }
     //wiz1989 force to always attack Quagsire in double battles in Round 1
     else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && (gBattleMons[gBattlerAttacker].species == SPECIES_SCEPTILE || gBattleMons[gBattlerAttacker].species == SPECIES_BRELOOM)
-        && (GetBattlerTurnOrderNum(gBattlerAttacker) < 4) && ((gBattleMons[target1].species == SPECIES_QUAGSIRE) || (gBattleMons[target2].species == SPECIES_QUAGSIRE)))
+        && (turn < 5) && ((gBattleMons[target1].species == SPECIES_QUAGSIRE) || (gBattleMons[target2].species == SPECIES_QUAGSIRE) || (gBattleMons[target1].species == SPECIES_WOOPER) || (gBattleMons[target2].species == SPECIES_WOOPER)))
     {
-        if (gBattleMons[target1].species == SPECIES_QUAGSIRE) {
+        if (gBattleMons[target1].species == SPECIES_QUAGSIRE || gBattleMons[target1].species == SPECIES_WOOPER) {
             gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
         }
-        else if (gBattleMons[target2].species == SPECIES_QUAGSIRE) {
+        else if (gBattleMons[target2].species == SPECIES_QUAGSIRE || gBattleMons[target2].species == SPECIES_WOOPER) {
             gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
         }
         
@@ -377,7 +382,7 @@ void HandleAction_UseMove(void)
         }
     }
     //wiz1989 force Sceptile to always attack the first slot in double battles in Round 1
-    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_SCEPTILE && GetBattlerTurnOrderNum(gBattlerAttacker) < 4)
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_SCEPTILE && turn < 5)
     {
         gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
         if (!IsBattlerAlive(gBattlerTarget))

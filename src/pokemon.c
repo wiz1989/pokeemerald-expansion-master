@@ -3667,7 +3667,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             }
         }
     //give any encountered Girafarig the ability Sap Sipper and set moves
-    }if (species == SPECIES_GIRAFARIG) {
+    }
+    if (species == SPECIES_GIRAFARIG) {
         value = ITEM_TM_THIEF;
         SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
 
@@ -3677,7 +3678,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         moves[0] = MOVE_PSYBEAM;
         moves[1] = MOVE_THIEF;
         moves[2] = MOVE_SKILL_SWAP;
-        moves[3] = MOVE_PROTECT;
+        moves[3] = MOVE_ENDURE;
 
         for(i=0; i<=3; i++)
         {
