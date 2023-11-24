@@ -234,6 +234,8 @@ Pokescape01_EventScript_TriggerLittleGirl::
 	checkpartymon SPECIES_SCYTHER
 	compare VAR_RESULT, 0
 	goto_if_ne Pokescape01_EventScript_TriggerLittleGirl_2
+	msgbox Pokescape01_EventScript_TriggerLittleGirl_Text_1
+	waitmessage
 Pokescape01_EventScript_TriggerLittleGirl_1:
 	releaseall
 	end
@@ -277,7 +279,7 @@ Pokescape01_EventScript_AppleTree::
 	lock
 	compare VAR_UNUSED_0x40F7, 0
 	goto_if_eq Pokescape01_EventScript_AppleTree_2
-	msgbox Pokescape01_EventScript_AppleTree_Text_2
+	msgbox Pokescape01_EventScript_AppleTree_Text_3
 Pokescape01_EventScript_AppleTree_1:
 	release
 	end
@@ -289,7 +291,8 @@ Pokescape01_EventScript_AppleTree_2:
 	clearflag FLAG_P01_GOTGIRAFARIG
 Pokescape01_EventScript_AppleTree_5:
 	goto_if_set FLAG_P01_GOTGIRAFARIG, Pokescape01_EventScript_AppleTree_9
-	msgbox Pokescape01_EventScript_AppleTree_Text_1
+	goto_if_set FLAG_P01_SCYTHER, Pokescape01_EventScript_AppleTree_10
+	msgbox Pokescape01_EventScript_AppleTree_Text_2
 	goto Pokescape01_EventScript_AppleTree_1
 
 Pokescape01_EventScript_AppleTree_6:
@@ -300,6 +303,10 @@ Pokescape01_EventScript_AppleTree_9:
 	msgbox Pokescape01_EventScript_AppleTree_Text_0
 	giveitem ITEM_SWEET_APPLE, 1
 	setvar VAR_UNUSED_0x40F7, 1
+	goto Pokescape01_EventScript_AppleTree_1
+
+Pokescape01_EventScript_AppleTree_10:
+	msgbox Pokescape01_EventScript_AppleTree_Text_1
 	goto Pokescape01_EventScript_AppleTree_1
 
 
@@ -871,8 +878,9 @@ Pokescape01_Pokecenter_EventScript_Scientist_1:
 
 Pokescape01_Pokecenter_EventScript_Scientist_2:
 	checkpartymove MOVE_TRICK_ROOM
+	goto_if_set FLAG_UNUSED_0x95E, Pokescape01_Pokecenter_EventScript_Scientist_7
 	compare VAR_RESULT, PARTY_SIZE
-	goto_if_ne Pokescape01_Pokecenter_EventScript_Scientist_7
+	goto_if_ne Pokescape01_Pokecenter_EventScript_Scientist_8
 	msgbox Pokescape01_Pokecenter_EventScript_Scientist_Text_1
 	goto Pokescape01_Pokecenter_EventScript_Scientist_1
 
@@ -882,6 +890,10 @@ Pokescape01_Pokecenter_EventScript_Scientist_4:
 	goto Pokescape01_Pokecenter_EventScript_Scientist_3
 
 Pokescape01_Pokecenter_EventScript_Scientist_7:
+	msgbox Pokescape01_EventScript_LittleGirl15_Text_0
+	goto Pokescape01_Pokecenter_EventScript_Scientist_1
+
+Pokescape01_Pokecenter_EventScript_Scientist_8:
 	msgbox Pokescape01_Pokecenter_EventScript_Scientist_Text_0
 	goto Pokescape01_Pokecenter_EventScript_Scientist_1
 
@@ -967,7 +979,11 @@ Pokescape01_EventScript_PokecenterSign_Text_0:
 	.string "2.) It is not required to grind multiple\n"
 	.string "levels to win any of the fights.\p"
 	.string "3.) All items are there for a reason.\n"
-	.string "Think twice before using them.$"
+	.string "Think twice before using them.\p"
+	.string "4.) There are no invisible items or\n"
+	.string "messages hidden on the ground. Don't\l"
+	.string "waste your time hitting the A button\l"
+	.string "throughout the whole overworld.$"
 
 Pokescape01_EventScript_Building01Sign_Text_0:
 	.string "This ROM hack was made by wiz1989.\l"
@@ -1044,7 +1060,13 @@ Pokescape01_EventScript_PokecenterTriggers_Text_10:
 
 Pokescape01_EventScript_TriggerLittleGirl_Text_0:
 	.string "Eek! Your Scyther looks so scary.\p"
-	.string "Please don't bring it up here.$"
+	.string "Please don't bring it up here. I just\n"
+	.string "can't stand any more bugs.$"
+
+Pokescape01_EventScript_TriggerLittleGirl_Text_1:
+	.string "I'm too scared to get off from here...\p"
+	.string "Mosquitoes tried to bite me in the\n"
+	.string "grass down there.$"
 
 Pokescape01_EventScript_ItemMasterBall_Text_0:
 	.string "You found a lost Master Ball on the\n"
@@ -1056,11 +1078,16 @@ Pokescape01_EventScript_AppleTree_Text_0:
 	.string "tree.$"
 
 Pokescape01_EventScript_AppleTree_Text_1:
+	.string "The apple hangs so high. You should\n"
+	.string "bring someone who is able to reach up\l"
+	.string "high in the tree.$"
+
+Pokescape01_EventScript_AppleTree_Text_2:
 	.string "There is an apple growing in the tree.\n"
 	.string "You should go catch more Pokemon and\l"
 	.string "return later to pick it.$"
 
-Pokescape01_EventScript_AppleTree_Text_2:
+Pokescape01_EventScript_AppleTree_Text_3:
 	.string "There's nothing to find in the tree.$"
 
 Pokescape01_EventScript_LittleGirl15_Text_0:

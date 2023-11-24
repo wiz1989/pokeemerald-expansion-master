@@ -126,7 +126,7 @@ script Pokescape01_EventScript_PokecenterSign {
     lockall
 	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
 	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on the ground. Don't waste your time hitting the A button throughout the whole overworld."))
     waitmessage
     releaseall
     end
@@ -210,10 +210,14 @@ script Pokescape01_EventScript_TriggerLittleGirl {
 		waitmovement(0)
 		applymovement(OBJ_EVENT_ID_PLAYER, MovePlayer01)
 		waitmovement(0)
-		msgbox(format("Eek! Your Scyther looks so scary. \pPlease don't bring it up here."))
+		msgbox(format("Eek! Your Scyther looks so scary. \pPlease don't bring it up here. I just can't stand any more bugs."))
 	    waitmessage
 	    applymovement(OBJ_EVENT_ID_PLAYER, Move02)
 	    waitmovement(0)
+	}
+	else {
+		msgbox(format("I'm too scared to get off from here...\p Mosquitoes tried to bite me in the grass down there."))
+	    waitmessage
 	}
 	releaseall
 	end
@@ -261,9 +265,12 @@ script Pokescape01_EventScript_AppleTree {
 		    giveitem(ITEM_SWEET_APPLE, 1)
 		    setvar(VAR_UNUSED_0x40F7, 1)
 		}
-		 else {
+		elif(flag(FLAG_P01_SCYTHER)) {
+			msgbox(format("The apple hangs so high. You should bring someone who is able to reach up high in the tree."))
+		}
+		else {
 		 	msgbox(format("There is an apple growing in the tree. You should go catch more Pokemon and return later to pick it."))
-		 }
+		}
     }
     else {
 		msgbox(format("There's nothing to find in the tree."))
@@ -753,7 +760,11 @@ script Pokescape01_Pokecenter_EventScript_Scientist {
 	getpartysize
 	if (!defeated(TRAINER_POKESCAPE01_01) && var(VAR_RESULT) <= 1) {
 		checkpartymove(MOVE_TRICK_ROOM)
-		if (var(VAR_RESULT) != PARTY_SIZE) {
+
+		if (flag(FLAG_UNUSED_0x95E)) { //got Wooper
+			msgbox(format("Did you know that some species can have access to completely new moves after evolving? \pThere is so much to learn about Pokemon."))
+		}
+		elif (var(VAR_RESULT) != PARTY_SIZE) {
 			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
 		}
 		else {
