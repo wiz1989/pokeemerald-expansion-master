@@ -246,7 +246,7 @@
 #define VAR_GIFT_UNUSED_5                                0x40E2 // Var is written to, but never read
 #define VAR_GIFT_UNUSED_6                                0x40E3 // Var is written to, but never read
 #define VAR_GIFT_UNUSED_7                                0x40E4 // var is written to, but never read
-#define VAR_BATTLE_TURN                                  0x40E5 // Unused Var
+#define VAR_UNUSED_0x40E5                                0x40E5 // Unused Var
 #define VAR_DAILY_SLOTS                                  0x40E6
 #define VAR_DAILY_WILDS                                  0x40E7
 #define VAR_DAILY_BLENDER                                0x40E8
@@ -269,7 +269,7 @@
 #define VAR_UNUSED_0x40F9                                0x40F9 // Unused Var
 #define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
-#define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
+#define VAR_BATTLE_TURN                                  0x40FC // Unused Var
 #define VAR_P01_CALC                                     0x40FD // Unused Var
 #define VAR_P01_PENALTY                                  0x40FE // Unused Var
 #define VAR_TEMP_WEATHER                                 0x40FF // Unused Var

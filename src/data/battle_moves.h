@@ -1632,7 +1632,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
     [MOVE_PSYCHIC] =
     {
         .effect = EFFECT_SPECIAL_DEFENSE_DOWN_HIT,
-        .power = 90,
+        .power = 80,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
         .pp = 10,
@@ -8005,7 +8005,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
     [MOVE_PSYSHOCK] =
     {
         .effect = EFFECT_PSYSHOCK,
-        .power = 80,
+        .power = 70,
         .type = TYPE_PSYCHIC,
         .accuracy = 100,
         .pp = 10,

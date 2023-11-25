@@ -231,6 +231,7 @@ Pokescape01_EventScript_PokecenterTriggers_10:
 
 Pokescape01_EventScript_TriggerLittleGirl::
 	lockall
+	setvar VAR_BATTLE_TURN, 0
 	checkpartymon SPECIES_SCYTHER
 	compare VAR_RESULT, 0
 	goto_if_ne Pokescape01_EventScript_TriggerLittleGirl_2
@@ -408,9 +409,7 @@ Pokescape01_EventScript_BattleDouble02_14:
 
 
 Pokescape01_EventScript_BattleDouble03::
-	setvar VAR_BATTLE_TURN, 0
 	trainerbattle_double TRAINER_POKESCAPE01_03, Pokescape01_EventScript_BattleDouble03_Text_0, Pokescape01_EventScript_BattleDouble03_Text_1, Text_NotEnoughMons
-	setflag FLAG_UNUSED_0x95C
 	end
 
 

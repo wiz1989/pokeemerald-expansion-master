@@ -2353,6 +2353,6 @@ bool8 ScrCmd_buffertimestring(struct ScriptContext *ctx)
     u16 num = VarGet(ScriptReadHalfword(ctx));
     u8 numDigits = 2;
 
-    ConvertIntToDecimalStringN(sScriptStringVars[stringVarIndex], num, STR_CONV_MODE_LEFT_ALIGN, numDigits);
+    ConvertIntToDecimalStringN(sScriptStringVars[stringVarIndex], num, STR_CONV_MODE_LEADING_ZEROS, numDigits);
     return FALSE;
 }

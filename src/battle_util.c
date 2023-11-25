@@ -266,6 +266,7 @@ void HandleAction_UseMove(void)
     u8 turn;
 
     turn = VarGet(VAR_BATTLE_TURN) + 1;
+    VarSet(VAR_BATTLE_TURN, turn);
     DebugPrintf("turn: %d", turn);
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];

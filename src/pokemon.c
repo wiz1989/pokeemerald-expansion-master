@@ -3675,7 +3675,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         value = 2; //hidden ability
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
 
-        moves[0] = MOVE_PSYBEAM;
+        moves[0] = MOVE_PSYSHOCK;
         moves[1] = MOVE_THIEF;
         moves[2] = MOVE_SKILL_SWAP;
         moves[3] = MOVE_ENDURE;
@@ -3735,7 +3735,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
     if (species == SPECIES_WOOPER) {
-        moves[0] = MOVE_ICE_BEAM;
+        moves[0] = MOVE_FACADE;
         moves[1] = MOVE_MUD_SHOT;
         moves[2] = MOVE_TAIL_WHIP;
         moves[3] = MOVE_SURF;
