@@ -1262,7 +1262,7 @@
 #define FLAG_P01_Hint14                                             0x4BC // Unused Flag
 #define FLAG_P01_Hint15                                             0x4BD // Unused Flag
 #define FLAG_P01_DONT_CHEAT                                         0x4BE // Unused Flag
-#define FLAG_UNUSED_0x4BF                                           0x4BF // Unused Flag
+#define FLAG_P01_Hint16                                             0x4BF // Unused Flag
 #define FLAG_UNUSED_0x4C0                                           0x4C0 // Unused Flag
 #define FLAG_UNUSED_0x4C1                                           0x4C1 // Unused Flag
 #define FLAG_UNUSED_0x4C2                                           0x4C2 // Unused Flag

@@ -4453,3 +4453,21 @@ bool8 ItemisHeldInParty(void)
     }
     return FALSE;
 }
+
+u8 GetMonPartyLevel(void)
+{
+    u16 species;
+    u8 slot;
+    u8 level;
+    slot = 0;
+    species = VarGet(VAR_TEMP_1);
+    level = 0;
+
+    slot = CheckPartyPokemon(gPlayerParty, species);
+    level = GetMonData(&gPlayerParty[slot], MON_DATA_LEVEL);
+
+    DebugPrintf("Species found at slot: %d\n", slot);
+    DebugPrintf("Level is: %d\n", level);
+
+    return level;
+}

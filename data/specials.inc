@@ -555,3 +555,4 @@ gSpecials::
 	def_special RestartPlayTimer
 	def_special HasOneUnfaintedMon
 	def_special ItemisHeldInParty
+	def_special GetMonPartyLevel

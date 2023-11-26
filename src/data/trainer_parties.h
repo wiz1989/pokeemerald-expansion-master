@@ -11846,6 +11846,7 @@ static const struct TrainerMon sParty_Pokescape0103[] = {
     .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
     .lvl = 40,
     .species = SPECIES_BRELOOM,
+    .ability = ABILITY_POISON_HEAL,
     .heldItem = ITEM_NONE,
     .moves = {MOVE_SAFEGUARD, MOVE_THUNDER_PUNCH, MOVE_MEGA_DRAIN, MOVE_ENERGY_BALL}
     },

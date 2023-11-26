@@ -2092,3 +2092,9 @@
 	stringvar \stringVarId
 	.2byte \input
 	.endm
+
+	@ get the level of a certain species in the player's party
+	.macro getpartymonlevel species: req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetMonPartyLevel
+	.endm

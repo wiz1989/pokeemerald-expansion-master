@@ -271,7 +271,7 @@ script Pokescape01_EventScript_AppleTree {
 script Pokescape01_EventScript_LittleGirl15 {
 	lockall
     faceplayer
-	if(!flag(FLAG_P01_GOTGIRAFARIG)) {
+	if(!flag(FLAG_P01_GIRAFARIG)) {
 		msgbox(format("I'm too scared to get off from here...\p Mosquitoes tried to bite me in the grass down there."))
 	}
 	else {
@@ -484,7 +484,6 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 						clearflag(FLAG_P01_GIVE_ADVICE)
 					}
 					else {
-
 						//Rare candy already used?
 						if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
 							if (!flag(FLAG_P01_Hint03)) {
@@ -497,13 +496,40 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 							clearflag(FLAG_P01_GIVE_ADVICE)
 						}
 						else {
-							//How to win the first fight?
-							if (!flag(FLAG_P01_Hint04)) {
-								setflag(FLAG_P01_Hint04)
-								setflag(FLAG_P01_ADD30MIN)
+							getpartymonlevel(SPECIES_MAKUHITA)
+							if (var(VAR_RESULT) > 15) {
+								checkpartymove(MOVE_WHIRLWIND)
+								//WHIRLWIND was forgotten -> give new Makuhita
+								if (var(VAR_RESULT) == PARTY_SIZE) {
+									if (!flag(FLAG_P01_Hint16)) {
+										setflag(FLAG_P01_Hint16)
+										setflag(FLAG_P01_ADD30MIN)
+									}
+									clearflag(FLAG_P01_GIVE_ADVICE)
+									msgbox(format("Your Makuhita doesn't know Whirlwind by now? \lOh no, you should definitely teach it that move! \pLet me take it and give you back another Lvl15 Makuhita."))
+									getpartymonslot(SPECIES_MAKUHITA)
+									special(DeletePartyMon)
+									givemon(SPECIES_MAKUHITA, 15)
+								}
+								else {
+									//How to win the first fight?
+									if (!flag(FLAG_P01_Hint04)) {
+										setflag(FLAG_P01_Hint04)
+										setflag(FLAG_P01_ADD30MIN)
+									}
+									msgbox(Text_TipFirstFight)
+									clearflag(FLAG_P01_GIVE_ADVICE)
+								}
 							}
-							msgbox(Text_TipFirstFight)
-							clearflag(FLAG_P01_GIVE_ADVICE)
+							else {
+								//How to win the first fight?
+								if (!flag(FLAG_P01_Hint04)) {
+									setflag(FLAG_P01_Hint04)
+									setflag(FLAG_P01_ADD30MIN)
+								}
+								msgbox(Text_TipFirstFight)
+								clearflag(FLAG_P01_GIVE_ADVICE)
+							}
 						}				
 					}
 				}
@@ -762,15 +788,14 @@ script Pokescape01_Pokecenter_EventScript_Scientist {
 	getpartysize
 	//FLAG_UNUSED_0x95E is set when obtaining Wooper
 	if (var(VAR_RESULT) <= 1) {
-		//checkpartymove(MOVE_TRICK_ROOM)
 		msgbox(format("You have so little pokemon in your party. I'm not talking to such a wannabe."))
 	}
 	else {
-		if (flag(FLAG_UNUSED_0x95E) || flag(FLAG_P01_MASTER_BALL)) {
-			msgbox(format("You will need more Pokemon to become a successful trainer. \lThere is a sign at the grass patch in the south. It shall guide you to make a good decision catching one.."))
-		}
-		elif (flag(FLAG_P01_GIRAFARIG)) {
+		if (flag(FLAG_P01_GIRAFARIG)) {
 			msgbox(format("You did well so far! You will also figure out a way to make it to the finish line!"))
+		}
+		elif (flag(FLAG_UNUSED_0x95E) || flag(FLAG_P01_MASTER_BALL)) {
+			msgbox(format("You will need more Pokemon to become a successful trainer. \lThere is a sign at the grass patch in the south. It shall guide you to make a good decision catching one.."))
 		}
 		else {
 			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
