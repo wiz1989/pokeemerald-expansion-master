@@ -31,7 +31,7 @@ OnResume_4:
 OnResume_2:
 	givemon SPECIES_MAKUHITA, 15
 	givemonpc SPECIES_YAMASK, 16, ITEM_RARE_CANDY, 7, 19
-	setinitialmovesPC MOVE_ASTONISH, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT
+	setinitialmovesPC MOVE_HEX, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT
 	setflag FLAG_SYS_POKEMON_GET
 	addpcitem ITEM_TM_DIG, 1
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
@@ -284,27 +284,18 @@ Pokescape01_EventScript_AppleTree_1:
 	end
 
 Pokescape01_EventScript_AppleTree_2:
-	checkpartymon SPECIES_GIRAFARIG
-	compare VAR_RESULT, 0
-	goto_if_ne Pokescape01_EventScript_AppleTree_6
-	clearflag FLAG_P01_GOTGIRAFARIG
-Pokescape01_EventScript_AppleTree_5:
-	goto_if_set FLAG_P01_GOTGIRAFARIG, Pokescape01_EventScript_AppleTree_9
-	goto_if_set FLAG_P01_SCYTHER, Pokescape01_EventScript_AppleTree_10
+	goto_if_set FLAG_P01_GIRAFARIG, Pokescape01_EventScript_AppleTree_5
+	goto_if_set FLAG_P01_SCYTHER, Pokescape01_EventScript_AppleTree_6
 	msgbox Pokescape01_EventScript_AppleTree_Text_2
 	goto Pokescape01_EventScript_AppleTree_1
 
-Pokescape01_EventScript_AppleTree_6:
-	setflag FLAG_P01_GOTGIRAFARIG
-	goto Pokescape01_EventScript_AppleTree_5
-
-Pokescape01_EventScript_AppleTree_9:
+Pokescape01_EventScript_AppleTree_5:
 	msgbox Pokescape01_EventScript_AppleTree_Text_0
 	giveitem ITEM_SWEET_APPLE, 1
 	setvar VAR_UNUSED_0x40F7, 1
 	goto Pokescape01_EventScript_AppleTree_1
 
-Pokescape01_EventScript_AppleTree_10:
+Pokescape01_EventScript_AppleTree_6:
 	msgbox Pokescape01_EventScript_AppleTree_Text_1
 	goto Pokescape01_EventScript_AppleTree_1
 
@@ -312,10 +303,16 @@ Pokescape01_EventScript_AppleTree_10:
 Pokescape01_EventScript_LittleGirl15::
 	lockall
 	faceplayer
-	msgbox Pokescape01_EventScript_LittleGirl15_Text_0
+	goto_if_unset FLAG_P01_GOTGIRAFARIG, Pokescape01_EventScript_LittleGirl15_2
+	msgbox Pokescape01_EventScript_LittleGirl15_Text_1
+Pokescape01_EventScript_LittleGirl15_1:
 	waitmessage
 	releaseall
 	end
+
+Pokescape01_EventScript_LittleGirl15_2:
+	msgbox Pokescape01_EventScript_LittleGirl15_Text_0
+	goto Pokescape01_EventScript_LittleGirl15_1
 
 
 Pokescape01_EventScript_Geodude::
@@ -350,7 +347,7 @@ Pokescape01_EventScript_BattleDouble02::
 	trainerbattle_double TRAINER_POKESCAPE01_02, Pokescape01_EventScript_BattleDouble02_Text_0, Pokescape01_EventScript_BattleDouble02_Text_1, Text_NotEnoughMons
 	lockall
 	goto_if_unset FLAG_UNUSED_0x95E, Pokescape01_EventScript_BattleDouble02_2
-	msgbox Pokescape01_EventScript_BattleDouble02_Text_1
+	msgbox Pokescape01_EventScript_BattleDouble02_Text_4
 	waitmessage
 Pokescape01_EventScript_BattleDouble02_1:
 	releaseall
@@ -492,6 +489,9 @@ Pokescape01_Pokecenter_EventScript_Gentleman::
 	compare VAR_RESULT, YES
 	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_2
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_10
+	release
+	end
+
 Pokescape01_Pokecenter_EventScript_Gentleman_1:
 	waitmessage
 	goto_if_set FLAG_P01_ADD30MIN, Pokescape01_Pokecenter_EventScript_Gentleman_6
@@ -885,8 +885,10 @@ Pokescape01_Pokecenter_EventScript_Scientist::
 	getpartysize
 	compare VAR_RESULT, 1
 	goto_if_le Pokescape01_Pokecenter_EventScript_Scientist_2
-	goto_if_unset FLAG_UNUSED_0x95E, Pokescape01_Pokecenter_EventScript_Scientist_5
-	msgbox Pokescape01_Pokecenter_EventScript_Scientist_Text_2
+	goto_if_set FLAG_UNUSED_0x95E, Pokescape01_Pokecenter_EventScript_Scientist_5
+	goto_if_set FLAG_P01_MASTER_BALL, Pokescape01_Pokecenter_EventScript_Scientist_5
+	goto_if_set FLAG_P01_GIRAFARIG, Pokescape01_Pokecenter_EventScript_Scientist_6
+	msgbox Pokescape01_Pokecenter_EventScript_Scientist_Text_3
 Pokescape01_Pokecenter_EventScript_Scientist_1:
 	waitmessage
 	release
@@ -898,6 +900,10 @@ Pokescape01_Pokecenter_EventScript_Scientist_2:
 
 Pokescape01_Pokecenter_EventScript_Scientist_5:
 	msgbox Pokescape01_Pokecenter_EventScript_Scientist_Text_1
+	goto Pokescape01_Pokecenter_EventScript_Scientist_1
+
+Pokescape01_Pokecenter_EventScript_Scientist_6:
+	msgbox Pokescape01_Pokecenter_EventScript_Scientist_Text_2
 	goto Pokescape01_Pokecenter_EventScript_Scientist_1
 
 
@@ -1093,6 +1099,18 @@ Pokescape01_EventScript_LittleGirl15_Text_0:
 	.string "Mosquitoes tried to bite me in the\n"
 	.string "grass down there.$"
 
+Pokescape01_EventScript_LittleGirl15_Text_1:
+	.string "I think the bugs are gone by now. What a\n"
+	.string "relief!\p"
+	.string "By the way:\n"
+	.string "Did you know that some Pokémon species\l"
+	.string "can have access to completely new\l"
+	.string "moves after evolving?\p"
+	.string "Just like bugs are going through\n"
+	.string "metamorphosis.\p"
+	.string "Well...maybe bugs are more interesting\n"
+	.string "than I thought.$"
+
 Pokescape01_EventScript_Geodude_Text_0:
 	.string "Geodude is tired of fighting.$"
 
@@ -1111,7 +1129,7 @@ Pokescape01_EventScript_BattleDouble02_Text_0:
 	.string "already grown up!$"
 
 Pokescape01_EventScript_BattleDouble02_Text_1:
-	.string "Mommy!!!$"
+	.string "Mommy!$"
 
 Pokescape01_EventScript_BattleDouble02_Text_2:
 	.string "I don't wanna play with my Wooper\n"
@@ -1257,17 +1275,21 @@ Pokescape01_Pokecenter_EventScript_Scientist_Text_0:
 	.string "wannabe.$"
 
 Pokescape01_Pokecenter_EventScript_Scientist_Text_1:
+	.string "You will need more Pokemon to become a\n"
+	.string "successful trainer.\l"
+	.string "There is a sign at the grass patch in\l"
+	.string "the south. It shall guide you to make a\l"
+	.string "good decision catching one..$"
+
+Pokescape01_Pokecenter_EventScript_Scientist_Text_2:
+	.string "You did well so far! You will also figure\n"
+	.string "out a way to make it to the finish line!$"
+
+Pokescape01_Pokecenter_EventScript_Scientist_Text_3:
 	.string "Your Yamask seems to be very stubborn.\p"
 	.string "It is not interested in learning any new\n"
 	.string "moves.\p"
 	.string "How sad.$"
-
-Pokescape01_Pokecenter_EventScript_Scientist_Text_2:
-	.string "Did you know that some species can\n"
-	.string "have access to completely new moves\l"
-	.string "after evolving?\p"
-	.string "There is so much to learn about\n"
-	.string "Pokemon.$"
 
 Pokescape01_House_EventScript_Pikachu_Text_0:
 	.string "...Pika...$"

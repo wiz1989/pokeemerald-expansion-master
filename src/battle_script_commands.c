@@ -15304,6 +15304,9 @@ static void Cmd_trysetcaughtmondexflags(void)
     if(species == SPECIES_SCYTHER) {
         FlagSet(FLAG_P01_SCYTHER);
     }
+    if(species == SPECIES_GIRAFARIG) {
+        FlagSet(FLAG_P01_GIRAFARIG);
+    }
     
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
     {
@@ -15311,12 +15314,7 @@ static void Cmd_trysetcaughtmondexflags(void)
     }
     else
     {
-        HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);  
-
-        if(species == SPECIES_GIRAFARIG) {
-            FlagSet(FLAG_P01_GIRAFARIG);
-        }
-              
+        HandleSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_SET_CAUGHT, personality);
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }

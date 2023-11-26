@@ -13,7 +13,7 @@ script OnResume {
 	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
 		givemon(SPECIES_MAKUHITA, 15)
 		givemonpc(SPECIES_YAMASK, 16, ITEM_RARE_CANDY, 7, 19)
-		setinitialmovesPC(MOVE_ASTONISH, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT)
+		setinitialmovesPC(MOVE_HEX, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT)
 		setflag(FLAG_SYS_POKEMON_GET)
 		addpcitem(ITEM_TM_DIG, 1)
 		setvar(VAR_LITTLEROOT_TOWN_STATE, 1)
@@ -249,15 +249,7 @@ script Pokescape01_EventScript_AppleTree {
     //apple already picked?
     if(var(VAR_UNUSED_0x40F7) == 0) {
     	//only give apple, if Girafarig was already caught
-    	checkpartymon(SPECIES_GIRAFARIG)
-		if(var(VAR_RESULT)) {
-			setflag(FLAG_P01_GOTGIRAFARIG)
-		}
-		else {
-			clearflag(FLAG_P01_GOTGIRAFARIG)
-		}
-
-		if (flag(FLAG_P01_GOTGIRAFARIG)) {
+		if (flag(FLAG_P01_GIRAFARIG)) {
 		    msgbox(format("{PLAYER} found a Sweet Apple in the tree."))
 		    giveitem(ITEM_SWEET_APPLE, 1)
 		    setvar(VAR_UNUSED_0x40F7, 1)
@@ -279,7 +271,12 @@ script Pokescape01_EventScript_AppleTree {
 script Pokescape01_EventScript_LittleGirl15 {
 	lockall
     faceplayer
-    msgbox(format("I'm too scared to get off from here...\p Mosquitoes tried to bite me in the grass down there."))
+	if(!flag(FLAG_P01_GOTGIRAFARIG)) {
+		msgbox(format("I'm too scared to get off from here...\p Mosquitoes tried to bite me in the grass down there."))
+	}
+	else {
+		msgbox(format("I think the bugs are gone by now. What a relief! \p By the way:\nDid you know that some Pokémon species can have access to completely new moves after evolving? \pJust like bugs are going through metamorphosis. \pWell...maybe bugs are more interesting than I thought."))
+	}
 	waitmessage
     releaseall
     end
@@ -315,7 +312,7 @@ script Pokescape01_EventScript_Battle01 {
 }
 
 script Pokescape01_EventScript_BattleDouble02 {
-	trainerbattle_double(TRAINER_POKESCAPE01_02, format("Mom said we are too young, but we are already grown up!"), "Mommy!!!", Text_NotEnoughMons)
+	trainerbattle_double(TRAINER_POKESCAPE01_02, format("Mom said we are too young, but we are already grown up!"), "Mommy!", Text_NotEnoughMons)
 	lockall
 	if(flag(FLAG_UNUSED_0x95E) == FALSE) {
 		checkpartymon(SPECIES_MAKUHITA) //returns bool VAR_RESULT
@@ -365,7 +362,7 @@ script Pokescape01_EventScript_BattleDouble02 {
 		}
 	}
 	else {
-		msgbox(format("Mommy!!!"))
+		msgbox(format("Have you heard? Nurse Joy is well again!"))
 		waitmessage
 	}
 	releaseall
@@ -723,6 +720,8 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 	}
 	else {
 		msgbox(format("Come back whenever you need me."))
+		release
+		end
 	}
 	waitmessage
 
@@ -767,11 +766,14 @@ script Pokescape01_Pokecenter_EventScript_Scientist {
 		msgbox(format("You have so little pokemon in your party. I'm not talking to such a wannabe."))
 	}
 	else {
-		if (!flag(FLAG_UNUSED_0x95E)) {
-			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
+		if (flag(FLAG_UNUSED_0x95E) || flag(FLAG_P01_MASTER_BALL)) {
+			msgbox(format("You will need more Pokemon to become a successful trainer. \lThere is a sign at the grass patch in the south. It shall guide you to make a good decision catching one.."))
+		}
+		elif (flag(FLAG_P01_GIRAFARIG)) {
+			msgbox(format("You did well so far! You will also figure out a way to make it to the finish line!"))
 		}
 		else {
-			msgbox(format("Did you know that some species can have access to completely new moves after evolving? \pThere is so much to learn about Pokemon."))
+			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
 		}
 	}
 	waitmessage
