@@ -4410,6 +4410,16 @@
       "secondary_tileset": "gTileset_MysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/map.bin"
+    },
+    {
+      "id": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L3",
+      "name": "NationalHistoryMuseumL3_Layout",
+      "width": 30,
+      "height": 15,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_OceanicMuseum",
+      "border_filepath": "data/layouts/NationalHistoryMuseumL3/border.bin",
+      "blockdata_filepath": "data/layouts/NationalHistoryMuseumL3/map.bin"
     }
   ]
 }
