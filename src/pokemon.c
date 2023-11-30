@@ -3435,6 +3435,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 i;
     u8 availableIVs[NUM_STATS];
     u8 selectedIvs[LEGENDARY_PERFECT_IV_COUNT];
+    u16 moves[4]; //added var
 
     ZeroBoxMonData(boxMon);
 
@@ -3613,6 +3614,30 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     }
 
     GiveBoxMonInitialMoveset(boxMon);
+
+    //enhancements for custom Pokemon properties
+    if (species == SPECIES_MUNCHLAX) {
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, 0);
+
+        moves[0] = MOVE_LICK;
+        moves[1] = MOVE_TACKLE;
+        moves[2] = MOVE_PROTECT;
+        moves[3] = MOVE_RECYCLE;
+
+        for(i=0; i<=3; i++)
+        {
+            if (moves[i] == MOVE_NONE)
+            {
+                // do nothing
+            }
+            else
+            {
+                //set move
+                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+            }
+        }
+    }
+    //END
 }
 
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature)
@@ -8692,4 +8717,50 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality)
     *new3 = *old3;
     boxMon->checksum = CalculateBoxMonChecksum(boxMon);
     EncryptBoxMon(boxMon);
+}
+
+u8 GiveMonToPlayerPC(struct Pokemon *mon, u8 boxNo, u8 boxPos)
+{
+    SetMonData(mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
+    SetMonData(mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
+    SetMonData(mon, MON_DATA_OT_ID, gSaveBlock2Ptr->playerTrainerId);
+
+    return SendMonToPCdef(mon, boxNo, boxPos);
+}
+
+u8 SendMonToPCdef(struct Pokemon* mon, u8 boxNo, u8 boxPos)
+{
+    struct BoxPokemon* checkingMon = GetBoxedMonPtr(boxNo, boxPos);
+    if (GetBoxMonData(checkingMon, MON_DATA_SPECIES, NULL) == SPECIES_NONE)
+    {
+        MonRestorePP(mon);
+        CopyMon(checkingMon, &mon->box, sizeof(mon->box));
+        gSpecialVar_MonBoxId = boxNo;
+        gSpecialVar_MonBoxPos = boxPos;
+        if (GetPCBoxToSendMon() != boxNo)
+            FlagClear(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE);
+        VarSet(VAR_PC_BOX_TO_SEND_MON, boxNo);
+        return MON_GIVEN_TO_PC;
+    }
+
+    return MON_CANT_GIVE;
+}
+
+u8 CheckPartyPokemon(struct Pokemon *party, u16 species)
+{
+    u8 retVal;
+    u32 partyCount;
+    retVal = 10; //10 = default false value
+    partyCount = 0;
+
+    while (partyCount < PARTY_SIZE && GetMonData(&party[partyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
+    {
+        if (GetMonData(&party[partyCount], MON_DATA_SPECIES, NULL) == species) {
+            retVal = partyCount;
+            partyCount = PARTY_SIZE; //species found in party
+        }
+        partyCount++;
+    }
+
+    return retVal;
 }

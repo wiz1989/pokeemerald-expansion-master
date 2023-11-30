@@ -1,1 +1,60 @@
-mapscripts NationalHistoryMuseumL3_MapScripts {}
+// ############### Mapscripts ###############
+
+mapscripts NationalHistoryMuseumL3_MapScripts {
+    MAP_SCRIPT_ON_RESUME: NHML3_OnResume
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_TEMP_2, 0: NHML3_EveryFrame
+	]
+}
+
+script NHML3_OnResume {
+	setvar(VAR_TEMP_2, 0) //var for EveryFrame
+
+    //init player
+	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
+		givemon(SPECIES_MUNCHLAX, 11)
+		//givemonpc(SPECIES_YAMASK, 16, ITEM_RARE_CANDY, 7, 19)
+		//setinitialmovesPC(MOVE_HEX, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT)
+		setflag(FLAG_SYS_POKEMON_GET)
+		//addpcitem(ITEM_TM_DIG, 1)
+		setvar(VAR_LITTLEROOT_TOWN_STATE, 1)
+	}
+
+	setrespawn(HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM)
+	//set all badges so Pokemon will always obey
+	setflag(FLAG_BADGE01_GET)
+	setflag(FLAG_BADGE02_GET)
+	setflag(FLAG_BADGE03_GET)
+	setflag(FLAG_BADGE04_GET)
+	setflag(FLAG_BADGE05_GET)
+	setflag(FLAG_BADGE06_GET)
+	setflag(FLAG_BADGE07_GET)
+	setflag(FLAG_BADGE08_GET)
+	setflag(FLAG_SYS_POKEDEX_GET)
+
+	call(load_HONOR_MODE)
+	end
+}
+
+script NHML3_EveryFrame {
+	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
+		lock
+		clearflag(FLAG_P01_LOAD_SAVEGAME)
+		buffernumberstring(STR_VAR_1, VAR_P01_CALC)
+		call(Common_EventScript_SaveGame)
+		closemessage
+		release
+	}
+	setvar(VAR_TEMP_2, 1)
+}
+
+script load_HONOR_MODE {
+	//save game after loading when HONOR mode is active
+	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
+        addvar(VAR_P01_PENALTY, 1)
+		setorcopyvar(VAR_P01_CALC, VAR_P01_PENALTY) //interim save of VAR_P01_PENALTY value
+		multvar(VAR_P01_CALC, 15)
+		setorcopyvar(VAR_0x8004, VAR_P01_CALC) //set special var for following special
+		special(PlayTimeAddMin)
+    }
+}

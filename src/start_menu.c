@@ -1029,16 +1029,25 @@ static u8 SaveConfirmSaveCallback(void)
     RemoveStartMenuWindow();
     ShowSaveInfoWindow();
 
-    if (InBattlePyramid())
-    {
-        ShowSaveMessage(gText_BattlePyramidConfirmRest, SaveYesNoCallback);
+    if (FlagGet(FLAG_P01_HONOR_MODE) == TRUE && FlagGet(FLAG_P01_HONOR_MODE_LOAD) == TRUE){
+        gDifferentSaveFile = FALSE;
+        ShowSaveMessage(gText_SavingHONORMODE, SaveDoSaveCallback);
+        FlagClear(FLAG_P01_HONOR_MODE_LOAD);
     }
-    else
-    {
-        ShowSaveMessage(gText_ConfirmSave, SaveYesNoCallback);
-    }
+    else {
+    //ShowSaveInfoWindow();
 
-    return SAVE_IN_PROGRESS;
+        if (InBattlePyramid())
+        {
+            ShowSaveMessage(gText_BattlePyramidConfirmRest, SaveYesNoCallback);
+        }
+        else
+        {
+            ShowSaveMessage(gText_ConfirmSave, SaveYesNoCallback);
+        }
+
+        return SAVE_IN_PROGRESS;
+    }
 }
 
 static u8 SaveYesNoCallback(void)

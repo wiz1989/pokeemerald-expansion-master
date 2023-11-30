@@ -287,6 +287,7 @@ extern const u8 gText_SavingPlayer[];
 extern const u8 gText_SavingBadges[];
 extern const u8 gText_SavingPokedex[];
 extern const u8 gText_SavingTime[];
+extern const u8 gText_SavingHONORMODE[];
 
 // Battle pyramid menu texts
 extern const u8 gText_BattlePyramidConfirmRest[];
@@ -3037,5 +3038,9 @@ extern const u8 gText_TellHimTheWords[];
 // Exp. Share
 extern const u8 gText_ExpShareOn[];
 extern const u8 gText_ExpShareOff[];
+
+// Escape Room
+extern const u8 gText_P01_REGULAR_MODE[];
+extern const u8 gText_P01_HONOR_MODE[];
 
 #endif // GUARD_STRINGS_H

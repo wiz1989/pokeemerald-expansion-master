@@ -45,6 +45,7 @@
 #include "constants/metatile_labels.h"
 #include "constants/moves.h"
 #include "constants/region_map_sections.h"
+#include "main_menu.h"
 
 #define LAST_TVSHOW_IDX (TV_SHOWS_COUNT - 1)
 
@@ -6801,4 +6802,9 @@ static void TVShowDone(void)
 void ResetTVShowState(void)
 {
     sTVShowState = 0;
+}
+
+void ChangePlayerName(void)
+{
+    DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName, gSaveBlock2Ptr->playerGender, 0, 0, CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }

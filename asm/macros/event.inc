@@ -2025,3 +2025,76 @@
 	callnative CreateTrainerPartyForPlayer
 	trainerbattle_no_intro \trainer2, NULL
 	.endm
+
+	@ Gives the player a Pokémon of the specified species and level, holding the specified item and puts it into the dedicated PC box. The trailing 0s are unused parameters.
+	@ VAR_RESULT will be set to MON_GIVEN_TO_PARTY, MON_GIVEN_TO_PC, or MON_CANT_GIVE depending on the outcome.
+	.macro givemonpc species:req, level:req, item=ITEM_NONE, boxNo:req, boxPos:req
+	.byte 0xe3
+	.2byte \species
+	.byte \level
+	.2byte \item
+	.byte \boxNo
+	.byte \boxPos
+	.4byte 0
+	.4byte 0
+	.byte 0
+	.endm
+
+	@ Set initial moveset for BoxMon by own definition
+	.macro setinitialmovesPC move1:req, move2=MOVE_NONE, move3=MOVE_NONE, move4=MOVE_NONE
+	setvar VAR_TEMP_1, \move1
+	setvar VAR_TEMP_2, \move2
+	setvar VAR_TEMP_3, \move3
+	setvar VAR_TEMP_4, \move4
+	special SetBoxMonMoves
+	.endm
+
+	@ Set initial moveset for PartyMon by own definition
+	.macro setinitialmoves partypos: req, move1:req, move2=MOVE_NONE, move3=MOVE_NONE, move4=MOVE_NONE
+	setvar VAR_TEMP_1, \partypos
+	setvar VAR_TEMP_2, \move1
+	setvar VAR_TEMP_3, \move2
+	setvar VAR_TEMP_4, \move3
+	setvar VAR_TEMP_5, \move4
+	special SetMonMoves
+	.endm
+
+	@ Set ability for PartyMon by own definition
+	@ abilityNo: 1=standard, 2=hidden
+	.macro setability partypos: req, abilityNo:req
+	setvar VAR_TEMP_1, \partypos
+	setvar VAR_TEMP_2, \abilityNo
+	special SetMonAbility
+	.endm
+
+	@ check if a certain species is found in the player's party
+	.macro checkpartymon species: req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, IsPokemonInParty
+	.endm
+
+	@ get the slot of a certain species in the player's party
+	.macro getpartymonslot species: req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetMonPartySlot
+	.endm
+
+	@ Changes the value of destination by multiplying it with value. Overflow is not prevented (d*v > 0xFFFF).
+	.macro multvar destination:req, value:req
+	.byte 0xe4
+	.2byte \destination
+	.2byte \value
+	.endm
+
+	@ Converts the value of input to a decimal string in form "00", and writes that string to the specified buffer.
+	.macro buffertimestring stringVarId:req, input:req
+	.byte 0xe5
+	stringvar \stringVarId
+	.2byte \input
+	.endm
+
+	@ get the level of a certain species in the player's party
+	.macro getpartymonlevel species: req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetMonPartyLevel
+	.endm

@@ -17,7 +17,6 @@
 #include "constants/items.h"
 #include "constants/script_menu.h"
 #include "constants/songs.h"
-
 #include "data/script_menu.h"
 
 static EWRAM_DATA u8 sProcessInputDelay = 0;

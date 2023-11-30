@@ -623,5 +623,8 @@ void UpdateMonPersonality(struct BoxPokemon *boxMon, u32 personality);
 u8 CalculatePartyCount(struct Pokemon *party);
 u16 SanitizeSpeciesId(u16 species);
 bool32 IsSpeciesEnabled(u16 species);
+u8 GiveMonToPlayerPC(struct Pokemon *mon, u8 boxNo, u8 boxPos);
+u8 SendMonToPCdef(struct Pokemon* mon, u8 boxNo, u8 boxPos);
+u8 CheckPartyPokemon(struct Pokemon *party, u16 species);
 
 #endif // GUARD_POKEMON_H

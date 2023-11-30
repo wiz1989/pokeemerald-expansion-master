@@ -1833,3 +1833,5 @@ const u8 gText_Berry[] = _("BERRY");
 const u8 gText_Berries[] = _("BERRIES");
 const u8 gText_ExpShareOn[] = _("The Exp. Share has been turned on.{PAUSE_UNTIL_PRESS}");
 const u8 gText_ExpShareOff[] = _("The Exp. Share has been turned off.{PAUSE_UNTIL_PRESS}");
+const u8 gText_P01_REGULAR_MODE[] = _("REGULAR MODE");
+const u8 gText_P01_HONOR_MODE[] = _("HONOR MODE");
