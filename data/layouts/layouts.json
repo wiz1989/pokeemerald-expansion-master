@@ -4420,6 +4420,26 @@
       "secondary_tileset": "gTileset_OceanicMuseum",
       "border_filepath": "data/layouts/NationalHistoryMuseumL3/border.bin",
       "blockdata_filepath": "data/layouts/NationalHistoryMuseumL3/map.bin"
+    },
+    {
+      "id": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L2",
+      "name": "NationalHistoryMuseumL2_Layout",
+      "width": 30,
+      "height": 15,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_OceanicMuseum",
+      "border_filepath": "data/layouts/NationalHistoryMuseumL2/border.bin",
+      "blockdata_filepath": "data/layouts/NationalHistoryMuseumL2/map.bin"
+    },
+    {
+      "id": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L1",
+      "name": "NationalHistoryMuseumL1_Layout",
+      "width": 30,
+      "height": 15,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_OceanicMuseum",
+      "border_filepath": "data/layouts/NationalHistoryMuseumL1/border.bin",
+      "blockdata_filepath": "data/layouts/NationalHistoryMuseumL1/map.bin"
     }
   ]
 }

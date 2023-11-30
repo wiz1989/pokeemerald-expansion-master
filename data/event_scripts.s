@@ -1061,3 +1061,7 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/text/birch_speech.inc"
 
 	.include "data/maps/NationalHistoryMuseumL3/scripts.inc"
+
+	.include "data/maps/NationalHistoryMuseumL2/scripts.inc"
+
+	.include "data/maps/NationalHistoryMuseumL1/scripts.inc"

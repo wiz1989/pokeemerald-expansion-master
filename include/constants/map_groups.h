@@ -7,6 +7,8 @@
 
 // gMapGroup_EscapeRooms
 #define MAP_NATIONAL_HISTORY_MUSEUM_L3 (0 | (0 << 8))
+#define MAP_NATIONAL_HISTORY_MUSEUM_L2 (1 | (0 << 8))
+#define MAP_NATIONAL_HISTORY_MUSEUM_L1 (2 | (0 << 8))
 
 // gMapGroup_TownsAndRoutes
 #define MAP_PETALBURG_CITY      (0 | (1 << 8))
