@@ -17,7 +17,13 @@
 
   ],
   "warp_events": [
-
+    {
+      "x": 26,
+      "y": 1,
+      "elevation": 0,
+      "dest_map": "MAP_NATIONAL_HISTORY_MUSEUM_L2",
+      "dest_warp_id": "1"
+    }
   ],
   "coord_events": [
 
