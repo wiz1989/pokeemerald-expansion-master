@@ -34,6 +34,7 @@ script NHML2_PC {
 
 script NHML2_Nurse {
     lock
+    faceplayer
     msgbox(format("Let me heal your party."), MSGBOX_AUTOCLOSE)
     call(Common_EventScript_OutOfCenterPartyHeal)
 	incrementgamestat(GAME_STAT_RESTED_AT_HOME)
@@ -54,13 +55,19 @@ script NHM2_Battle_Archen {
     playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
     delay(40)
     waitmoncry
-    setwildbattle(SPECIES_ARCHEN, 8)
+    
+    //if(!flag(FLAG_CAUGHT_ARCHEN)) {
+    setwildbattle(SPECIES_ARCHEN, 12)
+    //}
+    //else {
+        //setwildbattle(SPECIES_ARCHEOPS, 100)
+    //}
     dowildbattle
 	end
 }
 
 script NHM2_Battle_Kabutops {
-    playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
+    playmoncry(SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER)
     delay(40)
     waitmoncry
     setwildbattle(SPECIES_KABUTOPS, 100)

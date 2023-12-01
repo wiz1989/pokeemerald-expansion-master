@@ -3622,7 +3622,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
         moves[0] = MOVE_LICK;
         moves[1] = MOVE_TACKLE;
-        moves[2] = MOVE_PROTECT;
+        moves[2] = MOVE_DEFENSE_CURL;
         moves[3] = MOVE_RECYCLE;
 
         for(i=0; i<=3; i++)

@@ -11810,6 +11810,6 @@ static const struct TrainerMon sParty_BrandonNHM[] = {
     .lvl = 100,
     .species = SPECIES_TYRANTRUM,
     .ability = ABILITY_ROCK_HEAD,
-    .moves = {MOVE_HEAD_SMASH, MOVE_HORN_DRILL, MOVE_EARTHQUAKE, MOVE_DRAGON_CLAW},
+    .moves = {MOVE_HEAD_SMASH, MOVE_NONE, MOVE_NONE, MOVE_NONE},
     }
 };

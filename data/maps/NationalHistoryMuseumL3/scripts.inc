@@ -151,7 +151,16 @@ NHML3_Tutor_ConfirmMoveSelection::
 	checkitem ITEM_HEART_SCALE
 	compare VAR_RESULT, NO
 	goto_if_eq NHML3_Tutor_ConfirmMoveSelection_5
-	call BattleFrontier_Lounge7_EventScript_TeachTutorMove
+	msgbox BattleFrontier_Lounge7_Text_TeachMoveToWhichMon, MSGBOX_DEFAULT
+	fadescreen FADE_TO_BLACK
+	special CloseBattleFrontierTutorWindow
+	special ChooseMonForMoveTutor
+	waitstate
+	compare VAR_RESULT, FALSE
+	goto_if_eq NHML3_Tutor_ConfirmMoveSelection_8
+	msgbox NHML3_Tutor_ConfirmMoveSelection_Text_4, MSGBOX_AUTOCLOSE
+	removeitem ITEM_HEART_SCALE
+NHML3_Tutor_ConfirmMoveSelection_4:
 	waitmessage
 	release
 	end
@@ -168,6 +177,15 @@ NHML3_Tutor_ConfirmMoveSelection_5:
 	waitmessage
 	special CloseBattleFrontierTutorWindow
 	release
+	end
+
+NHML3_Tutor_ConfirmMoveSelection_8:
+	call NHML3_Exit
+	goto NHML3_Tutor_ConfirmMoveSelection_4
+
+
+NHML3_Trader::
+	call FortreeCity_House1_EventScript_Trader
 	end
 
 
@@ -189,3 +207,6 @@ NHML3_Tutor_ConfirmMoveSelection_Text_2:
 NHML3_Tutor_ConfirmMoveSelection_Text_3:
 	.string "Oh, you don't have any Heart Scales!\l"
 	.string "Don't waste my time then!$"
+
+NHML3_Tutor_ConfirmMoveSelection_Text_4:
+	.string "Thanks for doing business with me.$"

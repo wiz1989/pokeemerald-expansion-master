@@ -41,6 +41,7 @@ NHML2_PC::
 
 NHML2_Nurse::
 	lock
+	faceplayer
 	msgbox NHML2_Nurse_Text_0, MSGBOX_AUTOCLOSE
 	call Common_EventScript_OutOfCenterPartyHeal
 	incrementgamestat GAME_STAT_RESTED_AT_HOME
@@ -61,13 +62,13 @@ NHM2_Battle_Archen::
 	playmoncry SPECIES_ARCHEN, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_ARCHEN, 8
+	setwildbattle SPECIES_ARCHEN, 14
 	dowildbattle
 	end
 
 
 NHM2_Battle_Kabutops::
-	playmoncry SPECIES_ARCHEN, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_KABUTOPS, 100

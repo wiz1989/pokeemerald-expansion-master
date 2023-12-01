@@ -1062,12 +1062,39 @@ static const u16 sNaturePowerMoves[BATTLE_TERRAIN_COUNT] =
 
 static const u16 sPickupItems[] =
 {
-    ITEM_HEART_SCALE
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
 };
 
 static const u16 sRarePickupItems[] =
 {
-    ITEM_HEART_SCALE
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
+    ITEM_HEART_SCALE,
 };
 
 static const u8 sPickupProbabilities[] =
@@ -14499,6 +14526,8 @@ static void Cmd_pickup(void)
     u16 species, heldItem, ability;
     u8 lvlDivBy10;
 
+    DebugPrintf("Cmd_pickup");
+
     if (!InBattlePike()) // No items in Battle Pike.
     {
         bool32 isInPyramid = InBattlePyramid_();
@@ -15056,6 +15085,9 @@ static void Cmd_handleballthrow(void)
 
         if (gBattleResults.catchAttempts[gLastUsedItem - FIRST_BALL] < 255)
             gBattleResults.catchAttempts[gLastUsedItem - FIRST_BALL]++;
+        //wiz1989
+        if (gBattleMons[gBattlerTarget].species == SPECIES_ARCHEN)
+            odds = 255;
 
         if (odds > 254) // mon caught
         {
@@ -15186,6 +15218,10 @@ static void Cmd_trysetcaughtmondexflags(void)
 
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_PERSONALITY, NULL);
+
+    if(species == SPECIES_ARCHEN) {
+        FlagSet(FLAG_CAUGHT_ARCHEN);
+    }
 
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
     {

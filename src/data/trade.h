@@ -1002,19 +1002,19 @@ static const struct InGameTrade sIngameTrades[] =
     },
     [INGAME_TRADE_PLUSLE] =
     {
-        .nickname = _("PLUSES"),
-        .species = SPECIES_PLUSLE,
+        .nickname = _("FRANK"),
+        .species = SPECIES_YAMASK,
         .ivs = {4, 4, 4, 5, 5, 4},
         .abilityNum = 0,
         .otId = 73996,
         .conditions = {5, 5, 30, 5, 5},
         .personality = 0x6F,
-        .heldItem = ITEM_WOOD_MAIL,
+        .heldItem = ITEM_NONE,
         .mailNum = 0,
-        .otName = _("ROMAN"),
+        .otName = _("ACKO"),
         .otGender = MALE,
         .sheen = 10,
-        .requestedSpecies = SPECIES_VOLBEAT
+        .requestedSpecies = SPECIES_MUNCHLAX
     },
     [INGAME_TRADE_HORSEA] =
     {

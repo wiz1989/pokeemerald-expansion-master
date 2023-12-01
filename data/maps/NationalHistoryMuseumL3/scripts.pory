@@ -138,10 +138,25 @@ script NHML3_Tutor_ConfirmMoveSelection {
 		end
 	}
 	else {
-		call(BattleFrontier_Lounge7_EventScript_TeachTutorMove)
+		msgbox(BattleFrontier_Lounge7_Text_TeachMoveToWhichMon, MSGBOX_DEFAULT)
+		fadescreen(FADE_TO_BLACK)
+		special(CloseBattleFrontierTutorWindow)
+		special(ChooseMonForMoveTutor)
+		waitstate
+		if(var(VAR_RESULT) == FALSE) {
+			call(NHML3_Exit)
+		}
+		else {
+			msgbox("Thanks for doing business with me.", MSGBOX_AUTOCLOSE)
+			removeitem(ITEM_HEART_SCALE)
+		}
 	}
 	waitmessage
 	release
 	end
 }
 
+script NHML3_Trader{
+	call(FortreeCity_House1_EventScript_Trader)
+	end
+}
