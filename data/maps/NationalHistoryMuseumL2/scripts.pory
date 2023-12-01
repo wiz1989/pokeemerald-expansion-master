@@ -1,1 +1,69 @@
-mapscripts NationalHistoryMuseumL2_MapScripts {}
+// ############### Mapscripts ###############
+
+mapscripts NationalHistoryMuseumL2_MapScripts {
+    MAP_SCRIPT_ON_RESUME: NHML2_OnResume
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_TEMP_2, 0: NHML2_EveryFrame
+	]
+}
+
+script NHML2_OnResume {
+	setvar(VAR_TEMP_2, 0) //var for EveryFrame
+	call(load_HONOR_MODE)
+	end
+}
+
+script NHML2_EveryFrame {
+	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
+		lock
+		clearflag(FLAG_P01_LOAD_SAVEGAME)
+		buffernumberstring(STR_VAR_1, VAR_P01_CALC)
+		call(Common_EventScript_SaveGame)
+		closemessage
+		release
+	}
+	setvar(VAR_TEMP_2, 1)
+}
+
+
+// ############### Regular scripts ###############
+
+script NHML2_PC {
+    call(EventScript_PC)
+}
+
+script NHML2_Nurse {
+    lock
+    msgbox(format("Let me heal your party."), MSGBOX_AUTOCLOSE)
+    call(Common_EventScript_OutOfCenterPartyHeal)
+	incrementgamestat(GAME_STAT_RESTED_AT_HOME)
+    msgbox(format("You're good to go again."), MSGBOX_AUTOCLOSE)
+    release
+    end
+}
+
+script NHML2_Battle_Brandon {
+	trainerbattle_single(TRAINER_NHM_BRANDON, "Are you scared, yet?", "I wasn't FEARful enough.")
+	lock
+	msgbox(format("Another HINT."), MSGBOX_AUTOCLOSE)
+	release
+	end
+}
+
+script NHM2_Battle_Archen {
+    playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
+    delay(40)
+    waitmoncry
+    setwildbattle(SPECIES_ARCHEN, 8)
+    dowildbattle
+	end
+}
+
+script NHM2_Battle_Kabutops {
+    playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
+    delay(40)
+    waitmoncry
+    setwildbattle(SPECIES_KABUTOPS, 100)
+    dowildbattle
+	end
+}

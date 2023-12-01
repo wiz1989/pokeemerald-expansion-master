@@ -556,4 +556,3 @@ gSpecials::
 	def_special HasOneUnfaintedMon
 	def_special ItemisHeldInParty
 	def_special GetMonPartyLevel
-	

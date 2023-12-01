@@ -1,1 +1,30 @@
-mapscripts NationalHistoryMuseumL1_MapScripts {}
+// ############### Mapscripts ###############
+
+mapscripts NationalHistoryMuseumL1_MapScripts {
+    MAP_SCRIPT_ON_RESUME: NHML1_OnResume
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_TEMP_2, 0: NHML1_EveryFrame
+	]
+}
+
+script NHML1_OnResume {
+	setvar(VAR_TEMP_2, 0) //var for EveryFrame
+	call(load_HONOR_MODE)
+	end
+}
+
+script NHML1_EveryFrame {
+	if (flag(FLAG_P01_HONOR_MODE) && flag(FLAG_P01_LOAD_SAVEGAME)) {
+		lock
+		clearflag(FLAG_P01_LOAD_SAVEGAME)
+		buffernumberstring(STR_VAR_1, VAR_P01_CALC)
+		call(Common_EventScript_SaveGame)
+		closemessage
+		release
+	}
+	setvar(VAR_TEMP_2, 1)
+}
+
+
+// ############### Regular scripts ###############
+

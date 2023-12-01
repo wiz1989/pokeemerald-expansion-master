@@ -1835,3 +1835,6 @@ const u8 gText_ExpShareOn[] = _("The Exp. Share has been turned on.{PAUSE_UNTIL_
 const u8 gText_ExpShareOff[] = _("The Exp. Share has been turned off.{PAUSE_UNTIL_PRESS}");
 const u8 gText_P01_REGULAR_MODE[] = _("REGULAR MODE");
 const u8 gText_P01_HONOR_MODE[] = _("HONOR MODE");
+const u8 gText_RolePlay[] = _("ROLE PLAY");
+const u8 gText_Endeavor[] = _("ENDEAVOR");
+const u8 gText_Splash[] = _("SPLASH");

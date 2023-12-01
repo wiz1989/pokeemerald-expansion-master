@@ -58,3 +58,90 @@ script load_HONOR_MODE {
 		special(PlayTimeAddMin)
     }
 }
+
+
+// ############### Regular scripts ###############
+
+script NHML3_Move_Tutor {
+	lock
+	faceplayer
+	msgbox("I am the Move Tutor. \lI will teach your Pokemon moves for\nprecious Heart Scales. \pWhich move should I teach?")
+	waitmessage
+	setvar(VAR_TEMP_FRONTIER_TUTOR_ID, 0)
+	setvar(VAR_0x8004, SCROLL_MULTI_BF_MOVE_TUTOR_1)
+	setvar(VAR_0x8006, 0)
+	special(ShowScrollableMultichoice)
+	waitstate
+	copyvar(VAR_TEMP_FRONTIER_TUTOR_SELECTION, VAR_RESULT)
+	switch(var(VAR_RESULT)) {
+		case 0: call(NHML3_Tutor_RolePlay)
+		case 1: call(NHML3_Tutor_Endeavor)
+		case 2: call(NHML3_Tutor_Splash)
+		case 3: call(NHML3_Exit)
+		case MULTI_B_PRESSED: call(NHML3_Exit)
+	}
+	waitmessage
+	release
+	end
+}
+
+script NHML3_Tutor_RolePlay {
+	setvar(VAR_0x8008, 1)
+	setvar(VAR_0x8005, MOVE_ROLE_PLAY)
+	call(NHML3_Tutor_ConfirmMoveSelection)
+	end
+}
+
+script NHML3_Tutor_Endeavor {
+	setvar(VAR_0x8008, 1)
+	setvar(VAR_0x8005, MOVE_ENDEAVOR)
+	call(NHML3_Tutor_ConfirmMoveSelection)
+	end
+}
+
+script NHML3_Tutor_Splash {
+	setvar(VAR_0x8008, 1)
+	setvar(VAR_0x8005, MOVE_SPLASH)
+	call(NHML3_Tutor_ConfirmMoveSelection)
+	end
+}
+
+script NHML3_Exit {
+	special(CloseBattleFrontierTutorWindow)
+	msgbox(format("Well, if you don't want to..."), MSGBOX_AUTOCLOSE)
+	release
+	end
+}
+
+//VAR_0x8008 is the price
+//VAR_TEMP_C is the scroll multichoice ID
+//VAR_TEMP_FRONTIER_TUTOR_SELECTION is the move selection
+//VAR_TEMP_FRONTIER_TUTOR_ID is which move tutor was spoken to
+script NHML3_Tutor_ConfirmMoveSelection {
+	special(BufferBattleFrontierTutorMoveName)
+	buffernumberstring(STR_VAR_2, VAR_0x8008)
+	msgbox(format("The move {STR_VAR_1}, is it?"))
+	msgbox("That will be {STR_VAR_2} Heart Scale, okay?", MSGBOX_YESNO)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(format("Alright. Come back anytime you want."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		special(CloseBattleFrontierTutorWindow)
+		release
+		end
+	}
+	checkitem(ITEM_HEART_SCALE)
+	if (var(VAR_RESULT) == NO) {
+		msgbox(format("Oh, you don't have any Heart Scales!\lDon't waste my time then!"), MSGBOX_AUTOCLOSE)
+		waitmessage
+		special(CloseBattleFrontierTutorWindow)
+		release
+		end
+	}
+	else {
+		call(BattleFrontier_Lounge7_EventScript_TeachTutorMove)
+	}
+	waitmessage
+	release
+	end
+}
+

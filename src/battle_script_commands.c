@@ -14531,11 +14531,13 @@ static void Cmd_pickup(void)
                     {
                         if (sPickupProbabilities[j] > rand)
                         {
+                            DebugPrintf("sPickupItems");
                             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[lvlDivBy10 + j]);
                             break;
                         }
                         else if (rand == 99 || rand == 98)
                         {
+                            DebugPrintf("sRarePickupItems");
                             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sRarePickupItems[lvlDivBy10 + (99 - rand)]);
                             break;
                         }

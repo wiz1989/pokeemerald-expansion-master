@@ -493,3 +493,16 @@ BattleFrontier_Lounge7_Text_FirePunchDesc::
 	.string "A fiery punch\n"
 	.string "that may burn\n"
 	.string "the foe.$"
+
+BattleFrontier_Lounge7_Text_RolePlayDesc::
+	.string "Mimics the target\n"
+	.string "and copies its\n"
+    .string "special ability$."
+
+BattleFrontier_Lounge7_Text_EndeavorDesc::
+	.string "Sets the foe's\n"
+	.string "HP equal to the\n"
+    .string "user's HP.$"
+
+BattleFrontier_Lounge7_Text_SplashDesc::
+	.string "It's fuckin Splash!$"

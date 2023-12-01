@@ -3617,7 +3617,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     //enhancements for custom Pokemon properties
     if (species == SPECIES_MUNCHLAX) {
-        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, 0);
+        value = 0;
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
 
         moves[0] = MOVE_LICK;
         moves[1] = MOVE_TACKLE;
@@ -3636,6 +3637,26 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
                 DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
             }
         }
+    }
+
+    if (species == SPECIES_KABUTOPS) {
+        value = ITEM_FOCUS_SASH;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+
+        moves[0] = MOVE_METEOR_BEAM;
+        moves[1] = MOVE_NONE;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_ARCHEN) {
+        //add code if required
     }
     //END
 }
