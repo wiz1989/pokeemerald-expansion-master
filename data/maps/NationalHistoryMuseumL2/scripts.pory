@@ -74,3 +74,25 @@ script NHM2_Battle_Kabutops {
     dowildbattle
 	end
 }
+
+script NHML3_Battle_Double {
+    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Test text."), "Go ahead, you're almost there.", Text_NotEnoughMons)
+	end
+}
+
+
+//Test scripts #################+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+script Dummy_Give_Furret {
+    givemon(SPECIES_FURRET, 21)
+}
+
+script Dummy_Give_Skitty {
+    givemon(SPECIES_SKITTY, 11)
+}
+
+
+// ############### texts ###############
+
+text Text_NotEnoughMons {
+	format("You don't have enough Pokémon to fight us.")
+}

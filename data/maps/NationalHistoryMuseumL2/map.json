@@ -84,6 +84,22 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Battle_Kabutops"
+    },
+    {
+      "type": "sign",
+      "x": 28,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Dummy_Give_Skitty"
+    },
+    {
+      "type": "sign",
+      "x": 29,
+      "y": 1,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Dummy_Give_Furret"
     }
   ]
 }

@@ -11813,3 +11813,24 @@ static const struct TrainerMon sParty_BrandonNHM[] = {
     .moves = {MOVE_HEAD_SMASH, MOVE_NONE, MOVE_NONE, MOVE_NONE},
     }
 };
+
+static const struct TrainerMon sParty_JohnAndGina[] = {
+    {
+    .lvl = 30,
+    .species = SPECIES_COFAGRIGUS,
+    .ability = ABILITY_MUMMY,
+    //.moves = {MOVE_HEAD_SMASH, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+    },
+    {
+    .lvl = 30,
+    .species = SPECIES_PERSIAN,
+    },
+    {
+    .lvl = 30,
+    .species = SPECIES_LUCARIO,
+    },
+    {
+    .lvl = 30,
+    .species = SPECIES_UMBREON,
+    }
+};

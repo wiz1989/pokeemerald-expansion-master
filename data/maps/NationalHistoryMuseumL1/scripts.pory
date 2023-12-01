@@ -25,6 +25,13 @@ script NHML1_EveryFrame {
 	setvar(VAR_TEMP_2, 1)
 }
 
+script NHML1_ItemBall {
+	lock
+	finditem(ITEM_HEART_SCALE)
+	release
+	end
+}
+
 
 // ############### Regular scripts ###############
 

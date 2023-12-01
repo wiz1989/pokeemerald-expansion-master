@@ -33,3 +33,10 @@ NHML1_EveryFrame_3:
 	goto_if_set FLAG_P01_LOAD_SAVEGAME, NHML1_EveryFrame_2
 	goto NHML1_EveryFrame_1
 
+
+NHML1_ItemBall::
+	lock
+	finditem ITEM_HEART_SCALE
+	release
+	end
+

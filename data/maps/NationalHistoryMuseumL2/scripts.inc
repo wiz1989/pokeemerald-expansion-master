@@ -76,6 +76,21 @@ NHM2_Battle_Kabutops::
 	end
 
 
+NHML3_Battle_Double::
+	trainerbattle_double TRAINER_NHM_DOUBLE, NHML3_Battle_Double_Text_0, NHML3_Battle_Double_Text_1, Text_NotEnoughMons
+	end
+
+
+Dummy_Give_Furret::
+	givemon SPECIES_FURRET, 21
+	return
+
+
+Dummy_Give_Skitty::
+	givemon SPECIES_SKITTY, 11
+	return
+
+
 NHML2_Nurse_Text_0:
 	.string "Let me heal your party.$"
 
@@ -90,3 +105,13 @@ NHML2_Battle_Brandon_Text_1:
 
 NHML2_Battle_Brandon_Text_2:
 	.string "Another HINT.$"
+
+NHML3_Battle_Double_Text_0:
+	.string "Test text.$"
+
+NHML3_Battle_Double_Text_1:
+	.string "Go ahead, you're almost there.$"
+
+Text_NotEnoughMons::
+	.string "You don't have enough Pokémon to fight\n"
+	.string "us.$"

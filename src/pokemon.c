@@ -3655,8 +3655,27 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
-    if (species == SPECIES_ARCHEN) {
-        //add code if required
+    if (species == SPECIES_SKITTY) {
+        value = 1;
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
+
+        moves[0] = MOVE_FAKE_OUT;
+        moves[1] = MOVE_TACKLE;
+        moves[2] = MOVE_FORESIGHT;
+        moves[3] = MOVE_COPYCAT;
+
+        for(i=0; i<=3; i++)
+        {
+            if (moves[i] == MOVE_NONE)
+            {
+                // do nothing
+            }
+            else
+            {
+                //set move
+                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+            }
+        }
     }
     //END
 }
