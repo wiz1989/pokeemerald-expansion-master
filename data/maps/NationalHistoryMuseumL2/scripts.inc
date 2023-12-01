@@ -62,7 +62,7 @@ NHM2_Battle_Archen::
 	playmoncry SPECIES_ARCHEN, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_ARCHEN, 14
+	setwildbattle SPECIES_ARCHEN, 12
 	dowildbattle
 	end
 
