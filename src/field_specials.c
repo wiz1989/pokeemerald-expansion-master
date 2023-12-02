@@ -2504,7 +2504,7 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
     {
         gText_RolePlay,
         gText_Endeavor,
-        gText_Splash,
+        gText_Substitute,
         gText_Exit
     },
     [SCROLL_MULTI_BF_MOVE_TUTOR_2] =
@@ -3091,7 +3091,7 @@ static void ShowBattleFrontierTutorMoveDescription(u8 menu, u16 selection)
     {
         BattleFrontier_Lounge7_Text_RolePlayDesc,
         BattleFrontier_Lounge7_Text_EndeavorDesc,
-        BattleFrontier_Lounge7_Text_SplashDesc,
+        BattleFrontier_Lounge7_Text_SubstituteDesc,
         gText_Exit,
     };
 

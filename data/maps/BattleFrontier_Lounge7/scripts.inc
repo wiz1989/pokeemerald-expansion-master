@@ -504,5 +504,7 @@ BattleFrontier_Lounge7_Text_EndeavorDesc::
 	.string "HP equal to the\n"
     .string "user's HP.$"
 
-BattleFrontier_Lounge7_Text_SplashDesc::
-	.string "It's fuckin Splash!$"
+BattleFrontier_Lounge7_Text_SubstituteDesc::
+	.string "Creates a decoy\n"
+	.string "using 1/4 of the\n"
+    .string "user's maximum HP.$"

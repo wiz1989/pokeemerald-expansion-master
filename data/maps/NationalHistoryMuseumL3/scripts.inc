@@ -101,7 +101,7 @@ NHML3_Move_Tutor_4:
 	goto NHML3_Move_Tutor_1
 
 NHML3_Move_Tutor_5:
-	call NHML3_Tutor_Splash
+	call NHML3_Tutor_Substitute
 	goto NHML3_Move_Tutor_1
 
 NHML3_Move_Tutor_6:
@@ -127,9 +127,9 @@ NHML3_Tutor_Endeavor::
 	end
 
 
-NHML3_Tutor_Splash::
+NHML3_Tutor_Substitute::
 	setvar VAR_0x8008, 1
-	setvar VAR_0x8005, MOVE_SPLASH
+	setvar VAR_0x8005, MOVE_SUBSTITUTE
 	call NHML3_Tutor_ConfirmMoveSelection
 	end
 

@@ -76,7 +76,7 @@ script NHML3_Move_Tutor {
 	switch(var(VAR_RESULT)) {
 		case 0: call(NHML3_Tutor_RolePlay)
 		case 1: call(NHML3_Tutor_Endeavor)
-		case 2: call(NHML3_Tutor_Splash)
+		case 2: call(NHML3_Tutor_Substitute)
 		case 3: call(NHML3_Exit)
 		case MULTI_B_PRESSED: call(NHML3_Exit)
 	}
@@ -99,9 +99,9 @@ script NHML3_Tutor_Endeavor {
 	end
 }
 
-script NHML3_Tutor_Splash {
+script NHML3_Tutor_Substitute {
 	setvar(VAR_0x8008, 1)
-	setvar(VAR_0x8005, MOVE_SPLASH)
+	setvar(VAR_0x8005, MOVE_SUBSTITUTE)
 	call(NHML3_Tutor_ConfirmMoveSelection)
 	end
 }

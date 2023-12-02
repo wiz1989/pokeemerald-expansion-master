@@ -3044,9 +3044,9 @@ extern const u8 gText_P01_REGULAR_MODE[];
 extern const u8 gText_P01_HONOR_MODE[];
 extern const u8 gText_RolePlay[];
 extern const u8 gText_Endeavor[];
-extern const u8 gText_Splash[];
+extern const u8 gText_Substitute[];
 extern const u8 BattleFrontier_Lounge7_Text_RolePlayDesc[];
 extern const u8 BattleFrontier_Lounge7_Text_EndeavorDesc[];
-extern const u8 BattleFrontier_Lounge7_Text_SplashDesc[];
+extern const u8 BattleFrontier_Lounge7_Text_SubstituteDesc[];
 
 #endif // GUARD_STRINGS_H
