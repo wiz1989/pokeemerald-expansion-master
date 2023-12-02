@@ -3677,6 +3677,22 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             }
         }
     }
+
+    if (species == SPECIES_YAMASK) {
+        value = ITEM_NONE;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+
+        moves[0] = MOVE_SKILL_SWAP;
+        moves[1] = MOVE_WILL_O_WISP;
+        moves[2] = MOVE_ALLY_SWITCH;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
     //END
 }
 
@@ -3689,6 +3705,7 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
         personality = Random32();
     }
     while (nature != GetNatureFromPersonality(personality));
+    //wiz1989
 
     CreateMon(mon, species, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0);
 }

@@ -22490,6 +22490,7 @@ static const u16 sYamaskTeachableLearnset[] = {
     MOVE_SHADOW_BALL,
     MOVE_SHOCK_WAVE,
     MOVE_SKILL_SWAP,
+    MOVE_ROLE_PLAY,
     MOVE_SNATCH,
     MOVE_THIEF,
     MOVE_TOXIC,

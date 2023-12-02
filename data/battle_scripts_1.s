@@ -1351,6 +1351,8 @@ BattleScript_EffectAllySwitch:
 	jumpifnoally BS_ATTACKER, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
+	@ The actual data/gfx swap happens in the move animation. Here it's just the gBattlerAttacker / scripting battler change
+	allyswitchswapbattlers
 	printstring STRINGID_ALLYSWITCHPOSITION
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd

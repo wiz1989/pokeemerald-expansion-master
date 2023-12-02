@@ -2340,3 +2340,7 @@
 	getbattlerfainted \battler
 	jumpifbyte CMP_EQUAL, gBattleCommunication, \value, \ptr
 	.endm
+
+	.macro allyswitchswapbattlers
+	callnative BS_AllySwitchSwapBattler
+	.endm

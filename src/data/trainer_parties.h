@@ -11816,21 +11816,27 @@ static const struct TrainerMon sParty_BrandonNHM[] = {
 
 static const struct TrainerMon sParty_JohnAndGina[] = {
     {
-    .lvl = 30,
+    .lvl = 50,
+    .species = SPECIES_STAKATAKA,
+    .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
+    .nature = NATURE_RELAXED,
+    },
+    {
+    .lvl = 50,
+    .species = SPECIES_PERSIAN,
+    .moves = {MOVE_SLASH, MOVE_SCREECH, MOVE_FURY_SWIPES, MOVE_NASTY_PLOT},
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .nature = NATURE_JOLLY,
+    },
+    {
+    .lvl = 50,
     .species = SPECIES_COFAGRIGUS,
     .ability = ABILITY_MUMMY,
     //.moves = {MOVE_HEAD_SMASH, MOVE_NONE, MOVE_NONE, MOVE_NONE},
     },
     {
-    .lvl = 30,
-    .species = SPECIES_PERSIAN,
-    },
-    {
-    .lvl = 30,
-    .species = SPECIES_LUCARIO,
-    },
-    {
-    .lvl = 30,
-    .species = SPECIES_UMBREON,
+    .lvl = 50,
+    .species = SPECIES_REGIROCK,
+    .moves = {MOVE_EXPLOSION, MOVE_NONE, MOVE_NONE, MOVE_NONE},
     }
 };
