@@ -3693,6 +3693,110 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
         }
     }
+
+    if (species == SPECIES_AURORUS) {
+        moves[0] = MOVE_ICE_BEAM;
+        moves[1] = MOVE_HYPER_BEAM;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_CARRACOSTA) {
+        moves[0] = MOVE_HYDRO_PUMP;
+        moves[1] = MOVE_CRUNCH;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_BASTIODON) {
+        moves[0] = MOVE_IRON_HEAD;
+        moves[1] = MOVE_NONE;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_RAMPARDOS) {
+        moves[0] = MOVE_EARTHQUAKE;
+        moves[1] = MOVE_ZEN_HEADBUTT;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_ARMALDO) {
+        moves[0] = MOVE_X_SCISSOR;
+        moves[1] = MOVE_SLASH;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_CRADILY) {
+        moves[0] = MOVE_ENERGY_BALL;
+        moves[1] = MOVE_GIGA_DRAIN;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_OMASTAR) {
+        moves[0] = MOVE_HYDRO_PUMP;
+        moves[1] = MOVE_SURF;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_AERODACTYL) {
+        moves[0] = MOVE_AERIAL_ACE;
+        moves[1] = MOVE_STONE_EDGE;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
     //END
 }
 

@@ -113,6 +113,11 @@ script NHML3_Exit {
 	end
 }
 
+script NHML3_Battle_Double {
+    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Test text."), "Go ahead, you're almost there.", Text_NotEnoughMons)
+	end
+}
+
 //VAR_0x8008 is the price
 //VAR_TEMP_C is the scroll multichoice ID
 //VAR_TEMP_FRONTIER_TUTOR_SELECTION is the move selection
