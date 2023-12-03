@@ -34,9 +34,8 @@ NHML1_EveryFrame_3:
 	goto NHML1_EveryFrame_1
 
 
-NHML1_ItemBall::
-	lock
-	finditem ITEM_HEART_SCALE
-	release
-	end
+NHML1_Trigger_WarpL2::
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	return
 

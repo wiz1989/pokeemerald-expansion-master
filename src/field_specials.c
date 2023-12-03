@@ -4457,3 +4457,12 @@ u8 GetMonPartyLevel(void)
 
     return level;
 }
+
+u16 RandomNumber(void)
+{
+    u16 rnd, max;
+    rnd = Random();
+    max = VarGet(VAR_TEMP_1);
+
+    return rnd % max;
+}

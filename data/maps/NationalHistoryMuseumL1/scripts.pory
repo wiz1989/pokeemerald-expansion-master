@@ -25,10 +25,10 @@ script NHML1_EveryFrame {
 	setvar(VAR_TEMP_2, 1)
 }
 
-script NHML1_ItemBall {
-	lock
-	finditem(ITEM_HEART_SCALE)
-	release
+script NHML1_Trigger_WarpL2 {
+    randomnr(3)
+    setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT) //set var for fossil riddle
+	warp(MAP_NATIONAL_HISTORY_MUSEUM_L2, 26, 1)
 	end
 }
 

@@ -2098,3 +2098,9 @@
 	setvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, GetMonPartyLevel
 	.endm
+
+	@ get a random INT number
+	.macro randomnr max: req
+	setvar VAR_TEMP_1, \max
+	specialvar VAR_RESULT, RandomNumber
+	.endm

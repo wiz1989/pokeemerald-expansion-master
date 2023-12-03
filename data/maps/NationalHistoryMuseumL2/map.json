@@ -68,23 +68,27 @@
     }
   ],
   "warp_events": [
+
+  ],
+  "coord_events": [
     {
+      "type": "trigger",
       "x": 3,
       "y": 1,
       "elevation": 0,
-      "dest_map": "MAP_NATIONAL_HISTORY_MUSEUM_L3",
-      "dest_warp_id": "0"
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "NHML2_Trigger_WarpL3"
     },
     {
+      "type": "trigger",
       "x": 26,
       "y": 1,
       "elevation": 0,
-      "dest_map": "MAP_NATIONAL_HISTORY_MUSEUM_L1",
-      "dest_warp_id": "0"
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "NHML2_Trigger_WarpL1"
     }
-  ],
-  "coord_events": [
-
   ],
   "bg_events": [
     {

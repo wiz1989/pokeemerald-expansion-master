@@ -70,6 +70,15 @@ load_HONOR_MODE_2:
 	return
 
 
+NHML3_Trigger_WarpL2::
+	lockall
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	warp MAP_NATIONAL_HISTORY_MUSEUM_L2, 3, 1
+	releaseall
+	end
+
+
 NHML3_Move_Tutor::
 	lock
 	faceplayer
@@ -141,6 +150,11 @@ NHML3_Exit::
 	end
 
 
+NHML3_Battle_Double::
+	trainerbattle_double TRAINER_NHM_DOUBLE, NHML3_Battle_Double_Text_0, NHML3_Battle_Double_Text_1, Text_NotEnoughMons
+	end
+
+
 NHML3_Tutor_ConfirmMoveSelection::
 	special BufferBattleFrontierTutorMoveName
 	buffernumberstring STR_VAR_2, VAR_0x8008
@@ -194,6 +208,12 @@ NHML3_Move_Tutor_Text_0:
 
 NHML3_Exit_Text_0:
 	.string "Well, if you don't want to...$"
+
+NHML3_Battle_Double_Text_0:
+	.string "Test text.$"
+
+NHML3_Battle_Double_Text_1:
+	.string "Go ahead, you're almost there.$"
 
 NHML3_Tutor_ConfirmMoveSelection_Text_0:
 	.string "The move {STR_VAR_1}, is it?$"

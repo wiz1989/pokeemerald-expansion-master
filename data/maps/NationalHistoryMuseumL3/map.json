@@ -68,16 +68,18 @@
     }
   ],
   "warp_events": [
+
+  ],
+  "coord_events": [
     {
+      "type": "trigger",
       "x": 3,
       "y": 1,
       "elevation": 0,
-      "dest_map": "MAP_NATIONAL_HISTORY_MUSEUM_L2",
-      "dest_warp_id": "0"
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "NHML3_Trigger_WarpL2"
     }
-  ],
-  "coord_events": [
-
   ],
   "bg_events": [
 

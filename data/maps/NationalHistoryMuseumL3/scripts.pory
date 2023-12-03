@@ -62,6 +62,13 @@ script load_HONOR_MODE {
 
 // ############### Regular scripts ###############
 
+script NHML3_Trigger_WarpL2 {
+    randomnr(3)
+    setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT) //set var for fossil riddle
+	warp(MAP_NATIONAL_HISTORY_MUSEUM_L2, 3, 1)
+	end
+}
+
 script NHML3_Move_Tutor {
 	lock
 	faceplayer

@@ -59,6 +59,8 @@ NHML2_Battle_Brandon::
 
 
 NHM2_Battle_Archen::
+	msgbox NHM2_Battle_Archen_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_ARCHEN, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -68,6 +70,8 @@ NHM2_Battle_Archen::
 
 
 NHM2_Battle_Kabutops::
+	msgbox NHM2_Battle_Kabutops_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -77,6 +81,8 @@ NHM2_Battle_Kabutops::
 
 
 NHM2_Battle_Omastar::
+	msgbox NHM2_Battle_Omastar_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_OMASTAR, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -86,6 +92,8 @@ NHM2_Battle_Omastar::
 
 
 NHM2_Battle_Aerodactyl::
+	msgbox NHM2_Battle_Aerodactyl_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_AERODACTYL, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -95,6 +103,8 @@ NHM2_Battle_Aerodactyl::
 
 
 NHM2_Battle_Cradily::
+	msgbox NHM2_Battle_Cradily_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_CRADILY, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -104,6 +114,8 @@ NHM2_Battle_Cradily::
 
 
 NHM2_Battle_Armaldo::
+	msgbox NHM2_Battle_Armaldo_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_ARMALDO, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -113,6 +125,8 @@ NHM2_Battle_Armaldo::
 
 
 NHM2_Battle_Rampardos::
+	msgbox NHM2_Battle_Rampardos_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -122,6 +136,8 @@ NHM2_Battle_Rampardos::
 
 
 NHM2_Battle_Bastiodon::
+	msgbox NHM2_Battle_Bastiodon_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_BASTIODON, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -131,6 +147,8 @@ NHM2_Battle_Bastiodon::
 
 
 NHM2_Battle_Carracosta::
+	msgbox NHM2_Battle_Carracosta_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_CARRACOSTA, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -140,6 +158,8 @@ NHM2_Battle_Carracosta::
 
 
 NHM2_Battle_Aurorus::
+	msgbox NHM2_Battle_Aurorus_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
 	playmoncry SPECIES_AURORUS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -148,13 +168,9 @@ NHM2_Battle_Aurorus::
 	end
 
 
-NHML3_Battle_Double::
-	trainerbattle_double TRAINER_NHM_DOUBLE, NHML3_Battle_Double_Text_0, NHML3_Battle_Double_Text_1, Text_NotEnoughMons
-	end
-
-
 NHML2_Camper::
 	lock
+	buffernumberstring STR_VAR_2, VAR_NHM_L2_RIDDLE
 	msgbox NHML2_Camper_Text_0, MSGBOX_AUTOCLOSE
 	release
 	end
@@ -191,14 +207,49 @@ NHML2_Battle_Brandon_Text_1:
 NHML2_Battle_Brandon_Text_2:
 	.string "Another HINT.$"
 
-NHML3_Battle_Double_Text_0:
-	.string "Test text.$"
+NHM2_Battle_Archen_Text_0:
+	.string "There is a PLUME FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
 
-NHML3_Battle_Double_Text_1:
-	.string "Go ahead, you're almost there.$"
+NHM2_Battle_Kabutops_Text_0:
+	.string "There is a DOME FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Omastar_Text_0:
+	.string "There is a HELIX FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Aerodactyl_Text_0:
+	.string "There is an OLD AMBER exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Cradily_Text_0:
+	.string "There is a ROOT FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Armaldo_Text_0:
+	.string "There is a CLAW FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Rampardos_Text_0:
+	.string "There is a SKULL FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Bastiodon_Text_0:
+	.string "There is an ARMOR FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Carracosta_Text_0:
+	.string "There is a COVER FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
+
+NHM2_Battle_Aurorus_Text_0:
+	.string "There is a SAIL FOSSIL exhibited.\l"
+	.string "Feel it's power!$"
 
 NHML2_Camper_Text_0:
-	.string "Hey, there! What's your favorite TYPE?\p"
+	.string "{STR_VAR_2} - Hey, there! What's\n"
+	.string "your favorite TYPE?\p"
 	.string "Mine is GRASS.$"
 
 Dummy_Give_Furret_Text_0:
