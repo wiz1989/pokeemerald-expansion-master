@@ -34,6 +34,20 @@ NHML2_EveryFrame_3:
 	goto NHML2_EveryFrame_1
 
 
+NHML2_Trigger_WarpL3::
+	lockall
+	warp MAP_NATIONAL_HISTORY_MUSEUM_L3, 3, 1
+	releaseall
+	end
+
+
+NHML2_Trigger_WarpL1::
+	lockall
+	warp MAP_NATIONAL_HISTORY_MUSEUM_L1, 26, 1
+	releaseall
+	end
+
+
 NHML2_PC::
 	call EventScript_PC
 	return
@@ -125,14 +139,32 @@ NHM2_Battle_Armaldo::
 
 
 NHM2_Battle_Rampardos::
-	msgbox NHM2_Battle_Rampardos_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 2
+	goto_if_eq NHM2_Battle_Rampardos_4
+NHM2_Battle_Rampardos_3:
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_ACTIVE
+	msgbox NHM2_Battle_Rampardos_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_RAMPARDOS, 100
 	dowildbattle
+NHM2_Battle_Rampardos_1:
+	release
 	end
+
+NHM2_Battle_Rampardos_2:
+	msgbox NHM2_Battle_Rampardos_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHM2_Battle_Rampardos_1
+
+NHM2_Battle_Rampardos_4:
+	goto_if_set FLAG_NHML2_RIDDLE_ACTIVE, NHM2_Battle_Rampardos_2
+	goto NHM2_Battle_Rampardos_3
 
 
 NHM2_Battle_Bastiodon::
@@ -170,10 +202,25 @@ NHM2_Battle_Aurorus::
 
 NHML2_Camper::
 	lock
-	buffernumberstring STR_VAR_2, VAR_NHM_L2_RIDDLE
-	msgbox NHML2_Camper_Text_0, MSGBOX_AUTOCLOSE
+	switch VAR_NHM_L2_RIDDLE
+	case 0, NHML2_Camper_3
+	case 1, NHML2_Camper_4
+	case 2, NHML2_Camper_5
+NHML2_Camper_1:
 	release
 	end
+
+NHML2_Camper_3:
+	msgbox NHML2_Camper_Text_0, MSGBOX_AUTOCLOSE
+	goto NHML2_Camper_1
+
+NHML2_Camper_4:
+	msgbox NHML2_Camper_Text_1, MSGBOX_AUTOCLOSE
+	goto NHML2_Camper_1
+
+NHML2_Camper_5:
+	msgbox NHML2_Camper_Text_2, MSGBOX_AUTOCLOSE
+	goto NHML2_Camper_1
 
 
 NHML2_Boulder::
@@ -232,6 +279,10 @@ NHM2_Battle_Armaldo_Text_0:
 	.string "Feel it's power!$"
 
 NHM2_Battle_Rampardos_Text_0:
+	.string "There is a SKULL FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Rampardos_Text_1:
 	.string "There is a SKULL FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
@@ -248,9 +299,16 @@ NHM2_Battle_Aurorus_Text_0:
 	.string "Feel it's power!$"
 
 NHML2_Camper_Text_0:
-	.string "{STR_VAR_2} - Hey, there! What's\n"
-	.string "your favorite TYPE?\p"
+	.string "Hey, there! What's your favorite TYPE?\p"
 	.string "Mine is GRASS.$"
+
+NHML2_Camper_Text_1:
+	.string "Hey, there! What's your favorite TYPE?\p"
+	.string "Mine is FIRE.$"
+
+NHML2_Camper_Text_2:
+	.string "Hey, there! What's your favorite TYPE?\p"
+	.string "Mine is WATER.$"
 
 Dummy_Give_Furret_Text_0:
 	.string "You got a Furret.$"

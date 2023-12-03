@@ -29,12 +29,16 @@ script NHML2_EveryFrame {
 // ############### Regular scripts ###############
 
 script NHML2_Trigger_WarpL3 {
+    lockall
     warp(MAP_NATIONAL_HISTORY_MUSEUM_L3, 3, 1)
+	releaseall
 	end
 }
 
 script NHML2_Trigger_WarpL1 {
-    warp(MAP_NATIONAL_HISTORY_MUSEUM_L3, 26, 1)
+    lockall
+    warp(MAP_NATIONAL_HISTORY_MUSEUM_L1, 26, 1)
+    releaseall
 	end
 }
 
@@ -134,13 +138,24 @@ script NHM2_Battle_Armaldo {
 }
 
 script NHM2_Battle_Rampardos {
-    msgbox(format("There is a SKULL FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_RAMPARDOS, 100)
-    dowildbattle
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 2 && flag(FLAG_NHML2_RIDDLE_ACTIVE)) {
+        msgbox(format("There is a SKULL FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+    }
+    else {
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        setflag(FLAG_NHML2_RIDDLE_ACTIVE) //check logic!
+        msgbox(format("There is a SKULL FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_RAMPARDOS, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
@@ -179,8 +194,14 @@ script NHM2_Battle_Aurorus {
 
 script NHML2_Camper {
     lock
-    buffernumberstring(STR_VAR_2, VAR_NHM_L2_RIDDLE)
-    msgbox(format("{STR_VAR_2} - Hey, there! What's your favorite TYPE? \pMine is GRASS."), MSGBOX_AUTOCLOSE)
+    switch (var(VAR_NHM_L2_RIDDLE)) {
+        case 0:
+             msgbox(format("Hey, there! What's your favorite TYPE? \pMine is GRASS."), MSGBOX_AUTOCLOSE)
+        case 1:
+             msgbox(format("Hey, there! What's your favorite TYPE? \pMine is FIRE."), MSGBOX_AUTOCLOSE)
+        case 2:
+             msgbox(format("Hey, there! What's your favorite TYPE? \pMine is WATER."), MSGBOX_AUTOCLOSE)
+    }
     release
     end
 }

@@ -74,6 +74,7 @@ NHML3_Trigger_WarpL2::
 	lockall
 	randomnr 3
 	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_ACTIVE
 	warp MAP_NATIONAL_HISTORY_MUSEUM_L2, 3, 1
 	releaseall
 	end
