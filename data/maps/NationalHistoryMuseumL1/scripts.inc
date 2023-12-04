@@ -38,7 +38,9 @@ NHML1_Trigger_WarpL2::
 	lockall
 	randomnr 3
 	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
-	setflag FLAG_NHML2_RIDDLE_ACTIVE
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
 	warp MAP_NATIONAL_HISTORY_MUSEUM_L2, 26, 1
 	releaseall
 	end

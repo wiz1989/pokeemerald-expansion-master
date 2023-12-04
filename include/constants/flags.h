@@ -1225,11 +1225,11 @@
 #define FLAG_NHML1_ITEM_BALL                                        0x497 // Unused Flag
 #define FLAG_NHML2_RIDDLE_ACTIVE                                    0x498 // Unused Flag
 #define FLAG_NHML2_RIDDLE_SOLVED                                    0x499 // Unused Flag
-#define FLAG_UNUSED_0x49A                                           0x49A // Unused Flag
-#define FLAG_UNUSED_0x49B                                           0x49B // Unused Flag
-#define FLAG_UNUSED_0x49C                                           0x49C // Unused Flag
-#define FLAG_UNUSED_0x49D                                           0x49D // Unused Flag
-#define FLAG_UNUSED_0x49E                                           0x49E // Unused Flag
+#define FLAG_NHML2_RIDDLE_START                                     0x49A // Unused Flag
+#define FLAG_NHML2_RIDDLE_STEP1_CHECK                               0x49B // Unused Flag
+#define FLAG_NHML2_RIDDLE_STEP2_CHECK                               0x49C // Unused Flag
+#define FLAG_NHML2_SHOW_BOULDER                                     0x49D // Unused Flag
+#define FLAG_NHML2_BOULDER                                          0x49E // Unused Flag
 #define FLAG_UNUSED_0x49F                                           0x49F // Unused Flag
 #define FLAG_UNUSED_0x4A0                                           0x4A0 // Unused Flag
 #define FLAG_UNUSED_0x4A1                                           0x4A1 // Unused Flag

@@ -1,15 +1,24 @@
 // ############### Mapscripts ###############
 
 mapscripts NationalHistoryMuseumL2_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION: NHML2_OnTransition
     MAP_SCRIPT_ON_RESUME: NHML2_OnResume
 	MAP_SCRIPT_ON_FRAME_TABLE [
 		VAR_TEMP_2, 0: NHML2_EveryFrame
 	]
 }
 
+script NHML2_OnTransition {
+    //handle STRENGTH boulder visibility
+    if (!flag(FLAG_NHML2_SHOW_BOULDER)){
+        setflag(FLAG_NHML2_BOULDER)
+    }
+}
+
 script NHML2_OnResume {
 	setvar(VAR_TEMP_2, 0) //var for EveryFrame
 	call(load_HONOR_MODE)
+    
 	end
 }
 
@@ -83,13 +92,30 @@ script NHM2_Battle_Archen {
 }
 
 script NHM2_Battle_Kabutops {
-    msgbox(format("There is a DOME FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_KABUTOPS, 100)
-    dowildbattle
+    //GRASS 2
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 0 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        clearflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is a DOME FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+    }
+    else {
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is a DOME FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_KABUTOPS, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
@@ -116,13 +142,42 @@ script NHM2_Battle_Aerodactyl {
 }
 
 script NHM2_Battle_Cradily {
-    msgbox(format("There is a ROOT FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_CRADILY, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_CRADILY, 100)
-    dowildbattle
+    //GRASS 3
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 0 && flag(FLAG_NHML2_RIDDLE_STEP2_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        setflag(FLAG_NHML2_RIDDLE_SOLVED)
+        setflag(FLAG_NHML2_SHOW_BOULDER)
+        msgbox(format("There is a ROOT FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+        setvar(VAR_0x8004, 1)  //vertical pan
+        setvar(VAR_0x8005, 1)  //horizontal pan
+        setvar(VAR_0x8006, 4)  //num shakes
+        setvar(VAR_0x8007, 5)  //shake delay
+        special(ShakeCamera)
+	    waitstate
+        fadescreen(FADE_TO_BLACK)
+        addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
+        fadescreen(FADE_FROM_BLACK)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+        waitmovement(0)
+        msgbox(format("Something heavy fell from above!"))
+	    waitmessage
+    }
+    else {
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is a ROOT FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_CRADILY, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_CRADILY, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
@@ -138,15 +193,20 @@ script NHM2_Battle_Armaldo {
 }
 
 script NHM2_Battle_Rampardos {
+    //GRASS 1
     lock
-    if (var(VAR_NHM_L2_RIDDLE) == 2 && flag(FLAG_NHML2_RIDDLE_ACTIVE)) {
+    if (var(VAR_NHM_L2_RIDDLE) == 0 && flag(FLAG_NHML2_RIDDLE_START) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        clearflag(FLAG_NHML2_RIDDLE_START)
+        setflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         msgbox(format("There is a SKULL FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
         waitmessage
     }
     else {
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
         randomnr(3)
         setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
-        setflag(FLAG_NHML2_RIDDLE_ACTIVE) //check logic!
         msgbox(format("There is a SKULL FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER)
@@ -206,6 +266,16 @@ script NHML2_Camper {
     end
 }
 
+script NHML2_Game_Master {
+    lock
+    faceplayer
+	msgbox(format("I am the game master. \pI will give you helpful advice for each situation, but it adds an additional 30min to your play clock."), MSGBOX_AUTOCLOSE)
+	waitmessage
+    //additional code
+    release
+	end
+}
+
 script NHML2_Boulder {
     //do nothing
 }
@@ -220,6 +290,13 @@ script Dummy_Give_Furret {
 script Dummy_Give_Skitty {
     msgbox("You got a Skitty.", MSGBOX_AUTOCLOSE)
     givemon(SPECIES_SKITTY, 11)
+}
+
+
+// ############### movements ###############
+
+movement Move_exclmark {
+	emote_exclamation_mark
 }
 
 

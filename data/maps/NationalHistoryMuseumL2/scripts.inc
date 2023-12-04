@@ -1,4 +1,5 @@
 NationalHistoryMuseumL2_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, NHML2_OnTransition
 	map_script MAP_SCRIPT_ON_RESUME, NHML2_OnResume
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, NationalHistoryMuseumL2_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
@@ -6,6 +7,15 @@ NationalHistoryMuseumL2_MapScripts::
 NationalHistoryMuseumL2_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TEMP_2, 0, NHML2_EveryFrame
 	.2byte 0
+
+
+NHML2_OnTransition::
+	goto_if_unset FLAG_NHML2_SHOW_BOULDER, NHML2_OnTransition_1
+	return
+
+NHML2_OnTransition_1:
+	setflag FLAG_NHML2_BOULDER
+	return
 
 
 NHML2_OnResume::
@@ -84,14 +94,41 @@ NHM2_Battle_Archen::
 
 
 NHM2_Battle_Kabutops::
-	msgbox NHM2_Battle_Kabutops_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 0
+	goto_if_eq NHM2_Battle_Kabutops_5
+NHM2_Battle_Kabutops_3:
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Kabutops_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_KABUTOPS, 100
 	dowildbattle
+NHM2_Battle_Kabutops_1:
+	release
 	end
+
+NHM2_Battle_Kabutops_2:
+	clearflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Kabutops_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHM2_Battle_Kabutops_1
+
+NHM2_Battle_Kabutops_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Kabutops_2
+	goto NHM2_Battle_Kabutops_3
+
+NHM2_Battle_Kabutops_5:
+	goto_if_set FLAG_NHML2_RIDDLE_STEP1_CHECK, NHM2_Battle_Kabutops_4
+	goto NHM2_Battle_Kabutops_3
 
 
 NHM2_Battle_Omastar::
@@ -117,14 +154,53 @@ NHM2_Battle_Aerodactyl::
 
 
 NHM2_Battle_Cradily::
-	msgbox NHM2_Battle_Cradily_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 0
+	goto_if_eq NHM2_Battle_Cradily_5
+NHM2_Battle_Cradily_3:
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Cradily_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_CRADILY, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_CRADILY, 100
 	dowildbattle
+NHM2_Battle_Cradily_1:
+	release
 	end
+
+NHM2_Battle_Cradily_2:
+	setflag FLAG_NHML2_RIDDLE_SOLVED
+	setflag FLAG_NHML2_SHOW_BOULDER
+	msgbox NHM2_Battle_Cradily_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 4
+	setvar VAR_0x8007, 5
+	special ShakeCamera
+	waitstate
+	fadescreen FADE_TO_BLACK
+	addobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
+	fadescreen FADE_FROM_BLACK
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
+	msgbox NHM2_Battle_Cradily_Text_1
+	waitmessage
+	goto NHM2_Battle_Cradily_1
+
+NHM2_Battle_Cradily_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Cradily_2
+	goto NHM2_Battle_Cradily_3
+
+NHM2_Battle_Cradily_5:
+	goto_if_set FLAG_NHML2_RIDDLE_STEP2_CHECK, NHM2_Battle_Cradily_4
+	goto NHM2_Battle_Cradily_3
 
 
 NHM2_Battle_Armaldo::
@@ -140,12 +216,14 @@ NHM2_Battle_Armaldo::
 
 NHM2_Battle_Rampardos::
 	lock
-	compare VAR_NHM_L2_RIDDLE, 2
-	goto_if_eq NHM2_Battle_Rampardos_4
+	compare VAR_NHM_L2_RIDDLE, 0
+	goto_if_eq NHM2_Battle_Rampardos_5
 NHM2_Battle_Rampardos_3:
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
 	randomnr 3
 	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
-	setflag FLAG_NHML2_RIDDLE_ACTIVE
 	msgbox NHM2_Battle_Rampardos_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER
@@ -158,12 +236,18 @@ NHM2_Battle_Rampardos_1:
 	end
 
 NHM2_Battle_Rampardos_2:
+	clearflag FLAG_NHML2_RIDDLE_START
+	setflag FLAG_NHML2_RIDDLE_STEP1_CHECK
 	msgbox NHM2_Battle_Rampardos_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
 	goto NHM2_Battle_Rampardos_1
 
 NHM2_Battle_Rampardos_4:
-	goto_if_set FLAG_NHML2_RIDDLE_ACTIVE, NHM2_Battle_Rampardos_2
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Rampardos_2
+	goto NHM2_Battle_Rampardos_3
+
+NHM2_Battle_Rampardos_5:
+	goto_if_set FLAG_NHML2_RIDDLE_START, NHM2_Battle_Rampardos_4
 	goto NHM2_Battle_Rampardos_3
 
 
@@ -239,6 +323,10 @@ Dummy_Give_Skitty::
 	return
 
 
+Move_exclmark:
+	emote_exclamation_mark
+	step_end
+
 NHML2_Nurse_Text_0:
 	.string "Let me heal your party.$"
 
@@ -259,6 +347,10 @@ NHM2_Battle_Archen_Text_0:
 	.string "Feel it's power!$"
 
 NHM2_Battle_Kabutops_Text_0:
+	.string "There is a DOME FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Kabutops_Text_1:
 	.string "There is a DOME FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
@@ -271,6 +363,13 @@ NHM2_Battle_Aerodactyl_Text_0:
 	.string "Feel it's power!$"
 
 NHM2_Battle_Cradily_Text_0:
+	.string "There is a ROOT FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Cradily_Text_1:
+	.string "Something heavy fell from above!$"
+
+NHM2_Battle_Cradily_Text_2:
 	.string "There is a ROOT FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
