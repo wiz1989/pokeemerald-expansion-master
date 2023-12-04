@@ -11831,8 +11831,9 @@ static const struct TrainerMon sParty_JohnAndGina[] = {
     {
     .lvl = 50,
     .species = SPECIES_COFAGRIGUS,
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
     .ability = ABILITY_MUMMY,
-    //.moves = {MOVE_HEAD_SMASH, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+    .nature = NATURE_TIMID,
     },
     {
     .lvl = 50,

@@ -25,6 +25,9 @@ script NHML1_EveryFrame {
 	setvar(VAR_TEMP_2, 1)
 }
 
+
+// ############### Regular scripts ###############
+
 script NHML1_Trigger_WarpL2 {
 	lockall
     randomnr(3)
@@ -37,6 +40,31 @@ script NHML1_Trigger_WarpL2 {
 	end
 }
 
+script NHML1_Judge {
+	lock
+	faceplayer
+	msgbox(format("What an exquisite place!\lAll these artifacts are just mezmerizing.\pAnd have you noticed these special wallpapers they use?\lWonderful!"), MSGBOX_AUTOCLOSE)
+	waitmessage
+	release
+	end
+}
 
-// ############### Regular scripts ###############
+script NHML1_Artist {
+	call(FortreeCity_House1_EventScript_Trader)
+	setflag(FLAG_NHML2_TEST_OBTAIN_SKITTY)
+	end
+}
 
+script NHML1_ItemBall {
+	lock
+	msgbox("You found an abandoned PokeBall with a FURRET inside.", MSGBOX_AUTOCLOSE)
+	waitmessage
+	fadescreen(FADE_TO_BLACK)
+	removeobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L1)
+	setflag(FLAG_NHML1_ITEMBALL)
+	fadescreen(FADE_FROM_BLACK)
+    givemon(SPECIES_FURRET, 21)
+    setflag(FLAG_NHML2_TEST_OBTAIN_FURRET)
+	release
+	end
+}

@@ -45,3 +45,43 @@ NHML1_Trigger_WarpL2::
 	releaseall
 	end
 
+
+NHML1_Judge::
+	lock
+	faceplayer
+	msgbox NHML1_Judge_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHML1_Artist::
+	call FortreeCity_House1_EventScript_Trader
+	setflag FLAG_NHML2_TEST_OBTAIN_SKITTY
+	end
+
+
+NHML1_ItemBall::
+	lock
+	msgbox NHML1_ItemBall_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	fadescreen FADE_TO_BLACK
+	removeobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L1
+	setflag FLAG_NHML1_ITEMBALL
+	fadescreen FADE_FROM_BLACK
+	givemon SPECIES_FURRET, 21
+	setflag FLAG_NHML2_TEST_OBTAIN_FURRET
+	release
+	end
+
+
+NHML1_Judge_Text_0:
+	.string "What an exquisite place!\l"
+	.string "All these artifacts are just\l"
+	.string "mezmerizing.\p"
+	.string "And have you noticed these special\n"
+	.string "wallpapers they use?\l"
+	.string "Wonderful!$"
+
+NHML1_ItemBall_Text_0:
+	.string "You found an abandoned PokeBall with a FURRET inside.$"

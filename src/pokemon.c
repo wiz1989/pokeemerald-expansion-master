@@ -3436,11 +3436,19 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 availableIVs[NUM_STATS];
     u8 selectedIvs[LEGENDARY_PERFECT_IV_COUNT];
     u16 moves[4]; //added var
+    u8 nature; //added var
 
     ZeroBoxMonData(boxMon);
 
     if (hasFixedPersonality)
         personality = fixedPersonality;
+    else if (species == SPECIES_YAMASK) { //force NATURE for YAMASK
+        nature = NATURE_TIMID;
+        do {
+            personality = Random32();
+        }
+        while (nature != GetNatureFromPersonality(personality));
+    }
     else
         personality = Random32();
 
@@ -3627,15 +3635,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
         for(i=0; i<=3; i++)
         {
-            if (moves[i] == MOVE_NONE)
-            {
-                // do nothing
-            }
-            else
-            {
-                //set move
-                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
-            }
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
         }
     }
 
@@ -3666,15 +3667,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
         for(i=0; i<=3; i++)
         {
-            if (moves[i] == MOVE_NONE)
-            {
-                // do nothing
-            }
-            else
-            {
-                //set move
-                DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
-            }
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
         }
     }
 
@@ -3809,7 +3803,6 @@ void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV,
         personality = Random32();
     }
     while (nature != GetNatureFromPersonality(personality));
-    //wiz1989
 
     CreateMon(mon, species, level, fixedIV, TRUE, personality, OT_ID_PLAYER_ID, 0);
 }

@@ -4559,13 +4559,30 @@ static void CreateInGameTradePokemonInternal(u8 whichPlayerMon, u8 whichInGameTr
 {
     const struct InGameTrade *inGameTrade = &sIngameTrades[whichInGameTrade];
     u8 level = GetMonData(&gPlayerParty[whichPlayerMon], MON_DATA_LEVEL);
-
+    u32 personality;
+    u8 nature;
     struct Mail mail;
     u8 metLocation = METLOC_IN_GAME_TRADE;
     u8 mailNum;
     struct Pokemon *pokemon = &gEnemyParty[0];
+    u32 value;
+    u16 moves[4];
+    int i;
 
-    CreateMon(pokemon, inGameTrade->species, level, USE_RANDOM_IVS, TRUE, inGameTrade->personality, OT_ID_PRESET, inGameTrade->otId);
+    nature = NATURE_TIMID;
+
+    if (inGameTrade->species == SPECIES_YAMASK) {
+        //force NATURE_TIMID for traded YAMASK
+        nature = NATURE_TIMID;
+        do {
+            personality = Random32();
+        }
+        while (nature != GetNatureFromPersonality(personality));
+
+        CreateMon(pokemon, inGameTrade->species, level, USE_RANDOM_IVS, TRUE, personality, OT_ID_PRESET, inGameTrade->otId);
+    }
+    else
+        CreateMon(pokemon, inGameTrade->species, level, USE_RANDOM_IVS, TRUE, inGameTrade->personality, OT_ID_PRESET, inGameTrade->otId);
 
     SetMonData(pokemon, MON_DATA_HP_IV, &inGameTrade->ivs[0]);
     SetMonData(pokemon, MON_DATA_ATK_IV, &inGameTrade->ivs[1]);
@@ -4600,7 +4617,21 @@ static void CreateInGameTradePokemonInternal(u8 whichPlayerMon, u8 whichInGameTr
             SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
         }
     }
+
     CalculateMonStats(&gEnemyParty[0]);
+
+    if (inGameTrade->species == SPECIES_SKITTY) {
+        moves[0] = MOVE_FAKE_OUT;
+        moves[1] = MOVE_TACKLE;
+        moves[2] = MOVE_FORESIGHT;
+        moves[3] = MOVE_COPYCAT;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(&pokemon->box, moves[i]);
+        }
+    }
 }
 
 static void GetInGameTradeMail(struct Mail *mail, const struct InGameTrade *trade)

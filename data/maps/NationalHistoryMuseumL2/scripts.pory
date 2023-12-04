@@ -66,10 +66,19 @@ script NHML2_Nurse {
     end
 }
 
+script NHML2_BlondeMan {
+    lock
+	faceplayer
+    msgbox(format("This guy over there won't let anybody out here until someone defeats him\lWhat a jerk!\pWow, you really look like you have a good chance of winning."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
+}
+
 script NHML2_Battle_Brandon {
 	trainerbattle_single(TRAINER_NHM_BRANDON, "Are you scared, yet?", "I wasn't FEARful enough.")
 	lock
-	msgbox(format("Another HINT."), MSGBOX_AUTOCLOSE)
+	msgbox(format("The couple on floor 3 won't be as easy on you as I was.\pI heard they are very generous.\nBut I failed when I tried myself."), MSGBOX_AUTOCLOSE)
 	release
 	end
 }
@@ -378,6 +387,7 @@ script NHM2_Battle_Aurorus {
 
 script NHML2_Camper {
     lock
+	faceplayer
     switch (var(VAR_NHM_L2_RIDDLE)) {
         case 0:
              msgbox(format("Hey, there! What's your favorite TYPE? \pMine is GRASS."), MSGBOX_AUTOCLOSE)

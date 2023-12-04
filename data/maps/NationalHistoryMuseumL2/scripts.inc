@@ -74,6 +74,15 @@ NHML2_Nurse::
 	end
 
 
+NHML2_BlondeMan::
+	lock
+	faceplayer
+	msgbox NHML2_BlondeMan_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
 NHML2_Battle_Brandon::
 	trainerbattle_single TRAINER_NHM_BRANDON, NHML2_Battle_Brandon_Text_0, NHML2_Battle_Brandon_Text_1
 	lock
@@ -470,6 +479,7 @@ NHM2_Battle_Aurorus_5:
 
 NHML2_Camper::
 	lock
+	faceplayer
 	switch VAR_NHM_L2_RIDDLE
 	case 0, NHML2_Camper_3
 	case 1, NHML2_Camper_4
@@ -536,6 +546,13 @@ NHML2_Nurse_Text_0:
 NHML2_Nurse_Text_1:
 	.string "You're good to go again.$"
 
+NHML2_BlondeMan_Text_0:
+	.string "This guy over there won't let anybody\n"
+	.string "out here until someone defeats him\l"
+	.string "What a jerk!\p"
+	.string "Wow, you really look like you have a good\n"
+	.string "chance of winning.$"
+
 NHML2_Battle_Brandon_Text_0:
 	.string "Are you scared, yet?$"
 
@@ -543,7 +560,10 @@ NHML2_Battle_Brandon_Text_1:
 	.string "I wasn't FEARful enough.$"
 
 NHML2_Battle_Brandon_Text_2:
-	.string "Another HINT.$"
+	.string "The couple on floor 3 won't be as easy\n"
+	.string "on you as I was.\p"
+	.string "I heard they are very generous.\n"
+	.string "But I failed when I tried myself.$"
 
 NHM2_Battle_Archen_Text_0:
 	.string "There is a PLUME FOSSIL exhibited.\l"
