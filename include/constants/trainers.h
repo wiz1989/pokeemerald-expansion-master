@@ -203,8 +203,9 @@
 #define FACILITY_CLASS_LEAF                  0x4f
 #define FACILITY_CLASS_RS_BRENDAN            0x50
 #define FACILITY_CLASS_RS_MAY                0x51
+#define FACILITY_CLASS_HISTORIANS            0x52
 
-#define FACILITY_CLASSES_COUNT               0x52
+#define FACILITY_CLASSES_COUNT               0x53
 
 #define RS_FACILITY_CLASS_AQUA_LEADER_ARCHIE    0x0
 #define RS_FACILITY_CLASS_AQUA_GRUNT_M          0x1
@@ -283,8 +284,9 @@
 #define RS_FACILITY_CLASS_YOUNG_COUPLE          0x4A
 #define RS_FACILITY_CLASS_OLD_COUPLE            0x4B
 #define RS_FACILITY_CLASS_SIS_AND_BRO           0x4C
+#define RS_FACILITY_CLASS_HISTORIANS            0x4D
 
-#define RS_FACILITY_CLASSES_COUNT               0x4D
+#define RS_FACILITY_CLASSES_COUNT               0x4E
 
 #define TRAINER_CLASS_PKMN_TRAINER_1 0x0  // Unused
 #define TRAINER_CLASS_PKMN_TRAINER_2 0x1  // Unused
@@ -352,7 +354,8 @@
 #define TRAINER_CLASS_PIKE_QUEEN     0x3f
 #define TRAINER_CLASS_PYRAMID_KING   0x40
 #define TRAINER_CLASS_RS_PROTAG      0x41
-#define TRAINER_CLASS_COUNT          0x42
+#define TRAINER_CLASS_HISTORIANS     0x42
+#define TRAINER_CLASS_COUNT          0x43
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

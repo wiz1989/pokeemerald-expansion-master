@@ -132,25 +132,91 @@ NHM2_Battle_Kabutops_5:
 
 
 NHM2_Battle_Omastar::
-	msgbox NHM2_Battle_Omastar_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 1
+	goto_if_eq NHM2_Battle_Omastar_5
+NHM2_Battle_Omastar_3:
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Omastar_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_OMASTAR, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_OMASTAR, 100
 	dowildbattle
+NHM2_Battle_Omastar_1:
+	release
 	end
+
+NHM2_Battle_Omastar_2:
+	setflag FLAG_NHML2_RIDDLE_SOLVED
+	setflag FLAG_NHML2_SHOW_BOULDER
+	msgbox NHM2_Battle_Omastar_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 4
+	setvar VAR_0x8007, 5
+	special ShakeCamera
+	waitstate
+	fadescreen FADE_TO_BLACK
+	addobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
+	fadescreen FADE_FROM_BLACK
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
+	msgbox NHM2_Battle_Omastar_Text_1
+	waitmessage
+	goto NHM2_Battle_Omastar_1
+
+NHM2_Battle_Omastar_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Omastar_2
+	goto NHM2_Battle_Omastar_3
+
+NHM2_Battle_Omastar_5:
+	goto_if_set FLAG_NHML2_RIDDLE_STEP2_CHECK, NHM2_Battle_Omastar_4
+	goto NHM2_Battle_Omastar_3
 
 
 NHM2_Battle_Aerodactyl::
-	msgbox NHM2_Battle_Aerodactyl_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 1
+	goto_if_eq NHM2_Battle_Aerodactyl_5
+NHM2_Battle_Aerodactyl_3:
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Aerodactyl_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_AERODACTYL, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_AERODACTYL, 100
 	dowildbattle
+NHM2_Battle_Aerodactyl_1:
+	release
 	end
+
+NHM2_Battle_Aerodactyl_2:
+	clearflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Aerodactyl_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHM2_Battle_Aerodactyl_1
+
+NHM2_Battle_Aerodactyl_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Aerodactyl_2
+	goto NHM2_Battle_Aerodactyl_3
+
+NHM2_Battle_Aerodactyl_5:
+	goto_if_set FLAG_NHML2_RIDDLE_STEP1_CHECK, NHM2_Battle_Aerodactyl_4
+	goto NHM2_Battle_Aerodactyl_3
 
 
 NHM2_Battle_Cradily::
@@ -163,7 +229,7 @@ NHM2_Battle_Cradily_3:
 	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
 	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHM2_Battle_Cradily_Text_2, MSGBOX_AUTOCLOSE
+	msgbox NHM2_Battle_Cradily_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_CRADILY, CRY_MODE_ENCOUNTER
 	delay 40
@@ -190,7 +256,7 @@ NHM2_Battle_Cradily_2:
 	fadescreen FADE_FROM_BLACK
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
-	msgbox NHM2_Battle_Cradily_Text_1
+	msgbox NHM2_Battle_Omastar_Text_1
 	waitmessage
 	goto NHM2_Battle_Cradily_1
 
@@ -204,14 +270,53 @@ NHM2_Battle_Cradily_5:
 
 
 NHM2_Battle_Armaldo::
-	msgbox NHM2_Battle_Armaldo_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 1
+	goto_if_eq NHM2_Battle_Armaldo_5
+NHM2_Battle_Armaldo_3:
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Armaldo_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_ARMALDO, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_ARMALDO, 100
 	dowildbattle
+NHM2_Battle_Armaldo_1:
+	release
 	end
+
+NHM2_Battle_Armaldo_2:
+	setflag FLAG_NHML2_RIDDLE_SOLVED
+	setflag FLAG_NHML2_SHOW_BOULDER
+	msgbox NHM2_Battle_Armaldo_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 4
+	setvar VAR_0x8007, 5
+	special ShakeCamera
+	waitstate
+	fadescreen FADE_TO_BLACK
+	addobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
+	fadescreen FADE_FROM_BLACK
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
+	msgbox NHM2_Battle_Omastar_Text_1
+	waitmessage
+	goto NHM2_Battle_Armaldo_1
+
+NHM2_Battle_Armaldo_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Armaldo_2
+	goto NHM2_Battle_Armaldo_3
+
+NHM2_Battle_Armaldo_5:
+	goto_if_set FLAG_NHML2_RIDDLE_STEP2_CHECK, NHM2_Battle_Armaldo_4
+	goto NHM2_Battle_Armaldo_3
 
 
 NHM2_Battle_Rampardos::
@@ -252,36 +357,115 @@ NHM2_Battle_Rampardos_5:
 
 
 NHM2_Battle_Bastiodon::
-	msgbox NHM2_Battle_Bastiodon_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 1
+	goto_if_eq NHM2_Battle_Bastiodon_5
+NHM2_Battle_Bastiodon_3:
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	msgbox NHM2_Battle_Bastiodon_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_BASTIODON, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_BASTIODON, 100
 	dowildbattle
+NHM2_Battle_Bastiodon_1:
+	release
 	end
+
+NHM2_Battle_Bastiodon_2:
+	clearflag FLAG_NHML2_RIDDLE_START
+	setflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	msgbox NHM2_Battle_Bastiodon_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHM2_Battle_Bastiodon_1
+
+NHM2_Battle_Bastiodon_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Bastiodon_2
+	goto NHM2_Battle_Bastiodon_3
+
+NHM2_Battle_Bastiodon_5:
+	goto_if_set FLAG_NHML2_RIDDLE_START, NHM2_Battle_Bastiodon_4
+	goto NHM2_Battle_Bastiodon_3
 
 
 NHM2_Battle_Carracosta::
-	msgbox NHM2_Battle_Carracosta_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 1
+	goto_if_eq NHM2_Battle_Carracosta_5
+NHM2_Battle_Carracosta_3:
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Carracosta_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_CARRACOSTA, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_CARRACOSTA, 100
 	dowildbattle
+NHM2_Battle_Carracosta_1:
+	release
 	end
+
+NHM2_Battle_Carracosta_2:
+	clearflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Carracosta_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHM2_Battle_Carracosta_1
+
+NHM2_Battle_Carracosta_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Carracosta_2
+	goto NHM2_Battle_Carracosta_3
+
+NHM2_Battle_Carracosta_5:
+	goto_if_set FLAG_NHML2_RIDDLE_STEP1_CHECK, NHM2_Battle_Carracosta_4
+	goto NHM2_Battle_Carracosta_3
 
 
 NHM2_Battle_Aurorus::
-	msgbox NHM2_Battle_Aurorus_Text_0, MSGBOX_AUTOCLOSE
+	lock
+	compare VAR_NHM_L2_RIDDLE, 2
+	goto_if_eq NHM2_Battle_Aurorus_5
+NHM2_Battle_Aurorus_3:
+	setflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	msgbox NHM2_Battle_Aurorus_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_AURORUS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
 	setwildbattle SPECIES_AURORUS, 100
 	dowildbattle
+NHM2_Battle_Aurorus_1:
+	release
 	end
+
+NHM2_Battle_Aurorus_2:
+	clearflag FLAG_NHML2_RIDDLE_START
+	setflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	msgbox NHM2_Battle_Aurorus_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHM2_Battle_Aurorus_1
+
+NHM2_Battle_Aurorus_4:
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHM2_Battle_Aurorus_2
+	goto NHM2_Battle_Aurorus_3
+
+NHM2_Battle_Aurorus_5:
+	goto_if_set FLAG_NHML2_RIDDLE_START, NHM2_Battle_Aurorus_4
+	goto NHM2_Battle_Aurorus_3
 
 
 NHML2_Camper::
@@ -307,19 +491,38 @@ NHML2_Camper_5:
 	goto NHML2_Camper_1
 
 
+NHML2_Game_Master::
+	lock
+	faceplayer
+	msgbox NHML2_Game_Master_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
 NHML2_Boulder::
 	return
 
 
 Dummy_Give_Furret::
+	goto_if_unset FLAG_NHML2_TEST_OBTAIN_FURRET, Dummy_Give_Furret_1
+	return
+
+Dummy_Give_Furret_1:
 	msgbox Dummy_Give_Furret_Text_0, MSGBOX_AUTOCLOSE
 	givemon SPECIES_FURRET, 21
+	setflag FLAG_NHML2_TEST_OBTAIN_FURRET
 	return
 
 
 Dummy_Give_Skitty::
+	goto_if_unset FLAG_NHML2_TEST_OBTAIN_SKITTY, Dummy_Give_Skitty_1
+	return
+
+Dummy_Give_Skitty_1:
 	msgbox Dummy_Give_Skitty_Text_0, MSGBOX_AUTOCLOSE
 	givemon SPECIES_SKITTY, 11
+	setflag FLAG_NHML2_TEST_OBTAIN_SKITTY
 	return
 
 
@@ -355,10 +558,21 @@ NHM2_Battle_Kabutops_Text_1:
 	.string "Feel it's power!$"
 
 NHM2_Battle_Omastar_Text_0:
+	.string "There is a HELIX FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Omastar_Text_1:
+	.string "Something heavy fell from above!$"
+
+NHM2_Battle_Omastar_Text_2:
 	.string "There is a HELIX FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Aerodactyl_Text_0:
+	.string "There is an OLD AMBER exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Aerodactyl_Text_1:
 	.string "There is an OLD AMBER exhibited.\l"
 	.string "Feel it's power!$"
 
@@ -367,13 +581,14 @@ NHM2_Battle_Cradily_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Cradily_Text_1:
-	.string "Something heavy fell from above!$"
-
-NHM2_Battle_Cradily_Text_2:
 	.string "There is a ROOT FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Armaldo_Text_0:
+	.string "There is a CLAW FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Armaldo_Text_1:
 	.string "There is a CLAW FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
@@ -386,14 +601,26 @@ NHM2_Battle_Rampardos_Text_1:
 	.string "Feel it's power!$"
 
 NHM2_Battle_Bastiodon_Text_0:
-	.string "There is an ARMOR FOSSIL exhibited.\l"
+	.string "There is a ARMOR FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Bastiodon_Text_1:
+	.string "There is a ARMOR FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Carracosta_Text_0:
+	.string "There is a COVER FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Carracosta_Text_1:
 	.string "There is a COVER FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Aurorus_Text_0:
+	.string "There is a SAIL FOSSIL exhibited...\l"
+	.string "...A hidden switch clicked.$"
+
+NHM2_Battle_Aurorus_Text_1:
 	.string "There is a SAIL FOSSIL exhibited.\l"
 	.string "Feel it's power!$"
 
@@ -408,6 +635,12 @@ NHML2_Camper_Text_1:
 NHML2_Camper_Text_2:
 	.string "Hey, there! What's your favorite TYPE?\p"
 	.string "Mine is WATER.$"
+
+NHML2_Game_Master_Text_0:
+	.string "I am the game master.\p"
+	.string "I will give you helpful advice for each\n"
+	.string "situation, but it adds an additional\l"
+	.string "30min to your play clock.$"
 
 Dummy_Give_Furret_Text_0:
 	.string "You got a Furret.$"

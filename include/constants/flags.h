@@ -1230,11 +1230,11 @@
 #define FLAG_NHML2_RIDDLE_STEP2_CHECK                               0x49C // Unused Flag
 #define FLAG_NHML2_SHOW_BOULDER                                     0x49D // Unused Flag
 #define FLAG_NHML2_BOULDER                                          0x49E // Unused Flag
-#define FLAG_UNUSED_0x49F                                           0x49F // Unused Flag
-#define FLAG_UNUSED_0x4A0                                           0x4A0 // Unused Flag
-#define FLAG_UNUSED_0x4A1                                           0x4A1 // Unused Flag
-#define FLAG_UNUSED_0x4A2                                           0x4A2 // Unused Flag
-#define FLAG_UNUSED_0x4A3                                           0x4A3 // Unused Flag
+#define FLAG_NHML2_TEST_OBTAIN_FURRET                               0x49F // Unused Flag
+#define FLAG_NHML2_TEST_OBTAIN_SKITTY                               0x4A0 // Unused Flag
+#define FLAG_NHML3_RECEIVED_STRENGTH                                0x4A1 // Unused Flag
+#define FLAG_NHML3_NPC_TRADE1_COMPLETED                             0x4A2 // Unused Flag
+#define FLAG_NHML3_NPC_TRADE2_COMPLETED                             0x4A3 // Unused Flag
 #define FLAG_UNUSED_0x4A4                                           0x4A4 // Unused Flag
 #define FLAG_UNUSED_0x4A5                                           0x4A5 // Unused Flag
 #define FLAG_UNUSED_0x4A6                                           0x4A6 // Unused Flag

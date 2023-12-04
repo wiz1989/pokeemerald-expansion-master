@@ -10274,7 +10274,7 @@ const struct Trainer gTrainers[] = {
 
     [TRAINER_NHM_DOUBLE] =
     {
-        .trainerClass = TRAINER_CLASS_OLD_COUPLE,
+        .trainerClass = TRAINER_CLASS_HISTORIANS,
         .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_INTENSE,
         .trainerPic = TRAINER_PIC_OLD_COUPLE,
         .trainerName = _("JOHN & ADA"),

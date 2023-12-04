@@ -155,7 +155,20 @@ NHML3_Exit::
 
 NHML3_Battle_Double::
 	trainerbattle_double TRAINER_NHM_DOUBLE, NHML3_Battle_Double_Text_0, NHML3_Battle_Double_Text_1, Text_NotEnoughMons
+	lockall
+	goto_if_unset FLAG_NHML3_RECEIVED_STRENGTH, NHML3_Battle_Double_2
+	msgbox NHML3_Battle_Double_Text_3, MSGBOX_AUTOCLOSE
+	waitmessage
+NHML3_Battle_Double_1:
+	releaseall
 	end
+
+NHML3_Battle_Double_2:
+	msgbox NHML3_Battle_Double_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_HM04
+	setflag FLAG_NHML3_RECEIVED_STRENGTH
+	goto NHML3_Battle_Double_1
 
 
 NHML3_Tutor_ConfirmMoveSelection::
@@ -206,6 +219,11 @@ NHML3_Trader::
 	end
 
 
+NHML3_Trader2::
+	call FortreeCity_House1_EventScript_Trader2
+	end
+
+
 NHML3_Move_Tutor_Text_0:
 	.string "I am the Move Tutor. \lI will teach your Pokemon moves for\nprecious Heart Scales. \pWhich move should I teach?$"
 
@@ -213,10 +231,21 @@ NHML3_Exit_Text_0:
 	.string "Well, if you don't want to...$"
 
 NHML3_Battle_Double_Text_0:
-	.string "Test text.$"
+	.string "Do you like all these artifacts?\l"
+	.string "We always enjoyed taking a trip to the\l"
+	.string "past.$"
 
 NHML3_Battle_Double_Text_1:
-	.string "Go ahead, you're almost there.$"
+	.string "We should have trusted the prophecy on that old sarcophagus over there.$"
+
+NHML3_Battle_Double_Text_2:
+	.string "That was very impressive!\l"
+	.string "You are a very STRONG trainer.\l"
+	.string "Let us give you this as a reward.$"
+
+NHML3_Battle_Double_Text_3:
+	.string "The AC in the lobby is running crazy.\l"
+	.string "Be careful making it through there!$"
 
 NHML3_Tutor_ConfirmMoveSelection_Text_0:
 	.string "The move {STR_VAR_1}, is it?$"

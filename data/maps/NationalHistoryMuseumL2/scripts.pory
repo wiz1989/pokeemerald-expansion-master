@@ -120,24 +120,70 @@ script NHM2_Battle_Kabutops {
 }
 
 script NHM2_Battle_Omastar {
-    msgbox(format("There is a HELIX FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_OMASTAR, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_OMASTAR, 100)
-    dowildbattle
+    //WATER 3
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_STEP2_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        setflag(FLAG_NHML2_RIDDLE_SOLVED)
+        setflag(FLAG_NHML2_SHOW_BOULDER)
+        msgbox(format("There is a HELIX FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+        setvar(VAR_0x8004, 1)  //vertical pan
+        setvar(VAR_0x8005, 1)  //horizontal pan
+        setvar(VAR_0x8006, 4)  //num shakes
+        setvar(VAR_0x8007, 5)  //shake delay
+        special(ShakeCamera)
+	    waitstate
+        fadescreen(FADE_TO_BLACK)
+        addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
+        fadescreen(FADE_FROM_BLACK)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+        waitmovement(0)
+        msgbox(format("Something heavy fell from above!"))
+	    waitmessage
+    }
+    else {
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is a HELIX FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_OMASTAR, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_OMASTAR, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
 script NHM2_Battle_Aerodactyl {
-    msgbox(format("There is an OLD AMBER exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_AERODACTYL, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_AERODACTYL, 100)
-    dowildbattle
+    //FIRE 2
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        clearflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is an OLD AMBER exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+    }
+    else {
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is an OLD AMBER exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_AERODACTYL, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_AERODACTYL, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
@@ -182,13 +228,42 @@ script NHM2_Battle_Cradily {
 }
 
 script NHM2_Battle_Armaldo {
-    msgbox(format("There is a CLAW FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_ARMALDO, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_ARMALDO, 100)
-    dowildbattle
+    //FIRE 3
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_STEP2_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        setflag(FLAG_NHML2_RIDDLE_SOLVED)
+        setflag(FLAG_NHML2_SHOW_BOULDER)
+        msgbox(format("There is a CLAW FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+        setvar(VAR_0x8004, 1)  //vertical pan
+        setvar(VAR_0x8005, 1)  //horizontal pan
+        setvar(VAR_0x8006, 4)  //num shakes
+        setvar(VAR_0x8007, 5)  //shake delay
+        special(ShakeCamera)
+	    waitstate
+        fadescreen(FADE_TO_BLACK)
+        addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
+        fadescreen(FADE_FROM_BLACK)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+        waitmovement(0)
+        msgbox(format("Something heavy fell from above!"))
+	    waitmessage
+    }
+    else {
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is a CLAW FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_ARMALDO, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_ARMALDO, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
@@ -220,35 +295,84 @@ script NHM2_Battle_Rampardos {
 }
 
 script NHM2_Battle_Bastiodon {
-    msgbox(format("There is an ARMOR FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_BASTIODON, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_BASTIODON, 100)
-    dowildbattle
+    //FIRE 1
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_START) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        clearflag(FLAG_NHML2_RIDDLE_START)
+        setflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        msgbox(format("There is a ARMOR FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+    }
+    else {
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        msgbox(format("There is a ARMOR FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_BASTIODON, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_BASTIODON, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
 script NHM2_Battle_Carracosta {
-    msgbox(format("There is a COVER FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_CARRACOSTA, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_CARRACOSTA, 100)
-    dowildbattle
+    //WATER 2
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        clearflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is a COVER FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+    }
+    else {
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        msgbox(format("There is a COVER FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_CARRACOSTA, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_CARRACOSTA, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
 script NHM2_Battle_Aurorus {
-    msgbox(format("There is a SAIL FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
-    waitmessage
-    playmoncry(SPECIES_AURORUS, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
-    setwildbattle(SPECIES_AURORUS, 100)
-    dowildbattle
+    //WATER 1
+    lock
+    if (var(VAR_NHM_L2_RIDDLE) == 2 && flag(FLAG_NHML2_RIDDLE_START) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        clearflag(FLAG_NHML2_RIDDLE_START)
+        setflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        msgbox(format("There is a SAIL FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        waitmessage
+    }
+    else {
+        setflag(FLAG_NHML2_RIDDLE_START)
+        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+        clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        randomnr(3)
+        setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+        msgbox(format("There is a SAIL FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        playmoncry(SPECIES_AURORUS, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        setwildbattle(SPECIES_AURORUS, 100)
+        dowildbattle
+    }
+    release
 	end
 }
 
@@ -283,13 +407,20 @@ script NHML2_Boulder {
 
 //Test scripts #################+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 script Dummy_Give_Furret {
-    msgbox("You got a Furret.", MSGBOX_AUTOCLOSE)
-    givemon(SPECIES_FURRET, 21)
+    if (!flag(FLAG_NHML2_TEST_OBTAIN_FURRET)) {
+        msgbox("You got a Furret.", MSGBOX_AUTOCLOSE)
+        givemon(SPECIES_FURRET, 21)
+        setflag(FLAG_NHML2_TEST_OBTAIN_FURRET)
+    }
+    
 }
 
 script Dummy_Give_Skitty {
-    msgbox("You got a Skitty.", MSGBOX_AUTOCLOSE)
-    givemon(SPECIES_SKITTY, 11)
+    if (!flag(FLAG_NHML2_TEST_OBTAIN_SKITTY)) {
+        msgbox("You got a Skitty.", MSGBOX_AUTOCLOSE)
+        givemon(SPECIES_SKITTY, 11)
+        setflag(FLAG_NHML2_TEST_OBTAIN_SKITTY)
+    }
 }
 
 

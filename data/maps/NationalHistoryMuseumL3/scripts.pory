@@ -126,7 +126,19 @@ script NHML3_Exit {
 }
 
 script NHML3_Battle_Double {
-    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Test text."), "Go ahead, you're almost there.", Text_NotEnoughMons)
+    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Do you like all these artifacts?\lWe always enjoyed taking a trip to the past."), "We should have trusted the prophecy on that old sarcophagus over there.", Text_NotEnoughMons)
+	lockall
+	if (!flag(FLAG_NHML3_RECEIVED_STRENGTH)) {
+		msgbox(format("That was very impressive!\lYou are a very STRONG trainer.\lLet us give you this as a reward."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		giveitem(ITEM_HM04)
+		setflag(FLAG_NHML3_RECEIVED_STRENGTH)
+	}
+	else {
+		msgbox(format("The AC in the lobby is running crazy.\lBe careful making it through there!"), MSGBOX_AUTOCLOSE)
+		waitmessage
+	}
+	releaseall
 	end
 }
 
@@ -173,7 +185,12 @@ script NHML3_Tutor_ConfirmMoveSelection {
 	end
 }
 
-script NHML3_Trader{
+script NHML3_Trader {
 	call(FortreeCity_House1_EventScript_Trader)
+	end
+}
+
+script NHML3_Trader2 {
+	call(FortreeCity_House1_EventScript_Trader2)
 	end
 }
