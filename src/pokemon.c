@@ -3681,11 +3681,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
-    if (species == SPECIES_FURRET) {
-        value = ITEM_RETRO_MAIL;
-        //SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
-    }
-
     if (species == SPECIES_YAMASK) {
         value = ITEM_NONE;
         SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);

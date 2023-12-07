@@ -542,14 +542,16 @@ NHML2_Nurse_Text_1:
 
 NHML2_BlondeMan_Text_0:
 	.string "This guy over there won't let anybody\n"
-	.string "out here until someone defeats him\l"
+	.string "out here until someone defeats him.\l"
 	.string "What a jerk!\p"
 	.string "Wow...\n"
-	.string "...you really look like you have a good\l"
-	.string "chance of winning.$"
+	.string "...you really look like you could have a\l"
+	.string "good chance of winning.$"
 
 NHML2_Battle_Brandon_Text_0:
-	.string "Don't think about fighting the couple on the third floor, if you can't even get passed me!$"
+	.string "Don't think about fighting the couple\n"
+	.string "on the third floor, if you can't even get\l"
+	.string "passed me!$"
 
 NHML2_Battle_Brandon_Text_1:
 	.string "I wasn't FEARful enough.$"

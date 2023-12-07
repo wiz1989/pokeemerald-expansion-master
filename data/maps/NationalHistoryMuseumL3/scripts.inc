@@ -225,6 +225,14 @@ NHML3_Trader2::
 	end
 
 
+NHML3_InfoSign::
+	lockall
+	msgbox NHML3_InfoSign_Text_0
+	waitmessage
+	releaseall
+	end
+
+
 NHML3_Move_Tutor_Text_0:
 	.string "I am the Move Tutor. \lI will teach your Pokemon moves for\nprecious Heart Scales. \pWhich move should I teach?$"
 
@@ -263,3 +271,17 @@ NHML3_Tutor_ConfirmMoveSelection_Text_3:
 
 NHML3_Tutor_ConfirmMoveSelection_Text_4:
 	.string "Thanks for doing business with me.$"
+
+NHML3_InfoSign_Text_0:
+	.string "IMPORTANT INFORMATION:\p"
+	.string "1.) This game is featuring the most\n"
+	.string "recent movesets for any Pokemon you\l"
+	.string "control yourself.\p"
+	.string "2.) It is not required to grind multiple\n"
+	.string "levels to win any of the fights.\p"
+	.string "3.) All items are there for a reason.\n"
+	.string "Think twice before using them.\p"
+	.string "4.) There are no invisible items or\n"
+	.string "messages hidden on the ground. Don't\l"
+	.string "waste your time hitting the A button\l"
+	.string "throughout the whole overworld.$"
