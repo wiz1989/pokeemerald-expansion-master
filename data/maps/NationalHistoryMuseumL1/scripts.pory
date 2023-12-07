@@ -10,9 +10,12 @@ mapscripts NationalHistoryMuseumL1_MapScripts {
 script NHML1_OnResume {
 	setvar(VAR_TEMP_2, 0) //var for EveryFrame
 	call(load_HONOR_MODE)
-	if (!flag(FLAG_NHML1_BOULDER_FELL_DOWN)){
+	if (!flag(FLAG_NHML1_BOULDER_FELL_DOWN)) {
         setflag(FLAG_NHML1_BOULDER)
-    }
+	}
+	else {
+		clearflag(FLAG_NHML1_BOULDER)
+	}
 	end
 }
 

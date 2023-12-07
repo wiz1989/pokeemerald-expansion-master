@@ -12,6 +12,7 @@ NHML1_OnResume::
 	setvar VAR_TEMP_2, 0
 	call load_HONOR_MODE
 	goto_if_unset FLAG_NHML1_BOULDER_FELL_DOWN, NHML1_OnResume_2
+	clearflag FLAG_NHML1_BOULDER
 NHML1_OnResume_1:
 	end
 
