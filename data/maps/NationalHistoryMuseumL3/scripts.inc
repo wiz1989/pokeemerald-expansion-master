@@ -30,6 +30,7 @@ NHML3_OnResume_2:
 	givemon SPECIES_MUNCHLAX, 11
 	setflag FLAG_SYS_POKEMON_GET
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
+	special CreateMail
 	goto NHML3_OnResume_1
 
 

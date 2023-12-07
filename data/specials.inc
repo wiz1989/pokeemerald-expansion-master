@@ -557,3 +557,4 @@ gSpecials::
 	def_special ItemisHeldInParty
 	def_special GetMonPartyLevel
 	def_special RandomNumber
+	def_special CreateMail

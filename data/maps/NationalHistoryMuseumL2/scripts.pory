@@ -69,16 +69,16 @@ script NHML2_Nurse {
 script NHML2_BlondeMan {
     lock
 	faceplayer
-    msgbox(format("This guy over there won't let anybody out here until someone defeats him\lWhat a jerk!\pWow, you really look like you have a good chance of winning."), MSGBOX_AUTOCLOSE)
+    msgbox(format("This guy over there won't let anybody out here until someone defeats him\lWhat a jerk!\pWow...\n...you really look like you have a good chance of winning."), MSGBOX_AUTOCLOSE)
     waitmessage
     release
     end
 }
 
 script NHML2_Battle_Brandon {
-	trainerbattle_single(TRAINER_NHM_BRANDON, "Are you scared, yet?", "I wasn't FEARful enough.")
+	trainerbattle_single(TRAINER_NHM_BRANDON, "Don't think about fighting the couple on the third floor, if you can't even get passed me!", "I wasn't FEARful enough.")
 	lock
-	msgbox(format("The couple on floor 3 won't be as easy on you as I was.\pI heard they are very generous.\nBut I failed when I tried myself."), MSGBOX_AUTOCLOSE)
+	msgbox(format("The couple on floor 3 won't be as easy on you as I was.\pIf there only was a way to stop them from hitting you!"), MSGBOX_AUTOCLOSE)
 	release
 	end
 }
@@ -414,23 +414,20 @@ script NHML2_Boulder {
     //do nothing
 }
 
-
-//Test scripts #################+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-script Dummy_Give_Furret {
-    if (!flag(FLAG_NHML2_TEST_OBTAIN_FURRET)) {
-        msgbox("You got a Furret.", MSGBOX_AUTOCLOSE)
-        givemon(SPECIES_FURRET, 21)
-        setflag(FLAG_NHML2_TEST_OBTAIN_FURRET)
-    }
-    
+script NHML2_Sign_wiz1989 {
+    lock
+    msgbox(format("This ROM hack was designed and created by WIZ1989."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
 }
 
-script Dummy_Give_Skitty {
-    if (!flag(FLAG_NHML2_TEST_OBTAIN_SKITTY)) {
-        msgbox("You got a Skitty.", MSGBOX_AUTOCLOSE)
-        givemon(SPECIES_SKITTY, 11)
-        setflag(FLAG_NHML2_TEST_OBTAIN_SKITTY)
-    }
+script NHML2_Sign_Kyuzee {
+    lock
+    msgbox(format("All non standard graphics and sprites have been designed and created by KYUZEE."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
 }
 
 

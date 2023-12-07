@@ -5138,3 +5138,27 @@ static void CB2_SaveAndEndWirelessTrade(void)
     BuildOamBuffer();
     UpdatePaletteFade();
 }
+
+void CreateMail(void)
+{
+    s32 i;
+    u32 otId;
+    u8 otName[11] = _("WIZ1989");
+    //save mail in saveblock1 -> index 6 is the first slot the mailbox reads from
+    struct Mail *mail = &gSaveBlock1Ptr->mail[PARTY_SIZE];
+
+    otId = 1989;
+
+    for (i = 0; i < MAIL_WORDS_COUNT; i++)
+        mail->words[i] = sNHMMail[0][i];
+
+    StringCopy(mail->playerName, otName);
+    PadNameString(mail->playerName, CHAR_SPACE);
+
+    mail->trainerId[0] = otId >> 24;
+    mail->trainerId[1] = otId >> 16;
+    mail->trainerId[2] = otId >> 8;
+    mail->trainerId[3] = otId;
+    mail->species = SPECIES_KABUTOPS;
+    mail->itemId = ITEM_RETRO_MAIL;
+}

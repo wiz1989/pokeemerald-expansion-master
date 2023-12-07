@@ -34,12 +34,12 @@ FortreeCity_House1_EventScript_Trader::
 FortreeCity_House1_EventScript_Trader2::
 	lock
 	faceplayer
-	goto_if_set FLAG_NHML3_NPC_TRADE2_COMPLETED, FortreeCity_House1_EventScript_TradeCompleted
+	goto_if_set FLAG_NHML3_NPC_TRADE2_COMPLETED, FortreeCity_House1_EventScript_TradeCompleted2
 	setvar VAR_0x8008, INGAME_TRADE_HORSEA //
 	copyvar VAR_0x8004, VAR_0x8008
 	specialvar VAR_RESULT, GetInGameTradeSpeciesInfo
 	copyvar VAR_0x8009, VAR_RESULT
-	msgbox FortreeCity_House1_Text_YouWillTradeWontYou, MSGBOX_YESNO
+	msgbox FortreeCity_House1_Text_YouWillTradeWontYou2, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, FortreeCity_House1_EventScript_DeclineTrade
 	special ChoosePartyMon
 	waitstate
@@ -64,12 +64,12 @@ FortreeCity_House1_EventScript_Trader2::
 FortreeCity_House1_EventScript_Trader3::
 	lock
 	faceplayer
-	goto_if_set FLAG_NHML3_NPC_TRADE3_COMPLETED, FortreeCity_House1_EventScript_TradeCompleted
-	setvar VAR_0x8008, INGAME_TRADE_MEOWTH //
+	goto_if_set FLAG_NHML3_NPC_TRADE3_COMPLETED, FortreeCity_House1_EventScript_TradeCompleted3
+	setvar VAR_0x8008, INGAME_TRADE_MEOWTH
 	copyvar VAR_0x8004, VAR_0x8008
 	specialvar VAR_RESULT, GetInGameTradeSpeciesInfo
 	copyvar VAR_0x8009, VAR_RESULT
-	msgbox FortreeCity_House1_Text_YouWillTradeWontYou, MSGBOX_YESNO
+	msgbox FortreeCity_House1_Text_YouWillTradeWontYou3, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, FortreeCity_House1_EventScript_DeclineTrade
 	special ChoosePartyMon
 	waitstate
@@ -102,7 +102,17 @@ FortreeCity_House1_EventScript_NotRequestedMon::
 	end
 
 FortreeCity_House1_EventScript_TradeCompleted::
-	msgbox FortreeCity_House1_Text_GoingToMakeVolbeatStrong, MSGBOX_DEFAULT
+	msgbox FortreeCity_House1_Text_Trade1, MSGBOX_DEFAULT
+	release
+	end
+
+FortreeCity_House1_EventScript_TradeCompleted2::
+	msgbox FortreeCity_House1_Text_Trade2, MSGBOX_DEFAULT
+	release
+	end
+
+FortreeCity_House1_EventScript_TradeCompleted3::
+	msgbox FortreeCity_House1_Text_Trade3, MSGBOX_DEFAULT
 	release
 	end
 
@@ -121,14 +131,25 @@ FortreeCity_House1_EventScript_Zigzagoon::
 	end
 
 FortreeCity_House1_Text_YouWillTradeWontYou:
-	.string "Wrooooaaar! I need it!\n"
+	.string "Whoooaaaa! I need it!\n"
 	.string "I have to get me a {STR_VAR_1}!\l"
-	.string "I'll do anything for it!\p"
-	.string "…Uh… Did you hear that?\n"
-	.string "My shout from the bottom of my heart?\p"
-	.string "Having heard that, you will trade\n"
-	.string "your {STR_VAR_1} for my {STR_VAR_2},\l"
-	.string "won't you?$"
+	.string "It's my absolute favorite!\p"
+	.string "Are you willing to trade your\n"
+	.string "{STR_VAR_1} for my {STR_VAR_2}?$"
+
+FortreeCity_House1_Text_YouWillTradeWontYou2:
+	.string "Whoooaaaa! I need it!\n"
+	.string "I have to get me a {STR_VAR_1}!\l"
+	.string "It's my absolute favorite!\p"
+	.string "Are you willing to trade your\n"
+	.string "{STR_VAR_1} for my {STR_VAR_2}?$"
+
+FortreeCity_House1_Text_YouWillTradeWontYou3:
+	.string "Such an inspirational place!\p"
+	.string "Could it be? Do you have an\l"
+	.string "{STR_VAR_1}?\p"
+	.string "Are you willing to trade your\n"
+	.string "{STR_VAR_1} for my {STR_VAR_2}?$"
 
 FortreeCity_House1_Text_MonYouTakeCare:
 	.string "Oh, yeah, right on!\p"
@@ -143,10 +164,18 @@ FortreeCity_House1_Text_YouWontTradeMe:
 	.string "No? You won't trade me?\n"
 	.string "Even after I bared my heart to you?$"
 
-FortreeCity_House1_Text_GoingToMakeVolbeatStrong:
-	.string "I'm going to make MUNCHLAX super\n"
-	.string "strong from this moment on!\p"
-	.string "I hope you do the same with PLUSLE!$"
+FortreeCity_House1_Text_Trade1:
+	.string "I will always be here looking\n"
+	.string "for MUNCHLAX!$"
+
+FortreeCity_House1_Text_Trade2:
+	.string "I will always be here looking\n"
+	.string "for YAMASK!$"
+
+FortreeCity_House1_Text_Trade3:
+	.string "So inspirational!\p"
+	.string "I always wanted to paint a\n"
+	.string "prehistoric creature.$"
 
 FortreeCity_House1_Text_TradingMemoriesWithOthers:
 	.string "Trading POKéMON with others…\p"

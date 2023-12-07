@@ -52,6 +52,7 @@
 #include "constants/trainers.h"
 #include "constants/union_room.h"
 #include "constants/weather.h"
+#include "trade.h"
 
 struct SpeciesItem
 {
@@ -3418,10 +3419,16 @@ void ZeroEnemyPartyMons(void)
 void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFixedPersonality, u32 fixedPersonality, u8 otIdType, u32 fixedOtId)
 {
     u32 mail;
+    
     ZeroMonData(mon);
     CreateBoxMon(&mon->box, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId);
     SetMonData(mon, MON_DATA_LEVEL, &level);
-    mail = MAIL_NONE;
+    
+    if (species == SPECIES_FURRET) {
+        CreateMail();
+    }
+    else
+        mail = MAIL_NONE;
     SetMonData(mon, MON_DATA_MAIL, &mail);
     CalculateMonStats(mon);
 }
@@ -3437,6 +3444,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 selectedIvs[LEGENDARY_PERFECT_IV_COUNT];
     u16 moves[4]; //added var
     u8 nature; //added var
+    struct Mail mail;
+    u8 mailNum;
 
     ZeroBoxMonData(boxMon);
 
@@ -3670,6 +3679,11 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             //set move
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
         }
+    }
+
+    if (species == SPECIES_FURRET) {
+        value = ITEM_RETRO_MAIL;
+        //SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
     }
 
     if (species == SPECIES_YAMASK) {
@@ -8918,3 +8932,5 @@ u8 CheckPartyPokemon(struct Pokemon *party, u16 species)
 
     return retVal;
 }
+
+

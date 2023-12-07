@@ -11,7 +11,13 @@ NationalHistoryMuseumL1_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 NHML1_OnResume::
 	setvar VAR_TEMP_2, 0
 	call load_HONOR_MODE
+	goto_if_unset FLAG_NHML1_BOULDER_FELL_DOWN, NHML1_OnResume_2
+NHML1_OnResume_1:
 	end
+
+NHML1_OnResume_2:
+	setflag FLAG_NHML1_BOULDER
+	goto NHML1_OnResume_1
 
 
 NHML1_EveryFrame::
@@ -56,7 +62,7 @@ NHML1_Judge::
 
 
 NHML1_Artist::
-	call FortreeCity_House1_EventScript_Trader
+	call FortreeCity_House1_EventScript_Trader3
 	setflag FLAG_NHML2_TEST_OBTAIN_SKITTY
 	end
 
@@ -75,6 +81,10 @@ NHML1_ItemBall::
 	end
 
 
+NHML1_Boulder::
+	return
+
+
 NHML1_Judge_Text_0:
 	.string "What an exquisite place!\l"
 	.string "All these artifacts are just\l"
@@ -84,4 +94,5 @@ NHML1_Judge_Text_0:
 	.string "Wonderful!$"
 
 NHML1_ItemBall_Text_0:
-	.string "You found an abandoned PokeBall with a FURRET inside.$"
+	.string "You found an abandoned PokeBall with a\n"
+	.string "FURRET inside.$"

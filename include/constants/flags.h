@@ -1237,8 +1237,8 @@
 #define FLAG_NHML3_NPC_TRADE2_COMPLETED                             0x4A3 // Unused Flag
 #define FLAG_NHML3_NPC_TRADE3_COMPLETED                             0x4A4 // Unused Flag
 #define FLAG_NHML1_ITEMBALL                                         0x4A5 // Unused Flag
-#define FLAG_UNUSED_0x4A6                                           0x4A6 // Unused Flag
-#define FLAG_UNUSED_0x4A7                                           0x4A7 // Unused Flag
+#define FLAG_NHML1_BOULDER                                          0x4A6 // Unused Flag
+#define FLAG_NHML1_BOULDER_FELL_DOWN                                0x4A7 // Unused Flag
 #define FLAG_UNUSED_0x4A8                                           0x4A8 // Unused Flag
 #define FLAG_UNUSED_0x4A9                                           0x4A9 // Unused Flag
 #define FLAG_UNUSED_0x4AA                                           0x4AA // Unused Flag

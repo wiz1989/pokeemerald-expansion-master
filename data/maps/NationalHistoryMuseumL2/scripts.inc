@@ -514,26 +514,20 @@ NHML2_Boulder::
 	return
 
 
-Dummy_Give_Furret::
-	goto_if_unset FLAG_NHML2_TEST_OBTAIN_FURRET, Dummy_Give_Furret_1
-	return
-
-Dummy_Give_Furret_1:
-	msgbox Dummy_Give_Furret_Text_0, MSGBOX_AUTOCLOSE
-	givemon SPECIES_FURRET, 21
-	setflag FLAG_NHML2_TEST_OBTAIN_FURRET
-	return
+NHML2_Sign_wiz1989::
+	lock
+	msgbox NHML2_Sign_wiz1989_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
 
 
-Dummy_Give_Skitty::
-	goto_if_unset FLAG_NHML2_TEST_OBTAIN_SKITTY, Dummy_Give_Skitty_1
-	return
-
-Dummy_Give_Skitty_1:
-	msgbox Dummy_Give_Skitty_Text_0, MSGBOX_AUTOCLOSE
-	givemon SPECIES_SKITTY, 11
-	setflag FLAG_NHML2_TEST_OBTAIN_SKITTY
-	return
+NHML2_Sign_Kyuzee::
+	lock
+	msgbox NHML2_Sign_Kyuzee_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
 
 
 Move_exclmark:
@@ -550,11 +544,12 @@ NHML2_BlondeMan_Text_0:
 	.string "This guy over there won't let anybody\n"
 	.string "out here until someone defeats him\l"
 	.string "What a jerk!\p"
-	.string "Wow, you really look like you have a good\n"
+	.string "Wow...\n"
+	.string "...you really look like you have a good\l"
 	.string "chance of winning.$"
 
 NHML2_Battle_Brandon_Text_0:
-	.string "Are you scared, yet?$"
+	.string "Don't think about fighting the couple on the third floor, if you can't even get passed me!$"
 
 NHML2_Battle_Brandon_Text_1:
 	.string "I wasn't FEARful enough.$"
@@ -562,8 +557,8 @@ NHML2_Battle_Brandon_Text_1:
 NHML2_Battle_Brandon_Text_2:
 	.string "The couple on floor 3 won't be as easy\n"
 	.string "on you as I was.\p"
-	.string "I heard they are very generous.\n"
-	.string "But I failed when I tried myself.$"
+	.string "If there only was a way to stop them\n"
+	.string "from hitting you!$"
 
 NHM2_Battle_Archen_Text_0:
 	.string "There is a PLUME FOSSIL exhibited.\l"
@@ -662,11 +657,14 @@ NHML2_Game_Master_Text_0:
 	.string "situation, but it adds an additional\l"
 	.string "30min to your play clock.$"
 
-Dummy_Give_Furret_Text_0:
-	.string "You got a Furret.$"
+NHML2_Sign_wiz1989_Text_0:
+	.string "This ROM hack was designed and created\n"
+	.string "by WIZ1989.$"
 
-Dummy_Give_Skitty_Text_0:
-	.string "You got a Skitty.$"
+NHML2_Sign_Kyuzee_Text_0:
+	.string "All non standard graphics and sprites\n"
+	.string "have been designed and created by\l"
+	.string "KYUZEE.$"
 
 Text_NotEnoughMons::
 	.string "You don't have enough Pokémon to fight\n"

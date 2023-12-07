@@ -1041,7 +1041,7 @@ static const struct InGameTrade sIngameTrades[] =
         .otId = 91481,
         .conditions = {5, 5, 5, 30, 5},
         .personality = 0x8B,
-        .heldItem = ITEM_RETRO_MAIL,
+        .heldItem = ITEM_NONE,
         .mailNum = 2,
         .otName = _("KYUZEE"),
         .otGender = FEMALE,
@@ -1082,6 +1082,22 @@ static const u16 sIngameTradeMail[][MAIL_WORDS_COUNT + 1] =
         EC_WORD_A,
         EC_WORD_CUTE,
         EC_WORD_WAY
+    }
+};
+
+const u16 sNHMMail[][MAIL_WORDS_COUNT + 1] =
+{
+    {
+        EC_POKEMON_NATIONAL(KABUTOPS),
+        EC_WORD_GIVES,
+        EC_WORD_TIME,
+        EC_WORD_TO,
+        EC_WORD_ATTACK,
+        EC_WORD_EXCL,
+        EC_WORD_THINK,
+        EC_WORD_ABOUT,
+        EC_WORD_WHY,
+        EC_WORD_EXCL
     }
 };
 
