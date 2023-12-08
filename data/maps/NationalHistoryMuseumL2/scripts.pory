@@ -5,6 +5,7 @@ mapscripts NationalHistoryMuseumL2_MapScripts {
     MAP_SCRIPT_ON_RESUME: NHML2_OnResume
 	MAP_SCRIPT_ON_FRAME_TABLE [
 		VAR_TEMP_2, 0: NHML2_EveryFrame
+        VAR_NHML1_BOULDER_FELL_DOWN, 1: NHML2_EveryFrame_Boulder
 	]
 }
 
@@ -32,6 +33,12 @@ script NHML2_EveryFrame {
 		release
 	}
 	setvar(VAR_TEMP_2, 1)
+}
+
+script NHML2_EveryFrame_Boulder {
+    call(NHML2_Boulder_in_hole)
+    //reset var to deactivate the frame table event
+    setvar(VAR_NHML1_BOULDER_FELL_DOWN, 0)
 }
 
 
@@ -432,14 +439,14 @@ script NHML2_Sign_Kyuzee {
 
 script NHML2_Sign_hole {
     lock
-    msgbox("A hole in the ground. \lMaybe you can push something through \nit.", MSGBOX_AUTOCLOSE)
+    msgbox("A hole in the ground. \lMaybe you can push something through \nit.", c)
     waitmessage
     release
     end
 }
 
 script NHML2_Boulder_in_hole {
-    //since only the boulder can enter this trigger field, no condition is required
+    lock
     removeobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
     setvar(VAR_0x8004, 1)  //vertical pan
     setvar(VAR_0x8005, 1)  //horizontal pan
@@ -447,14 +454,12 @@ script NHML2_Boulder_in_hole {
     setvar(VAR_0x8007, 5)  //shake delay
     special(ShakeCamera)
     waitstate
-    //fadescreen(FADE_TO_BLACK)
-    //addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
-    //fadescreen(FADE_FROM_BLACK)
     applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
     waitmovement(0)
-    msgbox(format("The boulder fell through the hole!"))
+    msgbox(format("The boulder fell through the hole!"), MSGBOX_AUTOCLOSE)
     waitmessage
-    setflag(FLAG_NHML1_BOULDER_FELL_DOWN)
+    release
+    end
 }
 
 

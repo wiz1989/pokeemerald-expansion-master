@@ -4717,10 +4717,13 @@ static bool8 IsMetatileDirectionallyImpassable(struct ObjectEvent *objectEvent, 
 {
     if (gOppositeDirectionBlockedMetatileFuncs[direction - 1](objectEvent->currentMetatileBehavior)
         || gDirectionBlockedMetatileFuncs[direction - 1](MapGridGetMetatileBehaviorAt(x, y))) {
-            DebugPrintf("current object: %d", objectEvent->spriteId);
+            DebugPrintf("current object: %d", objectEvent->graphicsId);
             //These sprites somehow relate to a boulder being pushed by the player (Brendan/May sprites)
             if ((MetatileBehavior_IsBoulderOnly(MapGridGetMetatileBehaviorAt(x, y)) == TRUE) && 
-                (objectEvent->spriteId == OBJ_EVENT_GFX_BRENDAN_SURFING || objectEvent->spriteId == OBJ_EVENT_GFX_BRENDAN_MACH_BIKE)) {
+                (objectEvent->graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER)) {
+                //set vars for the ROM hack; dirty implementation!
+                FlagSet(FLAG_NHML1_BOULDER_FELL_DOWN);
+                VarSet(VAR_NHML1_BOULDER_FELL_DOWN, 1);
                 return FALSE;
             }
         return TRUE;

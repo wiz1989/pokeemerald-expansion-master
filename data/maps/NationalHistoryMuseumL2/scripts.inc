@@ -6,6 +6,7 @@ NationalHistoryMuseumL2_MapScripts::
 
 NationalHistoryMuseumL2_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TEMP_2, 0, NHML2_EveryFrame
+	map_script_2 VAR_NHML1_BOULDER_FELL_DOWN, 1, NHML2_EveryFrame_Boulder
 	.2byte 0
 
 
@@ -42,6 +43,12 @@ NHML2_EveryFrame_2:
 NHML2_EveryFrame_3:
 	goto_if_set FLAG_P01_LOAD_SAVEGAME, NHML2_EveryFrame_2
 	goto NHML2_EveryFrame_1
+
+
+NHML2_EveryFrame_Boulder::
+	call NHML2_Boulder_in_hole
+	setvar VAR_NHML1_BOULDER_FELL_DOWN, 0
+	return
 
 
 NHML2_Trigger_WarpL3::
@@ -550,7 +557,6 @@ NHML2_Boulder_in_hole::
 	waitmovement 0
 	msgbox NHML2_Boulder_in_hole_Text_0
 	waitmessage
-	setflag FLAG_NHML1_BOULDER_FELL_DOWN
 	return
 
 
