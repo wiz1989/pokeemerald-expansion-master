@@ -76,14 +76,19 @@ script NHML2_Nurse {
 script NHML2_BlondeMan {
     lock
 	faceplayer
-    msgbox(format("This guy over there won't let anybody out here until someone defeats him.\lWhat a jerk!\pWow...\n...you really look like you could have a good chance of winning."), MSGBOX_AUTOCLOSE)
+    if(defeated(TRAINER_NHM_BRANDON)) {
+        msgbox(format("YOU DID IT!"), MSGBOX_AUTOCLOSE)
+    }
+    else {
+        msgbox(format("This guy over there won't let anybody out here until someone defeats him.\lWhat a jerk!\pWow...\n...you really look like you could have a good chance of winning."), MSGBOX_AUTOCLOSE)
+    }
     waitmessage
     release
     end
 }
 
 script NHML2_Battle_Brandon {
-	trainerbattle_single(TRAINER_NHM_BRANDON, format("Don't think about fighting the couple on the third floor, if you can't even get passed me!"), "I wasn't FEARful enough.")
+	trainerbattle_single(TRAINER_NHM_BRANDON, format("Don't think about fighting the couple on the third floor, if you can't even get past me!"), "I wasn't FEARful enough.")
 	lock
 	msgbox(format("The couple on floor 3 won't be as easy on you as I was.\pIf there only was a way to stop them from hitting you!"), MSGBOX_AUTOCLOSE)
 	release

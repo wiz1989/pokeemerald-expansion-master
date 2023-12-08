@@ -57,20 +57,20 @@ script NHML1_Judge {
 
 script NHML1_Artist {
 	call(FortreeCity_House1_EventScript_Trader3)
-	setflag(FLAG_NHML2_TEST_OBTAIN_SKITTY)
+	setflag(FLAG_NHML2_TEST_OBTAIN_FURRET)
 	end
 }
 
 script NHML1_ItemBall {
 	lock
-	msgbox(format("You found an abandoned PokeBall with a FURRET inside."), MSGBOX_AUTOCLOSE)
+	msgbox(format("You found an abandoned PokeBall with a SKITTY inside."), MSGBOX_AUTOCLOSE)
 	waitmessage
 	fadescreen(FADE_TO_BLACK)
 	removeobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L1)
 	setflag(FLAG_NHML1_ITEMBALL)
 	fadescreen(FADE_FROM_BLACK)
-    givemon(SPECIES_FURRET, 21)
-    setflag(FLAG_NHML2_TEST_OBTAIN_FURRET)
+    givemon(SPECIES_SKITTY, 10)
+    setflag(FLAG_NHML2_TEST_OBTAIN_SKITTY)
 	release
 	end
 }

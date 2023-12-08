@@ -1034,8 +1034,8 @@ static const struct InGameTrade sIngameTrades[] =
     },
     [INGAME_TRADE_MEOWTH] =
     {
-        .nickname = _("SKITTLE"),
-        .species = SPECIES_SKITTY,
+        .nickname = _("FURRY"),
+        .species = SPECIES_FURRET,
         .ivs = {4, 5, 4, 5, 4, 4},
         .abilityNum = 1,
         .otId = 91481,

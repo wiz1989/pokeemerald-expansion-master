@@ -64,7 +64,7 @@ NHML1_Judge::
 
 NHML1_Artist::
 	call FortreeCity_House1_EventScript_Trader3
-	setflag FLAG_NHML2_TEST_OBTAIN_SKITTY
+	setflag FLAG_NHML2_TEST_OBTAIN_FURRET
 	end
 
 
@@ -76,8 +76,8 @@ NHML1_ItemBall::
 	removeobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L1
 	setflag FLAG_NHML1_ITEMBALL
 	fadescreen FADE_FROM_BLACK
-	givemon SPECIES_FURRET, 21
-	setflag FLAG_NHML2_TEST_OBTAIN_FURRET
+	givemon SPECIES_SKITTY, 10
+	setflag FLAG_NHML2_TEST_OBTAIN_SKITTY
 	release
 	end
 
@@ -96,4 +96,4 @@ NHML1_Judge_Text_0:
 
 NHML1_ItemBall_Text_0:
 	.string "You found an abandoned PokeBall with a\n"
-	.string "FURRET inside.$"
+	.string "SKITTY inside.$"

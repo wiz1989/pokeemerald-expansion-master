@@ -14546,7 +14546,7 @@ static void Cmd_pickup(void)
                 && species != SPECIES_NONE
                 && species != SPECIES_EGG
                 && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
+                && (Random() % 5) == 0)
             {
                 if (isInPyramid)
                 {

@@ -3424,11 +3424,7 @@ void CreateMon(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 hasFix
     CreateBoxMon(&mon->box, species, level, fixedIV, hasFixedPersonality, fixedPersonality, otIdType, fixedOtId);
     SetMonData(mon, MON_DATA_LEVEL, &level);
     
-    if (species == SPECIES_FURRET) {
-        CreateMail();
-    }
-    else
-        mail = MAIL_NONE;
+    mail = MAIL_NONE;
     SetMonData(mon, MON_DATA_MAIL, &mail);
     CalculateMonStats(mon);
 }
@@ -3446,6 +3442,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 nature; //added var
     struct Mail mail;
     u8 mailNum;
+    u8 otNameWiz[11] = _("WIZ1989");
+    u32 otIdWiz = 1989;
 
     ZeroBoxMonData(boxMon);
 
@@ -3475,7 +3473,12 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     else if (otIdType == OT_ID_PRESET)
     {
         value = fixedOtId;
-    }
+    }/*
+    else if (species == SPECIES_SKITTY || species == SPECIES_MUNCHLAX) {
+        //set wiz1989 as the OT
+        u8 trainerId[TRAINER_ID_LENGTH];
+        value = otIdWiz;
+    }*/
     else // Player is the OT
     {
         value = gSaveBlock2Ptr->playerTrainerId[0]
@@ -3636,8 +3639,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     if (species == SPECIES_MUNCHLAX) {
         value = 0;
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
+        SetBoxMonData(boxMon, MON_DATA_OT_NAME, &otNameWiz);
 
-        moves[0] = MOVE_LICK;
+        moves[0] = MOVE_ICY_WIND;
         moves[1] = MOVE_TACKLE;
         moves[2] = MOVE_DEFENSE_CURL;
         moves[3] = MOVE_RECYCLE;
@@ -3667,7 +3671,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     if (species == SPECIES_SKITTY) {
         value = 1;
-        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);        
+        SetBoxMonData(boxMon, MON_DATA_OT_NAME, &otNameWiz);
 
         moves[0] = MOVE_FAKE_OUT;
         moves[1] = MOVE_TACKLE;

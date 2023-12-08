@@ -23,6 +23,7 @@ NHML3_OnResume_1:
 	setflag FLAG_BADGE07_GET
 	setflag FLAG_BADGE08_GET
 	setflag FLAG_SYS_POKEDEX_GET
+	setflag FLAG_SYS_NATIONAL_DEX
 	call load_HONOR_MODE
 	end
 

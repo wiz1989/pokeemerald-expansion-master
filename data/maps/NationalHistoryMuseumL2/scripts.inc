@@ -84,10 +84,17 @@ NHML2_Nurse::
 NHML2_BlondeMan::
 	lock
 	faceplayer
-	msgbox NHML2_BlondeMan_Text_0, MSGBOX_AUTOCLOSE
+	checktrainerflag TRAINER_NHM_BRANDON
+	goto_if 1, NHML2_BlondeMan_2
+	msgbox NHML2_BlondeMan_Text_1, MSGBOX_AUTOCLOSE
+NHML2_BlondeMan_1:
 	waitmessage
 	release
 	end
+
+NHML2_BlondeMan_2:
+	msgbox NHML2_BlondeMan_Text_0, MSGBOX_AUTOCLOSE
+	goto NHML2_BlondeMan_1
 
 
 NHML2_Battle_Brandon::
@@ -573,6 +580,9 @@ NHML2_Nurse_Text_1:
 	.string "You're good to go again.$"
 
 NHML2_BlondeMan_Text_0:
+	.string "YOU DID IT!$"
+
+NHML2_BlondeMan_Text_1:
 	.string "This guy over there won't let anybody\n"
 	.string "out here until someone defeats him.\l"
 	.string "What a jerk!\p"
@@ -583,7 +593,7 @@ NHML2_BlondeMan_Text_0:
 NHML2_Battle_Brandon_Text_0:
 	.string "Don't think about fighting the couple\n"
 	.string "on the third floor, if you can't even get\l"
-	.string "passed me!$"
+	.string "past me!$"
 
 NHML2_Battle_Brandon_Text_1:
 	.string "I wasn't FEARful enough.$"
