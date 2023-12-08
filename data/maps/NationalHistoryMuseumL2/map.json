@@ -114,6 +114,15 @@
       "var": "VAR_TEMP_MIXED_RECORDS",
       "var_value": "0",
       "script": "NHML2_Trigger_WarpL1"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 7,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "NHML2_Boulder_in_hole"
     }
   ],
   "bg_events": [
@@ -220,6 +229,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHML2_Sign_Kyuzee"
+    },
+    {
+      "type": "sign",
+      "x": 14,
+      "y": 7,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML2_Sign_hole"
     }
   ]
 }

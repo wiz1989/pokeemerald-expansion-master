@@ -4716,8 +4716,15 @@ static bool8 IsCoordOutsideObjectEventMovementRange(struct ObjectEvent *objectEv
 static bool8 IsMetatileDirectionallyImpassable(struct ObjectEvent *objectEvent, s16 x, s16 y, u8 direction)
 {
     if (gOppositeDirectionBlockedMetatileFuncs[direction - 1](objectEvent->currentMetatileBehavior)
-        || gDirectionBlockedMetatileFuncs[direction - 1](MapGridGetMetatileBehaviorAt(x, y)))
+        || gDirectionBlockedMetatileFuncs[direction - 1](MapGridGetMetatileBehaviorAt(x, y))) {
+            DebugPrintf("current object: %d", objectEvent->spriteId);
+            //These sprites somehow relate to a boulder being pushed by the player (Brendan/May sprites)
+            if ((MetatileBehavior_IsBoulderOnly(MapGridGetMetatileBehaviorAt(x, y)) == TRUE) && 
+                (objectEvent->spriteId == OBJ_EVENT_GFX_BRENDAN_SURFING || objectEvent->spriteId == OBJ_EVENT_GFX_BRENDAN_MACH_BIKE)) {
+                return FALSE;
+            }
         return TRUE;
+        }
 
     return FALSE;
 }

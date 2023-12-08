@@ -530,6 +530,30 @@ NHML2_Sign_Kyuzee::
 	end
 
 
+NHML2_Sign_hole::
+	lock
+	msgbox NHML2_Sign_hole_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHML2_Boulder_in_hole::
+	removeobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 4
+	setvar VAR_0x8007, 5
+	special ShakeCamera
+	waitstate
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
+	msgbox NHML2_Boulder_in_hole_Text_0
+	waitmessage
+	setflag FLAG_NHML1_BOULDER_FELL_DOWN
+	return
+
+
 Move_exclmark:
 	emote_exclamation_mark
 	step_end
@@ -667,6 +691,12 @@ NHML2_Sign_Kyuzee_Text_0:
 	.string "All non standard graphics and sprites\n"
 	.string "have been designed and created by\l"
 	.string "KYUZEE.$"
+
+NHML2_Sign_hole_Text_0:
+	.string "A hole in the ground. \lMaybe you can push something through \nit.$"
+
+NHML2_Boulder_in_hole_Text_0:
+	.string "The boulder fell through the hole!$"
 
 Text_NotEnoughMons::
 	.string "You don't have enough Pokémon to fight\n"

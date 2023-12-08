@@ -430,6 +430,33 @@ script NHML2_Sign_Kyuzee {
     end
 }
 
+script NHML2_Sign_hole {
+    lock
+    msgbox("A hole in the ground. \lMaybe you can push something through \nit.", MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
+}
+
+script NHML2_Boulder_in_hole {
+    //since only the boulder can enter this trigger field, no condition is required
+    removeobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
+    setvar(VAR_0x8004, 1)  //vertical pan
+    setvar(VAR_0x8005, 1)  //horizontal pan
+    setvar(VAR_0x8006, 4)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    waitstate
+    //fadescreen(FADE_TO_BLACK)
+    //addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
+    //fadescreen(FADE_FROM_BLACK)
+    applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+    waitmovement(0)
+    msgbox(format("The boulder fell through the hole!"))
+    waitmessage
+    setflag(FLAG_NHML1_BOULDER_FELL_DOWN)
+}
+
 
 // ############### movements ###############
 
