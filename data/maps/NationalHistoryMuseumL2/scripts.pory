@@ -439,7 +439,7 @@ script NHML2_Sign_Kyuzee {
 
 script NHML2_Sign_hole {
     lock
-    msgbox("A hole in the ground. \lMaybe you can push something through \nit.", c)
+    msgbox("A hole in the ground. \lMaybe you can push something through \nit.", MSGBOX_AUTOCLOSE)
     waitmessage
     release
     end

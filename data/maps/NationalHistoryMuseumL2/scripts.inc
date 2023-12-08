@@ -546,6 +546,7 @@ NHML2_Sign_hole::
 
 
 NHML2_Boulder_in_hole::
+	lock
 	removeobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
 	setvar VAR_0x8004, 1
 	setvar VAR_0x8005, 1
@@ -555,9 +556,10 @@ NHML2_Boulder_in_hole::
 	waitstate
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
-	msgbox NHML2_Boulder_in_hole_Text_0
+	msgbox NHML2_Boulder_in_hole_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
-	return
+	release
+	end
 
 
 Move_exclmark:
