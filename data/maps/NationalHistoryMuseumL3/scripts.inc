@@ -234,6 +234,46 @@ NHML3_InfoSign::
 	end
 
 
+NHML3_Sign_Stakataka::
+	lock
+	showmonpic SPECIES_STAKATAKA, 10, 3
+	msgbox NHML3_Sign_Stakataka_Text_0
+	waitmessage
+	hidemonpic
+	release
+	end
+
+
+NHML3_Sign_Persian::
+	lock
+	showmonpic SPECIES_PERSIAN, 10, 3
+	msgbox NHML3_Sign_Persian_Text_0
+	waitmessage
+	hidemonpic
+	release
+	end
+
+
+NHML3_Sign_Cofagrigus::
+	lock
+	showmonpic SPECIES_COFAGRIGUS, 10, 3
+	msgbox NHML3_Sign_Cofagrigus_Text_0
+	waitmessage
+	hidemonpic
+	release
+	end
+
+
+NHML3_Sign_Regirock::
+	lock
+	showmonpic SPECIES_REGIROCK, 10, 3
+	msgbox NHML3_Sign_Regirock_Text_0
+	waitmessage
+	hidemonpic
+	release
+	end
+
+
 NHML3_Move_Tutor_Text_0:
 	.string "I am the Move Tutor. \lI will teach your Pokemon moves for\nprecious Heart Scales. \pWhich move should I teach?$"
 
@@ -286,3 +326,15 @@ NHML3_InfoSign_Text_0:
 	.string "messages hidden on the ground. Don't\l"
 	.string "waste your time hitting the A button\l"
 	.string "throughout the whole overworld.$"
+
+NHML3_Sign_Stakataka_Text_0:
+	.string "STAKATAKA...very slow$"
+
+NHML3_Sign_Persian_Text_0:
+	.string "PERSIAN...very fast$"
+
+NHML3_Sign_Cofagrigus_Text_0:
+	.string "COFAGRIGUS...very scary$"
+
+NHML3_Sign_Regirock_Text_0:
+	.string "REGIROCK...very reckless$"

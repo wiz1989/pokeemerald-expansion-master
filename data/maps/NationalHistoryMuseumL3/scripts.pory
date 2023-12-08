@@ -204,3 +204,43 @@ script NHML3_InfoSign {
     releaseall
     end
 }
+
+script NHML3_Sign_Stakataka {
+	lock
+	showmonpic(SPECIES_STAKATAKA, 10, 3)
+	msgbox(format("STAKATAKA...very slow"))
+	waitmessage
+	hidemonpic
+	release
+	end
+}
+
+script NHML3_Sign_Persian {
+	lock
+	showmonpic(SPECIES_PERSIAN, 10, 3)
+	msgbox(format("PERSIAN...very fast"))
+	waitmessage
+	hidemonpic
+	release
+	end
+}
+
+script NHML3_Sign_Cofagrigus {
+	lock
+	showmonpic(SPECIES_COFAGRIGUS, 10, 3)
+	msgbox(format("COFAGRIGUS...very scary"))
+	waitmessage
+	hidemonpic
+	release
+	end
+}
+
+script NHML3_Sign_Regirock {
+	lock
+	showmonpic(SPECIES_REGIROCK, 10, 3)
+	msgbox(format("REGIROCK...very reckless"))
+	waitmessage
+	hidemonpic
+	release
+	end
+}

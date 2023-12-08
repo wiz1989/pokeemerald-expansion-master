@@ -37,8 +37,7 @@ script NHML2_EveryFrame {
 
 script NHML2_EveryFrame_Boulder {
     call(NHML2_Boulder_in_hole)
-    //reset var to deactivate the frame table event
-    setvar(VAR_NHML1_BOULDER_FELL_DOWN, 0)
+    end
 }
 
 
@@ -423,7 +422,8 @@ script NHML2_Game_Master {
 }
 
 script NHML2_Boulder {
-    //do nothing
+    call(EventScript_StrengthBoulder)
+    end
 }
 
 script NHML2_Sign_wiz1989 {
@@ -463,6 +463,8 @@ script NHML2_Boulder_in_hole {
     waitmovement(0)
     msgbox(format("The boulder fell through the hole!"), MSGBOX_AUTOCLOSE)
     waitmessage
+    //reset var to deactivate the frame table event
+    setorcopyvar(VAR_NHML1_BOULDER_FELL_DOWN, 0)
     release
     end
 }

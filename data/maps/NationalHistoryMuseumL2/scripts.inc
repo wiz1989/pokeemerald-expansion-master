@@ -47,8 +47,7 @@ NHML2_EveryFrame_3:
 
 NHML2_EveryFrame_Boulder::
 	call NHML2_Boulder_in_hole
-	setvar VAR_NHML1_BOULDER_FELL_DOWN, 0
-	return
+	end
 
 
 NHML2_Trigger_WarpL3::
@@ -525,7 +524,8 @@ NHML2_Game_Master::
 
 
 NHML2_Boulder::
-	return
+	call EventScript_StrengthBoulder
+	end
 
 
 NHML2_Sign_wiz1989::
@@ -565,6 +565,7 @@ NHML2_Boulder_in_hole::
 	waitmovement 0
 	msgbox NHML2_Boulder_in_hole_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
+	setorcopyvar VAR_NHML1_BOULDER_FELL_DOWN, 0
 	release
 	end
 
