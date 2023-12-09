@@ -1107,8 +1107,8 @@ Pokescape01_EventScript_TriggerLittleGirl_Text_0:
 	.string "can't stand any more bugs.$"
 
 Pokescape01_EventScript_ItemMasterBall_Text_0:
-	.string "You found a lost Master Ball on the\n"
-	.string "ground.\p"
+	.string "You found a lost Master Ball lying right\n"
+	.string "behind the Pokecenter.\p"
 	.string "Make sure to make good use of it!$"
 
 Pokescape01_EventScript_AppleTree_Text_0:

@@ -222,7 +222,7 @@ script Pokescape01_EventScript_TriggerLittleGirl {
 
 script Pokescape01_EventScript_ItemMasterBall {
     lock
-    msgbox(format("You found a lost Master Ball on the ground. \pMake sure to make good use of it!"))
+    msgbox(format("You found a lost Master Ball lying right behind the Pokecenter. \pMake sure to make good use of it!"))
     waitmessage
     giveitem(ITEM_MASTER_BALL, 1)
     removeobject(5)
