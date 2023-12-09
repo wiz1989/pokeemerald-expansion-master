@@ -1015,17 +1015,18 @@ Pokescape01_EventScript_Swimmer12_Text_1:
 
 Pokescape01_EventScript_PokecenterSign_Text_0:
 	.string "IMPORTANT INFORMATION:\p"
-	.string "1.) This game is featuring gen 5\n"
-	.string "movesets for any Pokemon you control\l"
+	.string "1.) This game is featuring gen 5 move\n"
+	.string "learnsets for any Pokemon you control\l"
 	.string "yourself.\p"
 	.string "2.) It is not required to grind multiple\n"
 	.string "levels to win any of the fights.\p"
 	.string "3.) All items are there for a reason.\n"
 	.string "Think twice before using them.\p"
 	.string "4.) There are no invisible items or\n"
-	.string "messages hidden on the ground. Don't\l"
-	.string "waste your time hitting the A button\l"
-	.string "throughout the whole overworld.$"
+	.string "messages hidden on random tiles on the\l"
+	.string "ground. Don't waste your time spamming\l"
+	.string "the A button throughout the whole\l"
+	.string "overworld.$"
 
 Pokescape01_EventScript_Building01Sign_Text_0:
 	.string "This ROM hack was made by wiz1989.\l"
@@ -1155,7 +1156,8 @@ Pokescape01_EventScript_Battle01_Text_1:
 
 Pokescape01_EventScript_Battle01_Text_2:
 	.string "What a day! First I lost an item and now\n"
-	.string "I lost a fight.$"
+	.string "I lost a fight.\l"
+	.string "I hope someone's gonna bump into it!$"
 
 Pokescape01_EventScript_BattleDouble02_Text_0:
 	.string "Mom said we are too young, but we are\n"

@@ -126,7 +126,7 @@ script Pokescape01_EventScript_PokecenterSign {
     lockall
 	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
 	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on the ground. Don't waste your time hitting the A button throughout the whole overworld."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on random tiles on the ground. Don't waste your time spamming the A button throughout the whole overworld."))
     waitmessage
     releaseall
     end
@@ -305,7 +305,7 @@ script Pokescape01_EventScript_Geodude {
 script Pokescape01_EventScript_Battle01 {
 	trainerbattle_single(TRAINER_POKESCAPE01_01, "I'll blow you away!", "I'm blown away!")
 	lock //don't lock before the fight or the trainer won't move towards the player
-	msgbox(format("What a day! First I lost an item and now I lost a fight."))
+	msgbox(format("What a day! First I lost an item and now I lost a fight. \lI hope someone's gonna bump into it!"))
 	waitmessage
 	release
 	end
