@@ -413,12 +413,62 @@ script NHML2_Camper {
 
 script NHML2_Game_Master {
     lock
+    clearflag(FLAG_P01_ADD30MIN)
+    clearflag(FLAG_P01_GIVE_ADVICE)
     faceplayer
-	msgbox(format("I am the game master. \pI will give you helpful advice for each situation, but it adds an additional 30min to your play clock."), MSGBOX_AUTOCLOSE)
-	waitmessage
-    //additional code
+    msgbox(format("I am the game master. \pI will give you helpful advice for each situation, but it adds an additional 20min to your play clock."))
+    waitmessage
+    msgbox(format("Do you want me to give you a hint?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        setflag(FLAG_P01_GIVE_ADVICE)
+        
+        //only give advice, if there are no Pokemon in the PC
+        specialvar(VAR_RESULT, IsPcEmpty)
+        if(var(VAR_RESULT) == FALSE)  {
+            msgbox(format("You still have Pokemon in your PC. I can only give you tips when it's empty. \pOf course, you won't be charged 20 minutes this time."))
+            clearflag(FLAG_P01_GIVE_ADVICE)
+        }
+        else {
+            //handle all different scenarios below
+
+            //first fight not yet won
+            if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
+                if (!flag(FLAG_HINT01)) {
+                    setflag(FLAG_HINT01)
+                    setflag(FLAG_P01_ADD30MIN)
+                }
+                msgbox(Text_TipRareCandy)
+                clearflag(FLAG_P01_RARE_CANDY)
+                clearflag(FLAG_P01_GIVE_ADVICE)
+            }
+        }
+    }
+    else {
+        msgbox(format("Come back whenever you need me."))
+        release
+        end
+    }
+    waitmessage
+
+    //add 30min to play clock
+    if (flag(FLAG_P01_ADD30MIN)) {
+        setorcopyvar(VAR_0x8004, 20)
+        special(PlayTimeAddMin)
+    }
+    else {
+        //default message for missing branches
+        if (flag(FLAG_P01_GIVE_ADVICE) == TRUE) {
+            msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokemon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
+            waitmessage
+        }
+        else {
+            msgbox(format("\p...\pI had already given this hint to you before. \lI guess it's fair if I don't charge you any more time for it."))
+            waitmessage
+        }
+    }
+
     release
-	end
+    end
 }
 
 script NHML2_Boulder {
