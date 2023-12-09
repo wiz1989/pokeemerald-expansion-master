@@ -199,7 +199,7 @@ script NHML3_Trader2 {
 
 script NHML3_InfoSign {
 	lockall
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent movesets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on the ground. Don't waste your time hitting the A button throughout the whole overworld."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on the ground. Don't waste your time hitting the A button throughout the whole overworld."))
     waitmessage
     releaseall
     end
