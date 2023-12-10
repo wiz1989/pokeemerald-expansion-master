@@ -1028,11 +1028,12 @@ Pokescape01_EventScript_PokecenterSign_Text_0:
 	.string "levels to win any of the fights.\p"
 	.string "3.) All items are there for a reason.\n"
 	.string "Think twice before using them.\p"
-	.string "4.) There are no invisible items or\n"
-	.string "messages hidden on random tiles on the\l"
-	.string "ground. Don't waste your time spamming\l"
-	.string "the A button throughout the whole\l"
-	.string "overworld.$"
+	.string "4.) Any potentially hidden items would\n"
+	.string "have collision so you can't just walk\l"
+	.string "over them without noticing.\l"
+	.string "Spamming the A button throughout the\l"
+	.string "whole overworld is therefore not\l"
+	.string "necessary.$"
 
 Pokescape01_EventScript_Building01Sign_Text_0:
 	.string "This ROM hack was made by wiz1989.\l"
@@ -1079,7 +1080,7 @@ Pokescape01_EventScript_PokecenterTriggers_Text_4:
 	.string "There are two game modes:\n"
 	.string "REGULAR MODE and HONOR MODE.\p"
 	.string "HONOR MODE will add penalty time to your\n"
-	.string "game clock everytime you restart the\l"
+	.string "game clock everytime you reset the\l"
 	.string "game from a savefile.\l"
 	.string "REGULAR mode will not do this.$"
 
