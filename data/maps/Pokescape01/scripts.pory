@@ -126,7 +126,7 @@ script Pokescape01_EventScript_PokecenterSign {
     lockall
 	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
 	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 move learnsets for any Pokémon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on random tiles on the ground. Don't waste your time spamming the A button throughout the whole overworld."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 move learnsets for any Pokémon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) Any potentially hidden items would have collision so you can't just walk over them without noticing.\lSpamming the A button throughout the whole overworld is therefore not necessary."))
     waitmessage
     releaseall
     end
@@ -166,7 +166,7 @@ script Pokescape01_EventScript_PokecenterTriggers {
 		waitmessage
 		msgbox(format("This challenge can be completed without any savegame resets. \pWorst case is you have to approach the Game Master to continue."), MSGBOX_AUTOCLOSE)
 		waitmessage
-		msgbox(format("There are two game modes: \nREGULAR MODE and HONOR MODE. \pHONOR MODE will add penalty time to your game clock everytime you restart the game from a savefile. \lREGULAR mode will not do this."), MSGBOX_AUTOCLOSE)
+		msgbox(format("There are two game modes: \nREGULAR MODE and HONOR MODE. \pHONOR MODE will add penalty time to your game clock everytime you reset the game from a savefile. \lREGULAR mode will not do this."), MSGBOX_AUTOCLOSE)
 		waitmessage
 		msgbox(format("The first reset will cost you 15min, the second 30min, the third 45min...\l...you get the idea. \pWhich mode do you want to play with?"), MSGBOX_AUTOCLOSE)
 		waitmessage
