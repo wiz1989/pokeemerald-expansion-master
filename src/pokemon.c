@@ -3652,7 +3652,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         moves[0] = MOVE_BULLET_PUNCH;
         moves[1] = MOVE_VITAL_THROW;
         moves[2] = MOVE_ARM_THRUST;
-        moves[3] = MOVE_SAND_ATTACK;
+        moves[3] = MOVE_FOCUS_ENERGY;
 
         for(i=0; i<=3; i++)
         {

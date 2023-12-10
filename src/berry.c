@@ -1579,6 +1579,8 @@ void BerryTreeTimeUpdate(s32 minutes)
     for (i = 0; i < BERRY_TREES_COUNT; i++)
     {
         tree = &gSaveBlock1Ptr->berryTrees[i];
+        tree->stage = BERRY_STAGE_BERRIES;
+        tree->stopGrowth = 0; //disable growth
 
         if (tree->berry && tree->stage && !tree->stopGrowth)
         {

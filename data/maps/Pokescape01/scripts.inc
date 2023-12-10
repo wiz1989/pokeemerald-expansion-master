@@ -482,6 +482,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman::
 	lock
 	clearflag FLAG_P01_ADD30MIN
 	clearflag FLAG_P01_GIVE_ADVICE
+	clearflag FLAG_P01_NO_ADVICE
 	faceplayer
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_0
 	waitmessage
@@ -497,8 +498,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman_1:
 	goto_if_set FLAG_P01_ADD30MIN, Pokescape01_Pokecenter_EventScript_Gentleman_6
 	goto_if_set FLAG_P01_DONT_CHEAT, Pokescape01_Pokecenter_EventScript_Gentleman_15
 	goto_if_set FLAG_P01_GIVE_ADVICE, Pokescape01_Pokecenter_EventScript_Gentleman_23
-	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_14
-	waitmessage
+	goto_if_unset FLAG_P01_NO_ADVICE, Pokescape01_Pokecenter_EventScript_Gentleman_29
 Pokescape01_Pokecenter_EventScript_Gentleman_5:
 	release
 	end
@@ -517,37 +517,37 @@ Pokescape01_Pokecenter_EventScript_Gentleman_10:
 Pokescape01_Pokecenter_EventScript_Gentleman_26:
 	specialvar VAR_RESULT, HasOneUnfaintedMon
 	checktrainerflag TRAINER_POKESCAPE01_01
-	goto_if 1, Pokescape01_Pokecenter_EventScript_Gentleman_32
-Pokescape01_Pokecenter_EventScript_Gentleman_29:
+	goto_if 1, Pokescape01_Pokecenter_EventScript_Gentleman_34
+Pokescape01_Pokecenter_EventScript_Gentleman_31:
 	checkpartymon SPECIES_WOOPER
 	compare VAR_RESULT, 0
-	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_40
+	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_42
 	clearflag FLAG_P01_GOTWOOPER
-Pokescape01_Pokecenter_EventScript_Gentleman_39:
+Pokescape01_Pokecenter_EventScript_Gentleman_41:
 	checkpartymon SPECIES_QUAGSIRE
 	compare VAR_RESULT, 0
-	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_53
+	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_55
 	clearflag FLAG_P01_GOTQUAGSIRE
-Pokescape01_Pokecenter_EventScript_Gentleman_52:
+Pokescape01_Pokecenter_EventScript_Gentleman_54:
 	checkpartymon SPECIES_GALLADE
 	compare VAR_RESULT, 0
-	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_70
+	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_72
 	clearflag FLAG_P01_GOTGALLADE
-Pokescape01_Pokecenter_EventScript_Gentleman_69:
+Pokescape01_Pokecenter_EventScript_Gentleman_71:
 	checkpartymon SPECIES_GARDEVOIR
 	compare VAR_RESULT, 0
-	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_80
+	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_82
 	clearflag FLAG_P01_GOTGARDEVOIR
-Pokescape01_Pokecenter_EventScript_Gentleman_79:
+Pokescape01_Pokecenter_EventScript_Gentleman_81:
 	checkitem ITEM_HM_CUT
 	compare VAR_RESULT, 0
-	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_90
+	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_92
 	clearflag FLAG_P01_HM_CUT
-Pokescape01_Pokecenter_EventScript_Gentleman_89:
-	goto_if_set FLAG_P01_GOTKIRLIA, Pokescape01_Pokecenter_EventScript_Gentleman_95
-Pokescape01_Pokecenter_EventScript_Gentleman_94:
+Pokescape01_Pokecenter_EventScript_Gentleman_91:
+	goto_if_set FLAG_P01_GOTKIRLIA, Pokescape01_Pokecenter_EventScript_Gentleman_97
+Pokescape01_Pokecenter_EventScript_Gentleman_96:
 	checktrainerflag TRAINER_POKESCAPE01_02
-	goto_if 1, Pokescape01_Pokecenter_EventScript_Gentleman_103
+	goto_if 1, Pokescape01_Pokecenter_EventScript_Gentleman_105
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
 Pokescape01_Pokecenter_EventScript_Gentleman_6:
@@ -584,6 +584,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman_18:
 Pokescape01_Pokecenter_EventScript_Gentleman_20:
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_2
 	clearflag FLAG_P01_GIVE_ADVICE
+	setflag FLAG_P01_NO_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
 Pokescape01_Pokecenter_EventScript_Gentleman_23:
@@ -594,106 +595,111 @@ Pokescape01_Pokecenter_EventScript_Gentleman_23:
 Pokescape01_Pokecenter_EventScript_Gentleman_27:
 	getpartysize
 	compare VAR_RESULT, 1
-	goto_if_le Pokescape01_Pokecenter_EventScript_Gentleman_36
-	goto_if_set FLAG_P01_RARE_CANDY, Pokescape01_Pokecenter_EventScript_Gentleman_49
+	goto_if_le Pokescape01_Pokecenter_EventScript_Gentleman_38
+	goto_if_set FLAG_P01_RARE_CANDY, Pokescape01_Pokecenter_EventScript_Gentleman_51
 	getpartymonlevel SPECIES_MAKUHITA
 	compare VAR_RESULT, 15
-	goto_if_gt Pokescape01_Pokecenter_EventScript_Gentleman_66
-	goto_if_unset FLAG_P01_Hint04, Pokescape01_Pokecenter_EventScript_Gentleman_77
-Pokescape01_Pokecenter_EventScript_Gentleman_76:
+	goto_if_gt Pokescape01_Pokecenter_EventScript_Gentleman_68
+	goto_if_unset FLAG_P01_Hint04, Pokescape01_Pokecenter_EventScript_Gentleman_79
+Pokescape01_Pokecenter_EventScript_Gentleman_78:
 	msgbox Text_TipFirstFight
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_26
 
-Pokescape01_Pokecenter_EventScript_Gentleman_30:
-	goto_if_set FLAG_P01_RARE_CANDY, Pokescape01_Pokecenter_EventScript_Gentleman_43
-	goto_if_unset FLAG_P01_Hint06, Pokescape01_Pokecenter_EventScript_Gentleman_61
-Pokescape01_Pokecenter_EventScript_Gentleman_60:
-	msgbox Text_TipRareCandyUse
-	clearflag FLAG_P01_GIVE_ADVICE
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_29
-
-Pokescape01_Pokecenter_EventScript_Gentleman_31:
-	compare VAR_RESULT, 0
-	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_30
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_29
+Pokescape01_Pokecenter_EventScript_Gentleman_29:
+	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_14
+	waitmessage
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_5
 
 Pokescape01_Pokecenter_EventScript_Gentleman_32:
-	checktrainerflag TRAINER_POKESCAPE01_02
-	goto_if 0, Pokescape01_Pokecenter_EventScript_Gentleman_31
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_29
+	goto_if_set FLAG_P01_RARE_CANDY, Pokescape01_Pokecenter_EventScript_Gentleman_45
+	goto_if_unset FLAG_P01_Hint06, Pokescape01_Pokecenter_EventScript_Gentleman_63
+Pokescape01_Pokecenter_EventScript_Gentleman_62:
+	msgbox Text_TipRareCandyUse
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_31
 
-Pokescape01_Pokecenter_EventScript_Gentleman_36:
-	goto_if_unset FLAG_P01_Hint02, Pokescape01_Pokecenter_EventScript_Gentleman_47
-Pokescape01_Pokecenter_EventScript_Gentleman_46:
+Pokescape01_Pokecenter_EventScript_Gentleman_33:
+	compare VAR_RESULT, 0
+	goto_if_ne Pokescape01_Pokecenter_EventScript_Gentleman_32
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_31
+
+Pokescape01_Pokecenter_EventScript_Gentleman_34:
+	checktrainerflag TRAINER_POKESCAPE01_02
+	goto_if 0, Pokescape01_Pokecenter_EventScript_Gentleman_33
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_31
+
+Pokescape01_Pokecenter_EventScript_Gentleman_38:
+	goto_if_unset FLAG_P01_Hint02, Pokescape01_Pokecenter_EventScript_Gentleman_49
+Pokescape01_Pokecenter_EventScript_Gentleman_48:
 	msgbox Text_TipCheckPC
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_26
 
-Pokescape01_Pokecenter_EventScript_Gentleman_40:
+Pokescape01_Pokecenter_EventScript_Gentleman_42:
 	setflag FLAG_P01_GOTWOOPER
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_39
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_41
 
-Pokescape01_Pokecenter_EventScript_Gentleman_43:
-	goto_if_unset FLAG_P01_Hint05, Pokescape01_Pokecenter_EventScript_Gentleman_57
+Pokescape01_Pokecenter_EventScript_Gentleman_45:
+	goto_if_unset FLAG_P01_Hint05, Pokescape01_Pokecenter_EventScript_Gentleman_59
 	setflag FLAG_P01_DONT_CHEAT
-Pokescape01_Pokecenter_EventScript_Gentleman_56:
+Pokescape01_Pokecenter_EventScript_Gentleman_58:
 	msgbox Text_TipRareCandyRevive
 	giveitem ITEM_RARE_CANDY, 1
 	clearflag FLAG_P01_RARE_CANDY
 	clearflag FLAG_P01_GIVE_ADVICE
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_29
-
-Pokescape01_Pokecenter_EventScript_Gentleman_47:
-	setflag FLAG_P01_Hint02
-	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_46
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_31
 
 Pokescape01_Pokecenter_EventScript_Gentleman_49:
-	goto_if_unset FLAG_P01_Hint03, Pokescape01_Pokecenter_EventScript_Gentleman_64
-Pokescape01_Pokecenter_EventScript_Gentleman_63:
+	setflag FLAG_P01_Hint02
+	setflag FLAG_P01_ADD30MIN
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_48
+
+Pokescape01_Pokecenter_EventScript_Gentleman_51:
+	goto_if_unset FLAG_P01_Hint03, Pokescape01_Pokecenter_EventScript_Gentleman_66
+Pokescape01_Pokecenter_EventScript_Gentleman_65:
 	msgbox Text_TipRareCandy
 	giveitem ITEM_RARE_CANDY, 1
 	clearflag FLAG_P01_RARE_CANDY
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_26
 
-Pokescape01_Pokecenter_EventScript_Gentleman_53:
+Pokescape01_Pokecenter_EventScript_Gentleman_55:
 	setflag FLAG_P01_GOTQUAGSIRE
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_52
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_54
 
-Pokescape01_Pokecenter_EventScript_Gentleman_57:
+Pokescape01_Pokecenter_EventScript_Gentleman_59:
 	setflag FLAG_P01_Hint05
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_56
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_58
 
-Pokescape01_Pokecenter_EventScript_Gentleman_61:
+Pokescape01_Pokecenter_EventScript_Gentleman_63:
 	setflag FLAG_P01_Hint06
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_60
-
-Pokescape01_Pokecenter_EventScript_Gentleman_64:
-	setflag FLAG_P01_Hint03
-	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_63
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_62
 
 Pokescape01_Pokecenter_EventScript_Gentleman_66:
+	setflag FLAG_P01_Hint03
+	setflag FLAG_P01_ADD30MIN
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_65
+
+Pokescape01_Pokecenter_EventScript_Gentleman_68:
 	checkpartymove MOVE_WHIRLWIND
 	compare VAR_RESULT, PARTY_SIZE
-	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_73
-	goto_if_unset FLAG_P01_Hint04, Pokescape01_Pokecenter_EventScript_Gentleman_87
-Pokescape01_Pokecenter_EventScript_Gentleman_86:
+	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_75
+	goto_if_unset FLAG_P01_Hint04, Pokescape01_Pokecenter_EventScript_Gentleman_89
+Pokescape01_Pokecenter_EventScript_Gentleman_88:
 	msgbox Text_TipFirstFight
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_26
 
-Pokescape01_Pokecenter_EventScript_Gentleman_70:
+Pokescape01_Pokecenter_EventScript_Gentleman_72:
 	setflag FLAG_P01_GOTGALLADE
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_69
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_71
 
-Pokescape01_Pokecenter_EventScript_Gentleman_73:
-	goto_if_unset FLAG_P01_Hint16, Pokescape01_Pokecenter_EventScript_Gentleman_84
-Pokescape01_Pokecenter_EventScript_Gentleman_83:
+Pokescape01_Pokecenter_EventScript_Gentleman_75:
+	goto_if_unset FLAG_P01_Hint16, Pokescape01_Pokecenter_EventScript_Gentleman_86
+Pokescape01_Pokecenter_EventScript_Gentleman_85:
 	clearflag FLAG_P01_GIVE_ADVICE
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_3
 	getpartymonslot SPECIES_MAKUHITA
@@ -701,51 +707,51 @@ Pokescape01_Pokecenter_EventScript_Gentleman_83:
 	givemon SPECIES_MAKUHITA, 15
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_26
 
-Pokescape01_Pokecenter_EventScript_Gentleman_77:
+Pokescape01_Pokecenter_EventScript_Gentleman_79:
 	setflag FLAG_P01_Hint04
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_76
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_78
 
-Pokescape01_Pokecenter_EventScript_Gentleman_80:
+Pokescape01_Pokecenter_EventScript_Gentleman_82:
 	setflag FLAG_P01_GOTGARDEVOIR
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_79
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_81
 
-Pokescape01_Pokecenter_EventScript_Gentleman_84:
+Pokescape01_Pokecenter_EventScript_Gentleman_86:
 	setflag FLAG_P01_Hint16
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_83
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_85
 
-Pokescape01_Pokecenter_EventScript_Gentleman_87:
+Pokescape01_Pokecenter_EventScript_Gentleman_89:
 	setflag FLAG_P01_Hint04
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_86
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_88
 
-Pokescape01_Pokecenter_EventScript_Gentleman_90:
+Pokescape01_Pokecenter_EventScript_Gentleman_92:
 	setflag FLAG_P01_HM_CUT
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_89
-
-Pokescape01_Pokecenter_EventScript_Gentleman_93:
-	goto_if_set FLAG_P01_GOTWOOPER, Pokescape01_Pokecenter_EventScript_Gentleman_98
-	goto_if_set FLAG_P01_GOTGARDEVOIR, Pokescape01_Pokecenter_EventScript_Gentleman_99
-	goto_if_set FLAG_P01_GOTQUAGSIRE, Pokescape01_Pokecenter_EventScript_Gentleman_114
-Pokescape01_Pokecenter_EventScript_Gentleman_113:
-	goto_if_set FLAG_P01_GOTGALLADE, Pokescape01_Pokecenter_EventScript_Gentleman_112
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_91
 
 Pokescape01_Pokecenter_EventScript_Gentleman_95:
-	goto_if_set FLAG_P01_HM_CUT, Pokescape01_Pokecenter_EventScript_Gentleman_93
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_94
+	goto_if_set FLAG_P01_GOTWOOPER, Pokescape01_Pokecenter_EventScript_Gentleman_100
+	goto_if_set FLAG_P01_GOTGARDEVOIR, Pokescape01_Pokecenter_EventScript_Gentleman_101
+	goto_if_set FLAG_P01_GOTQUAGSIRE, Pokescape01_Pokecenter_EventScript_Gentleman_116
+Pokescape01_Pokecenter_EventScript_Gentleman_115:
+	goto_if_set FLAG_P01_GOTGALLADE, Pokescape01_Pokecenter_EventScript_Gentleman_114
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_98:
-	goto_if_unset FLAG_P01_Hint07, Pokescape01_Pokecenter_EventScript_Gentleman_106
-Pokescape01_Pokecenter_EventScript_Gentleman_105:
+Pokescape01_Pokecenter_EventScript_Gentleman_97:
+	goto_if_set FLAG_P01_HM_CUT, Pokescape01_Pokecenter_EventScript_Gentleman_95
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_96
+
+Pokescape01_Pokecenter_EventScript_Gentleman_100:
+	goto_if_unset FLAG_P01_Hint07, Pokescape01_Pokecenter_EventScript_Gentleman_108
+Pokescape01_Pokecenter_EventScript_Gentleman_107:
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_4
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_99:
-	goto_if_unset FLAG_P01_Hint08, Pokescape01_Pokecenter_EventScript_Gentleman_109
-Pokescape01_Pokecenter_EventScript_Gentleman_108:
+Pokescape01_Pokecenter_EventScript_Gentleman_101:
+	goto_if_unset FLAG_P01_Hint08, Pokescape01_Pokecenter_EventScript_Gentleman_111
+Pokescape01_Pokecenter_EventScript_Gentleman_110:
 	msgbox Text_TipGardevoir
 	waitmessage
 	clearflag FLAG_P01_GIVE_ADVICE
@@ -755,80 +761,80 @@ Pokescape01_Pokecenter_EventScript_Gentleman_108:
 	givemon SPECIES_KIRLIA, 20, ITEM_EVERSTONE
 	checkitem ITEM_EVERSTONE
 	compare VAR_RESULT, TRUE
-	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_120
+	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_122
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_103:
-	goto_if_unset FLAG_P01_MASTER_BALL, Pokescape01_Pokecenter_EventScript_Gentleman_117
-	goto_if_set FLAG_P01_SCYTHER, Pokescape01_Pokecenter_EventScript_Gentleman_137
+Pokescape01_Pokecenter_EventScript_Gentleman_105:
+	goto_if_unset FLAG_P01_MASTER_BALL, Pokescape01_Pokecenter_EventScript_Gentleman_119
+	goto_if_set FLAG_P01_SCYTHER, Pokescape01_Pokecenter_EventScript_Gentleman_139
+Pokescape01_Pokecenter_EventScript_Gentleman_137:
+	goto_if_unset FLAG_P01_SCYTHER, Pokescape01_Pokecenter_EventScript_Gentleman_136
 Pokescape01_Pokecenter_EventScript_Gentleman_135:
-	goto_if_unset FLAG_P01_SCYTHER, Pokescape01_Pokecenter_EventScript_Gentleman_134
-Pokescape01_Pokecenter_EventScript_Gentleman_133:
 	checkitem ITEM_HM_CUT
 	compare VAR_RESULT, FALSE
-	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_146
-	goto_if_set FLAG_P01_KIRLIA, Pokescape01_Pokecenter_EventScript_Gentleman_148
+	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_148
+	goto_if_set FLAG_P01_KIRLIA, Pokescape01_Pokecenter_EventScript_Gentleman_150
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_106:
+Pokescape01_Pokecenter_EventScript_Gentleman_108:
 	setflag FLAG_P01_Hint07
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_105
-
-Pokescape01_Pokecenter_EventScript_Gentleman_109:
-	setflag FLAG_P01_Hint08
-	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_108
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_107
 
 Pokescape01_Pokecenter_EventScript_Gentleman_111:
-	goto_if_unset FLAG_P01_Hint09, Pokescape01_Pokecenter_EventScript_Gentleman_123
-Pokescape01_Pokecenter_EventScript_Gentleman_122:
+	setflag FLAG_P01_Hint08
+	setflag FLAG_P01_ADD30MIN
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_110
+
+Pokescape01_Pokecenter_EventScript_Gentleman_113:
+	goto_if_unset FLAG_P01_Hint09, Pokescape01_Pokecenter_EventScript_Gentleman_125
+Pokescape01_Pokecenter_EventScript_Gentleman_124:
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_7
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_112:
-	goto_if_unset FLAG_P01_Hint10, Pokescape01_Pokecenter_EventScript_Gentleman_126
-Pokescape01_Pokecenter_EventScript_Gentleman_125:
+Pokescape01_Pokecenter_EventScript_Gentleman_114:
+	goto_if_unset FLAG_P01_Hint10, Pokescape01_Pokecenter_EventScript_Gentleman_128
+Pokescape01_Pokecenter_EventScript_Gentleman_127:
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_8
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_114:
-	goto_if_unset FLAG_P01_GOTGALLADE, Pokescape01_Pokecenter_EventScript_Gentleman_111
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_113
+Pokescape01_Pokecenter_EventScript_Gentleman_116:
+	goto_if_unset FLAG_P01_GOTGALLADE, Pokescape01_Pokecenter_EventScript_Gentleman_113
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_115
 
-Pokescape01_Pokecenter_EventScript_Gentleman_117:
-	goto_if_unset FLAG_P01_Hint11, Pokescape01_Pokecenter_EventScript_Gentleman_129
-Pokescape01_Pokecenter_EventScript_Gentleman_128:
+Pokescape01_Pokecenter_EventScript_Gentleman_119:
+	goto_if_unset FLAG_P01_Hint11, Pokescape01_Pokecenter_EventScript_Gentleman_131
+Pokescape01_Pokecenter_EventScript_Gentleman_130:
 	msgbox Text_TipMasterBall
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_120:
+Pokescape01_Pokecenter_EventScript_Gentleman_122:
 	waitmessage
 	removeitem ITEM_EVERSTONE
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_6
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_123:
+Pokescape01_Pokecenter_EventScript_Gentleman_125:
 	setflag FLAG_P01_Hint09
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_122
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_124
 
-Pokescape01_Pokecenter_EventScript_Gentleman_126:
+Pokescape01_Pokecenter_EventScript_Gentleman_128:
 	setflag FLAG_P01_Hint10
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_125
-
-Pokescape01_Pokecenter_EventScript_Gentleman_129:
-	setflag FLAG_P01_Hint11
-	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_128
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_127
 
 Pokescape01_Pokecenter_EventScript_Gentleman_131:
-	goto_if_unset FLAG_P01_Hint12, Pokescape01_Pokecenter_EventScript_Gentleman_141
-Pokescape01_Pokecenter_EventScript_Gentleman_140:
+	setflag FLAG_P01_Hint11
+	setflag FLAG_P01_ADD30MIN
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_130
+
+Pokescape01_Pokecenter_EventScript_Gentleman_133:
+	goto_if_unset FLAG_P01_Hint12, Pokescape01_Pokecenter_EventScript_Gentleman_143
+Pokescape01_Pokecenter_EventScript_Gentleman_142:
 	msgbox Text_TipScyther
 	waitmessage
 	clearflag FLAG_P01_GIVE_ADVICE
@@ -838,78 +844,78 @@ Pokescape01_Pokecenter_EventScript_Gentleman_140:
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_9
 	checkitem ITEM_HM_CUT
 	compare VAR_RESULT, TRUE
-	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_153
-Pokescape01_Pokecenter_EventScript_Gentleman_152:
+	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_155
+Pokescape01_Pokecenter_EventScript_Gentleman_154:
 	clearflag FLAG_P01_SCYTHER
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_132:
-	goto_if_unset FLAG_P01_Hint13, Pokescape01_Pokecenter_EventScript_Gentleman_144
-Pokescape01_Pokecenter_EventScript_Gentleman_143:
+Pokescape01_Pokecenter_EventScript_Gentleman_134:
+	goto_if_unset FLAG_P01_Hint13, Pokescape01_Pokecenter_EventScript_Gentleman_146
+Pokescape01_Pokecenter_EventScript_Gentleman_145:
 	msgbox Text_TipCatch
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_134:
-	goto_if_unset FLAG_P01_GIRAFARIG, Pokescape01_Pokecenter_EventScript_Gentleman_132
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_133
-
-Pokescape01_Pokecenter_EventScript_Gentleman_137:
-	goto_if_unset FLAG_P01_GIRAFARIG, Pokescape01_Pokecenter_EventScript_Gentleman_131
+Pokescape01_Pokecenter_EventScript_Gentleman_136:
+	goto_if_unset FLAG_P01_GIRAFARIG, Pokescape01_Pokecenter_EventScript_Gentleman_134
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_135
 
-Pokescape01_Pokecenter_EventScript_Gentleman_141:
+Pokescape01_Pokecenter_EventScript_Gentleman_139:
+	goto_if_unset FLAG_P01_GIRAFARIG, Pokescape01_Pokecenter_EventScript_Gentleman_133
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_137
+
+Pokescape01_Pokecenter_EventScript_Gentleman_143:
 	setflag FLAG_P01_Hint12
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_140
-
-Pokescape01_Pokecenter_EventScript_Gentleman_144:
-	setflag FLAG_P01_Hint13
-	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_143
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_142
 
 Pokescape01_Pokecenter_EventScript_Gentleman_146:
+	setflag FLAG_P01_Hint13
+	setflag FLAG_P01_ADD30MIN
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_145
+
+Pokescape01_Pokecenter_EventScript_Gentleman_148:
 	setorcopyvar VAR_0x8004, ITEM_HM_CUT
 	specialvar VAR_RESULT, ItemisHeldInParty
 	compare VAR_RESULT, FALSE
-	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_155
+	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_157
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_147:
-	goto_if_unset FLAG_P01_Hint15, Pokescape01_Pokecenter_EventScript_Gentleman_158
-Pokescape01_Pokecenter_EventScript_Gentleman_157:
+Pokescape01_Pokecenter_EventScript_Gentleman_149:
+	goto_if_unset FLAG_P01_Hint15, Pokescape01_Pokecenter_EventScript_Gentleman_160
+Pokescape01_Pokecenter_EventScript_Gentleman_159:
 	msgbox Text_TipKirlia
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_148:
+Pokescape01_Pokecenter_EventScript_Gentleman_150:
 	compare VAR_UNUSED_0x40F7, 0
-	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_147
+	goto_if_eq Pokescape01_Pokecenter_EventScript_Gentleman_149
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_153:
+Pokescape01_Pokecenter_EventScript_Gentleman_155:
 	waitmessage
 	clearflag FLAG_P01_HM_CUT
 	removeitem ITEM_HM_CUT
 	msgbox Pokescape01_Pokecenter_EventScript_Gentleman_Text_10
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_152
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_154
 
-Pokescape01_Pokecenter_EventScript_Gentleman_155:
-	goto_if_unset FLAG_P01_Hint14, Pokescape01_Pokecenter_EventScript_Gentleman_161
-Pokescape01_Pokecenter_EventScript_Gentleman_160:
+Pokescape01_Pokecenter_EventScript_Gentleman_157:
+	goto_if_unset FLAG_P01_Hint14, Pokescape01_Pokecenter_EventScript_Gentleman_163
+Pokescape01_Pokecenter_EventScript_Gentleman_162:
 	msgbox Text_TipHMCut
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto Pokescape01_Pokecenter_EventScript_Gentleman_1
 
-Pokescape01_Pokecenter_EventScript_Gentleman_158:
+Pokescape01_Pokecenter_EventScript_Gentleman_160:
 	setflag FLAG_P01_Hint15
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_157
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_159
 
-Pokescape01_Pokecenter_EventScript_Gentleman_161:
+Pokescape01_Pokecenter_EventScript_Gentleman_163:
 	setflag FLAG_P01_Hint14
 	setflag FLAG_P01_ADD30MIN
-	goto Pokescape01_Pokecenter_EventScript_Gentleman_160
+	goto Pokescape01_Pokecenter_EventScript_Gentleman_162
 
 
 Pokescape01_Pokecenter_EventScript_Scientist::
@@ -1016,7 +1022,7 @@ Pokescape01_EventScript_Swimmer12_Text_1:
 Pokescape01_EventScript_PokecenterSign_Text_0:
 	.string "IMPORTANT INFORMATION:\p"
 	.string "1.) This game is featuring gen 5 move\n"
-	.string "learnsets for any Pokemon you control\l"
+	.string "learnsets for any Pokémon you control\l"
 	.string "yourself.\p"
 	.string "2.) It is not required to grind multiple\n"
 	.string "levels to win any of the fights.\p"
@@ -1036,11 +1042,11 @@ Pokescape01_EventScript_SignGrass_Text_0:
 	.string "Two species are typically found here.$"
 
 Pokescape01_EventScript_SignGrass_Text_1:
-	.string "Girafarig, the two brain pokemon.\p"
+	.string "Girafarig, the two brain Pokémon.\p"
 	.string "Watch out, these are brilliant thieves!$"
 
 Pokescape01_EventScript_SignGrass_Text_2:
-	.string "Scyther, the mantis pokemon.\p"
+	.string "Scyther, the mantis Pokémon.\p"
 	.string "With its sharp scythes it holds the\n"
 	.string "secret to even cutting bushes.$"
 
@@ -1122,7 +1128,7 @@ Pokescape01_EventScript_AppleTree_Text_1:
 
 Pokescape01_EventScript_AppleTree_Text_2:
 	.string "There is an apple growing in the tree.\n"
-	.string "You should go catch more Pokemon and\l"
+	.string "You should go catch more Pokémon and\l"
 	.string "return later to pick it.$"
 
 Pokescape01_EventScript_AppleTree_Text_3:
@@ -1156,8 +1162,10 @@ Pokescape01_EventScript_Battle01_Text_1:
 
 Pokescape01_EventScript_Battle01_Text_2:
 	.string "What a day! First I lost an item and now\n"
-	.string "I lost a fight.\l"
-	.string "I hope someone's gonna bump into it!$"
+	.string "I lost a fight.\p"
+	.string "I must have dropped it somewhere close\n"
+	.string "by.\l"
+	.string "Hopefully someone's gonna bump into it!$"
 
 Pokescape01_EventScript_BattleDouble02_Text_0:
 	.string "Mom said we are too young, but we are\n"
@@ -1194,7 +1202,7 @@ Pokescape01_EventScript_BattleDouble02_Text_8:
 
 Pokescape01_EventScript_BattleDouble03_Text_0:
 	.string "Hey there, we found that strange\n"
-	.string "Pokemon.\p"
+	.string "Pokémon.\p"
 	.string "Looks like it swallowed a special stone\n"
 	.string "or something...\l"
 	.string "...$"
@@ -1222,7 +1230,7 @@ Pokescape01_Pokecenter_EventScript_Boy_Text_0:
 	.string "she will get well soon!$"
 
 Pokescape01_Pokecenter_EventScript_Boy_Text_1:
-	.string "Oh no! Who takes care of the Pokemons\n"
+	.string "Oh no! Who takes care of the Pokémon\n"
 	.string "now?$"
 
 Pokescape01_Pokecenter_EventScript_Boy_Text_2:
@@ -1238,7 +1246,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman_Text_1:
 	.string "Do you want me to give you a hint?$"
 
 Pokescape01_Pokecenter_EventScript_Gentleman_Text_2:
-	.string "You still have Pokemon in your PC. I can\n"
+	.string "You still have Pokémon in your PC. I can\n"
 	.string "only give you tips when it's empty.\p"
 	.string "Of course, you won't be charged 30\n"
 	.string "minutes this time.$"
@@ -1268,7 +1276,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman_Text_7:
 	.string "Your Girafarig and Quagsire are a great\n"
 	.string "tag team!\p"
 	.string "Played right Quagsire can become quite\n"
-	.string "invincible against some Pokemon.\p"
+	.string "invincible against some Pokémon.\p"
 	.string "However, you should not try to defeat\n"
 	.string "the couple on the hill. But their\l"
 	.string "Venusaur is hiding something very\l"
@@ -1277,7 +1285,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman_Text_7:
 Pokescape01_Pokecenter_EventScript_Gentleman_Text_8:
 	.string "You are almost there.\p"
 	.string "Try sneaking past the couple by having\n"
-	.string "only one Pokemon in your party.$"
+	.string "only one Pokémon in your party.$"
 
 Pokescape01_Pokecenter_EventScript_Gentleman_Text_9:
 	.string "{PLAYER}: Good bye, Scyther.$"
@@ -1299,7 +1307,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman_Text_13:
 	.string "I am sorry, but I currently have no\n"
 	.string "hints to give to you.\p"
 	.string "Try proceeding by looking for hidden\n"
-	.string "and held items, catching Pokemon,\l"
+	.string "and held items, catching Pokémon,\l"
 	.string "talking to NPCs and winning battles.\p"
 	.string "Of course, you won't be charged 30\n"
 	.string "minutes this time.$"
@@ -1313,7 +1321,7 @@ Pokescape01_Pokecenter_EventScript_Gentleman_Text_14:
 	.string "any more time for it.$"
 
 Pokescape01_Pokecenter_EventScript_Scientist_Text_0:
-	.string "You have so little pokemon in your\n"
+	.string "You have so little Pokémon in your\n"
 	.string "party. I'm not talking to such a\l"
 	.string "wannabe.$"
 
@@ -1322,7 +1330,7 @@ Pokescape01_Pokecenter_EventScript_Scientist_Text_1:
 	.string "out a way to make it to the finish line!$"
 
 Pokescape01_Pokecenter_EventScript_Scientist_Text_2:
-	.string "You will need more Pokemon to become a\n"
+	.string "You will need more Pokémon to become a\n"
 	.string "successful trainer.\l"
 	.string "There is a sign at the grass patch in\l"
 	.string "the south. It shall guide you to make a\l"
@@ -1338,8 +1346,8 @@ Pokescape01_House_EventScript_Pikachu_Text_0:
 	.string "...Pika...$"
 
 Text_NotEnoughMons::
-	.string "You don't have enough Pokemons to\n"
-	.string "fight us. Poor boy!$"
+	.string "You don't have enough Pokémon to fight\n"
+	.string "us, sorry!$"
 
 Text_TipCheckPC::
 	.string "Your team is too small. You should check\n"
@@ -1369,13 +1377,13 @@ Text_TipRareCandyRevive::
 
 Text_TipRareCandyUse::
 	.string "Nurse Joy is sick and you are looking\n"
-	.string "for a way to revive your Pokemon?\p"
+	.string "for a way to revive your Pokémon?\p"
 	.string "You should go check the medicine box in\n"
 	.string "your bag.$"
 
 Text_TipMasterBall::
 	.string "People often get excited close to the\n"
-	.string "Pokemon Center.\p"
+	.string "Pokémon Center.\p"
 	.string "Sometimes they even drop stuff around\n"
 	.string "there.$"
 
@@ -1388,7 +1396,7 @@ Text_TipScyther::
 Text_TipCatch::
 	.string "Oh, you found a Master Ball?\p"
 	.string "You should go and catch another\n"
-	.string "Pokemon for your party.$"
+	.string "Pokémon for your party.$"
 
 Text_TipHMCut::
 	.string "You are looking for HM Cut? I heard\n"

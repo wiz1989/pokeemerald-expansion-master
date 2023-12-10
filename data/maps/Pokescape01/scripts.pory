@@ -24,7 +24,7 @@ script OnResume {
 	}
 
 	setrespawn(HEAL_LOCATION_POKESCAPE01)
-	//set all badges so Pokemon will always obey
+	//set all badges so Pokémon will always obey
 	setflag(FLAG_BADGE01_GET)
 	setflag(FLAG_BADGE02_GET)
 	setflag(FLAG_BADGE03_GET)
@@ -126,7 +126,7 @@ script Pokescape01_EventScript_PokecenterSign {
     lockall
 	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
 	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on random tiles on the ground. Don't waste your time spamming the A button throughout the whole overworld."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 move learnsets for any Pokémon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on random tiles on the ground. Don't waste your time spamming the A button throughout the whole overworld."))
     waitmessage
     releaseall
     end
@@ -144,11 +144,11 @@ script Pokescape01_EventScript_SignGrass {
 	lockall
     msgbox("Two species are typically found here.")
     showmonpic(SPECIES_GIRAFARIG, 10, 3)
-	msgbox(format("Girafarig, the two brain pokemon. \pWatch out, these are brilliant thieves!"))
+	msgbox(format("Girafarig, the two brain Pokémon. \pWatch out, these are brilliant thieves!"))
 	waitmessage
 	hidemonpic
 	showmonpic(SPECIES_SCYTHER, 10, 3)
-	msgbox(format("Scyther, the mantis pokemon. \pWith its sharp scythes it holds the secret to even cutting bushes."))
+	msgbox(format("Scyther, the mantis Pokémon. \pWith its sharp scythes it holds the secret to even cutting bushes."))
 	waitmessage
 	hidemonpic
     releaseall
@@ -258,7 +258,7 @@ script Pokescape01_EventScript_AppleTree {
 			msgbox(format("The apple hangs so high. You should bring someone who is able to reach up high in the tree."))
 		}
 		else {
-		 	msgbox(format("There is an apple growing in the tree. You should go catch more Pokemon and return later to pick it."))
+		 	msgbox(format("There is an apple growing in the tree. You should go catch more Pokémon and return later to pick it."))
 		}
     }
     else {
@@ -305,7 +305,7 @@ script Pokescape01_EventScript_Geodude {
 script Pokescape01_EventScript_Battle01 {
 	trainerbattle_single(TRAINER_POKESCAPE01_01, "I'll blow you away!", "I'm blown away!")
 	lock //don't lock before the fight or the trainer won't move towards the player
-	msgbox(format("What a day! First I lost an item and now I lost a fight. \lI hope someone's gonna bump into it!"))
+	msgbox(format("What a day! First I lost an item and now I lost a fight. \pI must have dropped it somewhere close by.\lHopefully someone's gonna bump into it!"))
 	waitmessage
 	release
 	end
@@ -370,7 +370,7 @@ script Pokescape01_EventScript_BattleDouble02 {
 }
 
 script Pokescape01_EventScript_BattleDouble03 {
-	trainerbattle_double(TRAINER_POKESCAPE01_03, format("Hey there, we found that strange Pokemon. \pLooks like it swallowed a special stone or something...\l..."), "Go ahead, you're almost there.", Text_NotEnoughMons)
+	trainerbattle_double(TRAINER_POKESCAPE01_03, format("Hey there, we found that strange Pokémon. \pLooks like it swallowed a special stone or something...\l..."), "Go ahead, you're almost there.", Text_NotEnoughMons)
 	end
 }
 
@@ -426,7 +426,7 @@ script Pokescape01_Pokecenter_EventScript_Boy {
 		waitmessage
 	}
 	elif (flag(FLAG_UNUSED_0x95D) == FALSE) {
-		msgbox(format("Oh no! Who takes care of the Pokemons now?"))
+		msgbox(format("Oh no! Who takes care of the Pokémon now?"))
 		waitmessage
 	}
 	else {
@@ -441,6 +441,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 	lock
 	clearflag(FLAG_P01_ADD30MIN)
 	clearflag(FLAG_P01_GIVE_ADVICE)
+	clearflag(FLAG_P01_NO_ADVICE)
 	faceplayer
 	msgbox(format("I am the game master. \pI will give you helpful advice for each situation, but it adds an additional 30min to your play clock."))
 	waitmessage
@@ -460,11 +461,12 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 			clearflag(FLAG_P01_GIVE_ADVICE)
 		}
 		else {
-			//only give advice, if there are no Pokemon in the PC
+			//only give advice, if there are no Pokémon in the PC
 			specialvar(VAR_RESULT, IsPcEmpty)
 			if(var(VAR_RESULT) == FALSE)  {
-				msgbox(format("You still have Pokemon in your PC. I can only give you tips when it's empty. \pOf course, you won't be charged 30 minutes this time."))
+				msgbox(format("You still have Pokémon in your PC. I can only give you tips when it's empty. \pOf course, you won't be charged 30 minutes this time."))
 				clearflag(FLAG_P01_GIVE_ADVICE)
+				setflag(FLAG_P01_NO_ADVICE)
 			}
 			else {
 
@@ -644,7 +646,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								setflag(FLAG_P01_Hint09)
 								setflag(FLAG_P01_ADD30MIN)
 							}
-							msgbox(format("Your Girafarig and Quagsire are a great tag team! \pPlayed right Quagsire can become quite invincible against some Pokemon. \pHowever, you should not try to defeat the couple on the hill. But their Venusaur is hiding something very interesting for you."))
+							msgbox(format("Your Girafarig and Quagsire are a great tag team! \pPlayed right Quagsire can become quite invincible against some Pokémon. \pHowever, you should not try to defeat the couple on the hill. But their Venusaur is hiding something very interesting for you."))
 							clearflag(FLAG_P01_GIVE_ADVICE)
 						}
 						elif (flag(FLAG_P01_GOTGALLADE)) {
@@ -652,7 +654,7 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								setflag(FLAG_P01_Hint10)
 								setflag(FLAG_P01_ADD30MIN)
 							}
-							msgbox(format("You are almost there. \pTry sneaking past the couple by having only one Pokemon in your party."))
+							msgbox(format("You are almost there. \pTry sneaking past the couple by having only one Pokémon in your party."))
 							clearflag(FLAG_P01_GIVE_ADVICE)
 						}
 					}
@@ -769,12 +771,14 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 
 		//default message for missing branches
 		if (flag(FLAG_P01_GIVE_ADVICE) == TRUE) {
-			msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokemon, talking to NPCs and winning battles. \pOf course, you won't be charged 30 minutes this time."))
+			msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokémon, talking to NPCs and winning battles. \pOf course, you won't be charged 30 minutes this time."))
 			waitmessage
 		}
 		else {
-			msgbox(format("\p...\pI had already given this hint to you before. \lI guess it's fair if I don't charge you any more time for it."))
-			waitmessage
+			if (!flag(FLAG_P01_NO_ADVICE)) {
+				msgbox(format("\p...\pI had already given this hint to you before. \lI guess it's fair if I don't charge you any more time for it."))
+				waitmessage
+			}
 		}
 	}
 
@@ -788,14 +792,14 @@ script Pokescape01_Pokecenter_EventScript_Scientist {
 	getpartysize
 	//FLAG_UNUSED_0x95E is set when obtaining Wooper
 	if (var(VAR_RESULT) <= 1) {
-		msgbox(format("You have so little pokemon in your party. I'm not talking to such a wannabe."))
+		msgbox(format("You have so little Pokémon in your party. I'm not talking to such a wannabe."))
 	}
 	else {
 		if (flag(FLAG_P01_GIRAFARIG)) {
 			msgbox(format("You did well so far! You will also figure out a way to make it to the finish line!"))
 		}
 		elif (flag(FLAG_UNUSED_0x95E) || flag(FLAG_P01_MASTER_BALL)) {
-			msgbox(format("You will need more Pokemon to become a successful trainer. \lThere is a sign at the grass patch in the south. It shall guide you to make a good decision catching one.."))
+			msgbox(format("You will need more Pokémon to become a successful trainer. \lThere is a sign at the grass patch in the south. It shall guide you to make a good decision catching one.."))
 		}
 		else {
 			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
@@ -859,7 +863,7 @@ movement Move02 {
 // ############### texts ###############
 
 text Text_NotEnoughMons {
-	format("You don't have enough Pokemons to fight us. Poor boy!")
+	format("You don't have enough Pokémon to fight us, sorry!")
 }
 
 text Text_TipCheckPC {
@@ -879,11 +883,11 @@ text Text_TipRareCandyRevive {
 }
 
 text Text_TipRareCandyUse {
-	format("Nurse Joy is sick and you are looking for a way to revive your Pokemon? \pYou should go check the medicine box in your bag.")
+	format("Nurse Joy is sick and you are looking for a way to revive your Pokémon? \pYou should go check the medicine box in your bag.")
 }
 
 text Text_TipMasterBall {
-	format("People often get excited close to the Pokemon Center. \pSometimes they even drop stuff around there.")
+	format("People often get excited close to the Pokémon Center. \pSometimes they even drop stuff around there.")
 }
 
 text Text_TipScyther {
@@ -891,7 +895,7 @@ text Text_TipScyther {
 }
 
 text Text_TipCatch {
-	format("Oh, you found a Master Ball? \pYou should go and catch another Pokemon for your party.")
+	format("Oh, you found a Master Ball? \pYou should go and catch another Pokémon for your party.")
 }
 
 text Text_TipHMCut {
