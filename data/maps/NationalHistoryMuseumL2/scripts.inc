@@ -516,11 +516,63 @@ NHML2_Camper_5:
 
 NHML2_Game_Master::
 	lock
+	clearflag FLAG_P01_ADDTIME
+	clearflag FLAG_P01_GIVE_ADVICE
 	faceplayer
-	msgbox NHML2_Game_Master_Text_0, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Game_Master_Text_0
 	waitmessage
+	msgbox NHML2_Game_Master_Text_1, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq NHML2_Game_Master_2
+	msgbox NHML2_Game_Master_Text_4
 	release
 	end
+
+NHML2_Game_Master_1:
+	waitmessage
+	goto_if_set FLAG_P01_ADDTIME, NHML2_Game_Master_6
+	goto_if_set FLAG_P01_GIVE_ADVICE, NHML2_Game_Master_12
+	msgbox NHML2_Game_Master_Text_6
+	waitmessage
+NHML2_Game_Master_5:
+	release
+	end
+
+NHML2_Game_Master_2:
+	setflag FLAG_P01_GIVE_ADVICE
+	specialvar VAR_RESULT, IsPcEmpty
+	compare VAR_RESULT, FALSE
+	goto_if_eq NHML2_Game_Master_9
+	goto_if_set FLAG_HINT01, NHML2_Game_Master_15
+	goto NHML2_Game_Master_1
+
+NHML2_Game_Master_6:
+	setorcopyvar VAR_0x8004, 20
+	special PlayTimeAddMin
+	goto NHML2_Game_Master_5
+
+NHML2_Game_Master_9:
+	msgbox NHML2_Game_Master_Text_2
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_1
+
+NHML2_Game_Master_12:
+	msgbox NHML2_Game_Master_Text_5
+	waitmessage
+	goto NHML2_Game_Master_5
+
+NHML2_Game_Master_15:
+	goto_if_unset FLAG_HINT01, NHML2_Game_Master_18
+NHML2_Game_Master_17:
+	msgbox NHML2_Game_Master_Text_3
+	clearflag FLAG_HINT01
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_1
+
+NHML2_Game_Master_18:
+	setflag FLAG_HINT01
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_17
 
 
 NHML2_Boulder::
@@ -697,10 +749,42 @@ NHML2_Camper_Text_2:
 	.string "Mine is WATER.$"
 
 NHML2_Game_Master_Text_0:
-	.string "I am the game master.\p"
+	.string "I am the Game Master.\p"
 	.string "I will give you helpful advice for each\n"
 	.string "situation, but it adds an additional\l"
-	.string "30min to your play clock.$"
+	.string "20min to your play clock.$"
+
+NHML2_Game_Master_Text_1:
+	.string "Do you want me to give you a hint?$"
+
+NHML2_Game_Master_Text_2:
+	.string "You still have Pokémon in your PC. I can\n"
+	.string "only give you tips when it's empty.\p"
+	.string "Of course, you won't be charged 20\n"
+	.string "minutes this time.$"
+
+NHML2_Game_Master_Text_3:
+	.string "text$"
+
+NHML2_Game_Master_Text_4:
+	.string "Come back whenever you need me.$"
+
+NHML2_Game_Master_Text_5:
+	.string "I am sorry, but I currently have no\n"
+	.string "hints to give to you.\p"
+	.string "Try proceeding by looking for hidden\n"
+	.string "and held items, catching Pokémon,\l"
+	.string "talking to NPCs and winning battles.\p"
+	.string "Of course, you won't be charged 20\n"
+	.string "minutes this time.$"
+
+NHML2_Game_Master_Text_6:
+	.string "\p"
+	.string "...\p"
+	.string "I had already given this hint to you\n"
+	.string "before.\l"
+	.string "I guess it's fair if I don't charge you\l"
+	.string "any more time for it.$"
 
 NHML2_Sign_wiz1989_Text_0:
 	.string "This ROM hack was designed and created\n"

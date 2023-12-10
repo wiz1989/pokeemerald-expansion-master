@@ -413,32 +413,32 @@ script NHML2_Camper {
 
 script NHML2_Game_Master {
     lock
-    clearflag(FLAG_P01_ADD30MIN)
+    clearflag(FLAG_P01_ADDTIME)
     clearflag(FLAG_P01_GIVE_ADVICE)
     faceplayer
-    msgbox(format("I am the game master. \pI will give you helpful advice for each situation, but it adds an additional 20min to your play clock."))
+    msgbox(format("I am the Game Master. \pI will give you helpful advice for each situation, but it adds an additional 20min to your play clock."))
     waitmessage
     msgbox(format("Do you want me to give you a hint?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
         setflag(FLAG_P01_GIVE_ADVICE)
         
-        //only give advice, if there are no Pokemon in the PC
+        //only give advice, if there are no Pokémon in the PC
         specialvar(VAR_RESULT, IsPcEmpty)
         if(var(VAR_RESULT) == FALSE)  {
-            msgbox(format("You still have Pokemon in your PC. I can only give you tips when it's empty. \pOf course, you won't be charged 20 minutes this time."))
+            msgbox(format("You still have Pokémon in your PC. I can only give you tips when it's empty. \pOf course, you won't be charged 20 minutes this time."))
             clearflag(FLAG_P01_GIVE_ADVICE)
         }
         else {
             //handle all different scenarios below
 
             //first fight not yet won
-            if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
+            if (flag(FLAG_HINT01) == TRUE) {
                 if (!flag(FLAG_HINT01)) {
                     setflag(FLAG_HINT01)
-                    setflag(FLAG_P01_ADD30MIN)
+                    setflag(FLAG_P01_ADDTIME)
                 }
-                msgbox(Text_TipRareCandy)
-                clearflag(FLAG_P01_RARE_CANDY)
+                msgbox("text")
+                clearflag(FLAG_HINT01)
                 clearflag(FLAG_P01_GIVE_ADVICE)
             }
         }
@@ -451,14 +451,14 @@ script NHML2_Game_Master {
     waitmessage
 
     //add 30min to play clock
-    if (flag(FLAG_P01_ADD30MIN)) {
+    if (flag(FLAG_P01_ADDTIME)) {
         setorcopyvar(VAR_0x8004, 20)
         special(PlayTimeAddMin)
     }
     else {
         //default message for missing branches
         if (flag(FLAG_P01_GIVE_ADVICE) == TRUE) {
-            msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokemon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
+            msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokémon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
             waitmessage
         }
         else {

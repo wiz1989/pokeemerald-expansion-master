@@ -1239,7 +1239,7 @@
 #define FLAG_NHML1_ITEMBALL                                         0x4A5 // Unused Flag
 #define FLAG_NHML1_BOULDER                                          0x4A6 // Unused Flag
 #define FLAG_NHML1_BOULDER_FELL_DOWN                                0x4A7 // Unused Flag
-#define FLAG_P01_ADD30MIN                                           0x4A8 // Unused Flag
+#define FLAG_P01_ADDTIME                                            0x4A8 // Unused Flag
 #define FLAG_P01_GIVE_ADVICE                                        0x4A9 // Unused Flag
 #define FLAG_UNUSED_0x4AA                                           0x4AA // Unused Flag
 #define FLAG_UNUSED_0x4AB                                           0x4AB // Unused Flag
