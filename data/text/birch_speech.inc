@@ -1,13 +1,13 @@
 gText_Birch_Welcome::
-	.string "Hi, explorer!\p"
+	.string "Hello, explorer!\p"
 	.string "Welcome to the Pokémon Escape\n"
-	.string "Room challenge NATIONAL HISTORY\n"
+	.string "Room challenge NATIONAL HISTORY\l"
 	.string "MUSEUM.\p"
 	.string "$"
 
 gText_Birch_Pokemon::
 	.string "I will give you all information\n"
-	.string "you may need to start your \n"
+	.string "you may need to start your \l"
 	.string "adventure.\p"
 	.string "$"
 
@@ -16,20 +16,21 @@ gText_Birch_MainSpeech::
 	.string "You need to make it out of the\n"
 	.string "NATIONAL HISTORY MUSEUM.\p"
 	.string "To do so you will need to develop\n"
-	.string "unique tactics to battle your\n"
-	.string "opponents and make the right\n"
-	.string "decisions based on all information\n"
-	.string "available.\p"
-	
-	.string "In fact, there are many, many\n"
-	.string "secrets surrounding POKéMON.\p"
-	.string "To unravel POKéMON mysteries,\n"
-	.string "I've been undertaking research.\l"
-	.string "That's what I do.\p"
+	.string "unique tactics to battle your\l"
+	.string "opponents, solve puzzles and make\l"
+	.string "the right decisions based on all\l"
+	.string "information available.\p"
+	.string "If you are stuck you can approach\n"
+	.string "the Game Master NPC for help.\p"
+	.string "This challenge can be completed\n"
+	.string "without any savegame resets.\l"
+	.string "Worst case is that you have to\l"
+	.string "approach the Game Master to continue.\p"
 	.string "$"
 
 gText_Birch_AndYouAre::
-	.string "And you are?$"
+	.string "So tell me who you are.\p"
+	.string "$"
 
 gText_Birch_BoyOrGirl::
 	.string "Are you a boy?\n"
@@ -44,18 +45,10 @@ gText_Birch_SoItsPlayer::
 
 gText_Birch_YourePlayer::
 	.string "Ah, okay!\p"
-	.string "You're {PLAYER}{KUN} who's moving to my\n"
-	.string "hometown of LITTLEROOT.\l"
-	.string "I get it now!\p"
 	.string "$"
 
 gText_Birch_AreYouReady::
-	.string "All right, are you ready?\p"
-	.string "Your very own adventure is about\n"
-	.string "to unfold.\p"
-	.string "Take courage, and leap into the\n"
-	.string "world of POKéMON where dreams,\l"
-	.string "adventure, and friendships await!\p"
-	.string "Well, I'll be expecting you later.\n"
-	.string "Come see me in my POKéMON LAB.\p"
+	.string "All right, I hope you are ready!\p"
+	.string "I wish you good luck!\p"
+	.string "Your play time starts NOW.\p"
 	.string "$"

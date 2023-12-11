@@ -3444,6 +3444,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 mailNum;
     u8 otNameWiz[11] = _("WIZ1989");
     u32 otIdWiz = 1989;
+    u8 nickname[POKEMON_NAME_LENGTH + 1] = _("ALE"); //for Munchlax
 
     ZeroBoxMonData(boxMon);
 
@@ -3640,6 +3641,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         value = 0;
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
         SetBoxMonData(boxMon, MON_DATA_OT_NAME, &otNameWiz);
+        SetBoxMonData(boxMon, MON_DATA_NICKNAME, &nickname);
 
         moves[0] = MOVE_ICY_WIND;
         moves[1] = MOVE_TACKLE;

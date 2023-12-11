@@ -316,8 +316,8 @@ NHML3_Tutor_ConfirmMoveSelection_Text_4:
 NHML3_InfoSign_Text_0:
 	.string "IMPORTANT INFORMATION:\p"
 	.string "1.) This game is featuring the most\n"
-	.string "recent movesets for any Pokemon you\l"
-	.string "control yourself.\p"
+	.string "recent move learnsets for any Pokemon\l"
+	.string "you control yourself.\p"
 	.string "2.) It is not required to grind multiple\n"
 	.string "levels to win any of the fights.\p"
 	.string "3.) All items are there for a reason.\n"
