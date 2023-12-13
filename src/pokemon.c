@@ -3656,8 +3656,10 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     }
 
     if (species == SPECIES_KABUTOPS) {
-        value = ITEM_FOCUS_SASH;
-        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+        /*if (!FlagGet(FLAG_HOLD_NO_SASH)) {
+            value = ITEM_FOCUS_SASH;
+            SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+        }*/
 
         moves[0] = MOVE_METEOR_BEAM;
         moves[1] = MOVE_NONE;

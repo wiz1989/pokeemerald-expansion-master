@@ -2050,6 +2050,8 @@ static void Cmd_adjustdamage(void)
     #endif
     else if (holdEffect == HOLD_EFFECT_FOCUS_SASH && BATTLER_MAX_HP(gBattlerTarget))
     {
+        FlagClear(FLAG_HOLD_NO_SASH);
+        DebugPrintf("Sash consumed");
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
         gSpecialStatuses[gBattlerTarget].focusSashed = TRUE;
     }
@@ -12054,6 +12056,8 @@ static void Cmd_tryKO(void)
     }
     else if (holdEffect == HOLD_EFFECT_FOCUS_SASH && BATTLER_MAX_HP(gBattlerTarget))
     {
+        FlagClear(FLAG_HOLD_NO_SASH);
+        DebugPrintf("Sash consumed");
         gSpecialStatuses[gBattlerTarget].focusSashed = TRUE;
         RecordItemEffectBattle(gBattlerTarget, holdEffect);
     }
@@ -14563,12 +14567,14 @@ static void Cmd_pickup(void)
                         {
                             DebugPrintf("sPickupItems");
                             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[lvlDivBy10 + j]);
+                            FlagSet(FLAG_GOT_HEART_SCALE);
                             break;
                         }
                         else if (rand == 99 || rand == 98)
                         {
                             DebugPrintf("sRarePickupItems");
                             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sRarePickupItems[lvlDivBy10 + (99 - rand)]);
+                            FlagSet(FLAG_GOT_HEART_SCALE);
                             break;
                         }
                     }
@@ -14710,6 +14716,11 @@ static void Cmd_tryrecycleitem(void)
         gLastUsedItem = *usedHeldItem;
         *usedHeldItem = ITEM_NONE;
         gBattleMons[gBattlerAttacker].item = gLastUsedItem;
+
+        if(gLastUsedItem == ITEM_FOCUS_SASH) {
+            FlagSet(FLAG_HOLD_NO_SASH);
+            DebugPrintf("Sash restored");
+        }
 
         BtlController_EmitSetMonData(gBattlerAttacker, BUFFER_A, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[gBattlerAttacker].item), &gBattleMons[gBattlerAttacker].item);
         MarkBattlerForControllerExec(gBattlerAttacker);
@@ -15219,6 +15230,8 @@ static void Cmd_trysetcaughtmondexflags(void)
 
     u16 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_PERSONALITY, NULL);
+
+    DebugPrintf("Cmd_trysetcaughtmondexflags");
 
     if(species == SPECIES_ARCHEN) {
         FlagSet(FLAG_CAUGHT_ARCHEN);

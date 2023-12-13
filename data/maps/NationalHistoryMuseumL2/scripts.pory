@@ -6,6 +6,7 @@ mapscripts NationalHistoryMuseumL2_MapScripts {
 	MAP_SCRIPT_ON_FRAME_TABLE [
 		VAR_TEMP_2, 0: NHML2_EveryFrame
         VAR_NHML1_BOULDER_FELL_DOWN, 1: NHML2_EveryFrame_Boulder
+        VAR_NHML2_FIGHT_KABUTOPS, 1: NHML2_EveryFrame_Sash
 	]
 }
 
@@ -37,6 +38,28 @@ script NHML2_EveryFrame {
 
 script NHML2_EveryFrame_Boulder {
     call(NHML2_Boulder_in_hole)
+    end
+}
+
+script NHML2_EveryFrame_Sash {
+    setorcopyvar(VAR_NHML2_FIGHT_KABUTOPS, 0)
+    checkpartyitem(ITEM_FOCUS_SASH)
+    if (var(VAR_RESULT) == 6) {
+        //party has not acquired focus sash
+        clearflag(FLAG_HOLD_NO_SASH)
+    }
+    else {
+        setflag(FLAG_HOLD_NO_SASH)
+        setflag(FLAG_GOT_SASH) //first acquired sash sets this flag to log play progress
+    }
+
+    //test effect
+    setvar(VAR_0x8004, 1)  //vertical pan
+    setvar(VAR_0x8005, 1)  //horizontal pan
+    setvar(VAR_0x8006, 4)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    waitstate
     end
 }
 
@@ -89,13 +112,19 @@ script NHML2_BlondeMan {
 script NHML2_Battle_Brandon {
 	trainerbattle_single(TRAINER_NHM_BRANDON, format("Don't think about fighting the couple on the third floor, if you can't even get past me!"), "I wasn't FEARful enough.")
 	lock
-	msgbox(format("The couple on floor 3 won't be as easy on you as I was.\pIf there only was a way to stop them from hitting you!"), MSGBOX_AUTOCLOSE)
+	msgbox(format("The couple on floor 3 won't be as easy on you as I was.\pIf there only was a way to stop them from hitting you that hard!"), MSGBOX_AUTOCLOSE)
 	release
+    if (!flag(FLAG_MOVE_BACK)) {
+        applymovement(1, Move_back)
+        waitmovement(0)
+        setobjectxy(1, 26, 10)
+        setflag(FLAG_MOVE_BACK)
+    }
 	end
 }
 
 script NHM2_Battle_Archen {
-    msgbox(format("There is a PLUME FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+    msgbox(format("The PLUME FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
     waitmessage
     playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
     delay(40)
@@ -127,12 +156,21 @@ script NHM2_Battle_Kabutops {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is a DOME FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The DOME FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
+        
         playmoncry(SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER)
         delay(40)
         waitmoncry
-        setwildbattle(SPECIES_KABUTOPS, 100)
+
+        if(flag(FLAG_HOLD_NO_SASH)) {
+            setorcopyvar(VAR_NHML2_FIGHT_KABUTOPS, 1)
+            setwildbattle(SPECIES_KABUTOPS, 100)
+        }
+        else {
+            setorcopyvar(VAR_NHML2_FIGHT_KABUTOPS, 1)
+            setwildbattle(SPECIES_KABUTOPS, 100, ITEM_FOCUS_SASH)
+        }
         dowildbattle
     }
     release
@@ -167,7 +205,7 @@ script NHM2_Battle_Omastar {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is a HELIX FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The HELIX FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_OMASTAR, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -195,7 +233,7 @@ script NHM2_Battle_Aerodactyl {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is an OLD AMBER exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The OLD AMBER is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_AERODACTYL, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -235,7 +273,7 @@ script NHM2_Battle_Cradily {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is a ROOT FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The ROOT FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_CRADILY, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -275,7 +313,7 @@ script NHM2_Battle_Armaldo {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is a CLAW FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The CLAW FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_ARMALDO, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -302,7 +340,7 @@ script NHM2_Battle_Rampardos {
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
         randomnr(3)
         setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
-        msgbox(format("There is a SKULL FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The SKULL FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -329,7 +367,7 @@ script NHM2_Battle_Bastiodon {
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
         randomnr(3)
         setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
-        msgbox(format("There is a ARMOR FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The ARMOR FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_BASTIODON, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -357,7 +395,7 @@ script NHM2_Battle_Carracosta {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is a COVER FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The COVER FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_CARRACOSTA, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -384,7 +422,7 @@ script NHM2_Battle_Aurorus {
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
         randomnr(3)
         setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
-        msgbox(format("There is a SAIL FOSSIL exhibited.\lFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The SAIL FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_AURORUS, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -519,11 +557,104 @@ script NHML2_Boulder_in_hole {
     end
 }
 
+script NHM2_Sign_Archen {
+    lock
+    msgbox(format("This showcase contains an ancient PLUME FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
+}
+
+script NHM2_Sign_Kabutops {
+    lock
+    msgbox(format("This showcase contains an ancient DOME FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage    
+    release
+    end
+}
+
+script NHM2_Sign_Omastar {
+    lock
+    msgbox(format("This showcase contains an ancient HELIX FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHM2_Sign_Aerodactyl {
+    lock
+    msgbox(format("This showcase contains an ancient OLD AMBER."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHM2_Sign_Cradily {
+    lock
+    msgbox(format("This showcase contains an ancient ROOT FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHM2_Sign_Armaldo {
+    lock
+    msgbox(format("This showcase contains an ancient CLAW FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHM2_Sign_Rampardos {
+    lock
+    msgbox(format("This showcase contains an ancient SKULL FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHM2_Sign_Bastiodon {
+    lock
+    msgbox(format("This showcase contains an ancient ARMOR FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHM2_Sign_Carracosta {
+    lock
+    msgbox(format("This showcase contains an ancient COVER FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHM2_Sign_Aurorus {
+    lock
+    msgbox(format("This showcase contains an ancient SAIL FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHML2_Item_HeartScale {
+    lock
+	finditem(ITEM_HEART_SCALE, 2)
+	release
+	end
+}
+
 
 // ############### movements ###############
 
 movement Move_exclmark {
 	emote_exclamation_mark
+}
+
+movement Move_back {
+    face_right
+    walk_right
+    face_left
 }
 
 

@@ -14,6 +14,14 @@ NHML3_OnResume::
 	goto_if_eq NHML3_OnResume_2
 NHML3_OnResume_1:
 	setrespawn HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM
+	call load_HONOR_MODE
+	end
+
+NHML3_OnResume_2:
+	givemon SPECIES_MUNCHLAX, 11
+	setflag FLAG_SYS_POKEMON_GET
+	setorcopyvar VAR_LITTLEROOT_TOWN_STATE, 1
+	special CreateMail
 	setflag FLAG_BADGE01_GET
 	setflag FLAG_BADGE02_GET
 	setflag FLAG_BADGE03_GET
@@ -24,14 +32,7 @@ NHML3_OnResume_1:
 	setflag FLAG_BADGE08_GET
 	setflag FLAG_SYS_POKEDEX_GET
 	setflag FLAG_SYS_NATIONAL_DEX
-	call load_HONOR_MODE
-	end
-
-NHML3_OnResume_2:
-	givemon SPECIES_MUNCHLAX, 11
-	setflag FLAG_SYS_POKEMON_GET
-	setvar VAR_LITTLEROOT_TOWN_STATE, 1
-	special CreateMail
+	special EnableNationalPokedex
 	goto NHML3_OnResume_1
 
 
@@ -217,13 +218,176 @@ NHML3_Tutor_ConfirmMoveSelection_8:
 
 
 NHML3_Trader::
+	goto_if_unset FLAG_CAUGHT_ARCHEN, NHML3_Trader_2
 	call FortreeCity_House1_EventScript_Trader
+NHML3_Trader_1:
 	end
+
+NHML3_Trader_2:
+	lock
+	faceplayer
+	msgbox NHML3_Trader_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	goto NHML3_Trader_1
 
 
 NHML3_Trader2::
+	goto_if_unset FLAG_CAUGHT_ARCHEN, NHML3_Trader2_2
 	call FortreeCity_House1_EventScript_Trader2
+NHML3_Trader2_1:
 	end
+
+NHML3_Trader2_2:
+	lock
+	faceplayer
+	msgbox NHML3_Trader_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	goto NHML3_Trader2_1
+
+
+NHML3_ItemManager::
+	lock
+	faceplayer
+	msgbox NHML3_ItemManager_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	setorcopyvar VAR_NHML3_COLLECTOR_COUNT, 0
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_GOT_SASH, NHML3_ItemManager_2
+	msgbox NHML3_ItemManager_Text_4, MSGBOX_AUTOCLOSE
+	waitmessage
+NHML3_ItemManager_1:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_GOT_HEART_SCALE, NHML3_ItemManager_6
+	msgbox NHML3_ItemManager_Text_8, MSGBOX_AUTOCLOSE
+	waitmessage
+NHML3_ItemManager_5:
+	release
+	return
+
+NHML3_ItemManager_2:
+	checkitem ITEM_FOCUS_SASH
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_10
+NHML3_ItemManager_9:
+	checkpcitem ITEM_FOCUS_SASH
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_16
+NHML3_ItemManager_15:
+	checkpartyitem ITEM_FOCUS_SASH
+	compare VAR_RESULT, 6
+	goto_if_lt NHML3_ItemManager_22
+NHML3_ItemManager_21:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_27
+	checktrainerflag TRAINER_NHM_BRANDON
+	goto_if 0, NHML3_ItemManager_33
+	goto NHML3_ItemManager_1
+
+NHML3_ItemManager_6:
+	checkitem ITEM_HEART_SCALE
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_13
+NHML3_ItemManager_12:
+	checkpcitem ITEM_HEART_SCALE
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_19
+NHML3_ItemManager_18:
+	checkpartyitem ITEM_HEART_SCALE
+	compare VAR_RESULT, 6
+	goto_if_lt NHML3_ItemManager_25
+NHML3_ItemManager_24:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_30
+	checktrainerflag TRAINER_NHM_BRANDON
+	goto_if 1, NHML3_ItemManager_36
+	goto NHML3_ItemManager_5
+
+NHML3_ItemManager_10:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_9
+
+NHML3_ItemManager_13:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_12
+
+NHML3_ItemManager_16:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_15
+
+NHML3_ItemManager_19:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_18
+
+NHML3_ItemManager_22:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_21
+
+NHML3_ItemManager_25:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_24
+
+NHML3_ItemManager_27:
+	msgbox NHML3_ItemManager_Text_1, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHML3_ItemManager_1
+
+NHML3_ItemManager_30:
+	msgbox NHML3_ItemManager_Text_5, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto NHML3_ItemManager_5
+
+NHML3_ItemManager_33:
+	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox NHML3_ItemManager_Text_3, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_FOCUS_SASH
+	goto NHML3_ItemManager_1
+
+NHML3_ItemManager_35:
+	checkpartymonmove SPECIES_YAMASK, MOVE_ROLE_PLAY
+	compare VAR_RESULT, FALSE
+	goto_if_eq NHML3_ItemManager_40
+NHML3_ItemManager_39:
+	checkpartymonmove SPECIES_YAMASK, MOVE_SUBSTITUTE
+	compare VAR_RESULT, FALSE
+	goto_if_eq NHML3_ItemManager_43
+NHML3_ItemManager_42:
+	compare VAR_NHML3_COLLECTOR_COUNT, 0
+	goto_if_gt NHML3_ItemManager_45
+	goto NHML3_ItemManager_5
+
+NHML3_ItemManager_36:
+	goto_if_set FLAG_NHML2_ITEMBALL, NHML3_ItemManager_35
+	goto NHML3_ItemManager_5
+
+NHML3_ItemManager_40:
+	addvar VAR_NHML3_COLLECTOR_COUNT, 1
+	goto NHML3_ItemManager_39
+
+NHML3_ItemManager_43:
+	addvar VAR_NHML3_COLLECTOR_COUNT, 1
+	goto NHML3_ItemManager_42
+
+NHML3_ItemManager_45:
+	msgbox NHML3_ItemManager_Text_6, MSGBOX_AUTOCLOSE
+	waitmessage
+	switch VAR_NHML3_COLLECTOR_COUNT
+	case 1, NHML3_ItemManager_48
+	case 2, NHML3_ItemManager_49
+	goto NHML3_ItemManager_5
+
+NHML3_ItemManager_48:
+	msgbox NHML3_ItemManager_Text_3, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_HEART_SCALE
+	goto NHML3_ItemManager_5
+
+NHML3_ItemManager_49:
+	msgbox NHML3_ItemManager_Text_7, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_HEART_SCALE, 2
+	goto NHML3_ItemManager_5
 
 
 NHML3_InfoSign::
@@ -313,6 +477,45 @@ NHML3_Tutor_ConfirmMoveSelection_Text_3:
 NHML3_Tutor_ConfirmMoveSelection_Text_4:
 	.string "Thanks for doing business with me.$"
 
+NHML3_Trader_Text_0:
+	.string "Oh hey, I'd really like to trade Pokemon\n"
+	.string "with a skilled trainer...\p"
+	.string "So you should consider coming back\n"
+	.string "when you have a bigger party.$"
+
+NHML3_ItemManager_Text_0:
+	.string "Hello {PLAYER}, I am the collector!\p"
+	.string "I will help you out in case you lost\n"
+	.string "crucial items after obtaining them in\l"
+	.string "the first place.$"
+
+NHML3_ItemManager_Text_1:
+	.string "You are still owning a FOCUS SASH.$"
+
+NHML3_ItemManager_Text_2:
+	.string "Oh no, you lost a FOCUS SASH!$"
+
+NHML3_ItemManager_Text_3:
+	.string "Here, I will give you another one to\n"
+	.string "continue your journey.$"
+
+NHML3_ItemManager_Text_4:
+	.string "You never owned a FOCUS SASH!$"
+
+NHML3_ItemManager_Text_5:
+	.string "You are still owning a HEART SCALE.$"
+
+NHML3_ItemManager_Text_6:
+	.string "Oh no, you no longer possess any HEART\n"
+	.string "SCALES!$"
+
+NHML3_ItemManager_Text_7:
+	.string "Here, I will give you two more to\n"
+	.string "continue your journey.$"
+
+NHML3_ItemManager_Text_8:
+	.string "You never owned a HEART SCALE!$"
+
 NHML3_InfoSign_Text_0:
 	.string "IMPORTANT INFORMATION:\p"
 	.string "1.) This game is featuring the most\n"
@@ -321,11 +524,7 @@ NHML3_InfoSign_Text_0:
 	.string "2.) It is not required to grind multiple\n"
 	.string "levels to win any of the fights.\p"
 	.string "3.) All items are there for a reason.\n"
-	.string "Think twice before using them.\p"
-	.string "4.) There are no invisible items or\n"
-	.string "messages hidden on the ground. Don't\l"
-	.string "waste your time hitting the A button\l"
-	.string "throughout the whole overworld.$"
+	.string "Think twice before using them.$"
 
 NHML3_Sign_Stakataka_Text_0:
 	.string "STAKATAKA...very slow$"

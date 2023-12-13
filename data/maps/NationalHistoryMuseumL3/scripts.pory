@@ -13,27 +13,24 @@ script NHML3_OnResume {
     //init player
 	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
 		givemon(SPECIES_MUNCHLAX, 11)
-		//givemonpc(SPECIES_YAMASK, 16, ITEM_RARE_CANDY, 7, 19)
-		//setinitialmovesPC(MOVE_HEX, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT)
 		setflag(FLAG_SYS_POKEMON_GET)
-		//addpcitem(ITEM_TM_DIG, 1)
-		setvar(VAR_LITTLEROOT_TOWN_STATE, 1)
+		setorcopyvar(VAR_LITTLEROOT_TOWN_STATE, 1)
 		special(CreateMail)
+		//set all badges so Pokemon will always obey
+		setflag(FLAG_BADGE01_GET)
+		setflag(FLAG_BADGE02_GET)
+		setflag(FLAG_BADGE03_GET)
+		setflag(FLAG_BADGE04_GET)
+		setflag(FLAG_BADGE05_GET)
+		setflag(FLAG_BADGE06_GET)
+		setflag(FLAG_BADGE07_GET)
+		setflag(FLAG_BADGE08_GET)
+		setflag(FLAG_SYS_POKEDEX_GET)
+		setflag(FLAG_SYS_NATIONAL_DEX)
+		special(EnableNationalPokedex)
 	}
 
 	setrespawn(HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM)
-	//set all badges so Pokemon will always obey
-	setflag(FLAG_BADGE01_GET)
-	setflag(FLAG_BADGE02_GET)
-	setflag(FLAG_BADGE03_GET)
-	setflag(FLAG_BADGE04_GET)
-	setflag(FLAG_BADGE05_GET)
-	setflag(FLAG_BADGE06_GET)
-	setflag(FLAG_BADGE07_GET)
-	setflag(FLAG_BADGE08_GET)
-	setflag(FLAG_SYS_POKEDEX_GET)
-	setflag(FLAG_SYS_NATIONAL_DEX)
-
 	call(load_HONOR_MODE)
 	end
 }
@@ -188,18 +185,135 @@ script NHML3_Tutor_ConfirmMoveSelection {
 }
 
 script NHML3_Trader {
-	call(FortreeCity_House1_EventScript_Trader)
+	if(!flag(FLAG_CAUGHT_ARCHEN)) {
+		lock
+		faceplayer
+		msgbox(format("Oh hey, I'd really like to trade Pokemon with a skilled trainer...\pSo you should consider coming back when you have a bigger party."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		release
+	}
+	else {
+		call(FortreeCity_House1_EventScript_Trader)
+	}
 	end
 }
 
+//no longer used
 script NHML3_Trader2 {
-	call(FortreeCity_House1_EventScript_Trader2)
+	if(!flag(FLAG_CAUGHT_ARCHEN)) {
+		lock
+		faceplayer
+		msgbox(format("Oh hey, I'd really like to trade Pokemon with a skilled trainer...\pSo you should consider coming back when you have a bigger party."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		release
+	}
+	else {
+		call(FortreeCity_House1_EventScript_Trader2)
+	}
 	end
+}
+
+script NHML3_ItemManager {
+	lock
+	faceplayer
+	msgbox(format("Hello {PLAYER}, I am the collector!\pI will help you out in case you lost crucial items after obtaining them in the first place."), MSGBOX_AUTOCLOSE)
+	waitmessage
+
+	setorcopyvar(VAR_NHML3_COLLECTOR_COUNT, 0)
+	clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	//check sash
+	if (flag(FLAG_GOT_SASH)) {
+		checkitem(ITEM_FOCUS_SASH)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpcitem(ITEM_FOCUS_SASH)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_FOCUS_SASH)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			msgbox(format("You are still owning a FOCUS SASH."), MSGBOX_AUTOCLOSE)
+			waitmessage
+		}
+		else {
+			if (!defeated(TRAINER_NHM_BRANDON)) {
+				msgbox(format("Oh no, you lost a FOCUS SASH!"), MSGBOX_AUTOCLOSE)
+				waitmessage
+				msgbox(format("Here, I will give you another one to continue your journey."), MSGBOX_AUTOCLOSE)
+				waitmessage
+				giveitem(ITEM_FOCUS_SASH)
+			}
+		}
+	}
+	else {
+		msgbox(format("You never owned a FOCUS SASH!"), MSGBOX_AUTOCLOSE)
+		waitmessage
+	}
+	clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	//check heart scale
+	if (flag(FLAG_GOT_HEART_SCALE)) {
+		checkitem(ITEM_HEART_SCALE)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpcitem(ITEM_HEART_SCALE)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_HEART_SCALE)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			msgbox(format("You are still owning a HEART SCALE."), MSGBOX_AUTOCLOSE)
+			waitmessage
+		}
+		else {
+			//check requirements
+			if(defeated(TRAINER_NHM_BRANDON) && flag(FLAG_NHML2_ITEMBALL)) {
+				checkpartymonmove(SPECIES_YAMASK, MOVE_ROLE_PLAY)
+				if (var(VAR_RESULT) == FALSE) {
+					addvar(VAR_NHML3_COLLECTOR_COUNT, 1)
+				}
+				checkpartymonmove(SPECIES_YAMASK, MOVE_SUBSTITUTE)
+				if (var(VAR_RESULT) == FALSE) {
+					addvar(VAR_NHML3_COLLECTOR_COUNT, 1)
+				}
+				//give items
+				if (var(VAR_NHML3_COLLECTOR_COUNT) > 0)	{
+					msgbox(format("Oh no, you no longer possess any HEART SCALES!"), MSGBOX_AUTOCLOSE)
+					waitmessage
+
+					switch (var(VAR_NHML3_COLLECTOR_COUNT)) {
+						case 1:
+							msgbox(format("Here, I will give you another one to continue your journey."), MSGBOX_AUTOCLOSE)
+							waitmessage
+							giveitem(ITEM_HEART_SCALE)
+						case 2:
+							msgbox(format("Here, I will give you two more to continue your journey."), MSGBOX_AUTOCLOSE)
+							waitmessage
+							giveitem(ITEM_HEART_SCALE, 2)
+					}
+				}
+			}
+		}
+	}
+	else {
+		msgbox(format("You never owned a HEART SCALE!"), MSGBOX_AUTOCLOSE)
+		waitmessage
+	}
+	release
 }
 
 script NHML3_InfoSign {
 	lockall
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) There are no invisible items or messages hidden on the ground. Don't waste your time hitting the A button throughout the whole overworld."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
     waitmessage
     releaseall
     end

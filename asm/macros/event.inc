@@ -2104,3 +2104,19 @@
 	setvar VAR_TEMP_1, \max
 	specialvar VAR_RESULT, RandomNumber
 	.endm
+
+	@ Checks if at least one Pokemon in the player's party holds the specified item. If so, VAR_RESULT is set to the
+	@ (zero-indexed) slot number of the first Pokemon that knows the move. If not, VAR_RESULT is set to PARTY_SIZE.
+	@ VAR_0x8004 is also set to this Pokemon's species.
+	.macro checkpartyitem item:req
+	.byte 0xe6
+	.2byte \item
+	.endm
+
+	@ Checks if a certain species in the player's party knows the specified move.
+	@ If so, VAR_RESULT is set to TRUE
+	.macro checkpartymonmove species: req, move: req
+	.byte 0xe7
+	.2byte \species
+	.2byte \move
+	.endm

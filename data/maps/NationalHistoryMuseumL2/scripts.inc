@@ -7,6 +7,7 @@ NationalHistoryMuseumL2_MapScripts::
 NationalHistoryMuseumL2_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TEMP_2, 0, NHML2_EveryFrame
 	map_script_2 VAR_NHML1_BOULDER_FELL_DOWN, 1, NHML2_EveryFrame_Boulder
+	map_script_2 VAR_NHML2_FIGHT_KABUTOPS, 1, NHML2_EveryFrame_Sash
 	.2byte 0
 
 
@@ -48,6 +49,27 @@ NHML2_EveryFrame_3:
 NHML2_EveryFrame_Boulder::
 	call NHML2_Boulder_in_hole
 	end
+
+
+NHML2_EveryFrame_Sash::
+	setorcopyvar VAR_NHML2_FIGHT_KABUTOPS, 0
+	checkpartyitem ITEM_FOCUS_SASH
+	compare VAR_RESULT, 6
+	goto_if_eq NHML2_EveryFrame_Sash_2
+	setflag FLAG_HOLD_NO_SASH
+	setflag FLAG_GOT_SASH
+NHML2_EveryFrame_Sash_1:
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 4
+	setvar VAR_0x8007, 5
+	special ShakeCamera
+	waitstate
+	end
+
+NHML2_EveryFrame_Sash_2:
+	clearflag FLAG_HOLD_NO_SASH
+	goto NHML2_EveryFrame_Sash_1
 
 
 NHML2_Trigger_WarpL3::
@@ -101,7 +123,16 @@ NHML2_Battle_Brandon::
 	lock
 	msgbox NHML2_Battle_Brandon_Text_2, MSGBOX_AUTOCLOSE
 	release
+	goto_if_unset FLAG_MOVE_BACK, NHML2_Battle_Brandon_2
+NHML2_Battle_Brandon_1:
 	end
+
+NHML2_Battle_Brandon_2:
+	applymovement 1, Move_back
+	waitmovement 0
+	setobjectxy 1, 26, 10
+	setflag FLAG_MOVE_BACK
+	goto NHML2_Battle_Brandon_1
 
 
 NHM2_Battle_Archen::
@@ -130,7 +161,10 @@ NHM2_Battle_Kabutops_3:
 	playmoncry SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_KABUTOPS, 100
+	goto_if_set FLAG_HOLD_NO_SASH, NHM2_Battle_Kabutops_10
+	setorcopyvar VAR_NHML2_FIGHT_KABUTOPS, 1
+	setwildbattle SPECIES_KABUTOPS, 100, ITEM_FOCUS_SASH
+NHM2_Battle_Kabutops_9:
 	dowildbattle
 NHM2_Battle_Kabutops_1:
 	release
@@ -151,6 +185,11 @@ NHM2_Battle_Kabutops_4:
 NHM2_Battle_Kabutops_5:
 	goto_if_set FLAG_NHML2_RIDDLE_STEP1_CHECK, NHM2_Battle_Kabutops_4
 	goto NHM2_Battle_Kabutops_3
+
+NHM2_Battle_Kabutops_10:
+	setorcopyvar VAR_NHML2_FIGHT_KABUTOPS, 1
+	setwildbattle SPECIES_KABUTOPS, 100
+	goto NHM2_Battle_Kabutops_9
 
 
 NHM2_Battle_Omastar::
@@ -622,8 +661,101 @@ NHML2_Boulder_in_hole::
 	end
 
 
+NHM2_Sign_Archen::
+	lock
+	msgbox NHM2_Sign_Archen_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Kabutops::
+	lock
+	msgbox NHM2_Sign_Kabutops_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Omastar::
+	lock
+	msgbox NHM2_Sign_Omastar_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Aerodactyl::
+	lock
+	msgbox NHM2_Sign_Aerodactyl_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Cradily::
+	lock
+	msgbox NHM2_Sign_Cradily_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Armaldo::
+	lock
+	msgbox NHM2_Sign_Armaldo_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Rampardos::
+	lock
+	msgbox NHM2_Sign_Rampardos_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Bastiodon::
+	lock
+	msgbox NHM2_Sign_Bastiodon_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Carracosta::
+	lock
+	msgbox NHM2_Sign_Carracosta_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHM2_Sign_Aurorus::
+	lock
+	msgbox NHM2_Sign_Aurorus_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHML2_Item_HeartScale::
+	lock
+	finditem ITEM_HEART_SCALE, 2
+	release
+	end
+
+
 Move_exclmark:
 	emote_exclamation_mark
+	step_end
+
+Move_back:
+	face_right
+	walk_right
+	face_left
 	step_end
 
 NHML2_Nurse_Text_0:
@@ -655,10 +787,10 @@ NHML2_Battle_Brandon_Text_2:
 	.string "The couple on floor 3 won't be as easy\n"
 	.string "on you as I was.\p"
 	.string "If there only was a way to stop them\n"
-	.string "from hitting you!$"
+	.string "from hitting you that hard!$"
 
 NHM2_Battle_Archen_Text_0:
-	.string "There is a PLUME FOSSIL exhibited.\l"
+	.string "The PLUME FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Kabutops_Text_0:
@@ -666,7 +798,7 @@ NHM2_Battle_Kabutops_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Kabutops_Text_1:
-	.string "There is a DOME FOSSIL exhibited.\l"
+	.string "The DOME FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Omastar_Text_0:
@@ -677,7 +809,7 @@ NHM2_Battle_Omastar_Text_1:
 	.string "Something heavy fell from above!$"
 
 NHM2_Battle_Omastar_Text_2:
-	.string "There is a HELIX FOSSIL exhibited.\l"
+	.string "The HELIX FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Aerodactyl_Text_0:
@@ -685,7 +817,7 @@ NHM2_Battle_Aerodactyl_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Aerodactyl_Text_1:
-	.string "There is an OLD AMBER exhibited.\l"
+	.string "The OLD AMBER is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Cradily_Text_0:
@@ -693,7 +825,7 @@ NHM2_Battle_Cradily_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Cradily_Text_1:
-	.string "There is a ROOT FOSSIL exhibited.\l"
+	.string "The ROOT FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Armaldo_Text_0:
@@ -701,7 +833,7 @@ NHM2_Battle_Armaldo_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Armaldo_Text_1:
-	.string "There is a CLAW FOSSIL exhibited.\l"
+	.string "The CLAW FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Rampardos_Text_0:
@@ -709,7 +841,7 @@ NHM2_Battle_Rampardos_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Rampardos_Text_1:
-	.string "There is a SKULL FOSSIL exhibited.\l"
+	.string "The SKULL FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Bastiodon_Text_0:
@@ -717,7 +849,7 @@ NHM2_Battle_Bastiodon_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Bastiodon_Text_1:
-	.string "There is a ARMOR FOSSIL exhibited.\l"
+	.string "The ARMOR FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Carracosta_Text_0:
@@ -725,7 +857,7 @@ NHM2_Battle_Carracosta_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Carracosta_Text_1:
-	.string "There is a COVER FOSSIL exhibited.\l"
+	.string "The COVER FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHM2_Battle_Aurorus_Text_0:
@@ -733,7 +865,7 @@ NHM2_Battle_Aurorus_Text_0:
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Aurorus_Text_1:
-	.string "There is a SAIL FOSSIL exhibited.\l"
+	.string "The SAIL FOSSIL is glowing brightly.\p"
 	.string "Feel it's power!$"
 
 NHML2_Camper_Text_0:
@@ -800,6 +932,46 @@ NHML2_Sign_hole_Text_0:
 
 NHML2_Boulder_in_hole_Text_0:
 	.string "The boulder fell through the hole!$"
+
+NHM2_Sign_Archen_Text_0:
+	.string "This showcase contains an ancient\n"
+	.string "PLUME FOSSIL.$"
+
+NHM2_Sign_Kabutops_Text_0:
+	.string "This showcase contains an ancient DOME\n"
+	.string "FOSSIL.$"
+
+NHM2_Sign_Omastar_Text_0:
+	.string "This showcase contains an ancient\n"
+	.string "HELIX FOSSIL.$"
+
+NHM2_Sign_Aerodactyl_Text_0:
+	.string "This showcase contains an ancient OLD\n"
+	.string "AMBER.$"
+
+NHM2_Sign_Cradily_Text_0:
+	.string "This showcase contains an ancient ROOT\n"
+	.string "FOSSIL.$"
+
+NHM2_Sign_Armaldo_Text_0:
+	.string "This showcase contains an ancient CLAW\n"
+	.string "FOSSIL.$"
+
+NHM2_Sign_Rampardos_Text_0:
+	.string "This showcase contains an ancient\n"
+	.string "SKULL FOSSIL.$"
+
+NHM2_Sign_Bastiodon_Text_0:
+	.string "This showcase contains an ancient\n"
+	.string "ARMOR FOSSIL.$"
+
+NHM2_Sign_Carracosta_Text_0:
+	.string "This showcase contains an ancient\n"
+	.string "COVER FOSSIL.$"
+
+NHM2_Sign_Aurorus_Text_0:
+	.string "This showcase contains an ancient SAIL\n"
+	.string "FOSSIL.$"
 
 Text_NotEnoughMons::
 	.string "You don't have enough Pokémon to fight\n"

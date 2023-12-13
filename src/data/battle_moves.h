@@ -5294,10 +5294,10 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
             .power = 90,
-            .accuracy = 90,
+            .accuracy = 100,
         #else
             .power = 100,
-            .accuracy = 85,
+            .accuracy = 100,
         #endif
         .effect = EFFECT_ATTACK_UP_HIT,
         .type = TYPE_STEEL,
