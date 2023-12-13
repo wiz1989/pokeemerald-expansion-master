@@ -97,9 +97,17 @@ script NHML3_Move_Tutor {
 }
 
 script NHML3_Tutor_RolePlay {
-	setvar(VAR_0x8008, 1)
-	setvar(VAR_0x8005, MOVE_ROLE_PLAY)
-	call(NHML3_Tutor_ConfirmMoveSelection)
+	if (defeated(TRAINER_NHM_BRANDON)) {
+		setvar(VAR_0x8008, 1)
+		setvar(VAR_0x8005, MOVE_ROLE_PLAY)
+		call(NHML3_Tutor_ConfirmMoveSelection)
+	}
+	else {
+		msgbox(format("Oh I am sorry.\pI don't have this move available right now.\lYou should come back later for it."))
+		waitmessage
+		special(CloseBattleFrontierTutorWindow)
+		release
+	}
 	end
 }
 
@@ -111,9 +119,17 @@ script NHML3_Tutor_Endeavor {
 }
 
 script NHML3_Tutor_Substitute {
-	setvar(VAR_0x8008, 1)
-	setvar(VAR_0x8005, MOVE_SUBSTITUTE)
-	call(NHML3_Tutor_ConfirmMoveSelection)
+	if (defeated(TRAINER_NHM_BRANDON)) {
+		setvar(VAR_0x8008, 1)
+		setvar(VAR_0x8005, MOVE_SUBSTITUTE)
+		call(NHML3_Tutor_ConfirmMoveSelection)
+	}
+	else {
+		msgbox(format("Oh I am sorry.\pI don't have this move available right now.\lYou should come back later for it."))
+		waitmessage
+		special(CloseBattleFrontierTutorWindow)
+		release
+	}
 	end
 }
 
@@ -237,8 +253,8 @@ script NHML3_ItemManager {
 		}
 
 		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
-			msgbox(format("You are still owning a FOCUS SASH."), MSGBOX_AUTOCLOSE)
-			waitmessage
+			//msgbox(format("You are still owning a FOCUS SASH."), MSGBOX_AUTOCLOSE)
+			//waitmessage
 		}
 		else {
 			if (!defeated(TRAINER_NHM_BRANDON)) {
@@ -251,8 +267,8 @@ script NHML3_ItemManager {
 		}
 	}
 	else {
-		msgbox(format("You never owned a FOCUS SASH!"), MSGBOX_AUTOCLOSE)
-		waitmessage
+		//msgbox(format("You never owned a FOCUS SASH!"), MSGBOX_AUTOCLOSE)
+		//waitmessage
 	}
 	clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
 	//check heart scale
@@ -271,8 +287,8 @@ script NHML3_ItemManager {
 		}
 
 		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
-			msgbox(format("You are still owning a HEART SCALE."), MSGBOX_AUTOCLOSE)
-			waitmessage
+			//msgbox(format("You are still owning a HEART SCALE."), MSGBOX_AUTOCLOSE)
+			//waitmessage
 		}
 		else {
 			//check requirements
@@ -305,8 +321,8 @@ script NHML3_ItemManager {
 		}
 	}
 	else {
-		msgbox(format("You never owned a HEART SCALE!"), MSGBOX_AUTOCLOSE)
-		waitmessage
+		//msgbox(format("You never owned a HEART SCALE!"), MSGBOX_AUTOCLOSE)
+		//waitmessage
 	}
 	release
 }

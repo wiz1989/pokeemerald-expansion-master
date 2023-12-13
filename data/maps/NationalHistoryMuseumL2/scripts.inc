@@ -108,6 +108,9 @@ NHML2_BlondeMan::
 	checktrainerflag TRAINER_NHM_BRANDON
 	goto_if 1, NHML2_BlondeMan_2
 	msgbox NHML2_BlondeMan_Text_1, MSGBOX_AUTOCLOSE
+	waitmessage
+	goto_if_set FLAG_CAUGHT_ARCHEN, NHML2_BlondeMan_5
+	msgbox NHML2_BlondeMan_Text_3, MSGBOX_AUTOCLOSE
 NHML2_BlondeMan_1:
 	waitmessage
 	release
@@ -115,6 +118,10 @@ NHML2_BlondeMan_1:
 
 NHML2_BlondeMan_2:
 	msgbox NHML2_BlondeMan_Text_0, MSGBOX_AUTOCLOSE
+	goto NHML2_BlondeMan_1
+
+NHML2_BlondeMan_5:
+	msgbox NHML2_BlondeMan_Text_2, MSGBOX_AUTOCLOSE
 	goto NHML2_BlondeMan_1
 
 
@@ -227,6 +234,7 @@ NHM2_Battle_Omastar_2:
 	fadescreen FADE_TO_BLACK
 	addobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
 	fadescreen FADE_FROM_BLACK
+	clearflag FLAG_NHML2_BOULDER
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
 	msgbox NHM2_Battle_Omastar_Text_1
@@ -315,6 +323,7 @@ NHM2_Battle_Cradily_2:
 	fadescreen FADE_TO_BLACK
 	addobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
 	fadescreen FADE_FROM_BLACK
+	clearflag FLAG_NHML2_BOULDER
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
 	msgbox NHM2_Battle_Omastar_Text_1
@@ -365,6 +374,7 @@ NHM2_Battle_Armaldo_2:
 	fadescreen FADE_TO_BLACK
 	addobject 3, MAP_NATIONAL_HISTORY_MUSEUM_L2
 	fadescreen FADE_FROM_BLACK
+	clearflag FLAG_NHML2_BOULDER
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
 	msgbox NHM2_Battle_Omastar_Text_1
@@ -770,10 +780,16 @@ NHML2_BlondeMan_Text_0:
 NHML2_BlondeMan_Text_1:
 	.string "This guy over there won't let anybody\n"
 	.string "out here until someone defeats him.\l"
-	.string "What a jerk!\p"
+	.string "What a jerk!$"
+
+NHML2_BlondeMan_Text_2:
 	.string "Wow...\n"
 	.string "...you really look like you could have a\l"
 	.string "good chance of winning.$"
+
+NHML2_BlondeMan_Text_3:
+	.string "You should consider getting more\n"
+	.string "Pokémon before challenging him.$"
 
 NHML2_Battle_Brandon_Text_0:
 	.string "Don't think about fighting the couple\n"

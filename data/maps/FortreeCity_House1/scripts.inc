@@ -11,6 +11,8 @@ FortreeCity_House1_EventScript_Trader::
 	copyvar VAR_0x8009, VAR_RESULT
 	msgbox FortreeCity_House1_Text_YouWillTradeWontYou, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, FortreeCity_House1_EventScript_DeclineTrade
+	msgbox FortreeCity_House1_Text_AreYouSure, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, FortreeCity_House1_EventScript_DeclineTrade
 	special ChoosePartyMon
 	waitstate
 	copyvar VAR_0x800A, VAR_0x8004
@@ -136,6 +138,10 @@ FortreeCity_House1_Text_YouWillTradeWontYou:
 	.string "It's my absolute favorite!\p"
 	.string "Are you willing to trade your\n"
 	.string "{STR_VAR_1} for my {STR_VAR_2}?$"
+
+FortreeCity_House1_Text_AreYouSure:
+	.string "Are you sure you want to make\n"
+	.string "this trade already?$"
 
 FortreeCity_House1_Text_YouWillTradeWontYou2:
 	.string "Whoooaaaa! I need it!\n"

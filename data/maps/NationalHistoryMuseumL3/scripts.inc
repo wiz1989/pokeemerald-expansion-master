@@ -129,10 +129,20 @@ NHML3_Move_Tutor_7:
 
 
 NHML3_Tutor_RolePlay::
+	checktrainerflag TRAINER_NHM_BRANDON
+	goto_if 1, NHML3_Tutor_RolePlay_2
+	msgbox NHML3_Tutor_RolePlay_Text_0
+	waitmessage
+	special CloseBattleFrontierTutorWindow
+	release
+NHML3_Tutor_RolePlay_1:
+	end
+
+NHML3_Tutor_RolePlay_2:
 	setvar VAR_0x8008, 1
 	setvar VAR_0x8005, MOVE_ROLE_PLAY
 	call NHML3_Tutor_ConfirmMoveSelection
-	end
+	goto NHML3_Tutor_RolePlay_1
 
 
 NHML3_Tutor_Endeavor::
@@ -143,10 +153,20 @@ NHML3_Tutor_Endeavor::
 
 
 NHML3_Tutor_Substitute::
+	checktrainerflag TRAINER_NHM_BRANDON
+	goto_if 1, NHML3_Tutor_Substitute_2
+	msgbox NHML3_Tutor_RolePlay_Text_0
+	waitmessage
+	special CloseBattleFrontierTutorWindow
+	release
+NHML3_Tutor_Substitute_1:
+	end
+
+NHML3_Tutor_Substitute_2:
 	setvar VAR_0x8008, 1
 	setvar VAR_0x8005, MOVE_SUBSTITUTE
 	call NHML3_Tutor_ConfirmMoveSelection
-	end
+	goto NHML3_Tutor_Substitute_1
 
 
 NHML3_Exit::
@@ -255,13 +275,9 @@ NHML3_ItemManager::
 	setorcopyvar VAR_NHML3_COLLECTOR_COUNT, 0
 	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto_if_set FLAG_GOT_SASH, NHML3_ItemManager_2
-	msgbox NHML3_ItemManager_Text_4, MSGBOX_AUTOCLOSE
-	waitmessage
 NHML3_ItemManager_1:
 	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto_if_set FLAG_GOT_HEART_SCALE, NHML3_ItemManager_6
-	msgbox NHML3_ItemManager_Text_8, MSGBOX_AUTOCLOSE
-	waitmessage
 NHML3_ItemManager_5:
 	release
 	return
@@ -327,19 +343,15 @@ NHML3_ItemManager_25:
 	goto NHML3_ItemManager_24
 
 NHML3_ItemManager_27:
-	msgbox NHML3_ItemManager_Text_1, MSGBOX_AUTOCLOSE
-	waitmessage
 	goto NHML3_ItemManager_1
 
 NHML3_ItemManager_30:
-	msgbox NHML3_ItemManager_Text_5, MSGBOX_AUTOCLOSE
-	waitmessage
 	goto NHML3_ItemManager_5
 
 NHML3_ItemManager_33:
-	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
+	msgbox NHML3_ItemManager_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
-	msgbox NHML3_ItemManager_Text_3, MSGBOX_AUTOCLOSE
+	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_FOCUS_SASH
 	goto NHML3_ItemManager_1
@@ -370,7 +382,7 @@ NHML3_ItemManager_43:
 	goto NHML3_ItemManager_42
 
 NHML3_ItemManager_45:
-	msgbox NHML3_ItemManager_Text_6, MSGBOX_AUTOCLOSE
+	msgbox NHML3_ItemManager_Text_3, MSGBOX_AUTOCLOSE
 	waitmessage
 	switch VAR_NHML3_COLLECTOR_COUNT
 	case 1, NHML3_ItemManager_48
@@ -378,13 +390,13 @@ NHML3_ItemManager_45:
 	goto NHML3_ItemManager_5
 
 NHML3_ItemManager_48:
-	msgbox NHML3_ItemManager_Text_3, MSGBOX_AUTOCLOSE
+	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_HEART_SCALE
 	goto NHML3_ItemManager_5
 
 NHML3_ItemManager_49:
-	msgbox NHML3_ItemManager_Text_7, MSGBOX_AUTOCLOSE
+	msgbox NHML3_ItemManager_Text_4, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_HEART_SCALE, 2
 	goto NHML3_ItemManager_5
@@ -441,6 +453,12 @@ NHML3_Sign_Regirock::
 NHML3_Move_Tutor_Text_0:
 	.string "I am the Move Tutor. \lI will teach your Pokemon moves for\nprecious Heart Scales. \pWhich move should I teach?$"
 
+NHML3_Tutor_RolePlay_Text_0:
+	.string "Oh I am sorry.\p"
+	.string "I don't have this move available right\n"
+	.string "now.\l"
+	.string "You should come back later for it.$"
+
 NHML3_Exit_Text_0:
 	.string "Well, if you don't want to...$"
 
@@ -490,31 +508,19 @@ NHML3_ItemManager_Text_0:
 	.string "the first place.$"
 
 NHML3_ItemManager_Text_1:
-	.string "You are still owning a FOCUS SASH.$"
-
-NHML3_ItemManager_Text_2:
 	.string "Oh no, you lost a FOCUS SASH!$"
 
-NHML3_ItemManager_Text_3:
+NHML3_ItemManager_Text_2:
 	.string "Here, I will give you another one to\n"
 	.string "continue your journey.$"
 
-NHML3_ItemManager_Text_4:
-	.string "You never owned a FOCUS SASH!$"
-
-NHML3_ItemManager_Text_5:
-	.string "You are still owning a HEART SCALE.$"
-
-NHML3_ItemManager_Text_6:
+NHML3_ItemManager_Text_3:
 	.string "Oh no, you no longer possess any HEART\n"
 	.string "SCALES!$"
 
-NHML3_ItemManager_Text_7:
+NHML3_ItemManager_Text_4:
 	.string "Here, I will give you two more to\n"
 	.string "continue your journey.$"
-
-NHML3_ItemManager_Text_8:
-	.string "You never owned a HEART SCALE!$"
 
 NHML3_InfoSign_Text_0:
 	.string "IMPORTANT INFORMATION:\p"

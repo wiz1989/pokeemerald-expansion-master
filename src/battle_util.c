@@ -259,6 +259,12 @@ void HandleAction_UseMove(void)
 {
     u32 battler, i, side, moveType, var = 4;
     u16 moveTarget;
+    u16 value;
+
+    if (gBattleMons[gBattlerAttacker].species == SPECIES_STAKATAKA) {
+        value = gBattleMons[gBattlerAttacker].speed;
+        DebugPrintf("Speed Stakataka: %d", value);
+    }
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     if (gBattleStruct->absentBattlerFlags & gBitTable[gBattlerAttacker] || !IsBattlerAlive(gBattlerAttacker))

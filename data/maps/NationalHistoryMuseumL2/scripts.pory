@@ -102,7 +102,14 @@ script NHML2_BlondeMan {
         msgbox(format("YOU DID IT!"), MSGBOX_AUTOCLOSE)
     }
     else {
-        msgbox(format("This guy over there won't let anybody out here until someone defeats him.\lWhat a jerk!\pWow...\n...you really look like you could have a good chance of winning."), MSGBOX_AUTOCLOSE)
+        msgbox(format("This guy over there won't let anybody out here until someone defeats him.\lWhat a jerk!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        if (flag(FLAG_CAUGHT_ARCHEN)) {
+            msgbox(format("Wow...\n...you really look like you could have a good chance of winning."), MSGBOX_AUTOCLOSE)
+        }
+        else {
+            msgbox(format("You should consider getting more Pokémon before challenging him."), MSGBOX_AUTOCLOSE)
+        }
     }
     waitmessage
     release
@@ -194,6 +201,7 @@ script NHM2_Battle_Omastar {
         fadescreen(FADE_TO_BLACK)
         addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
         fadescreen(FADE_FROM_BLACK)
+        clearflag(FLAG_NHML2_BOULDER)
         applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
         waitmovement(0)
         msgbox(format("Something heavy fell from above!"))
@@ -262,6 +270,7 @@ script NHM2_Battle_Cradily {
         fadescreen(FADE_TO_BLACK)
         addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
         fadescreen(FADE_FROM_BLACK)
+        clearflag(FLAG_NHML2_BOULDER)
         applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
         waitmovement(0)
         msgbox(format("Something heavy fell from above!"))
@@ -302,6 +311,7 @@ script NHM2_Battle_Armaldo {
         fadescreen(FADE_TO_BLACK)
         addobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L2)
         fadescreen(FADE_FROM_BLACK)
+        clearflag(FLAG_NHML2_BOULDER)
         applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
         waitmovement(0)
         msgbox(format("Something heavy fell from above!"))

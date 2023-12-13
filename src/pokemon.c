@@ -3690,6 +3690,19 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
+    if (species == SPECIES_FURRET) {
+        moves[0] = MOVE_QUICK_ATTACK;
+        moves[1] = MOVE_DEFENSE_CURL;
+        moves[2] = MOVE_AGILITY;
+        moves[3] = MOVE_FOLLOW_ME;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
     if (species == SPECIES_YAMASK) {
         value = ITEM_NONE;
         SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
