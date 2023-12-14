@@ -336,7 +336,6 @@ static void ShowMapNamePopUpWindow(void)
     mapDisplayHeader[1] = EXT_CTRL_CODE_HIGHLIGHT;
     mapDisplayHeader[2] = TEXT_COLOR_TRANSPARENT;
     AddTextPrinterParameterized(GetMapNamePopUpWindowId(), FONT_NARROW, mapDisplayHeader, x, 3, TEXT_SKIP_DRAW, NULL);
-    DebugPrintf("Map: %x", sMapNamePopupWindowId);
     CopyWindowToVram(GetMapNamePopUpWindowId(), COPYWIN_FULL);
 }
 
