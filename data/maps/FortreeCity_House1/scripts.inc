@@ -21,6 +21,8 @@ FortreeCity_House1_EventScript_Trader::
 	specialvar VAR_RESULT, GetTradeSpecies
 	copyvar VAR_0x800B, VAR_RESULT
 	goto_if_ne VAR_RESULT, VAR_0x8009, FortreeCity_House1_EventScript_NotRequestedMon
+	specialvar VAR_RESULT, HasMonHeldItem
+	goto_if_eq VAR_RESULT, 1, FortreeCity_House1_EventScript_NotWithHeldItem
 	copyvar VAR_0x8004, VAR_0x8008
 	copyvar VAR_0x8005, VAR_0x800A
 	special CreateInGameTradePokemon
@@ -51,6 +53,8 @@ FortreeCity_House1_EventScript_Trader2::
 	specialvar VAR_RESULT, GetTradeSpecies
 	copyvar VAR_0x800B, VAR_RESULT
 	goto_if_ne VAR_RESULT, VAR_0x8009, FortreeCity_House1_EventScript_NotRequestedMon
+	specialvar VAR_RESULT, HasMonHeldItem
+	goto_if_eq VAR_RESULT, 1, FortreeCity_House1_EventScript_NotWithHeldItem
 	copyvar VAR_0x8004, VAR_0x8008
 	copyvar VAR_0x8005, VAR_0x800A
 	special CreateInGameTradePokemon
@@ -81,6 +85,8 @@ FortreeCity_House1_EventScript_Trader3::
 	specialvar VAR_RESULT, GetTradeSpecies
 	copyvar VAR_0x800B, VAR_RESULT
 	goto_if_ne VAR_RESULT, VAR_0x8009, FortreeCity_House1_EventScript_NotRequestedMon
+	specialvar VAR_RESULT, HasMonHeldItem
+	goto_if_eq VAR_RESULT, 1, FortreeCity_House1_EventScript_NotWithHeldItem
 	copyvar VAR_0x8004, VAR_0x8008
 	copyvar VAR_0x8005, VAR_0x800A
 	special CreateInGameTradePokemon
@@ -100,6 +106,11 @@ FortreeCity_House1_EventScript_DeclineTrade::
 FortreeCity_House1_EventScript_NotRequestedMon::
 	bufferspeciesname STR_VAR_1, VAR_0x8009
 	msgbox FortreeCity_House1_Text_ThisIsntAMon, MSGBOX_DEFAULT
+	release
+	end
+
+FortreeCity_House1_EventScript_NotWithHeldItem::
+	msgbox FortreeCity_House1_Text_NotWithHeldItem, MSGBOX_DEFAULT
 	release
 	end
 
@@ -191,3 +202,7 @@ FortreeCity_House1_Text_TradingMemoriesWithOthers:
 FortreeCity_House1_Text_Zigzagoon:
 	.string "ZIGZAGOON: Gumomoh?$"
 
+FortreeCity_House1_Text_NotWithHeldItem:
+	.string "Oh, your Pokémon is still holding\p"
+	.string "an item. I don't want to steal\n"
+	.string "any of your precious goods.$"

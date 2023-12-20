@@ -4659,6 +4659,13 @@ u16 GetTradeSpecies(void)
     return GetMonData(&gPlayerParty[gSpecialVar_0x8005], MON_DATA_SPECIES);
 }
 
+bool8 HasMonHeldItem(void)
+{
+    if (GetMonData(&gPlayerParty[gSpecialVar_0x8005], MON_DATA_HELD_ITEM))
+        return TRUE;
+    return FALSE;
+}
+
 void CreateInGameTradePokemon(void)
 {
     CreateInGameTradePokemonInternal(gSpecialVar_0x8005, gSpecialVar_0x8004);
