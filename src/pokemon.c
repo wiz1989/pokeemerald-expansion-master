@@ -3643,10 +3643,18 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         SetBoxMonData(boxMon, MON_DATA_OT_NAME, &otNameWiz);
         SetBoxMonData(boxMon, MON_DATA_NICKNAME, &nickname);
 
-        moves[0] = MOVE_ICY_WIND;
-        moves[1] = MOVE_TACKLE;
-        moves[2] = MOVE_DEFENSE_CURL;
-        moves[3] = MOVE_RECYCLE;
+        if(FlagGet(FLAG_GIVE_BACK_MUNCHLAX) == FALSE) {
+            moves[0] = MOVE_ICY_WIND;
+            moves[1] = MOVE_TACKLE;
+            moves[2] = MOVE_DEFENSE_CURL;
+            moves[3] = MOVE_RECYCLE;
+        }
+        else {
+            moves[0] = MOVE_ICY_WIND;
+            moves[1] = MOVE_BELLY_DRUM;
+            moves[2] = MOVE_COVET;
+            moves[3] = MOVE_FLING;
+        }
 
         for(i=0; i<=3; i++)
         {
@@ -3679,9 +3687,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         SetBoxMonData(boxMon, MON_DATA_OT_NAME, &otNameWiz);
 
         moves[0] = MOVE_FAKE_OUT;
-        moves[1] = MOVE_TACKLE;
-        moves[2] = MOVE_FORESIGHT;
-        moves[3] = MOVE_COPYCAT;
+        moves[1] = MOVE_FACADE;
+        moves[2] = MOVE_COPYCAT;
+        moves[3] = MOVE_SUNNY_DAY;
 
         for(i=0; i<=3; i++)
         {
@@ -3703,13 +3711,26 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
+    if (species == SPECIES_CLEFAIRY) {
+        moves[0] = MOVE_SUNNY_DAY;
+        moves[1] = MOVE_MOONLIGHT;
+        moves[2] = MOVE_KNOCK_OFF;
+        moves[3] = MOVE_FOLLOW_ME;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
     if (species == SPECIES_YAMASK) {
         value = ITEM_NONE;
         SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
 
         moves[0] = MOVE_SKILL_SWAP;
         moves[1] = MOVE_WILL_O_WISP;
-        moves[2] = MOVE_IMPRISON;
+        moves[2] = MOVE_NONE;
         moves[3] = MOVE_NONE;
 
         for(i=0; i<=3; i++)

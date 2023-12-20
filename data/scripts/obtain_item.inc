@@ -120,8 +120,15 @@ EventScript_PickUpItem::
 	bufferitemnameplural STR_VAR_2, VAR_0x8004, VAR_0x8005
 	pyramid_inchallenge
 	goto_if_eq VAR_RESULT, TRUE, EventScript_PutBattlePyramidItemInBag
-	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
+	compare AMOUNT, 1
+	goto_if_eq EventScript_PickUpItem_2
+	msgbox gText_PutMultipleItemsInPocket, MSGBOX_DEFAULT
+EventScript_PickUpItem_1:
 	return
+
+EventScript_PickUpItem_2:
+	msgbox gText_PutItemInPocket, MSGBOX_DEFAULT
+	goto EventScript_PickUpItem_1
 
 EventScript_PutBattlePyramidItemInBag::
 	msgbox gText_PlayerPutItemInBag, MSGBOX_DEFAULT
@@ -133,8 +140,16 @@ EventScript_FoundTMHM::
 	return
 
 EventScript_FoundItem::
-	message gText_PlayerFoundOneItem
+	compare AMOUNT, 1
+	goto_if_eq EventScript_FoundItem_2
+	buffernumberstring STR_VAR_1, AMOUNT
+	message gText_PlayerFoundMultipleItems
+EventScript_FoundItem_1:
 	return
+	
+EventScript_FoundItem_2:
+	message gText_PlayerFoundOneItem
+	goto EventScript_FoundItem_1
 
 EventScript_NoRoomToPickUpItem::
 	msgbox gText_ObtainedTheItem, MSGBOX_DEFAULT
@@ -190,3 +205,10 @@ EventScript_NoRoomForHiddenItem::
 	setvar VAR_RESULT, 0
 	releaseall
 	end
+
+gText_PlayerFoundMultipleItems::
+	.string "{PLAYER} found {STR_VAR_1} {STR_VAR_2}s!$"
+
+gText_PutMultipleItemsInPocket::
+	.string "{PLAYER} put away the {STR_VAR_2}s\n"
+	.string "in the {STR_VAR_3} POCKET.$"

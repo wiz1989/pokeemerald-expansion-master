@@ -148,9 +148,16 @@ NHM2_Battle_Archen::
 	playmoncry SPECIES_ARCHEN, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_ARCHEN, 12
+	checktrainerflag TRAINER_NHM_BRANDON
+	goto_if 0, NHM2_Battle_Archen_2
+	setwildbattle SPECIES_ARCHEOPS, 100
+NHM2_Battle_Archen_1:
 	dowildbattle
 	end
+
+NHM2_Battle_Archen_2:
+	setwildbattle SPECIES_ARCHEN, 12
+	goto NHM2_Battle_Archen_1
 
 
 NHM2_Battle_Kabutops::
@@ -201,7 +208,7 @@ NHM2_Battle_Kabutops_10:
 
 NHM2_Battle_Omastar::
 	lock
-	compare VAR_NHM_L2_RIDDLE, 1
+	compare VAR_NHM_L2_RIDDLE, 2
 	goto_if_eq NHM2_Battle_Omastar_5
 NHM2_Battle_Omastar_3:
 	randomnr 3
@@ -466,7 +473,7 @@ NHM2_Battle_Bastiodon_5:
 
 NHM2_Battle_Carracosta::
 	lock
-	compare VAR_NHM_L2_RIDDLE, 1
+	compare VAR_NHM_L2_RIDDLE, 2
 	goto_if_eq NHM2_Battle_Carracosta_5
 NHM2_Battle_Carracosta_3:
 	randomnr 3

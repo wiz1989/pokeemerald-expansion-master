@@ -1034,8 +1034,8 @@ static const struct InGameTrade sIngameTrades[] =
     },
     [INGAME_TRADE_MEOWTH] =
     {
-        .nickname = _("FURY"),
-        .species = SPECIES_FURRET,
+        .nickname = _("KYUZEE"),
+        .species = SPECIES_CLEFAIRY,
         .ivs = {4, 5, 4, 5, 4, 4},
         .abilityNum = 1,
         .otId = 91481,
@@ -1043,7 +1043,7 @@ static const struct InGameTrade sIngameTrades[] =
         .personality = 0x8B,
         .heldItem = ITEM_NONE,
         .mailNum = 2,
-        .otName = _("KYUZEE"),
+        .otName = _("DRXX"),
         .otGender = FEMALE,
         .sheen = 10,
         .requestedSpecies = SPECIES_ARCHEN

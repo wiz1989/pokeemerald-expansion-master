@@ -137,12 +137,12 @@ script NHM2_Battle_Archen {
     delay(40)
     waitmoncry
     
-    //if(!flag(FLAG_CAUGHT_ARCHEN)) {
-    setwildbattle(SPECIES_ARCHEN, 12)
-    //}
-    //else {
-        //setwildbattle(SPECIES_ARCHEOPS, 100)
-    //}
+    if(!defeated(TRAINER_NHM_BRANDON)) {
+        setwildbattle(SPECIES_ARCHEN, 12)
+    }
+    else {
+        setwildbattle(SPECIES_ARCHEOPS, 100)
+    }
     dowildbattle
 	end
 }
@@ -187,7 +187,7 @@ script NHM2_Battle_Kabutops {
 script NHM2_Battle_Omastar {
     //WATER 3
     lock
-    if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_STEP2_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+    if (var(VAR_NHM_L2_RIDDLE) == 2 && flag(FLAG_NHML2_RIDDLE_STEP2_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
         setflag(FLAG_NHML2_RIDDLE_SOLVED)
         setflag(FLAG_NHML2_SHOW_BOULDER)
         msgbox(format("There is a HELIX FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
@@ -392,7 +392,7 @@ script NHM2_Battle_Bastiodon {
 script NHM2_Battle_Carracosta {
     //WATER 2
     lock
-    if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+    if (var(VAR_NHM_L2_RIDDLE) == 2 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
         clearflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)

@@ -260,11 +260,13 @@ void HandleAction_UseMove(void)
     u32 battler, i, side, moveType, var = 4;
     u16 moveTarget;
     u16 value;
+    u8 target1;
+    u8 target2;
+    u8 turn;
 
-    if (gBattleMons[gBattlerAttacker].species == SPECIES_STAKATAKA) {
-        value = gBattleMons[gBattlerAttacker].speed;
-        DebugPrintf("Speed Stakataka: %d", value);
-    }
+    turn = VarGet(VAR_BATTLE_TURN) + 1;
+    VarSet(VAR_BATTLE_TURN, turn);
+    DebugPrintf("turn: %d", turn);
 
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
     if (gBattleStruct->absentBattlerFlags & gBitTable[gBattlerAttacker] || !IsBattlerAlive(gBattlerAttacker))
@@ -289,6 +291,14 @@ void HandleAction_UseMove(void)
         gCurrentMove = gChosenMove = MOVE_STRUGGLE;
         gHitMarker |= HITMARKER_NO_PPDEDUCT;
         *(gBattleStruct->moveTarget + gBattlerAttacker) = GetMoveTarget(MOVE_STRUGGLE, NO_TARGET_OVERRIDE);
+    }
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_ABOMASNOW && turn < 5)
+    {
+        gCurrentMove = gChosenMove = MOVE_INGRAIN;
+    }
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && (gBattleMons[gBattlerAttacker].species == SPECIES_EISCUE || gBattleMons[gBattlerAttacker].species == SPECIES_EISCUE_NOICE_FACE) && turn < 5)
+    {
+        gCurrentMove = gChosenMove = MOVE_AQUA_RING;
     }
     else if (gBattleMons[gBattlerAttacker].status2 & STATUS2_MULTIPLETURNS || gBattleMons[gBattlerAttacker].status2 & STATUS2_RECHARGE)
     {
@@ -344,12 +354,40 @@ void HandleAction_UseMove(void)
     GET_MOVE_TYPE(gChosenMove, moveType);
 
     // choose target
+    target1 = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+    target2 = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
+
     side = BATTLE_OPPOSITE(GetBattlerSide(gBattlerAttacker));
     if (IsAffectedByFollowMe(gBattlerAttacker, side, gCurrentMove)
         && moveTarget == MOVE_TARGET_SELECTED
         && GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gSideTimers[side].followmeTarget))
     {
         gBattleStruct->moveTarget[gBattlerAttacker] = gBattlerTarget = gSideTimers[side].followmeTarget; // follow me moxie fix
+    }
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_STAKATAKA && (turn < 5)
+        && (gBattleMons[target1].species == SPECIES_SKITTY || gBattleMons[target2].species == SPECIES_SKITTY)
+        && (gBattleMons[target1].species == SPECIES_YAMASK || gBattleMons[target2].species == SPECIES_YAMASK))
+    {
+        if (gBattleMons[target1].species == SPECIES_SKITTY) {
+            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+        }
+        else if (gBattleMons[target2].species == SPECIES_SKITTY) {
+            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
+        }
+
+        if (!IsBattlerAlive(gBattlerTarget))
+        {
+            if (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+            else
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(gBattlerAttacker)));
+                if (!IsBattlerAlive(gBattlerTarget))
+                    gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+        }
     }
     else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
            && gSideTimers[side].followmeTimer == 0

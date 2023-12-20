@@ -270,8 +270,8 @@
 #define VAR_NHML1_BOULDER_FELL_DOWN                      0x40FA // Unused Var
 #define VAR_NHML2_FIGHT_KABUTOPS                         0x40FB // Unused Var
 #define VAR_NHML3_COLLECTOR_COUNT                        0x40FC // Unused Var
-#define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
-#define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
+#define VAR_BATTLE_TURN                                  0x40FD // Unused Var
+#define VAR_FINAL_BATTLE                                 0x40FE // Unused Var
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 
 #define VARS_END                                         0x40FF

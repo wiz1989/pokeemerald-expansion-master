@@ -1311,6 +1311,7 @@ void ClearTrainerFlag(u16 trainerId)
 
 void BattleSetup_StartTrainerBattle(void)
 {
+    VarSet(VAR_BATTLE_TURN, 0);
     if (gNoOfApproachingTrainers == 2)
         gBattleTypeFlags = (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_TRAINER);
     else

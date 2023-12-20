@@ -1230,7 +1230,7 @@
 #define FLAG_NHML2_RIDDLE_STEP2_CHECK                               0x49C // Unused Flag
 #define FLAG_NHML2_SHOW_BOULDER                                     0x49D // Unused Flag
 #define FLAG_NHML2_BOULDER                                          0x49E // Unused Flag
-#define FLAG_NHML2_TEST_OBTAIN_FURRET                               0x49F // Unused Flag
+#define FLAG_NHML2_TEST_OBTAIN_CLEFAIRY                             0x49F // Unused Flag
 #define FLAG_NHML2_TEST_OBTAIN_SKITTY                               0x4A0 // Unused Flag
 #define FLAG_NHML3_RECEIVED_STRENGTH                                0x4A1 // Unused Flag
 #define FLAG_NHML3_NPC_TRADE1_COMPLETED                             0x4A2 // Unused Flag
@@ -1257,10 +1257,10 @@
 #define FLAG_HINT08                                                 0x4B7 // Unused Flag
 #define FLAG_HINT09                                                 0x4B8 // Unused Flag
 #define FLAG_HINT10                                                 0x4B9 // Unused Flag
-#define FLAG_UNUSED_0x4BA                                           0x4BA // Unused Flag
-#define FLAG_UNUSED_0x4BB                                           0x4BB // Unused Flag
-#define FLAG_UNUSED_0x4BC                                           0x4BC // Unused Flag
-#define FLAG_UNUSED_0x4BD                                           0x4BD // Unused Flag
+#define FLAG_GIVE_BACK_MUNCHLAX                                     0x4BA // Unused Flag
+#define FLAG_NHML1_YAMASK_TAKEN                                     0x4BB // Unused Flag
+#define FLAG_NHML3_Trader                                           0x4BC // Unused Flag
+#define FLAG_NHML1_FINAL_BATTLE                                     0x4BD // Unused Flag
 #define FLAG_UNUSED_0x4BE                                           0x4BE // Unused Flag
 #define FLAG_UNUSED_0x4BF                                           0x4BF // Unused Flag
 #define FLAG_UNUSED_0x4C0                                           0x4C0 // Unused Flag

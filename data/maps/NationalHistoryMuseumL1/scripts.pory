@@ -16,6 +16,12 @@ script NHML1_OnResume {
 	else {
 		clearflag(FLAG_NHML1_BOULDER)
 	}
+	if (var(VAR_FINAL_BATTLE) == 0) {
+		setflag(FLAG_NHML1_FINAL_BATTLE)
+	}
+	else {
+		clearflag(FLAG_NHML1_FINAL_BATTLE)
+	}
 	end
 }
 
@@ -57,7 +63,7 @@ script NHML1_Judge {
 
 script NHML1_Artist {
 	call(FortreeCity_House1_EventScript_Trader3)
-	setflag(FLAG_NHML2_TEST_OBTAIN_FURRET)
+	setflag(FLAG_NHML2_TEST_OBTAIN_CLEFAIRY)
 	end
 }
 
@@ -69,12 +75,134 @@ script NHML1_ItemBall {
 	removeobject(3, MAP_NATIONAL_HISTORY_MUSEUM_L1)
 	setflag(FLAG_NHML1_ITEMBALL)
 	fadescreen(FADE_FROM_BLACK)
-    givemon(SPECIES_SKITTY, 10)
+    givemon(SPECIES_SKITTY, 20)
     setflag(FLAG_NHML2_TEST_OBTAIN_SKITTY)
 	release
 	end
 }
 
 script NHML1_Boulder {
+	//do nothing
+}
 
+script NHML1_Cooltrainer {
+	faceplayer
+	trainerbattle_single(TRAINER_NHM_HAIL, format("Oh hey, where are you trying to go?"), "Bye, bye!")
+	end
+}
+
+script NHML1_Juan {
+	lock
+	faceplayer
+	msgbox(format("I am sorry for any inconvenience!"), MSGBOX_AUTOCLOSE)
+	release
+	end
+}
+
+script NHML1_Trigger_Juan {
+	lock
+	if (!flag(FLAG_NHML1_YAMASK_TAKEN)) {
+		applymovement(5, Move_exclmark)
+        waitmovement(0)
+		applymovement(OBJ_EVENT_ID_PLAYER, Move_lookup)
+        waitmovement(0)
+        msgbox(format("Where did you get this Yamask from?\lIt's part of our Egyptian exhibition!"), MSGBOX_AUTOCLOSE)
+	    waitmessage
+        msgbox(format("Someone traded it to you for MUNCHLAX?\pPlease let me clarify this."), MSGBOX_AUTOCLOSE)
+	    waitmessage
+		fadescreen(FADE_TO_BLACK)
+		msgbox("...", MSGBOX_AUTOCLOSE)
+	    waitmessage
+		//waitbuttonpress
+		fadescreen(FADE_FROM_BLACK)
+		msgbox(format("I am sorry, you will have to return it to me.\pHowever, I managed to get the kid you traded with and will give you MUNCHLAX back in return!"), MSGBOX_AUTOCLOSE)
+	    waitmessage
+		
+		getpartymonslot(SPECIES_YAMASK)
+		special(DeletePartyMon) //using VAR_RESULT from above macro
+		setflag(FLAG_GIVE_BACK_MUNCHLAX)
+		givemon(SPECIES_MUNCHLAX, 20, ITEM_LAGGING_TAIL)
+		msgbox(format("{PLAYER} handed over YAMASK and received MUNCHLAX back."))
+		waitmessage
+		setflag(FLAG_NHML1_YAMASK_TAKEN)
+		setflag(FLAG_NHML3_Trader) //hide trader on floor 3
+	}
+	release
+	end
+}
+
+script NHML1_Trigger_Final_Battle_Up {
+	lock
+	clearflag(FLAG_NHML1_FINAL_BATTLE)
+	addobject(6, MAP_NATIONAL_HISTORY_MUSEUM_L1)
+	setobjectxy(6, 21, 14)
+	applymovement(6, Move_to_uppos)
+	waitmovement(0)
+	setorcopyvar(VAR_FINAL_BATTLE, 1)
+	release
+	call(NHML1_Cooltrainer)
+	end
+}
+
+script NHML1_Trigger_Final_Battle_Dn {
+	lock
+	clearflag(FLAG_NHML1_FINAL_BATTLE)
+	addobject(6, MAP_NATIONAL_HISTORY_MUSEUM_L1)
+	setobjectxy(6, 21, 14)
+	applymovement(6, Move_to_dnpos)
+	waitmovement(0)
+	setorcopyvar(VAR_FINAL_BATTLE, 1)
+	release
+	call(NHML1_Cooltrainer)
+	end
+}
+
+script NHML1_Counter {
+	lock
+	msgbox(format("Good bye!\pThank you for visiting us!"), MSGBOX_AUTOCLOSE)
+	waitmessage
+	release
+	end
+}
+
+script NHML1_FinishGame {
+	lock
+	fadescreen(FADE_TO_BLACK)
+	special(StopPlayTimer)
+	specialvar(VAR_RESULT, GetPlayTimeHours)
+	buffernumberstring(STR_VAR_1, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeMinutes)
+	buffertimestring(STR_VAR_2, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeSeconds)
+	buffertimestring(STR_VAR_3, VAR_RESULT)
+	msgbox(Text_Finale)
+	waitmessage
+	end
+}
+
+
+// ############### movements ###############
+
+movement Move_lookup {
+	face_up
+}
+
+movement Move_to_uppos {
+	face_up
+	walk_up
+	face_left
+	walk_left *3
+}
+
+movement Move_to_dnpos {
+	face_up
+	face_left
+	walk_left *3
+}
+
+
+// ############### texts ###############
+
+text Text_Finale {
+	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.")
 }

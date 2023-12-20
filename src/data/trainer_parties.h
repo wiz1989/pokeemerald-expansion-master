@@ -11818,8 +11818,9 @@ static const struct TrainerMon sParty_JohnAndGina[] = {
     {
     .lvl = 50,
     .species = SPECIES_STAKATAKA,
-    .iv = TRAINER_PARTY_IVS(3, 3, 3, 3, 3, 3),
+    .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
     .nature = NATURE_RELAXED,
+    .heldItem = ITEM_LAGGING_TAIL,
     },
     {
     .lvl = 50,
@@ -11839,5 +11840,26 @@ static const struct TrainerMon sParty_JohnAndGina[] = {
     .lvl = 50,
     .species = SPECIES_REGIROCK,
     .moves = {MOVE_EXPLOSION, MOVE_NONE, MOVE_NONE, MOVE_NONE},
+    }
+};
+
+static const struct TrainerMon sParty_Elsa[] = {
+    {
+    .lvl = 35,
+    .species = SPECIES_EISCUE,
+    .moves = {MOVE_HAIL, MOVE_AURORA_VEIL, MOVE_AQUA_RING, MOVE_RAIN_DANCE},
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .ability = ABILITY_ICE_FACE,
+    .nature = NATURE_RELAXED,
+    .heldItem = ITEM_LEFTOVERS,
+    },
+    {
+    .lvl = 35,
+    .species = SPECIES_ABOMASNOW,
+    .moves = {MOVE_INGRAIN, MOVE_LEECH_SEED, MOVE_HAIL, MOVE_RAIN_DANCE},
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
+    .ability = ABILITY_SNOW_WARNING,
+    .nature = NATURE_RELAXED,
+    .heldItem = ITEM_FLAME_ORB,
     }
 };
