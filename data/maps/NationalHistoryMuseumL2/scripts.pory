@@ -76,6 +76,7 @@ script NHML2_Trigger_WarpL3 {
 script NHML2_Trigger_WarpL1 {
     lockall
     warp(MAP_NATIONAL_HISTORY_MUSEUM_L1, 26, 1)
+    setflag(FLAG_MOVE_BACK) //set flag to handle the hiker movement
     releaseall
 	end
 }
@@ -125,7 +126,6 @@ script NHML2_Battle_Brandon {
         applymovement(1, Move_back)
         waitmovement(0)
         setobjectxy(1, 26, 10)
-        setflag(FLAG_MOVE_BACK)
     }
 	end
 }
@@ -616,7 +616,7 @@ script NHML2_Game_Master {
                         setflag(FLAG_HINT11)
                         setflag(FLAG_P01_ADDTIME)
                     }
-                    msgbox(format("Have you noticed how Abomasnow is always getting burned right away?\pIf only you could somehow use this to your own advantage./to power up Skitty"), MSGBOX_AUTOCLOSE)
+                    msgbox(format("Have you noticed how Abomasnow is always getting burned right away?\pIf only you could somehow use this to your own advantage."), MSGBOX_AUTOCLOSE)
                     clearflag(FLAG_P01_GIVE_ADVICE)
                 }
             }
@@ -666,7 +666,7 @@ script NHML2_Sign_wiz1989 {
 
 script NHML2_Sign_Kyuzee {
     lock
-    msgbox(format("All non standard graphics and sprites have been designed and created by KYUZEE."), MSGBOX_AUTOCLOSE)
+    msgbox(format("All non vanilla graphics and sprites have been designed and created by KYUZEE."), MSGBOX_AUTOCLOSE)
     waitmessage
     release
     end

@@ -3712,10 +3712,10 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     }
 
     if (species == SPECIES_CLEFAIRY) {
-        moves[0] = MOVE_SUNNY_DAY;
-        moves[1] = MOVE_MOONLIGHT;
-        moves[2] = MOVE_KNOCK_OFF;
-        moves[3] = MOVE_FOLLOW_ME;
+        moves[0] = MOVE_MOONLIGHT;
+        moves[1] = MOVE_KNOCK_OFF;
+        moves[2] = MOVE_FOLLOW_ME;
+        moves[3] = MOVE_NONE;
 
         for(i=0; i<=3; i++)
         {

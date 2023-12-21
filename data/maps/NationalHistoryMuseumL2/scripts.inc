@@ -82,6 +82,7 @@ NHML2_Trigger_WarpL3::
 NHML2_Trigger_WarpL1::
 	lockall
 	warp MAP_NATIONAL_HISTORY_MUSEUM_L1, 26, 1
+	setflag FLAG_MOVE_BACK
 	releaseall
 	end
 
@@ -138,7 +139,6 @@ NHML2_Battle_Brandon_2:
 	applymovement 1, Move_back
 	waitmovement 0
 	setobjectxy 1, 26, 10
-	setflag FLAG_MOVE_BACK
 	goto NHML2_Battle_Brandon_1
 
 
@@ -1186,7 +1186,7 @@ NHML2_Game_Master_Text_13:
 	.string "Have you noticed how Abomasnow is\n"
 	.string "always getting burned right away?\p"
 	.string "If only you could somehow use this to\n"
-	.string "your own advantage./to power up Skitty$"
+	.string "your own advantage.$"
 
 NHML2_Game_Master_Text_14:
 	.string "Come back whenever you need me.$"
@@ -1213,7 +1213,7 @@ NHML2_Sign_wiz1989_Text_0:
 	.string "by WIZ1989.$"
 
 NHML2_Sign_Kyuzee_Text_0:
-	.string "All non standard graphics and sprites\n"
+	.string "All non vanilla graphics and sprites\n"
 	.string "have been designed and created by\l"
 	.string "KYUZEE.$"
 

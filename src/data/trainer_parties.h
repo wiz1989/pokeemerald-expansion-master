@@ -11839,6 +11839,7 @@ static const struct TrainerMon sParty_JohnAndGina[] = {
     {
     .lvl = 50,
     .species = SPECIES_REGIROCK,
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
     .moves = {MOVE_EXPLOSION, MOVE_NONE, MOVE_NONE, MOVE_NONE},
     }
 };
