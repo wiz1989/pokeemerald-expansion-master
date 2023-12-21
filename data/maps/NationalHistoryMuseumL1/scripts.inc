@@ -66,6 +66,7 @@ NHML1_Judge::
 	faceplayer
 	msgbox NHML1_Judge_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
+	setflag FLAG_NHML1_WALLPAPER_GUY
 	release
 	end
 
@@ -95,7 +96,6 @@ NHML1_Boulder::
 
 
 NHML1_Cooltrainer::
-	faceplayer
 	trainerbattle_single TRAINER_NHM_HAIL, NHML1_Cooltrainer_Text_0, NHML1_Cooltrainer_Text_1
 	end
 

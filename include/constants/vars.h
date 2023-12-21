@@ -272,7 +272,7 @@
 #define VAR_NHML3_COLLECTOR_COUNT                        0x40FC // Unused Var
 #define VAR_BATTLE_TURN                                  0x40FD // Unused Var
 #define VAR_FINAL_BATTLE                                 0x40FE // Unused Var
-#define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
+#define VAR_RESULT2                                      0x40FF // Unused Var
 
 #define VARS_END                                         0x40FF
 #define VARS_COUNT                                       (VARS_END - VARS_START + 1)

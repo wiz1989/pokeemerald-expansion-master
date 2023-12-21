@@ -57,6 +57,7 @@ script NHML1_Judge {
 	faceplayer
 	msgbox(format("What an exquisite place! \lAll these artifacts are just mezmerizing. \pAnd have you noticed these special wallpapers they use? \lWonderful!"), MSGBOX_AUTOCLOSE)
 	waitmessage
+	setflag(FLAG_NHML1_WALLPAPER_GUY)
 	release
 	end
 }
@@ -86,7 +87,6 @@ script NHML1_Boulder {
 }
 
 script NHML1_Cooltrainer {
-	faceplayer
 	trainerbattle_single(TRAINER_NHM_HAIL, format("Oh hey, where are you trying to go?"), "Bye, bye!")
 	end
 }

@@ -2067,7 +2067,8 @@
 	special SetMonAbility
 	.endm
 
-	@ check if a certain species is found in the player's party
+	@ check if a certain species is found in the player's party.
+	@ TRUE/FALSE is written into VAR_RESULT
 	.macro checkpartymon species: req
 	setvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, IsPokemonInParty

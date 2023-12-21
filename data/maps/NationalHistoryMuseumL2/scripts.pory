@@ -479,26 +479,158 @@ script NHML2_Game_Master {
         else {
             //handle all different scenarios below
 
-            //first fight not yet won
-            if (flag(FLAG_HINT01) == TRUE) {
-                if (!flag(FLAG_HINT01)) {
-                    setflag(FLAG_HINT01)
-                    setflag(FLAG_P01_ADDTIME)
+            //first battle not yet won - getting Sash and Heart Scale
+            if (!defeated(TRAINER_NHM_BRANDON) && (!flag(FLAG_GOT_SASH) || !flag(FLAG_GOT_HEART_SCALE))) {
+                //first hint: COVET
+                checkpartymove(MOVE_COVET)
+                if (var(VAR_RESULT) == PARTY_SIZE) {
+                    if (!flag(FLAG_HINT01)) {
+                        setflag(FLAG_HINT01)
+                        setflag(FLAG_P01_ADDTIME)
+                    }
+                    msgbox(format("Have you seen the mail in your PC?\pYou should check out Munchlax' learnset to see if it can help you solving that hint!"), MSGBOX_AUTOCLOSE)
+                    clearflag(FLAG_P01_GIVE_ADVICE)
                 }
-                msgbox("text")
-                clearflag(FLAG_HINT01)
-                clearflag(FLAG_P01_GIVE_ADVICE)
+                else {
+                    //second hint: FOCUS SASH
+                    if (!flag(FLAG_GOT_SASH)) {
+                        if (!flag(FLAG_HINT02)) {
+                            setflag(FLAG_HINT02)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("People are making so much trash.\pWe should all try to RECYCLE more!"), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                    else {
+                        //third hint: Heart Scale
+                        if (!flag(FLAG_GOT_HEART_SCALE)) {
+                            if (!flag(FLAG_HINT03)) {
+                                setflag(FLAG_HINT03)
+                                setflag(FLAG_P01_ADDTIME)
+                            }
+                            msgbox(format("I heard HEART SCALES can be found after some battles.\pYour Munchlax is key to obtain them."), MSGBOX_AUTOCLOSE)
+                            clearflag(FLAG_P01_GIVE_ADVICE)
+                        }
+                    }
+                }
+            }
+            //first battle not yet won - winning first battle
+            if (!defeated(TRAINER_NHM_BRANDON) && flag(FLAG_GOT_SASH) && flag(FLAG_GOT_HEART_SCALE)) {
+                //fourth hint: trade Yamask
+                checkpartymon(SPECIES_YAMASK)
+                if (var(VAR_RESULT) == FALSE) {
+                    if (!flag(FLAG_HINT04)) {
+                        setflag(FLAG_HINT04)
+                        setflag(FLAG_P01_ADDTIME)
+                    }
+                    msgbox(format("You are struggling to defeat that trainer on the right?\pLet me tell you that you won't defeat him with Munchlax in your party!"), MSGBOX_AUTOCLOSE)
+                    clearflag(FLAG_P01_GIVE_ADVICE)
+                }
+                else {
+                    //fifth hint: get Endeavor
+                    checkpartymove(MOVE_ENDEAVOR)
+                    if (var(VAR_RESULT) == PARTY_SIZE) {
+                        if (!flag(FLAG_HINT05)) {
+                            setflag(FLAG_HINT05)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("There's only one way to defeat the trainer on the right and it leads you to the Move Tutor upstairs."), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                    else {
+                        //sixth hint: win the first battle
+                        if (!flag(FLAG_HINT06)) {
+                                setflag(FLAG_HINT06)
+                                setflag(FLAG_P01_ADDTIME)
+                            }
+                            msgbox(format("You are struggling to defeat that Tyrantrum?\pYou should take a closer look at Yamask's ability."), MSGBOX_AUTOCLOSE)
+                            clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                }
+            }
+            //first battle won
+            if (defeated(TRAINER_NHM_BRANDON) && !defeated(TRAINER_NHM_DOUBLE)) {
+                if (!flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+                    //seventh hint: fossil riddle
+                    if (flag(FLAG_NHML1_WALLPAPER_GUY)) {
+                        if (!flag(FLAG_HINT07)) {
+                            setflag(FLAG_HINT07)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("You spoke to the gentleman talking about the wallpapers here, haven't you?\pYou should think about how and where you can take a specific look at WALLPAPERS."), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                }
+                else {
+                    checkpartymon(SPECIES_CLEFAIRY)
+                    copyvar(VAR_RESULT2, VAR_RESULT)
+                    checkpartymon(SPECIES_SKITTY)
+                    if (var(VAR_RESULT) == TRUE && var(VAR_RESULT2) == TRUE) {
+                        //eigth hint: Move Tutor
+                        checkpartymove(MOVE_ROLE_PLAY)
+                        if (var(VAR_RESULT) == PARTY_SIZE) {
+                            if (!flag(FLAG_HINT08)) {
+                                setflag(FLAG_HINT08)
+                                setflag(FLAG_P01_ADDTIME)
+                            }
+                            msgbox(format("You should go visit the Move Tutor again.\pWithout his excellent service you won't be able to proceed."), MSGBOX_AUTOCLOSE)
+                            clearflag(FLAG_P01_GIVE_ADVICE)
+                        }
+                        else {
+                            checkpartymonmove(SPECIES_YAMASK, MOVE_SUBSTITUTE)
+                            if (var(VAR_RESULT) == FALSE) {
+                                if (!flag(FLAG_HINT08)) {
+                                    setflag(FLAG_HINT08)
+                                    setflag(FLAG_P01_ADDTIME)
+                                }
+                                msgbox(format("You should go visit the Move Tutor again.\pWithout his excellent service you won't be able to proceed."), MSGBOX_AUTOCLOSE)
+                                clearflag(FLAG_P01_GIVE_ADVICE)
+                            }
+                            else {
+                                //ninth hint: second battle
+                                if (!flag(FLAG_HINT09)) {
+                                    setflag(FLAG_HINT09)
+                                    setflag(FLAG_P01_ADDTIME)
+                                }
+                                msgbox(format("To continue you will have to defeat the couple upstairs.\lThey will gift you STRENGTH in return.\pManaging different abilities among all Pokémon will be the key to success."), MSGBOX_AUTOCLOSE)
+                                clearflag(FLAG_P01_GIVE_ADVICE)
+                            }
+                        }
+                    }
+                }
+            }
+            //second battle won
+            if (defeated(TRAINER_NHM_DOUBLE) && !defeated(TRAINER_NHM_HAIL)) {
+                if (!flag(FLAG_NHML1_BOULDER_FELL_DOWN)) {
+                    //tenth hint: push boulder
+                    if (!flag(FLAG_HINT10)) {
+                        setflag(FLAG_HINT10)
+                        setflag(FLAG_P01_ADDTIME)
+                    }
+                    msgbox(format("Oh you still can't find the right passage through the ice maze in the first floor?\pYou will have to push the boulder through the hole to open the right path."), MSGBOX_AUTOCLOSE)
+                    clearflag(FLAG_P01_GIVE_ADVICE)
+                }
+                else {
+                    //eleventh hint: third battle
+                    if (!flag(FLAG_HINT11)) {
+                        setflag(FLAG_HINT11)
+                        setflag(FLAG_P01_ADDTIME)
+                    }
+                    msgbox(format("Have you noticed how Abomasnow is always getting burned right away?\pIf only you could somehow use this to your own advantage./to power up Skitty"), MSGBOX_AUTOCLOSE)
+                    clearflag(FLAG_P01_GIVE_ADVICE)
+                }
             }
         }
     }
     else {
-        msgbox(format("Come back whenever you need me."))
+        msgbox(format("Come back whenever you need me."), MSGBOX_AUTOCLOSE)
+        waitmessage
         release
         end
     }
     waitmessage
 
-    //add 30min to play clock
+    //add x min to play clock
     if (flag(FLAG_P01_ADDTIME)) {
         setorcopyvar(VAR_0x8004, 20)
         special(PlayTimeAddMin)
