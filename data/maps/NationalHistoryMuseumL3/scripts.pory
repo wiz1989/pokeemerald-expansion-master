@@ -2,9 +2,9 @@
 
 mapscripts NationalHistoryMuseumL3_MapScripts {
     MAP_SCRIPT_ON_RESUME: NHML3_OnResume
-	MAP_SCRIPT_ON_FRAME_TABLE [
-		VAR_TEMP_2, 0: NHML3_EveryFrame
-	]
+	//MAP_SCRIPT_ON_FRAME_TABLE [
+		//VAR_TEMP_2, 0: NHML3_EveryFrame
+	//]
 }
 
 script NHML3_OnResume {
@@ -31,7 +31,7 @@ script NHML3_OnResume {
 		setrespawn(HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM)
 	}
 
-	call(load_HONOR_MODE)
+	//call(load_HONOR_MODE)
 	end
 }
 

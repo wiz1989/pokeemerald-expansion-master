@@ -1,11 +1,6 @@
 NationalHistoryMuseumL3_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, NHML3_OnResume
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, NationalHistoryMuseumL3_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
-
-NationalHistoryMuseumL3_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_TEMP_2, 0, NHML3_EveryFrame
-	.2byte 0
 
 
 NHML3_OnResume::
@@ -13,7 +8,6 @@ NHML3_OnResume::
 	compare VAR_LITTLEROOT_TOWN_STATE, 0
 	goto_if_eq NHML3_OnResume_2
 NHML3_OnResume_1:
-	call load_HONOR_MODE
 	end
 
 NHML3_OnResume_2:

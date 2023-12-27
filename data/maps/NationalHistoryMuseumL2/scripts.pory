@@ -4,7 +4,7 @@ mapscripts NationalHistoryMuseumL2_MapScripts {
     MAP_SCRIPT_ON_TRANSITION: NHML2_OnTransition
     MAP_SCRIPT_ON_RESUME: NHML2_OnResume
 	MAP_SCRIPT_ON_FRAME_TABLE [
-		VAR_TEMP_2, 0: NHML2_EveryFrame
+		//VAR_TEMP_2, 0: NHML2_EveryFrame
         VAR_NHML1_BOULDER_FELL_DOWN, 1: NHML2_EveryFrame_Boulder
         VAR_NHML2_FIGHT_KABUTOPS, 1: NHML2_EveryFrame_Sash
 	]

@@ -5,7 +5,6 @@ NationalHistoryMuseumL2_MapScripts::
 	.byte 0
 
 NationalHistoryMuseumL2_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
-	map_script_2 VAR_TEMP_2, 0, NHML2_EveryFrame
 	map_script_2 VAR_NHML1_BOULDER_FELL_DOWN, 1, NHML2_EveryFrame_Boulder
 	map_script_2 VAR_NHML2_FIGHT_KABUTOPS, 1, NHML2_EveryFrame_Sash
 	.2byte 0

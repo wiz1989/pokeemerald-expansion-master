@@ -175,8 +175,8 @@ static const u8 sRegionMapSectionId_To_PopUpThemeIdMapping[] =
     [MAPSEC_ALTERING_CAVE - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_STONE,
     [MAPSEC_NAVEL_ROCK - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_STONE,
     [MAPSEC_TRAINER_HILL - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_MARBLE,
-    [MAPSEC_NHM_FLOOR3 - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_STONE2,
-    [MAPSEC_NHM_FLOOR2 - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_STONE,
+    [MAPSEC_NHM_FLOOR3 - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_MARBLE,
+    [MAPSEC_NHM_FLOOR2 - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_MARBLE,
     [MAPSEC_NHM_FLOOR1 - KANTO_MAPSEC_COUNT] = MAPPOPUP_THEME_MARBLE
 };
 
@@ -258,7 +258,7 @@ static void Task_MapNamePopUpWindow(u8 taskId)
     switch (task->tState)
     {
     case STATE_PRINT:
-        DebugPrintf("STATE_PRINT");
+        //DebugPrintf("STATE_PRINT");
         // Wait, then create and print the pop up window
         if (++task->tPrintTimer > 30)
         {
@@ -268,7 +268,7 @@ static void Task_MapNamePopUpWindow(u8 taskId)
         }
         break;
     case STATE_SLIDE_IN:
-        DebugPrintf("STATE_SLIDE_IN");
+        //DebugPrintf("STATE_SLIDE_IN");
         // Slide the window onscreen.
         task->tYOffset -= POPUP_SLIDE_SPEED;
         if (task->tYOffset <= 0 )
@@ -279,7 +279,7 @@ static void Task_MapNamePopUpWindow(u8 taskId)
         }
         break;
     case STATE_WAIT:
-        DebugPrintf("STATE_WAIT");
+        //DebugPrintf("STATE_WAIT");
         // Wait while the window is fully onscreen.
         if (++task->tOnscreenTimer > 120)
         {
@@ -288,7 +288,7 @@ static void Task_MapNamePopUpWindow(u8 taskId)
         }
         break;
     case STATE_SLIDE_OUT:
-        DebugPrintf("STATE_SLIDE_OUT");
+        //DebugPrintf("STATE_SLIDE_OUT");
         // Slide the window offscreen.
         task->tYOffset += POPUP_SLIDE_SPEED;
         if (task->tYOffset >= POPUP_OFFSCREEN_Y)
@@ -310,12 +310,12 @@ static void Task_MapNamePopUpWindow(u8 taskId)
         }
         break;
     case STATE_ERASE:
-        DebugPrintf("STATE_ERASE");
+        //DebugPrintf("STATE_ERASE");
         ClearStdWindowAndFrame(GetMapNamePopUpWindowId(), TRUE);
         task->tState = STATE_END;
         break;
     case STATE_END:
-        DebugPrintf("STATE_END");
+        //DebugPrintf("STATE_END");
         HideMapNamePopUpWindow();
         return;
     }
