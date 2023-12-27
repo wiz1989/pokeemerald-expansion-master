@@ -28,9 +28,9 @@ script NHML3_OnResume {
 		setflag(FLAG_SYS_POKEDEX_GET)
 		setflag(FLAG_SYS_NATIONAL_DEX)
 		special(EnableNationalPokedex)
+		setrespawn(HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM)
 	}
 
-	setrespawn(HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM)
 	call(load_HONOR_MODE)
 	end
 }

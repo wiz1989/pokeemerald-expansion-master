@@ -159,8 +159,10 @@ script NHML1_Trigger_Final_Battle_Dn {
 
 script NHML1_Counter {
 	lock
+	setrespawn(HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM_F1)
 	msgbox(format("Good bye!\pThank you for visiting us!"), MSGBOX_AUTOCLOSE)
 	waitmessage
+	setorcopyvar(VAR_NHML1_COUNTER_TRIGGER, 1)
 	release
 	end
 }

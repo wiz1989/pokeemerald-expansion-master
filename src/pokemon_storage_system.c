@@ -4391,10 +4391,10 @@ static void AddWallpapersMenu(u8 wallpaperSet)
         SetMenuText(MENU_SKY);
         break;
     case MENU_ETCETERA - MENU_WALLPAPER_SETS_START:
-        SetMenuText(MENU_POLKADOT);
-        SetMenuText(MENU_POKECENTER);
-        SetMenuText(MENU_MACHINE);
-        SetMenuText(MENU_SIMPLE);
+        SetMenuText(MENU_POLKADOT); //WATER
+        //SetMenuText(MENU_POKECENTER);
+        SetMenuText(MENU_MACHINE);  //FIRE
+        SetMenuText(MENU_SIMPLE);   //GRASS
         break;
     }
     AddMenu();

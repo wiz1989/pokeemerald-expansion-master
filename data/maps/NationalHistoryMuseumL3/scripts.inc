@@ -13,7 +13,6 @@ NHML3_OnResume::
 	compare VAR_LITTLEROOT_TOWN_STATE, 0
 	goto_if_eq NHML3_OnResume_2
 NHML3_OnResume_1:
-	setrespawn HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM
 	call load_HONOR_MODE
 	end
 
@@ -33,6 +32,7 @@ NHML3_OnResume_2:
 	setflag FLAG_SYS_POKEDEX_GET
 	setflag FLAG_SYS_NATIONAL_DEX
 	special EnableNationalPokedex
+	setrespawn HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM
 	goto NHML3_OnResume_1
 
 

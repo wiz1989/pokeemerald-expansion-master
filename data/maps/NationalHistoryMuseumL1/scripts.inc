@@ -169,8 +169,10 @@ NHML1_Trigger_Final_Battle_Dn::
 
 NHML1_Counter::
 	lock
+	setrespawn HEAL_LOCATION_NATIONAL_HISTORY_MUSEUM_F1
 	msgbox NHML1_Counter_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
+	setorcopyvar VAR_NHML1_COUNTER_TRIGGER, 1
 	release
 	end
 

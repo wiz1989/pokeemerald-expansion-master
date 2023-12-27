@@ -11040,7 +11040,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_MUNCHLAX] =
     {
         .baseHP        = 135,
-        .baseAttack    = 85,
+        .baseAttack    = 70,
         .baseDefense   = 40,
         .baseSpeed     = 5,
         .baseSpAttack  = 40,
@@ -20358,7 +20358,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     {
         .baseHP        = 75,
         .baseAttack    = 100,
-        .baseDefense   = 110,
+        .baseDefense   = 120,
         .baseSpeed     = 50,
         .baseSpAttack  = 65,
         .baseSpDefense = 90,

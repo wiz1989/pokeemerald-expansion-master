@@ -151,7 +151,7 @@
       "x": 3,
       "y": 11,
       "elevation": 0,
-      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var": "VAR_NHML1_COUNTER_TRIGGER",
       "var_value": "0",
       "script": "NHML1_Counter"
     },
@@ -160,7 +160,7 @@
       "x": 4,
       "y": 11,
       "elevation": 0,
-      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var": "VAR_NHML1_COUNTER_TRIGGER",
       "var_value": "0",
       "script": "NHML1_Counter"
     },

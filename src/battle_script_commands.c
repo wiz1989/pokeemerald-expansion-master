@@ -1901,11 +1901,11 @@ static void Cmd_ppreduce(void)
 
 // The chance is 1/N for each stage.
 #if B_CRIT_CHANCE >= GEN_7
-    static const u8 sCriticalHitChance[] = {24, 8, 2, 1, 1};
+    static const u8 sCriticalHitChance[] = {255, 255, 255, 255, 255}; //deactivate crits | wiz1989
 #elif B_CRIT_CHANCE == GEN_6
-    static const u8 sCriticalHitChance[] = {16, 8, 2, 1, 1};
+    static const u8 sCriticalHitChance[] = {255, 255, 255, 255, 255}; //deactivate crits | wiz1989
 #else
-    static const u8 sCriticalHitChance[] = {16, 8, 4, 3, 2}; // Gens 2,3,4,5
+    static const u8 sCriticalHitChance[] = {255, 255, 255, 255, 255}; //deactivate crits | wiz1989
 #endif // B_CRIT_CHANCE
 
 #define BENEFITS_FROM_LEEK(battler, holdEffect)((holdEffect == HOLD_EFFECT_LEEK) && (GET_BASE_SPECIES_ID(gBattleMons[battler].species) == SPECIES_FARFETCHD || gBattleMons[battler].species == SPECIES_SIRFETCHD))
@@ -1977,9 +1977,9 @@ static void Cmd_critcalc(void)
     else if (critChance == -1)
         gIsCriticalHit = FALSE;
     else if (critChance == -2)
-        gIsCriticalHit = TRUE;
+        gIsCriticalHit = FALSE;
     else
-        gIsCriticalHit = RandomWeighted(RNG_CRITICAL_HIT, sCriticalHitChance[critChance] - 1, 1);
+        gIsCriticalHit = FALSE; //change crits wiz1989
 
     // Counter for EVO_CRITICAL_HITS.
     partySlot = gBattlerPartyIndexes[gBattlerAttacker];
