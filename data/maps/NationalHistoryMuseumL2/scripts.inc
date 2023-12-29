@@ -847,9 +847,9 @@ NHML2_Sign_wiz1989::
 	end
 
 
-NHML2_Sign_Kyuzee::
+NHML2_Sign_tileset::
 	lock
-	msgbox NHML2_Sign_Kyuzee_Text_0, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Sign_tileset_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
 	release
 	end
@@ -1211,10 +1211,11 @@ NHML2_Sign_wiz1989_Text_0:
 	.string "This ROM hack was designed and created\n"
 	.string "by WIZ1989.$"
 
-NHML2_Sign_Kyuzee_Text_0:
-	.string "All non vanilla graphics and sprites\n"
-	.string "have been designed and created by\l"
-	.string "KYUZEE.$"
+NHML2_Sign_tileset_Text_0:
+	.string "This Fossil Museum tileset was\n"
+	.string "originally designed and created by\l"
+	.string "princess-phoenix and adapted to fit\l"
+	.string "gba style.$"
 
 NHML2_Sign_hole_Text_0:
 	.string "A hole in the ground. \lMaybe you can push something through \nit.$"

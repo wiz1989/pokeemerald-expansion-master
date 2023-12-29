@@ -825,3 +825,69 @@ const struct Tileset gTileset_UnionRoom =
     .metatileAttributes = gMetatileAttributes_UnionRoom,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_NHM_Dinosaurs =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_NHM_Dinosaurs,
+    .palettes = gTilesetPalettes_NHM_Dinosaurs,
+    .metatiles = gMetatiles_NHM_Dinosaurs,
+    .metatileAttributes = gMetatileAttributes_NHM_Dinosaurs,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_Sec_NHM_Dinosaurs =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Sec_NHM_Dinosaurs,
+    .palettes = gTilesetPalettes_Sec_NHM_Dinosaurs,
+    .metatiles = gMetatiles_Sec_NHM_Dinosaurs,
+    .metatileAttributes = gMetatileAttributes_Sec_NHM_Dinosaurs,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_sec_NHM_Egypt =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_sec_NHM_Egypt,
+    .palettes = gTilesetPalettes_sec_NHM_Egypt,
+    .metatiles = gMetatiles_sec_NHM_Egypt,
+    .metatileAttributes = gMetatileAttributes_sec_NHM_Egypt,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_sec_NHM_IceAge =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_sec_NHM_IceAge,
+    .palettes = gTilesetPalettes_sec_NHM_IceAge,
+    .metatiles = gMetatiles_sec_NHM_IceAge,
+    .metatileAttributes = gMetatileAttributes_sec_NHM_IceAge,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_NHM_Egypt =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_NHM_Egypt,
+    .palettes = gTilesetPalettes_NHM_Egypt,
+    .metatiles = gMetatiles_NHM_Egypt,
+    .metatileAttributes = gMetatileAttributes_NHM_Egypt,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_NHM_IceAge =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_NHM_IceAge,
+    .palettes = gTilesetPalettes_NHM_IceAge,
+    .metatiles = gMetatiles_NHM_IceAge,
+    .metatileAttributes = gMetatileAttributes_NHM_IceAge,
+    .callback = NULL,
+};

@@ -207,3 +207,21 @@ const u16 gMetatileAttributes_MysteryEventsHouse[] = INCBIN_U16("data/tilesets/s
 
 const u16 gMetatiles_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatiles.bin");
 const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/union_room/metatile_attributes.bin");
+
+const u16 gMetatiles_NHM_Dinosaurs[] = INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/metatiles.bin");
+const u16 gMetatileAttributes_NHM_Dinosaurs[] = INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/metatile_attributes.bin");
+
+const u16 gMetatiles_Sec_NHM_Dinosaurs[] = INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/metatiles.bin");
+const u16 gMetatileAttributes_Sec_NHM_Dinosaurs[] = INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/metatile_attributes.bin");
+
+const u16 gMetatiles_sec_NHM_Egypt[] = INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/metatiles.bin");
+const u16 gMetatileAttributes_sec_NHM_Egypt[] = INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/metatile_attributes.bin");
+
+const u16 gMetatiles_sec_NHM_IceAge[] = INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/metatiles.bin");
+const u16 gMetatileAttributes_sec_NHM_IceAge[] = INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/metatile_attributes.bin");
+
+const u16 gMetatiles_NHM_Egypt[] = INCBIN_U16("data/tilesets/primary/nhm_egypt/metatiles.bin");
+const u16 gMetatileAttributes_NHM_Egypt[] = INCBIN_U16("data/tilesets/primary/nhm_egypt/metatile_attributes.bin");
+
+const u16 gMetatiles_NHM_IceAge[] = INCBIN_U16("data/tilesets/primary/nhm_ice_age/metatiles.bin");
+const u16 gMetatileAttributes_NHM_IceAge[] = INCBIN_U16("data/tilesets/primary/nhm_ice_age/metatile_attributes.bin");

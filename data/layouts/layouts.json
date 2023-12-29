@@ -4425,9 +4425,9 @@
       "id": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L2",
       "name": "NationalHistoryMuseumL2_Layout",
       "width": 30,
-      "height": 15,
-      "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_OceanicMuseum",
+      "height": 18,
+      "primary_tileset": "gTileset_NHM_Dinosaurs",
+      "secondary_tileset": "gTileset_Sec_NHM_Dinosaurs",
       "border_filepath": "data/layouts/NationalHistoryMuseumL2/border.bin",
       "blockdata_filepath": "data/layouts/NationalHistoryMuseumL2/map.bin"
     },

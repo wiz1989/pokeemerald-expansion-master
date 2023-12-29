@@ -664,9 +664,9 @@ script NHML2_Sign_wiz1989 {
     end
 }
 
-script NHML2_Sign_Kyuzee {
+script NHML2_Sign_tileset {
     lock
-    msgbox(format("All non vanilla graphics and sprites have been designed and created by KYUZEE."), MSGBOX_AUTOCLOSE)
+    msgbox(format("This Fossil Museum tileset was originally designed and created by princess-phoenix and adapted to fit gba style."), MSGBOX_AUTOCLOSE)
     waitmessage
     release
     end

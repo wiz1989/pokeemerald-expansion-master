@@ -1634,3 +1634,117 @@ const u16 gTilesetPalettes_UnionRoom[][16] =
 };
 
 const u32 gTilesetTiles_UnionRoom[] = INCBIN_U32("data/tilesets/secondary/union_room/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_NHM_Dinosaurs[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_dinosaurs/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_NHM_Dinosaurs[] = INCBIN_U32("data/tilesets/primary/nhm_dinosaurs/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_Sec_NHM_Dinosaurs[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_dinosaurs/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_Sec_NHM_Dinosaurs[] = INCBIN_U32("data/tilesets/secondary/sec_nhm_dinosaurs/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_sec_NHM_Egypt[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_egypt/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_sec_NHM_Egypt[] = INCBIN_U32("data/tilesets/secondary/sec_nhm_egypt/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_sec_NHM_IceAge[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/sec_nhm_ice_age/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_sec_NHM_IceAge[] = INCBIN_U32("data/tilesets/secondary/sec_nhm_ice_age/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_NHM_Egypt[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_egypt/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_NHM_Egypt[] = INCBIN_U32("data/tilesets/primary/nhm_egypt/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_NHM_IceAge[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/nhm_ice_age/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_NHM_IceAge[] = INCBIN_U32("data/tilesets/primary/nhm_ice_age/tiles.4bpp.lz");
