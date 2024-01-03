@@ -135,7 +135,7 @@ script NHML1_Trigger_Final_Battle_Up {
 	lock
 	clearflag(FLAG_NHML1_FINAL_BATTLE)
 	addobject(6, MAP_NATIONAL_HISTORY_MUSEUM_L1)
-	setobjectxy(6, 21, 14)
+	setobjectxy(6, 21, 17)
 	applymovement(6, Move_to_uppos)
 	waitmovement(0)
 	setorcopyvar(VAR_FINAL_BATTLE, 1)
@@ -148,7 +148,7 @@ script NHML1_Trigger_Final_Battle_Dn {
 	lock
 	clearflag(FLAG_NHML1_FINAL_BATTLE)
 	addobject(6, MAP_NATIONAL_HISTORY_MUSEUM_L1)
-	setobjectxy(6, 21, 14)
+	setobjectxy(6, 21, 17)
 	applymovement(6, Move_to_dnpos)
 	waitmovement(0)
 	setorcopyvar(VAR_FINAL_BATTLE, 1)
@@ -193,10 +193,26 @@ script NHML1_Sign_Brochures {
 script NHML1_Sign_Flame_Orb {
 	lock
 	showmonpic(SPECIES_MUNCHLAX, 10, 3)
-	showitempic(ITEM_FLAME_ORB, 1, 1)
+	//showitempic(ITEM_FLAME_ORB, 1, 1)
 	msgbox(format("Hint about flame orb TBD"))
 	waitmessage
 	hidemonpic
+	release
+	end
+}
+
+script NHML1_Sign_Replica {
+	lock
+	msgbox(format("A very realistic replica of a Mamoswine."))
+	waitmessage
+	release
+	end
+}
+
+script NHML1_Sign_Desk {
+	lock
+	msgbox(format("Thank you for your visit!"))
+	waitmessage
 	release
 	end
 }

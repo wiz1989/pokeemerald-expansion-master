@@ -140,7 +140,7 @@ NHML1_Trigger_Final_Battle_Up::
 	lock
 	clearflag FLAG_NHML1_FINAL_BATTLE
 	addobject 6, MAP_NATIONAL_HISTORY_MUSEUM_L1
-	setobjectxy 6, 21, 14
+	setobjectxy 6, 21, 17
 	applymovement 6, Move_to_uppos
 	waitmovement 0
 	setorcopyvar VAR_FINAL_BATTLE, 1
@@ -153,7 +153,7 @@ NHML1_Trigger_Final_Battle_Dn::
 	lock
 	clearflag FLAG_NHML1_FINAL_BATTLE
 	addobject 6, MAP_NATIONAL_HISTORY_MUSEUM_L1
-	setobjectxy 6, 21, 14
+	setobjectxy 6, 21, 17
 	applymovement 6, Move_to_dnpos
 	waitmovement 0
 	setorcopyvar VAR_FINAL_BATTLE, 1
@@ -198,10 +198,25 @@ NHML1_Sign_Brochures::
 NHML1_Sign_Flame_Orb::
 	lock
 	showmonpic SPECIES_MUNCHLAX, 10, 3
-	showitempic ITEM_FLAME_ORB, 1, 1
 	msgbox NHML1_Sign_Flame_Orb_Text_0
 	waitmessage
 	hidemonpic
+	release
+	end
+
+
+NHML1_Sign_Replica::
+	lock
+	msgbox NHML1_Sign_Replica_Text_0
+	waitmessage
+	release
+	end
+
+
+NHML1_Sign_Desk::
+	lock
+	msgbox NHML1_Sign_Desk_Text_0
+	waitmessage
 	release
 	end
 
@@ -280,6 +295,12 @@ NHML1_Sign_Brochures_Text_0:
 
 NHML1_Sign_Flame_Orb_Text_0:
 	.string "Hint about flame orb TBD$"
+
+NHML1_Sign_Replica_Text_0:
+	.string "A very realistic replica of a Mamoswine.$"
+
+NHML1_Sign_Desk_Text_0:
+	.string "Thank you for your visit!$"
 
 Text_Finale::
 	.string "Congratulations {PLAYER}!\p"
