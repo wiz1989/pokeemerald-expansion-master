@@ -1,4 +1,10 @@
 #include "global.h"
+#include "decompress.h"
+#include "graphics.h"
+#include "item_icon.h"
+#include "item.h"
+#include "item_menu.h"
+#include "item_menu_icons.h"
 #include "sprite.h"
 #include "window.h"
 #include "malloc.h"
@@ -359,4 +365,25 @@ u16 PlayerGenderToFrontTrainerPicId_Debug(u8 gender, bool8 getClass)
             return gFacilityClassToPicIndex[FACILITY_CLASS_BRENDAN];
     }
     return gender;
+}
+
+u16 CreateItemPicSprite(u16 item) //, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag)
+{
+    u8 iconSpriteId;
+    u8 id = 2;
+    u8 *spriteId = &gBagMenu->spriteIds[id + ITEMMENUSPRITE_ITEM];
+    if (*spriteId == SPRITE_NONE)
+    {
+        // Either TAG_ITEM_ICON or TAG_ITEM_ICON_ALT
+        FreeSpriteTilesByTag(id + 2);
+        FreeSpritePaletteByTag(id + 2);
+        iconSpriteId = AddItemIconSprite(id + 2, id + 2, item);
+        if (iconSpriteId != MAX_SPRITES)
+        {
+            *spriteId = iconSpriteId;
+            gSprites[iconSpriteId].x2 = 24;
+            gSprites[iconSpriteId].y2 = 88;
+        }
+    }
+    return iconSpriteId;
 }

@@ -3902,6 +3902,16 @@ static void Task_MoveDeoxysRock(u8 taskId)
     }
 }
 
+u8 CreateItemSprite_PicBox(u16 item, s16 x, s16 y, u8 subpriority)
+{
+    s32 spriteId = CreateItemPicSprite(item);
+    //PreservePaletteInWeather(IndexOfSpritePaletteTag(gMonPaletteTable[species].tag) + 0x10);
+    if (spriteId == 0xFFFF)
+        return MAX_SPRITES;
+    else
+        return spriteId;
+}
+
 #undef tState
 #undef tSpriteId
 #undef tTargetX

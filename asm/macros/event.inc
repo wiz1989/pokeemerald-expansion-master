@@ -2121,3 +2121,16 @@
 	.2byte \species
 	.2byte \move
 	.endm
+
+	@ Displays a box containing the front sprite for the specified item type.
+	.macro showitempic item:req, x:req, y:req
+	.byte 0xe8
+	.2byte \item
+	.byte \x
+	.byte \y
+	.endm
+
+	@ Hides the box displayed by showitempic.
+	.macro hideitempic
+	.byte 0xe9
+	.endm

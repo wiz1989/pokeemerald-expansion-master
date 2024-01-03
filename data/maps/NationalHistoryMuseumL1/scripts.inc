@@ -187,6 +187,25 @@ NHML1_FinishGame::
 	end
 
 
+NHML1_Sign_Brochures::
+	lock
+	msgbox NHML1_Sign_Brochures_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHML1_Sign_Flame_Orb::
+	lock
+	showmonpic SPECIES_MUNCHLAX, 10, 3
+	showitempic ITEM_FLAME_ORB, 1, 1
+	msgbox NHML1_Sign_Flame_Orb_Text_0
+	waitmessage
+	hidemonpic
+	release
+	end
+
+
 Move_lookup:
 	face_up
 	step_end
@@ -254,6 +273,13 @@ NHML1_Trigger_Juan_Text_4:
 NHML1_Counter_Text_0:
 	.string "Good bye!\p"
 	.string "Thank you for visiting us!$"
+
+NHML1_Sign_Brochures_Text_0:
+	.string "Just some brochures about upcoming\n"
+	.string "exhibitions.$"
+
+NHML1_Sign_Flame_Orb_Text_0:
+	.string "Hint about flame orb TBD$"
 
 Text_Finale::
 	.string "Congratulations {PLAYER}!\p"

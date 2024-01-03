@@ -68,6 +68,10 @@ script NHML3_Trigger_WarpL2 {
 	setflag(FLAG_NHML2_RIDDLE_START)
 	clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
 	clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+	//delete for productive release
+	msgbox(format("THIS IS A PRELIMINARY TESTING VERSION\pPlease do not share outside the closed testing circle!"))
+    waitmessage
+	//deleteend
 	warp(MAP_NATIONAL_HISTORY_MUSEUM_L2, 3, 3)
 	releaseall
 	end
@@ -141,7 +145,7 @@ script NHML3_Exit {
 }
 
 script NHML3_Battle_Double {
-    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Do you like all these artifacts?\lWe always enjoyed taking a trip to the past."), "We should have trusted the prophecy on that old sarcophagus over there.", Text_NotEnoughMons)
+    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Do you like all these artifacts?\lWe always enjoyed exhibits outside of the normal."), "We should have trusted the prophecy on that old sarcophagus over there.\lIt even foretold the broken AC in the first floor!", Text_NotEnoughMons)
 	lockall
 	if (!flag(FLAG_NHML3_RECEIVED_STRENGTH)) {
 		msgbox(format("That was very impressive!\lYou are a very STRONG trainer.\lLet us give you this as a reward."), MSGBOX_AUTOCLOSE)

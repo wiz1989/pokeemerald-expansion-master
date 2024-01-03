@@ -4415,9 +4415,9 @@
       "id": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L3",
       "name": "NationalHistoryMuseumL3_Layout",
       "width": 30,
-      "height": 15,
-      "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_OceanicMuseum",
+      "height": 18,
+      "primary_tileset": "gTileset_NHM_Egypt",
+      "secondary_tileset": "gTileset_sec_NHM_Egypt",
       "border_filepath": "data/layouts/NationalHistoryMuseumL3/border.bin",
       "blockdata_filepath": "data/layouts/NationalHistoryMuseumL3/map.bin"
     },
@@ -4435,9 +4435,9 @@
       "id": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L1",
       "name": "NationalHistoryMuseumL1_Layout",
       "width": 30,
-      "height": 15,
-      "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_OceanicMuseum",
+      "height": 18,
+      "primary_tileset": "gTileset_NHM_IceAge",
+      "secondary_tileset": "gTileset_sec_NHM_IceAge",
       "border_filepath": "data/layouts/NationalHistoryMuseumL1/border.bin",
       "blockdata_filepath": "data/layouts/NationalHistoryMuseumL1/map.bin"
     }

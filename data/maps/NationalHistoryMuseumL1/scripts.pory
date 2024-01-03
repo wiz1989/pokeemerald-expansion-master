@@ -182,6 +182,25 @@ script NHML1_FinishGame {
 	end
 }
 
+script NHML1_Sign_Brochures {
+	lock
+    msgbox(format("Just some brochures about upcoming exhibitions."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
+}
+
+script NHML1_Sign_Flame_Orb {
+	lock
+	showmonpic(SPECIES_MUNCHLAX, 10, 3)
+	showitempic(ITEM_FLAME_ORB, 1, 1)
+	msgbox(format("Hint about flame orb TBD"))
+	waitmessage
+	hidemonpic
+	release
+	end
+}
+
 
 // ############### movements ###############
 

@@ -73,14 +73,14 @@ NHML2_EveryFrame_Sash_2:
 
 NHML2_Trigger_WarpL3::
 	lockall
-	warp MAP_NATIONAL_HISTORY_MUSEUM_L3, 3, 1
+	warp MAP_NATIONAL_HISTORY_MUSEUM_L3, 3, 3
 	releaseall
 	end
 
 
 NHML2_Trigger_WarpL1::
 	lockall
-	warp MAP_NATIONAL_HISTORY_MUSEUM_L1, 26, 1
+	warp MAP_NATIONAL_HISTORY_MUSEUM_L1, 27, 3
 	setflag FLAG_MOVE_BACK
 	releaseall
 	end

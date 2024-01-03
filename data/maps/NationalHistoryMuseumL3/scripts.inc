@@ -74,6 +74,8 @@ NHML3_Trigger_WarpL2::
 	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
 	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHML3_Trigger_WarpL2_Text_0
+	waitmessage
 	warp MAP_NATIONAL_HISTORY_MUSEUM_L2, 3, 3
 	releaseall
 	end
@@ -444,6 +446,11 @@ NHML3_Sign_Regirock::
 	end
 
 
+NHML3_Trigger_WarpL2_Text_0:
+	.string "THIS IS A PRELIMINARY TESTING VERSION\p"
+	.string "Please do not share outside the closed\n"
+	.string "testing circle!$"
+
 NHML3_Move_Tutor_Text_0:
 	.string "I am the Move Tutor. \lI will teach your Pokemon moves for\nprecious Heart Scales. \pWhich move should I teach?$"
 
@@ -458,11 +465,11 @@ NHML3_Exit_Text_0:
 
 NHML3_Battle_Double_Text_0:
 	.string "Do you like all these artifacts?\l"
-	.string "We always enjoyed taking a trip to the\l"
-	.string "past.$"
+	.string "We always enjoyed exhibits outside of\l"
+	.string "the normal.$"
 
 NHML3_Battle_Double_Text_1:
-	.string "We should have trusted the prophecy on that old sarcophagus over there.$"
+	.string "We should have trusted the prophecy on that old sarcophagus over there.\lIt even foretold the broken AC in the first floor!$"
 
 NHML3_Battle_Double_Text_2:
 	.string "That was very impressive!\l"

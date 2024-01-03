@@ -16,8 +16,8 @@
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_F",
-      "x": 18,
-      "y": 4,
+      "x": 15,
+      "y": 6,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -29,8 +29,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
-      "x": 17,
-      "y": 4,
+      "x": 14,
+      "y": 6,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -43,7 +43,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
       "x": 25,
-      "y": 3,
+      "y": 8,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -56,7 +56,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_LITTLE_BOY_3",
       "x": 7,
-      "y": 12,
+      "y": 15,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -69,7 +69,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SCIENTIST_1",
       "x": 0,
-      "y": 8,
+      "y": 12,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -87,7 +87,7 @@
     {
       "type": "trigger",
       "x": 3,
-      "y": 1,
+      "y": 3,
       "elevation": 0,
       "var": "VAR_TEMP_MIXED_RECORDS",
       "var_value": "0",
@@ -97,16 +97,8 @@
   "bg_events": [
     {
       "type": "sign",
-      "x": 23,
-      "y": 4,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "NHML3_InfoSign"
-    },
-    {
-      "type": "sign",
-      "x": 24,
-      "y": 4,
+      "x": 28,
+      "y": 3,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHML3_InfoSign"
@@ -114,7 +106,7 @@
     {
       "type": "sign",
       "x": 6,
-      "y": 6,
+      "y": 12,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHML3_Sign_Persian"
@@ -122,15 +114,55 @@
     {
       "type": "sign",
       "x": 8,
-      "y": 12,
+      "y": 15,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHML3_Sign_Stakataka"
     },
     {
       "type": "sign",
-      "x": 18,
+      "x": 22,
+      "y": 14,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML3_Sign_Cofagrigus"
+    },
+    {
+      "type": "sign",
+      "x": 24,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML3_Sign_Regirock"
+    },
+    {
+      "type": "sign",
+      "x": 8,
+      "y": 3,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML2_Sign_tileset"
+    },
+    {
+      "type": "sign",
+      "x": 7,
       "y": 12,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML3_Sign_Persian"
+    },
+    {
+      "type": "sign",
+      "x": 9,
+      "y": 15,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML3_Sign_Stakataka"
+    },
+    {
+      "type": "sign",
+      "x": 23,
+      "y": 14,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHML3_Sign_Cofagrigus"
