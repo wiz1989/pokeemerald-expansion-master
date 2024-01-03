@@ -378,3 +378,11 @@ script NHML3_Sign_Regirock {
 	release
 	end
 }
+
+script NHML3_Sign_tileset {
+	lock
+    msgbox(format("Parts of this tileset have originally been designed by princess-phoenix and aveontrainer."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
+}

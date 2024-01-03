@@ -221,6 +221,14 @@ NHML1_Sign_Desk::
 	end
 
 
+NHML1_Sign_tileset::
+	lock
+	msgbox NHML1_Sign_tileset_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
 Move_lookup:
 	face_up
 	step_end
@@ -301,6 +309,11 @@ NHML1_Sign_Replica_Text_0:
 
 NHML1_Sign_Desk_Text_0:
 	.string "Thank you for your visit!$"
+
+NHML1_Sign_tileset_Text_0:
+	.string "Parts of this tileset have originally\n"
+	.string "been designed by princess-phoenix,\l"
+	.string "aveontrainer and rbrnnova.$"
 
 Text_Finale::
 	.string "Congratulations {PLAYER}!\p"

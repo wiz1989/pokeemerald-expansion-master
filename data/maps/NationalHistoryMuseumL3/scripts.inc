@@ -446,6 +446,14 @@ NHML3_Sign_Regirock::
 	end
 
 
+NHML3_Sign_tileset::
+	lock
+	msgbox NHML3_Sign_tileset_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
 NHML3_Trigger_WarpL2_Text_0:
 	.string "THIS IS A PRELIMINARY TESTING VERSION\p"
 	.string "Please do not share outside the closed\n"
@@ -544,3 +552,8 @@ NHML3_Sign_Cofagrigus_Text_0:
 
 NHML3_Sign_Regirock_Text_0:
 	.string "REGIROCK...very reckless$"
+
+NHML3_Sign_tileset_Text_0:
+	.string "Parts of this tileset have originally\n"
+	.string "been designed by princess-phoenix and\l"
+	.string "aveontrainer.$"
