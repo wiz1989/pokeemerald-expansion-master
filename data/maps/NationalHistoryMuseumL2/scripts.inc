@@ -137,7 +137,8 @@ NHML2_Battle_Brandon_1:
 NHML2_Battle_Brandon_2:
 	applymovement 1, Move_back
 	waitmovement 0
-	setobjectxy 1, 26, 10
+	setobjectxy 1, 27, 11
+	setflag FLAG_MOVE_BACK
 	goto NHML2_Battle_Brandon_1
 
 
@@ -175,6 +176,8 @@ NHM2_Battle_Kabutops_3:
 	delay 40
 	waitmoncry
 	goto_if_set FLAG_HOLD_NO_SASH, NHM2_Battle_Kabutops_10
+	checktrainerflag TRAINER_NHM_BRANDON
+	goto_if 1, NHM2_Battle_Kabutops_10
 	setorcopyvar VAR_NHML2_FIGHT_KABUTOPS, 1
 	setwildbattle SPECIES_KABUTOPS, 100, ITEM_FOCUS_SASH
 NHM2_Battle_Kabutops_9:

@@ -55,7 +55,7 @@ script NHML1_Trigger_WarpL2 {
 script NHML1_Judge {
 	lock
 	faceplayer
-	msgbox(format("What an exquisite place! \lAll these artifacts are just mezmerizing. \pAnd have you noticed these special wallpapers they use? \lWonderful!"), MSGBOX_AUTOCLOSE)
+	msgbox(format("What an exquisite place! \lAll these artifacts are just mezmerizing. \pAnd have you noticed these special wallpapers they display? \lWonderful!"), MSGBOX_AUTOCLOSE)
 	waitmessage
 	setflag(FLAG_NHML1_WALLPAPER_GUY)
 	release
@@ -193,10 +193,13 @@ script NHML1_Sign_Brochures {
 script NHML1_Sign_Flame_Orb {
 	lock
 	showmonpic(SPECIES_MUNCHLAX, 10, 3)
+	setvar(VAR_0x8006, ITEM_FLAME_ORB)
+	showitemdesc
 	//showitempic(ITEM_FLAME_ORB, 1, 1)
-	msgbox(format("Hint about flame orb TBD"))
+	msgbox(format("The papers on the shelf are showing two pictures."))
 	waitmessage
 	hidemonpic
+	hideitemdesc
 	release
 	end
 }

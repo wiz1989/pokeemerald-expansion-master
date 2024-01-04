@@ -145,7 +145,7 @@ script NHML3_Exit {
 }
 
 script NHML3_Battle_Double {
-    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Do you like all these artifacts?\lWe always enjoyed exhibits outside of the normal."), "We should have trusted the prophecy on that old sarcophagus over there.\lIt even foretold the broken AC in the first floor!", Text_NotEnoughMons)
+    trainerbattle_double(TRAINER_NHM_DOUBLE, format("Do you like all these artifacts?\lWe always enjoyed exhibits outside of the NORMAL."), format("We should have trusted the prophecy on that old sarcophagus over there.\lIt even foretold the broken AC in the first floor!"), Text_NotEnoughMons)
 	lockall
 	if (!flag(FLAG_NHML3_RECEIVED_STRENGTH)) {
 		msgbox(format("That was very impressive!\lYou are a very STRONG trainer.\lLet us give you this as a reward."), MSGBOX_AUTOCLOSE)
@@ -208,7 +208,14 @@ script NHML3_Trader {
 	if(!flag(FLAG_CAUGHT_ARCHEN)) {
 		lock
 		faceplayer
-		msgbox(format("Oh hey, I'd really like to trade Pokemon with a skilled trainer...\pSo you should consider coming back when you have a bigger party."), MSGBOX_AUTOCLOSE)
+		msgbox(format("Ohhh you got a MUNCHLAX!!!\lI love it!\pI'd really like to trade Pokemon with a skilled trainer...\pSo you should consider coming back when you have a bigger party."), MSGBOX_AUTOCLOSE)
+		waitmessage
+		release
+	}
+	elif (!flag(FLAG_GOT_HEART_SCALE) || !flag(FLAG_GOT_SASH)) {
+		lock
+		faceplayer
+		msgbox(format("Oh you got an Archen? Very cool!\pI think there's more to do for you though before trading your MUNCHLAX.\lPlease come back later."), MSGBOX_AUTOCLOSE)
 		waitmessage
 		release
 	}
@@ -296,7 +303,7 @@ script NHML3_ItemManager {
 		}
 		else {
 			//check requirements
-			if(defeated(TRAINER_NHM_BRANDON) && flag(FLAG_NHML2_ITEMBALL)) {
+			if(defeated(TRAINER_NHM_BRANDON) && !defeated(TRAINER_NHM_DOUBLE) && flag(FLAG_NHML2_ITEMBALL)) {
 				checkpartymonmove(SPECIES_YAMASK, MOVE_ROLE_PLAY)
 				if (var(VAR_RESULT) == FALSE) {
 					addvar(VAR_NHML3_COLLECTOR_COUNT, 1)

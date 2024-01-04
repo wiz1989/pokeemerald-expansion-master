@@ -235,6 +235,8 @@ NHML3_Tutor_ConfirmMoveSelection_8:
 
 NHML3_Trader::
 	goto_if_unset FLAG_CAUGHT_ARCHEN, NHML3_Trader_2
+	goto_if_unset FLAG_GOT_HEART_SCALE, NHML3_Trader_3
+	goto_if_unset FLAG_GOT_SASH, NHML3_Trader_3
 	call FortreeCity_House1_EventScript_Trader
 NHML3_Trader_1:
 	end
@@ -243,6 +245,14 @@ NHML3_Trader_2:
 	lock
 	faceplayer
 	msgbox NHML3_Trader_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	goto NHML3_Trader_1
+
+NHML3_Trader_3:
+	lock
+	faceplayer
+	msgbox NHML3_Trader_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	release
 	goto NHML3_Trader_1
@@ -257,7 +267,7 @@ NHML3_Trader2_1:
 NHML3_Trader2_2:
 	lock
 	faceplayer
-	msgbox NHML3_Trader_Text_0, MSGBOX_AUTOCLOSE
+	msgbox NHML3_Trader2_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
 	release
 	goto NHML3_Trader2_1
@@ -311,7 +321,7 @@ NHML3_ItemManager_18:
 NHML3_ItemManager_24:
 	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_30
 	checktrainerflag TRAINER_NHM_BRANDON
-	goto_if 1, NHML3_ItemManager_36
+	goto_if 1, NHML3_ItemManager_37
 	goto NHML3_ItemManager_5
 
 NHML3_ItemManager_10:
@@ -355,43 +365,48 @@ NHML3_ItemManager_33:
 NHML3_ItemManager_35:
 	checkpartymonmove SPECIES_YAMASK, MOVE_ROLE_PLAY
 	compare VAR_RESULT, FALSE
-	goto_if_eq NHML3_ItemManager_40
-NHML3_ItemManager_39:
+	goto_if_eq NHML3_ItemManager_42
+NHML3_ItemManager_41:
 	checkpartymonmove SPECIES_YAMASK, MOVE_SUBSTITUTE
 	compare VAR_RESULT, FALSE
-	goto_if_eq NHML3_ItemManager_43
-NHML3_ItemManager_42:
+	goto_if_eq NHML3_ItemManager_45
+NHML3_ItemManager_44:
 	compare VAR_NHML3_COLLECTOR_COUNT, 0
-	goto_if_gt NHML3_ItemManager_45
+	goto_if_gt NHML3_ItemManager_47
 	goto NHML3_ItemManager_5
 
 NHML3_ItemManager_36:
 	goto_if_set FLAG_NHML2_ITEMBALL, NHML3_ItemManager_35
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_40:
-	addvar VAR_NHML3_COLLECTOR_COUNT, 1
-	goto NHML3_ItemManager_39
+NHML3_ItemManager_37:
+	checktrainerflag TRAINER_NHM_DOUBLE
+	goto_if 0, NHML3_ItemManager_36
+	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_43:
+NHML3_ItemManager_42:
 	addvar VAR_NHML3_COLLECTOR_COUNT, 1
-	goto NHML3_ItemManager_42
+	goto NHML3_ItemManager_41
 
 NHML3_ItemManager_45:
+	addvar VAR_NHML3_COLLECTOR_COUNT, 1
+	goto NHML3_ItemManager_44
+
+NHML3_ItemManager_47:
 	msgbox NHML3_ItemManager_Text_3, MSGBOX_AUTOCLOSE
 	waitmessage
 	switch VAR_NHML3_COLLECTOR_COUNT
-	case 1, NHML3_ItemManager_48
-	case 2, NHML3_ItemManager_49
+	case 1, NHML3_ItemManager_50
+	case 2, NHML3_ItemManager_51
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_48:
+NHML3_ItemManager_50:
 	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_HEART_SCALE
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_49:
+NHML3_ItemManager_51:
 	msgbox NHML3_ItemManager_Text_4, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_HEART_SCALE, 2
@@ -474,10 +489,13 @@ NHML3_Exit_Text_0:
 NHML3_Battle_Double_Text_0:
 	.string "Do you like all these artifacts?\l"
 	.string "We always enjoyed exhibits outside of\l"
-	.string "the normal.$"
+	.string "the NORMAL.$"
 
 NHML3_Battle_Double_Text_1:
-	.string "We should have trusted the prophecy on that old sarcophagus over there.\lIt even foretold the broken AC in the first floor!$"
+	.string "We should have trusted the prophecy on\n"
+	.string "that old sarcophagus over there.\l"
+	.string "It even foretold the broken AC in the\l"
+	.string "first floor!$"
 
 NHML3_Battle_Double_Text_2:
 	.string "That was very impressive!\l"
@@ -505,6 +523,20 @@ NHML3_Tutor_ConfirmMoveSelection_Text_4:
 	.string "Thanks for doing business with me.$"
 
 NHML3_Trader_Text_0:
+	.string "Ohhh you got a MUNCHLAX!!!\l"
+	.string "I love it!\p"
+	.string "I'd really like to trade Pokemon with a\n"
+	.string "skilled trainer...\p"
+	.string "So you should consider coming back\n"
+	.string "when you have a bigger party.$"
+
+NHML3_Trader_Text_1:
+	.string "Oh you got an Archen? Very cool!\p"
+	.string "I think there's more to do for you\n"
+	.string "though before trading your MUNCHLAX.\l"
+	.string "Please come back later.$"
+
+NHML3_Trader2_Text_0:
 	.string "Oh hey, I'd really like to trade Pokemon\n"
 	.string "with a skilled trainer...\p"
 	.string "So you should consider coming back\n"

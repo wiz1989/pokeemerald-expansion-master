@@ -1117,6 +1117,7 @@ static void BuyMenuTryMakePurchase(u8 taskId)
         if (AddBagItem(tItemId, tItemCount) == TRUE)
         {
             RecordItemPurchase(taskId);
+            GetSetItemObtained(tItemId, FLAG_SET_OBTAINED);
             BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
         }
         else

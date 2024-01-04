@@ -3742,7 +3742,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     if (species == SPECIES_AURORUS) {
         moves[0] = MOVE_ICE_BEAM;
-        moves[1] = MOVE_HYPER_BEAM;
+        moves[1] = MOVE_NONE;
         moves[2] = MOVE_NONE;
         moves[3] = MOVE_NONE;
 
@@ -3755,7 +3755,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     if (species == SPECIES_CARRACOSTA) {
         moves[0] = MOVE_HYDRO_PUMP;
-        moves[1] = MOVE_CRUNCH;
+        moves[1] = MOVE_NONE;
         moves[2] = MOVE_NONE;
         moves[3] = MOVE_NONE;
 
@@ -3780,8 +3780,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     }
 
     if (species == SPECIES_RAMPARDOS) {
-        moves[0] = MOVE_EARTHQUAKE;
-        moves[1] = MOVE_ZEN_HEADBUTT;
+        moves[0] = MOVE_ZEN_HEADBUTT;
+        moves[1] = MOVE_NONE;
         moves[2] = MOVE_NONE;
         moves[3] = MOVE_NONE;
 
@@ -3807,7 +3807,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     if (species == SPECIES_CRADILY) {
         moves[0] = MOVE_ENERGY_BALL;
-        moves[1] = MOVE_GIGA_DRAIN;
+        moves[1] = MOVE_NONE;
         moves[2] = MOVE_NONE;
         moves[3] = MOVE_NONE;
 
@@ -3833,7 +3833,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     if (species == SPECIES_AERODACTYL) {
         moves[0] = MOVE_AERIAL_ACE;
-        moves[1] = MOVE_STONE_EDGE;
+        moves[1] = MOVE_NONE;
         moves[2] = MOVE_NONE;
         moves[3] = MOVE_NONE;
 

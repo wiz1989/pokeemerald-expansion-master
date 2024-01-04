@@ -15100,6 +15100,8 @@ static void Cmd_handleballthrow(void)
         //wiz1989
         if (gBattleMons[gBattlerTarget].species == SPECIES_ARCHEN)
             odds = 255;
+        else
+            odds = 0;
 
         if (odds > 254) // mon caught
         {

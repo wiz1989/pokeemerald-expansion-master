@@ -2424,3 +2424,15 @@ bool8 ScrCmd_hideitempic(struct ScriptContext *ctx)
     SetupNativeScript(ctx, func);
     return TRUE;
 }
+
+bool8 ScrCmd_showitemdesc(struct ScriptContext *ctx)
+{
+    DrawHeaderBox();
+    return FALSE;
+}
+
+bool8 ScrCmd_hideitemdesc(struct ScriptContext *ctx)
+{
+    HideHeaderBox();
+    return FALSE;
+}

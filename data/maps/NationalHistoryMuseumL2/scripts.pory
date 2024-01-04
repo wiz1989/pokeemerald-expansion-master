@@ -125,7 +125,8 @@ script NHML2_Battle_Brandon {
     if (!flag(FLAG_MOVE_BACK)) {
         applymovement(1, Move_back)
         waitmovement(0)
-        setobjectxy(1, 26, 10)
+        setobjectxy(1, 27, 11)
+        setflag(FLAG_MOVE_BACK)
     }
 	end
 }
@@ -170,7 +171,7 @@ script NHM2_Battle_Kabutops {
         delay(40)
         waitmoncry
 
-        if(flag(FLAG_HOLD_NO_SASH)) {
+        if(flag(FLAG_HOLD_NO_SASH) || defeated(TRAINER_NHM_BRANDON)) {
             setorcopyvar(VAR_NHML2_FIGHT_KABUTOPS, 1)
             setwildbattle(SPECIES_KABUTOPS, 100)
         }

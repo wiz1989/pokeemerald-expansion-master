@@ -198,9 +198,12 @@ NHML1_Sign_Brochures::
 NHML1_Sign_Flame_Orb::
 	lock
 	showmonpic SPECIES_MUNCHLAX, 10, 3
+	setvar VAR_0x8006, ITEM_FLAME_ORB
+	showitemdesc
 	msgbox NHML1_Sign_Flame_Orb_Text_0
 	waitmessage
 	hidemonpic
+	hideitemdesc
 	release
 	end
 
@@ -255,7 +258,7 @@ NHML1_Judge_Text_0:
 	.string "All these artifacts are just\l"
 	.string "mezmerizing.\p"
 	.string "And have you noticed these special\n"
-	.string "wallpapers they use?\l"
+	.string "wallpapers they display?\l"
 	.string "Wonderful!$"
 
 NHML1_ItemBall_Text_0:
@@ -302,7 +305,8 @@ NHML1_Sign_Brochures_Text_0:
 	.string "exhibitions.$"
 
 NHML1_Sign_Flame_Orb_Text_0:
-	.string "Hint about flame orb TBD$"
+	.string "The papers on the shelf are showing two\n"
+	.string "pictures.$"
 
 NHML1_Sign_Replica_Text_0:
 	.string "A very realistic replica of a Mamoswine.$"
