@@ -11818,6 +11818,7 @@ static const struct TrainerMon sParty_JohnAndGina[] = {
     {
     .lvl = 50,
     .species = SPECIES_STAKATAKA,
+    .moves = {MOVE_IRON_HEAD, MOVE_ROCK_BLAST, MOVE_AUTOTOMIZE, MOVE_IRON_DEFENSE},
     .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
     .nature = NATURE_RELAXED,
     .heldItem = ITEM_LAGGING_TAIL,
