@@ -4389,12 +4389,12 @@ const struct SpeciesInfo gSpeciesInfo[] =
 
     [SPECIES_MEGANIUM] =
     {
-        .baseHP        = 80,
+        .baseHP        = 100,
         .baseAttack    = 82,
-        .baseDefense   = 100,
+        .baseDefense   = 180,
         .baseSpeed     = 80,
         .baseSpAttack  = 83,
-        .baseSpDefense = 100,
+        .baseSpDefense = 180,
         .types = { TYPE_GRASS, TYPE_GRASS },
         .catchRate = 45,
         .expYield = 280,
@@ -7450,7 +7450,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     {
         .baseHP        = 60,
         .baseAttack    = 130,
-        .baseDefense   = 80,
+        .baseDefense   = 110,
         .baseSpeed     = 70,
         .baseSpAttack  = 60,
         .baseSpDefense = 60,

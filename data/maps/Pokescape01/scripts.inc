@@ -25,6 +25,8 @@ OnResume_4:
 	setflag FLAG_BADGE07_GET
 	setflag FLAG_BADGE08_GET
 	setflag FLAG_SYS_POKEDEX_GET
+	setflag FLAG_SYS_NATIONAL_DEX
+	special EnableNationalPokedex
 	call load_HONOR_MODE
 	end
 
@@ -1367,7 +1369,9 @@ Text_TipFirstFight::
 	.string "Your exquisite team could probably\n"
 	.string "release a toxic storm at the opponent.\p"
 	.string "Makuhita is the key to do so. You could\n"
-	.string "do some sparring with Geodude outside.$"
+	.string "do some sparring with Geodude outside.\p"
+	.string "Ohh...and you have checked your item\n"
+	.string "box, right?$"
 
 Text_TipRareCandyRevive::
 	.string "Nurse Joy is sick and you have already\n"

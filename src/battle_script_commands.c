@@ -2038,9 +2038,10 @@ static void Cmd_critcalc(void)
     else if (critChance == -1)
         gIsCriticalHit = FALSE;
     else if (critChance == -2)
-        gIsCriticalHit = TRUE;
+        gIsCriticalHit = FALSE;
     else
-        gIsCriticalHit = RandomWeighted(RNG_CRITICAL_HIT, sCriticalHitChance[critChance] - 1, 1);
+        gIsCriticalHit = FALSE;
+        //gIsCriticalHit = RandomWeighted(RNG_CRITICAL_HIT, sCriticalHitChance[critChance] - 1, 1);
 
     // Counter for EVO_CRITICAL_HITS.
     partySlot = gBattlerPartyIndexes[gBattlerAttacker];
