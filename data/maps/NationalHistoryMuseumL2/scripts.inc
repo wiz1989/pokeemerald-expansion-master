@@ -582,7 +582,7 @@ NHML2_Game_Master::
 	msgbox NHML2_Game_Master_Text_1, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq NHML2_Game_Master_2
-	msgbox NHML2_Game_Master_Text_14, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Game_Master_Text_20, MSGBOX_AUTOCLOSE
 	waitmessage
 	release
 	end
@@ -591,7 +591,7 @@ NHML2_Game_Master_1:
 	waitmessage
 	goto_if_set FLAG_P01_ADDTIME, NHML2_Game_Master_6
 	goto_if_set FLAG_P01_GIVE_ADVICE, NHML2_Game_Master_12
-	msgbox NHML2_Game_Master_Text_16
+	msgbox NHML2_Game_Master_Text_22
 	waitmessage
 NHML2_Game_Master_5:
 	release
@@ -626,7 +626,7 @@ NHML2_Game_Master_9:
 	goto NHML2_Game_Master_1
 
 NHML2_Game_Master_12:
-	msgbox NHML2_Game_Master_Text_15
+	msgbox NHML2_Game_Master_Text_21
 	waitmessage
 	goto NHML2_Game_Master_5
 
@@ -635,7 +635,7 @@ NHML2_Game_Master_16:
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq NHML2_Game_Master_29
 	goto_if_unset FLAG_GOT_SASH, NHML2_Game_Master_43
-	goto_if_unset FLAG_GOT_HEART_SCALE, NHML2_Game_Master_62
+	goto_if_unset FLAG_GOT_HEART_SCALE, NHML2_Game_Master_68
 	goto NHML2_Game_Master_15
 
 NHML2_Game_Master_17:
@@ -644,15 +644,16 @@ NHML2_Game_Master_17:
 	goto NHML2_Game_Master_15
 
 NHML2_Game_Master_23:
+	goto_if_unset FLAG_CAUGHT_ARCHEN, NHML2_Game_Master_37
 	checkpartymon SPECIES_YAMASK
 	compare VAR_RESULT, FALSE
-	goto_if_eq NHML2_Game_Master_37
+	goto_if_eq NHML2_Game_Master_56
 	checkpartymove MOVE_ENDEAVOR
 	compare VAR_RESULT, PARTY_SIZE
-	goto_if_eq NHML2_Game_Master_56
-	goto_if_unset FLAG_HINT06, NHML2_Game_Master_77
-NHML2_Game_Master_76:
-	msgbox NHML2_Game_Master_Text_8, MSGBOX_AUTOCLOSE
+	goto_if_eq NHML2_Game_Master_90
+	goto_if_unset FLAG_HINT06, NHML2_Game_Master_126
+NHML2_Game_Master_125:
+	msgbox NHML2_Game_Master_Text_13, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_22
 
@@ -665,9 +666,12 @@ NHML2_Game_Master_25:
 	goto NHML2_Game_Master_22
 
 NHML2_Game_Master_29:
-	goto_if_unset FLAG_HINT01, NHML2_Game_Master_41
-NHML2_Game_Master_40:
-	msgbox NHML2_Game_Master_Text_3, MSGBOX_AUTOCLOSE
+	getpartymonlevel SPECIES_MUNCHLAX
+	compare VAR_RESULT, 12
+	goto_if_ge NHML2_Game_Master_40
+	goto_if_unset FLAG_HINT01, NHML2_Game_Master_63
+NHML2_Game_Master_62:
+	msgbox NHML2_Game_Master_Text_5, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_15
 
@@ -677,7 +681,7 @@ NHML2_Game_Master_33:
 	copyvar VAR_RESULT2, VAR_RESULT
 	checkpartymon SPECIES_SKITTY
 	compare VAR_RESULT, TRUE
-	goto_if_eq NHML2_Game_Master_70
+	goto_if_eq NHML2_Game_Master_78
 	goto NHML2_Game_Master_32
 
 NHML2_Game_Master_34:
@@ -686,29 +690,62 @@ NHML2_Game_Master_34:
 	goto NHML2_Game_Master_32
 
 NHML2_Game_Master_37:
-	goto_if_unset FLAG_HINT04, NHML2_Game_Master_54
-NHML2_Game_Master_53:
-	msgbox NHML2_Game_Master_Text_6, MSGBOX_AUTOCLOSE
+	checkitem ITEM_POKE_BALL
+	compare VAR_RESULT, FALSE
+	goto_if_eq NHML2_Game_Master_53
+	goto_if_unset FLAG_HINT15, NHML2_Game_Master_85
+NHML2_Game_Master_84:
+	msgbox NHML2_Game_Master_Text_10, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_22
 
-NHML2_Game_Master_41:
-	setflag FLAG_HINT01
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_40
-
-NHML2_Game_Master_43:
-	goto_if_unset FLAG_HINT02, NHML2_Game_Master_60
+NHML2_Game_Master_40:
+	goto_if_unset FLAG_HINT13, NHML2_Game_Master_60
 NHML2_Game_Master_59:
+	msgbox NHML2_Game_Master_Text_3, MSGBOX_AUTOCLOSE
+	waitmessage
+	getpartymonslot SPECIES_MUNCHLAX
+	switch VAR_RESULT
+	case 0, NHML2_Game_Master_95
+	case 1, NHML2_Game_Master_96
+	case 2, NHML2_Game_Master_97
+	case 3, NHML2_Game_Master_98
+NHML2_Game_Master_93:
 	msgbox NHML2_Game_Master_Text_4, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_15
 
+NHML2_Game_Master_43:
+	checkpartymove MOVE_RECYCLE
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq NHML2_Game_Master_65
+	goto_if_unset FLAG_HINT02, NHML2_Game_Master_103
+NHML2_Game_Master_102:
+	msgbox NHML2_Game_Master_Text_7, MSGBOX_AUTOCLOSE
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_15
+
 NHML2_Game_Master_46:
-	goto_if_unset FLAG_NHML1_BOULDER_FELL_DOWN, NHML2_Game_Master_64
-	goto_if_unset FLAG_HINT11, NHML2_Game_Master_86
-NHML2_Game_Master_85:
-	msgbox NHML2_Game_Master_Text_13, MSGBOX_AUTOCLOSE
+	goto_if_unset FLAG_NHML2_RIDDLE_SOLVED, NHML2_Game_Master_70
+	goto_if_unset FLAG_NHML1_BOULDER_FELL_DOWN, NHML2_Game_Master_71
+	setorcopyvar VAR_NHML1_COUNT, 0
+	checkpartymove MOVE_BELLY_DRUM
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq NHML2_Game_Master_114
+NHML2_Game_Master_113:
+	checkpartymove MOVE_COVET
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq NHML2_Game_Master_138
+NHML2_Game_Master_137:
+	checkpartymove MOVE_FLING
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq NHML2_Game_Master_147
+NHML2_Game_Master_146:
+	compare VAR_NHML1_COUNT, 0
+	goto_if_gt NHML2_Game_Master_155
+	goto_if_unset FLAG_HINT11, NHML2_Game_Master_162
+NHML2_Game_Master_161:
+	msgbox NHML2_Game_Master_Text_19, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_1
 
@@ -718,123 +755,312 @@ NHML2_Game_Master_47:
 	goto NHML2_Game_Master_1
 
 NHML2_Game_Master_50:
-	goto_if_set FLAG_NHML1_WALLPAPER_GUY, NHML2_Game_Master_67
+	goto_if_set FLAG_NHML1_WALLPAPER_GUY, NHML2_Game_Master_75
 	goto NHML2_Game_Master_32
 
-NHML2_Game_Master_54:
-	setflag FLAG_HINT04
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_53
+NHML2_Game_Master_53:
+	goto_if_unset FLAG_HINT14, NHML2_Game_Master_82
+NHML2_Game_Master_81:
+	msgbox NHML2_Game_Master_Text_9, MSGBOX_AUTOCLOSE
+	giveitem ITEM_POKE_BALL, 1
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_22
 
 NHML2_Game_Master_56:
-	goto_if_unset FLAG_HINT05, NHML2_Game_Master_74
-NHML2_Game_Master_73:
-	msgbox NHML2_Game_Master_Text_7, MSGBOX_AUTOCLOSE
+	goto_if_unset FLAG_HINT04, NHML2_Game_Master_88
+NHML2_Game_Master_87:
+	msgbox NHML2_Game_Master_Text_11, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_22
 
 NHML2_Game_Master_60:
-	setflag FLAG_HINT02
+	setflag FLAG_HINT13
 	setflag FLAG_P01_ADDTIME
 	goto NHML2_Game_Master_59
 
-NHML2_Game_Master_62:
-	goto_if_unset FLAG_HINT03, NHML2_Game_Master_80
-NHML2_Game_Master_79:
-	msgbox NHML2_Game_Master_Text_5, MSGBOX_AUTOCLOSE
+NHML2_Game_Master_63:
+	setflag FLAG_HINT01
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_62
+
+NHML2_Game_Master_65:
+	goto_if_unset FLAG_HINT12, NHML2_Game_Master_100
+NHML2_Game_Master_99:
+	msgbox NHML2_Game_Master_Text_6, MSGBOX_AUTOCLOSE
+	waitmessage
+	getpartymonslot SPECIES_MUNCHLAX
+	switch VAR_RESULT
+	case 0, NHML2_Game_Master_130
+	case 1, NHML2_Game_Master_131
+	case 2, NHML2_Game_Master_132
+	case 3, NHML2_Game_Master_133
+NHML2_Game_Master_128:
+	msgbox NHML2_Game_Master_Text_4, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_15
 
-NHML2_Game_Master_64:
-	goto_if_unset FLAG_HINT10, NHML2_Game_Master_83
-NHML2_Game_Master_82:
-	msgbox NHML2_Game_Master_Text_12, MSGBOX_AUTOCLOSE
+NHML2_Game_Master_68:
+	goto_if_unset FLAG_HINT03, NHML2_Game_Master_106
+NHML2_Game_Master_105:
+	msgbox NHML2_Game_Master_Text_8, MSGBOX_AUTOCLOSE
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_15
+
+NHML2_Game_Master_70:
+	goto_if_set FLAG_NHML1_WALLPAPER_GUY, NHML2_Game_Master_108
+	goto NHML2_Game_Master_1
+
+NHML2_Game_Master_71:
+	goto_if_unset FLAG_HINT10, NHML2_Game_Master_111
+NHML2_Game_Master_110:
+	msgbox NHML2_Game_Master_Text_17, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_1
 
-NHML2_Game_Master_67:
-	goto_if_unset FLAG_HINT07, NHML2_Game_Master_89
-NHML2_Game_Master_88:
-	msgbox NHML2_Game_Master_Text_9, MSGBOX_AUTOCLOSE
+NHML2_Game_Master_75:
+	goto_if_unset FLAG_HINT07, NHML2_Game_Master_117
+NHML2_Game_Master_116:
+	msgbox NHML2_Game_Master_Text_14, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_32
-
-NHML2_Game_Master_69:
-	checkpartymove MOVE_ROLE_PLAY
-	compare VAR_RESULT, PARTY_SIZE
-	goto_if_eq NHML2_Game_Master_91
-	checkpartymonmove SPECIES_YAMASK, MOVE_SUBSTITUTE
-	compare VAR_RESULT, FALSE
-	goto_if_eq NHML2_Game_Master_97
-	goto_if_unset FLAG_HINT09, NHML2_Game_Master_104
-NHML2_Game_Master_103:
-	msgbox NHML2_Game_Master_Text_11, MSGBOX_AUTOCLOSE
-	clearflag FLAG_P01_GIVE_ADVICE
-	goto NHML2_Game_Master_32
-
-NHML2_Game_Master_70:
-	compare VAR_RESULT2, TRUE
-	goto_if_eq NHML2_Game_Master_69
-	goto NHML2_Game_Master_32
-
-NHML2_Game_Master_74:
-	setflag FLAG_HINT05
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_73
 
 NHML2_Game_Master_77:
-	setflag FLAG_HINT06
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_76
-
-NHML2_Game_Master_80:
-	setflag FLAG_HINT03
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_79
-
-NHML2_Game_Master_83:
-	setflag FLAG_HINT10
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_82
-
-NHML2_Game_Master_86:
-	setflag FLAG_HINT11
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_85
-
-NHML2_Game_Master_89:
-	setflag FLAG_HINT07
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_88
-
-NHML2_Game_Master_91:
-	goto_if_unset FLAG_HINT08, NHML2_Game_Master_95
-NHML2_Game_Master_94:
-	msgbox NHML2_Game_Master_Text_10, MSGBOX_AUTOCLOSE
+	checkpartymove MOVE_ROLE_PLAY
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq NHML2_Game_Master_119
+	checkpartymonmove SPECIES_YAMASK, MOVE_SUBSTITUTE
+	compare VAR_RESULT, FALSE
+	goto_if_eq NHML2_Game_Master_143
+	goto_if_unset FLAG_HINT09, NHML2_Game_Master_153
+NHML2_Game_Master_152:
+	msgbox NHML2_Game_Master_Text_16, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_32
+
+NHML2_Game_Master_78:
+	compare VAR_RESULT2, TRUE
+	goto_if_eq NHML2_Game_Master_77
+	goto NHML2_Game_Master_32
+
+NHML2_Game_Master_82:
+	setflag FLAG_HINT14
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_81
+
+NHML2_Game_Master_85:
+	setflag FLAG_HINT15
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_84
+
+NHML2_Game_Master_88:
+	setflag FLAG_HINT04
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_87
+
+NHML2_Game_Master_90:
+	goto_if_unset FLAG_HINT05, NHML2_Game_Master_123
+NHML2_Game_Master_122:
+	msgbox NHML2_Game_Master_Text_12, MSGBOX_AUTOCLOSE
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_22
 
 NHML2_Game_Master_95:
-	setflag FLAG_HINT08
-	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_94
+	setmonmove 0, 0, MOVE_ICY_WIND
+	setmonmove 0, 1, MOVE_TACKLE
+	setmonmove 0, 2, MOVE_COVET
+	setmonmove 0, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_93
+
+NHML2_Game_Master_96:
+	setmonmove 1, 0, MOVE_ICY_WIND
+	setmonmove 1, 1, MOVE_TACKLE
+	setmonmove 1, 2, MOVE_COVET
+	setmonmove 1, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_93
 
 NHML2_Game_Master_97:
-	goto_if_unset FLAG_HINT08, NHML2_Game_Master_101
+	setmonmove 2, 0, MOVE_ICY_WIND
+	setmonmove 2, 1, MOVE_TACKLE
+	setmonmove 2, 2, MOVE_COVET
+	setmonmove 2, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_93
+
+NHML2_Game_Master_98:
+	setmonmove 3, 0, MOVE_ICY_WIND
+	setmonmove 3, 1, MOVE_TACKLE
+	setmonmove 3, 2, MOVE_COVET
+	setmonmove 3, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_93
+
 NHML2_Game_Master_100:
-	msgbox NHML2_Game_Master_Text_10, MSGBOX_AUTOCLOSE
+	setflag FLAG_HINT12
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_99
+
+NHML2_Game_Master_103:
+	setflag FLAG_HINT02
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_102
+
+NHML2_Game_Master_106:
+	setflag FLAG_HINT03
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_105
+
+NHML2_Game_Master_108:
+	goto_if_unset FLAG_HINT07, NHML2_Game_Master_135
+NHML2_Game_Master_134:
+	msgbox NHML2_Game_Master_Text_14, MSGBOX_AUTOCLOSE
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_1
+
+NHML2_Game_Master_111:
+	setflag FLAG_HINT10
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_110
+
+NHML2_Game_Master_114:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML2_Game_Master_113
+
+NHML2_Game_Master_117:
+	setflag FLAG_HINT07
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_116
+
+NHML2_Game_Master_119:
+	goto_if_unset FLAG_HINT08, NHML2_Game_Master_141
+NHML2_Game_Master_140:
+	msgbox NHML2_Game_Master_Text_15, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_32
 
-NHML2_Game_Master_101:
+NHML2_Game_Master_123:
+	setflag FLAG_HINT05
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_122
+
+NHML2_Game_Master_126:
+	setflag FLAG_HINT06
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_125
+
+NHML2_Game_Master_130:
+	setmonmove 0, 0, MOVE_ICY_WIND
+	setmonmove 0, 1, MOVE_TACKLE
+	setmonmove 0, 2, MOVE_COVET
+	setmonmove 0, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_128
+
+NHML2_Game_Master_131:
+	setmonmove 1, 0, MOVE_ICY_WIND
+	setmonmove 1, 1, MOVE_TACKLE
+	setmonmove 1, 2, MOVE_COVET
+	setmonmove 1, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_128
+
+NHML2_Game_Master_132:
+	setmonmove 2, 0, MOVE_ICY_WIND
+	setmonmove 2, 1, MOVE_TACKLE
+	setmonmove 2, 2, MOVE_COVET
+	setmonmove 2, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_128
+
+NHML2_Game_Master_133:
+	setmonmove 3, 0, MOVE_ICY_WIND
+	setmonmove 3, 1, MOVE_TACKLE
+	setmonmove 3, 2, MOVE_COVET
+	setmonmove 3, 3, MOVE_RECYCLE
+	goto NHML2_Game_Master_128
+
+NHML2_Game_Master_135:
+	setflag FLAG_HINT07
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_134
+
+NHML2_Game_Master_138:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML2_Game_Master_137
+
+NHML2_Game_Master_141:
 	setflag FLAG_HINT08
 	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_100
+	goto NHML2_Game_Master_140
 
-NHML2_Game_Master_104:
+NHML2_Game_Master_143:
+	goto_if_unset FLAG_HINT08, NHML2_Game_Master_150
+NHML2_Game_Master_149:
+	msgbox NHML2_Game_Master_Text_15, MSGBOX_AUTOCLOSE
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_32
+
+NHML2_Game_Master_147:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML2_Game_Master_146
+
+NHML2_Game_Master_150:
+	setflag FLAG_HINT08
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_149
+
+NHML2_Game_Master_153:
 	setflag FLAG_HINT09
 	setflag FLAG_P01_ADDTIME
-	goto NHML2_Game_Master_103
+	goto NHML2_Game_Master_152
+
+NHML2_Game_Master_155:
+	goto_if_unset FLAG_HINT16, NHML2_Game_Master_159
+NHML2_Game_Master_158:
+	msgbox NHML2_Game_Master_Text_18, MSGBOX_AUTOCLOSE
+	waitmessage
+	getpartymonslot SPECIES_MUNCHLAX
+	switch VAR_RESULT
+	case 0, NHML2_Game_Master_166
+	case 1, NHML2_Game_Master_167
+	case 2, NHML2_Game_Master_168
+	case 3, NHML2_Game_Master_169
+NHML2_Game_Master_164:
+	msgbox NHML2_Game_Master_Text_4, MSGBOX_AUTOCLOSE
+	clearflag FLAG_P01_GIVE_ADVICE
+	goto NHML2_Game_Master_1
+
+NHML2_Game_Master_159:
+	setflag FLAG_HINT16
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_158
+
+NHML2_Game_Master_162:
+	setflag FLAG_HINT11
+	setflag FLAG_P01_ADDTIME
+	goto NHML2_Game_Master_161
+
+NHML2_Game_Master_166:
+	setmonmove 0, 0, MOVE_ICY_WIND
+	setmonmove 0, 1, MOVE_BELLY_DRUM
+	setmonmove 0, 2, MOVE_COVET
+	setmonmove 0, 3, MOVE_FLING
+	goto NHML2_Game_Master_164
+
+NHML2_Game_Master_167:
+	setmonmove 1, 0, MOVE_ICY_WIND
+	setmonmove 1, 1, MOVE_BELLY_DRUM
+	setmonmove 1, 2, MOVE_COVET
+	setmonmove 1, 3, MOVE_FLING
+	goto NHML2_Game_Master_164
+
+NHML2_Game_Master_168:
+	setmonmove 2, 0, MOVE_ICY_WIND
+	setmonmove 2, 1, MOVE_BELLY_DRUM
+	setmonmove 2, 2, MOVE_COVET
+	setmonmove 2, 3, MOVE_FLING
+	goto NHML2_Game_Master_164
+
+NHML2_Game_Master_169:
+	setmonmove 3, 0, MOVE_ICY_WIND
+	setmonmove 3, 1, MOVE_BELLY_DRUM
+	setmonmove 3, 2, MOVE_COVET
+	setmonmove 3, 3, MOVE_FLING
+	goto NHML2_Game_Master_164
 
 
 NHML2_Boulder::
@@ -1125,58 +1351,90 @@ NHML2_Game_Master_Text_2:
 	.string "minutes this time.$"
 
 NHML2_Game_Master_Text_3:
+	.string "Oh no, your Munchlax didn't learn the\n"
+	.string "move COVET when leveling up?\p"
+	.string "Let me update its moveset so you can\n"
+	.string "continue your journey...$"
+
+NHML2_Game_Master_Text_4:
+	.string "Munchlax' moveset has been updated.$"
+
+NHML2_Game_Master_Text_5:
 	.string "Have you seen the mail in your PC?\p"
 	.string "You should check out Munchlax'\n"
 	.string "learnset to see if it can help you\l"
 	.string "solving that hint!$"
 
-NHML2_Game_Master_Text_4:
-	.string "People are making so much trash.\p"
-	.string "We should all try to RECYCLE more!$"
+NHML2_Game_Master_Text_6:
+	.string "Oh no, your Munchlax forgot the move\n"
+	.string "RECYCLE?\p"
+	.string "Let me update its moveset so you can\n"
+	.string "continue your journey...$"
 
-NHML2_Game_Master_Text_5:
+NHML2_Game_Master_Text_7:
+	.string "People are making so much trash.\p"
+	.string "We should all try to RECYCLE more!\l"
+	.string "Even when trying to obtain a FOCUS\l"
+	.string "SASH.$"
+
+NHML2_Game_Master_Text_8:
 	.string "I heard HEART SCALES can be found\n"
 	.string "after some battles.\p"
 	.string "Your Munchlax is key to obtain them.$"
 
-NHML2_Game_Master_Text_6:
+NHML2_Game_Master_Text_9:
+	.string "You lost your Pokéball?\p"
+	.string "Let me give you another one!\l"
+	.string "But make sure to only use it on Archen\l"
+	.string "since everything else is impossible to\l"
+	.string "catch.$"
+
+NHML2_Game_Master_Text_10:
+	.string "Looks like you haven't used your\n"
+	.string "Pokéball, yet.\p"
+	.string "There is one specific encounter here\n"
+	.string "that is weak enough to catch it.\l"
+	.string "You should look out for it and make it a\l"
+	.string "member of your team.$"
+
+NHML2_Game_Master_Text_11:
 	.string "You are struggling to defeat that\n"
 	.string "trainer on the right?\p"
 	.string "Let me tell you that you won't defeat\n"
 	.string "him with Munchlax in your party!$"
 
-NHML2_Game_Master_Text_7:
+NHML2_Game_Master_Text_12:
 	.string "There's only one way to defeat the\n"
 	.string "trainer on the right and it leads you to\l"
 	.string "the Move Tutor upstairs.$"
 
-NHML2_Game_Master_Text_8:
+NHML2_Game_Master_Text_13:
 	.string "You are struggling to defeat that\n"
 	.string "Tyrantrum?\p"
 	.string "You should take a closer look at\n"
 	.string "Yamask's ability.$"
 
-NHML2_Game_Master_Text_9:
+NHML2_Game_Master_Text_14:
 	.string "You spoke to the gentleman talking\n"
 	.string "about the wallpapers here, haven't you?\p"
 	.string "You should think about how and where\n"
 	.string "you can take a specific look at\l"
 	.string "WALLPAPERS.$"
 
-NHML2_Game_Master_Text_10:
+NHML2_Game_Master_Text_15:
 	.string "You should go visit the Move Tutor\n"
 	.string "again.\p"
 	.string "Without his excellent service you won't\n"
 	.string "be able to proceed.$"
 
-NHML2_Game_Master_Text_11:
+NHML2_Game_Master_Text_16:
 	.string "To continue you will have to defeat the\n"
 	.string "couple upstairs.\l"
 	.string "They will gift you STRENGTH in return.\p"
 	.string "Managing different abilities among all\n"
 	.string "Pokémon will be the key to success.$"
 
-NHML2_Game_Master_Text_12:
+NHML2_Game_Master_Text_17:
 	.string "Oh you still can't find the right\n"
 	.string "passage through the ice maze in the\l"
 	.string "first floor?\p"
@@ -1184,16 +1442,22 @@ NHML2_Game_Master_Text_12:
 	.string "through the hole to open the right\l"
 	.string "path.$"
 
-NHML2_Game_Master_Text_13:
+NHML2_Game_Master_Text_18:
+	.string "Oh no, your Munchlax forgot an\n"
+	.string "important move.\p"
+	.string "Let me update its moveset so you can\n"
+	.string "continue your journey...$"
+
+NHML2_Game_Master_Text_19:
 	.string "Have you noticed how Abomasnow is\n"
 	.string "always getting burned right away?\p"
 	.string "If only you could somehow use this to\n"
 	.string "your own advantage.$"
 
-NHML2_Game_Master_Text_14:
+NHML2_Game_Master_Text_20:
 	.string "Come back whenever you need me.$"
 
-NHML2_Game_Master_Text_15:
+NHML2_Game_Master_Text_21:
 	.string "I am sorry, but I currently have no\n"
 	.string "hints to give to you.\p"
 	.string "Try proceeding by looking for hidden\n"
@@ -1202,7 +1466,7 @@ NHML2_Game_Master_Text_15:
 	.string "Of course, you won't be charged 20\n"
 	.string "minutes this time.$"
 
-NHML2_Game_Master_Text_16:
+NHML2_Game_Master_Text_22:
 	.string "\p"
 	.string "...\p"
 	.string "I had already given this hint to you\n"

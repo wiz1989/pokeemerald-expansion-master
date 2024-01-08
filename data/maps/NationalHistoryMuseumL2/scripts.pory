@@ -482,25 +482,102 @@ script NHML2_Game_Master {
 
             //first battle not yet won - getting Sash and Heart Scale
             if (!defeated(TRAINER_NHM_BRANDON) && (!flag(FLAG_GOT_SASH) || !flag(FLAG_GOT_HEART_SCALE))) {
-                //first hint: COVET
                 checkpartymove(MOVE_COVET)
                 if (var(VAR_RESULT) == PARTY_SIZE) {
-                    if (!flag(FLAG_HINT01)) {
-                        setflag(FLAG_HINT01)
-                        setflag(FLAG_P01_ADDTIME)
-                    }
-                    msgbox(format("Have you seen the mail in your PC?\pYou should check out Munchlax' learnset to see if it can help you solving that hint!"), MSGBOX_AUTOCLOSE)
-                    clearflag(FLAG_P01_GIVE_ADVICE)
-                }
-                else {
-                    //second hint: FOCUS SASH
-                    if (!flag(FLAG_GOT_SASH)) {
-                        if (!flag(FLAG_HINT02)) {
-                            setflag(FLAG_HINT02)
+                    //thirteenth hint: CHECK COVET not learned?
+                    getpartymonlevel(SPECIES_MUNCHLAX)
+                    if (var(VAR_RESULT) >= 12) {
+                        if (!flag(FLAG_HINT13)) {
+                            setflag(FLAG_HINT13)
                             setflag(FLAG_P01_ADDTIME)
                         }
-                        msgbox(format("People are making so much trash.\pWe should all try to RECYCLE more!"), MSGBOX_AUTOCLOSE)
+                        msgbox(format("Oh no, your Munchlax didn't learn the move COVET when leveling up?\pLet me update its moveset so you can continue your journey..."), MSGBOX_AUTOCLOSE)
+                        waitmessage
+
+                        getpartymonslot(SPECIES_MUNCHLAX)
+                        switch (var(VAR_RESULT)) {
+                            case 0:
+                                setmonmove(0, 0, MOVE_ICY_WIND)
+                                setmonmove(0, 1, MOVE_TACKLE)
+                                setmonmove(0, 2, MOVE_COVET)
+                                setmonmove(0, 3, MOVE_RECYCLE)
+                            case 1:
+                                setmonmove(1, 0, MOVE_ICY_WIND)
+                                setmonmove(1, 1, MOVE_TACKLE)
+                                setmonmove(1, 2, MOVE_COVET)
+                                setmonmove(1, 3, MOVE_RECYCLE)
+                            case 2:
+                                setmonmove(2, 0, MOVE_ICY_WIND)
+                                setmonmove(2, 1, MOVE_TACKLE)
+                                setmonmove(2, 2, MOVE_COVET)
+                                setmonmove(2, 3, MOVE_RECYCLE)
+                            case 3:
+                                setmonmove(3, 0, MOVE_ICY_WIND)
+                                setmonmove(3, 1, MOVE_TACKLE)
+                                setmonmove(3, 2, MOVE_COVET)
+                                setmonmove(3, 3, MOVE_RECYCLE)
+                        }
+
+                        msgbox(format("Munchlax' moveset has been updated."), MSGBOX_AUTOCLOSE)
                         clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                    else {
+                        //first hint: COVET
+                        if (!flag(FLAG_HINT01)) {
+                            setflag(FLAG_HINT01)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("Have you seen the mail in your PC?\pYou should check out Munchlax' learnset to see if it can help you solving that hint!"), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                }
+                else {  
+                    //twelfth hint: CHECK RECYCLE
+                    if (!flag(FLAG_GOT_SASH)) {
+                        checkpartymove(MOVE_RECYCLE)
+                        if (var(VAR_RESULT) == PARTY_SIZE) {
+                            if (!flag(FLAG_HINT12)) {
+                                setflag(FLAG_HINT12)
+                                setflag(FLAG_P01_ADDTIME)
+                            }
+                            msgbox(format("Oh no, your Munchlax forgot the move RECYCLE?\pLet me update its moveset so you can continue your journey..."), MSGBOX_AUTOCLOSE)
+                            waitmessage
+                            getpartymonslot(SPECIES_MUNCHLAX)
+                            switch (var(VAR_RESULT)) {
+                                case 0:
+                                    setmonmove(0, 0, MOVE_ICY_WIND)
+                                    setmonmove(0, 1, MOVE_TACKLE)
+                                    setmonmove(0, 2, MOVE_COVET)
+                                    setmonmove(0, 3, MOVE_RECYCLE)
+                                case 1:
+                                    setmonmove(1, 0, MOVE_ICY_WIND)
+                                    setmonmove(1, 1, MOVE_TACKLE)
+                                    setmonmove(1, 2, MOVE_COVET)
+                                    setmonmove(1, 3, MOVE_RECYCLE)
+                                case 2:
+                                    setmonmove(2, 0, MOVE_ICY_WIND)
+                                    setmonmove(2, 1, MOVE_TACKLE)
+                                    setmonmove(2, 2, MOVE_COVET)
+                                    setmonmove(2, 3, MOVE_RECYCLE)
+                                case 3:
+                                    setmonmove(3, 0, MOVE_ICY_WIND)
+                                    setmonmove(3, 1, MOVE_TACKLE)
+                                    setmonmove(3, 2, MOVE_COVET)
+                                    setmonmove(3, 3, MOVE_RECYCLE)
+                            }
+                            
+                            msgbox(format("Munchlax' moveset has been updated."), MSGBOX_AUTOCLOSE)
+                            clearflag(FLAG_P01_GIVE_ADVICE)
+                        }
+                        else {
+                            //second hint: FOCUS SASH
+                            if (!flag(FLAG_HINT02)) {
+                                setflag(FLAG_HINT02)
+                                setflag(FLAG_P01_ADDTIME)
+                            }
+                            msgbox(format("People are making so much trash.\pWe should all try to RECYCLE more!\lEven when trying to obtain a FOCUS SASH."), MSGBOX_AUTOCLOSE)
+                            clearflag(FLAG_P01_GIVE_ADVICE)
+                        }
                     }
                     else {
                         //third hint: Heart Scale
@@ -517,35 +594,59 @@ script NHML2_Game_Master {
             }
             //first battle not yet won - winning first battle
             if (!defeated(TRAINER_NHM_BRANDON) && flag(FLAG_GOT_SASH) && flag(FLAG_GOT_HEART_SCALE)) {
-                //fourth hint: trade Yamask
-                checkpartymon(SPECIES_YAMASK)
-                if (var(VAR_RESULT) == FALSE) {
-                    if (!flag(FLAG_HINT04)) {
-                        setflag(FLAG_HINT04)
-                        setflag(FLAG_P01_ADDTIME)
-                    }
-                    msgbox(format("You are struggling to defeat that trainer on the right?\pLet me tell you that you won't defeat him with Munchlax in your party!"), MSGBOX_AUTOCLOSE)
-                    clearflag(FLAG_P01_GIVE_ADVICE)
-                }
-                else {
-                    //fifth hint: get Endeavor
-                    checkpartymove(MOVE_ENDEAVOR)
-                    if (var(VAR_RESULT) == PARTY_SIZE) {
-                        if (!flag(FLAG_HINT05)) {
-                            setflag(FLAG_HINT05)
+                //fourteenth hin: return POKEBALL
+                if(!flag(FLAG_CAUGHT_ARCHEN)) {
+                    checkitem(ITEM_POKE_BALL)
+                    if(var(VAR_RESULT) == FALSE) {
+                        if (!flag(FLAG_HINT14)) {
+                            setflag(FLAG_HINT14)
                             setflag(FLAG_P01_ADDTIME)
                         }
-                        msgbox(format("There's only one way to defeat the trainer on the right and it leads you to the Move Tutor upstairs."), MSGBOX_AUTOCLOSE)
+                        msgbox(format("You lost your Pokéball?\pLet me give you another one!\lBut make sure to only use it on Archen since everything else is impossible to catch."), MSGBOX_AUTOCLOSE)
+                        giveitem(ITEM_POKE_BALL, 1)
                         clearflag(FLAG_P01_GIVE_ADVICE)
                     }
                     else {
-                        //sixth hint: win the first battle
-                        if (!flag(FLAG_HINT06)) {
-                                setflag(FLAG_HINT06)
+                        //fifteenth hin: catch ARCHEN
+                        if (!flag(FLAG_HINT15)) {
+                            setflag(FLAG_HINT15)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("Looks like you haven't used your Pokéball, yet.\pThere is one specific encounter here that is weak enough to catch it.\lYou should look out for it and make it a member of your team."), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                }
+                else {
+                    //fourth hint: trade Yamask
+                    checkpartymon(SPECIES_YAMASK)
+                    if (var(VAR_RESULT) == FALSE) {
+                        if (!flag(FLAG_HINT04)) {
+                            setflag(FLAG_HINT04)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("You are struggling to defeat that trainer on the right?\pLet me tell you that you won't defeat him with Munchlax in your party!"), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                    else {
+                        //fifth hint: get Endeavor
+                        checkpartymove(MOVE_ENDEAVOR)
+                        if (var(VAR_RESULT) == PARTY_SIZE) {
+                            if (!flag(FLAG_HINT05)) {
+                                setflag(FLAG_HINT05)
                                 setflag(FLAG_P01_ADDTIME)
                             }
-                            msgbox(format("You are struggling to defeat that Tyrantrum?\pYou should take a closer look at Yamask's ability."), MSGBOX_AUTOCLOSE)
+                            msgbox(format("There's only one way to defeat the trainer on the right and it leads you to the Move Tutor upstairs."), MSGBOX_AUTOCLOSE)
                             clearflag(FLAG_P01_GIVE_ADVICE)
+                        }
+                        else {
+                            //sixth hint: win the first battle
+                            if (!flag(FLAG_HINT06)) {
+                                    setflag(FLAG_HINT06)
+                                    setflag(FLAG_P01_ADDTIME)
+                                }
+                                msgbox(format("You are struggling to defeat that Tyrantrum?\pYou should take a closer look at Yamask's ability."), MSGBOX_AUTOCLOSE)
+                                clearflag(FLAG_P01_GIVE_ADVICE)
+                        }
                     }
                 }
             }
@@ -602,7 +703,18 @@ script NHML2_Game_Master {
             }
             //second battle won
             if (defeated(TRAINER_NHM_DOUBLE) && !defeated(TRAINER_NHM_HAIL)) {
-                if (!flag(FLAG_NHML1_BOULDER_FELL_DOWN)) {
+                if (!flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+                    //seventh hint again: fossil riddle
+                    if (flag(FLAG_NHML1_WALLPAPER_GUY)) {
+                        if (!flag(FLAG_HINT07)) {
+                            setflag(FLAG_HINT07)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("You spoke to the gentleman talking about the wallpapers here, haven't you?\pYou should think about how and where you can take a specific look at WALLPAPERS."), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                }
+                elif (!flag(FLAG_NHML1_BOULDER_FELL_DOWN)) {
                     //tenth hint: push boulder
                     if (!flag(FLAG_HINT10)) {
                         setflag(FLAG_HINT10)
@@ -612,13 +724,63 @@ script NHML2_Game_Master {
                     clearflag(FLAG_P01_GIVE_ADVICE)
                 }
                 else {
-                    //eleventh hint: third battle
-                    if (!flag(FLAG_HINT11)) {
-                        setflag(FLAG_HINT11)
-                        setflag(FLAG_P01_ADDTIME)
+                    //sixteenth hint: moveset Munchlax
+                    setorcopyvar(VAR_NHML1_COUNT, 0)
+                    checkpartymove(MOVE_BELLY_DRUM)
+                    if (var(VAR_RESULT) == PARTY_SIZE) {
+                        addvar(VAR_NHML1_COUNT, 1)
                     }
-                    msgbox(format("Have you noticed how Abomasnow is always getting burned right away?\pIf only you could somehow use this to your own advantage."), MSGBOX_AUTOCLOSE)
-                    clearflag(FLAG_P01_GIVE_ADVICE)
+                    checkpartymove(MOVE_COVET)
+                    if (var(VAR_RESULT) == PARTY_SIZE) {
+                        addvar(VAR_NHML1_COUNT, 1)
+                    }
+                    checkpartymove(MOVE_FLING)
+                    if (var(VAR_RESULT) == PARTY_SIZE) {
+                        addvar(VAR_NHML1_COUNT, 1)
+                    }
+                    if (var(VAR_NHML1_COUNT) > 0) {
+                        if (!flag(FLAG_HINT16)) {
+                            setflag(FLAG_HINT16)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("Oh no, your Munchlax forgot an important move.\pLet me update its moveset so you can continue your journey..."), MSGBOX_AUTOCLOSE)
+                        waitmessage
+                        getpartymonslot(SPECIES_MUNCHLAX)
+                        switch (var(VAR_RESULT)) {
+                            case 0:
+                                setmonmove(0, 0, MOVE_ICY_WIND)
+                                setmonmove(0, 1, MOVE_BELLY_DRUM)
+                                setmonmove(0, 2, MOVE_COVET)
+                                setmonmove(0, 3, MOVE_FLING)
+                            case 1:
+                                setmonmove(1, 0, MOVE_ICY_WIND)
+                                setmonmove(1, 1, MOVE_BELLY_DRUM)
+                                setmonmove(1, 2, MOVE_COVET)
+                                setmonmove(1, 3, MOVE_FLING)
+                            case 2:
+                                setmonmove(2, 0, MOVE_ICY_WIND)
+                                setmonmove(2, 1, MOVE_BELLY_DRUM)
+                                setmonmove(2, 2, MOVE_COVET)
+                                setmonmove(2, 3, MOVE_FLING)
+                            case 3:
+                                setmonmove(3, 0, MOVE_ICY_WIND)
+                                setmonmove(3, 1, MOVE_BELLY_DRUM)
+                                setmonmove(3, 2, MOVE_COVET)
+                                setmonmove(3, 3, MOVE_FLING)
+                        }
+                        
+                        msgbox(format("Munchlax' moveset has been updated."), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
+                    else {
+                        //eleventh hint: third battle
+                        if (!flag(FLAG_HINT11)) {
+                            setflag(FLAG_HINT11)
+                            setflag(FLAG_P01_ADDTIME)
+                        }
+                        msgbox(format("Have you noticed how Abomasnow is always getting burned right away?\pIf only you could somehow use this to your own advantage."), MSGBOX_AUTOCLOSE)
+                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    }
                 }
             }
         }

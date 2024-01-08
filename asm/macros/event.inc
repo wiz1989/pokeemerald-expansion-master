@@ -2050,7 +2050,7 @@
 	.endm
 
 	@ Set initial moveset for PartyMon by own definition
-	.macro setinitialmoves partypos: req, move1:req, move2=MOVE_NONE, move3=MOVE_NONE, move4=MOVE_NONE
+	.macro setinitialmoves partypos:req, move1:req, move2=MOVE_NONE, move3=MOVE_NONE, move4=MOVE_NONE
 	setvar VAR_TEMP_1, \partypos
 	setvar VAR_TEMP_2, \move1
 	setvar VAR_TEMP_3, \move2
@@ -2061,7 +2061,7 @@
 
 	@ Set ability for PartyMon by own definition
 	@ abilityNo: 1=standard, 2=hidden
-	.macro setability partypos: req, abilityNo:req
+	.macro setability partypos:req, abilityNo:req
 	setvar VAR_TEMP_1, \partypos
 	setvar VAR_TEMP_2, \abilityNo
 	special SetMonAbility
@@ -2069,13 +2069,14 @@
 
 	@ check if a certain species is found in the player's party.
 	@ TRUE/FALSE is written into VAR_RESULT
-	.macro checkpartymon species: req
+	.macro checkpartymon species:req
 	setvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, IsPokemonInParty
 	.endm
 
-	@ get the slot of a certain species in the player's party
-	.macro getpartymonslot species: req
+	@ get the slot of a certain species in the player's party.
+	@ The slot is written into VAR_RESULT
+	.macro getpartymonslot species:req
 	setvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, GetMonPartySlot
 	.endm
@@ -2095,19 +2096,19 @@
 	.endm
 
 	@ get the level of a certain species in the player's party
-	.macro getpartymonlevel species: req
+	.macro getpartymonlevel species:req
 	setvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, GetMonPartyLevel
 	.endm
 
 	@ get a random INT number
-	.macro randomnr max: req
+	.macro randomnr max:req
 	setvar VAR_TEMP_1, \max
 	specialvar VAR_RESULT, RandomNumber
 	.endm
 
 	@ Checks if at least one Pokemon in the player's party holds the specified item. If so, VAR_RESULT is set to the
-	@ (zero-indexed) slot number of the first Pokemon that knows the move. If not, VAR_RESULT is set to PARTY_SIZE.
+	@ (zero-indexed) slot number of the first Pokemon that holds the item. If not, VAR_RESULT is set to PARTY_SIZE.
 	@ VAR_0x8004 is also set to this Pokemon's species.
 	.macro checkpartyitem item:req
 	.byte 0xe6
@@ -2116,7 +2117,7 @@
 
 	@ Checks if a certain species in the player's party knows the specified move.
 	@ If so, VAR_RESULT is set to TRUE
-	.macro checkpartymonmove species: req, move: req
+	.macro checkpartymonmove species:req, move:req
 	.byte 0xe7
 	.2byte \species
 	.2byte \move

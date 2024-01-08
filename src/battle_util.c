@@ -365,8 +365,9 @@ void HandleAction_UseMove(void)
         gBattleStruct->moveTarget[gBattlerAttacker] = gBattlerTarget = gSideTimers[side].followmeTarget; // follow me moxie fix
     }
     else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_STAKATAKA && (turn < 5)
-        && (gBattleMons[target1].species == SPECIES_SKITTY || gBattleMons[target2].species == SPECIES_SKITTY)
-        && (gBattleMons[target1].species == SPECIES_YAMASK || gBattleMons[target2].species == SPECIES_YAMASK))
+        && gBattleMons[target1].species == SPECIES_SKITTY && gBattleMons[target2].species == SPECIES_YAMASK)
+        /*&& (gBattleMons[target1].species == SPECIES_SKITTY || gBattleMons[target2].species == SPECIES_SKITTY)
+        && (gBattleMons[target1].species == SPECIES_YAMASK || gBattleMons[target2].species == SPECIES_YAMASK))*/
     {
         if (gBattleMons[target1].species == SPECIES_SKITTY) {
             gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);

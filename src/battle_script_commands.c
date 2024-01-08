@@ -15101,7 +15101,7 @@ static void Cmd_handleballthrow(void)
         if (gBattleMons[gBattlerTarget].species == SPECIES_ARCHEN)
             odds = 255;
         else
-            odds = 0;
+            odds = 1;
 
         if (odds > 254) // mon caught
         {
@@ -15132,7 +15132,7 @@ static void Cmd_handleballthrow(void)
             gBattleSpritesDataPtr->animationData->isCriticalCapture = FALSE;
             gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = FALSE;
 
-            if (CriticalCapture(odds))
+            /*if (CriticalCapture(odds))
             {
                 maxShakes = BALL_1_SHAKE;  // critical capture doesn't guarantee capture
                 gBattleSpritesDataPtr->animationData->isCriticalCapture = TRUE;
@@ -15140,7 +15140,8 @@ static void Cmd_handleballthrow(void)
             else
             {
                 maxShakes = BALL_3_SHAKES_SUCCESS;
-            }
+            }*/
+            maxShakes = BALL_3_SHAKES_SUCCESS; //wiz1989
 
             if (gLastUsedItem == ITEM_MASTER_BALL)
             {
@@ -15155,6 +15156,7 @@ static void Cmd_handleballthrow(void)
 
             BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, shakes);
             MarkBattlerForControllerExec(gBattlerAttacker);
+            shakes = 1; //wiz1989
 
             if (shakes == maxShakes) // mon caught, copy of the code above
             {
