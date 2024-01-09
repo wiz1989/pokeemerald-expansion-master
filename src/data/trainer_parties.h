@@ -11853,7 +11853,7 @@ static const struct TrainerMon sParty_Elsa[] = {
     .moves = {MOVE_HAIL, MOVE_AURORA_VEIL, MOVE_AQUA_RING, MOVE_RAIN_DANCE},
     .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
     .ability = ABILITY_ICE_FACE,
-    .nature = NATURE_RELAXED,
+    .nature = NATURE_HARDY,
     .heldItem = ITEM_LEFTOVERS,
     },
     {
@@ -11862,7 +11862,7 @@ static const struct TrainerMon sParty_Elsa[] = {
     .moves = {MOVE_INGRAIN, MOVE_LEECH_SEED, MOVE_HAIL, MOVE_RAIN_DANCE},
     .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 31, 31),
     .ability = ABILITY_SNOW_WARNING,
-    .nature = NATURE_RELAXED,
+    .nature = NATURE_HARDY,
     .heldItem = ITEM_FLAME_ORB,
     }
 };

@@ -3457,6 +3457,13 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
         while (nature != GetNatureFromPersonality(personality));
     }
+    else if (species == SPECIES_SKITTY) { //force NATURE for SKITTY
+        nature = NATURE_ADAMANT;
+        do {
+            personality = Random32();
+        }
+        while (nature != GetNatureFromPersonality(personality));
+    }
     else
         personality = Random32();
 

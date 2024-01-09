@@ -83,11 +83,15 @@ script NHML1_ItemBall {
 }
 
 script NHML1_Boulder {
-	//do nothing
+	call(EventScript_StrengthBoulder)
+    end
 }
 
 script NHML1_Cooltrainer {
 	trainerbattle_single(TRAINER_NHM_HAIL, format("Oh hey, where are you trying to go?"), "Bye, bye!")
+	lock
+	msgbox("Bye, bye!", MSGBOX_AUTOCLOSE)
+	release
 	end
 }
 
@@ -171,6 +175,7 @@ script NHML1_FinishGame {
 	lock
 	fadescreen(FADE_TO_BLACK)
 	special(StopPlayTimer)
+	//get time
 	specialvar(VAR_RESULT, GetPlayTimeHours)
 	buffernumberstring(STR_VAR_1, VAR_RESULT)
 	specialvar(VAR_RESULT, GetPlayTimeMinutes)
@@ -179,6 +184,74 @@ script NHML1_FinishGame {
 	buffertimestring(STR_VAR_3, VAR_RESULT)
 	msgbox(Text_Finale)
 	waitmessage
+
+	//get hints count
+	setorcopyvar(VAR_NHML1_COUNT, 0)
+	if (flag(FLAG_HINT01)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT02)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT03)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT04)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT05)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT06)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT07)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT08)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT09)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT10)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT11)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT12)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT13)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT14)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT15)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT16)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT17)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT18)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT19)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	if (flag(FLAG_HINT20)) {
+		addvar(VAR_NHML1_COUNT, 1)
+	}
+	buffernumberstring(STR_VAR_1, VAR_NHML1_COUNT)
+	msgbox(Text_Finale_Hints)
+	waitmessage
+	//show game credits
+	special(StartCredits)
 	end
 }
 
@@ -253,4 +326,8 @@ movement Move_to_dnpos {
 
 text Text_Finale {
 	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.")
+}
+
+text Text_Finale_Hints {
+	format("You have been using {STR_VAR_1} hint(s).")
 }

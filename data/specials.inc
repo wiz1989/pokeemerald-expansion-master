@@ -559,3 +559,4 @@ gSpecials::
 	def_special GetMonPartyLevel
 	def_special RandomNumber
 	def_special CreateMail
+	def_special StartCredits

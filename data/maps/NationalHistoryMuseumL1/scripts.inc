@@ -87,11 +87,15 @@ NHML1_ItemBall::
 
 
 NHML1_Boulder::
-	return
+	call EventScript_StrengthBoulder
+	end
 
 
 NHML1_Cooltrainer::
 	trainerbattle_single TRAINER_NHM_HAIL, NHML1_Cooltrainer_Text_0, NHML1_Cooltrainer_Text_1
+	lock
+	msgbox NHML1_Cooltrainer_Text_1, MSGBOX_AUTOCLOSE
+	release
 	end
 
 
@@ -184,7 +188,132 @@ NHML1_FinishGame::
 	buffertimestring STR_VAR_3, VAR_RESULT
 	msgbox Text_Finale
 	waitmessage
+	setorcopyvar VAR_NHML1_COUNT, 0
+	goto_if_set FLAG_HINT01, NHML1_FinishGame_2
+NHML1_FinishGame_1:
+	goto_if_set FLAG_HINT02, NHML1_FinishGame_5
+NHML1_FinishGame_4:
+	goto_if_set FLAG_HINT03, NHML1_FinishGame_8
+NHML1_FinishGame_7:
+	goto_if_set FLAG_HINT04, NHML1_FinishGame_11
+NHML1_FinishGame_10:
+	goto_if_set FLAG_HINT05, NHML1_FinishGame_14
+NHML1_FinishGame_13:
+	goto_if_set FLAG_HINT06, NHML1_FinishGame_17
+NHML1_FinishGame_16:
+	goto_if_set FLAG_HINT07, NHML1_FinishGame_20
+NHML1_FinishGame_19:
+	goto_if_set FLAG_HINT08, NHML1_FinishGame_23
+NHML1_FinishGame_22:
+	goto_if_set FLAG_HINT09, NHML1_FinishGame_26
+NHML1_FinishGame_25:
+	goto_if_set FLAG_HINT10, NHML1_FinishGame_29
+NHML1_FinishGame_28:
+	goto_if_set FLAG_HINT11, NHML1_FinishGame_32
+NHML1_FinishGame_31:
+	goto_if_set FLAG_HINT12, NHML1_FinishGame_35
+NHML1_FinishGame_34:
+	goto_if_set FLAG_HINT13, NHML1_FinishGame_38
+NHML1_FinishGame_37:
+	goto_if_set FLAG_HINT14, NHML1_FinishGame_41
+NHML1_FinishGame_40:
+	goto_if_set FLAG_HINT15, NHML1_FinishGame_44
+NHML1_FinishGame_43:
+	goto_if_set FLAG_HINT16, NHML1_FinishGame_47
+NHML1_FinishGame_46:
+	goto_if_set FLAG_HINT17, NHML1_FinishGame_50
+NHML1_FinishGame_49:
+	goto_if_set FLAG_HINT18, NHML1_FinishGame_53
+NHML1_FinishGame_52:
+	goto_if_set FLAG_HINT19, NHML1_FinishGame_56
+NHML1_FinishGame_55:
+	goto_if_set FLAG_HINT20, NHML1_FinishGame_59
+NHML1_FinishGame_58:
+	buffernumberstring STR_VAR_1, VAR_NHML1_COUNT
+	msgbox Text_Finale_Hints
+	waitmessage
+	special StartCredits
 	end
+
+NHML1_FinishGame_2:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_1
+
+NHML1_FinishGame_5:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_4
+
+NHML1_FinishGame_8:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_7
+
+NHML1_FinishGame_11:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_10
+
+NHML1_FinishGame_14:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_13
+
+NHML1_FinishGame_17:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_16
+
+NHML1_FinishGame_20:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_19
+
+NHML1_FinishGame_23:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_22
+
+NHML1_FinishGame_26:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_25
+
+NHML1_FinishGame_29:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_28
+
+NHML1_FinishGame_32:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_31
+
+NHML1_FinishGame_35:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_34
+
+NHML1_FinishGame_38:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_37
+
+NHML1_FinishGame_41:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_40
+
+NHML1_FinishGame_44:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_43
+
+NHML1_FinishGame_47:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_46
+
+NHML1_FinishGame_50:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_49
+
+NHML1_FinishGame_53:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_52
+
+NHML1_FinishGame_56:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_55
+
+NHML1_FinishGame_59:
+	addvar VAR_NHML1_COUNT, 1
+	goto NHML1_FinishGame_58
 
 
 NHML1_Sign_Brochures::
@@ -325,3 +454,7 @@ Text_Finale::
 	.string "done!\p"
 	.string "Your final time is\n"
 	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.$"
+
+Text_Finale_Hints::
+	.string "You have been using {STR_VAR_1}\n"
+	.string "hint(s).$"
