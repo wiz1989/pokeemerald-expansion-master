@@ -232,6 +232,8 @@ NHML1_FinishGame_58:
 	buffernumberstring STR_VAR_1, VAR_NHML1_COUNT
 	msgbox Text_Finale_Hints
 	waitmessage
+	fadescreen FADE_FROM_BLACK
+	fadescreen FADE_TO_BLACK
 	special StartCredits
 	end
 

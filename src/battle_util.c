@@ -390,6 +390,32 @@ void HandleAction_UseMove(void)
             }
         }
     }
+    else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && gBattleMons[gBattlerAttacker].species == SPECIES_ABOMASNOW && (turn < 9) && (turn > 4)
+        && (gBattleMons[target1].species == SPECIES_SKITTY || gBattleMons[target2].species == SPECIES_SKITTY))
+        /*&& (gBattleMons[target1].species == SPECIES_SKITTY || gBattleMons[target2].species == SPECIES_SKITTY)
+        && (gBattleMons[target1].species == SPECIES_YAMASK || gBattleMons[target2].species == SPECIES_YAMASK))*/
+    {
+        if (gBattleMons[target1].species == SPECIES_SKITTY) {
+            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
+        }
+        else if (gBattleMons[target2].species == SPECIES_SKITTY) {
+            gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+        }
+
+        if (!IsBattlerAlive(gBattlerTarget))
+        {
+            if (GetBattlerSide(gBattlerAttacker) != GetBattlerSide(gBattlerTarget))
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+            else
+            {
+                gBattlerTarget = GetBattlerAtPosition(BATTLE_OPPOSITE(GetBattlerPosition(gBattlerAttacker)));
+                if (!IsBattlerAlive(gBattlerTarget))
+                    gBattlerTarget = GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gBattlerTarget)));
+            }
+        }
+    }
     else if ((gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
            && gSideTimers[side].followmeTimer == 0
            && (gBattleMoves[gCurrentMove].power != 0 || (moveTarget != MOVE_TARGET_USER && moveTarget != MOVE_TARGET_ALL_BATTLERS))
