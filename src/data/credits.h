@@ -498,7 +498,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
     [PAGE_TITLE_SCREEN] = {
         _,
         sCreditsEntry_ScreenDesign,
-        sCreditsEntry_tbd,
+        sCreditsEntry_wiz1989,
         _,
         _
     },
@@ -514,7 +514,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         sCreditsEntry_Archie,
         sCreditsEntry_AquasHideout,
         sCreditsEntry_acko,
-        _
+        sCreditsEntry_Alemazzini
     },
     [PAGE_TOOLS] = {
         sCreditsEntry_ToolsUsed,
