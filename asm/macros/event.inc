@@ -2153,3 +2153,10 @@
 	.macro hideitemdesc
 	.byte 0xeb
 	.endm
+
+	@ Deletes any held item from the chosen party slot
+	.macro deleteitemfromslot slot:req
+	setvar VAR_TEMP_1, \slot
+	special DeleteItemFromSlot
+	.endm
+

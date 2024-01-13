@@ -4466,3 +4466,9 @@ u16 RandomNumber(void)
 
     return rnd % max;
 }
+
+void DeleteItemFromSlot(void)
+{
+    u16 slot = VarGet(VAR_TEMP_1);
+    SetMonData(&gPlayerParty[slot], MON_DATA_HELD_ITEM, ITEM_NONE);
+}

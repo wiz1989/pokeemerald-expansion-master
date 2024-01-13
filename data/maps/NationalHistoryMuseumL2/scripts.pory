@@ -596,25 +596,25 @@ script NHML2_Game_Master {
             if (!defeated(TRAINER_NHM_BRANDON) && flag(FLAG_GOT_SASH) && flag(FLAG_GOT_HEART_SCALE)) {
                 //fourteenth hin: return POKEBALL
                 if(!flag(FLAG_CAUGHT_ARCHEN)) {
-                    checkitem(ITEM_POKE_BALL)
-                    if(var(VAR_RESULT) == FALSE) {
-                        if (!flag(FLAG_HINT14)) {
-                            setflag(FLAG_HINT14)
-                            setflag(FLAG_P01_ADDTIME)
-                        }
-                        msgbox(format("You lost your Pokéball?\pLet me give you another one!\lBut make sure to only use it on Archen since everything else is impossible to catch."), MSGBOX_AUTOCLOSE)
-                        giveitem(ITEM_POKE_BALL, 1)
-                        clearflag(FLAG_P01_GIVE_ADVICE)
+                    //checkitem(ITEM_POKE_BALL)
+                    //if(var(VAR_RESULT) == FALSE) {
+                        //if (!flag(FLAG_HINT14)) {
+                            //setflag(FLAG_HINT14)
+                            //setflag(FLAG_P01_ADDTIME)
+                        //}
+                        //msgbox(format("You lost your Pokéball?\pLet me give you another one!\lBut make sure to only use it on Archen since everything else is impossible to catch."), MSGBOX_AUTOCLOSE)
+                        //giveitem(ITEM_POKE_BALL, 1)
+                        //clearflag(FLAG_P01_GIVE_ADVICE)
+                    //}
+                    //else {
+                    //fifteenth hint: catch ARCHEN
+                    if (!flag(FLAG_HINT15)) {
+                        setflag(FLAG_HINT15)
+                        setflag(FLAG_P01_ADDTIME)
                     }
-                    else {
-                        //fifteenth hin: catch ARCHEN
-                        if (!flag(FLAG_HINT15)) {
-                            setflag(FLAG_HINT15)
-                            setflag(FLAG_P01_ADDTIME)
-                        }
-                        msgbox(format("Looks like you haven't used your Pokéball, yet.\pThere is one specific encounter here that is weak enough to catch it.\lYou should look out for it and make it a member of your team."), MSGBOX_AUTOCLOSE)
-                        clearflag(FLAG_P01_GIVE_ADVICE)
-                    }
+                    msgbox(format("Looks like you haven't used your Pokéball, yet.\pThere is one specific encounter here that is weak enough to catch it.\lYou should look out for it and make it a member of your team."), MSGBOX_AUTOCLOSE)
+                    clearflag(FLAG_P01_GIVE_ADVICE)
+                    //}
                 }
                 else {
                     //fourth hint: trade Yamask

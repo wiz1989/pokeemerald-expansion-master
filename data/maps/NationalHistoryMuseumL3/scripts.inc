@@ -285,6 +285,12 @@ NHML3_ItemManager_1:
 	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto_if_set FLAG_GOT_HEART_SCALE, NHML3_ItemManager_6
 NHML3_ItemManager_5:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_unset FLAG_CAUGHT_ARCHEN, NHML3_ItemManager_13
+NHML3_ItemManager_12:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_GOT_LAGGING_TAIL, NHML3_ItemManager_22
+NHML3_ItemManager_21:
 	release
 	return
 
@@ -295,33 +301,33 @@ NHML3_ItemManager_2:
 NHML3_ItemManager_9:
 	checkpcitem ITEM_FOCUS_SASH
 	compare VAR_RESULT, TRUE
-	goto_if_eq NHML3_ItemManager_16
-NHML3_ItemManager_15:
+	goto_if_eq NHML3_ItemManager_19
+NHML3_ItemManager_18:
 	checkpartyitem ITEM_FOCUS_SASH
 	compare VAR_RESULT, 6
-	goto_if_lt NHML3_ItemManager_22
-NHML3_ItemManager_21:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_27
+	goto_if_lt NHML3_ItemManager_32
+NHML3_ItemManager_31:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_43
 	checktrainerflag TRAINER_NHM_BRANDON
-	goto_if 0, NHML3_ItemManager_33
+	goto_if 0, NHML3_ItemManager_55
 	goto NHML3_ItemManager_1
 
 NHML3_ItemManager_6:
 	checkitem ITEM_HEART_SCALE
 	compare VAR_RESULT, TRUE
-	goto_if_eq NHML3_ItemManager_13
-NHML3_ItemManager_12:
+	goto_if_eq NHML3_ItemManager_16
+NHML3_ItemManager_15:
 	checkpcitem ITEM_HEART_SCALE
 	compare VAR_RESULT, TRUE
-	goto_if_eq NHML3_ItemManager_19
-NHML3_ItemManager_18:
+	goto_if_eq NHML3_ItemManager_29
+NHML3_ItemManager_28:
 	checkpartyitem ITEM_HEART_SCALE
 	compare VAR_RESULT, 6
-	goto_if_lt NHML3_ItemManager_25
-NHML3_ItemManager_24:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_30
+	goto_if_lt NHML3_ItemManager_41
+NHML3_ItemManager_40:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_52
 	checktrainerflag TRAINER_NHM_BRANDON
-	goto_if 1, NHML3_ItemManager_37
+	goto_if 1, NHML3_ItemManager_65
 	goto NHML3_ItemManager_5
 
 NHML3_ItemManager_10:
@@ -329,7 +335,24 @@ NHML3_ItemManager_10:
 	goto NHML3_ItemManager_9
 
 NHML3_ItemManager_13:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	checkitem ITEM_POKE_BALL
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_26
+NHML3_ItemManager_25:
+	checkpcitem ITEM_POKE_BALL
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_38
+NHML3_ItemManager_37:
+	checkpartyitem ITEM_POKE_BALL
+	compare VAR_RESULT, 6
+	goto_if_lt NHML3_ItemManager_50
+NHML3_ItemManager_49:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_60
+	msgbox NHML3_ItemManager_Text_5, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox NHML3_ItemManager_Text_6, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_POKE_BALL, 1
 	goto NHML3_ItemManager_12
 
 NHML3_ItemManager_16:
@@ -341,20 +364,62 @@ NHML3_ItemManager_19:
 	goto NHML3_ItemManager_18
 
 NHML3_ItemManager_22:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	checkitem ITEM_LAGGING_TAIL
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_35
+NHML3_ItemManager_34:
+	checkpcitem ITEM_LAGGING_TAIL
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML3_ItemManager_47
+NHML3_ItemManager_46:
+	checkpartyitem ITEM_LAGGING_TAIL
+	compare VAR_RESULT, 6
+	goto_if_lt NHML3_ItemManager_58
+NHML3_ItemManager_57:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, NHML3_ItemManager_69
+	checktrainerflag TRAINER_NHM_HAIL
+	goto_if 0, NHML3_ItemManager_75
 	goto NHML3_ItemManager_21
 
-NHML3_ItemManager_25:
+NHML3_ItemManager_26:
 	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto NHML3_ItemManager_24
+	goto NHML3_ItemManager_25
 
-NHML3_ItemManager_27:
+NHML3_ItemManager_29:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_28
+
+NHML3_ItemManager_32:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_31
+
+NHML3_ItemManager_35:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_34
+
+NHML3_ItemManager_38:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_37
+
+NHML3_ItemManager_41:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_40
+
+NHML3_ItemManager_43:
 	goto NHML3_ItemManager_1
 
-NHML3_ItemManager_30:
+NHML3_ItemManager_47:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_46
+
+NHML3_ItemManager_50:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_49
+
+NHML3_ItemManager_52:
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_33:
+NHML3_ItemManager_55:
 	msgbox NHML3_ItemManager_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
@@ -362,51 +427,69 @@ NHML3_ItemManager_33:
 	giveitem ITEM_FOCUS_SASH
 	goto NHML3_ItemManager_1
 
-NHML3_ItemManager_35:
+NHML3_ItemManager_58:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto NHML3_ItemManager_57
+
+NHML3_ItemManager_60:
+	goto NHML3_ItemManager_12
+
+NHML3_ItemManager_63:
 	checkpartymonmove SPECIES_YAMASK, MOVE_ROLE_PLAY
 	compare VAR_RESULT, FALSE
-	goto_if_eq NHML3_ItemManager_42
-NHML3_ItemManager_41:
+	goto_if_eq NHML3_ItemManager_73
+NHML3_ItemManager_72:
 	checkpartymonmove SPECIES_YAMASK, MOVE_SUBSTITUTE
 	compare VAR_RESULT, FALSE
-	goto_if_eq NHML3_ItemManager_45
-NHML3_ItemManager_44:
+	goto_if_eq NHML3_ItemManager_78
+NHML3_ItemManager_77:
 	compare VAR_NHML3_COLLECTOR_COUNT, 0
-	goto_if_gt NHML3_ItemManager_47
+	goto_if_gt NHML3_ItemManager_80
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_36:
-	goto_if_set FLAG_NHML2_ITEMBALL, NHML3_ItemManager_35
+NHML3_ItemManager_64:
+	goto_if_set FLAG_NHML2_ITEMBALL, NHML3_ItemManager_63
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_37:
+NHML3_ItemManager_65:
 	checktrainerflag TRAINER_NHM_DOUBLE
-	goto_if 0, NHML3_ItemManager_36
+	goto_if 0, NHML3_ItemManager_64
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_42:
-	addvar VAR_NHML3_COLLECTOR_COUNT, 1
-	goto NHML3_ItemManager_41
+NHML3_ItemManager_69:
+	goto NHML3_ItemManager_21
 
-NHML3_ItemManager_45:
+NHML3_ItemManager_73:
 	addvar VAR_NHML3_COLLECTOR_COUNT, 1
-	goto NHML3_ItemManager_44
+	goto NHML3_ItemManager_72
 
-NHML3_ItemManager_47:
+NHML3_ItemManager_75:
+	msgbox NHML3_ItemManager_Text_7, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_LAGGING_TAIL
+	goto NHML3_ItemManager_21
+
+NHML3_ItemManager_78:
+	addvar VAR_NHML3_COLLECTOR_COUNT, 1
+	goto NHML3_ItemManager_77
+
+NHML3_ItemManager_80:
 	msgbox NHML3_ItemManager_Text_3, MSGBOX_AUTOCLOSE
 	waitmessage
 	switch VAR_NHML3_COLLECTOR_COUNT
-	case 1, NHML3_ItemManager_50
-	case 2, NHML3_ItemManager_51
+	case 1, NHML3_ItemManager_83
+	case 2, NHML3_ItemManager_84
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_50:
+NHML3_ItemManager_83:
 	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_HEART_SCALE
 	goto NHML3_ItemManager_5
 
-NHML3_ItemManager_51:
+NHML3_ItemManager_84:
 	msgbox NHML3_ItemManager_Text_4, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_HEART_SCALE, 2
@@ -562,6 +645,16 @@ NHML3_ItemManager_Text_3:
 NHML3_ItemManager_Text_4:
 	.string "Here, I will give you two more to\n"
 	.string "continue your journey.$"
+
+NHML3_ItemManager_Text_5:
+	.string "Oh no, you lost your POKéBALL!$"
+
+NHML3_ItemManager_Text_6:
+	.string "Here, I will give you another one!\l"
+	.string "But make sure to use it wisely.$"
+
+NHML3_ItemManager_Text_7:
+	.string "Oh no, you lost your LAGGING TAIL!$"
 
 NHML3_InfoSign_Text_0:
 	.string "IMPORTANT INFORMATION:\p"

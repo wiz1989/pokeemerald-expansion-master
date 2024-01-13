@@ -560,3 +560,4 @@ gSpecials::
 	def_special RandomNumber
 	def_special CreateMail
 	def_special StartCredits
+	def_special DeleteItemFromSlot

@@ -281,6 +281,7 @@ script NHML3_ItemManager {
 		//msgbox(format("You never owned a FOCUS SASH!"), MSGBOX_AUTOCLOSE)
 		//waitmessage
 	}
+
 	clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
 	//check heart scale
 	if (flag(FLAG_GOT_HEART_SCALE)) {
@@ -333,6 +334,70 @@ script NHML3_ItemManager {
 	}
 	else {
 		//msgbox(format("You never owned a HEART SCALE!"), MSGBOX_AUTOCLOSE)
+		//waitmessage
+	}
+
+	clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	//check Pokéball
+	if(!flag(FLAG_CAUGHT_ARCHEN)) {
+		checkitem(ITEM_POKE_BALL)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpcitem(ITEM_POKE_BALL)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_POKE_BALL)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//msgbox(format("You are still owning a POKéBALL."), MSGBOX_AUTOCLOSE)
+			//waitmessage
+		}
+		else {
+			msgbox(format("Oh no, you lost your POKéBALL!"), MSGBOX_AUTOCLOSE)
+			waitmessage
+			msgbox(format("Here, I will give you another one!\lBut make sure to use it wisely."), MSGBOX_AUTOCLOSE)
+			waitmessage
+			giveitem(ITEM_POKE_BALL, 1)
+		}
+	}
+
+	clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	//check lagging tail
+	if (flag(FLAG_GOT_LAGGING_TAIL)) {
+		checkitem(ITEM_LAGGING_TAIL)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpcitem(ITEM_LAGGING_TAIL)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_LAGGING_TAIL)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//msgbox(format("You are still owning a LAGGING TAIL."), MSGBOX_AUTOCLOSE)
+			//waitmessage
+		}
+		else {
+			if (!defeated(TRAINER_NHM_HAIL)) {
+				msgbox(format("Oh no, you lost your LAGGING TAIL!"), MSGBOX_AUTOCLOSE)
+				waitmessage
+				msgbox(format("Here, I will give you another one to continue your journey."), MSGBOX_AUTOCLOSE)
+				waitmessage
+				giveitem(ITEM_LAGGING_TAIL)
+			}
+		}
+	}
+	else {
+		//msgbox(format("You never owned a FOCUS SASH!"), MSGBOX_AUTOCLOSE)
 		//waitmessage
 	}
 	release

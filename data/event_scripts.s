@@ -582,8 +582,51 @@ gStdScripts_End::
 
 EventScript_WhiteOut::
 	call EverGrandeCity_HallOfFame_EventScript_ResetEliteFour
+	goto EventScript_RemoveFlameOrb
+EventScript_WhiteOut_2:
 	goto EventScript_ResetMrBriney
 	end
+
+EventScript_RemoveFlameOrb::
+	checkpartyitem ITEM_FLAME_ORB
+	switch VAR_RESULT
+	case 6, EventScript_RemoveFlameOrb_3
+	case 0, EventScript_RemoveFlameOrb_4
+	case 1, EventScript_RemoveFlameOrb_5
+	case 2, EventScript_RemoveFlameOrb_6
+	case 3, EventScript_RemoveFlameOrb_7
+	case 4, EventScript_RemoveFlameOrb_8
+	case 5, EventScript_RemoveFlameOrb_9
+EventScript_RemoveFlameOrb_1:
+	return
+
+EventScript_RemoveFlameOrb_3:
+	call EventScript_WhiteOut_2
+	goto EventScript_RemoveFlameOrb_1
+
+EventScript_RemoveFlameOrb_4:
+	deleteitemfromslot 0
+	goto EventScript_RemoveFlameOrb_1
+
+EventScript_RemoveFlameOrb_5:
+	deleteitemfromslot 1
+	goto EventScript_RemoveFlameOrb_1
+
+EventScript_RemoveFlameOrb_6:
+	deleteitemfromslot 2
+	goto EventScript_RemoveFlameOrb_1
+
+EventScript_RemoveFlameOrb_7:
+	deleteitemfromslot 3
+	goto EventScript_RemoveFlameOrb_1
+
+EventScript_RemoveFlameOrb_8:
+	deleteitemfromslot 4
+	goto EventScript_RemoveFlameOrb_1
+
+EventScript_RemoveFlameOrb_9:
+	deleteitemfromslot 5
+	goto EventScript_RemoveFlameOrb_1
 
 EventScript_ResetMrBriney::
 	goto_if_eq VAR_BRINEY_LOCATION, 1, EventScript_MoveMrBrineyToHouse

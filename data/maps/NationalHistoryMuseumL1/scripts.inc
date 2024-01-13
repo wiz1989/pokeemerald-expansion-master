@@ -136,6 +136,7 @@ NHML1_Trigger_Juan_2:
 	msgbox NHML1_Trigger_Juan_Text_4
 	waitmessage
 	setflag FLAG_NHML1_YAMASK_TAKEN
+	setflag FLAG_GOT_LAGGING_TAIL
 	setflag FLAG_NHML3_Trader
 	goto NHML1_Trigger_Juan_1
 

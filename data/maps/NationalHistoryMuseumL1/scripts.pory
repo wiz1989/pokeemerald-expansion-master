@@ -129,6 +129,7 @@ script NHML1_Trigger_Juan {
 		msgbox(format("{PLAYER} handed over YAMASK and received MUNCHLAX back."))
 		waitmessage
 		setflag(FLAG_NHML1_YAMASK_TAKEN)
+		setflag(FLAG_GOT_LAGGING_TAIL)
 		setflag(FLAG_NHML3_Trader) //hide trader on floor 3
 	}
 	release
