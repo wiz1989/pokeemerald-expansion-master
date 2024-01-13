@@ -93,6 +93,7 @@ static EWRAM_DATA u8 sBattlePointsWindowId = 0;
 static EWRAM_DATA u8 sFrontierExchangeCorner_ItemIconWindowId = 0;
 static EWRAM_DATA u8 sPCBoxToSendMon = 0;
 static EWRAM_DATA u32 sBattleTowerMultiBattleTypeFlags = 0;
+static EWRAM_DATA struct PartyMenuBox *sPartyMenuBox2 = NULL;
 
 struct ListMenuTemplate gScrollableMultichoice_ListMenuTemplate;
 
@@ -4469,6 +4470,5 @@ u16 RandomNumber(void)
 
 void DeleteItemFromSlot(void)
 {
-    u16 slot = VarGet(VAR_TEMP_1);
-    SetMonData(&gPlayerParty[slot], MON_DATA_HELD_ITEM, ITEM_NONE);
+    DeleteItem();
 }

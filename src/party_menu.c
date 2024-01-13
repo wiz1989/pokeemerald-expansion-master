@@ -4051,7 +4051,7 @@ static void CreatePartyMonHeldItemSpriteParameterized(u16 species, u16 item, str
     }
 }
 
-static void UpdatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox)
+void UpdatePartyMonHeldItemSprite(struct Pokemon *mon, struct PartyMenuBox *menuBox)
 {
     ShowOrHideHeldItemSprite(GetMonData(mon, MON_DATA_HELD_ITEM), menuBox);
 }
@@ -6963,4 +6963,19 @@ void IsLastMonThatKnowsSurf(void)
         if (AnyStorageMonWithMove(move) != TRUE)
             gSpecialVar_Result = TRUE;
     }
+}
+
+void DeleteItem(void)
+{
+    u16 item = ITEM_NONE;
+    u16 slot = VarGet(VAR_TEMP_1);
+    struct Pokemon *mon = &gPlayerParty[slot];
+    struct PartyMenuBox *menuBox = &sPartyMenuBoxes[slot];
+
+    SetMonData(mon, MON_DATA_HELD_ITEM, &item);
+
+    ShowOrHideHeldItemSprite(GetMonData(mon, MON_DATA_HELD_ITEM), menuBox);
+    //item = ITEM_NONE;
+    //gSprites[menuBox->itemSpriteId].invisible = TRUE;
+    //DisplayPartyPokemonDescriptionText(PARTYBOX_DESC_DONT_HAVE, &sPartyMenuBoxes[gPartyMenu.slotId], 1);
 }

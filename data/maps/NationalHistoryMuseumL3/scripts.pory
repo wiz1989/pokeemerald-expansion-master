@@ -68,10 +68,10 @@ script NHML3_Trigger_WarpL2 {
 	setflag(FLAG_NHML2_RIDDLE_START)
 	clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
 	clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-	//delete for productive release
-	msgbox(format("THIS IS A PRELIMINARY TESTING VERSION\pPlease do not share outside the closed testing circle!"))
-    waitmessage
-	//deleteend
+	//comment for productive release
+	//msgbox(format("THIS IS A PRELIMINARY TESTING VERSION\pPlease do not share outside the closed testing circle!"))
+    //waitmessage
+	
 	warp(MAP_NATIONAL_HISTORY_MUSEUM_L2, 3, 3)
 	releaseall
 	end

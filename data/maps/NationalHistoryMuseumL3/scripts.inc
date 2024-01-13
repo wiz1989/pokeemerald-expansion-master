@@ -74,8 +74,6 @@ NHML3_Trigger_WarpL2::
 	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
 	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHML3_Trigger_WarpL2_Text_0
-	waitmessage
 	warp MAP_NATIONAL_HISTORY_MUSEUM_L2, 3, 3
 	releaseall
 	end
@@ -551,11 +549,6 @@ NHML3_Sign_tileset::
 	release
 	end
 
-
-NHML3_Trigger_WarpL2_Text_0:
-	.string "THIS IS A PRELIMINARY TESTING VERSION\p"
-	.string "Please do not share outside the closed\n"
-	.string "testing circle!$"
 
 NHML3_Move_Tutor_Text_0:
 	.string "I am the Move Tutor. \lI will teach your Pokemon moves for\nprecious Heart Scales. \pWhich move should I teach?$"
