@@ -252,6 +252,7 @@ static const u8 sCreditsText_BetaTesters[]                   = _("Beta Testers")
 static const u8 sCreditsText_Alemazzini[]                    = _("Alemazzini");
 static const u8 sCreditsText_jgent[]                         = _("jgent");
 static const u8 sCreditsText_LNRD[]                          = _("LNRD");
+static const u8 sCreditsText_Bric13[]                        = _("Bric13");
 static const u8 sCreditsText_Archie[]                        = _("Archie");
 static const u8 sCreditsText_AquasHideout[]                  = _("The Team Aqua's Hideout Crew");
 static const u8 sCreditsText_acko[]                          = _("acko");
@@ -440,6 +441,7 @@ static const struct CreditsEntry sCreditsEntry_BetaTesters[]                    
 static const struct CreditsEntry sCreditsEntry_Alemazzini[]                     = {11, FALSE, sCreditsText_Alemazzini};
 static const struct CreditsEntry sCreditsEntry_jgent[]                          = {11, FALSE, sCreditsText_jgent};
 static const struct CreditsEntry sCreditsEntry_LNRD[]                           = {11, FALSE, sCreditsText_LNRD};
+static const struct CreditsEntry sCreditsEntry_Bric13[]                         = {11, TRUE, sCreditsText_Bric13};
 static const struct CreditsEntry sCreditsEntry_Archie[]                         = {11, FALSE, sCreditsText_Archie};
 static const struct CreditsEntry sCreditsEntry_AquasHideout[]                   = {11, FALSE, sCreditsText_AquasHideout};
 static const struct CreditsEntry sCreditsEntry_acko[]                           = {11, FALSE, sCreditsText_acko};
@@ -507,7 +509,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         sCreditsEntry_Alemazzini,
         sCreditsEntry_jgent,
         sCreditsEntry_LNRD,
-        _
+        sCreditsEntry_Bric13
     },
     [PAGE_SPECIAL_THANKS] = {
         sCreditsEntry_SpecialThanks,
