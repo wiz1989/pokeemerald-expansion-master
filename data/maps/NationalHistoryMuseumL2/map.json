@@ -2,7 +2,7 @@
   "id": "MAP_NATIONAL_HISTORY_MUSEUM_L2",
   "name": "NationalHistoryMuseumL2",
   "layout": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L2",
-  "music": "MUS_RG_SEVII_DUNGEON",
+  "music": "MUS_AQUA_MAGMA_HIDEOUT",
   "region_map_section": "MAPSEC_NHM_FLOOR2",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -321,6 +321,38 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Sign_Armaldo"
+    },
+    {
+      "type": "sign",
+      "x": 8,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML2_Sign_Skeleton_Tyrantrum"
+    },
+    {
+      "type": "sign",
+      "x": 19,
+      "y": 11,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML2_Sign_Skeleton_Kabuto"
+    },
+    {
+      "type": "sign",
+      "x": 15,
+      "y": 13,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML2_Sign_Skeleton_Armaldo"
+    },
+    {
+      "type": "sign",
+      "x": 29,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML2_Sign_Skeleton_Omanyte"
     }
   ]
 }

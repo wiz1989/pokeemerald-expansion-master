@@ -2,7 +2,7 @@
   "id": "MAP_NATIONAL_HISTORY_MUSEUM_L1",
   "name": "NationalHistoryMuseumL1",
   "layout": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L1",
-  "music": "MUS_RG_ROCKET_HIDEOUT",
+  "music": "MUS_LILYCOVE_MUSEUM",
   "region_map_section": "MAPSEC_NHM_FLOOR1",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
@@ -149,7 +149,7 @@
     {
       "type": "trigger",
       "x": 3,
-      "y": 14,
+      "y": 15,
       "elevation": 0,
       "var": "VAR_NHML1_COUNTER_TRIGGER",
       "var_value": "0",
@@ -158,7 +158,7 @@
     {
       "type": "trigger",
       "x": 4,
-      "y": 14,
+      "y": 15,
       "elevation": 0,
       "var": "VAR_NHML1_COUNTER_TRIGGER",
       "var_value": "0",
@@ -223,6 +223,38 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHML1_Sign_tileset"
+    },
+    {
+      "type": "sign",
+      "x": 28,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML1_Sign_CavePainting"
+    },
+    {
+      "type": "sign",
+      "x": 27,
+      "y": 8,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML1_Sign_CavePainting"
+    },
+    {
+      "type": "sign",
+      "x": 1,
+      "y": 9,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML1_Sign_Tent"
+    },
+    {
+      "type": "sign",
+      "x": 2,
+      "y": 9,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "NHML1_Sign_Tent"
     }
   ]
 }

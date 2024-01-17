@@ -348,6 +348,22 @@ NHML1_Sign_Replica::
 	end
 
 
+NHML1_Sign_CavePainting::
+	lock
+	msgbox NHML1_Sign_CavePainting_Text_0
+	waitmessage
+	release
+	end
+
+
+NHML1_Sign_Tent::
+	lock
+	msgbox NHML1_Sign_Tent_Text_0
+	waitmessage
+	release
+	end
+
+
 NHML1_Sign_Desk::
 	lock
 	msgbox NHML1_Sign_Desk_Text_0
@@ -390,7 +406,7 @@ NHML1_Judge_Text_0:
 	.string "All these artifacts are just\l"
 	.string "mezmerizing.\p"
 	.string "And have you noticed these special\n"
-	.string "wallpapers they display?\l"
+	.string "WALLPAPERS they display?\l"
 	.string "Wonderful!$"
 
 NHML1_ItemBall_Text_0:
@@ -442,6 +458,13 @@ NHML1_Sign_Flame_Orb_Text_0:
 
 NHML1_Sign_Replica_Text_0:
 	.string "A very realistic replica of a Mamoswine.$"
+
+NHML1_Sign_CavePainting_Text_0:
+	.string "An old stone plate showing ancient cave\n"
+	.string "paintings.$"
+
+NHML1_Sign_Tent_Text_0:
+	.string "The replica of a tent from the Ice Age.$"
 
 NHML1_Sign_Desk_Text_0:
 	.string "Thank you for your visit!$"

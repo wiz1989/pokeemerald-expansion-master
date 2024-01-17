@@ -55,7 +55,7 @@ script NHML1_Trigger_WarpL2 {
 script NHML1_Judge {
 	lock
 	faceplayer
-	msgbox(format("What an exquisite place! \lAll these artifacts are just mezmerizing. \pAnd have you noticed these special wallpapers they display? \lWonderful!"), MSGBOX_AUTOCLOSE)
+	msgbox(format("What an exquisite place! \lAll these artifacts are just mezmerizing. \pAnd have you noticed these special WALLPAPERS they display? \lWonderful!"), MSGBOX_AUTOCLOSE)
 	waitmessage
 	setflag(FLAG_NHML1_WALLPAPER_GUY)
 	release
@@ -284,6 +284,22 @@ script NHML1_Sign_Flame_Orb {
 script NHML1_Sign_Replica {
 	lock
 	msgbox(format("A very realistic replica of a Mamoswine."))
+	waitmessage
+	release
+	end
+}
+
+script NHML1_Sign_CavePainting {
+	lock
+	msgbox(format("An old stone plate showing ancient cave paintings."))
+	waitmessage
+	release
+	end
+}
+
+script NHML1_Sign_Tent {
+	lock
+	msgbox(format("The replica of a tent from the Ice Age."))
 	waitmessage
 	release
 	end

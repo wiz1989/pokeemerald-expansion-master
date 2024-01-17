@@ -4511,9 +4511,9 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
     [MOVE_WILL_O_WISP] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_6
-            .accuracy = 85,
+            .accuracy = 90,
         #else
-            .accuracy = 75,
+            .accuracy = 90,
         #endif
         .effect = EFFECT_WILL_O_WISP,
         .power = 0,
@@ -4755,7 +4755,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         .power = 0,
         .type = TYPE_GRASS,
         .accuracy = 100,
-        .pp = 1,
+        .pp = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
         .priority = 0,
@@ -6681,7 +6681,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         .power = 0,
         .type = TYPE_WATER,
         .accuracy = 0,
-        .pp = 1,
+        .pp = 0,
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_USER,
         .priority = 0,

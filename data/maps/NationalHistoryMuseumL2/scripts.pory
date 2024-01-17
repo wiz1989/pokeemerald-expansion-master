@@ -53,13 +53,6 @@ script NHML2_EveryFrame_Sash {
         setflag(FLAG_GOT_SASH) //first acquired sash sets this flag to log play progress
     }
 
-    //test effect
-    setvar(VAR_0x8004, 1)  //vertical pan
-    setvar(VAR_0x8005, 1)  //horizontal pan
-    setvar(VAR_0x8006, 4)  //num shakes
-    setvar(VAR_0x8007, 5)  //shake delay
-    special(ShakeCamera)
-    waitstate
     end
 }
 
@@ -100,7 +93,7 @@ script NHML2_BlondeMan {
     lock
 	faceplayer
     if(defeated(TRAINER_NHM_BRANDON)) {
-        msgbox(format("YOU DID IT!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("YOU DID IT!\pI went down to leave but came back as it was too cold for my taste.\lLooks like their A/C has a malfunction or so."), MSGBOX_AUTOCLOSE)
     }
     else {
         msgbox(format("This guy over there won't let anybody out here until someone defeats him.\lWhat a jerk!"), MSGBOX_AUTOCLOSE)
@@ -937,6 +930,38 @@ script NHM2_Sign_Carracosta {
 script NHM2_Sign_Aurorus {
     lock
     msgbox(format("This showcase contains an ancient SAIL FOSSIL."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHML2_Sign_Skeleton_Tyrantrum {
+    lock
+    msgbox(format("An impressive Tyrantrum skeleton."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHML2_Sign_Skeleton_Armaldo {
+    lock
+    msgbox(format("A skeleton of an Armaldo."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHML2_Sign_Skeleton_Kabuto {
+    lock
+    msgbox(format("It's a big rock with Kabuto fossils attached to it."), MSGBOX_AUTOCLOSE)
+    waitmessage 
+    release
+    end
+}
+
+script NHML2_Sign_Skeleton_Omanyte {
+    lock
+    msgbox(format("It's a big rock with Omanyte fossils attached to it."), MSGBOX_AUTOCLOSE)
     waitmessage 
     release
     end

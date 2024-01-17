@@ -458,3 +458,19 @@ script NHML3_Sign_tileset {
     release
     end
 }
+
+script NHML3_Sign_Pyramid {
+	lock
+    msgbox(format("A very realistic replica of an ancient Pyramid."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
+}
+
+script NHML3_Sign_Pokedex {
+	lock
+    msgbox(format("It's the first ever found evidence of a Pokédex in history picturing a legendary and sacred Pokémon."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    release
+    end
+}

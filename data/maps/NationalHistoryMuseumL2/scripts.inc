@@ -58,12 +58,6 @@ NHML2_EveryFrame_Sash::
 	setflag FLAG_HOLD_NO_SASH
 	setflag FLAG_GOT_SASH
 NHML2_EveryFrame_Sash_1:
-	setvar VAR_0x8004, 1
-	setvar VAR_0x8005, 1
-	setvar VAR_0x8006, 4
-	setvar VAR_0x8007, 5
-	special ShakeCamera
-	waitstate
 	end
 
 NHML2_EveryFrame_Sash_2:
@@ -1174,6 +1168,38 @@ NHM2_Sign_Aurorus::
 	end
 
 
+NHML2_Sign_Skeleton_Tyrantrum::
+	lock
+	msgbox NHML2_Sign_Skeleton_Tyrantrum_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHML2_Sign_Skeleton_Armaldo::
+	lock
+	msgbox NHML2_Sign_Skeleton_Armaldo_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHML2_Sign_Skeleton_Kabuto::
+	lock
+	msgbox NHML2_Sign_Skeleton_Kabuto_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
+NHML2_Sign_Skeleton_Omanyte::
+	lock
+	msgbox NHML2_Sign_Skeleton_Omanyte_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+
 NHML2_Item_HeartScale::
 	lock
 	finditem ITEM_HEART_SCALE, 2
@@ -1198,7 +1224,11 @@ NHML2_Nurse_Text_1:
 	.string "You're good to go again.$"
 
 NHML2_BlondeMan_Text_0:
-	.string "YOU DID IT!$"
+	.string "YOU DID IT!\p"
+	.string "I went down to leave but came back as\n"
+	.string "it was too cold for my taste.\l"
+	.string "Looks like their A/C has a malfunction\l"
+	.string "or so.$"
 
 NHML2_BlondeMan_Text_1:
 	.string "This guy over there won't let anybody\n"
@@ -1506,6 +1536,20 @@ NHM2_Sign_Carracosta_Text_0:
 NHM2_Sign_Aurorus_Text_0:
 	.string "This showcase contains an ancient SAIL\n"
 	.string "FOSSIL.$"
+
+NHML2_Sign_Skeleton_Tyrantrum_Text_0:
+	.string "An impressive Tyrantrum skeleton.$"
+
+NHML2_Sign_Skeleton_Armaldo_Text_0:
+	.string "A skeleton of an Armaldo.$"
+
+NHML2_Sign_Skeleton_Kabuto_Text_0:
+	.string "It's a big rock with Kabuto fossils\n"
+	.string "attached to it.$"
+
+NHML2_Sign_Skeleton_Omanyte_Text_0:
+	.string "It's a big rock with Omanyte fossils\n"
+	.string "attached to it.$"
 
 Text_NotEnoughMons::
 	.string "You don't have enough Pokémon to fight\n"
