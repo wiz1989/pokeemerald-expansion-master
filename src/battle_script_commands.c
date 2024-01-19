@@ -14531,11 +14531,17 @@ static void Cmd_pickup(void)
 {
     CMD_ARGS();
 
-    u32 i, j;
+    u32 i, j, counter;
     u16 species, heldItem, ability;
     u8 lvlDivBy10;
 
     DebugPrintf("Cmd_pickup");
+    counter = VarGet(VAR_PICKUP_COUNTER) + 1;
+    VarSet(VAR_PICKUP_COUNTER, counter);
+    if (counter > 5)
+        VarSet(VAR_PICKUP_COUNTER, 1);
+
+    DebugPrintf("pickup counter: %d", counter);
 
     if (!InBattlePike()) // No items in Battle Pike.
     {
@@ -14554,7 +14560,7 @@ static void Cmd_pickup(void)
                 && species != SPECIES_NONE
                 && species != SPECIES_EGG
                 && heldItem == ITEM_NONE
-                && (Random() % 5) == 0)
+                && ((Random() % 5) == 0 || counter == 5))
             {
                 if (isInPyramid)
                 {
@@ -14572,6 +14578,7 @@ static void Cmd_pickup(void)
                             DebugPrintf("sPickupItems");
                             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[lvlDivBy10 + j]);
                             FlagSet(FLAG_GOT_HEART_SCALE);
+                            VarSet(VAR_PICKUP_COUNTER, 0);
                             break;
                         }
                         else if (rand == 99 || rand == 98)
@@ -14579,6 +14586,7 @@ static void Cmd_pickup(void)
                             DebugPrintf("sRarePickupItems");
                             SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sRarePickupItems[lvlDivBy10 + (99 - rand)]);
                             FlagSet(FLAG_GOT_HEART_SCALE);
+                            VarSet(VAR_PICKUP_COUNTER, 0);
                             break;
                         }
                     }

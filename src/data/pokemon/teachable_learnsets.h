@@ -18290,7 +18290,6 @@ static const u16 sMunchlaxTeachableLearnset[] = {
     MOVE_ROLLOUT,
     MOVE_SLEEP_TALK,
     MOVE_SNORE,
-    MOVE_SUBSTITUTE,
     MOVE_SWAGGER,
     MOVE_THUNDER_PUNCH,
     MOVE_UNAVAILABLE,
@@ -22633,7 +22632,6 @@ static const u16 sArchenTeachableLearnset[] = {
     MOVE_ROCK_SLIDE,
     MOVE_SLEEP_TALK,
     MOVE_SNORE,
-    MOVE_SUBSTITUTE,
     MOVE_SWAGGER,
     MOVE_UNAVAILABLE,
 };

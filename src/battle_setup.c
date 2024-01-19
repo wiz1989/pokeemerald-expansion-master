@@ -420,6 +420,8 @@ static void CreateBattleStartTask_Debug(u8 transition, u16 song)
 
 void BattleSetup_StartWildBattle(void)
 {
+    VarSet(VAR_BATTLE_TURN, 0);
+
     if (GetSafariZoneFlag())
         DoSafariBattle();
     else

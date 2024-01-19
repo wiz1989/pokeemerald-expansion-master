@@ -584,6 +584,8 @@ EventScript_WhiteOut::
 	call EverGrandeCity_HallOfFame_EventScript_ResetEliteFour
 	goto EventScript_RemoveFlameOrb
 EventScript_WhiteOut_2:
+	goto EventScript_RemoveLeftovers
+EventScript_WhiteOut_3:
 	goto EventScript_ResetMrBriney
 	end
 
@@ -627,6 +629,47 @@ EventScript_RemoveFlameOrb_8:
 EventScript_RemoveFlameOrb_9:
 	deleteitemfromslot 5
 	goto EventScript_RemoveFlameOrb_1
+
+EventScript_RemoveLeftovers::
+	checkpartyitem ITEM_LEFTOVERS
+	switch VAR_RESULT
+	case 6, EventScript_RemoveLeftovers_3
+	case 0, EventScript_RemoveLeftovers_4
+	case 1, EventScript_RemoveLeftovers_5
+	case 2, EventScript_RemoveLeftovers_6
+	case 3, EventScript_RemoveLeftovers_7
+	case 4, EventScript_RemoveLeftovers_8
+	case 5, EventScript_RemoveLeftovers_9
+EventScript_RemoveLeftovers_1:
+	return
+
+EventScript_RemoveLeftovers_3:
+	call EventScript_WhiteOut_3
+	goto EventScript_RemoveLeftovers_1
+
+EventScript_RemoveLeftovers_4:
+	deleteitemfromslot 0
+	goto EventScript_RemoveLeftovers_1
+
+EventScript_RemoveLeftovers_5:
+	deleteitemfromslot 1
+	goto EventScript_RemoveLeftovers_1
+
+EventScript_RemoveLeftovers_6:
+	deleteitemfromslot 2
+	goto EventScript_RemoveLeftovers_1
+
+EventScript_RemoveLeftovers_7:
+	deleteitemfromslot 3
+	goto EventScript_RemoveLeftovers_1
+
+EventScript_RemoveLeftovers_8:
+	deleteitemfromslot 4
+	goto EventScript_RemoveLeftovers_1
+
+EventScript_RemoveLeftovers_9:
+	deleteitemfromslot 5
+	goto EventScript_RemoveLeftovers_1
 
 EventScript_ResetMrBriney::
 	goto_if_eq VAR_BRINEY_LOCATION, 1, EventScript_MoveMrBrineyToHouse

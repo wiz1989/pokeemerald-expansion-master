@@ -404,7 +404,7 @@ Move_to_dnpos:
 NHML1_Judge_Text_0:
 	.string "What an exquisite place!\l"
 	.string "All these artifacts are just\l"
-	.string "mezmerizing.\p"
+	.string "mesmerizing.\p"
 	.string "And have you noticed these special\n"
 	.string "WALLPAPERS they display?\l"
 	.string "Wonderful!$"

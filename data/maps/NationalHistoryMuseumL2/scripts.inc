@@ -52,17 +52,35 @@ NHML2_EveryFrame_Boulder::
 
 NHML2_EveryFrame_Sash::
 	setorcopyvar VAR_NHML2_FIGHT_KABUTOPS, 0
+	clearflag FLAG_HOLD_NO_SASH
 	checkpartyitem ITEM_FOCUS_SASH
 	compare VAR_RESULT, 6
-	goto_if_eq NHML2_EveryFrame_Sash_2
-	setflag FLAG_HOLD_NO_SASH
-	setflag FLAG_GOT_SASH
+	goto_if_lt NHML2_EveryFrame_Sash_2
 NHML2_EveryFrame_Sash_1:
+	checkitem ITEM_FOCUS_SASH
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML2_EveryFrame_Sash_5
+NHML2_EveryFrame_Sash_4:
+	checkpcitem ITEM_FOCUS_SASH
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML2_EveryFrame_Sash_8
+NHML2_EveryFrame_Sash_7:
 	end
 
 NHML2_EveryFrame_Sash_2:
-	clearflag FLAG_HOLD_NO_SASH
+	setflag FLAG_HOLD_NO_SASH
+	setflag FLAG_GOT_SASH
 	goto NHML2_EveryFrame_Sash_1
+
+NHML2_EveryFrame_Sash_5:
+	setflag FLAG_HOLD_NO_SASH
+	setflag FLAG_GOT_SASH
+	goto NHML2_EveryFrame_Sash_4
+
+NHML2_EveryFrame_Sash_8:
+	setflag FLAG_HOLD_NO_SASH
+	setflag FLAG_GOT_SASH
+	goto NHML2_EveryFrame_Sash_7
 
 
 NHML2_Trigger_WarpL3::
@@ -104,7 +122,7 @@ NHML2_BlondeMan::
 	msgbox NHML2_BlondeMan_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	goto_if_set FLAG_CAUGHT_ARCHEN, NHML2_BlondeMan_5
-	msgbox NHML2_BlondeMan_Text_3, MSGBOX_AUTOCLOSE
+	msgbox NHML2_BlondeMan_Text_4, MSGBOX_AUTOCLOSE
 NHML2_BlondeMan_1:
 	waitmessage
 	release
@@ -115,6 +133,20 @@ NHML2_BlondeMan_2:
 	goto NHML2_BlondeMan_1
 
 NHML2_BlondeMan_5:
+	checkpartymon SPECIES_YAMASK
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML2_BlondeMan_8
+	msgbox NHML2_BlondeMan_Text_3, MSGBOX_AUTOCLOSE
+	goto NHML2_BlondeMan_1
+
+NHML2_BlondeMan_8:
+	checkpartymove MOVE_ENDEAVOR
+	compare VAR_RESULT, TRUE
+	goto_if_eq NHML2_BlondeMan_11
+	msgbox NHML2_BlondeMan_Text_3, MSGBOX_AUTOCLOSE
+	goto NHML2_BlondeMan_1
+
+NHML2_BlondeMan_11:
 	msgbox NHML2_BlondeMan_Text_2, MSGBOX_AUTOCLOSE
 	goto NHML2_BlondeMan_1
 
@@ -164,27 +196,31 @@ NHM2_Battle_Kabutops_3:
 	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
 	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHM2_Battle_Kabutops_Text_1, MSGBOX_AUTOCLOSE
+	msgbox NHM2_Battle_Kabutops_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
-	goto_if_set FLAG_HOLD_NO_SASH, NHM2_Battle_Kabutops_10
+	goto_if_set FLAG_HOLD_NO_SASH, NHM2_Battle_Kabutops_14
 	checktrainerflag TRAINER_NHM_BRANDON
-	goto_if 1, NHM2_Battle_Kabutops_10
+	goto_if 1, NHM2_Battle_Kabutops_14
 	setorcopyvar VAR_NHML2_FIGHT_KABUTOPS, 1
 	setwildbattle SPECIES_KABUTOPS, 100, ITEM_FOCUS_SASH
-NHM2_Battle_Kabutops_9:
+NHM2_Battle_Kabutops_13:
 	dowildbattle
 NHM2_Battle_Kabutops_1:
 	release
 	end
 
 NHM2_Battle_Kabutops_2:
-	clearflag FLAG_NHML2_RIDDLE_START
+	goto_if_set FLAG_NHML1_WALLPAPER_GUY, NHM2_Battle_Kabutops_10
+	msgbox NHM2_Battle_Kabutops_Text_1, MSGBOX_AUTOCLOSE
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
-	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHM2_Battle_Kabutops_Text_0, MSGBOX_AUTOCLOSE
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+NHM2_Battle_Kabutops_9:
 	waitmessage
 	goto NHM2_Battle_Kabutops_1
 
@@ -197,9 +233,16 @@ NHM2_Battle_Kabutops_5:
 	goto NHM2_Battle_Kabutops_3
 
 NHM2_Battle_Kabutops_10:
+	clearflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Kabutops_Text_0, MSGBOX_AUTOCLOSE
+	goto NHM2_Battle_Kabutops_9
+
+NHM2_Battle_Kabutops_14:
 	setorcopyvar VAR_NHML2_FIGHT_KABUTOPS, 1
 	setwildbattle SPECIES_KABUTOPS, 100
-	goto NHM2_Battle_Kabutops_9
+	goto NHM2_Battle_Kabutops_13
 
 
 NHM2_Battle_Omastar::
@@ -263,7 +306,7 @@ NHM2_Battle_Aerodactyl_3:
 	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
 	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHM2_Battle_Aerodactyl_Text_1, MSGBOX_AUTOCLOSE
+	msgbox NHM2_Battle_Aerodactyl_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_AERODACTYL, CRY_MODE_ENCOUNTER
 	delay 40
@@ -275,10 +318,14 @@ NHM2_Battle_Aerodactyl_1:
 	end
 
 NHM2_Battle_Aerodactyl_2:
-	clearflag FLAG_NHML2_RIDDLE_START
+	goto_if_set FLAG_NHML1_WALLPAPER_GUY, NHM2_Battle_Aerodactyl_10
+	msgbox NHM2_Battle_Aerodactyl_Text_1, MSGBOX_AUTOCLOSE
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
-	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHM2_Battle_Aerodactyl_Text_0, MSGBOX_AUTOCLOSE
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+NHM2_Battle_Aerodactyl_9:
 	waitmessage
 	goto NHM2_Battle_Aerodactyl_1
 
@@ -289,6 +336,13 @@ NHM2_Battle_Aerodactyl_4:
 NHM2_Battle_Aerodactyl_5:
 	goto_if_set FLAG_NHML2_RIDDLE_STEP1_CHECK, NHM2_Battle_Aerodactyl_4
 	goto NHM2_Battle_Aerodactyl_3
+
+NHM2_Battle_Aerodactyl_10:
+	clearflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Aerodactyl_Text_0, MSGBOX_AUTOCLOSE
+	goto NHM2_Battle_Aerodactyl_9
 
 
 NHM2_Battle_Cradily::
@@ -477,7 +531,7 @@ NHM2_Battle_Carracosta_3:
 	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
 	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHM2_Battle_Carracosta_Text_1, MSGBOX_AUTOCLOSE
+	msgbox NHM2_Battle_Carracosta_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	playmoncry SPECIES_CARRACOSTA, CRY_MODE_ENCOUNTER
 	delay 40
@@ -489,10 +543,14 @@ NHM2_Battle_Carracosta_1:
 	end
 
 NHM2_Battle_Carracosta_2:
-	clearflag FLAG_NHML2_RIDDLE_START
+	goto_if_set FLAG_NHML1_WALLPAPER_GUY, NHM2_Battle_Carracosta_10
+	msgbox NHM2_Battle_Carracosta_Text_1, MSGBOX_AUTOCLOSE
+	randomnr 3
+	setorcopyvar VAR_NHM_L2_RIDDLE, VAR_RESULT
+	setflag FLAG_NHML2_RIDDLE_START
 	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
-	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
-	msgbox NHM2_Battle_Carracosta_Text_0, MSGBOX_AUTOCLOSE
+	clearflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+NHM2_Battle_Carracosta_9:
 	waitmessage
 	goto NHM2_Battle_Carracosta_1
 
@@ -503,6 +561,13 @@ NHM2_Battle_Carracosta_4:
 NHM2_Battle_Carracosta_5:
 	goto_if_set FLAG_NHML2_RIDDLE_STEP1_CHECK, NHM2_Battle_Carracosta_4
 	goto NHM2_Battle_Carracosta_3
+
+NHM2_Battle_Carracosta_10:
+	clearflag FLAG_NHML2_RIDDLE_START
+	clearflag FLAG_NHML2_RIDDLE_STEP1_CHECK
+	setflag FLAG_NHML2_RIDDLE_STEP2_CHECK
+	msgbox NHM2_Battle_Carracosta_Text_0, MSGBOX_AUTOCLOSE
+	goto NHM2_Battle_Carracosta_9
 
 
 NHM2_Battle_Aurorus::
@@ -1241,6 +1306,10 @@ NHML2_BlondeMan_Text_2:
 	.string "good chance of winning.$"
 
 NHML2_BlondeMan_Text_3:
+	.string "Welp...looks like you're also not ready,\n"
+	.string "yet.$"
+
+NHML2_BlondeMan_Text_4:
 	.string "You should consider getting more\n"
 	.string "Pokémon before challenging him.$"
 
@@ -1260,15 +1329,21 @@ NHML2_Battle_Brandon_Text_2:
 
 NHM2_Battle_Archen_Text_0:
 	.string "The PLUME FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Kabutops_Text_0:
 	.string "There is a DOME FOSSIL exhibited...\l"
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Kabutops_Text_1:
+	.string "There is a DOME FOSSIL exhibited...\l"
+	.string "...A hidden switch shows.\p"
+	.string "But it's stuck.\l"
+	.string "You should try that again later.$"
+
+NHM2_Battle_Kabutops_Text_2:
 	.string "The DOME FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Omastar_Text_0:
 	.string "There is a HELIX FOSSIL exhibited...\l"
@@ -1279,15 +1354,21 @@ NHM2_Battle_Omastar_Text_1:
 
 NHM2_Battle_Omastar_Text_2:
 	.string "The HELIX FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Aerodactyl_Text_0:
 	.string "There is an OLD AMBER exhibited...\l"
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Aerodactyl_Text_1:
+	.string "There is an OLD AMBER exhibited...\l"
+	.string "...A hidden switch shows.\p"
+	.string "But it's stuck.\l"
+	.string "You should try that again later.$"
+
+NHM2_Battle_Aerodactyl_Text_2:
 	.string "The OLD AMBER is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Cradily_Text_0:
 	.string "There is a ROOT FOSSIL exhibited...\l"
@@ -1295,7 +1376,7 @@ NHM2_Battle_Cradily_Text_0:
 
 NHM2_Battle_Cradily_Text_1:
 	.string "The ROOT FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Armaldo_Text_0:
 	.string "There is a CLAW FOSSIL exhibited...\l"
@@ -1303,7 +1384,7 @@ NHM2_Battle_Armaldo_Text_0:
 
 NHM2_Battle_Armaldo_Text_1:
 	.string "The CLAW FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Rampardos_Text_0:
 	.string "There is a SKULL FOSSIL exhibited...\l"
@@ -1311,7 +1392,7 @@ NHM2_Battle_Rampardos_Text_0:
 
 NHM2_Battle_Rampardos_Text_1:
 	.string "The SKULL FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Bastiodon_Text_0:
 	.string "There is a ARMOR FOSSIL exhibited...\l"
@@ -1319,15 +1400,21 @@ NHM2_Battle_Bastiodon_Text_0:
 
 NHM2_Battle_Bastiodon_Text_1:
 	.string "The ARMOR FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Carracosta_Text_0:
 	.string "There is a COVER FOSSIL exhibited...\l"
 	.string "...A hidden switch clicked.$"
 
 NHM2_Battle_Carracosta_Text_1:
+	.string "There is a COVER FOSSIL exhibited...\l"
+	.string "...A hidden switch shows.\p"
+	.string "But it's stuck.\l"
+	.string "You should try that again later.$"
+
+NHM2_Battle_Carracosta_Text_2:
 	.string "The COVER FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHM2_Battle_Aurorus_Text_0:
 	.string "There is a SAIL FOSSIL exhibited...\l"
@@ -1335,7 +1422,7 @@ NHM2_Battle_Aurorus_Text_0:
 
 NHM2_Battle_Aurorus_Text_1:
 	.string "The SAIL FOSSIL is glowing brightly.\p"
-	.string "Feel it's power!$"
+	.string "Feel its power!$"
 
 NHML2_Camper_Text_0:
 	.string "Hey, there! What's your favorite TYPE?\p"

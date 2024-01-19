@@ -55,7 +55,7 @@ script NHML1_Trigger_WarpL2 {
 script NHML1_Judge {
 	lock
 	faceplayer
-	msgbox(format("What an exquisite place! \lAll these artifacts are just mezmerizing. \pAnd have you noticed these special WALLPAPERS they display? \lWonderful!"), MSGBOX_AUTOCLOSE)
+	msgbox(format("What an exquisite place! \lAll these artifacts are just mesmerizing. \pAnd have you noticed these special WALLPAPERS they display? \lWonderful!"), MSGBOX_AUTOCLOSE)
 	waitmessage
 	setflag(FLAG_NHML1_WALLPAPER_GUY)
 	release

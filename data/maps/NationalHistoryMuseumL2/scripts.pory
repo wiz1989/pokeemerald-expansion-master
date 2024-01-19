@@ -43,16 +43,25 @@ script NHML2_EveryFrame_Boulder {
 
 script NHML2_EveryFrame_Sash {
     setorcopyvar(VAR_NHML2_FIGHT_KABUTOPS, 0)
+    clearflag(FLAG_HOLD_NO_SASH)
     checkpartyitem(ITEM_FOCUS_SASH)
-    if (var(VAR_RESULT) == 6) {
-        //party has not acquired focus sash
-        clearflag(FLAG_HOLD_NO_SASH)
-    }
-    else {
+    if (var(VAR_RESULT) < 6) {
+        //party has acquired focus sash
         setflag(FLAG_HOLD_NO_SASH)
         setflag(FLAG_GOT_SASH) //first acquired sash sets this flag to log play progress
     }
-
+    checkitem(ITEM_FOCUS_SASH)
+    if (var(VAR_RESULT) == TRUE) {
+        //player has focus sash in bag
+        setflag(FLAG_HOLD_NO_SASH)
+        setflag(FLAG_GOT_SASH) //first acquired sash sets this flag to log play progress
+    }
+    checkpcitem(ITEM_FOCUS_SASH)
+    if (var(VAR_RESULT) == TRUE) {
+        //player has focus sash in PC
+        setflag(FLAG_HOLD_NO_SASH)
+        setflag(FLAG_GOT_SASH) //first acquired sash sets this flag to log play progress
+    }
     end
 }
 
@@ -99,7 +108,19 @@ script NHML2_BlondeMan {
         msgbox(format("This guy over there won't let anybody out here until someone defeats him.\lWhat a jerk!"), MSGBOX_AUTOCLOSE)
         waitmessage
         if (flag(FLAG_CAUGHT_ARCHEN)) {
-            msgbox(format("Wow...\n...you really look like you could have a good chance of winning."), MSGBOX_AUTOCLOSE)
+            checkpartymon(SPECIES_YAMASK)
+            if (var(VAR_RESULT) == TRUE) {
+                checkpartymove(MOVE_ENDEAVOR)
+                if (var(VAR_RESULT) == TRUE) {
+                    msgbox(format("Wow...\n...you really look like you could have a good chance of winning."), MSGBOX_AUTOCLOSE)
+                }
+                else {
+                    msgbox(format("Welp...looks like you're also not ready, yet."), MSGBOX_AUTOCLOSE)
+                }
+            }
+            else {
+                msgbox(format("Welp...looks like you're also not ready, yet."), MSGBOX_AUTOCLOSE)
+            }
         }
         else {
             msgbox(format("You should consider getting more Pokémon before challenging him."), MSGBOX_AUTOCLOSE)
@@ -125,7 +146,7 @@ script NHML2_Battle_Brandon {
 }
 
 script NHM2_Battle_Archen {
-    msgbox(format("The PLUME FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+    msgbox(format("The PLUME FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
     waitmessage
     playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
     delay(40)
@@ -145,10 +166,20 @@ script NHM2_Battle_Kabutops {
     //GRASS 2
     lock
     if (var(VAR_NHM_L2_RIDDLE) == 0 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
-        clearflag(FLAG_NHML2_RIDDLE_START)
-        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
-        setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is a DOME FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        if (flag(FLAG_NHML1_WALLPAPER_GUY)) {
+            clearflag(FLAG_NHML2_RIDDLE_START)
+            clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+            setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+            msgbox(format("There is a DOME FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        }
+        else {
+            msgbox(format("There is a DOME FOSSIL exhibited...\l...A hidden switch shows.\pBut it's stuck.\lYou should try that again later."), MSGBOX_AUTOCLOSE)
+            randomnr(3)
+            setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+            setflag(FLAG_NHML2_RIDDLE_START)
+            clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+            clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        }
         waitmessage
     }
     else {
@@ -157,7 +188,7 @@ script NHM2_Battle_Kabutops {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("The DOME FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The DOME FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         
         playmoncry(SPECIES_KABUTOPS, CRY_MODE_ENCOUNTER)
@@ -207,7 +238,7 @@ script NHM2_Battle_Omastar {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("The HELIX FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The HELIX FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_OMASTAR, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -223,10 +254,20 @@ script NHM2_Battle_Aerodactyl {
     //FIRE 2
     lock
     if (var(VAR_NHM_L2_RIDDLE) == 1 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
-        clearflag(FLAG_NHML2_RIDDLE_START)
-        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
-        setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is an OLD AMBER exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        if (flag(FLAG_NHML1_WALLPAPER_GUY)) {
+            clearflag(FLAG_NHML2_RIDDLE_START)
+            clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+            setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+            msgbox(format("There is an OLD AMBER exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        }
+        else {
+            msgbox(format("There is an OLD AMBER exhibited...\l...A hidden switch shows.\pBut it's stuck.\lYou should try that again later."), MSGBOX_AUTOCLOSE)
+            randomnr(3)
+            setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+            setflag(FLAG_NHML2_RIDDLE_START)
+            clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+            clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        }
         waitmessage
     }
     else {
@@ -235,7 +276,7 @@ script NHM2_Battle_Aerodactyl {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("The OLD AMBER is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The OLD AMBER is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_AERODACTYL, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -276,7 +317,7 @@ script NHM2_Battle_Cradily {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("The ROOT FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The ROOT FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_CRADILY, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -317,7 +358,7 @@ script NHM2_Battle_Armaldo {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("The CLAW FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The CLAW FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_ARMALDO, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -344,7 +385,7 @@ script NHM2_Battle_Rampardos {
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
         randomnr(3)
         setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
-        msgbox(format("The SKULL FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The SKULL FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_RAMPARDOS, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -371,7 +412,7 @@ script NHM2_Battle_Bastiodon {
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
         randomnr(3)
         setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
-        msgbox(format("The ARMOR FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The ARMOR FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_BASTIODON, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -387,10 +428,20 @@ script NHM2_Battle_Carracosta {
     //WATER 2
     lock
     if (var(VAR_NHM_L2_RIDDLE) == 2 && flag(FLAG_NHML2_RIDDLE_STEP1_CHECK) && !flag(FLAG_NHML2_RIDDLE_SOLVED)) {
-        clearflag(FLAG_NHML2_RIDDLE_START)
-        clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
-        setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("There is a COVER FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        if (flag(FLAG_NHML1_WALLPAPER_GUY)) {
+            clearflag(FLAG_NHML2_RIDDLE_START)
+            clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+            setflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+            msgbox(format("There is a COVER FOSSIL exhibited...\l...A hidden switch clicked."), MSGBOX_AUTOCLOSE)
+        }
+        else {
+            msgbox(format("There is a COVER FOSSIL exhibited...\l...A hidden switch shows.\pBut it's stuck.\lYou should try that again later."), MSGBOX_AUTOCLOSE)
+            randomnr(3)
+            setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
+            setflag(FLAG_NHML2_RIDDLE_START)
+            clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
+            clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
+        }
         waitmessage
     }
     else {
@@ -399,7 +450,7 @@ script NHM2_Battle_Carracosta {
         setflag(FLAG_NHML2_RIDDLE_START)
         clearflag(FLAG_NHML2_RIDDLE_STEP1_CHECK)
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
-        msgbox(format("The COVER FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The COVER FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_CARRACOSTA, CRY_MODE_ENCOUNTER)
         delay(40)
@@ -426,7 +477,7 @@ script NHM2_Battle_Aurorus {
         clearflag(FLAG_NHML2_RIDDLE_STEP2_CHECK)
         randomnr(3)
         setorcopyvar(VAR_NHM_L2_RIDDLE, VAR_RESULT)
-        msgbox(format("The SAIL FOSSIL is glowing brightly.\pFeel it's power!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("The SAIL FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
         waitmessage
         playmoncry(SPECIES_AURORUS, CRY_MODE_ENCOUNTER)
         delay(40)
