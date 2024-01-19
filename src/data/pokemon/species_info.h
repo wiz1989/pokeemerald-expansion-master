@@ -11356,7 +11356,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_ABOMASNOW] =
     {
         .baseHP        = 90,
-        .baseAttack    = 100,
+        .baseAttack    = 120,
         .baseDefense   = 75,
         .baseSpeed     = 60,
         .baseSpAttack  = 92,
