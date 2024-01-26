@@ -16,6 +16,8 @@ script NHML3_OnResume {
 		setflag(FLAG_SYS_POKEMON_GET)
 		setorcopyvar(VAR_LITTLEROOT_TOWN_STATE, 1)
 		special(CreateMail)
+		setflag(FLAG_RECEIVED_RUNNING_SHOES)
+		setflag(FLAG_SYS_B_DASH)
 		//set all badges so Pokemon will always obey
 		setflag(FLAG_BADGE01_GET)
 		setflag(FLAG_BADGE02_GET)
@@ -262,6 +264,12 @@ script NHML3_ItemManager {
 		if (var(VAR_RESULT) < 6) {
 			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
 		}
+		//also check for held items in PC boxes
+		setorcopyvar(VAR_TEMP_1, ITEM_FOCUS_SASH)
+		specialvar(VAR_RESULT, ItemisHeldInPC)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
 
 		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
 			//msgbox(format("You are still owning a FOCUS SASH."), MSGBOX_AUTOCLOSE)
@@ -295,6 +303,12 @@ script NHML3_ItemManager {
 		}
 		checkpartyitem(ITEM_HEART_SCALE)
 		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		//also check for held items in PC boxes
+		setorcopyvar(VAR_TEMP_1, ITEM_HEART_SCALE)
+		specialvar(VAR_RESULT, ItemisHeldInPC)
+		if (var(VAR_RESULT) == TRUE) {
 			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
 		}
 
@@ -352,6 +366,12 @@ script NHML3_ItemManager {
 		if (var(VAR_RESULT) < 6) {
 			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
 		}
+		//also check for held items in PC boxes
+		setorcopyvar(VAR_TEMP_1, ITEM_POKE_BALL)
+		specialvar(VAR_RESULT, ItemisHeldInPC)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
 
 		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
 			//msgbox(format("You are still owning a POKéBALL."), MSGBOX_AUTOCLOSE)
@@ -381,6 +401,12 @@ script NHML3_ItemManager {
 		if (var(VAR_RESULT) < 6) {
 			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
 		}
+		//also check for held items in PC boxes
+		setorcopyvar(VAR_TEMP_1, ITEM_LAGGING_TAIL)
+		specialvar(VAR_RESULT, ItemisHeldInPC)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
 
 		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
 			//msgbox(format("You are still owning a LAGGING TAIL."), MSGBOX_AUTOCLOSE)
@@ -405,7 +431,7 @@ script NHML3_ItemManager {
 
 script NHML3_InfoSign {
 	lockall
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) Running from trainer battles is explicitly allowed."))
     waitmessage
     releaseall
     end

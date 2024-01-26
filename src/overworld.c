@@ -367,6 +367,7 @@ void DoWhiteOut(void)
     HealPlayerParty();
     Overworld_ResetStateAfterWhiteOut();
     SetWarpDestinationToLastHealLocation();
+    DebugPrintf("WarpIntoMap");
     WarpIntoMap();
 }
 
@@ -1580,6 +1581,7 @@ void CB2_WhiteOut(void)
         FieldClearVBlankHBlankCallbacks();
         StopMapMusic();
         ResetSafariZoneFlag_();
+        DebugPrintf("DoWhiteOut");
         DoWhiteOut();
         ResetInitialPlayerAvatarState();
         ScriptContext_Init();

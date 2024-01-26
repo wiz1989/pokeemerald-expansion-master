@@ -4472,3 +4472,30 @@ void DeleteItemFromSlot(void)
 {
     DeleteItem();
 }
+
+bool8 ItemisHeldInPC(void)
+{
+    u8 boxId;
+    u8 boxPosition;
+    u16 item;
+
+    item = VarGet(VAR_TEMP_1);
+
+    //loop all boxes
+    for (boxId = 0; boxId < TOTAL_BOXES_COUNT; boxId++)
+    {
+        //loop all box positions
+        for (boxPosition = 0; boxPosition < IN_BOX_COUNT; boxPosition++)
+        {
+            if (GetBoxMonData(GetBoxedMonPtr(boxId, boxPosition), MON_DATA_SPECIES, 0) != SPECIES_NONE)
+            {
+                if (GetBoxMonData(GetBoxedMonPtr(boxId, boxPosition), MON_DATA_HELD_ITEM, NULL) == item)
+                {
+                    return TRUE;
+                }
+            }
+        }
+    }
+
+    return FALSE;
+}

@@ -822,7 +822,7 @@ script NHML2_Game_Master {
                             setflag(FLAG_HINT11)
                             setflag(FLAG_P01_ADDTIME)
                         }
-                        msgbox(format("Have you noticed how Abomasnow is always getting burned right away?\pIf only you could somehow use this to your own advantage...\pOh and it could probably help if Skitty always moves last."), MSGBOX_AUTOCLOSE)
+                        msgbox(format("Have you noticed the papers on the counter?\pAnd have you considered that by always moving last Skitty could copycat your own team mates?\p...so many questions..."), MSGBOX_AUTOCLOSE)
                         clearflag(FLAG_P01_GIVE_ADVICE)
                     }
                 }

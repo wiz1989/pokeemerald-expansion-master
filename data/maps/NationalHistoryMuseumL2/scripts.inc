@@ -1543,12 +1543,12 @@ NHML2_Game_Master_Text_17:
 	.string "continue your journey...$"
 
 NHML2_Game_Master_Text_18:
-	.string "Have you noticed how Abomasnow is\n"
-	.string "always getting burned right away?\p"
-	.string "If only you could somehow use this to\n"
-	.string "your own advantage...\p"
-	.string "Oh and it could probably help if Skitty\n"
-	.string "always moves last.$"
+	.string "Have you noticed the papers on the\n"
+	.string "counter?\p"
+	.string "And have you considered that by always\n"
+	.string "moving last Skitty could copycat your\l"
+	.string "own team mates?\p"
+	.string "...so many questions...$"
 
 NHML2_Game_Master_Text_19:
 	.string "Come back whenever you need me.$"

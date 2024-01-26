@@ -4014,6 +4014,7 @@ u8 IsRunningFromBattleImpossible(u32 battler)
         return BATTLE_RUN_FAILURE;
     }
 
+    DebugPrintf("execute CanBattlerEscape");
     if (!CanBattlerEscape(battler))
     {
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_CANT_ESCAPE;
@@ -4327,8 +4328,14 @@ static void HandleTurnActionSelectionState(void)
                          && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
                          && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
                 {
-                    BattleScriptExecute(BattleScript_PrintCantRunFromTrainer);
-                    gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
+                    DebugPrintf("RUN from trainer battle");
+                    gSelectionBattleScripts[battler] = BattleScript_AskIfWantsToForfeitMatch;
+                    gBattleCommunication[battler] = STATE_SELECTION_SCRIPT_MAY_RUN;
+                    *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
+                    *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
+                    return;
+                    //BattleScriptExecute(BattleScript_PrintCantRunFromTrainer);
+                    //gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
                 }
                 else if (IsRunningFromBattleImpossible(battler) != BATTLE_RUN_SUCCESS
                          && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
@@ -4518,22 +4525,27 @@ static void HandleTurnActionSelectionState(void)
             }
             break;
         case STATE_SELECTION_SCRIPT_MAY_RUN:
+            DebugPrintf("May RUN");
             if (*(gBattleStruct->selectionScriptFinished + battler))
             {
+                DebugPrintf("IF");
                 if (gBattleResources->bufferB[battler][1] == B_ACTION_NOTHING_FAINTED)
                 {
+                    DebugPrintf("Nothing fainted");
                     gHitMarker |= HITMARKER_RUN;
                     gChosenActionByBattler[battler] = B_ACTION_RUN;
                     gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
                 }
                 else
                 {
+                    DebugPrintf("Nothing fainted else");
                     RecordedBattle_ClearBattlerAction(battler, 1);
                     gBattleCommunication[battler] = *(gBattleStruct->stateIdAfterSelScript + battler);
                 }
             }
             else
             {
+                DebugPrintf("ELSE");
                 gBattlerAttacker = battler;
                 gBattlescriptCurrInstr = gSelectionBattleScripts[battler];
                 if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF << 28) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 12))))
@@ -5329,6 +5341,7 @@ static void HandleEndTurn_BattleLost(void)
 
 static void HandleEndTurn_RanFromBattle(void)
 {
+    DebugPrintf("HandleEndTurn_RAN");
     gCurrentActionFuncId = 0;
 
     if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
@@ -5341,6 +5354,11 @@ static void HandleEndTurn_RanFromBattle(void)
     {
         gBattlescriptCurrInstr = BattleScript_PrintPlayerForfeited;
         gBattleOutcome = B_OUTCOME_FORFEITED;
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+    {
+        DebugPrintf("call script Battle Lost");
+        gBattlescriptCurrInstr = BattleScript_LocalBattleLost;
     }
     else
     {
@@ -5375,6 +5393,7 @@ static void HandleEndTurn_FinishBattle(void)
 {
     u32 i, battler;
 
+    DebugPrintf("HandleEndTurn_FinishBattle");
     if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
     {
         if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK
@@ -5458,6 +5477,7 @@ static void HandleEndTurn_FinishBattle(void)
     }
     else
     {
+        DebugPrintf("Call actual Battlescript");
         if (gBattleControllerExecFlags == 0)
             gBattleScriptingCommandsTable[gBattlescriptCurrInstr[0]]();
     }

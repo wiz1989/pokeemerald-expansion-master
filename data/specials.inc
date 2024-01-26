@@ -561,3 +561,4 @@ gSpecials::
 	def_special CreateMail
 	def_special StartCredits
 	def_special DeleteItemFromSlot
+	def_special ItemisHeldInPC

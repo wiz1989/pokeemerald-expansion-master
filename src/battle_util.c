@@ -675,6 +675,11 @@ bool32 TryRunFromBattle(u32 battler)
             effect++;
         }
     }
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+    {
+        DebugPrintf("increment effect var");
+        effect++;
+    }
     else if (gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL) && gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
         effect++;
@@ -745,6 +750,7 @@ void HandleAction_Run(void)
     {
         if (GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER)
         {
+            DebugPrintf("Try run from battle");
             if (!TryRunFromBattle(gBattlerAttacker)) // failed to run away
             {
                 ClearFuryCutterDestinyBondGrudge(gBattlerAttacker);

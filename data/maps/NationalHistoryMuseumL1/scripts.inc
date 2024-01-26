@@ -414,7 +414,9 @@ NHML1_ItemBall_Text_0:
 	.string "SKITTY inside.$"
 
 NHML1_Cooltrainer_Text_0:
-	.string "Oh hey, where are you trying to go?$"
+	.string "Oh hey, where are you trying to go?\p"
+	.string "I'll give you ten battle rounds to\n"
+	.string "defeat me or you gotta stay in here.$"
 
 NHML1_Cooltrainer_Text_1:
 	.string "Bye, bye!$"

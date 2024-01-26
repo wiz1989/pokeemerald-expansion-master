@@ -1398,8 +1398,14 @@ static void CB2_EndTrainerBattle(void)
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         if (!InBattlePyramid() && !InTrainerHillChallenge())
         {
-            RegisterTrainerInMatchCall();
-            SetBattledTrainersFlags();
+            DebugPrintf("EndTrainerBattle");
+            if (!gBattleOutcome == B_OUTCOME_RAN){
+                RegisterTrainerInMatchCall();
+                SetBattledTrainersFlags();
+                SetMainCallback2(CB2_WhiteOut);
+            }
+            //RegisterTrainerInMatchCall();
+            //SetBattledTrainersFlags();
         }
     }
 }
