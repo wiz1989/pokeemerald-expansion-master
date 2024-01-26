@@ -282,6 +282,7 @@ script NHML3_ItemManager {
 				msgbox(format("Here, I will give you another one to continue your journey."), MSGBOX_AUTOCLOSE)
 				waitmessage
 				giveitem(ITEM_FOCUS_SASH)
+				setflag(FLAG_HOLD_NO_SASH)
 			}
 		}
 	}
@@ -431,7 +432,7 @@ script NHML3_ItemManager {
 
 script NHML3_InfoSign {
 	lockall
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) Running from trainer battles is explicitly allowed."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring the most recent move learnsets for any Pokemon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, some base stats, item tables, etc. might have been slightly altered to balance the game. \p4.) Running from trainer battles is explicitly allowed."))
     waitmessage
     releaseall
     end

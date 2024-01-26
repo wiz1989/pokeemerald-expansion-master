@@ -1402,10 +1402,11 @@ static void CB2_EndTrainerBattle(void)
             if (!gBattleOutcome == B_OUTCOME_RAN){
                 RegisterTrainerInMatchCall();
                 SetBattledTrainersFlags();
+            }
+            else {
+                DebugPrintf("Call CB2_WhiteOut");
                 SetMainCallback2(CB2_WhiteOut);
             }
-            //RegisterTrainerInMatchCall();
-            //SetBattledTrainersFlags();
         }
     }
 }

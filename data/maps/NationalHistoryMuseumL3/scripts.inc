@@ -461,6 +461,7 @@ NHML3_ItemManager_67:
 	msgbox NHML3_ItemManager_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_FOCUS_SASH
+	setflag FLAG_HOLD_NO_SASH
 	goto NHML3_ItemManager_1
 
 NHML3_ItemManager_70:
@@ -710,8 +711,11 @@ NHML3_InfoSign_Text_0:
 	.string "you control yourself.\p"
 	.string "2.) It is not required to grind multiple\n"
 	.string "levels to win any of the fights.\p"
-	.string "3.) All items are there for a reason.\n"
-	.string "Think twice before using them.\p"
+	.string "3.) The game mechanics are basically\n"
+	.string "vanilla.\l"
+	.string "However, some base stats, item tables,\l"
+	.string "etc. might have been slightly altered to\l"
+	.string "balance the game.\p"
 	.string "4.) Running from trainer battles is\n"
 	.string "explicitly allowed.$"
 

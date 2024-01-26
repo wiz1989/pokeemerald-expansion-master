@@ -4123,6 +4123,7 @@ static void HandleTurnActionSelectionState(void)
                 }
                 else
                 {
+                    DebugPrintf("Check 2nd mon action");
                     if (gBattleMons[battler].status2 & STATUS2_MULTIPLETURNS
                         || gBattleMons[battler].status2 & STATUS2_RECHARGE)
                     {
@@ -4134,6 +4135,16 @@ static void HandleTurnActionSelectionState(void)
                              && (gBattleStruct->throwingPokeBall || gChosenActionByBattler[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] == B_ACTION_RUN)
                              && gChosenActionByBattler[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] != B_ACTION_NOTHING_FAINTED)
                     {
+                        gBattleStruct->throwingPokeBall = FALSE;
+                        gChosenActionByBattler[battler] = B_ACTION_NOTHING_FAINTED; // Not fainted, but it cannot move, because of the throwing ball.
+                        gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
+                    }
+                    else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE
+                             && position == B_POSITION_PLAYER_RIGHT
+                             && gChosenActionByBattler[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] == B_ACTION_RUN
+                             && gChosenActionByBattler[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] != B_ACTION_NOTHING_FAINTED)
+                    {
+                        DebugPrintf("2nd mon auto run");
                         gBattleStruct->throwingPokeBall = FALSE;
                         gChosenActionByBattler[battler] = B_ACTION_NOTHING_FAINTED; // Not fainted, but it cannot move, because of the throwing ball.
                         gBattleCommunication[battler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
@@ -4334,8 +4345,6 @@ static void HandleTurnActionSelectionState(void)
                     *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
                     *(gBattleStruct->stateIdAfterSelScript + battler) = STATE_BEFORE_ACTION_CHOSEN;
                     return;
-                    //BattleScriptExecute(BattleScript_PrintCantRunFromTrainer);
-                    //gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
                 }
                 else if (IsRunningFromBattleImpossible(battler) != BATTLE_RUN_SUCCESS
                          && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)

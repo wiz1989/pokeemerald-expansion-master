@@ -272,7 +272,6 @@ script NHML1_Sign_Flame_Orb {
 	showmonpic(SPECIES_MUNCHLAX, 10, 3)
 	setvar(VAR_0x8006, ITEM_FLAME_ORB)
 	showitemdesc
-	//showitempic(ITEM_FLAME_ORB, 1, 1)
 	msgbox(format("The papers on the shelf are showing two pictures."))
 	waitmessage
 	hidemonpic

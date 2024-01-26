@@ -111,7 +111,7 @@ script NHML2_BlondeMan {
             checkpartymon(SPECIES_YAMASK)
             if (var(VAR_RESULT) == TRUE) {
                 checkpartymove(MOVE_ENDEAVOR)
-                if (var(VAR_RESULT) == TRUE) {
+                if (var(VAR_RESULT) < PARTY_SIZE) {
                     msgbox(format("Wow...\n...you really look like you could have a good chance of winning."), MSGBOX_AUTOCLOSE)
                 }
                 else {
@@ -524,8 +524,19 @@ script NHML2_Game_Master {
         else {
             //handle all different scenarios below
 
+            //new initial hint for catching Archen
+            checkitem(ITEM_POKE_BALL)
+            if(!flag(FLAG_CAUGHT_ARCHEN) && var(VAR_RESULT) == TRUE) {
+                if (!flag(FLAG_HINT17)) {
+                    setflag(FLAG_HINT17)
+                    setflag(FLAG_P01_ADDTIME)
+                }
+                msgbox(format("Looks like you haven't used your Pokéball, yet.\pThere is one specific encounter here that is weak enough to catch it.\l...\l...did you have a closer look at that Bastiodon skull over there?"), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_P01_GIVE_ADVICE)
+            }
+
             //first battle not yet won - getting Sash and Heart Scale
-            if (!defeated(TRAINER_NHM_BRANDON) && (!flag(FLAG_GOT_SASH) || !flag(FLAG_GOT_HEART_SCALE))) {
+            if (!defeated(TRAINER_NHM_BRANDON) && (!flag(FLAG_GOT_SASH) || !flag(FLAG_GOT_HEART_SCALE)) && flag(FLAG_CAUGHT_ARCHEN)) {
                 checkpartymove(MOVE_COVET)
                 if (var(VAR_RESULT) == PARTY_SIZE) {
                     //thirteenth hint: CHECK COVET not learned?
@@ -845,11 +856,11 @@ script NHML2_Game_Master {
     else {
         //default message for missing branches
         if (flag(FLAG_P01_GIVE_ADVICE) == TRUE) {
-            msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for hidden and held items, catching Pokémon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
+            msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for items, catching Pokémon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
             waitmessage
         }
         else {
-            msgbox(format("\p...\pI had already given this hint to you before. \lI guess it's fair if I don't charge you any more time for it."))
+            msgbox(format("\p...\pI had already given this hint to you before. \pI guess it's fair if I don't charge you any more time for it."))
             waitmessage
         }
     }
@@ -1023,6 +1034,35 @@ script NHML2_Item_HeartScale {
 	finditem(ITEM_HEART_SCALE, 2)
 	release
 	end
+}
+
+script NHML2_Sign_Bastiodon_skull {
+    lock
+    if (!flag(FLAG_NHML2_BASTIODON_SKULL) && !flag(FLAG_CAUGHT_ARCHEN)) {
+        msgbox(format("There's a tiny note sticking in the Bastiodon skull.\pBut you are NOT ALLOWED TO TOUCH THE EXHIBITS!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        msgbox(format("Do you still want to take it out and read it?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == YES) {
+            setflag(FLAG_NHML2_BASTIODON_SKULL)
+            msgbox(format("What an outlaw you are!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            setvar(VAR_0x8006, ITEM_PRETTY_FEATHER)
+	        showitemdesc
+            msgbox(format("The note shows a little picture of a feather."))
+            waitmessage
+            hideitemdesc
+        }
+        else {
+            msgbox(format("You left the note where it was."), MSGBOX_AUTOCLOSE)
+            waitmessage
+        }
+    }
+    else {
+        msgbox(format("It's a Bastiodon skull. \lWhat did you expect?"), MSGBOX_AUTOCLOSE)
+        waitmessage
+    }
+    release
+    end
 }
 
 
