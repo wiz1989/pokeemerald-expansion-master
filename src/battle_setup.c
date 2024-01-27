@@ -1286,6 +1286,7 @@ bool8 GetTrainerFlag(void)
 
 static void SetBattledTrainersFlags(void)
 {
+    DebugPrintf("SetBattledTrainersFlags");
     if (gTrainerBattleOpponent_B != 0)
         FlagSet(GetTrainerBFlag());
     FlagSet(GetTrainerAFlag());
@@ -1399,13 +1400,14 @@ static void CB2_EndTrainerBattle(void)
         if (!InBattlePyramid() && !InTrainerHillChallenge())
         {
             DebugPrintf("EndTrainerBattle");
-            if (!gBattleOutcome == B_OUTCOME_RAN){
-                RegisterTrainerInMatchCall();
-                SetBattledTrainersFlags();
-            }
-            else {
+            if (gBattleOutcome == B_OUTCOME_RAN){
                 DebugPrintf("Call CB2_WhiteOut");
                 SetMainCallback2(CB2_WhiteOut);
+            }
+            else
+            {
+                RegisterTrainerInMatchCall();
+                SetBattledTrainersFlags();
             }
         }
     }
