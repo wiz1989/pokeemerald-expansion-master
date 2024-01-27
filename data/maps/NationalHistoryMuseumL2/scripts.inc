@@ -171,17 +171,20 @@ NHML2_Battle_Brandon_2:
 NHM2_Battle_Archen::
 	msgbox NHM2_Battle_Archen_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
-	playmoncry SPECIES_ARCHEN, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
 	checktrainerflag TRAINER_NHM_BRANDON
 	goto_if 0, NHM2_Battle_Archen_2
+	playmoncry SPECIES_ARCHEOPS, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
 	setwildbattle SPECIES_ARCHEOPS, 100
 NHM2_Battle_Archen_1:
 	dowildbattle
 	end
 
 NHM2_Battle_Archen_2:
+	playmoncry SPECIES_ARCHEN, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
 	setwildbattle SPECIES_ARCHEN, 12
 	goto NHM2_Battle_Archen_1
 

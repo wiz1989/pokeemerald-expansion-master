@@ -148,14 +148,17 @@ script NHML2_Battle_Brandon {
 script NHM2_Battle_Archen {
     msgbox(format("The PLUME FOSSIL is glowing brightly.\pFeel its power!"), MSGBOX_AUTOCLOSE)
     waitmessage
-    playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
-    delay(40)
-    waitmoncry
     
     if(!defeated(TRAINER_NHM_BRANDON)) {
+        playmoncry(SPECIES_ARCHEN, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
         setwildbattle(SPECIES_ARCHEN, 12)
     }
     else {
+        playmoncry(SPECIES_ARCHEOPS, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
         setwildbattle(SPECIES_ARCHEOPS, 100)
     }
     dowildbattle
