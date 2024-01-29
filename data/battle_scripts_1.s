@@ -437,41 +437,6 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectMortalSpin              @ EFFECT_MORTAL_SPIN
 	.4byte BattleScript_EffectHit                     @ EFFECT_GIGATON_HAMMER
 	.4byte BattleScript_EffectSaltCure                @ EFFECT_SALT_CURE
-	.4byte BattleScript_EffectMatchaGotcha            @ EFFECT_MATCHA_GOTCHA
-	.4byte BattleScript_EffectSyrupBomb               @ EFFECT_SYRUP_BOMB
-	.4byte BattleScript_EffectHit                     @ EFFECT_IVY_CUDGEL
-	.4byte BattleScript_EffectMaxMove                 @ EFFECT_MAX_MOVE
-	.4byte BattleScript_EffectGlaiveRush              @ EFFECT_GLAIVE_RUSH
-	.4byte BattleScript_EffectBrickBreak              @ EFFECT_RAGING_BULL
-
-BattleScript_EffectGlaiveRush::
-	call BattleScript_EffectHit_Ret
-	jumpifhalfword CMP_COMMON_BITS, gMoveResultFlags, MOVE_RESULT_DOESNT_AFFECT_FOE, BattleScript_TryFaintMon
-	setglaiverush
-	goto BattleScript_TryFaintMon
-
-BattleScript_EffectSyrupBomb::
-	setmoveeffect MOVE_EFFECT_SYRUP_BOMB
-	goto BattleScript_EffectHit
-
-BattleScript_SyrupBombActivates::
-	printstring STRINGID_TARGETCOVEREDINSTICKYCANDYSYRUP
-	waitmessage B_WAIT_TIME_LONG
-	return
-
-BattleScript_SyrupBombEndTurn::
-	flushtextbox
-	playanimation BS_ATTACKER, B_ANIM_SYRUP_BOMB_SPEED_DROP
-	setstatchanger STAT_SPEED, 1, TRUE
-	statbuffchange STAT_CHANGE_ALLOW_PTR | STAT_CHANGE_NOT_PROTECT_AFFECTED, BattleScript_SyrupBombTurnDmgEnd
-	printfromtable gStatDownStringIds
-	waitmessage B_WAIT_TIME_LONG
-BattleScript_SyrupBombTurnDmgEnd:
-	end2
-
-BattleScript_EffectMatchaGotcha::
-	setmoveeffect MOVE_EFFECT_BURN
-	goto BattleScript_EffectAbsorb
 
 BattleScript_EffectSaltCure:
 	call BattleScript_EffectHit_Ret
