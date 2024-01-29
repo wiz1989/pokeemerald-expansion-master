@@ -521,8 +521,6 @@ static void OpponentHandleChooseMove(u32 battler)
     u8 chosenMoveId;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleResources->bufferA[battler][4]);
 
-    DebugPrintf("Start OpponentHandleChooseMove");
-
     if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_SAFARI | BATTLE_TYPE_ROAMER)
      || IsWildMonSmart())
     {
@@ -534,7 +532,6 @@ static void OpponentHandleChooseMove(u32 battler)
         {
             chosenMoveId = gBattleStruct->aiMoveOrAction[battler];
             gBattlerTarget = gBattleStruct->aiChosenTarget[battler];
-            DebugPrintf("chosenMoveId: %d", chosenMoveId);
             switch (chosenMoveId)
             {
             case AI_CHOICE_WATCH:
@@ -560,7 +557,6 @@ static void OpponentHandleChooseMove(u32 battler)
                         gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
                         if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
                             gBattlerTarget = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
-                        DebugPrintf("gBattlerTarget: %d", gBattlerTarget);
                     }
                     if (ShouldUseZMove(battler, gBattlerTarget, chosenMove))
                         QueueZMove(battler, chosenMove);

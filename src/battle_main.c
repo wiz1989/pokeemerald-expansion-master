@@ -4087,17 +4087,14 @@ enum
 static void HandleTurnActionSelectionState(void)
 {
     s32 i, battler;
-    //DebugPrintf("start HandleTurnActionSelectionState");
 
     gBattleCommunication[ACTIONS_CONFIRMED_COUNT] = 0;
     for (battler = 0; battler < gBattlersCount; battler++)
     {
         u32 position = GetBattlerPosition(battler);
-        //DebugPrintf("gBattleCommunication[battler]: %d", gBattleCommunication[battler]);
         switch (gBattleCommunication[battler])
         {
         case STATE_TURN_START_RECORD: // Recorded battle related action on start of every turn.
-            DebugPrintf("STATE_TURN_START_RECORD");
             RecordedBattle_CopyBattlerMoves(battler);
             gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
 
@@ -4110,7 +4107,6 @@ static void HandleTurnActionSelectionState(void)
             }
             // fallthrough
         case STATE_BEFORE_ACTION_CHOSEN: // Choose an action.
-            //DebugPrintf("STATE_BEFORE_ACTION_CHOSEN");
             *(gBattleStruct->monToSwitchIntoId + battler) = PARTY_SIZE;
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI
                 || (position & BIT_FLANK) == B_FLANK_LEFT
@@ -4127,7 +4123,7 @@ static void HandleTurnActionSelectionState(void)
                 }
                 else
                 {
-                    DebugPrintf("Check mon action");
+                    DebugPrintf("Check 2nd mon action");
                     if (gBattleMons[battler].status2 & STATUS2_MULTIPLETURNS
                         || gBattleMons[battler].status2 & STATUS2_RECHARGE)
                     {
@@ -4155,7 +4151,6 @@ static void HandleTurnActionSelectionState(void)
                     }
                     else
                     {
-                        DebugPrintf("call BtlController_EmitChooseAction");
                         gBattleStruct->itemPartyIndex[battler] = PARTY_SIZE;
                         BtlController_EmitChooseAction(battler, BUFFER_A, gChosenActionByBattler[0], gBattleResources->bufferB[0][1] | (gBattleResources->bufferB[0][2] << 8));
                         MarkBattlerForControllerExec(battler);
@@ -4165,7 +4160,6 @@ static void HandleTurnActionSelectionState(void)
             }
             break;
         case STATE_WAIT_ACTION_CHOSEN: // Try to perform an action.
-            //DebugPrintf("STATE_WAIT_ACTION_CHOSEN");
             if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF << 28) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 12))))
             {
                 RecordedBattle_SetBattlerAction(battler, gBattleResources->bufferB[battler][1]);
@@ -4174,7 +4168,6 @@ static void HandleTurnActionSelectionState(void)
                 switch (gBattleResources->bufferB[battler][1])
                 {
                 case B_ACTION_USE_MOVE:
-                    DebugPrintf("B_ACTION_USE_MOVE");
                     if (AreAllMovesUnusable(battler))
                     {
                         gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
@@ -4211,13 +4204,11 @@ static void HandleTurnActionSelectionState(void)
                                                             i);
                         }
 
-                        DebugPrintf("call BtlController_EmitChooseAction");
                         BtlController_EmitChooseMove(battler, BUFFER_A, (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) != 0, FALSE, &moveInfo);
                         MarkBattlerForControllerExec(battler);
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    DebugPrintf("B_ACTION_USE_ITEM");
                     if (FlagGet(B_FLAG_NO_BAG_USE))
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
@@ -4250,7 +4241,6 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_SWITCH:
-                    DebugPrintf("B_ACTION_SWITCH");
                     *(gBattleStruct->battlerPartyIndexes + battler) = gBattlerPartyIndexes[battler];
                     if (gBattleTypeFlags & BATTLE_TYPE_ARENA
                         || !CanBattlerEscape(battler))
@@ -4274,7 +4264,6 @@ static void HandleTurnActionSelectionState(void)
                     MarkBattlerForControllerExec(battler);
                     break;
                 case B_ACTION_SAFARI_BALL:
-                    DebugPrintf("B_ACTION_SAFARI_BALL");
                     if (IsPlayerPartyAndPokemonStorageFull())
                     {
                         gSelectionBattleScripts[battler] = BattleScript_PrintFullBox;
@@ -4285,12 +4274,10 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_SAFARI_POKEBLOCK:
-                    DebugPrintf("B_ACTION_SAFARI_POKEBLOCK");
                     BtlController_EmitChooseItem(battler, BUFFER_A, gBattleStruct->battlerPartyOrders[battler]);
                     MarkBattlerForControllerExec(battler);
                     break;
                 case B_ACTION_CANCEL_PARTNER:
-                    DebugPrintf("B_ACTION_CANCEL_PARTNER");
                     gBattleCommunication[battler] = STATE_WAIT_SET_BEFORE_ACTION;
                     gBattleCommunication[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(battler)))] = STATE_BEFORE_ACTION_CHOSEN;
                     RecordedBattle_ClearBattlerAction(battler, 1);
@@ -4333,7 +4320,6 @@ static void HandleTurnActionSelectionState(void)
                     MarkBattlerForControllerExec(battler);
                     return;
                 case B_ACTION_DEBUG:
-                    DebugPrintf("B_ACTION_DEBUG");
                     BtlController_EmitDebugMenu(battler, BUFFER_A);
                     MarkBattlerForControllerExec(battler);
                     break;
@@ -4376,14 +4362,11 @@ static void HandleTurnActionSelectionState(void)
             }
             break;
         case STATE_WAIT_ACTION_CASE_CHOSEN:
-            //DebugPrintf("STATE_WAIT_ACTION_CASE_CHOSEN");
             if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF << 28) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 12))))
             {
                 switch (gChosenActionByBattler[battler])
                 {
                 case B_ACTION_USE_MOVE:
-                    DebugPrintf("B_ACTION_USE_MOVE");
-                    DebugPrintf("case: %d", gBattleResources->bufferB[battler][1]);
                     switch (gBattleResources->bufferB[battler][1])
                     {
                     case 3:
@@ -4441,7 +4424,6 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    DebugPrintf("B_ACTION_USE_ITEM");
                     if ((gBattleResources->bufferB[battler][1] | (gBattleResources->bufferB[battler][2] << 8)) == 0)
                     {
                         gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
@@ -4455,7 +4437,6 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_SWITCH:
-                    DebugPrintf("B_ACTION_SWITCH");
                     if (gBattleResources->bufferB[battler][1] == PARTY_SIZE)
                     {
                         gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
@@ -4468,7 +4449,6 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_RUN:
-                    DebugPrintf("B_ACTION_RUN");
                     gHitMarker |= HITMARKER_RUN;
                     gBattleCommunication[battler]++;
                     break;
@@ -4505,7 +4485,6 @@ static void HandleTurnActionSelectionState(void)
             }
             break;
         case STATE_WAIT_ACTION_CONFIRMED_STANDBY:
-            //DebugPrintf("STATE_WAIT_ACTION_CONFIRMED_STANDBY");
             if (!(gBattleControllerExecFlags & ((gBitTable[battler])
                                                 | (0xF << 28)
                                                 | (gBitTable[battler] << 4)
@@ -4532,14 +4511,12 @@ static void HandleTurnActionSelectionState(void)
             }
             break;
         case STATE_WAIT_ACTION_CONFIRMED:
-            //DebugPrintf("STATE_WAIT_ACTION_CONFIRMED");
             if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF << 28) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 12))))
             {
                 gBattleCommunication[ACTIONS_CONFIRMED_COUNT]++;
             }
             break;
         case STATE_SELECTION_SCRIPT:
-            DebugPrintf("STATE_SELECTION_SCRIPT");
             if (*(gBattleStruct->selectionScriptFinished + battler))
             {
                 gBattleCommunication[battler] = *(gBattleStruct->stateIdAfterSelScript + battler);
@@ -4556,14 +4533,13 @@ static void HandleTurnActionSelectionState(void)
             }
             break;
         case STATE_WAIT_SET_BEFORE_ACTION:
-            //DebugPrintf("STATE_WAIT_SET_BEFORE_ACTION");
             if (!(gBattleControllerExecFlags & ((gBitTable[battler]) | (0xF << 28) | (gBitTable[battler] << 4) | (gBitTable[battler] << 8) | (gBitTable[battler] << 12))))
             {
                 gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
             }
             break;
         case STATE_SELECTION_SCRIPT_MAY_RUN:
-            DebugPrintf("STATE_SELECTION_SCRIPT_MAY_RUN");
+            DebugPrintf("May RUN");
             if (*(gBattleStruct->selectionScriptFinished + battler))
             {
                 DebugPrintf("IF");
