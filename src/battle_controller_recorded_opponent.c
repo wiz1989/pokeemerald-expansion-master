@@ -437,7 +437,25 @@ static void RecordedOpponentHandleMoveAnimation(u32 battler)
 
 static void RecordedOpponentHandlePrintString(u32 battler)
 {
-    BtlController_HandlePrintString(battler, FALSE, FALSE);
+    u16 *stringId;
+
+    gBattle_BG0_X = 0;
+    gBattle_BG0_Y = 0;
+    stringId = (u16 *)(&gBattleResources->bufferA[battler][2]);
+    BufferStringBattle(*stringId, battler);
+
+    if (gTestRunnerEnabled)
+    {
+        TestRunner_Battle_RecordMessage(gDisplayedStringBattle);
+        if (gTestRunnerHeadless)
+        {
+            RecordedOpponentBufferExecCompleted(battler);
+            return;
+        }
+    }
+
+    BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
+    gBattlerControllerFuncs[battler] = Controller_WaitForString;
 }
 
 static void RecordedOpponentHandleChooseAction(u32 battler)
