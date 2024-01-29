@@ -1060,6 +1060,14 @@ u32 GetNoOfHitsToKOBattler(u32 battlerAtk, u32 battlerDef, u32 moveIndex)
     return GetNoOfHitsToKOBattlerDmg(AI_DATA->simulatedDmg[battlerAtk][battlerDef][moveIndex], battlerDef);
 }
 
+bool32 IsInIgnoredPowerfulMoveEffects(u32 move)
+{
+    if (gBattleMoves[move].powerfullMoveEffect
+    && !(gBattleMoves[move].effect == EFFECT_SOLAR_BEAM && (AI_GetWeather(AI_DATA) & B_WEATHER_SUN)))
+        return TRUE;
+    return FALSE;
+}
+
 u32 GetCurrDamageHpPercent(u32 battlerAtk, u32 battlerDef)
 {
     int bestDmg = AI_DATA->simulatedDmg[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex];
