@@ -5,6 +5,7 @@
 #include "battle_anim.h"
 #include "battle_ai_util.h"
 #include "battle_ai_main.h"
+#include "battle_controllers.h"
 #include "battle_factory.h"
 #include "battle_setup.h"
 #include "battle_z_move.h"
@@ -397,11 +398,22 @@ void SetAiLogicDataForTurn(struct AiLogicData *aiData)
     }
 }
 
-static bool32 AI_SwitchMonIfSuitable(u32 battler)
+static bool32 AI_SwitchMonIfSuitable(u32 battler, bool32 doubleBattle)
 {
-    u32 monToSwitchId = AI_DATA->mostSuitableMonId;
-    if (monToSwitchId != PARTY_SIZE)
+    u32 monToSwitchId = AI_DATA->mostSuitableMonId[battler];
+    if (monToSwitchId != PARTY_SIZE && IsValidForBattle(&GetBattlerParty(battler)[monToSwitchId]))
     {
+        gBattleMoveDamage = monToSwitchId;
+        // Edge case: See if partner already chose to switch into the same mon
+        if (doubleBattle)
+        {
+            u32 partner = BATTLE_PARTNER(battler);
+            if (AI_DATA->shouldSwitchMon & gBitTable[partner] && AI_DATA->monToSwitchId[partner] == monToSwitchId)
+            {
+                DebugPrintf("AI_SwitchMonIfSuitable - return FALSE");
+                return FALSE;
+            }
+        }
         AI_DATA->shouldSwitchMon |= gBitTable[battler];
         AI_DATA->monToSwitchId[battler] = monToSwitchId;
         return TRUE;
@@ -438,8 +450,10 @@ static bool32 AI_ShouldSwitchIfBadMoves(u32 battler, bool32 doubleBattle)
                             break;
                     }
                 }
-                if (i == MAX_BATTLERS_COUNT && AI_SwitchMonIfSuitable(battler))
+                if (i == MAX_BATTLERS_COUNT && AI_SwitchMonIfSuitable(battler, doubleBattle))
                     return TRUE;
+                else if (i == MAX_BATTLERS_COUNT && !AI_SwitchMonIfSuitable(battler, doubleBattle))
+                    DebugPrintf("AI_ShouldSwitchIfBadMoves - MAX_BATTLERS_COUNT not TRUE");
             }
             else
             {
@@ -449,8 +463,10 @@ static bool32 AI_ShouldSwitchIfBadMoves(u32 battler, bool32 doubleBattle)
                         break;
                 }
 
-                if (i == MAX_MON_MOVES && AI_SwitchMonIfSuitable(battler))
+                if (i == MAX_MON_MOVES && AI_SwitchMonIfSuitable(battler, doubleBattle))
                     return TRUE;
+                else if (i == MAX_MON_MOVES && !AI_SwitchMonIfSuitable(battler, doubleBattle))
+                    DebugPrintf("AI_ShouldSwitchIfBadMoves - MAX_MON_MOVES not TRUE");
             }
 
         }
@@ -461,7 +477,7 @@ static bool32 AI_ShouldSwitchIfBadMoves(u32 battler, bool32 doubleBattle)
             && IsTruantMonVulnerable(battler, gBattlerTarget)
             && gDisableStructs[battler].truantCounter
             && gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 2
-            && AI_SwitchMonIfSuitable(battler))
+            && AI_SwitchMonIfSuitable(battler, doubleBattle))
         {
             return TRUE;
         }
@@ -499,8 +515,10 @@ static u32 ChooseMoveOrAction_Singles(u32 battlerAi)
         return AI_CHOICE_WATCH;
 
     // Switch mon if there are no good moves to use.
-    if (AI_ShouldSwitchIfBadMoves(battlerAi, FALSE))
+    if (AI_ShouldSwitchIfBadMoves(battlerAi, FALSE)) {
+        DebugPrintf("ChooseMoveOrAction_Singles - return AI_CHOICE_SWITCH");
         return AI_CHOICE_SWITCH;
+    }
 
     numOfBestMoves = 1;
     currentMoveArray[0] = AI_THINKING_STRUCT->score[0];
@@ -621,9 +639,11 @@ static u32 ChooseMoveOrAction_Doubles(u32 battlerAi)
     }
 
     // Switch mon if all of the moves are bad to use against any of the target.
-    if (AI_ShouldSwitchIfBadMoves(battlerAi, TRUE))
+    if (AI_ShouldSwitchIfBadMoves(battlerAi, TRUE)) {
+        DebugPrintf("ChooseMoveOrAction_Doubles - return AI_CHOICE_SWITCH");
         return AI_CHOICE_SWITCH;
-
+    }
+        
     mostMovePoints = bestMovePointsForTarget[0];
     mostViableTargetsArray[0] = 0;
     mostViableTargetsNo = 1;

@@ -167,7 +167,7 @@ static bool8 HasBadOdds(u32 battler)
     }
 
     // If we don't have any other viable options, don't switch out
-    if (AI_DATA->mostSuitableMonId == PARTY_SIZE)
+    if (AI_DATA->mostSuitableMonId[battler] == PARTY_SIZE)
         return FALSE;
 
     // Start assessing whether or not mon has bad odds
@@ -592,12 +592,12 @@ static bool8 ShouldSwitchIfAbilityBenefit(u32 battler)
             moduloChance = 4; //25%
             //Attempt to cure bad ailment
             if (gBattleMons[battler].status1 & (STATUS1_SLEEP | STATUS1_FREEZE | STATUS1_TOXIC_POISON)
-                && AI_DATA->mostSuitableMonId != PARTY_SIZE)
+                && AI_DATA->mostSuitableMonId[battler] != PARTY_SIZE)
                 break;
             //Attempt to cure lesser ailment
             if ((gBattleMons[battler].status1 & STATUS1_ANY)
                 && (gBattleMons[battler].hp >= gBattleMons[battler].maxHP / 2)
-                && AI_DATA->mostSuitableMonId != PARTY_SIZE
+                && AI_DATA->mostSuitableMonId[battler] != PARTY_SIZE
                 && Random() % (moduloChance*chanceReducer) == 0)
                 break;
 
@@ -609,7 +609,7 @@ static bool8 ShouldSwitchIfAbilityBenefit(u32 battler)
             if (gBattleMons[battler].status1 & STATUS1_ANY)
                 return FALSE;
             if ((gBattleMons[battler].hp <= ((gBattleMons[battler].maxHP * 2) / 3))
-                 && AI_DATA->mostSuitableMonId != PARTY_SIZE
+                 && AI_DATA->mostSuitableMonId[battler] != PARTY_SIZE
                  && Random() % (moduloChance*chanceReducer) == 0)
                 break;
 
@@ -899,7 +899,7 @@ void AI_TrySwitchOrUseItem(u32 battler)
         {
             if (*(gBattleStruct->AI_monToSwitchIntoId + battler) == PARTY_SIZE)
             {
-                s32 monToSwitchId = AI_DATA->mostSuitableMonId;
+                s32 monToSwitchId = AI_DATA->mostSuitableMonId[battler];
                 if (monToSwitchId == PARTY_SIZE)
                 {
                     if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
