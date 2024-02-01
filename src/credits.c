@@ -727,6 +727,7 @@ static void Task_UpdatePage(u8 taskId)
 {
     int i;
 
+    DebugPrintf("gTasks[taskId].tState: %d", gTasks[taskId].tState);
     switch (gTasks[taskId].tState)
     {
     case 0:
@@ -738,7 +739,7 @@ static void Task_UpdatePage(u8 taskId)
         if (!gPaletteFade.active)
         {
             gTasks[taskId].tState = 1;
-            gTasks[taskId].tDelay = 72;
+            gTasks[taskId].tDelay = 150; //was 72
             gTasks[gTasks[taskId].tMainTaskId].tPrintedPage = FALSE;
             sUnkVar = 0;
         }
@@ -785,7 +786,7 @@ static void Task_UpdatePage(u8 taskId)
     case 3:
         if (!gPaletteFade.active)
         {
-            gTasks[taskId].tDelay = 115;
+            gTasks[taskId].tDelay = 230; //was 115
             gTasks[taskId].tState++;
         }
         return;

@@ -2403,28 +2403,6 @@ bool8 ScrCmd_checkpartymonmove(struct ScriptContext *ctx)
     return FALSE;
 }
 
-bool8 ScrCmd_showitempic(struct ScriptContext *ctx)
-{
-    u16 item = VarGet(ScriptReadHalfword(ctx));
-    u8 x = ScriptReadByte(ctx);
-    u8 y = ScriptReadByte(ctx);
-
-    ScriptMenu_ShowItemPic(item, x, y);
-    return FALSE;
-}
-
-bool8 ScrCmd_hideitempic(struct ScriptContext *ctx)
-{
-    // The hide function returns a pointer to a function
-    // that returns true once the pic is hidden
-    bool8 (*func)(void) = ScriptMenu_HideItemPic();
-
-    if (func == NULL)
-        return FALSE;
-    SetupNativeScript(ctx, func);
-    return TRUE;
-}
-
 bool8 ScrCmd_showitemdesc(struct ScriptContext *ctx)
 {
     DrawHeaderBox();

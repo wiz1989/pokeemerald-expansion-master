@@ -6,11 +6,13 @@ enum
     PAGE_MAPPING,
     PAGE_DECOMP,
     PAGE_CUSTOM_ART,
+    PAGE_CUSTOM_ART2,
     PAGE_TITLE_SCREEN,
     PAGE_TESTERS,
     PAGE_SPECIAL_THANKS,
+    PAGE_SPECIAL_THANKS2,
     PAGE_TOOLS,
-    PAGE_CONTINUE,
+    /*PAGE_CONTINUE,
     PAGE_TITLE,
     PAGE_DIRECTOR,
     PAGE_ART_DIRECTOR,
@@ -67,7 +69,7 @@ enum
     PAGE_PRODUCERS,
     PAGE_EXECUTIVE_DIRECTOR,
     PAGE_EXECUTIVE_PRODUCERS_1,
-    PAGE_EXECUTIVE_PRODUCERS_2,
+    PAGE_EXECUTIVE_PRODUCERS_2,*/
     PAGE_COUNT
 };
 
@@ -243,7 +245,8 @@ static const u8 sCreditsText_pret[]                          = _("pret");
 static const u8 sCreditsText_RHH[]                           = _("RH Hideout");
 static const u8 sCreditsText_CustomArt[]                     = _("Custom Art and Design");
 static const u8 sCreditsText_princessphoenix[]               = _("princess-phoenix");
-static const u8 sCreditsText_aveontrainer[]                  = _("aveontrainer");
+static const u8 sCreditsText_mudskip[]                       = _("Mudskip");
+static const u8 sCreditsText_ladymiko[]                      = _("Lady Miko");
 static const u8 sCreditsText_rbrnnova[]                      = _("rbrnnova");
 static const u8 sCreditsText_deviantart[]                    = _("check their deviantart");
 static const u8 sCreditsText_ScreenDesign[]                  = _("Title Screen Design");
@@ -256,6 +259,8 @@ static const u8 sCreditsText_Bric13[]                        = _("Bric13");
 static const u8 sCreditsText_Archie[]                        = _("Archie");
 static const u8 sCreditsText_AquasHideout[]                  = _("The Team Aqua's Hideout Crew");
 static const u8 sCreditsText_acko[]                          = _("acko");
+static const u8 sCreditsText_SDH[]                           = _("ShinyDragonHunter");
+static const u8 sCreditsText_DizzyEgg[]                      = _("DizzyEgg");
 static const u8 sCreditsText_ToolsUsed[]                     = _("Tools used");
 static const u8 sCreditsText_Porymap[]                       = _("Porymap");
 static const u8 sCreditsText_Poryscript[]                    = _("Poryscript");
@@ -432,19 +437,22 @@ static const struct CreditsEntry sCreditsEntry_pret[]                           
 static const struct CreditsEntry sCreditsEntry_RHH[]                            = {11, FALSE, sCreditsText_RHH};
 static const struct CreditsEntry sCreditsEntry_CustomArt[]                      = {11, TRUE, sCreditsText_CustomArt};
 static const struct CreditsEntry sCreditsEntry_princessphoenix[]                = {11, FALSE, sCreditsText_princessphoenix};
-static const struct CreditsEntry sCreditsEntry_aveontrainer[]                   = {11, FALSE, sCreditsText_aveontrainer};
+static const struct CreditsEntry sCreditsEntry_ladymiko[]                       = {11, FALSE, sCreditsText_ladymiko};
+static const struct CreditsEntry sCreditsEntry_mudskip[]                        = {11, FALSE, sCreditsText_mudskip};
 static const struct CreditsEntry sCreditsEntry_rbrnnova[]                       = {11, FALSE, sCreditsText_rbrnnova};
-static const struct CreditsEntry sCreditsEntry_deviantart[]                       = {11, TRUE, sCreditsText_deviantart};
+static const struct CreditsEntry sCreditsEntry_deviantart[]                     = {11, TRUE, sCreditsText_deviantart};
 static const struct CreditsEntry sCreditsEntry_ScreenDesign[]                   = {11, TRUE, sCreditsText_ScreenDesign};
 static const struct CreditsEntry sCreditsEntry_tbd[]                            = {11, FALSE, sCreditsText_tbd};
 static const struct CreditsEntry sCreditsEntry_BetaTesters[]                    = {11, TRUE, sCreditsText_BetaTesters};
 static const struct CreditsEntry sCreditsEntry_Alemazzini[]                     = {11, FALSE, sCreditsText_Alemazzini};
 static const struct CreditsEntry sCreditsEntry_jgent[]                          = {11, FALSE, sCreditsText_jgent};
 static const struct CreditsEntry sCreditsEntry_LNRD[]                           = {11, FALSE, sCreditsText_LNRD};
-static const struct CreditsEntry sCreditsEntry_Bric13[]                         = {11, TRUE, sCreditsText_Bric13};
+static const struct CreditsEntry sCreditsEntry_Bric13[]                         = {11, FALSE, sCreditsText_Bric13};
 static const struct CreditsEntry sCreditsEntry_Archie[]                         = {11, FALSE, sCreditsText_Archie};
 static const struct CreditsEntry sCreditsEntry_AquasHideout[]                   = {11, FALSE, sCreditsText_AquasHideout};
 static const struct CreditsEntry sCreditsEntry_acko[]                           = {11, FALSE, sCreditsText_acko};
+static const struct CreditsEntry sCreditsEntry_SDH[]                            = {11, FALSE, sCreditsText_SDH};
+static const struct CreditsEntry sCreditsEntry_DizzyEgg[]                       = {11, FALSE, sCreditsText_DizzyEgg};
 static const struct CreditsEntry sCreditsEntry_ToolsUsed[]                      = {11, TRUE, sCreditsText_ToolsUsed};
 static const struct CreditsEntry sCreditsEntry_Porymap[]                        = {11, FALSE, sCreditsText_Porymap};
 static const struct CreditsEntry sCreditsEntry_Poryscript[]                     = {11, FALSE, sCreditsText_Poryscript};
@@ -493,9 +501,16 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
     [PAGE_CUSTOM_ART] = {
         sCreditsEntry_CustomArt,
         sCreditsEntry_princessphoenix,
-        sCreditsEntry_aveontrainer,
+        sCreditsEntry_ladymiko,
+        sCreditsEntry_mudskip,
+        _
+    },
+    [PAGE_CUSTOM_ART2] = {
+        sCreditsEntry_CustomArt,
+        _,
         sCreditsEntry_rbrnnova,
-        sCreditsEntry_wiz1989
+        sCreditsEntry_wiz1989,
+        _
     },
     [PAGE_TITLE_SCREEN] = {
         _,
@@ -518,13 +533,20 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         sCreditsEntry_acko,
         sCreditsEntry_Alemazzini
     },
+    [PAGE_SPECIAL_THANKS2] = {
+        sCreditsEntry_SpecialThanks,
+        _,
+        sCreditsEntry_SDH,
+        sCreditsEntry_DizzyEgg,
+        _
+    },
     [PAGE_TOOLS] = {
         sCreditsEntry_ToolsUsed,
         sCreditsEntry_Porymap,
         sCreditsEntry_Poryscript,
         sCreditsEntry_GraphicsGale,
         sCreditsEntry_TilemapStudio
-    },
+    }/*,
     [PAGE_CONTINUE] = {
         _,
         sCreditsEntry_Continue,
@@ -930,6 +952,6 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         sCreditsEntry_TsunekazIshihara,
         _,
         _,
-    },
+    }*/,
 };
 #undef _

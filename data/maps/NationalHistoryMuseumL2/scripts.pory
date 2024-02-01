@@ -495,14 +495,21 @@ script NHM2_Battle_Aurorus {
 script NHML2_Camper {
     lock
 	faceplayer
-    switch (var(VAR_NHM_L2_RIDDLE)) {
+    if (flag(FLAG_NHML2_RIDDLE_SOLVED)) {
+        msgbox(format("Now that I think of it...\pI guess I like all kinds of Pokémon."), MSGBOX_AUTOCLOSE)
+    }
+    else {
+        switch (var(VAR_NHM_L2_RIDDLE)) {
         case 0:
              msgbox(format("Hey, there! What's your favorite TYPE? \pMine is GRASS."), MSGBOX_AUTOCLOSE)
         case 1:
              msgbox(format("Hey, there! What's your favorite TYPE? \pMine is FIRE."), MSGBOX_AUTOCLOSE)
         case 2:
              msgbox(format("Hey, there! What's your favorite TYPE? \pMine is WATER."), MSGBOX_AUTOCLOSE)
+        }
     }
+    
+    waitmessage
     release
     end
 }

@@ -480,7 +480,7 @@ script NHML3_Sign_Regirock {
 
 script NHML3_Sign_tileset {
 	lock
-    msgbox(format("Parts of this tileset have originally been designed by princess-phoenix and aveontrainer."), MSGBOX_AUTOCLOSE)
+    msgbox(format("Parts of this tileset have originally been designed by princess-phoenix, Mudskip and Lady Miko."), MSGBOX_AUTOCLOSE)
     waitmessage
     release
     end
@@ -496,7 +496,7 @@ script NHML3_Sign_Pyramid {
 
 script NHML3_Sign_Pokedex {
 	lock
-    msgbox(format("It's the first ever found evidence of a Pokédex in history picturing a legendary and sacred Pokémon."), MSGBOX_AUTOCLOSE)
+    msgbox(format("This ancient slate depicts four legendary Pokémon considered sacred during that epoche."), MSGBOX_AUTOCLOSE)
     waitmessage
     release
     end

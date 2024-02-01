@@ -733,14 +733,14 @@ NHML3_Sign_Regirock_Text_0:
 
 NHML3_Sign_tileset_Text_0:
 	.string "Parts of this tileset have originally\n"
-	.string "been designed by princess-phoenix and\l"
-	.string "aveontrainer.$"
+	.string "been designed by princess-phoenix,\l"
+	.string "Mudskip and Lady Miko.$"
 
 NHML3_Sign_Pyramid_Text_0:
 	.string "A very realistic replica of an ancient\n"
 	.string "Pyramid.$"
 
 NHML3_Sign_Pokedex_Text_0:
-	.string "It's the first ever found evidence of a\n"
-	.string "Pokédex in history picturing a\l"
-	.string "legendary and sacred Pokémon.$"
+	.string "This ancient slate depicts four\n"
+	.string "legendary Pokémon considered sacred\l"
+	.string "during that epoche.$"

@@ -2124,23 +2124,10 @@
 	.2byte \move
 	.endm
 
-	@ Displays a box containing the front sprite for the specified item type.
-	.macro showitempic item:req, x:req, y:req
-	.byte 0xe8
-	.2byte \item
-	.byte \x
-	.byte \y
-	.endm
-
-	@ Hides the box displayed by showitempic.
-	.macro hideitempic
-	.byte 0xe9
-	.endm
-
 	.macro showdescription
-	.byte 0xea
+	.byte 0xe8
 	.endm
-
+	
 	.macro showitemdesc
 	setvar VAR_0x8009, 0
 	showdescription
@@ -2152,7 +2139,7 @@
 	.endm
 
 	.macro hideitemdesc
-	.byte 0xeb
+	.byte 0xe9
 	.endm
 
 	@ Deletes any held item from the chosen party slot

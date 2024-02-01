@@ -314,7 +314,7 @@ script NHML1_Sign_Desk {
 
 script NHML1_Sign_tileset {
 	lock
-    msgbox(format("Parts of this tileset have originally been designed by princess-phoenix, aveontrainer and rbrnnova."), MSGBOX_AUTOCLOSE)
+    msgbox(format("Parts of this tileset have originally been designed by princess-phoenix, Lady Miko and rbrnnova."), MSGBOX_AUTOCLOSE)
     waitmessage
     release
     end

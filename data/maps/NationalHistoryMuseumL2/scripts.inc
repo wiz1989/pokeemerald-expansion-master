@@ -613,24 +613,30 @@ NHM2_Battle_Aurorus_5:
 NHML2_Camper::
 	lock
 	faceplayer
+	goto_if_set FLAG_NHML2_RIDDLE_SOLVED, NHML2_Camper_2
 	switch VAR_NHM_L2_RIDDLE
-	case 0, NHML2_Camper_3
-	case 1, NHML2_Camper_4
-	case 2, NHML2_Camper_5
+	case 0, NHML2_Camper_6
+	case 1, NHML2_Camper_7
+	case 2, NHML2_Camper_8
 NHML2_Camper_1:
+	waitmessage
 	release
 	end
 
-NHML2_Camper_3:
+NHML2_Camper_2:
 	msgbox NHML2_Camper_Text_0, MSGBOX_AUTOCLOSE
 	goto NHML2_Camper_1
 
-NHML2_Camper_4:
+NHML2_Camper_6:
 	msgbox NHML2_Camper_Text_1, MSGBOX_AUTOCLOSE
 	goto NHML2_Camper_1
 
-NHML2_Camper_5:
+NHML2_Camper_7:
 	msgbox NHML2_Camper_Text_2, MSGBOX_AUTOCLOSE
+	goto NHML2_Camper_1
+
+NHML2_Camper_8:
+	msgbox NHML2_Camper_Text_3, MSGBOX_AUTOCLOSE
 	goto NHML2_Camper_1
 
 
@@ -1488,14 +1494,18 @@ NHM2_Battle_Aurorus_Text_1:
 	.string "Feel its power!$"
 
 NHML2_Camper_Text_0:
-	.string "Hey, there! What's your favorite TYPE?\p"
-	.string "Mine is GRASS.$"
+	.string "Now that I think of it...\p"
+	.string "I guess I like all kinds of Pokémon.$"
 
 NHML2_Camper_Text_1:
 	.string "Hey, there! What's your favorite TYPE?\p"
-	.string "Mine is FIRE.$"
+	.string "Mine is GRASS.$"
 
 NHML2_Camper_Text_2:
+	.string "Hey, there! What's your favorite TYPE?\p"
+	.string "Mine is FIRE.$"
+
+NHML2_Camper_Text_3:
 	.string "Hey, there! What's your favorite TYPE?\p"
 	.string "Mine is WATER.$"
 

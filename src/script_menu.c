@@ -686,41 +686,6 @@ bool8 (*ScriptMenu_HidePokemonPic(void))(void)
     return IsPicboxClosed;
 }
 
-bool8 ScriptMenu_ShowItemPic(u16 item, u8 x, u8 y)
-{
-    u8 taskId;
-    u8 spriteId;
-
-    if (FindTaskIdByFunc(Task_PokemonPicWindow) != TASK_NONE)
-    {
-        return FALSE;
-    }
-    else
-    {
-        spriteId = CreateItemSprite_PicBox(item, x * 8 + 40, y * 8 + 40, 0);
-        taskId = CreateTask(Task_PokemonPicWindow, 0x50);
-        gTasks[taskId].tWindowId = CreateWindowFromRect(x, y, 8, 8);
-        gTasks[taskId].tState = 0;
-        gTasks[taskId].tMonSpecies = item;
-        gTasks[taskId].tMonSpriteId = spriteId;
-        gSprites[spriteId].callback = SpriteCallbackDummy;
-        gSprites[spriteId].oam.priority = 0;
-        SetStandardWindowBorderStyle(gTasks[taskId].tWindowId, TRUE);
-        ScheduleBgCopyTilemapToVram(0);
-        return TRUE;
-    }
-}
-
-bool8 (*ScriptMenu_HideItemPic(void))(void)
-{
-    u8 taskId = FindTaskIdByFunc(Task_PokemonPicWindow);
-
-    if (taskId == TASK_NONE)
-        return NULL;
-    gTasks[taskId].tState++;
-    return IsPicboxClosed;
-}
-
 static bool8 IsPicboxClosed(void)
 {
     if (FindTaskIdByFunc(Task_PokemonPicWindow) == TASK_NONE)
