@@ -14538,7 +14538,7 @@ static void Cmd_pickup(void)
     DebugPrintf("Cmd_pickup");
     counter = VarGet(VAR_PICKUP_COUNTER) + 1;
     VarSet(VAR_PICKUP_COUNTER, counter);
-    if (counter > 5)
+    if (counter > 4)
         VarSet(VAR_PICKUP_COUNTER, 1);
 
     DebugPrintf("pickup counter: %d", counter);
@@ -14560,7 +14560,7 @@ static void Cmd_pickup(void)
                 && species != SPECIES_NONE
                 && species != SPECIES_EGG
                 && heldItem == ITEM_NONE
-                && ((Random() % 5) == 0 || counter == 5))
+                && ((Random() % 5) == 0 || counter == 4)) //bad luck protection -> guaranteed proc after four won battles
             {
                 if (isInPyramid)
                 {

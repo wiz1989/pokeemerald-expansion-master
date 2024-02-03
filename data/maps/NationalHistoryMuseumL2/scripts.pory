@@ -518,6 +518,7 @@ script NHML2_Game_Master {
     lock
     clearflag(FLAG_P01_ADDTIME)
     clearflag(FLAG_P01_GIVE_ADVICE)
+    clearflag(FLAG_GM_MON_IN_PC)
     faceplayer
     msgbox(format("I am the Game Master. \pI will give you helpful advice for each situation, but it adds an additional 20min to your play clock."))
     waitmessage
@@ -530,6 +531,7 @@ script NHML2_Game_Master {
         if(var(VAR_RESULT) == FALSE)  {
             msgbox(format("You still have Pokémon in your PC. I can only give you tips when it's empty. \pOf course, you won't be charged 20 minutes this time."))
             clearflag(FLAG_P01_GIVE_ADVICE)
+            setflag(FLAG_GM_MON_IN_PC)
         }
         else {
             //handle all different scenarios below
@@ -843,7 +845,7 @@ script NHML2_Game_Master {
                             setflag(FLAG_HINT11)
                             setflag(FLAG_P01_ADDTIME)
                         }
-                        msgbox(format("Have you noticed the papers on the counter?\pAnd have you considered that by always moving last Skitty could copycat your own team mates?\p...so many questions..."), MSGBOX_AUTOCLOSE)
+                        msgbox(format("Have you noticed the papers on the counter?\pAnd have you considered that by always moving last Skitty could copycat your own team mates?\pOh and did you think about a way to manage HP?\p...so many questions..."), MSGBOX_AUTOCLOSE)
                         clearflag(FLAG_P01_GIVE_ADVICE)
                     }
                 }
@@ -869,7 +871,7 @@ script NHML2_Game_Master {
             msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for items, catching Pokémon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
             waitmessage
         }
-        else {
+        elif (!flag(FLAG_GM_MON_IN_PC)){
             msgbox(format("\p...\pI had already given this hint to you before. \pI guess it's fair if I don't charge you any more time for it."))
             waitmessage
         }

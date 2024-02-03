@@ -707,17 +707,17 @@ NHML3_ItemManager_Text_7:
 NHML3_InfoSign_Text_0:
 	.string "IMPORTANT INFORMATION:\p"
 	.string "1.) This game is featuring the most\n"
-	.string "recent move learnsets for any Pokemon\l"
+	.string "recent move LEARNSETS for any Pokemon\l"
 	.string "you control yourself.\p"
-	.string "2.) It is not required to grind multiple\n"
+	.string "2.) It is NOT required to grind MULTIPLE\n"
 	.string "levels to win any of the fights.\p"
 	.string "3.) The game mechanics are basically\n"
 	.string "vanilla.\l"
 	.string "However, some base stats, item tables,\l"
-	.string "etc. might have been slightly altered to\l"
-	.string "balance the game.\p"
+	.string "RNG odds etc. might have been slightly\l"
+	.string "altered to balance the game.\p"
 	.string "4.) Running from trainer battles is\n"
-	.string "explicitly allowed.$"
+	.string "explicitly ALLOWED.$"
 
 NHML3_Sign_Stakataka_Text_0:
 	.string "STAKATAKA...very slow$"

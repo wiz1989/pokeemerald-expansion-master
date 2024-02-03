@@ -1265,7 +1265,7 @@
 #define FLAG_GOT_POKEBALL                                           0x4BF // Unused Flag
 #define FLAG_GOT_LAGGING_TAIL                                       0x4C0 // Unused Flag
 #define FLAG_NHML2_BASTIODON_SKULL                                  0x4C1 // Unused Flag
-#define FLAG_UNUSED_0x4C2                                           0x4C2 // Unused Flag
+#define FLAG_GM_MON_IN_PC                                           0x4C2 // Unused Flag
 #define FLAG_UNUSED_0x4C3                                           0x4C3 // Unused Flag
 #define FLAG_UNUSED_0x4C4                                           0x4C4 // Unused Flag
 #define FLAG_UNUSED_0x4C5                                           0x4C5 // Unused Flag
