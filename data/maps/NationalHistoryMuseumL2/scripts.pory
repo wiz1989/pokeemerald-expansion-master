@@ -726,7 +726,7 @@ script NHML2_Game_Master {
                             setflag(FLAG_HINT07)
                             setflag(FLAG_P01_ADDTIME)
                         }
-                        msgbox(format("You spoke to the gentleman talking about the wallpapers here, haven't you?\pYou should think about how and where you can take a specific look at WALLPAPERS."), MSGBOX_AUTOCLOSE)
+                        msgbox(format("You spoke to the gentleman talking about the wallpapers here, haven't you?\pYou should think about how and where you can take a specific look at WALLPAPERS within Pokémon games."), MSGBOX_AUTOCLOSE)
                         clearflag(FLAG_P01_GIVE_ADVICE)
                     }
                 }

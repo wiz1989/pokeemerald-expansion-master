@@ -156,24 +156,24 @@
     },
     {
       "type": "sign",
-      "x": 2,
-      "y": 10,
+      "x": 5,
+      "y": 8,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Battle_Omastar"
     },
     {
       "type": "sign",
-      "x": 5,
-      "y": 8,
+      "x": 11,
+      "y": 7,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Battle_Rampardos"
     },
     {
       "type": "sign",
-      "x": 11,
-      "y": 7,
+      "x": 2,
+      "y": 10,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Battle_Carracosta"
@@ -244,16 +244,16 @@
     },
     {
       "type": "sign",
-      "x": 1,
-      "y": 10,
+      "x": 4,
+      "y": 8,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Sign_Omastar"
     },
     {
       "type": "sign",
-      "x": 10,
-      "y": 7,
+      "x": 1,
+      "y": 10,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Sign_Carracosta"
@@ -300,8 +300,8 @@
     },
     {
       "type": "sign",
-      "x": 4,
-      "y": 8,
+      "x": 10,
+      "y": 7,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "NHM2_Sign_Rampardos"

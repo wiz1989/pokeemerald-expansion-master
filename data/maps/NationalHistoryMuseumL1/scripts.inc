@@ -415,8 +415,8 @@ NHML1_ItemBall_Text_0:
 
 NHML1_Cooltrainer_Text_0:
 	.string "Oh hey, where are you trying to go?\p"
-	.string "I'll give you ten battle rounds to\n"
-	.string "defeat me or you gotta stay in here.$"
+	.string "I'll give you ten battle turns to defeat\n"
+	.string "me or you gotta stay in here.$"
 
 NHML1_Cooltrainer_Text_1:
 	.string "Bye, bye!$"

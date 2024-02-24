@@ -3773,6 +3773,19 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         }
     }
 
+    if (species == SPECIES_ARCHEOPS) {
+        moves[0] = MOVE_DRAGON_CLAW;
+        moves[1] = MOVE_NONE;
+        moves[2] = MOVE_NONE;
+        moves[3] = MOVE_NONE;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
     if (species == SPECIES_BASTIODON) {
         moves[0] = MOVE_IRON_HEAD;
         moves[1] = MOVE_NONE;

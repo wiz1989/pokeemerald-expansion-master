@@ -1136,7 +1136,7 @@ void HideHeaderBox(void)
 static void ShowItemIconSprite(u16 item, bool8 firstTime, bool8 flash, s16 x, s16 y)
 {
     //s16 x, y;
-    DebugPrintf("ShowItemIconSprite");
+    //DebugPrintf("ShowItemIconSprite");
     u8 iconSpriteId;   
     u8 spriteId2 = MAX_SPRITES;
 

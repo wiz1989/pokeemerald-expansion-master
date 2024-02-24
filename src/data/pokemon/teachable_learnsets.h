@@ -18269,7 +18269,6 @@ static const u16 sMunchlaxTeachableLearnset[] = {
     MOVE_SHOCK_WAVE,
     MOVE_SNATCH,
     MOVE_SOLAR_BEAM,
-    MOVE_STRENGTH,
     MOVE_SUNNY_DAY,
     MOVE_SURF,
     MOVE_THUNDER,

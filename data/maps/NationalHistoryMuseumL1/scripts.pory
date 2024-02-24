@@ -88,7 +88,7 @@ script NHML1_Boulder {
 }
 
 script NHML1_Cooltrainer {
-	trainerbattle_single(TRAINER_NHM_HAIL, format("Oh hey, where are you trying to go?\pI'll give you ten battle rounds to defeat me or you gotta stay in here."), "Bye, bye!")
+	trainerbattle_single(TRAINER_NHM_HAIL, format("Oh hey, where are you trying to go?\pI'll give you ten battle turns to defeat me or you gotta stay in here."), "Bye, bye!")
 	lock
 	msgbox("Bye, bye!", MSGBOX_AUTOCLOSE)
 	release

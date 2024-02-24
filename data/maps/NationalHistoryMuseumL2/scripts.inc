@@ -651,7 +651,7 @@ NHML2_Game_Master::
 	msgbox NHML2_Game_Master_Text_1, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq NHML2_Game_Master_2
-	msgbox NHML2_Game_Master_Text_20, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Game_Master_Text_21, MSGBOX_AUTOCLOSE
 	waitmessage
 	release
 	end
@@ -698,12 +698,12 @@ NHML2_Game_Master_9:
 	goto NHML2_Game_Master_1
 
 NHML2_Game_Master_12:
-	msgbox NHML2_Game_Master_Text_21
+	msgbox NHML2_Game_Master_Text_22
 	waitmessage
 	goto NHML2_Game_Master_5
 
 NHML2_Game_Master_13:
-	msgbox NHML2_Game_Master_Text_22
+	msgbox NHML2_Game_Master_Text_23
 	waitmessage
 	goto NHML2_Game_Master_5
 
@@ -840,7 +840,7 @@ NHML2_Game_Master_151:
 	goto_if_gt NHML2_Game_Master_160
 	goto_if_unset FLAG_HINT11, NHML2_Game_Master_167
 NHML2_Game_Master_166:
-	msgbox NHML2_Game_Master_Text_19, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Game_Master_Text_20, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_1
 
@@ -905,7 +905,7 @@ NHML2_Game_Master_81:
 NHML2_Game_Master_82:
 	goto_if_unset FLAG_HINT10, NHML2_Game_Master_116
 NHML2_Game_Master_115:
-	msgbox NHML2_Game_Master_Text_17, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Game_Master_Text_18, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_1
 
@@ -992,7 +992,7 @@ NHML2_Game_Master_111:
 NHML2_Game_Master_113:
 	goto_if_unset FLAG_HINT07, NHML2_Game_Master_140
 NHML2_Game_Master_139:
-	msgbox NHML2_Game_Master_Text_14, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Game_Master_Text_17, MSGBOX_AUTOCLOSE
 	clearflag FLAG_P01_GIVE_ADVICE
 	goto NHML2_Game_Master_1
 
@@ -1093,7 +1093,7 @@ NHML2_Game_Master_158:
 NHML2_Game_Master_160:
 	goto_if_unset FLAG_HINT16, NHML2_Game_Master_164
 NHML2_Game_Master_163:
-	msgbox NHML2_Game_Master_Text_18, MSGBOX_AUTOCLOSE
+	msgbox NHML2_Game_Master_Text_19, MSGBOX_AUTOCLOSE
 	waitmessage
 	getpartymonslot SPECIES_MUNCHLAX
 	switch VAR_RESULT
@@ -1601,7 +1601,7 @@ NHML2_Game_Master_Text_14:
 	.string "about the wallpapers here, haven't you?\p"
 	.string "You should think about how and where\n"
 	.string "you can take a specific look at\l"
-	.string "WALLPAPERS.$"
+	.string "WALLPAPERS within Pokémon games.$"
 
 NHML2_Game_Master_Text_15:
 	.string "You should go visit the Move Tutor\n"
@@ -1617,6 +1617,13 @@ NHML2_Game_Master_Text_16:
 	.string "Pokémon will be the key to success.$"
 
 NHML2_Game_Master_Text_17:
+	.string "You spoke to the gentleman talking\n"
+	.string "about the wallpapers here, haven't you?\p"
+	.string "You should think about how and where\n"
+	.string "you can take a specific look at\l"
+	.string "WALLPAPERS.$"
+
+NHML2_Game_Master_Text_18:
 	.string "Oh you still can't find the right\n"
 	.string "passage through the ice maze in the\l"
 	.string "first floor?\p"
@@ -1624,13 +1631,13 @@ NHML2_Game_Master_Text_17:
 	.string "through the hole to open the right\l"
 	.string "path.$"
 
-NHML2_Game_Master_Text_18:
+NHML2_Game_Master_Text_19:
 	.string "Oh no, your Munchlax forgot an\n"
 	.string "important move.\p"
 	.string "Let me update its moveset so you can\n"
 	.string "continue your journey...$"
 
-NHML2_Game_Master_Text_19:
+NHML2_Game_Master_Text_20:
 	.string "Have you noticed the papers on the\n"
 	.string "counter?\p"
 	.string "And have you considered that by always\n"
@@ -1640,10 +1647,10 @@ NHML2_Game_Master_Text_19:
 	.string "manage HP?\p"
 	.string "...so many questions...$"
 
-NHML2_Game_Master_Text_20:
+NHML2_Game_Master_Text_21:
 	.string "Come back whenever you need me.$"
 
-NHML2_Game_Master_Text_21:
+NHML2_Game_Master_Text_22:
 	.string "I am sorry, but I currently have no\n"
 	.string "hints to give to you.\p"
 	.string "Try proceeding by looking for items,\n"
@@ -1652,7 +1659,7 @@ NHML2_Game_Master_Text_21:
 	.string "Of course, you won't be charged 20\n"
 	.string "minutes this time.$"
 
-NHML2_Game_Master_Text_22:
+NHML2_Game_Master_Text_23:
 	.string "\p"
 	.string "...\p"
 	.string "I had already given this hint to you\n"
