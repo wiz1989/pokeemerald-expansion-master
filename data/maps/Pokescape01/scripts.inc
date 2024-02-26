@@ -15,7 +15,18 @@ OnResume::
 OnResume_1:
 	goto_if_set FLAG_P01_MASTER_BALL, OnResume_5
 OnResume_4:
+	end
+
+OnResume_2:
+	givemon SPECIES_MAKUHITA, 15
+	givemonpc SPECIES_YAMASK, 20, ITEM_RARE_CANDY, 7, 19
+	setinitialmovesPC MOVE_HEX, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT
+	setflag FLAG_SYS_POKEMON_GET
+	addpcitem ITEM_TM_DIG, 1
+	setvar VAR_LITTLEROOT_TOWN_STATE, 1
 	setrespawn HEAL_LOCATION_POKESCAPE01
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_SYS_B_DASH
 	setflag FLAG_BADGE01_GET
 	setflag FLAG_BADGE02_GET
 	setflag FLAG_BADGE03_GET
@@ -29,15 +40,6 @@ OnResume_4:
 	setflag FLAG_SYS_POKEDEX_GET
 	setflag FLAG_SYS_NATIONAL_DEX
 	special EnableNationalPokedex
-	end
-
-OnResume_2:
-	givemon SPECIES_MAKUHITA, 15
-	givemonpc SPECIES_YAMASK, 20, ITEM_RARE_CANDY, 7, 19
-	setinitialmovesPC MOVE_HEX, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT
-	setflag FLAG_SYS_POKEMON_GET
-	addpcitem ITEM_TM_DIG, 1
-	setvar VAR_LITTLEROOT_TOWN_STATE, 1
 	goto OnResume_1
 
 OnResume_5:
@@ -321,14 +323,15 @@ Pokescape01_EventScript_Battle01::
 	trainerbattle_single TRAINER_POKESCAPE01_01, Pokescape01_EventScript_Battle01_Text_0, Pokescape01_EventScript_Battle01_Text_1
 	lock
 	goto_if_set FLAG_P01_MASTER_BALL, Pokescape01_EventScript_Battle01_2
-	msgbox Pokescape01_EventScript_Battle01_Text_3
+	msgbox Pokescape01_EventScript_Battle01_Text_4
 Pokescape01_EventScript_Battle01_1:
 	waitmessage
 	release
 	end
 
 Pokescape01_EventScript_Battle01_2:
-	msgbox Pokescape01_EventScript_Battle01_Text_2
+	msgbox Pokescape01_EventScript_Battle01_Text_2, MSGBOX_AUTOCLOSE
+	msgbox Pokescape01_EventScript_Battle01_Text_3, MSGBOX_AUTOCLOSE
 	goto Pokescape01_EventScript_Battle01_1
 
 
@@ -1117,11 +1120,13 @@ Pokescape01_EventScript_Battle01_Text_1:
 
 Pokescape01_EventScript_Battle01_Text_2:
 	.string "You found my Master Ball?\p"
-	.string "That's cool, you can keep it!\l"
-	.string "My grandpa is building them in his\l"
-	.string "garage.$"
+	.string "That's great, but you can keep it!$"
 
 Pokescape01_EventScript_Battle01_Text_3:
+	.string "My grandpa is building them in his\n"
+	.string "garage.$"
+
+Pokescape01_EventScript_Battle01_Text_4:
 	.string "What a day! First I lost an item and now\n"
 	.string "I lost a fight.\p"
 	.string "I must have dropped it somewhere close\n"

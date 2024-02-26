@@ -10,6 +10,7 @@ mapscripts Pokescape01_MapScripts {
 script OnResume {
 	setvar(VAR_TEMP_2, 0) //var for EveryFrame
 	
+	//init player
 	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
 		givemon(SPECIES_MAKUHITA, 15)
 		givemonpc(SPECIES_YAMASK, 20, ITEM_RARE_CANDY, 7, 19)
@@ -17,27 +18,28 @@ script OnResume {
 		setflag(FLAG_SYS_POKEMON_GET)
 		addpcitem(ITEM_TM_DIG, 1)
 		setvar(VAR_LITTLEROOT_TOWN_STATE, 1)
+		setrespawn(HEAL_LOCATION_POKESCAPE01)
+		setflag(FLAG_RECEIVED_RUNNING_SHOES)
+		setflag(FLAG_SYS_B_DASH)
+		//set all badges so Pokémon will always obey
+		setflag(FLAG_BADGE01_GET)
+		setflag(FLAG_BADGE02_GET)
+		setflag(FLAG_BADGE03_GET)
+		setflag(FLAG_BADGE04_GET)
+		setflag(FLAG_BADGE05_GET)
+		setflag(FLAG_BADGE06_GET)
+		setflag(FLAG_BADGE07_GET)
+		setflag(FLAG_BADGE08_GET)
+		setflag(FLAG_SYS_POKEDEX_GET)
+		setflag(FLAG_SYS_NATIONAL_DEX)
+		setflag(FLAG_SYS_POKEDEX_GET)
+		setflag(FLAG_SYS_NATIONAL_DEX)
+		special(EnableNationalPokedex)
 	}
 
 	if(flag(FLAG_P01_MASTER_BALL)) {
 		setflag(FLAG_TEMP_3)
 	}
-
-	setrespawn(HEAL_LOCATION_POKESCAPE01)
-	//set all badges so Pokémon will always obey
-	setflag(FLAG_BADGE01_GET)
-	setflag(FLAG_BADGE02_GET)
-	setflag(FLAG_BADGE03_GET)
-	setflag(FLAG_BADGE04_GET)
-	setflag(FLAG_BADGE05_GET)
-	setflag(FLAG_BADGE06_GET)
-	setflag(FLAG_BADGE07_GET)
-	setflag(FLAG_BADGE08_GET)
-	setflag(FLAG_SYS_POKEDEX_GET)
-	setflag(FLAG_SYS_NATIONAL_DEX)
-	setflag(FLAG_SYS_POKEDEX_GET)
-	setflag(FLAG_SYS_NATIONAL_DEX)
-	special(EnableNationalPokedex)
 
 	//call(load_HONOR_MODE)
 	end
@@ -310,7 +312,8 @@ script Pokescape01_EventScript_Battle01 {
 	trainerbattle_single(TRAINER_POKESCAPE01_01, "I'll blow you away!", "I'm blown away!")
 	lock //don't lock before the fight or the trainer won't move towards the player
 	if (flag(FLAG_P01_MASTER_BALL)) {
-		msgbox(format("You found my Master Ball?\pThat's cool, you can keep it!\lMy grandpa is building them in his garage."))
+		msgbox(format("You found my Master Ball?\pThat's great, but you can keep it!"), MSGBOX_AUTOCLOSE)
+		msgbox(format("My grandpa is building them in his garage."), MSGBOX_AUTOCLOSE)
 	}
 	else {
 		msgbox(format("What a day! First I lost an item and now I lost a fight. \pI must have dropped it somewhere close by.\lHopefully someone's gonna bump into it!"))
@@ -820,10 +823,12 @@ script Pokescape01_House_EventScript_Birch {
 	specialvar(VAR_RESULT, GetPlayTimeSeconds)
 	buffertimestring(STR_VAR_3, VAR_RESULT)
 	if (flag(FLAG_P01_HONOR_MODE)) {
-		msgbox(Text_Finale_honor)
+		msgbox(Text_Final_time)
+		//msgbox(Text_Finale_honor)
 	}
 	else {
-		msgbox(Text_Finale_regular)
+		msgbox(Text_Final_time)
+		//msgbox(Text_Finale_regular)
 	}
 	waitmessage
 	release
@@ -904,6 +909,10 @@ text Text_TipKirlia {
 
 text Text_TipGardevoir {
 	format("Oh your Kirlia evolved into Gardevoir? \pI don't think that's helpful. It should have kept holding its Everstone. \pYou don't want it to evolve uncontrolledly. \pLet me take your Gardevoir and give you a Kirlia back for it.")
+}
+
+text Text_Final_time {
+	format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.")
 }
 
 text Text_Finale_regular {
