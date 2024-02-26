@@ -35,9 +35,11 @@ script OnResume {
 	setflag(FLAG_BADGE08_GET)
 	setflag(FLAG_SYS_POKEDEX_GET)
 	setflag(FLAG_SYS_NATIONAL_DEX)
+	setflag(FLAG_SYS_POKEDEX_GET)
+	setflag(FLAG_SYS_NATIONAL_DEX)
 	special(EnableNationalPokedex)
 
-	call(load_HONOR_MODE)
+	//call(load_HONOR_MODE)
 	end
 }
 
@@ -168,20 +170,20 @@ script Pokescape01_EventScript_PokecenterTriggers {
 		waitmessage
 		msgbox(format("This challenge can be completed without any savegame resets. \pWorst case is you have to approach the Game Master to continue."), MSGBOX_AUTOCLOSE)
 		waitmessage
-		msgbox(format("There are two game modes: \nREGULAR MODE and HONOR MODE. \pHONOR MODE will add penalty time to your game clock everytime you reset the game from a savefile. \lREGULAR mode will not do this."), MSGBOX_AUTOCLOSE)
-		waitmessage
-		msgbox(format("The first reset will cost you 15min, the second 30min, the third 45min...\l...you get the idea. \pWhich mode do you want to play with?"), MSGBOX_AUTOCLOSE)
-		waitmessage
-		multichoicedefault(0, 0, MULTI_POKESCAPE_GAME_MODE, 0, TRUE)
-		switch (var(VAR_RESULT)) {
-			case 0:
-				msgbox(format("Oh, you don't have what it takes? \pIt's okay though, at least you are honest."), MSGBOX_AUTOCLOSE)
-				waitmessage
-			case 1:
-				setflag(FLAG_P01_HONOR_MODE)
-				msgbox(format("What an honorable Pokémon trainer you are!"), MSGBOX_AUTOCLOSE)
-				waitmessage
-		}
+		//msgbox(format("There are two game modes: \nREGULAR MODE and HONOR MODE. \pHONOR MODE will add penalty time to your game clock everytime you reset the game from a savefile. \lREGULAR mode will not do this."), MSGBOX_AUTOCLOSE)
+		//waitmessage
+		//msgbox(format("The first reset will cost you 15min, the second 30min, the third 45min...\l...you get the idea. \pWhich mode do you want to play with?"), MSGBOX_AUTOCLOSE)
+		//waitmessage
+		//multichoicedefault(0, 0, MULTI_POKESCAPE_GAME_MODE, 0, TRUE)
+		//switch (var(VAR_RESULT)) {
+		//	case 0:
+		//		msgbox(format("Oh, you don't have what it takes? \pIt's okay though, at least you are honest."), MSGBOX_AUTOCLOSE)
+		//		waitmessage
+		//	case 1:
+		//		setflag(FLAG_P01_HONOR_MODE)
+		//		msgbox(format("What an honorable Pokémon trainer you are!"), MSGBOX_AUTOCLOSE)
+		//		waitmessage
+		//}
 		msgbox(format("Please enter your name next."), MSGBOX_AUTOCLOSE)
 		waitmessage
 
@@ -307,7 +309,12 @@ script Pokescape01_EventScript_Geodude {
 script Pokescape01_EventScript_Battle01 {
 	trainerbattle_single(TRAINER_POKESCAPE01_01, "I'll blow you away!", "I'm blown away!")
 	lock //don't lock before the fight or the trainer won't move towards the player
-	msgbox(format("What a day! First I lost an item and now I lost a fight. \pI must have dropped it somewhere close by.\lHopefully someone's gonna bump into it!"))
+	if (flag(FLAG_P01_MASTER_BALL)) {
+		msgbox(format("You found my Master Ball?\pThat's cool, you can keep it!\lMy grandpa is building them in his garage."))
+	}
+	else {
+		msgbox(format("What a day! First I lost an item and now I lost a fight. \pI must have dropped it somewhere close by.\lHopefully someone's gonna bump into it!"))
+	}
 	waitmessage
 	release
 	end
