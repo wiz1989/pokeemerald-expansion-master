@@ -7379,8 +7379,10 @@ static void Cmd_getmoneyreward(void)
     if (gBattleOutcome == B_OUTCOME_WON)
     {
         money = GetTrainerMoneyToGive(gTrainerBattleOpponent_A);
+        money = 0;
         if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
-            money += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
+            money = 0;
+            //money += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
         AddMoney(&gSaveBlock1Ptr->money, money);
     }
     else
@@ -7401,6 +7403,7 @@ static void Cmd_getmoneyreward(void)
                 ++count;
         }
         money = sWhiteOutBadgeMoney[count] * sPartyLevel;
+        money = 0;
         RemoveMoney(&gSaveBlock1Ptr->money, money);
     }
 

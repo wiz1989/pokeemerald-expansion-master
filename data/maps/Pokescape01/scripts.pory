@@ -12,7 +12,7 @@ script OnResume {
 	
 	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
 		givemon(SPECIES_MAKUHITA, 15)
-		givemonpc(SPECIES_YAMASK, 16, ITEM_RARE_CANDY, 7, 19)
+		givemonpc(SPECIES_YAMASK, 20, ITEM_RARE_CANDY, 7, 19)
 		setinitialmovesPC(MOVE_HEX, MOVE_TRICK_ROOM, MOVE_TOXIC_SPIKES, MOVE_PROTECT)
 		setflag(FLAG_SYS_POKEMON_GET)
 		addpcitem(ITEM_TM_DIG, 1)
@@ -130,7 +130,7 @@ script Pokescape01_EventScript_PokecenterSign {
     lockall
 	buffernumberstring(STR_VAR_1, VAR_P01_PENALTY)
 	buffernumberstring(STR_VAR_2, VAR_P01_CALC)
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 move learnsets for any Pokémon you control yourself. \p2.) It is not required to grind multiple levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) Any potentially hidden items would have collision so you can't just walk over them without noticing.\lSpamming the A button throughout the whole overworld is therefore not necessary."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring gen 5 move LEARNSETS for any Pokémon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) All items are there for a reason. Think twice before using them. \p4.) Any potentially hidden items would have collision so you can't just walk over them without noticing.\lSpamming the A button throughout the whole overworld is therefore not necessary.\l5.) Wrong decisions can cause soft locks. However, these will always be fixed by the Game Master NPC."))
     waitmessage
     releaseall
     end
@@ -495,42 +495,20 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 						clearflag(FLAG_P01_GIVE_ADVICE)
 					}
 					else {
-						//Rare candy already used?
-						if (flag(FLAG_P01_RARE_CANDY) == TRUE) {
-							if (!flag(FLAG_P01_Hint03)) {
-								setflag(FLAG_P01_Hint03)
-								setflag(FLAG_P01_ADD30MIN)
-							}
-							msgbox(Text_TipRareCandy)
-							giveitem(ITEM_RARE_CANDY, 1)
-							clearflag(FLAG_P01_RARE_CANDY)
-							clearflag(FLAG_P01_GIVE_ADVICE)
-						}
-						else {
-							getpartymonlevel(SPECIES_MAKUHITA)
-							if (var(VAR_RESULT) > 15) {
-								checkpartymove(MOVE_WHIRLWIND)
-								//WHIRLWIND was forgotten -> give new Makuhita
-								if (var(VAR_RESULT) == PARTY_SIZE) {
-									if (!flag(FLAG_P01_Hint16)) {
-										setflag(FLAG_P01_Hint16)
-										setflag(FLAG_P01_ADD30MIN)
-									}
-									clearflag(FLAG_P01_GIVE_ADVICE)
-									msgbox(format("Your Makuhita doesn't know Whirlwind by now? \lOh no, you should definitely teach it that move! \pLet me take it and give you back another Lvl15 Makuhita."))
-									getpartymonslot(SPECIES_MAKUHITA)
-									special(DeletePartyMon)
-									givemon(SPECIES_MAKUHITA, 15)
+						getpartymonlevel(SPECIES_MAKUHITA)
+						if (var(VAR_RESULT) > 15) {
+							checkpartymove(MOVE_WHIRLWIND)
+							//WHIRLWIND was forgotten -> give new Makuhita
+							if (var(VAR_RESULT) == PARTY_SIZE) {
+								if (!flag(FLAG_P01_Hint16)) {
+									setflag(FLAG_P01_Hint16)
+									setflag(FLAG_P01_ADD30MIN)
 								}
-								else {
-									//How to win the first fight?
-									if (!flag(FLAG_P01_Hint04)) {
-										setflag(FLAG_P01_Hint04)
-										setflag(FLAG_P01_ADD30MIN)
-									}
-									msgbox(Text_TipFirstFight)
-									clearflag(FLAG_P01_GIVE_ADVICE)
-								}
+								clearflag(FLAG_P01_GIVE_ADVICE)
+								msgbox(format("Your Makuhita doesn't know Whirlwind by now? \lOh no, you should definitely teach it that move! \pLet me take it and give you back another Lvl15 Makuhita."))
+								getpartymonslot(SPECIES_MAKUHITA)
+								special(DeletePartyMon)
+								givemon(SPECIES_MAKUHITA, 15)
 							}
 							else {
 								//How to win the first fight?
@@ -541,7 +519,16 @@ script Pokescape01_Pokecenter_EventScript_Gentleman {
 								msgbox(Text_TipFirstFight)
 								clearflag(FLAG_P01_GIVE_ADVICE)
 							}
-						}				
+						}
+						else {
+							//How to win the first fight?
+							if (!flag(FLAG_P01_Hint04)) {
+								setflag(FLAG_P01_Hint04)
+								setflag(FLAG_P01_ADD30MIN)
+							}
+							msgbox(Text_TipFirstFight)
+							clearflag(FLAG_P01_GIVE_ADVICE)
+						}			
 					}
 				}
 
@@ -808,7 +795,7 @@ script Pokescape01_Pokecenter_EventScript_Scientist {
 			msgbox(format("You did well so far! You will also figure out a way to make it to the finish line!"))
 		}
 		elif (flag(FLAG_UNUSED_0x95E) || flag(FLAG_P01_MASTER_BALL)) {
-			msgbox(format("You will need more Pokémon to become a successful trainer. \lThere is a sign at the grass patch in the south. It shall guide you to make a good decision catching one.."))
+			msgbox(format("You will need more Pokémon to become a successful trainer. \lThere is a sign at the grass patch in the south. It tells you which one you should get..."))
 		}
 		else {
 			msgbox(format("Your Yamask seems to be very stubborn. \pIt is not interested in learning any new moves. \pHow sad."))
