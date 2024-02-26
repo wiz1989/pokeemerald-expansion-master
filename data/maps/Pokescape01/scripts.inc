@@ -934,14 +934,14 @@ Pokescape01_House_EventScript_Birch::
 	specialvar VAR_RESULT, GetPlayTimeSeconds
 	buffertimestring STR_VAR_3, VAR_RESULT
 	goto_if_set FLAG_P01_HONOR_MODE, Pokescape01_House_EventScript_Birch_2
-	msgbox Text_Finale_regular
+	msgbox Text_Final_time
 Pokescape01_House_EventScript_Birch_1:
 	waitmessage
 	release
 	end
 
 Pokescape01_House_EventScript_Birch_2:
-	msgbox Text_Finale_honor
+	msgbox Text_Final_time
 	goto Pokescape01_House_EventScript_Birch_1
 
 
@@ -1386,6 +1386,13 @@ Text_TipGardevoir::
 	.string "uncontrolledly.\p"
 	.string "Let me take your Gardevoir and give you\n"
 	.string "a Kirlia back for it.$"
+
+Text_Final_time::
+	.string "Congratulations {PLAYER}!\p"
+	.string "You have completed the challenge. Well\n"
+	.string "done!\p"
+	.string "Your final time is\n"
+	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.$"
 
 Text_Finale_regular::
 	.string "Congratulations {PLAYER}!\p"
