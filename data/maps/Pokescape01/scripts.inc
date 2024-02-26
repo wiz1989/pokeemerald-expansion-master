@@ -26,8 +26,9 @@ OnResume_4:
 	setflag FLAG_BADGE08_GET
 	setflag FLAG_SYS_POKEDEX_GET
 	setflag FLAG_SYS_NATIONAL_DEX
+	setflag FLAG_SYS_POKEDEX_GET
+	setflag FLAG_SYS_NATIONAL_DEX
 	special EnableNationalPokedex
-	call load_HONOR_MODE
 	end
 
 OnResume_2:
@@ -191,22 +192,13 @@ Pokescape01_EventScript_PokecenterTriggers_2:
 	waitmessage
 	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_4, MSGBOX_AUTOCLOSE
 	waitmessage
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_5, MSGBOX_AUTOCLOSE
-	waitmessage
-	multichoicedefault 0, 0, MULTI_POKESCAPE_GAME_MODE, 0, TRUE
-	switch VAR_RESULT
-	case 0, Pokescape01_EventScript_PokecenterTriggers_6
-	case 1, Pokescape01_EventScript_PokecenterTriggers_7
-Pokescape01_EventScript_PokecenterTriggers_4:
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_8, MSGBOX_AUTOCLOSE
-	waitmessage
 	special ChangePlayerName
 	waitmessage
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_9, MSGBOX_YESNO
-Pokescape01_EventScript_PokecenterTriggers_9:
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_5, MSGBOX_YESNO
+Pokescape01_EventScript_PokecenterTriggers_5:
 	compare VAR_RESULT, NO
-	goto_if_eq Pokescape01_EventScript_PokecenterTriggers_10
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_10, MSGBOX_AUTOCLOSE
+	goto_if_eq Pokescape01_EventScript_PokecenterTriggers_6
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_6, MSGBOX_AUTOCLOSE
 	waitmessage
 	special RestartPlayTimer
 	setvar VAR_UNUSED_0x408B, 1
@@ -214,21 +206,10 @@ Pokescape01_EventScript_PokecenterTriggers_9:
 	goto Pokescape01_EventScript_PokecenterTriggers_1
 
 Pokescape01_EventScript_PokecenterTriggers_6:
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_6, MSGBOX_AUTOCLOSE
-	waitmessage
-	goto Pokescape01_EventScript_PokecenterTriggers_4
-
-Pokescape01_EventScript_PokecenterTriggers_7:
-	setflag FLAG_P01_HONOR_MODE
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_7, MSGBOX_AUTOCLOSE
-	waitmessage
-	goto Pokescape01_EventScript_PokecenterTriggers_4
-
-Pokescape01_EventScript_PokecenterTriggers_10:
 	special ChangePlayerName
 	waitmessage
-	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_9, MSGBOX_YESNO
-	goto Pokescape01_EventScript_PokecenterTriggers_9
+	msgbox Pokescape01_EventScript_PokecenterTriggers_Text_5, MSGBOX_YESNO
+	goto Pokescape01_EventScript_PokecenterTriggers_5
 
 
 Pokescape01_EventScript_TriggerLittleGirl::
@@ -339,10 +320,16 @@ Pokescape01_EventScript_Geodude_2:
 Pokescape01_EventScript_Battle01::
 	trainerbattle_single TRAINER_POKESCAPE01_01, Pokescape01_EventScript_Battle01_Text_0, Pokescape01_EventScript_Battle01_Text_1
 	lock
-	msgbox Pokescape01_EventScript_Battle01_Text_2
+	goto_if_set FLAG_P01_MASTER_BALL, Pokescape01_EventScript_Battle01_2
+	msgbox Pokescape01_EventScript_Battle01_Text_3
+Pokescape01_EventScript_Battle01_1:
 	waitmessage
 	release
 	end
+
+Pokescape01_EventScript_Battle01_2:
+	msgbox Pokescape01_EventScript_Battle01_Text_2
+	goto Pokescape01_EventScript_Battle01_1
 
 
 Pokescape01_EventScript_BattleDouble02::
@@ -1079,35 +1066,12 @@ Pokescape01_EventScript_PokecenterTriggers_Text_3:
 	.string "Game Master to continue.$"
 
 Pokescape01_EventScript_PokecenterTriggers_Text_4:
-	.string "There are two game modes:\n"
-	.string "REGULAR MODE and HONOR MODE.\p"
-	.string "HONOR MODE will add penalty time to your\n"
-	.string "game clock everytime you reset the\l"
-	.string "game from a savefile.\l"
-	.string "REGULAR mode will not do this.$"
-
-Pokescape01_EventScript_PokecenterTriggers_Text_5:
-	.string "The first reset will cost you 15min, the\n"
-	.string "second 30min, the third 45min...\l"
-	.string "...you get the idea.\p"
-	.string "Which mode do you want to play with?$"
-
-Pokescape01_EventScript_PokecenterTriggers_Text_6:
-	.string "Oh, you don't have what it takes?\p"
-	.string "It's okay though, at least you are\n"
-	.string "honest.$"
-
-Pokescape01_EventScript_PokecenterTriggers_Text_7:
-	.string "What an honorable Pokémon trainer you\n"
-	.string "are!$"
-
-Pokescape01_EventScript_PokecenterTriggers_Text_8:
 	.string "Please enter your name next.$"
 
-Pokescape01_EventScript_PokecenterTriggers_Text_9:
+Pokescape01_EventScript_PokecenterTriggers_Text_5:
 	.string "So your name is {PLAYER}?$"
 
-Pokescape01_EventScript_PokecenterTriggers_Text_10:
+Pokescape01_EventScript_PokecenterTriggers_Text_6:
 	.string "Good luck! Your play time starts NOW.$"
 
 Pokescape01_EventScript_TriggerLittleGirl_Text_0:
@@ -1164,6 +1128,12 @@ Pokescape01_EventScript_Battle01_Text_1:
 	.string "I'm blown away!$"
 
 Pokescape01_EventScript_Battle01_Text_2:
+	.string "You found my Master Ball?\p"
+	.string "That's cool, you can keep it!\l"
+	.string "My grandpa is building them in his\l"
+	.string "garage.$"
+
+Pokescape01_EventScript_Battle01_Text_3:
 	.string "What a day! First I lost an item and now\n"
 	.string "I lost a fight.\p"
 	.string "I must have dropped it somewhere close\n"
