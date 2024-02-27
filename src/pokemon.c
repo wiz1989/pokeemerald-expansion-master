@@ -3448,6 +3448,13 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     if (hasFixedPersonality)
         personality = fixedPersonality;
+    else if (species == SPECIES_YAMASK) { //force NATURE for YAMASK
+        nature = NATURE_JOLLY;
+        do {
+            personality = Random32();
+        }
+        while (nature != GetNatureFromPersonality(personality));
+    }
     else
         personality = Random32();
 
@@ -3634,7 +3641,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
         SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
         SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
-        SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
+        //SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
         SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
     }
 
