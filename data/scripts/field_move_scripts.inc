@@ -149,6 +149,12 @@ EventScript_ActivateStrength::
 	releaseall
 	end
 
+EventScript_DeactivateStrength::
+	clearflag FLAG_SYS_USE_STRENGTH
+	msgbox Text_DeactivateStrength, MSGBOX_DEFAULT
+	releaseall
+	end
+
 EventScript_CantStrength::
 	msgbox Text_CantStrength, MSGBOX_DEFAULT
 	releaseall
@@ -173,6 +179,9 @@ Text_MonUsedStrength:
 	.string "{STR_VAR_1} used STRENGTH!\p"
 	.string "{STR_VAR_1}'s STRENGTH made it\n"
 	.string "possible to move boulders around!$"
+
+Text_DeactivateStrength:
+	.string "{STR_VAR_1} no longer uses STRENGTH!$"
 
 Text_CantStrength:
 	.string "It's a big boulder, but a POKéMON\n"

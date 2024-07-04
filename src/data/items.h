@@ -9637,4 +9637,16 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 10,
     },
+
+    [ITEM_MATH_CLUB] =
+    {
+        .name = _("Math Club"),
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_MATH_CLUB,
+        .description = sMathClubDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 90,
+    },
 };

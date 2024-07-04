@@ -3840,7 +3840,8 @@ u8 AtkCanceller_UnableToUseMove(u32 moveType)
 
                 PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 1, 0)
             }
-            else if (gBattleMoves[gCurrentMove].strikeCount > 1)
+            //WIP Cubone/Marowak
+            else if (gBattleMoves[gCurrentMove].strikeCount > 1 || (gBattleMons[gBattlerAttacker].item == ITEM_MATH_CLUB && gBattleMoves[gCurrentMove].strikeCount == 1))
             {
                 if (gBattleMoves[gCurrentMove].effect == EFFECT_POPULATION_BOMB && GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_LOADED_DICE)
                 {
@@ -3849,9 +3850,13 @@ u8 AtkCanceller_UnableToUseMove(u32 moveType)
                 else
                 {
                     gMultiHitCounter = gBattleMoves[gCurrentMove].strikeCount;
+                    if (gBattleMons[gBattlerAttacker].item == ITEM_MATH_CLUB)
+                        gMultiHitCounter = 2*gMultiHitCounter;
+                    
                     PREPARE_BYTE_NUMBER_BUFFER(gBattleScripting.multihitString, 3, 0)
                 }
             }
+
         #if B_BEAT_UP >= GEN_5
             else if (gBattleMoves[gCurrentMove].effect == EFFECT_BEAT_UP)
             {

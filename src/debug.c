@@ -79,6 +79,7 @@ enum { // Main
 };
 enum { // Util
     DEBUG_UTIL_MENU_ITEM_HEAL_PARTY,
+    DEBUG_UTIL_MENU_ITEM_RESET_TRAINERS,
     DEBUG_UTIL_MENU_ITEM_FLY,
     DEBUG_UTIL_MENU_ITEM_WARP,
     DEBUG_UTIL_MENU_ITEM_POISON_MONS,
@@ -298,6 +299,7 @@ static void DebugTask_HandleMenuInput_Fill(u8 taskId);
 static void DebugTask_HandleMenuInput_Sound(u8 taskId);
 
 static void DebugAction_Util_HealParty(u8 taskId);
+static void DebugAction_Util_ResetTrainers(u8 taskId);
 static void DebugAction_Util_Fly(u8 taskId);
 static void DebugAction_Util_Warp_Warp(u8 taskId);
 static void DebugAction_Util_Warp_SelectMapGroup(u8 taskId);
@@ -427,6 +429,7 @@ static const u8 sDebugText_Util_Script_7[] =               _("Script 7");
 static const u8 sDebugText_Util_Script_8[] =               _("Script 8");
 // Util Menu
 static const u8 sDebugText_Util_HealParty[] =               _("Heal Party");
+static const u8 sDebugText_Util_ResetTrainers[] =           _("Reset all Trainer Flags");
 static const u8 sDebugText_Util_Fly[] =                     _("Fly to map…{CLEAR_TO 110}{RIGHT_ARROW}");
 static const u8 sDebugText_Util_WarpToMap[] =               _("Warp to map warp…{CLEAR_TO 110}{RIGHT_ARROW}");
 static const u8 sDebugText_Util_WarpToMap_SelectMapGroup[] =_("Group: {STR_VAR_1}{CLEAR_TO 90}\n{CLEAR_TO 90}\n\n{STR_VAR_3}{CLEAR_TO 90}");
@@ -594,6 +597,7 @@ static const struct ListMenuItem sDebugMenu_Items_Main[] =
 static const struct ListMenuItem sDebugMenu_Items_Utilities[] =
 {
     [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]       = {sDebugText_Util_HealParty,        DEBUG_UTIL_MENU_ITEM_HEAL_PARTY},
+    [DEBUG_UTIL_MENU_ITEM_RESET_TRAINERS]   = {sDebugText_Util_ResetTrainers,    DEBUG_UTIL_MENU_ITEM_RESET_TRAINERS},
     [DEBUG_UTIL_MENU_ITEM_FLY]              = {sDebugText_Util_Fly,              DEBUG_UTIL_MENU_ITEM_FLY},
     [DEBUG_UTIL_MENU_ITEM_WARP]             = {sDebugText_Util_WarpToMap,        DEBUG_UTIL_MENU_ITEM_WARP},
     [DEBUG_UTIL_MENU_ITEM_POISON_MONS]      = {sDebugText_Util_PoisonMons,       DEBUG_UTIL_MENU_ITEM_POISON_MONS},
@@ -727,6 +731,7 @@ static void (*const sDebugMenu_Actions_Main[])(u8) =
 static void (*const sDebugMenu_Actions_Utilities[])(u8) =
 {
     [DEBUG_UTIL_MENU_ITEM_HEAL_PARTY]       = DebugAction_Util_HealParty,
+    [DEBUG_UTIL_MENU_ITEM_RESET_TRAINERS]   = DebugAction_Util_ResetTrainers,
     [DEBUG_UTIL_MENU_ITEM_FLY]              = DebugAction_Util_Fly,
     [DEBUG_UTIL_MENU_ITEM_WARP]             = DebugAction_Util_Warp_Warp,
     [DEBUG_UTIL_MENU_ITEM_POISON_MONS]      = DebugAction_Util_PoisonMons,
@@ -1582,6 +1587,21 @@ static void DebugAction_Util_HealParty(u8 taskId)
     ScriptContext_Enable();
     Debug_DestroyMenu_Full(taskId);
 }
+
+static void DebugAction_Util_ResetTrainers(u8 taskId)
+{
+    s16 i;
+
+    PlaySE(SE_USE_ITEM);
+    for (i = TRAINER_FLAGS_START; i <= TRAINER_FLAGS_END; i++)
+    {
+        if (FlagGet(i))
+            FlagClear(i);
+    }
+    ScriptContext_Enable();
+    Debug_DestroyMenu_Full(taskId);
+}
+
 static void DebugAction_Util_Fly(u8 taskId)
 {
     FlagSet(FLAG_VISITED_LITTLEROOT_TOWN);

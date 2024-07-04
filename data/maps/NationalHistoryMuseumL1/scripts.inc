@@ -92,7 +92,23 @@ NHML1_Boulder::
 
 
 NHML1_Cooltrainer::
-	trainerbattle_single TRAINER_NHM_HAIL, NHML1_Cooltrainer_Text_0, NHML1_Cooltrainer_Text_1
+	trainerbattle_single TRAINER_BRAWLY_5, NHML1_Cooltrainer_Text_0, NHML1_Cooltrainer_Text_1
+	lock
+	msgbox NHML1_Cooltrainer_Text_1, MSGBOX_AUTOCLOSE
+	release
+	end
+
+
+NHML1_Boy::
+	trainerbattle_single TRAINER_ED, NHML1_Cooltrainer_Text_0, NHML1_Cooltrainer_Text_1
+	lock
+	msgbox NHML1_Cooltrainer_Text_1, MSGBOX_AUTOCLOSE
+	release
+	end
+
+
+NHML1_Boy2::
+	trainerbattle_single TRAINER_JOSH, NHML1_Cooltrainer_Text_0, NHML1_Cooltrainer_Text_1
 	lock
 	msgbox NHML1_Cooltrainer_Text_1, MSGBOX_AUTOCLOSE
 	release
@@ -380,6 +396,29 @@ NHML1_Sign_tileset::
 	end
 
 
+deactivate_offscreen::
+	lock
+	setflag FLAG_FORCE_LOAD_OFFSCREEN_OBJEV
+	release
+	return
+
+
+activate_offscreen::
+	lock
+	clearflag FLAG_FORCE_LOAD_OFFSCREEN_OBJEV
+	release
+	return
+
+
+grunt_insight::
+	lock
+	msgbox grunt_insight_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	warp MAP_NATIONAL_HISTORY_MUSEUM_L1, 12
+	release
+	return
+
+
 Move_lookup:
 	face_up
 	step_end
@@ -475,6 +514,9 @@ NHML1_Sign_tileset_Text_0:
 	.string "Parts of this tileset have originally\n"
 	.string "been designed by princess-phoenix,\l"
 	.string "Lady Miko and rbrnnova.$"
+
+grunt_insight_Text_0:
+	.string "What are you doing here?$"
 
 Text_Finale::
 	.string "Congratulations {PLAYER}!\p"

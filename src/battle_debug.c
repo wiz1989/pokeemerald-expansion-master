@@ -2151,6 +2151,7 @@ static const u8 sText_HoldEffectRoomService[] = _("Room Service");
 static const u8 sText_HoldEffectBlunderPolicy[] = _("Blunder Policy");
 static const u8 sText_HoldEffectHeavyDutyBoots[] = _("Heavy Duty Boots");
 static const u8 sText_HoldEffectThroatSpray[] = _("Throat Spray");
+static const u8 sText_HoldEffectMathClub[] = _("Math Club");
 static const u8 *const sHoldEffectNames[] =
 {
     [HOLD_EFFECT_NONE] = sText_HoldEffectNone,
@@ -2293,6 +2294,7 @@ static const u8 *const sHoldEffectNames[] =
     [HOLD_EFFECT_BLUNDER_POLICY] = sText_HoldEffectBlunderPolicy,
     [HOLD_EFFECT_HEAVY_DUTY_BOOTS] = sText_HoldEffectHeavyDutyBoots,
     [HOLD_EFFECT_THROAT_SPRAY] = sText_HoldEffectThroatSpray,
+    [HOLD_EFFECT_MATH_CLUB] = sText_HoldEffectMathClub,
 };
 static const u8 *GetHoldEffectName(u16 holdEffect)
 {

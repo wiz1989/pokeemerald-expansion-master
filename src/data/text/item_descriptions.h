@@ -3918,3 +3918,8 @@ static const u8 sBerserkGene[] = _(
     "Sharply boosts\n"
     "Attack, but causes\n"
     "lasting confusion.");
+
+static const u8 sMathClubDesc[] = _(
+    "An after-school activity that\n" 
+    "teaches CUBONE or MAROWAK how to\n"
+    "multiply, doubling its ATTACKs");

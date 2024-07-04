@@ -856,7 +856,11 @@ s32 AI_CalcDamage(u32 move, u32 battlerAtk, u32 battlerDef, u8 *typeEffectivenes
             }
 
             // Handle other multi-strike moves
-            if (gBattleMoves[move].strikeCount > 1 && gBattleMoves[move].effect != EFFECT_TRIPLE_KICK)
+            //double strikeCount for any move if held item is "Math Club"
+            //WIP add Marowak/Cubone condition
+            if (gBattleMons[battlerAtk].item == ITEM_MATH_CLUB)
+                dmg *= gBattleMoves[move].strikeCount * 2;
+            else if (gBattleMoves[move].strikeCount > 1 && gBattleMoves[move].effect != EFFECT_TRIPLE_KICK)
                 dmg *= gBattleMoves[move].strikeCount;
             else if (move == MOVE_WATER_SHURIKEN && gBattleMons[battlerAtk].species == SPECIES_GRENINJA_ASH)
                 dmg *= 3;

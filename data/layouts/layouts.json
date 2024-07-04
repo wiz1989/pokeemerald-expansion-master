@@ -4435,7 +4435,7 @@
       "id": "LAYOUT_NATIONAL_HISTORY_MUSEUM_L1",
       "name": "NationalHistoryMuseumL1_Layout",
       "width": 30,
-      "height": 18,
+      "height": 180,
       "primary_tileset": "gTileset_NHM_IceAge",
       "secondary_tileset": "gTileset_sec_NHM_IceAge",
       "border_filepath": "data/layouts/NationalHistoryMuseumL1/border.bin",

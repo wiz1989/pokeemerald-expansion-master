@@ -88,7 +88,23 @@ script NHML1_Boulder {
 }
 
 script NHML1_Cooltrainer {
-	trainerbattle_single(TRAINER_NHM_HAIL, format("Oh hey, where are you trying to go?\pI'll give you ten battle turns to defeat me or you gotta stay in here."), "Bye, bye!")
+	trainerbattle_single(TRAINER_BRAWLY_5, format("Oh hey, where are you trying to go?\pI'll give you ten battle turns to defeat me or you gotta stay in here."), "Bye, bye!")
+	lock
+	msgbox("Bye, bye!", MSGBOX_AUTOCLOSE)
+	release
+	end
+}
+
+script NHML1_Boy {
+	trainerbattle_single(TRAINER_ED, format("Oh hey, where are you trying to go?\pI'll give you ten battle turns to defeat me or you gotta stay in here."), "Bye, bye!")
+	lock
+	msgbox("Bye, bye!", MSGBOX_AUTOCLOSE)
+	release
+	end
+}
+
+script NHML1_Boy2 {
+	trainerbattle_single(TRAINER_JOSH, format("Oh hey, where are you trying to go?\pI'll give you ten battle turns to defeat me or you gotta stay in here."), "Bye, bye!")
 	lock
 	msgbox("Bye, bye!", MSGBOX_AUTOCLOSE)
 	release
@@ -318,6 +334,26 @@ script NHML1_Sign_tileset {
     waitmessage
     release
     end
+}
+
+script deactivate_offscreen {
+	lock
+	setflag(FLAG_FORCE_LOAD_OFFSCREEN_OBJEV)
+	release
+}
+
+script activate_offscreen {
+	lock
+	clearflag(FLAG_FORCE_LOAD_OFFSCREEN_OBJEV)
+	release
+}
+
+script grunt_insight {
+	lock
+	msgbox(format("What are you doing here?"), MSGBOX_AUTOCLOSE)
+    waitmessage
+	warp(MAP_NATIONAL_HISTORY_MUSEUM_L1, 12)
+	release
 }
 
 

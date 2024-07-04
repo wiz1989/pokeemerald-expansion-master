@@ -17,11 +17,16 @@ static void StartStrengthFieldEffect(void);
 // text
 bool8 SetUpFieldMove_Strength(void)
 {
-    if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_PUSHABLE_BOULDER) == TRUE)
+    if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_PUSHABLE_BOULDER) == TRUE && !FlagGet(FLAG_SYS_USE_STRENGTH))
     {
         gSpecialVar_Result = GetCursorSelectionMonId();
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Strength;
+        return TRUE;
+    }
+    else if (FlagGet(FLAG_SYS_USE_STRENGTH))
+    {
+        ScriptContext_SetupScript(EventScript_DeactivateStrength);
         return TRUE;
     }
     return FALSE;

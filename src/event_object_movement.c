@@ -1693,13 +1693,17 @@ static void RemoveObjectEventIfOutsideView(struct ObjectEvent *objectEvent)
     if (objectEvent->initialCoords.x >= left && objectEvent->initialCoords.x <= right
      && objectEvent->initialCoords.y >= top && objectEvent->initialCoords.y <= bottom)
         return;
-    RemoveObjectEvent(objectEvent);
+    if(objectEvent->graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER)
+        DebugPrintf("coords: %d, %d", objectEvent->currentCoords.x, objectEvent->currentCoords.y);
+    //deactivate deleting boulder objects that are offscreen within the map
+    if (!(FlagGet(FLAG_FORCE_LOAD_OFFSCREEN_OBJEV) && objectEvent->graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER))
+        RemoveObjectEvent(objectEvent);
 }
 
 void SpawnObjectEventsOnReturnToField(s16 x, s16 y)
 {
     u8 i;
-
+    
     ClearPlayerAvatarInfo();
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {
@@ -4717,7 +4721,6 @@ static bool8 IsMetatileDirectionallyImpassable(struct ObjectEvent *objectEvent, 
 {
     if (gOppositeDirectionBlockedMetatileFuncs[direction - 1](objectEvent->currentMetatileBehavior)
         || gDirectionBlockedMetatileFuncs[direction - 1](MapGridGetMetatileBehaviorAt(x, y))) {
-            DebugPrintf("current object: %d", objectEvent->graphicsId);
             //These sprites somehow relate to a boulder being pushed by the player (Brendan/May sprites)
             if ((MetatileBehavior_IsBoulderOnly(MapGridGetMetatileBehaviorAt(x, y)) == TRUE) && 
                 (objectEvent->graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER)) {
@@ -7396,6 +7399,9 @@ static void UpdateObjectEventSpriteVisibility(struct ObjectEvent *objectEvent, s
     sprite->invisible = FALSE;
     if (objectEvent->invisible || objectEvent->offScreen)
         sprite->invisible = TRUE;
+        objectEvent->currentCoords;
+        objectEvent->initialCoords;
+        objectEvent->previousCoords;
 }
 
 static void GetAllGroundEffectFlags_OnSpawn(struct ObjectEvent *objEvent, u32 *flags)
@@ -8981,4 +8987,9 @@ u8 MovementAction_FlyDown_Step1(struct ObjectEvent *objectEvent, struct Sprite *
 u8 MovementAction_Fly_Finish(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     return TRUE;
+}
+
+u16 GetObjectEventTrainerSightFlagByObjectEventId(u8 objEventId)
+{
+    return GetObjectEventTemplateByLocalIdAndMap(gObjectEvents[objEventId].localId, gObjectEvents[objEventId].mapNum, gObjectEvents[objEventId].mapGroup)->trainerType;
 }

@@ -373,6 +373,7 @@ extern const u8 SecretBase_Text_Trainer9Defeated[];
 
 //field effects
 extern const u8 EventScript_UseStrength[];
+extern const u8 EventScript_DeactivateStrength[];
 extern const u8 EventScript_FailSweetScent[];
 extern const u8 EventScript_UseFlash[];
 extern const u8 EventScript_UseCut[];
@@ -611,5 +612,6 @@ extern const u8 EventScript_TradeCenter_Chair1[];
 extern const u8 EventScript_TradeCenter_Chair0[];
 extern const u8 EventScript_ConfirmLeaveCableClubRoom[];
 extern const u8 EventScript_TerminateLink[];
+extern const u8 EventScript_ObjectApproachPlayer[];
 
 #endif // GUARD_EVENT_SCRIPTS_H
