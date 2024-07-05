@@ -12,7 +12,7 @@
 // the various AGBPrint functions to be used. (See include/gba/isagbprint.h).
 // See below for enabling different pretty printing versions.
 
-#ifndef NDEBUG
+//#ifndef NDEBUG
 
 #define PRETTY_PRINT_MINI_PRINTF (0)
 #define PRETTY_PRINT_LIBC (1)
@@ -32,7 +32,7 @@
 //       AGB_PRINT is supported on respective debug units.
 
 #define LOG_HANDLER (LOG_HANDLER_MGBA_PRINT)
-#endif
+//#endif NDEBUG
 
 // Uncomment to fix some identified minor bugs
 #define BUGFIX

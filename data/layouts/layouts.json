@@ -4410,6 +4410,26 @@
       "secondary_tileset": "gTileset_MysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F_StairsUnblocked/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC_ISLAND",
+      "name": "TARC_Island_Layout",
+      "width": 60,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Dewford",
+      "border_filepath": "data/layouts/TARC_Island/border.bin",
+      "blockdata_filepath": "data/layouts/TARC_Island/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC_SEA",
+      "name": "TARC_SEA_Layout",
+      "width": 60,
+      "height": 60,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Pacifidlog",
+      "border_filepath": "data/layouts/TARC_SEA/border.bin",
+      "blockdata_filepath": "data/layouts/TARC_SEA/map.bin"
     }
   ]
 }

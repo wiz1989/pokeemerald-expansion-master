@@ -1072,3 +1072,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+
+	.include "data/maps/TARC_Island/scripts.inc"
+
+	.include "data/maps/TARC_SEA/scripts.inc"
