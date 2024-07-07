@@ -1,1 +1,32 @@
-mapscripts TARC_Island_MapScripts {}
+// ############### Mapscripts ###############
+
+mapscripts TARC_Island_MapScripts {
+    MAP_SCRIPT_ON_RESUME: TARC_Island_OnResume
+}
+
+script TARC_Island_OnResume {
+	setvar(VAR_TEMP_2, 0) //var for EveryFrame
+	end
+}
+
+
+
+// ############### Regular EventScripts ###############
+
+script TARC_Island_Fisherman {
+    lock
+    faceplayer
+    if(flag(FLAG_RECEIVED_OLD_ROD))
+    {
+    	//check if Remoraid was caught
+    }
+    else
+    {
+    	msgbox(format("I am stranded here and try to catch some fish to survive.\pBut these are shark infested waters!\pI don't get anything else to bite.\pTake this rod of mine."), MSGBOX_AUTOCLOSE)
+	    giveitem(ITEM_OLD_ROD)
+	    setflag(FLAG_RECEIVED_OLD_ROD)
+	    msgbox(format("And please think of me if you are getting luckier than I am."), MSGBOX_AUTOCLOSE)
+    }
+    release
+    end
+}

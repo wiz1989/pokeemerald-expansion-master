@@ -1260,3 +1260,28 @@ static const struct SpriteFrameImage sPicTable_RubySapphireBrendan[] = {
 static const struct SpriteFrameImage sPicTable_RubySapphireMay[] = {
     overworld_ascending_frames(gObjectEventPic_RubySapphireMayNormal, 2, 4),
 };
+
+static const struct SpriteFrameImage sPicTable_Shark[] = {
+    overworld_ascending_frames(gObjectEventPic_Shark, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Fisherman_Rod_South[] = {
+    //overworld_ascending_frames(gObjectEventPic_Fisherman_Rod_South, 2, 4),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 0),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 1),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 2),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 0),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 1),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 2),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 0),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 1),
+    overworld_frame(gObjectEventPic_Fisherman_Rod_South, 2, 6, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_Celebi[] = {
+    overworld_ascending_frames(gObjectEventPic_Celebi, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Corphish[] = {
+    overworld_ascending_frames(gObjectEventPic_Corphish, 4, 4),
+};

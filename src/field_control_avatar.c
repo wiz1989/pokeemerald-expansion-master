@@ -368,11 +368,14 @@ static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *position
     case 5:
     case 6:
     case BG_EVENT_HIDDEN_ITEM:
-        gSpecialVar_0x8004 = ((u32)bgEvent->bgUnion.script >> 16) + FLAG_HIDDEN_ITEMS_START;
-        gSpecialVar_0x8005 = (u32)bgEvent->bgUnion.script;
-        if (FlagGet(gSpecialVar_0x8004) == TRUE)
-            return NULL;
-        return EventScript_HiddenItemScript;
+        if(FlagGet(FLAG_TARC_CUT_X)) //only run the script if the "X" was already found!
+        {
+            gSpecialVar_0x8004 = ((u32)bgEvent->bgUnion.script >> 16) + FLAG_HIDDEN_ITEMS_START;
+            gSpecialVar_0x8005 = (u32)bgEvent->bgUnion.script;
+            if (FlagGet(gSpecialVar_0x8004) == TRUE)
+                return NULL;
+            return EventScript_HiddenItemScript;
+        }
     case BG_EVENT_SECRET_BASE:
         if (direction == DIR_NORTH)
         {

@@ -458,6 +458,9 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_LUGIA                   0x1121
 #define OBJ_EVENT_PAL_TAG_RS_BRENDAN              0x1122
 #define OBJ_EVENT_PAL_TAG_RS_MAY                  0x1123
+#define OBJ_EVENT_PAL_TAG_SHARK                   0x1124
+#define OBJ_EVENT_PAL_TAG_CELEBI                  0x1125
+#define OBJ_EVENT_PAL_TAG_CORPHISH                0x1126
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 #include "data/object_events/object_event_graphics_info_pointers.h"
@@ -504,6 +507,9 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_Lugia,                 OBJ_EVENT_PAL_TAG_LUGIA},
     {gObjectEventPal_RubySapphireBrendan,   OBJ_EVENT_PAL_TAG_RS_BRENDAN},
     {gObjectEventPal_RubySapphireMay,       OBJ_EVENT_PAL_TAG_RS_MAY},
+    {gObjectEventPal_Shark,                 OBJ_EVENT_PAL_TAG_SHARK},
+    {gObjectEventPal_Celebi,                OBJ_EVENT_PAL_TAG_CELEBI},
+    {gObjectEventPal_Corphish,              OBJ_EVENT_PAL_TAG_CORPHISH},
 #ifdef BUGFIX
     {NULL,                                  OBJ_EVENT_PAL_TAG_NONE},
 #else
@@ -1452,6 +1458,10 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
     sprite->centerToCornerVecY = -(graphicsInfo->height >> 1);
     sprite->x += 8;
     sprite->y += 16 + sprite->centerToCornerVecY;
+    if (objectEvent->graphicsId == OBJ_EVENT_GFX_FISHERMAN){
+        sprite->y += 8;
+        DebugPrintf("offset");
+    }
     sprite->oam.paletteNum = paletteSlot;
     sprite->coordOffsetEnabled = TRUE;
     sprite->sObjEventId = objectEventId;
@@ -1765,6 +1775,10 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
         sprite->centerToCornerVecY = -(graphicsInfo->height >> 1);
         sprite->x += 8;
         sprite->y += 16 + sprite->centerToCornerVecY;
+        if (objectEvent->graphicsId == OBJ_EVENT_GFX_FISHERMAN){
+            sprite->y += 8;
+            DebugPrintf("offset");
+        }
         sprite->images = graphicsInfo->images;
         if (objectEvent->movementType == MOVEMENT_TYPE_PLAYER)
         {

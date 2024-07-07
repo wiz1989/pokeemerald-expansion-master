@@ -22,6 +22,7 @@
 #include "constants/field_effects.h"
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
+#include "event_data.h"
 
 extern struct MapPosition gPlayerFacingPosition;
 
@@ -360,7 +361,11 @@ static void SetCutGrassMetatile(s16 x, s16 y)
     case METATILE_Fortree_LongGrass_Root:
     case METATILE_General_LongGrass:
     case METATILE_General_TallGrass:
-        MapGridSetMetatileIdAt(x, y, METATILE_General_Grass);
+        MapGridSetMetatileIdAt(x, y, 0x008);
+        break;
+    case 0x02C:
+        MapGridSetMetatileIdAt(x, y, 0x02D);
+        FlagSet(FLAG_TARC_CUT_X);
         break;
     case METATILE_General_TallGrass_TreeLeft:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);

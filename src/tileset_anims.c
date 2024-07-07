@@ -635,12 +635,12 @@ static void TilesetAnim_General(u16 timer)
         QueueAnimTiles_General_Flower(timer / 16);
     if (timer % 16 == 1)
         QueueAnimTiles_General_Water(timer / 16);
-    if (timer % 16 == 2)
-        QueueAnimTiles_General_SandWaterEdge(timer / 16);
-    if (timer % 16 == 3)
-        QueueAnimTiles_General_Waterfall(timer / 16);
-    if (timer % 16 == 4)
-        QueueAnimTiles_General_LandWaterEdge(timer / 16);
+    //if (timer % 16 == 2)
+    //    QueueAnimTiles_General_SandWaterEdge(timer / 16);
+    //if (timer % 16 == 3)
+    //    QueueAnimTiles_General_Waterfall(timer / 16);
+    //if (timer % 16 == 4)
+    //    QueueAnimTiles_General_LandWaterEdge(timer / 16);
 }
 
 static void TilesetAnim_Building(u16 timer)
@@ -658,7 +658,7 @@ static void QueueAnimTiles_General_Flower(u16 timer)
 static void QueueAnimTiles_General_Water(u16 timer)
 {
     u8 i = timer % ARRAY_COUNT(gTilesetAnims_General_Water);
-    AppendTilesetAnimToBuffer(gTilesetAnims_General_Water[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(432)), 30 * TILE_SIZE_4BPP);
+    AppendTilesetAnimToBuffer(gTilesetAnims_General_Water[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(416)), 32 * TILE_SIZE_4BPP); //30
 }
 
 static void QueueAnimTiles_General_SandWaterEdge(u16 timer)

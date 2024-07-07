@@ -1827,7 +1827,7 @@ static bool8 Fishing_CheckForBite(struct Task *task)
 
     AlignFishingAnimationFrames();
     task->tStep++;
-    bite = FALSE;
+    bite = TRUE; //FALSE;
 
     if (!DoesCurrentMapHaveFishingMons())
     {

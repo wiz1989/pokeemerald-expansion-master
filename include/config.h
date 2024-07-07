@@ -6,13 +6,13 @@
 // still has them in the ROM. This is because the developers forgot
 // to define NDEBUG before release, however this has been changed as
 // Ruby's actual debug build does not use the AGBPrint features.
-#define NDEBUG
+//#define NDEBUG
 
 // To enable printf debugging, comment out "#define NDEBUG". This allows
 // the various AGBPrint functions to be used. (See include/gba/isagbprint.h).
 // See below for enabling different pretty printing versions.
 
-//#ifndef NDEBUG
+#ifndef NDEBUG
 
 #define PRETTY_PRINT_MINI_PRINTF (0)
 #define PRETTY_PRINT_LIBC (1)
@@ -32,7 +32,7 @@
 //       AGB_PRINT is supported on respective debug units.
 
 #define LOG_HANDLER (LOG_HANDLER_MGBA_PRINT)
-//#endif NDEBUG
+#endif NDEBUG
 
 // Uncomment to fix some identified minor bugs
 #define BUGFIX

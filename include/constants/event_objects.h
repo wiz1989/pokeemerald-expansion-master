@@ -168,9 +168,9 @@
 #define OBJ_EVENT_GFX_GULPIN_DOLL                164
 #define OBJ_EVENT_GFX_LOTAD_DOLL                 165
 #define OBJ_EVENT_GFX_SEEDOT_DOLL                166
-#define OBJ_EVENT_GFX_PIKA_CUSHION               167
-#define OBJ_EVENT_GFX_ROUND_CUSHION              168
-#define OBJ_EVENT_GFX_KISS_CUSHION               169
+#define OBJ_EVENT_GFX_FISHERMAN_ROD_SOUTH        167
+#define OBJ_EVENT_GFX_CELEBI                     168
+#define OBJ_EVENT_GFX_CORPHISH                   169
 #define OBJ_EVENT_GFX_ZIGZAG_CUSHION             170
 #define OBJ_EVENT_GFX_SPIN_CUSHION               171
 #define OBJ_EVENT_GFX_DIAMOND_CUSHION            172
@@ -239,7 +239,7 @@
 #define OBJ_EVENT_GFX_LINK_RS_BRENDAN            235
 #define OBJ_EVENT_GFX_LINK_RS_MAY                236
 #define OBJ_EVENT_GFX_LUGIA                      237
-#define OBJ_EVENT_GFX_HOOH                       238
+#define OBJ_EVENT_GFX_SHARK                      238
 
 // NOTE: By default, the max value for NUM_OBJ_EVENT_GFX is 239.
 //

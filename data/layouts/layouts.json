@@ -4416,8 +4416,8 @@
       "name": "TARC_Island_Layout",
       "width": 60,
       "height": 40,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Dewford",
+      "primary_tileset": "gTileset_gTileset_Orange_Island",
+      "secondary_tileset": "gTileset_gTileset_Valencia_Island",
       "border_filepath": "data/layouts/TARC_Island/border.bin",
       "blockdata_filepath": "data/layouts/TARC_Island/map.bin"
     },
@@ -4426,8 +4426,8 @@
       "name": "TARC_SEA_Layout",
       "width": 60,
       "height": 60,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Pacifidlog",
+      "primary_tileset": "gTileset_gTileset_Orange_Island",
+      "secondary_tileset": "gTileset_gTileset_Valencia_Island",
       "border_filepath": "data/layouts/TARC_SEA/border.bin",
       "blockdata_filepath": "data/layouts/TARC_SEA/map.bin"
     }

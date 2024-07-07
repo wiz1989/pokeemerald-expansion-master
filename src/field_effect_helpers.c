@@ -12,6 +12,7 @@
 #include "trig.h"
 #include "constants/field_effects.h"
 #include "constants/songs.h"
+#include "constants/event_objects.h"
 
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 
@@ -145,6 +146,9 @@ static void UpdateObjectReflectionSprite(struct Sprite *reflectionSprite)
         reflectionSprite->centerToCornerVecY = mainSprite->centerToCornerVecY;
         reflectionSprite->x2 = mainSprite->x2;
         reflectionSprite->y2 = -mainSprite->y2;
+        if (objectEvent->graphicsId == OBJ_EVENT_GFX_FISHERMAN){
+            reflectionSprite->y2 -= 16;
+        }
         reflectionSprite->coordOffsetEnabled = mainSprite->coordOffsetEnabled;
 
         if (objectEvent->hideReflection == TRUE)
@@ -235,7 +239,7 @@ u32 FldEff_Shadow(void)
     u8 objectEventId = GetObjectEventIdByLocalIdAndMap(gFieldEffectArguments[0], gFieldEffectArguments[1], gFieldEffectArguments[2]);
     const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(gObjectEvents[objectEventId].graphicsId);
     u8 spriteId = CreateSpriteAtEnd(gFieldEffectObjectTemplatePointers[sShadowEffectTemplateIds[graphicsInfo->shadowSize]], 0, 0, 148);
-    if (spriteId != MAX_SPRITES)
+    if (spriteId != MAX_SPRITES)// && graphicsInfo->shadowSize != SHADOW_SIZE_NONE)
     {
         gSprites[spriteId].coordOffsetEnabled = TRUE;
         gSprites[spriteId].sLocalId = gFieldEffectArguments[0];
@@ -740,6 +744,9 @@ u32 FldEff_FeetInFlowingWater(void)
         sprite->sPrevX = -1;
         sprite->sPrevY = -1;
         sprite->y2 = (graphicsInfo->height >> 1) - 4;
+        if (objectEvent->graphicsId == OBJ_EVENT_GFX_FISHERMAN){
+            sprite->y2 -= 8;
+        }
         StartSpriteAnim(sprite, 1);
     }
     return 0;
