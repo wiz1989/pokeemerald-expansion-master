@@ -20,7 +20,7 @@ script TARC_Island_OnTransition {
     }
     if (var(VAR_RHYDON_STATE) == 5)
     {
-        setobjectxyperm(20, 26, 13)
+        setobjectxyperm(20, 27, 13)
     }
 }
 
@@ -749,7 +749,8 @@ script TARC_Island_Rhyhorn {
 	    applymovement(OBJ_EVENT_ID_CAMERA, Move_CameraBack)
         waitmovement(0)
         special(RemoveCameraObject)
-        setobjectxyperm(20, 26, 13)
+        setobjectxy(20, 27, 13)
+        setobjectxyperm(20, 27, 13)
     }
     else
     {

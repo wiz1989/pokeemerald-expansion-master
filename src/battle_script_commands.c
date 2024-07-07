@@ -15306,11 +15306,12 @@ static void Cmd_handleballthrow(void)
                 for (shakes = 0; shakes < maxShakes && Random() < odds; shakes++);
             }
 
-            BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, shakes);
-            MarkBattlerForControllerExec(gBattlerAttacker);
             shakes = 1; //wiz1989
 
-            if (shakes == maxShakes || gLastUsedItem == ITEM_MASTER_BALL) // mon caught, copy of the code above
+            BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, shakes);
+            MarkBattlerForControllerExec(gBattlerAttacker);
+
+            if (shakes == maxShakes || gLastUsedItem == ITEM_MASTER_BALL) // mon caught, copy of the code from above
             {
                 if (IsCriticalCapture())
                     gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = TRUE;

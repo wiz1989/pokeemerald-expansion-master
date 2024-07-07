@@ -1,4 +1,5 @@
 TARC_CAVE_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, TARC_CAVE_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, TARC_CAVE_OnTransition
 	map_script MAP_SCRIPT_ON_RESUME, TARC_CAVE_OnResume
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, TARC_CAVE_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
@@ -11,6 +12,17 @@ TARC_CAVE_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TARC_CAVE_GUARD2_STATE, 1, TARC_CAVE_EveryFrame_Guard2
 	map_script_2 VAR_CAVE_STATE, 0, TARC_CAVE_EveryFrame_FirstTime
 	.2byte 0
+
+
+TARC_CAVE_OnLoad::
+	goto_if_set FLAG_TARC_BREAKABLE_ROCK, TARC_CAVE_OnLoad_1
+	return
+
+TARC_CAVE_OnLoad_1:
+	setmetatile 11, 64, METATILE_MeteorFalls_Cave_Wall, TRUE
+	setmetatile 12, 64, METATILE_MeteorFalls_Cave_Wall, TRUE
+	setmetatile 13, 64, METATILE_MeteorFalls_Cave_Wall, TRUE
+	return
 
 
 TARC_CAVE_OnResume::
@@ -242,23 +254,37 @@ TARC_Cave_Mover3::
 TARC_Cave_Kickout_Guard::
 	lock
 	setflag FLAG_CAVE_GUARD1
+	compare VAR_TARC_CAVE_FIELD, 10
+	goto_if_ge TARC_Cave_Kickout_Guard_2
 	faceplayer
 	playmoncry SPECIES_ONIX, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
 	warp MAP_TARC_CAVE, 0
+TARC_Cave_Kickout_Guard_1:
 	release
 	return
+
+TARC_Cave_Kickout_Guard_2:
+	msgbox TARC_Cave_Kickout_Guard_Text_0, MSGBOX_AUTOCLOSE
+	goto TARC_Cave_Kickout_Guard_1
 
 
 TARC_Cave_Kickout_Guard2::
 	lock
 	setflag FLAG_CAVE_GUARD2
+	compare VAR_TARC_CAVE_FIELD, 20
+	goto_if_ge TARC_Cave_Kickout_Guard2_2
 	faceplayer
 	playmoncry SPECIES_ONIX, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
 	warp MAP_TARC_CAVE, 2
+TARC_Cave_Kickout_Guard2_1:
 	release
 	return
+
+TARC_Cave_Kickout_Guard2_2:
+	msgbox TARC_Cave_Kickout_Guard_Text_0, MSGBOX_AUTOCLOSE
+	goto TARC_Cave_Kickout_Guard2_1
 
 
 TARC_Cave_Move_Zubat_away::
@@ -282,23 +308,38 @@ TARC_Cave_Turn_Onix_2:
 
 TARC_CAVE_Braille1::
 	lockall
-	braillemsgbox TARC_CAVE_Braille1_Text
+	goto_if_unset FLAG_TARC_BREAKABLE_ROCK, TARC_CAVE_Braille1_2
+TARC_CAVE_Braille1_1:
 	releaseall
 	return
+
+TARC_CAVE_Braille1_2:
+	braillemsgbox TARC_CAVE_Braille1_Text
+	goto TARC_CAVE_Braille1_1
 
 
 TARC_CAVE_Braille2::
 	lockall
-	braillemsgbox TARC_CAVE_Braille2_Text
+	goto_if_unset FLAG_TARC_BREAKABLE_ROCK, TARC_CAVE_Braille2_2
+TARC_CAVE_Braille2_1:
 	releaseall
 	return
+
+TARC_CAVE_Braille2_2:
+	braillemsgbox TARC_CAVE_Braille2_Text
+	goto TARC_CAVE_Braille2_1
 
 
 TARC_CAVE_Braille3::
 	lockall
-	braillemsgbox TARC_CAVE_Braille3_Text
+	goto_if_unset FLAG_TARC_BREAKABLE_ROCK, TARC_CAVE_Braille3_2
+TARC_CAVE_Braille3_1:
 	releaseall
 	return
+
+TARC_CAVE_Braille3_2:
+	braillemsgbox TARC_CAVE_Braille3_Text
+	goto TARC_CAVE_Braille3_1
 
 
 Move_faceright:
@@ -362,3 +403,7 @@ TARC_Cave_Kickout_Text_0:
 
 TARC_Cave_Mover_Text_0:
 	.string "Screech!$"
+
+TARC_Cave_Kickout_Guard_Text_0:
+	.string "Onix is no longer interested in your\n"
+	.string "presence.$"

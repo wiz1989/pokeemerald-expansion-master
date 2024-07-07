@@ -23,7 +23,7 @@ TARC_Island_OnTransition_2:
 	goto TARC_Island_OnTransition_1
 
 TARC_Island_OnTransition_4:
-	setobjectxyperm 20, 26, 13
+	setobjectxyperm 20, 27, 13
 	return
 
 
@@ -931,7 +931,8 @@ TARC_Island_Rhyhorn_7:
 	applymovement OBJ_EVENT_ID_CAMERA, Move_CameraBack
 	waitmovement 0
 	special RemoveCameraObject
-	setobjectxyperm 20, 26, 13
+	setobjectxy 20, 27, 13
+	setobjectxyperm 20, 27, 13
 	goto TARC_Island_Rhyhorn_1
 
 TARC_Island_Rhyhorn_9:

@@ -1,6 +1,7 @@
 // ############### Mapscripts ###############
 
 mapscripts TARC_CAVE_MapScripts {
+    MAP_SCRIPT_ON_LOAD: TARC_CAVE_OnLoad
     MAP_SCRIPT_ON_TRANSITION: TARC_CAVE_OnTransition
     MAP_SCRIPT_ON_RESUME: TARC_CAVE_OnResume
     MAP_SCRIPT_ON_FRAME_TABLE [
@@ -11,6 +12,17 @@ mapscripts TARC_CAVE_MapScripts {
         VAR_CAVE_STATE, 0: TARC_CAVE_EveryFrame_FirstTime
 	]
     }
+
+script TARC_CAVE_OnLoad {
+    // remove Braille tiles if Rhyhorn puzzle is already solved
+    if(flag(FLAG_TARC_BREAKABLE_ROCK))
+    {
+        setmetatile(11, 64, METATILE_MeteorFalls_Cave_Wall, TRUE)
+        setmetatile(12, 64, METATILE_MeteorFalls_Cave_Wall, TRUE)
+        setmetatile(13, 64, METATILE_MeteorFalls_Cave_Wall, TRUE)
+        //special(DrawWholeMapView)
+    }
+}
 
 script TARC_CAVE_OnResume {
     //do nothing
@@ -240,20 +252,34 @@ script TARC_Cave_Mover3 {
 script TARC_Cave_Kickout_Guard {
     lock
     setflag(FLAG_CAVE_GUARD1)
-    faceplayer
-    playmoncry(SPECIES_ONIX, CRY_MODE_ENCOUNTER)
-    msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
-	warp(MAP_TARC_CAVE, 0)
+    if (var(VAR_TARC_CAVE_FIELD) >= 10) 
+    {
+        msgbox(format("Onix is no longer interested in your presence."), MSGBOX_AUTOCLOSE)
+    }
+    else
+    {
+        faceplayer
+        playmoncry(SPECIES_ONIX, CRY_MODE_ENCOUNTER)
+        msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
+	    warp(MAP_TARC_CAVE, 0)
+    }
 	release
 }
 
 script TARC_Cave_Kickout_Guard2 {
     lock
     setflag(FLAG_CAVE_GUARD2)
-    faceplayer
-    playmoncry(SPECIES_ONIX, CRY_MODE_ENCOUNTER)
-    msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
-	warp(MAP_TARC_CAVE, 2)
+    if (var(VAR_TARC_CAVE_FIELD) >= 20) 
+    {
+        msgbox(format("Onix is no longer interested in your presence."), MSGBOX_AUTOCLOSE)
+    }
+    else
+    {
+        faceplayer
+        playmoncry(SPECIES_ONIX, CRY_MODE_ENCOUNTER)
+        msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
+	    warp(MAP_TARC_CAVE, 2)
+    }
 	release
 }
 
@@ -274,19 +300,28 @@ script TARC_Cave_Turn_Onix {
 
 script TARC_CAVE_Braille1 {
     lockall
-	braillemsgbox(TARC_CAVE_Braille1_Text)
+    if(!flag(FLAG_TARC_BREAKABLE_ROCK))
+    {
+	    braillemsgbox(TARC_CAVE_Braille1_Text)
+    }
 	releaseall
 }
 
 script TARC_CAVE_Braille2 {
     lockall
-	braillemsgbox(TARC_CAVE_Braille2_Text)
+    if(!flag(FLAG_TARC_BREAKABLE_ROCK))
+    {
+	    braillemsgbox(TARC_CAVE_Braille2_Text)
+    }
 	releaseall
 }
 
 script TARC_CAVE_Braille3 {
     lockall
-	braillemsgbox(TARC_CAVE_Braille3_Text)
+    if(!flag(FLAG_TARC_BREAKABLE_ROCK))
+    {
+	    braillemsgbox(TARC_CAVE_Braille3_Text)
+    }
 	releaseall
 }
 

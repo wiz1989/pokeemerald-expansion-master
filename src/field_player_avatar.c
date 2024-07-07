@@ -1867,7 +1867,7 @@ static bool8 Fishing_CheckForBite(struct Task *task)
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
     tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
 
-    if (tileBehavior == MB_POND_WATER && CheckPartyPokemon(gPlayerParty, SPECIES_MANTINE) != 10)
+    if (tileBehavior == MB_POND_WATER && (CheckPartyPokemon(gPlayerParty, SPECIES_MANTINE) != 10 || FlagGet(FLAG_WON_SEISMITOAD)))
         task->tStep = FISHING_NO_BITE;
     else if (!DoesCurrentMapHaveFishingMons())
     {
@@ -2013,7 +2013,7 @@ static bool8 Fishing_NotEvenNibble(struct Task *task)
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
     tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
 
-    if (tileBehavior == MB_POND_WATER && CheckPartyPokemon(gPlayerParty, SPECIES_MANTINE) != 10)
+    if (tileBehavior == MB_POND_WATER && (CheckPartyPokemon(gPlayerParty, SPECIES_MANTINE) != 10 || FlagGet(FLAG_WON_SEISMITOAD)))
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_NoMoreFish, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
     else
         AddTextPrinterParameterized2(0, FONT_NORMAL, gText_NotEvenANibble, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
