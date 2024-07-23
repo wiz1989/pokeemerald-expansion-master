@@ -167,7 +167,7 @@
 #define OBJ_EVENT_GFX_SWABLU_DOLL                163
 #define OBJ_EVENT_GFX_GULPIN_DOLL                164
 #define OBJ_EVENT_GFX_LOTAD_DOLL                 165
-#define OBJ_EVENT_GFX_SEEDOT_DOLL                166
+#define OBJ_EVENT_GFX_CHANSEY                    166
 #define OBJ_EVENT_GFX_FISHERMAN_ROD_SOUTH        167
 #define OBJ_EVENT_GFX_CELEBI                     168
 #define OBJ_EVENT_GFX_CORPHISH                   169

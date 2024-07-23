@@ -1050,15 +1050,7 @@ static const struct SpriteFrameImage sPicTable_RayquazaStill[] = {
 };
 
 static const struct SpriteFrameImage sPicTable_Zigzagoon[] = {
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 0),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 1),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 2),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 0),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 0),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 1),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 1),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 2),
-    overworld_frame(gObjectEventPic_Zigzagoon, 2, 2, 2),
+    overworld_ascending_frames(gObjectEventPic_Zigzagoon, 4, 4),
 };
 
 static const struct SpriteFrameImage sPicTable_Pikachu[] = {
@@ -1284,4 +1276,8 @@ static const struct SpriteFrameImage sPicTable_Celebi[] = {
 
 static const struct SpriteFrameImage sPicTable_Corphish[] = {
     overworld_ascending_frames(gObjectEventPic_Corphish, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Chansey[] = {
+    overworld_ascending_frames(gObjectEventPic_Chansey, 4, 4),
 };

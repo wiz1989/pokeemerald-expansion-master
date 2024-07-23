@@ -461,6 +461,7 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_SHARK                   0x1124
 #define OBJ_EVENT_PAL_TAG_CELEBI                  0x1125
 #define OBJ_EVENT_PAL_TAG_CORPHISH                0x1126
+#define OBJ_EVENT_PAL_TAG_CHANSEY                 0x1127
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 #include "data/object_events/object_event_graphics_info_pointers.h"
@@ -488,7 +489,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_QuintyPlumpReflection, OBJ_EVENT_PAL_TAG_QUINTY_PLUMP_REFLECTION},
     {gObjectEventPal_Truck,                 OBJ_EVENT_PAL_TAG_TRUCK},
     {gObjectEventPal_Vigoroth,              OBJ_EVENT_PAL_TAG_VIGOROTH},
-    {gObjectEventPal_EnemyZigzagoon,        OBJ_EVENT_PAL_TAG_ZIGZAGOON},
+    {gObjectEventPal_Zigzagoon,             OBJ_EVENT_PAL_TAG_ZIGZAGOON},
     {gObjectEventPal_May,                   OBJ_EVENT_PAL_TAG_MAY},
     {gObjectEventPal_MayReflection,         OBJ_EVENT_PAL_TAG_MAY_REFLECTION},
     {gObjectEventPal_MovingBox,             OBJ_EVENT_PAL_TAG_MOVING_BOX},
@@ -510,6 +511,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_Shark,                 OBJ_EVENT_PAL_TAG_SHARK},
     {gObjectEventPal_Celebi,                OBJ_EVENT_PAL_TAG_CELEBI},
     {gObjectEventPal_Corphish,              OBJ_EVENT_PAL_TAG_CORPHISH},
+    {gObjectEventPal_Chansey,               OBJ_EVENT_PAL_TAG_CHANSEY},
 #ifdef BUGFIX
     {NULL,                                  OBJ_EVENT_PAL_TAG_NONE},
 #else

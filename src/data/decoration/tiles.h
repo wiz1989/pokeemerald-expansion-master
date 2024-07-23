@@ -559,7 +559,7 @@ const u16 DecorGfx_LOTAD_DOLL[] = {
 };
 
 const u16 DecorGfx_SEEDOT_DOLL[] = {
-    OBJ_EVENT_GFX_SEEDOT_DOLL
+    OBJ_EVENT_GFX_ZIGZAG_CUSHION
 };
 
 const u16 DecorGfx_PIKA_CUSHION[] = {
