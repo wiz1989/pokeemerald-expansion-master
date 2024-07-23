@@ -45,6 +45,7 @@
 #include "constants/items.h"
 #include "constants/songs.h"
 #include "constants/map_types.h"
+#include "constants/metatile_behaviors.h"
 
 static void SetUpItemUseCallback(u8);
 static void FieldCB_UseItemOnField(void);
@@ -280,6 +281,8 @@ static bool32 CanFish(void)
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
     {
         if (IsPlayerFacingSurfableFishableWater())
+            return TRUE;
+        if (tileBehavior == MB_POND_WATER)
             return TRUE;
     }
     else

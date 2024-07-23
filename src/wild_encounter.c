@@ -22,7 +22,7 @@
 #include "constants/item.h"
 #include "constants/items.h"
 #include "constants/layouts.h"
-#include "constants/metatile_labels.h"
+#include "constants/metatile_behaviors.h"
 #include "constants/weather.h"
 
 extern const u8 EventScript_SprayWoreOff[];
@@ -516,18 +516,17 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, u8 ar
 
 static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod)
 {
-    s32 metatileId;
+    u16 tileBehavior;
     s16 x, y;
     u8 wildMonIndex; //= ChooseWildMonIndex_Fishing(rod);
     u8 level;
     
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
-    x -= MAP_OFFSET;
-    y -= MAP_OFFSET;
-    metatileId = MapGridGetMetatileIdAt(x, y);
-    DebugPrintf("metatileId = %d, should: %d", metatileId, METATILE_Orange_Island_Pond);
+    tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
 
-    if (metatileId == METATILE_Orange_Island_Pond)
+    DebugPrintf("tileBehavior = %d", tileBehavior);
+
+    if (tileBehavior == MB_POND_WATER)
         wildMonIndex = 1; //REMORAID Lvl 5
     else
         wildMonIndex = 0; //SHARPEDO Lvl 69

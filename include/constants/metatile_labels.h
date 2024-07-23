@@ -372,7 +372,6 @@
 
 // gTileset_Orange
 #define METATILE_Orange_Island_MetatileRedX  0x02D
-#define METATILE_Orange_Island_Pond          0x178
 
 // gTileset_Pacifidlog
 #define METATILE_Pacifidlog_Door                               0x21A
