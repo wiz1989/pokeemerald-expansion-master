@@ -32,7 +32,7 @@
 //       AGB_PRINT is supported on respective debug units.
 
 #define LOG_HANDLER (LOG_HANDLER_MGBA_PRINT)
-#endif NDEBUG
+#endif //NDEBUG
 
 // Uncomment to fix some identified minor bugs
 #define BUGFIX
