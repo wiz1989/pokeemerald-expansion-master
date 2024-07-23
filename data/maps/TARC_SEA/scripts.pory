@@ -1,1 +1,17 @@
-mapscripts TARC_SEA_MapScripts {}
+// ############### Mapscripts ###############
+
+mapscripts TARC_SEA_MapScripts {
+    MAP_SCRIPT_ON_RESUME: TARC_Sea_OnResume
+    MAP_SCRIPT_ON_TRANSITION: TARC_Sea_OnTransition
+}
+
+script TARC_Sea_OnResume {
+	setvar(VAR_TEMP_2, 0) //var for EveryFrame
+}
+
+script TARC_Sea_OnTransition {
+    setrespawn(HEAL_LOCATION_TARC_ISLAND)
+}
+
+
+// ############### Regular EventScripts ###############

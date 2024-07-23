@@ -1,11 +1,17 @@
 TARC_Island_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, TARC_Island_OnResume
+	map_script MAP_SCRIPT_ON_TRANSITION, TARC_Island_OnTransition
 	.byte 0
 
 
 TARC_Island_OnResume::
 	setvar VAR_TEMP_2, 0
-	end
+	return
+
+
+TARC_Island_OnTransition::
+	setrespawn HEAL_LOCATION_TARC_ISLAND
+	return
 
 
 TARC_Island_Fisherman::

@@ -2,11 +2,15 @@
 
 mapscripts TARC_Island_MapScripts {
     MAP_SCRIPT_ON_RESUME: TARC_Island_OnResume
+    MAP_SCRIPT_ON_TRANSITION: TARC_Island_OnTransition
 }
 
 script TARC_Island_OnResume {
 	setvar(VAR_TEMP_2, 0) //var for EveryFrame
-	end
+}
+
+script TARC_Island_OnTransition {
+    setrespawn(HEAL_LOCATION_TARC_ISLAND)
 }
 
 
