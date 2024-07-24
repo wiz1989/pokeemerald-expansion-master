@@ -1278,7 +1278,6 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
     sprite->y += 16 + sprite->centerToCornerVecY;
     if (objectEvent->graphicsId == OBJ_EVENT_GFX_FISHERMAN){
         sprite->y += 8;
-        DebugPrintf("offset");
     }
     // LTODO removed this
     //sprite->oam.paletteNum = paletteSlot;
@@ -1585,7 +1584,6 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
         sprite->y += 16 + sprite->centerToCornerVecY;
         if (objectEvent->graphicsId == OBJ_EVENT_GFX_FISHERMAN){
             sprite->y += 8;
-            DebugPrintf("offset");
         }
         sprite->images = graphicsInfo->images;
         if (objectEvent->movementType == MOVEMENT_TYPE_PLAYER)
