@@ -249,6 +249,11 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Fisherman_R
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Celebi;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Corphish;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Chansey;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Slowking;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Seismitoad;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Onix;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Zubat;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kadabra;
 
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
@@ -412,16 +417,11 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DUSKULL_DOLL] =             &gObjectEventGraphicsInfo_DuskullDoll,
     [OBJ_EVENT_GFX_WYNAUT_DOLL] =              &gObjectEventGraphicsInfo_WynautDoll,
     [OBJ_EVENT_GFX_BALTOY_DOLL] =              &gObjectEventGraphicsInfo_BaltoyDoll,
-    [OBJ_EVENT_GFX_KECLEON_DOLL] =             &gObjectEventGraphicsInfo_KecleonDoll,
-    [OBJ_EVENT_GFX_AZURILL_DOLL] =             &gObjectEventGraphicsInfo_AzurillDoll,
-    [OBJ_EVENT_GFX_SKITTY_DOLL] =              &gObjectEventGraphicsInfo_SkittyDoll,
-    [OBJ_EVENT_GFX_SWABLU_DOLL] =              &gObjectEventGraphicsInfo_SwabluDoll,
-    [OBJ_EVENT_GFX_GULPIN_DOLL] =              &gObjectEventGraphicsInfo_GulpinDoll,
-    [OBJ_EVENT_GFX_LOTAD_DOLL] =               &gObjectEventGraphicsInfo_LotadDoll,
-    //[OBJ_EVENT_GFX_SEEDOT_DOLL] =              &gObjectEventGraphicsInfo_SeedotDoll,
-    //[OBJ_EVENT_GFX_PIKA_CUSHION] =             &gObjectEventGraphicsInfo_PikaCushion,
-    //[OBJ_EVENT_GFX_ROUND_CUSHION] =            &gObjectEventGraphicsInfo_RoundCushion,
-    //[OBJ_EVENT_GFX_KISS_CUSHION] =             &gObjectEventGraphicsInfo_KissCushion,
+    [OBJ_EVENT_GFX_ONIX] =                     &gObjectEventGraphicsInfo_Onix,
+    [OBJ_EVENT_GFX_ZUBAT] =                    &gObjectEventGraphicsInfo_Zubat,
+    [OBJ_EVENT_GFX_KADABRA] =                  &gObjectEventGraphicsInfo_Kadabra,
+    [OBJ_EVENT_GFX_SEISMITOAD] =               &gObjectEventGraphicsInfo_Seismitoad,
+    [OBJ_EVENT_GFX_SLOWKING] =                 &gObjectEventGraphicsInfo_Slowking,
     [OBJ_EVENT_GFX_CHANSEY] =                  &gObjectEventGraphicsInfo_Chansey,
     [OBJ_EVENT_GFX_FISHERMAN_ROD_SOUTH] =      &gObjectEventGraphicsInfo_Fisherman_Rod_South,
     [OBJ_EVENT_GFX_CELEBI] =                   &gObjectEventGraphicsInfo_Celebi,

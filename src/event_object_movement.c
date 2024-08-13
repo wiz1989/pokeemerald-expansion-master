@@ -461,6 +461,12 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_CELEBI                  0x1125
 #define OBJ_EVENT_PAL_TAG_CORPHISH                0x1126
 #define OBJ_EVENT_PAL_TAG_CHANSEY                 0x1127
+#define OBJ_EVENT_PAL_TAG_SLOWKING                0x1128
+#define OBJ_EVENT_PAL_TAG_SEISMITOAD              0x1129
+#define OBJ_EVENT_PAL_TAG_ONIX                    0x1130
+#define OBJ_EVENT_PAL_TAG_ZUBAT                   0x1131
+#define OBJ_EVENT_PAL_TAG_KADABRA                 0x1132
+#define OBJ_EVENT_PAL_TAG_REGIROCK                0x1133
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 #include "data/field_effects/field_effect_object_template_pointers.h"
@@ -511,6 +517,12 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_Celebi,                OBJ_EVENT_PAL_TAG_CELEBI},
     {gObjectEventPal_Corphish,              OBJ_EVENT_PAL_TAG_CORPHISH},
     {gObjectEventPal_Chansey,               OBJ_EVENT_PAL_TAG_CHANSEY},
+    {gObjectEventPal_Slowking,              OBJ_EVENT_PAL_TAG_SLOWKING},
+    {gObjectEventPal_Seismitoad,            OBJ_EVENT_PAL_TAG_SEISMITOAD},
+    {gObjectEventPal_Onix,                  OBJ_EVENT_PAL_TAG_ONIX},
+    {gObjectEventPal_Zubat,                 OBJ_EVENT_PAL_TAG_ZUBAT},
+    {gObjectEventPal_Kadabra,               OBJ_EVENT_PAL_TAG_KADABRA},
+    {gObjectEventPal_Regirock,              OBJ_EVENT_PAL_TAG_REGIROCK},
 #ifdef BUGFIX
     {NULL,                                  OBJ_EVENT_PAL_TAG_NONE},
 #else
@@ -1527,7 +1539,8 @@ static void RemoveObjectEventIfOutsideView(struct ObjectEvent *objectEvent)
     if (objectEvent->initialCoords.x >= left && objectEvent->initialCoords.x <= right
      && objectEvent->initialCoords.y >= top && objectEvent->initialCoords.y <= bottom)
         return;
-    RemoveObjectEvent(objectEvent);
+    if (!(FlagGet(FLAG_DONT_REMOVE_OFFSCREEN_OBJECT) && objectEvent->graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER))
+        RemoveObjectEvent(objectEvent); 
 }
 
 void SpawnObjectEventsOnReturnToField(s16 x, s16 y)
@@ -8783,4 +8796,7 @@ bool8 MovementAction_WalkFastDiagonal_Step1(struct ObjectEvent *objectEvent, str
     return FALSE;
 }
 
-
+u16 GetObjectEventTrainerSightFlagByObjectEventId(u8 objEventId)
+{
+    return GetObjectEventTemplateByLocalIdAndMap(gObjectEvents[objEventId].localId, gObjectEvents[objEventId].mapNum, gObjectEvents[objEventId].mapGroup)->trainerType;
+}

@@ -29,6 +29,7 @@
 #include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/trainer_types.h"
+#include "constants/metatile_labels.h"
 
 #define NUM_FORCED_MOVEMENTS 18
 #define NUM_ACRO_BIKE_COLLISIONS 5
@@ -732,6 +733,7 @@ static bool8 ShouldJumpLedge(s16 x, s16 y, u8 direction)
 
 static bool8 TryPushBoulder(s16 x, s16 y, u8 direction)
 {
+    s16 x_old, y_old;
     if (FlagGet(FLAG_SYS_USE_STRENGTH))
     {
         u8 objectEventId = GetObjectEventIdByXY(x, y);
@@ -740,11 +742,36 @@ static bool8 TryPushBoulder(s16 x, s16 y, u8 direction)
         {
             x = gObjectEvents[objectEventId].currentCoords.x;
             y = gObjectEvents[objectEventId].currentCoords.y;
+            x_old = x;
+            y_old = y;
             MoveCoords(direction, &x, &y);
             if (GetCollisionAtCoords(&gObjectEvents[objectEventId], x, y, direction) == COLLISION_NONE
              && MetatileBehavior_IsNonAnimDoor(MapGridGetMetatileBehaviorAt(x, y)) == FALSE)
             {
                 StartStrengthAnim(objectEventId, direction);
+                u16 metatileId = MapGridGetMetatileIdAt(x, y);
+                u16 metatileId_old = MapGridGetMetatileIdAt(x_old, y_old);
+
+                //increase VAR_TARC_CAVE_FIELD if boulder moved on a target field
+                if (metatileId == METATILE_MeteorFalls_MT_Target)
+                {
+                    u16 var = VarGet(VAR_TARC_CAVE_FIELD);
+                    var++;
+                    VarSet(VAR_TARC_CAVE_FIELD, var);
+                    DebugPrintf("var = %d", var);
+                    PlaySE(SE_BANG);
+                }
+
+                //decrease VAR_TARC_CAVE_FIELD if boulder moved off a target field
+                if (metatileId_old == METATILE_MeteorFalls_MT_Target)
+                {
+                    u16 var = VarGet(VAR_TARC_CAVE_FIELD);
+                    var--;
+                    VarSet(VAR_TARC_CAVE_FIELD, var);
+                    DebugPrintf("var = %d", var);
+                    //PlaySE(SE_BANG);
+                }
+
                 return TRUE;
             }
         }

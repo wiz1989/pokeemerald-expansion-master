@@ -2490,11 +2490,11 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .types = MON_TYPES(TYPE_WATER, TYPE_GROUND),
         .catchRate = 45,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 255,
+        .expYield = 1,
     #elif P_UPDATED_EXP_YIELDS >= GEN_7
-        .expYield = 229,
+        .expYield = 1,
     #else
-        .expYield = 225,
+        .expYield = 1,
     #endif
         .evYield_HP = 3,
         .genderRatio = PERCENT_FEMALE(50),

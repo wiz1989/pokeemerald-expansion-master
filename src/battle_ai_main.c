@@ -125,19 +125,20 @@ static u32 GetWildAiFlags(void)
     u32 avgLevel = GetMonData(&gEnemyParty[0], MON_DATA_LEVEL);
     u32 flags = 0;
 
+    DebugPrintf("GetWildAiFlags");
+
     if (IsDoubleBattle())
         avgLevel = (GetMonData(&gEnemyParty[0], MON_DATA_LEVEL) + GetMonData(&gEnemyParty[1], MON_DATA_LEVEL)) / 2;
 
     flags |= AI_FLAG_CHECK_BAD_MOVE;
-    if (avgLevel >= 20)
-        flags |= AI_FLAG_CHECK_VIABILITY;
-    if (avgLevel >= 60)
-        flags |= AI_FLAG_PREFER_STRONGEST_MOVE;
-    if (avgLevel >= 80)
-        flags |= AI_FLAG_HP_AWARE;
+    flags |= AI_FLAG_CHECK_VIABILITY;
+    flags |= AI_FLAG_PREFER_STRONGEST_MOVE;
+    flags |= AI_FLAG_HP_AWARE;
+    flags |= AI_FLAG_TRY_TO_FAINT;
 
+    /*
     if (B_VAR_WILD_AI_FLAGS != 0 && VarGet(B_VAR_WILD_AI_FLAGS) != 0)
-        flags |= VarGet(B_VAR_WILD_AI_FLAGS);
+        flags |= VarGet(B_VAR_WILD_AI_FLAGS);*/
 
     return flags;
 }
@@ -146,9 +147,11 @@ static u32 GetAiFlags(u16 trainerId)
 {
     u32 flags = 0;
 
-    if (!(gBattleTypeFlags & BATTLE_TYPE_HAS_AI) && !IsWildMonSmart())
-        return 0;
-    if (trainerId == 0xFFFF)
+    DebugPrintf("GetAiFlags");
+
+    /*if (!(gBattleTypeFlags & BATTLE_TYPE_HAS_AI) && !IsWildMonSmart())
+        return 0;*/
+    if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
     {
         flags = GetWildAiFlags();
     }
@@ -2402,7 +2405,10 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
               || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
               || gDisableStructs[battlerDef].embargoTimer != 0
               || PartnerMoveIsSameAsAttacker(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
+            {
+                DebugPrintf("AI - handle Embargo -10");
                 ADJUST_SCORE(-10);
+            }
             break;
         case EFFECT_POWDER:
             if (!HasMoveWithType(battlerDef, TYPE_FIRE)
@@ -4309,8 +4315,14 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         }*/
         break;
     case EFFECT_EMBARGO:
-        if (aiData->holdEffects[battlerDef] != HOLD_EFFECT_NONE)
-            ADJUST_SCORE(DECENT_EFFECT);
+        if (!(aiData->abilities[battlerDef] == ABILITY_KLUTZ
+        || gFieldStatuses & STATUS_FIELD_MAGIC_ROOM
+        || gDisableStructs[battlerDef].embargoTimer != 0
+        || PartnerMoveIsSameAsAttacker(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove)))
+        {
+            DebugPrintf("AI - handle Embargo + 6");
+            ADJUST_SCORE(BEST_EFFECT);
+        }   
         break;
     case EFFECT_POWDER:
         if (predictedMove != MOVE_NONE && !IS_MOVE_STATUS(predictedMove) && gMovesInfo[predictedMove].type == TYPE_FIRE)

@@ -1281,3 +1281,27 @@ static const struct SpriteFrameImage sPicTable_Corphish[] = {
 static const struct SpriteFrameImage sPicTable_Chansey[] = {
     overworld_ascending_frames(gObjectEventPic_Chansey, 4, 4),
 };
+
+static const struct SpriteFrameImage sPicTable_Slowking[] = {
+    overworld_ascending_frames(gObjectEventPic_Slowking, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Seismitoad[] = {
+    overworld_ascending_frames(gObjectEventPic_Seismitoad, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Onix[] = {
+    overworld_ascending_frames(gObjectEventPic_Onix, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Zubat[] = {
+    overworld_ascending_frames(gObjectEventPic_Zubat, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Kadabra[] = {
+    overworld_ascending_frames(gObjectEventPic_Kadabra, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Regirock[] = {
+    overworld_ascending_frames(gObjectEventPic_Regirock, 4, 4),
+};

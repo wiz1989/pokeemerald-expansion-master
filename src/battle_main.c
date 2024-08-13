@@ -4402,9 +4402,12 @@ static void HandleTurnActionSelectionState(void)
             gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
 
             // Do AI score computations here so we can use them in AI_TrySwitchOrUseItem
+            DebugPrintf("check if AI should calc");
+            DebugPrintf("IsWildMonSmart() = %d", IsWildMonSmart());
             if ((gBattleTypeFlags & BATTLE_TYPE_HAS_AI || IsWildMonSmart())
                     && (BattlerHasAi(battler) && !(gBattleTypeFlags & BATTLE_TYPE_PALACE)))
             {
+                DebugPrintf("do AI points calc");
                 AI_DATA->mostSuitableMonId[battler] = GetMostSuitableMonToSwitchInto(battler, FALSE);
                 gBattleStruct->aiMoveOrAction[battler] = ComputeBattleAiScores(battler);
             }
@@ -6082,7 +6085,7 @@ void SetTotemBoost(void)
 bool32 IsWildMonSmart(void)
 {
 #if B_SMART_WILD_AI_FLAG != 0
-    return (FlagGet(B_SMART_WILD_AI_FLAG));
+    return TRUE;//(FlagGet(B_SMART_WILD_AI_FLAG));
 #else
     return FALSE;
 #endif

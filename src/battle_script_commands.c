@@ -1993,6 +1993,9 @@ static void Cmd_critcalc(void)
     else
         gIsCriticalHit = RandomWeighted(RNG_CRITICAL_HIT, sCriticalHitOdds[critChance] - 1, 1);
 
+    //disable crits wiz1989
+    gIsCriticalHit = FALSE;
+
     // Counter for EVO_CRITICAL_HITS.
     partySlot = gBattlerPartyIndexes[gBattlerAttacker];
     if (gIsCriticalHit && GetBattlerSide(gBattlerAttacker) == B_SIDE_PLAYER
@@ -15026,6 +15029,12 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_TrainerBallBlock;
     }
+    else if ((gBattleMons[gBattlerTarget].species == SPECIES_REMORAID && FlagGet(FLAG_TARC_REMORAID)) || (gBattleMons[gBattlerTarget].species == SPECIES_FARFETCHD && FlagGet(FLAG_TARC_FARFETCHD)))
+    {
+        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_TRAINER_BLOCK);
+        MarkBattlerForControllerExec(gBattlerAttacker);
+        gBattlescriptCurrInstr = BattleScript_CantCatchSpeciesTwice;
+    }
     else if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
     {
         BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_3_SHAKES_SUCCESS);
@@ -15290,7 +15299,7 @@ static void Cmd_handleballthrow(void)
             MarkBattlerForControllerExec(gBattlerAttacker);
             shakes = 1; //wiz1989
 
-            if (shakes == maxShakes) // mon caught, copy of the code above
+            if (shakes == maxShakes || gLastUsedItem == ITEM_MASTER_BALL) // mon caught, copy of the code above
             {
                 if (IsCriticalCapture())
                     gBattleSpritesDataPtr->animationData->criticalCaptureSuccess = TRUE;
@@ -15373,6 +15382,11 @@ static void Cmd_trysetcaughtmondexflags(void)
 
     u32 species = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_SPECIES, NULL);
     u32 personality = GetMonData(&gEnemyParty[gBattlerPartyIndexes[GetCatchingBattler()]], MON_DATA_PERSONALITY, NULL);
+
+    if (species == SPECIES_REMORAID)
+        FlagSet(FLAG_TARC_REMORAID);
+    if (species == SPECIES_FARFETCHD)
+        FlagSet(FLAG_TARC_FARFETCHD);
 
     if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
     {

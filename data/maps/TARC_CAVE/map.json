@@ -1,0 +1,236 @@
+{
+  "id": "MAP_TARC_CAVE",
+  "name": "TARC_CAVE",
+  "layout": "LAYOUT_TARC_CAVE",
+  "music": "MUS_MT_PYRE",
+  "region_map_section": "MAPSEC_LITTLEROOT_TOWN",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_NONE",
+  "allow_cycling": false,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 13,
+      "y": 8,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 17,
+      "y": 11,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 18,
+      "y": 12,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_KADABRA",
+      "x": 15,
+      "y": 14,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_KICKOUT1",
+      "trainer_sight_or_berry_tree_id": "4",
+      "script": "TARC_Cave_Kickout",
+      "flag": "FLAG_HIDE_KICKOUT1"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ZUBAT",
+      "x": 21,
+      "y": 9,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_MOVER1",
+      "trainer_sight_or_berry_tree_id": "4",
+      "script": "TARC_Cave_Mover",
+      "flag": "FLAG_HIDE_MOVER1"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ONIX",
+      "x": 24,
+      "y": 9,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_GUARD1",
+      "trainer_sight_or_berry_tree_id": "1",
+      "script": "TARC_Cave_Kickout_Guard",
+      "flag": "FLAG_HIDE_GUARD1"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ZUBAT",
+      "x": 17,
+      "y": 38,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_MOVER2",
+      "trainer_sight_or_berry_tree_id": "5",
+      "script": "TARC_Cave_Mover",
+      "flag": "FLAG_HIDE_MOVER2"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_KADABRA",
+      "x": 23,
+      "y": 33,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_KICKOUT2",
+      "trainer_sight_or_berry_tree_id": "4",
+      "script": "TARC_Cave_Kickout2",
+      "flag": "FLAG_HIDE_KICKOUT2"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_KADABRA",
+      "x": 16,
+      "y": 34,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_KICKOUT3",
+      "trainer_sight_or_berry_tree_id": "4",
+      "script": "TARC_Cave_Kickout2",
+      "flag": "FLAG_HIDE_KICKOUT3"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 20,
+      "y": 34,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 19,
+      "y": 36,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
+      "x": 23,
+      "y": 36,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_StrengthBoulder",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ONIX",
+      "x": 5,
+      "y": 32,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_GUARD2",
+      "trainer_sight_or_berry_tree_id": "1",
+      "script": "TARC_Cave_Kickout_Guard2",
+      "flag": "FLAG_HIDE_GUARD2"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_REGIROCK",
+      "x": 8,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TARC_CAVE_Regirock",
+      "flag": "0"
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 5,
+      "y": 7,
+      "elevation": 0,
+      "dest_map": "MAP_TARC_ISLAND",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 19,
+      "y": 16,
+      "elevation": 0,
+      "dest_map": "MAP_TARC_CAVE",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 19,
+      "y": 28,
+      "elevation": 0,
+      "dest_map": "MAP_TARC_CAVE",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 5,
+      "y": 44,
+      "elevation": 0,
+      "dest_map": "MAP_TARC_ISLAND",
+      "dest_warp_id": "1"
+    }
+  ],
+  "coord_events": [
+
+  ],
+  "bg_events": [
+
+  ]
+}

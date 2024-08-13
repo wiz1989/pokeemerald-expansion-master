@@ -5,6 +5,12 @@
 #include "util.h"
 #include "constants/event_objects.h"
 #include "constants/map_scripts.h"
+#include "constants/flags.h"
+#include "pokedex.h"
+#include "trainer_see.h"
+#include "constants/maps.h"
+#include "event_object_movement.h"
+#include "field_player_avatar.h"
 
 #define RAM_SCRIPT_MAGIC 51
 
@@ -500,4 +506,54 @@ void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize)
         scriptSize = sizeof(gSaveBlock1Ptr->ramScript.data.script);
     InitRamScript(script, scriptSize, MAP_GROUP(UNDEFINED), MAP_NUM(UNDEFINED), NO_OBJECT);
 #endif //FREE_MYSTERY_EVENT_BUFFERS
+}
+
+void SetAllDexFlagsSeen(void)
+{
+    u16 i;
+    for (i = 0; i < NATIONAL_DEX_COUNT; i++)
+    {
+        //GetSetPokedexFlag(i + 1, FLAG_SET_CAUGHT);
+        GetSetPokedexFlag(i + 1, FLAG_SET_SEEN);
+    }
+}
+
+// trainer sight scripts
+bool8 LoadTrainerObjectScript(void)
+{
+    sGlobalScriptContext.scriptPtr = gApproachingTrainers[gNoOfApproachingTrainers - 1].trainerScriptPtr;
+    return TRUE;
+}
+
+// target field scripts
+bool8 isBoulderOnTarget_South(void)
+{
+    s16 x, y;
+    u8 direction = GetPlayerFacingDirection();
+    u8 objectEventId;
+    struct ObjectEvent *objectEvent;
+
+    if(direction == DIR_SOUTH)
+    {
+        PlayerGetDestCoords(&x, &y);
+        DebugPrintf("Player Coords = %d, %d", x, y);
+        MoveCoords(direction, &x, &y);
+        MoveCoords(direction, &x, &y);
+        DebugPrintf("Object Coords = %d, %d", x, y);
+
+        objectEventId = GetObjectEventIdByXY(x, y);
+        DebugPrintf("objectEventId = %d", objectEventId);
+
+        if (objectEventId != OBJECT_EVENTS_COUNT)
+        {
+            objectEvent = &gObjectEvents[objectEventId];
+            if (objectEvent->graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER)
+            {
+                DebugPrintf("It's a boulder!");
+                return TRUE;
+            }
+        }
+    }
+
+    return FALSE;
 }

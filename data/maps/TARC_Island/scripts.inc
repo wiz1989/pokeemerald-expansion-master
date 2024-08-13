@@ -11,6 +11,7 @@ TARC_Island_OnResume::
 
 TARC_Island_OnTransition::
 	setrespawn HEAL_LOCATION_TARC_ISLAND
+	clearflag FLAG_DONT_REMOVE_OFFSCREEN_OBJECT
 	return
 
 
@@ -30,6 +31,215 @@ TARC_Island_Fisherman_2:
 	goto TARC_Island_Fisherman_1
 
 
+TARC_Island_Chansey::
+	lock
+	faceplayer
+	msgbox TARC_Island_Chansey_Text_0, MSGBOX_AUTOCLOSE
+	call Common_EventScript_OutOfCenterPartyHeal
+	incrementgamestat GAME_STAT_RESTED_AT_HOME
+	msgbox TARC_Island_Chansey_Text_1, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Island_Corphish::
+	lock
+	faceplayer
+	msgbox TARC_Island_Corphish_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Island_ItemBall_Nugget::
+	lock
+	removeobject 12, MAP_TARC_ISLAND
+	finditem ITEM_BIG_NUGGET, 1
+	release
+	return
+
+
+TARC_Island_ItemBall_Balls::
+	lock
+	removeobject 12, MAP_TARC_ISLAND
+	finditem ITEM_POKE_BALL, 1
+	release
+	return
+
+
+TARC_Island_ItemBall_Dive::
+	lock
+	removeobject 2, MAP_TARC_ISLAND
+	finditem ITEM_HM_DIVE
+	release
+	return
+
+
+TARC_Island_ItemBall_Rock_Climb::
+	lock
+	removeobject 3, MAP_TARC_ISLAND
+	finditem ITEM_TM100
+	release
+	return
+
+
+TARC_Island_Celebi::
+	lockall
+	faceplayer
+	goto_if_unset FLAG_TARC_TALKED_TO_CELEBI, TARC_Island_Celebi_2
+TARC_Island_Celebi_1:
+	msgbox TARC_Island_Celebi_Text_1, MSGBOX_AUTOCLOSE
+	special ChooseMonForMoveRelearner
+	waitstate
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, EndOfRelearnerScript
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, EndOfRelearnerScript
+	goto_if_eq VAR_0x8005, 0, EndOfRelearnerScript
+	special TeachMoveRelearnerMove
+	waitstate
+	releaseall
+	return
+
+TARC_Island_Celebi_2:
+	setflag FLAG_TARC_TALKED_TO_CELEBI
+	msgbox TARC_Island_Celebi_Text_0, MSGBOX_AUTOCLOSE
+	goto TARC_Island_Celebi_1
+
+
+EndOfRelearnerScript::
+	releaseall
+	return
+
+
+TARC_Island_Zigzagoon::
+	lockall
+	faceplayer
+	msgbox TARC_Island_Zigzagoon_Text_0, MSGBOX_AUTOCLOSE
+	releaseall
+	return
+
+
+TARC_Island_Game_Master::
+	lockall
+	faceplayer
+	msgbox TARC_Island_Game_Master_Text_0, MSGBOX_AUTOCLOSE
+	releaseall
+	return
+
+
+TARC_Island_Maxie::
+	lock
+	faceplayer
+	msgbox TARC_Island_Maxie_Text_0, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Maxie_Text_1, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Island_sign_Game_Start::
+	lockall
+	msgbox TARC_Island_sign_Game_Start_Text_0, MSGBOX_AUTOCLOSE
+	releaseall
+	return
+
+
+TARC_Island_sign_Rock_Climb::
+	lockall
+	msgbox TARC_Island_sign_Rock_Climb_Text_0, MSGBOX_AUTOCLOSE
+	releaseall
+	return
+
+
+TARC_Island_Battle_Seismitoad::
+	lock
+	faceplayer
+	goto_if_unset FLAG_WON_SEISMITOAD, TARC_Island_Battle_Seismitoad_2
+	msgbox TARC_Island_Battle_Seismitoad_Text_1, MSGBOX_AUTOCLOSE
+TARC_Island_Battle_Seismitoad_1:
+	release
+	return
+
+TARC_Island_Battle_Seismitoad_2:
+	setwildbattle SPECIES_SEISMITOAD, 15
+	waitse
+	playmoncry SPECIES_SEISMITOAD, CRY_MODE_ENCOUNTER
+	delay 20
+	waitmoncry
+	msgbox TARC_Island_Battle_Seismitoad_Text_0, MSGBOX_AUTOCLOSE
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	dowildbattle
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TARC_Island_Battle_Seismitoad_Won
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, TARC_Island_Battle_Seismitoad_Ran
+	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, TARC_Island_Battle_Seismitoad_Lost
+	goto TARC_Island_Battle_Seismitoad_1
+
+
+TARC_Island_Battle_Seismitoad_Won::
+	setflag FLAG_WON_SEISMITOAD
+	removeobject 18
+	msgbox TARC_Island_Battle_Seismitoad_Won_Text_0, MSGBOX_AUTOCLOSE
+	setflag FLAG_HIDE_SEISMITOAD
+	release
+	return
+
+
+TARC_Island_Battle_Seismitoad_Ran::
+	clearflag FLAG_BATTLE_SEISMITOAD
+	release
+	return
+
+
+TARC_Island_Battle_Seismitoad_Lost::
+	clearflag FLAG_BATTLE_SEISMITOAD
+	release
+	return
+
+
+TARC_Island_Battle_Slowking::
+	lock
+	faceplayer
+	goto_if_unset FLAG_WON_SLOWKING, TARC_Island_Battle_Slowking_2
+	msgbox TARC_Island_Battle_Slowking_Text_1, MSGBOX_AUTOCLOSE
+TARC_Island_Battle_Slowking_1:
+	release
+	return
+
+TARC_Island_Battle_Slowking_2:
+	setwildbattle SPECIES_SLOWKING, 12
+	waitse
+	playmoncry SPECIES_SLOWKING, CRY_MODE_ENCOUNTER
+	delay 20
+	waitmoncry
+	msgbox TARC_Island_Battle_Slowking_Text_0, MSGBOX_AUTOCLOSE
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	dowildbattle
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TARC_Island_Battle_Slowking_Won
+	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, TARC_Island_Battle_Slowking_Ran
+	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, TARC_Island_Battle_Slowking_Lost
+	goto TARC_Island_Battle_Slowking_1
+
+
+TARC_Island_Battle_Slowking_Won::
+	setflag FLAG_WON_SLOWKING
+	release
+	return
+
+
+TARC_Island_Battle_Slowking_Ran::
+	clearflag FLAG_BATTLE_SLOWKING
+	release
+	return
+
+
+TARC_Island_Battle_Slowking_Lost::
+	clearflag FLAG_BATTLE_SLOWKING
+	release
+	return
+
+
 TARC_Island_Fisherman_Text_0:
 	.string "I am stranded here and try to catch\n"
 	.string "some fish to survive.\p"
@@ -40,3 +250,69 @@ TARC_Island_Fisherman_Text_0:
 TARC_Island_Fisherman_Text_1:
 	.string "And please think of me if you are\n"
 	.string "getting luckier than I am.$"
+
+TARC_Island_Chansey_Text_0:
+	.string "Chansey wants to take care of your\n"
+	.string "Pokémon.$"
+
+TARC_Island_Chansey_Text_1:
+	.string "Your party has been healed.$"
+
+TARC_Island_Corphish_Text_0:
+	.string "Corph...$"
+
+TARC_Island_Celebi_Text_0:
+	.string "Dear traveller,\n"
+	.string "I am the guardian of this island.\p"
+	.string "I can travel through time to grant you\n"
+	.string "access to moves your Pokémon might\l"
+	.string "have forgotten a long time ago.$"
+
+TARC_Island_Celebi_Text_1:
+	.string "Please choose a Pokémon to teach a\n"
+	.string "move to.$"
+
+TARC_Island_Zigzagoon_Text_0:
+	.string "Ziggie!!!$"
+
+TARC_Island_Game_Master_Text_0:
+	.string "I am the Game Master.$"
+
+TARC_Island_Maxie_Text_0:
+	.string "Hello traveller!\l"
+	.string "Welcome to my island!$"
+
+TARC_Island_Maxie_Text_1:
+	.string "It's been a long time since I have seen\n"
+	.string "a soul on this plateau.\p"
+	.string "A famous trainer named Archie was the\n"
+	.string "last one in ages.\p"
+	.string "He visited this place riding a Kyogre\n"
+	.string "and came here to practice his sword\l"
+	.string "fighting skills.\p"
+	.string "He said he was going to become as\n"
+	.string "skillful as his big idol Link.\p"
+	.string "What an extraordinary person he was...$"
+
+TARC_Island_sign_Game_Start_Text_0:
+	.string "Info sign for game start.$"
+
+TARC_Island_sign_Rock_Climb_Text_0:
+	.string "The rock below looks climbable. {DOWN_ARROW}$"
+
+TARC_Island_Battle_Seismitoad_Text_0:
+	.string "RIBBIT!$"
+
+TARC_Island_Battle_Seismitoad_Text_1:
+	.string "Seismitoad is watching the pond.$"
+
+TARC_Island_Battle_Seismitoad_Won_Text_0:
+	.string "Seismitoad vanished in the depths of\n"
+	.string "the pond.$"
+
+TARC_Island_Battle_Slowking_Text_0:
+	.string "Slowking looks furious being disturbed\n"
+	.string "from sleeping!$"
+
+TARC_Island_Battle_Slowking_Text_1:
+	.string "...snore...$"

@@ -3,6 +3,9 @@
 mapscripts TARC_SEA_MapScripts {
     MAP_SCRIPT_ON_RESUME: TARC_Sea_OnResume
     MAP_SCRIPT_ON_TRANSITION: TARC_Sea_OnTransition
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_LITTLEROOT_TOWN_STATE, 1: TARC_Sea_EveryFrame_GameStart
+	]
 }
 
 script TARC_Sea_OnResume {
@@ -10,10 +13,12 @@ script TARC_Sea_OnResume {
 
     //init player
 	if(var(VAR_LITTLEROOT_TOWN_STATE) == 0) {
-		givemon(SPECIES_MANTYKE, 5)
-		setflag(FLAG_SYS_POKEMON_GET)
-		//setorcopyvar(VAR_LITTLEROOT_TOWN_STATE, 1)
-		//special(CreateMail)
+        setorcopyvar(VAR_LITTLEROOT_TOWN_STATE, 1)
+        //Pokemon
+		givemon(SPECIES_MANTYKE, 10, ITEM_NONE, 0, NATURE_LONELY, 0,0,0,0,0,0,0,0,0,31,0,0,0,0, MOVE_TACKLE, MOVE_WING_ATTACK, MOVE_WATER_GUN, MOVE_SURF)
+        givemon(SPECIES_SABLEYE, 10, ITEM_SILK_SCARF, 0, NATURE_BRAVE, 2,0,0,0,0,0,0,0,0,0,0,0,0,20, MOVE_SCRATCH, MOVE_FLING, MOVE_PROTECT, MOVE_DISABLE)
+        setflag(FLAG_SYS_POKEMON_GET)
+        //Running Shoes
 		setflag(FLAG_RECEIVED_RUNNING_SHOES)
 		setflag(FLAG_SYS_B_DASH)
 		//set all badges so Pokemon will always obey
@@ -25,10 +30,11 @@ script TARC_Sea_OnResume {
 		setflag(FLAG_BADGE06_GET)
 		setflag(FLAG_BADGE07_GET)
 		setflag(FLAG_BADGE08_GET)
+        //enable Pokedex
 		setflag(FLAG_SYS_POKEDEX_GET)
 		setflag(FLAG_SYS_NATIONAL_DEX)
 		special(EnableNationalPokedex)
-        giveitem(ITEM_POKE_BALL, 2)
+        callnative(SetAllDexFlagsSeen)
 	}
 }
 
@@ -36,5 +42,55 @@ script TARC_Sea_OnTransition {
     setrespawn(HEAL_LOCATION_TARC_ISLAND)
 }
 
+script TARC_Sea_EveryFrame_GameStart {
+    //new game movement
+    lock
+    setorcopyvar(VAR_LITTLEROOT_TOWN_STATE, 2)
+    applymovement(OBJ_EVENT_ID_PLAYER, Move_driftintocurrents)
+    waitmovement(0)
+    release
+}
+
 
 // ############### Regular EventScripts ###############
+
+
+
+
+// ############### movements ###############
+
+movement Move_exclmark {
+	emote_exclamation_mark
+}
+
+movement Move_driftintocurrents {
+    face_left
+    walk_left*5
+    face_up
+    walk_up*5
+    face_left
+    walk_left*2
+    face_up
+    walk_up*4
+    face_left
+    walk_left*3
+    face_up
+    walk_up*6
+}
+
+movement Move_AfterRelease {
+    walk_up
+}
+
+movement Move_AfterCurrent {
+    emote_exclamation_mark
+    delay_4
+    face_right
+    delay_1
+    face_left
+    delay_1
+    face_right
+    delay_1
+    face_left
+    delay_1
+}

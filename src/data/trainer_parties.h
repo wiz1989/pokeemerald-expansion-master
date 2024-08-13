@@ -6028,15 +6028,13 @@ static const struct TrainerMon sParty_AmyAndLiv6[] = {
 
 static const struct TrainerMon sParty_Huey[] = {
     {
-    .iv = TRAINER_PARTY_IVS(1, 1, 1, 1, 1, 1),
-    .lvl = 12,
-    .species = SPECIES_WINGULL,
+    .iv = TRAINER_PARTY_IVS(0, 0, 0, 31, 0, 0),
+    .nature = NATURE_HASTY,
+    .lvl = 15,
+    .species = SPECIES_SLOWKING,
+    //.heldItem = ITEM_MYSTIC_WATER,
+    .moves = {MOVE_EMBARGO, MOVE_SURF, MOVE_POWER_GEM, MOVE_NONE}
     },
-    {
-    .iv = TRAINER_PARTY_IVS(1, 1, 1, 1, 1, 1),
-    .lvl = 12,
-    .species = SPECIES_MACHOP,
-    }
 };
 
 static const struct TrainerMon sParty_Edmond[] = {

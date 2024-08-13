@@ -500,6 +500,7 @@ extern const u8 BattleScript_TheSeaOfFireDisappeared[];
 extern const u8 BattleScript_TheSwampDisappeared[];
 extern const u8 BattleScript_EffectPsychicNoise[];
 extern const u8 BattleScript_AromaVeilProtectsRet[];
+extern const u8 BattleScript_CantCatchSpeciesTwice[];
 
 // zmoves
 extern const u8 BattleScript_ZMoveActivateDamaging[];

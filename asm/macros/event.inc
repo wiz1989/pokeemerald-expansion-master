@@ -2021,6 +2021,22 @@
 	setvar VAR_0x8004, \species
 	setvar VAR_0x8005, \level
 	setvar VAR_0x8006, \item
+	setvar VAR_0x8007, 0
+	setvar VAR_0x8008, 0
+	setvar VAR_0x8009, 0
+	setvar VAR_0x800A, 0
+	special CreateEnemyEventMon
+	.endm
+
+	@ Creates a Pokémon with the modernFatefulEncounter bit set for an encounter
+	.macro seteventmon2 species:req, level:req, item=ITEM_NONE, move1=MOVE_NONE, move2=MOVE_NONE, move3=MOVE_NONE, move4=MOVE_NONE
+	setvar VAR_0x8004, \species
+	setvar VAR_0x8005, \level
+	setvar VAR_0x8006, \item
+	setvar VAR_0x8007, \move1
+	setvar VAR_0x8008, \move2
+	setvar VAR_0x8009, \move3
+	setvar VAR_0x800A, \move4
 	special CreateEnemyEventMon
 	.endm
 

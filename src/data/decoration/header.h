@@ -1137,7 +1137,7 @@ const struct Decoration gDecorations[] =
         .category = DECORCAT_DOLL,
         .price = 3000,
         .description = DecorDesc_KECLEON_DOLL,
-        .tiles = DecorGfx_KECLEON_DOLL,
+        .tiles = DecorGfx_SWABLU_DOLL,
     },
 
     [DECOR_AZURILL_DOLL] =
@@ -1149,7 +1149,7 @@ const struct Decoration gDecorations[] =
         .category = DECORCAT_DOLL,
         .price = 3000,
         .description = DecorDesc_AZURILL_DOLL,
-        .tiles = DecorGfx_AZURILL_DOLL,
+        .tiles = DecorGfx_SWABLU_DOLL,
     },
 
     [DECOR_SKITTY_DOLL] =
@@ -1161,7 +1161,7 @@ const struct Decoration gDecorations[] =
         .category = DECORCAT_DOLL,
         .price = 3000,
         .description = DecorDesc_SKITTY_DOLL,
-        .tiles = DecorGfx_SKITTY_DOLL,
+        .tiles = DecorGfx_SWABLU_DOLL,
     },
 
     [DECOR_SWABLU_DOLL] =
@@ -1185,7 +1185,7 @@ const struct Decoration gDecorations[] =
         .category = DECORCAT_DOLL,
         .price = 3000,
         .description = DecorDesc_GULPIN_DOLL,
-        .tiles = DecorGfx_GULPIN_DOLL,
+        .tiles = DecorGfx_SWABLU_DOLL,
     },
 
     [DECOR_LOTAD_DOLL] =
@@ -1197,7 +1197,7 @@ const struct Decoration gDecorations[] =
         .category = DECORCAT_DOLL,
         .price = 3000,
         .description = DecorDesc_LOTAD_DOLL,
-        .tiles = DecorGfx_LOTAD_DOLL,
+        .tiles = DecorGfx_SWABLU_DOLL,
     },
 
     [DECOR_SEEDOT_DOLL] =

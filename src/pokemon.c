@@ -836,11 +836,34 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u8 availableIVs[NUM_STATS];
     u8 selectedIvs[LEGENDARY_PERFECT_IV_COUNT];
     bool32 isShiny;
+    u16 moves[4]; //added var
+    u8 nature; //added var
+    u32 otId; //added var
+
+    //always set default IVs to zero
+    fixedIV = 0;
 
     ZeroBoxMonData(boxMon);
 
+    //force specific natures for battles
     if (hasFixedPersonality)
         personality = fixedPersonality;
+    else if (species == SPECIES_SLOWKING) {
+        DebugPrintf("set nature to Hasty");
+        nature = NATURE_HASTY;
+        do {
+            personality = Random32();
+        }
+        while (GetNatureFromPersonality(personality) != nature);
+    }
+    else if (species == SPECIES_SEISMITOAD) {
+        DebugPrintf("set nature to Gentle");
+        nature = NATURE_GENTLE;
+        do {
+            personality = Random32();
+        }
+        while (GetNatureFromPersonality(personality) != nature);
+    }
     else
         personality = Random32();
 
@@ -912,6 +935,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
 
     if (fixedIV < USE_RANDOM_IVS)
     {
+        DebugPrintf("Set zero IVs as default");
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &fixedIV);
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &fixedIV);
         SetBoxMonData(boxMon, MON_DATA_DEF_IV, &fixedIV);
@@ -1004,6 +1028,51 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     }
 
     GiveBoxMonInitialMoveset(boxMon);
+
+    //create specific pokemon species setups
+    if (species == SPECIES_SLOWKING) {
+        value = ITEM_MAGNET;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+
+        value = 2; //hidden ability = Regenerator
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
+
+        value = 31;
+        SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &value);
+
+        moves[0] = MOVE_EMBARGO;
+        moves[1] = MOVE_SURF;
+        moves[2] = MOVE_POWER_GEM;
+        moves[3] = MOVE_THUNDER_PUNCH;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+
+    if (species == SPECIES_SEISMITOAD) {
+        value = ITEM_SOFT_SAND;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+
+        value = 2; //hidden ability = Water Absorb
+        SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
+
+        //value = 31;
+        //SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &value);
+
+        moves[0] = MOVE_EARTHQUAKE;
+        moves[1] = MOVE_SURF;
+        moves[2] = MOVE_DRAIN_PUNCH;
+        moves[3] = MOVE_POISON_JAB;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
 }
 
 void CreateMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 fixedIV, u8 nature)
@@ -1434,6 +1503,10 @@ void CreateEnemyEventMon(void)
     s32 species = gSpecialVar_0x8004;
     s32 level = gSpecialVar_0x8005;
     s32 itemId = gSpecialVar_0x8006;
+    s32 move1 = gSpecialVar_0x8007;
+    s32 move2 = gSpecialVar_0x8008;
+    s32 move3 = gSpecialVar_0x8009;
+    s32 move4 = gSpecialVar_0x800A;
 
     ZeroEnemyPartyMons();
     CreateEventMon(&gEnemyParty[0], species, level, USE_RANDOM_IVS, FALSE, 0, OT_ID_PLAYER_ID, 0);
@@ -1443,6 +1516,14 @@ void CreateEnemyEventMon(void)
         heldItem[0] = itemId;
         heldItem[1] = itemId >> 8;
         SetMonData(&gEnemyParty[0], MON_DATA_HELD_ITEM, heldItem);
+        if (move1 > 0)
+            SetMonData(&gEnemyParty[0], MON_DATA_MOVE1, &move1);
+        if (move2 > 0)
+            SetMonData(&gEnemyParty[0], MON_DATA_MOVE2, &move2);
+        if (move3 > 0)
+            SetMonData(&gEnemyParty[0], MON_DATA_MOVE3, &move3);
+        if (move4 > 0)
+            SetMonData(&gEnemyParty[0], MON_DATA_MOVE4, &move4);
     }
 }
 

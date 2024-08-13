@@ -161,12 +161,12 @@
 #define OBJ_EVENT_GFX_DUSKULL_DOLL               157
 #define OBJ_EVENT_GFX_WYNAUT_DOLL                158
 #define OBJ_EVENT_GFX_BALTOY_DOLL                159
-#define OBJ_EVENT_GFX_KECLEON_DOLL               160
-#define OBJ_EVENT_GFX_AZURILL_DOLL               161
-#define OBJ_EVENT_GFX_SKITTY_DOLL                162
+#define OBJ_EVENT_GFX_ONIX                       160
+#define OBJ_EVENT_GFX_ZUBAT                      161
+#define OBJ_EVENT_GFX_KADABRA                    162
 #define OBJ_EVENT_GFX_SWABLU_DOLL                163
-#define OBJ_EVENT_GFX_GULPIN_DOLL                164
-#define OBJ_EVENT_GFX_LOTAD_DOLL                 165
+#define OBJ_EVENT_GFX_SEISMITOAD                 164
+#define OBJ_EVENT_GFX_SLOWKING                   165
 #define OBJ_EVENT_GFX_CHANSEY                    166
 #define OBJ_EVENT_GFX_FISHERMAN_ROD_SOUTH        167
 #define OBJ_EVENT_GFX_CELEBI                     168
