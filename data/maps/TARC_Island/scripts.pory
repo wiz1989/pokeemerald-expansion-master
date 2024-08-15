@@ -24,6 +24,61 @@ script TARC_Island_Fisherman {
     if(flag(FLAG_RECEIVED_OLD_ROD))
     {
     	//check if Remoraid was caught
+        if (flag(FLAG_TARC_REMORAID))
+        {
+            //check if Seismitoad was already defeated
+            if (flag(FLAG_WON_SEISMITOAD))
+            {
+                //trade Remoraid
+                if (flag(FLAG_REMORAID_TRADE_COMPLETED))
+                {
+                    msgbox(FortreeCity_House1_Text_MonYouTakeCare, MSGBOX_AUTOCLOSE)
+                }
+                else
+                {
+                    msgbox(format("Ohh....what a tasty catch!"), MSGBOX_AUTOCLOSE)
+                    setvar(VAR_0x8008, INGAME_TRADE_REMORAID)
+                    copyvar(VAR_0x8004, VAR_0x8008)
+                    specialvar(VAR_RESULT, GetInGameTradeSpeciesInfo)
+                    copyvar(VAR_0x8009, VAR_RESULT)
+                    msgbox(format("Fantastic!\pI am afraid to ask, but do you mind sharing it for dinner?\p...\pWell... I mean...\p...trading it for my Porygon?"), MSGBOX_YESNO)
+                    if (var(VAR_RESULT) == NO)
+                    {
+                        goto(FortreeCity_House1_EventScript_DeclineTrade)
+                    }
+                    special(ChoosePartyMon)
+                    waitstate
+                    copyvar(VAR_0x800A, VAR_0x8004)
+                    if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN)
+                    {
+                        goto(FortreeCity_House1_EventScript_DeclineTrade)
+                    }
+                    copyvar(VAR_0x8005, VAR_0x800A)
+                    specialvar(VAR_RESULT, GetTradeSpecies)
+                    copyvar(VAR_0x800B, VAR_RESULT)
+                    if (var(VAR_RESULT) != VAR_0x8009)
+                    {
+                        goto(FortreeCity_House1_EventScript_NotRequestedMon)
+                    }
+                    copyvar(VAR_0x8004, VAR_0x8008)
+                    copyvar(VAR_0x8005, VAR_0x800A)
+                    special(CreateInGameTradePokemon)
+                    special(DoInGameTradeScene)
+                    waitstate
+                    bufferspeciesname(STR_VAR_1, VAR_0x8009)
+                    msgbox(FortreeCity_House1_Text_MonYouTakeCare, MSGBOX_AUTOCLOSE)
+                    setflag(FLAG_REMORAID_TRADE_COMPLETED)
+                }
+            }
+            else
+            {
+                msgbox(format("How sad you still need it for now..."), MSGBOX_AUTOCLOSE)
+            }
+        }
+        else
+        {
+            msgbox(format("Please think of me if you are getting luckier than I am."), MSGBOX_AUTOCLOSE)
+        }
     }
     else
     {
@@ -157,34 +212,25 @@ script TARC_Island_Battle_Seismitoad {
         dowildbattle
         clearflag(FLAG_SYS_CTRL_OBJ_DELETE)
         specialvar(VAR_RESULT, GetBattleOutcome)
-        goto_if_eq(VAR_RESULT, B_OUTCOME_WON, TARC_Island_Battle_Seismitoad_Won)
-        goto_if_eq(VAR_RESULT, B_OUTCOME_RAN, TARC_Island_Battle_Seismitoad_Ran)
-        goto_if_eq(VAR_RESULT, B_OUTCOME_LOST, TARC_Island_Battle_Seismitoad_Lost)
+        switch (var(VAR_RESULT))
+        {
+            case B_OUTCOME_WON:
+                setflag(FLAG_WON_SEISMITOAD)
+                removeobject(18)
+                msgbox(format("Seismitoad vanished in the depths of the pond."), MSGBOX_AUTOCLOSE)
+                setflag(FLAG_HIDE_SEISMITOAD)
+            case B_OUTCOME_RAN:
+                clearflag(FLAG_BATTLE_SEISMITOAD)
+                goto(EventScript_FieldWhiteOut)
+            default:
+                clearflag(FLAG_BATTLE_SEISMITOAD)
+        }
     }
     else
     {
         msgbox(format("Seismitoad is watching the pond."), MSGBOX_AUTOCLOSE)
     }
 	release
-}
-
-script TARC_Island_Battle_Seismitoad_Won {
-    setflag(FLAG_WON_SEISMITOAD)
-    removeobject(18)
-    msgbox(format("Seismitoad vanished in the depths of the pond."), MSGBOX_AUTOCLOSE)
-    setflag(FLAG_HIDE_SEISMITOAD)
-    release
-}
-
-script TARC_Island_Battle_Seismitoad_Ran {
-    //faint
-    clearflag(FLAG_BATTLE_SEISMITOAD)
-    release
-}
-
-script TARC_Island_Battle_Seismitoad_Lost {
-    clearflag(FLAG_BATTLE_SEISMITOAD)
-    release
 }
 
 script TARC_Island_Battle_Slowking {
@@ -202,29 +248,20 @@ script TARC_Island_Battle_Slowking {
         dowildbattle
         clearflag(FLAG_SYS_CTRL_OBJ_DELETE)
         specialvar(VAR_RESULT, GetBattleOutcome)
-        goto_if_eq(VAR_RESULT, B_OUTCOME_WON, TARC_Island_Battle_Slowking_Won)
-        goto_if_eq(VAR_RESULT, B_OUTCOME_RAN, TARC_Island_Battle_Slowking_Ran)
-        goto_if_eq(VAR_RESULT, B_OUTCOME_LOST, TARC_Island_Battle_Slowking_Lost)
+        switch (var(VAR_RESULT))
+        {
+            case B_OUTCOME_WON:
+                setflag(FLAG_WON_SLOWKING)
+            case B_OUTCOME_RAN:
+                clearflag(FLAG_BATTLE_SLOWKING)
+                goto(EventScript_FieldWhiteOut)
+            default:
+                clearflag(FLAG_BATTLE_SLOWKING)
+        }
     }
     else
     {
         msgbox(format("...snore..."), MSGBOX_AUTOCLOSE)
     }
 	release
-}
-
-script TARC_Island_Battle_Slowking_Won {
-    setflag(FLAG_WON_SLOWKING)
-    release
-}
-
-script TARC_Island_Battle_Slowking_Ran {
-    //faint ToDo
-    clearflag(FLAG_BATTLE_SLOWKING)
-    release
-}
-
-script TARC_Island_Battle_Slowking_Lost {
-    clearflag(FLAG_BATTLE_SLOWKING)
-    release
 }

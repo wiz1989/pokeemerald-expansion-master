@@ -2948,10 +2948,10 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .height = 13,
         .weight = 353,
         .description = COMPOUND_STRING(
-            "By expelling water from the nozzle in the\n"
-            "back of its enormous claw, it can move\n"
-            "at a speed of 60 knots. They launch\n"
-            "cannonballs made of water."),
+            "HINT:\n"
+            "You need to approach the Rhydon from\n"
+            "the following directions: {DOWN_ARROW} {LEFT_ARROW} {DOWN_ARROW} {RIGHT_ARROW} {UP_ARROW}\n"
+            "Gotta keep the order right!"),
         .pokemonScale = 272,
         .pokemonOffset = 3,
         .trainerScale = 256,

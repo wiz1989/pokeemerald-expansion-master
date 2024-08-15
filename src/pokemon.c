@@ -6654,3 +6654,22 @@ const u8 *GetMoveName(u16 moveId)
 {
     return gMovesInfo[moveId].name;
 }
+
+u8 CheckPartyPokemon(struct Pokemon *party, u16 species)
+{
+    u8 retVal;
+    u32 partyCount;
+    retVal = 10; //10 = default false value
+    partyCount = 0;
+
+    while (partyCount < PARTY_SIZE && GetMonData(&party[partyCount], MON_DATA_SPECIES, NULL) != SPECIES_NONE)
+    {
+        if (GetMonData(&party[partyCount], MON_DATA_SPECIES, NULL) == species) {
+            retVal = partyCount;
+            partyCount = PARTY_SIZE; //species found in party
+        }
+        partyCount++;
+    }
+
+    return retVal;
+}

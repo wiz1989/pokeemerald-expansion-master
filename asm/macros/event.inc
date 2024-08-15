@@ -2188,3 +2188,9 @@
 	.2byte \status1
 	.2byte \slot
 	.endm
+
+	@ get the slot of a certain species in the player's party
+	.macro getpartymonslot species: req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, GetMonPartySlot
+	.endm

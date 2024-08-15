@@ -964,13 +964,15 @@ static bool8 PrintAllOnCardBack(void)
     case 3:
         PrintTradesStringOnCard();
         break;
-    case 4:
+    case 4: //Print HINT on card's back
+        //PrintStatOnBackOfCard(4, gText_TrainerCardHint1, 0, sTrainerCardStatColors);
+        //PrintStatOnBackOfCard(5, gText_TrainerCardHint2, 0, sTrainerCardStatColors);
         PrintBerryCrushStringOnCard();
-        PrintPokeblockStringOnCard();
+        //PrintPokeblockStringOnCard();
         break;
     case 5:
-        PrintUnionStringOnCard();
-        PrintContestStringOnCard();
+        //PrintUnionStringOnCard();
+        //PrintContestStringOnCard();
         break;
     case 6:
         PrintPokemonIconsOnCard();
@@ -1227,13 +1229,16 @@ static void BufferLinkBattleResults(void)
 
 static void PrintLinkBattleResultsOnCard(void)
 {
+    StringExpandPlaceholders(gStringVar4, gText_EmptyString6);
+    PrintStatOnBackOfCard(1, gText_TrainerCardHint1, gStringVar4, sTrainerCardTextColors);
+    /*
     if (sData->hasLinkResults)
     {
         StringCopy(gStringVar1, sData->textLinkBattleWins);
         StringCopy(gStringVar2, sData->textLinkBattleLosses);
         StringExpandPlaceholders(gStringVar4, gText_WinsLosses);
         PrintStatOnBackOfCard(1, sData->textLinkBattleType, gStringVar4, sTrainerCardTextColors);
-    }
+    }*/
 }
 
 static void BufferNumTrades(void)
@@ -1256,8 +1261,10 @@ static void BufferBerryCrushPoints(void)
 
 static void PrintBerryCrushStringOnCard(void)
 {
-    if (sData->cardType == CARD_TYPE_FRLG && sData->trainerCard.linkPoints.berryCrush)
-        PrintStatOnBackOfCard(4, gText_BerryCrush, sData->textBerryCrushPts, sTrainerCardStatColors);
+    StringExpandPlaceholders(gStringVar4, gText_EmptyString6);
+    PrintStatOnBackOfCard(4, gText_TrainerCardHint2, gStringVar4, sTrainerCardStatColors);
+    //if (TRUE)//sData->cardType == CARD_TYPE_FRLG && sData->trainerCard.linkPoints.berryCrush)
+        //PrintStatOnBackOfCard(4, gText_BerryCrush, sData->textBerryCrushPts, sTrainerCardStatColors);
 }
 
 static void BufferUnionRoomStats(void)

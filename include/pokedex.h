@@ -7,7 +7,8 @@ extern void (*gPokedexVBlankCB)(void);
 enum
 {
     DEX_MODE_HOENN,
-    DEX_MODE_NATIONAL
+    DEX_MODE_NATIONAL,
+    DEX_MODE_HINT
 };
 
 enum

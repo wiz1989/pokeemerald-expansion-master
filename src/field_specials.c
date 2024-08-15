@@ -4292,3 +4292,28 @@ void PreparePartyForSkyBattle(void)
     VarSet(B_VAR_SKY_BATTLE,participatingPokemonSlot);
     CompactPartySlots();
 }
+
+
+u8 GetMonPartySlot(void)
+{
+    u16 species;
+    u8 slot;
+    species = VarGet(VAR_TEMP_1);
+    slot = 0;
+
+    slot = CheckPartyPokemon(gPlayerParty, species);
+
+    DebugPrintf("Species found at slot: %d\n", slot);
+
+    return slot;
+}
+
+void DeletePartyMon(void)
+{
+    u8 slot;
+    slot = VarGet(VAR_RESULT);
+    DebugPrintf("Deletion slot: %d\n", slot);
+
+    ZeroMonData(&gPlayerParty[slot]);
+    CompactPartySlots();
+}

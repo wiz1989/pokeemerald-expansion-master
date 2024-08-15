@@ -540,6 +540,8 @@ extern const u8 gText_SearchingPleaseWait[];
 extern const u8 gText_SearchCompleted[];
 extern const u8 gText_NoMatchingPkmnWereFound[];
 extern const u8 gText_SelectorArrow[];
+extern const u8 gText_DexHintTitle[];
+extern const u8 gText_DexHintDescription[];
 
 // birch dex rating text
 extern const u8 gBirchDexRatingText_LessThan10[];
@@ -2573,6 +2575,8 @@ extern const u8 gText_WinsStraight[];
 extern const u8 gText_NumBP[];
 extern const u8 gText_BattleTower[];
 extern const u8 gText_BattlePtsWon[];
+extern const u8 gText_TrainerCardHint1[];
+extern const u8 gText_TrainerCardHint2[];
 
 // Frontier Pass
 extern const u8 gText_SymbolsEarned[];

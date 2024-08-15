@@ -100,7 +100,8 @@ enum
    ORDER_HEAVIEST,
    ORDER_LIGHTEST,
    ORDER_TALLEST,
-   ORDER_SMALLEST
+   ORDER_SMALLEST,
+   ORDER_HINT
 };
 
 enum
@@ -1907,6 +1908,7 @@ static const struct SearchOptionText sDexModeOptions[] =
 {
     [DEX_MODE_HOENN]    = {gText_DexHoennDescription, gText_DexHoennTitle},
     [DEX_MODE_NATIONAL] = {gText_DexNatDescription,   gText_DexNatTitle},
+    [DEX_MODE_HINT]     = {gText_DexHintDescription,  gText_DexHintTitle},
     {},
 };
 
@@ -1976,7 +1978,7 @@ static const struct SearchOptionText sDexSearchTypeOptions[NUMBER_OF_MON_TYPES +
     {},
 };
 
-static const u8 sPokedexModes[] = {DEX_MODE_HOENN, DEX_MODE_NATIONAL};
+static const u8 sPokedexModes[] = {DEX_MODE_HOENN, DEX_MODE_NATIONAL, DEX_MODE_HINT};
 static const u8 sOrderOptions[] =
 {
     ORDER_NUMERICAL,
@@ -2564,10 +2566,28 @@ static void CreatePokedexList(u8 dexMode, u8 order)
             temp_isHoennDex = TRUE;
         }
         break;
+    case DEX_MODE_HINT:
+        order = ORDER_HINT;
+        if (IsNationalPokedexEnabled())
+        {
+            temp_dexCount = NATIONAL_DEX_COUNT;
+            temp_isHoennDex = FALSE;
+        }
+        else
+        {
+            temp_dexCount = HOENN_DEX_COUNT;
+            temp_isHoennDex = TRUE;
+        }
+        break;
     }
 
     switch (order)
     {
+    case ORDER_HINT:
+        sPokedexView->pokedexList[sPokedexView->pokemonListCount].dexNum = 693;//HoennToNationalOrder(693 + 1);
+        sPokedexView->pokedexList[sPokedexView->pokemonListCount].seen = TRUE;
+        sPokedexView->pokemonListCount++;
+        break;
     case ORDER_NUMERICAL:
         if (temp_isHoennDex)
         {
@@ -3858,7 +3878,7 @@ static void Task_LoadInfoScreen(u8 taskId)
         gMain.state++;
         break;
     case 4:
-        PrintMonInfo(sPokedexListItem->dexNum, sPokedexView->dexMode == DEX_MODE_HOENN ? FALSE : TRUE, sPokedexListItem->owned, 0);
+        PrintMonInfo(sPokedexListItem->dexNum, sPokedexView->dexMode == DEX_MODE_HOENN ? FALSE : TRUE, sPokedexListItem->seen, 0);
         if (!sPokedexListItem->owned)
             LoadPalette(gPlttBufferUnfaded + 1, BG_PLTT_ID(3) + 1, PLTT_SIZEOF(16 - 1));
         CopyWindowToVram(WIN_INFO, COPYWIN_FULL);

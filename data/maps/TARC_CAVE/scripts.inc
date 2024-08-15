@@ -9,10 +9,57 @@ TARC_CAVE_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
 	map_script_2 VAR_TARC_CAVE_FIELD, 13, TARC_CAVE_EveryFrame_Room2
 	map_script_2 VAR_TARC_CAVE_GUARD1_STATE, 1, TARC_CAVE_EveryFrame_Guard1
 	map_script_2 VAR_TARC_CAVE_GUARD2_STATE, 1, TARC_CAVE_EveryFrame_Guard2
+	map_script_2 VAR_CAVE_STATE, 0, TARC_CAVE_EveryFrame_FirstTime
 	.2byte 0
 
 
 TARC_CAVE_OnResume::
+	return
+
+
+TARC_CAVE_EveryFrame_FirstTime::
+	lock
+	addvar VAR_CAVE_STATE, 1
+	setvar VAR_0x8004, 1
+	setvar VAR_0x8005, 1
+	setvar VAR_0x8006, 4
+	setvar VAR_0x8007, 5
+	special ShakeCamera
+	waitstate
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
+	playmoncry SPECIES_REGIROCK, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	applymovement 14, Move_Regirock
+	waitmovement 0
+	msgbox TARC_CAVE_EveryFrame_FirstTime_Text_0, MSGBOX_AUTOCLOSE
+	applymovement 14, Move_exclmark
+	waitmovement 0
+	msgbox TARC_CAVE_EveryFrame_FirstTime_Text_1, MSGBOX_AUTOCLOSE
+	waitmessage
+	showmonpic SPECIES_SABLEYE, 10, 3
+	playmoncry SPECIES_SABLEYE, CRY_MODE_NORMAL
+	delay 40
+	waitmoncry
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
+	msgbox TARC_CAVE_EveryFrame_FirstTime_Text_2, MSGBOX_AUTOCLOSE
+	hidemonpic
+	showmonpic SPECIES_REGIROCK, 10, 3
+	playmoncry SPECIES_REGIROCK, CRY_MODE_NORMAL
+	delay 40
+	msgbox TARC_CAVE_EveryFrame_FirstTime_Text_3, MSGBOX_AUTOCLOSE
+	hidemonpic
+	getpartymonslot SPECIES_SABLEYE
+	special DeletePartyMon
+	givemon SPECIES_CUBONE, 5, ITEM_NONE, 0, NATURE_LONELY, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MOVE_STRENGTH, MOVE_FALSE_SWIPE, MOVE_TAIL_WHIP, MOVE_NONE
+	playfanfare MUS_OBTAIN_ITEM
+	message TARC_CAVE_EveryFrame_FirstTime_Text_4
+	waitmessage
+	waitfanfare
+	closemessage
+	release
 	return
 
 
@@ -36,9 +83,7 @@ TARC_CAVE_OnTransition_2:
 	setflag FLAG_CAVE_KICKOUT1
 	setflag FLAG_CAVE_MOVER1
 	setflag FLAG_CAVE_GUARD1
-	setflag FLAG_HIDE_KICKOUT1
-	setflag FLAG_HIDE_MOVER1
-	setflag FLAG_HIDE_GUARD1
+	setobjectxyperm 5, 20, 9
 	goto TARC_CAVE_OnTransition_1
 
 TARC_CAVE_OnTransition_5:
@@ -47,10 +92,6 @@ TARC_CAVE_OnTransition_5:
 	setflag FLAG_CAVE_KICKOUT3
 	setflag FLAG_CAVE_MOVER2
 	setflag FLAG_CAVE_GUARD2
-	setflag FLAG_HIDE_KICKOUT2
-	setflag FLAG_HIDE_KICKOUT3
-	setflag FLAG_HIDE_MOVER2
-	setflag FLAG_HIDE_GUARD2
 	return
 
 
@@ -108,6 +149,7 @@ TARC_CAVE_EveryFrame_Guard2_1:
 TARC_CAVE_Regirock::
 	lock
 	faceplayer
+	playmoncry SPECIES_KADABRA, CRY_MODE_NORMAL
 	msgbox TARC_CAVE_Regirock_Text_0, MSGBOX_AUTOCLOSE
 	release
 	return
@@ -116,7 +158,7 @@ TARC_CAVE_Regirock::
 TARC_Cave_Kickout::
 	lock
 	faceplayer
-	playmoncry SPECIES_RAYQUAZA, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_KADABRA, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
 	warp MAP_TARC_CAVE, 0
 	release
@@ -126,7 +168,7 @@ TARC_Cave_Kickout::
 TARC_Cave_Kickout2::
 	lock
 	faceplayer
-	playmoncry SPECIES_RAYQUAZA, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_KADABRA, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
 	warp MAP_TARC_CAVE, 2
 	release
@@ -136,7 +178,7 @@ TARC_Cave_Kickout2::
 TARC_Cave_Mover::
 	lock
 	faceplayer
-	playmoncry SPECIES_DUSCLOPS, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_ZUBAT, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Mover_Text_0, MSGBOX_AUTOCLOSE
 	release
 	return
@@ -145,7 +187,7 @@ TARC_Cave_Mover::
 TARC_Cave_Kickout_Guard::
 	lock
 	faceplayer
-	playmoncry SPECIES_PIKACHU, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_ONIX, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
 	warp MAP_TARC_CAVE, 0
 	release
@@ -155,7 +197,7 @@ TARC_Cave_Kickout_Guard::
 TARC_Cave_Kickout_Guard2::
 	lock
 	faceplayer
-	playmoncry SPECIES_PIKACHU, CRY_MODE_ENCOUNTER
+	playmoncry SPECIES_ONIX, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
 	warp MAP_TARC_CAVE, 2
 	release
@@ -165,6 +207,40 @@ TARC_Cave_Kickout_Guard2::
 Move_faceright:
 	face_right
 	step_end
+
+Move_Regirock:
+	walk_down
+	walk_down
+	face_left
+	walk_left
+	walk_left
+	walk_left
+	face_down
+	walk_down
+	step_end
+
+TARC_CAVE_EveryFrame_FirstTime_Text_0:
+	.string "INTRUDER!\p"
+	.string "Leave this place immediat...$"
+
+TARC_CAVE_EveryFrame_FirstTime_Text_1:
+	.string "... you are...\p"
+	.string "...friends with a Sableye!\p"
+	.string "The guardian of the mines!$"
+
+TARC_CAVE_EveryFrame_FirstTime_Text_2:
+	.string "Sableye jumped out of its Pokéball to\n"
+	.string "stay in the cave and explore its depths\l"
+	.string "with Regirock.$"
+
+TARC_CAVE_EveryFrame_FirstTime_Text_3:
+	.string "Traveller, I will grant you a new\n"
+	.string "companion to continue your journey\l"
+	.string "through these halls.\p"
+	.string "Farewell!$"
+
+TARC_CAVE_EveryFrame_FirstTime_Text_4:
+	.string "You received a little CUBONE.$"
 
 TARC_CAVE_Regirock_Text_0:
 	.string "Who dares to enter these halls?$"

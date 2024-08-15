@@ -804,5 +804,6 @@ u16 GetSpeciesPreEvolution(u16 species);
 void HealPokemon(struct Pokemon *mon);
 void HealBoxPokemon(struct BoxPokemon *boxMon);
 const u8 *GetMoveName(u16 moveId);
+u8 CheckPartyPokemon(struct Pokemon *party, u16 species);
 
 #endif // GUARD_POKEMON_H

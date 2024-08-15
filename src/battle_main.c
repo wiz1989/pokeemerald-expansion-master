@@ -65,6 +65,7 @@
 #include "constants/songs.h"
 #include "constants/trainers.h"
 #include "cable_club.h"
+#include "event_object_movement.h"
 
 extern const struct BgTemplate gBattleBgTemplates[];
 extern const struct WindowTemplate *const gBattleWindowTemplates[];
@@ -5646,6 +5647,11 @@ static void HandleEndTurn_BattleLost(void)
     }
     else
     {
+        //reset object flags if battle is lost || only for certain cases || wiz1989
+        u16 scriptFlag = GetObjectEventTrainerSightFlagByObjectEventId(GetObjectEventIdByLocalIdAndMap(gSpecialVar_LastTalked, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup));
+        DebugPrintf("reset flag = 0x%x", scriptFlag);
+        if (scriptFlag == FLAG_BATTLE_SLOWKING || scriptFlag == FLAG_BATTLE_SEISMITOAD)
+            FlagClear(scriptFlag);
         gBattlescriptCurrInstr = BattleScript_LocalBattleLost;
     }
 

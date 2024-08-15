@@ -293,7 +293,7 @@
       "x": 52,
       "y": 24,
       "elevation": 0,
-      "item": "ITEM_POKE_BALL",
+      "item": "ITEM_ABILITY_CAPSULE",
       "flag": "FLAG_TARC_ITEM_X"
     },
     {

@@ -51,7 +51,7 @@
     F(STEEL_WING) \
     F(SKILL_SWAP) \
     F(SNATCH) \
-    F(OVERHEAT)
+    F(ROCK_CLIMB)
 
 #define FOREACH_HM(F) \
     F(CUT) \

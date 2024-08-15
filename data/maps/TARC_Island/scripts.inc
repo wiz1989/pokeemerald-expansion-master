@@ -19,16 +19,72 @@ TARC_Island_Fisherman::
 	lock
 	faceplayer
 	goto_if_set FLAG_RECEIVED_OLD_ROD, TARC_Island_Fisherman_2
-	msgbox TARC_Island_Fisherman_Text_0, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Fisherman_Text_4, MSGBOX_AUTOCLOSE
 	giveitem ITEM_OLD_ROD
 	setflag FLAG_RECEIVED_OLD_ROD
-	msgbox TARC_Island_Fisherman_Text_1, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Fisherman_Text_5, MSGBOX_AUTOCLOSE
 TARC_Island_Fisherman_1:
 	release
 	end
 
 TARC_Island_Fisherman_2:
+	goto_if_set FLAG_TARC_REMORAID, TARC_Island_Fisherman_5
+	msgbox TARC_Island_Fisherman_Text_3, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Fisherman_1
+
+TARC_Island_Fisherman_5:
+	goto_if_set FLAG_WON_SEISMITOAD, TARC_Island_Fisherman_8
+	msgbox TARC_Island_Fisherman_Text_2, MSGBOX_AUTOCLOSE
+	goto TARC_Island_Fisherman_1
+
+TARC_Island_Fisherman_8:
+	goto_if_set FLAG_REMORAID_TRADE_COMPLETED, TARC_Island_Fisherman_11
+	msgbox TARC_Island_Fisherman_Text_0, MSGBOX_AUTOCLOSE
+	setvar VAR_0x8008, INGAME_TRADE_REMORAID
+	copyvar VAR_0x8004, VAR_0x8008
+	specialvar VAR_RESULT, GetInGameTradeSpeciesInfo
+	copyvar VAR_0x8009, VAR_RESULT
+	msgbox TARC_Island_Fisherman_Text_1, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq TARC_Island_Fisherman_15
+TARC_Island_Fisherman_14:
+	special ChoosePartyMon
+	waitstate
+	copyvar VAR_0x800A, VAR_0x8004
+	compare VAR_0x8004, PARTY_NOTHING_CHOSEN
+	goto_if_eq TARC_Island_Fisherman_18
+TARC_Island_Fisherman_17:
+	copyvar VAR_0x8005, VAR_0x800A
+	specialvar VAR_RESULT, GetTradeSpecies
+	copyvar VAR_0x800B, VAR_RESULT
+	compare VAR_RESULT, VAR_0x8009
+	goto_if_ne TARC_Island_Fisherman_21
+TARC_Island_Fisherman_20:
+	copyvar VAR_0x8004, VAR_0x8008
+	copyvar VAR_0x8005, VAR_0x800A
+	special CreateInGameTradePokemon
+	special DoInGameTradeScene
+	waitstate
+	bufferspeciesname STR_VAR_1, VAR_0x8009
+	msgbox FortreeCity_House1_Text_MonYouTakeCare, MSGBOX_AUTOCLOSE
+	setflag FLAG_REMORAID_TRADE_COMPLETED
+	goto TARC_Island_Fisherman_1
+
+TARC_Island_Fisherman_11:
+	msgbox FortreeCity_House1_Text_MonYouTakeCare, MSGBOX_AUTOCLOSE
+	goto TARC_Island_Fisherman_1
+
+TARC_Island_Fisherman_15:
+	goto FortreeCity_House1_EventScript_DeclineTrade
+	goto TARC_Island_Fisherman_14
+
+TARC_Island_Fisherman_18:
+	goto FortreeCity_House1_EventScript_DeclineTrade
+	goto TARC_Island_Fisherman_17
+
+TARC_Island_Fisherman_21:
+	goto FortreeCity_House1_EventScript_NotRequestedMon
+	goto TARC_Island_Fisherman_20
 
 
 TARC_Island_Chansey::
@@ -153,7 +209,7 @@ TARC_Island_Battle_Seismitoad::
 	lock
 	faceplayer
 	goto_if_unset FLAG_WON_SEISMITOAD, TARC_Island_Battle_Seismitoad_2
-	msgbox TARC_Island_Battle_Seismitoad_Text_1, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Battle_Seismitoad_Text_2, MSGBOX_AUTOCLOSE
 TARC_Island_Battle_Seismitoad_1:
 	release
 	return
@@ -169,31 +225,23 @@ TARC_Island_Battle_Seismitoad_2:
 	dowildbattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
 	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TARC_Island_Battle_Seismitoad_Won
-	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, TARC_Island_Battle_Seismitoad_Ran
-	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, TARC_Island_Battle_Seismitoad_Lost
+	switch VAR_RESULT
+	case B_OUTCOME_WON, TARC_Island_Battle_Seismitoad_6
+	case B_OUTCOME_RAN, TARC_Island_Battle_Seismitoad_7
+	clearflag FLAG_BATTLE_SEISMITOAD
 	goto TARC_Island_Battle_Seismitoad_1
 
-
-TARC_Island_Battle_Seismitoad_Won::
+TARC_Island_Battle_Seismitoad_6:
 	setflag FLAG_WON_SEISMITOAD
 	removeobject 18
-	msgbox TARC_Island_Battle_Seismitoad_Won_Text_0, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Battle_Seismitoad_Text_1, MSGBOX_AUTOCLOSE
 	setflag FLAG_HIDE_SEISMITOAD
-	release
-	return
+	goto TARC_Island_Battle_Seismitoad_1
 
-
-TARC_Island_Battle_Seismitoad_Ran::
+TARC_Island_Battle_Seismitoad_7:
 	clearflag FLAG_BATTLE_SEISMITOAD
-	release
-	return
-
-
-TARC_Island_Battle_Seismitoad_Lost::
-	clearflag FLAG_BATTLE_SEISMITOAD
-	release
-	return
+	goto EventScript_FieldWhiteOut
+	goto TARC_Island_Battle_Seismitoad_1
 
 
 TARC_Island_Battle_Slowking::
@@ -216,38 +264,48 @@ TARC_Island_Battle_Slowking_2:
 	dowildbattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
 	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, TARC_Island_Battle_Slowking_Won
-	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, TARC_Island_Battle_Slowking_Ran
-	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, TARC_Island_Battle_Slowking_Lost
+	switch VAR_RESULT
+	case B_OUTCOME_WON, TARC_Island_Battle_Slowking_6
+	case B_OUTCOME_RAN, TARC_Island_Battle_Slowking_7
+	clearflag FLAG_BATTLE_SLOWKING
+	goto TARC_Island_Battle_Slowking_1
+
+TARC_Island_Battle_Slowking_6:
+	setflag FLAG_WON_SLOWKING
+	goto TARC_Island_Battle_Slowking_1
+
+TARC_Island_Battle_Slowking_7:
+	clearflag FLAG_BATTLE_SLOWKING
+	goto EventScript_FieldWhiteOut
 	goto TARC_Island_Battle_Slowking_1
 
 
-TARC_Island_Battle_Slowking_Won::
-	setflag FLAG_WON_SLOWKING
-	release
-	return
-
-
-TARC_Island_Battle_Slowking_Ran::
-	clearflag FLAG_BATTLE_SLOWKING
-	release
-	return
-
-
-TARC_Island_Battle_Slowking_Lost::
-	clearflag FLAG_BATTLE_SLOWKING
-	release
-	return
-
-
 TARC_Island_Fisherman_Text_0:
+	.string "Ohh....what a tasty catch!$"
+
+TARC_Island_Fisherman_Text_1:
+	.string "Fantastic!\p"
+	.string "I am afraid to ask, but do you mind\n"
+	.string "sharing it for dinner?\p"
+	.string "...\p"
+	.string "Well... I mean...\p"
+	.string "...trading it for my Porygon?$"
+
+TARC_Island_Fisherman_Text_2:
+	.string "How sad you still need it for now...$"
+
+TARC_Island_Fisherman_Text_3:
+	.string "Please think of me if you are getting\n"
+	.string "luckier than I am.$"
+
+TARC_Island_Fisherman_Text_4:
 	.string "I am stranded here and try to catch\n"
 	.string "some fish to survive.\p"
 	.string "But these are shark infested waters!\p"
 	.string "I don't get anything else to bite.\p"
 	.string "Take this rod of mine.$"
 
-TARC_Island_Fisherman_Text_1:
+TARC_Island_Fisherman_Text_5:
 	.string "And please think of me if you are\n"
 	.string "getting luckier than I am.$"
 
@@ -304,11 +362,11 @@ TARC_Island_Battle_Seismitoad_Text_0:
 	.string "RIBBIT!$"
 
 TARC_Island_Battle_Seismitoad_Text_1:
-	.string "Seismitoad is watching the pond.$"
-
-TARC_Island_Battle_Seismitoad_Won_Text_0:
 	.string "Seismitoad vanished in the depths of\n"
 	.string "the pond.$"
+
+TARC_Island_Battle_Seismitoad_Text_2:
+	.string "Seismitoad is watching the pond.$"
 
 TARC_Island_Battle_Slowking_Text_0:
 	.string "Slowking looks furious being disturbed\n"

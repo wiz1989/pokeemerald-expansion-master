@@ -9970,7 +9970,7 @@ const struct Item gItemsInfo[] =
         .secondaryId = MOVE_SNATCH,
     },
 
-    [ITEM_TM_OVERHEAT] =
+    [ITEM_TM_ROCK_CLIMB] =
     {
         .name = _("TM50"),
         .price = 3000,
@@ -9982,7 +9982,7 @@ const struct Item gItemsInfo[] =
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_OVERHEAT,
+        .secondaryId = MOVE_ROCK_CLIMB,
     },
 
     [ITEM_TM51] =

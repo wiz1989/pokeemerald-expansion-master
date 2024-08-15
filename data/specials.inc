@@ -555,3 +555,5 @@ gSpecials::
 	def_special Script_GetChosenMonOffensiveIVs
 	def_special Script_GetChosenMonDefensiveIVs
 	def_special isBoulderOnTarget_South
+	def_special GetMonPartySlot
+	def_special DeletePartyMon
