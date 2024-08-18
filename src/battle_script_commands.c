@@ -12918,6 +12918,8 @@ static void Cmd_settypetorandomresistance(void)
         u32 i, resistTypes = 0;
         u32 hitByType = gLastHitByType[gBattlerAttacker];
 
+        DebugPrintf("hitByType = %d", hitByType);
+
         for (i = 0; i < NUMBER_OF_MON_TYPES; i++) // Find all types that resist.
         {
             switch (GetTypeModifier(hitByType, i))
@@ -12932,6 +12934,11 @@ static void Cmd_settypetorandomresistance(void)
         while (resistTypes != 0)
         {
             i = Random() % NUMBER_OF_MON_TYPES;
+
+            //force TYPE_DARK if hit by a Ghost move
+            if (hitByType == TYPE_GHOST)
+                i = TYPE_DARK;
+
             if (resistTypes & gBitTable[i])
             {
                 if (IS_BATTLER_OF_TYPE(gBattlerAttacker, i))
@@ -12940,6 +12947,7 @@ static void Cmd_settypetorandomresistance(void)
                 }
                 else
                 {
+                    DebugPrintf("Type = %d", i);
                     SET_BATTLER_TYPE(gBattlerAttacker, i);
                     PREPARE_TYPE_BUFFER(gBattleTextBuff1, i);
                     gBattlescriptCurrInstr = cmd->nextInstr;
