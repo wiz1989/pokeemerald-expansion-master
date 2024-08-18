@@ -649,7 +649,7 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     TRAINER_CLASS(YOUNGSTER, "YOUNGSTER", 4),
     TRAINER_CLASS(CHAMPION, "CHAMPION", 50),
     TRAINER_CLASS(FISHERMAN, "FISHERMAN", 10, B_TRAINER_CLASS_POKE_BALLS >= GEN_8 ? ITEM_DIVE_BALL : ITEM_LURE_BALL),
-    TRAINER_CLASS(TRIATHLETE, "TRIATHLETE", 10),
+    TRAINER_CLASS(TRIATHLETE, "CASTAWAY", 10),
     TRAINER_CLASS(DRAGON_TAMER, "DRAGON TAMER", 12),
     TRAINER_CLASS(NINJA_BOY, "NINJA BOY", 3),
     TRAINER_CLASS(BATTLE_GIRL, "BATTLE GIRL", 6),
@@ -4505,6 +4505,7 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
+                    DebugPrintf("B_ACTION_USE_ITEM");
                     if (FlagGet(B_FLAG_NO_BAG_USE))
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
@@ -4677,6 +4678,7 @@ static void HandleTurnActionSelectionState(void)
                         UpdateBattlerPartyOrdersOnSwitch(battler);
                         return;
                     default:
+                        DebugPrintf("STATE_WAIT_ACTION_CASE_CHOSEN USE_MOVE for %S", gSpeciesInfo[gBattleMons[GetBattlerAtPosition(battler)].species].speciesName);
                         RecordedBattle_CheckMovesetChanges(B_RECORD_MODE_PLAYBACK);
                         if ((gBattleResources->bufferB[battler][2] | (gBattleResources->bufferB[battler][3] << 8)) == 0xFFFF)
                         {
@@ -4740,6 +4742,7 @@ static void HandleTurnActionSelectionState(void)
                         if (ItemId_GetPocket(gLastUsedItem) == POCKET_POKE_BALLS)
                             gBattleStruct->throwingPokeBall = TRUE;
                         gBattleCommunication[battler]++;
+                        DebugPrintf("STATE_WAIT_ACTION_CASE_CHOSEN USE_ITEM for %S", gSpeciesInfo[gBattleMons[GetBattlerAtPosition(battler)].species].speciesName);
                     }
                     break;
                 case B_ACTION_SWITCH:

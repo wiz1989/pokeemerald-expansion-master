@@ -1107,7 +1107,15 @@ void AI_TrySwitchOrUseItem(u32 battler)
             *(gBattleStruct->monToSwitchIntoId + battler) = gBattleStruct->AI_monToSwitchIntoId[battler];
             return;
         }
-        else if (ShouldUseItem(battler))
+        /*else if (IsDoubleBattle() && IsBattlerAlive(BATTLE_PARTNER(battler)))
+        {
+            DebugPrintf("Double battle with alive partner");
+            if (ShouldUseItem(BATTLE_PARTNER(battler)))
+                return;
+            //else if (ShouldUseItem(battler))
+            //    return;
+        }*/
+        else if (ShouldUseItem(battler)) //wiz1989
         {
             return;
         }
@@ -2029,6 +2037,9 @@ static bool32 ShouldUseItem(u32 battler)
     s32 i;
     u8 validMons = 0;
     bool32 shouldUse = FALSE;
+    u32 battler_2 = BATTLE_PARTNER(battler);
+
+    DebugPrintf("ShouldUseItem, battler = %S", gSpeciesInfo[gBattleMons[GetBattlerAtPosition(battler)].species].speciesName);
 
     if (IsAiVsAiBattle())
         return FALSE;
@@ -2041,8 +2052,10 @@ static bool32 ShouldUseItem(u32 battler)
     if (gStatuses3[battler] & STATUS3_EMBARGO)
         return FALSE;
 
-    if (AiExpectsToFaintPlayer(battler))
-        return FALSE;
+    //if (AiExpectsToFaintPlayer(battler))
+        //return FALSE;
+
+    DebugPrintf("A");
 
     if (GetBattlerSide(battler) == B_SIDE_PLAYER)
         party = gPlayerParty;
@@ -2056,7 +2069,7 @@ static bool32 ShouldUseItem(u32 battler)
             validMons++;
         }
     }
-
+    DebugPrintf("B");
     for (i = 0; i < MAX_TRAINER_ITEMS; i++)
     {
         u16 item;
@@ -2064,33 +2077,36 @@ static bool32 ShouldUseItem(u32 battler)
         u8 battlerSide;
 
         item = gBattleResources->battleHistory->trainerItems[i];
+        DebugPrintf("Trainer item = %S", gItemsInfo[item].name);
         if (item == ITEM_NONE)
             continue;
         itemEffects = ItemId_GetEffect(item);
         if (itemEffects == NULL)
             continue;
 
+        DebugPrintf("ItemId_GetBattleUsage(item) = %d", ItemId_GetBattleUsage(item));
+
         switch (ItemId_GetBattleUsage(item))
         {
         case EFFECT_ITEM_HEAL_AND_CURE_STATUS:
-            shouldUse = AI_ShouldHeal(battler, 0);
+            shouldUse = AI_ShouldHeal(battler_2, 0);
             break;
         case EFFECT_ITEM_RESTORE_HP:
-            shouldUse = AI_ShouldHeal(battler, itemEffects[GetItemEffectParamOffset(battler, item, 4, ITEM4_HEAL_HP)]);
+            shouldUse = AI_ShouldHeal(battler_2, itemEffects[GetItemEffectParamOffset(battler_2, item, 4, ITEM4_HEAL_HP)]);
             break;
         case EFFECT_ITEM_CURE_STATUS:
-            if (itemEffects[3] & ITEM3_SLEEP && gBattleMons[battler].status1 & STATUS1_SLEEP)
+            if (itemEffects[3] & ITEM3_SLEEP && gBattleMons[battler_2].status1 & STATUS1_SLEEP)
                 shouldUse = TRUE;
-            if (itemEffects[3] & ITEM3_POISON && (gBattleMons[battler].status1 & STATUS1_POISON
-                                               || gBattleMons[battler].status1 & STATUS1_TOXIC_POISON))
+            if (itemEffects[3] & ITEM3_POISON && (gBattleMons[battler_2].status1 & STATUS1_POISON
+                                               || gBattleMons[battler_2].status1 & STATUS1_TOXIC_POISON))
                 shouldUse = TRUE;
-            if (itemEffects[3] & ITEM3_BURN && gBattleMons[battler].status1 & STATUS1_BURN)
+            if (itemEffects[3] & ITEM3_BURN && gBattleMons[battler_2].status1 & STATUS1_BURN)
                 shouldUse = TRUE;
-            if (itemEffects[3] & ITEM3_FREEZE && (gBattleMons[battler].status1 & STATUS1_FREEZE || gBattleMons[battler].status1 & STATUS1_FROSTBITE))
+            if (itemEffects[3] & ITEM3_FREEZE && (gBattleMons[battler_2].status1 & STATUS1_FREEZE || gBattleMons[battler_2].status1 & STATUS1_FROSTBITE))
                 shouldUse = TRUE;
-            if (itemEffects[3] & ITEM3_PARALYSIS && gBattleMons[battler].status1 & STATUS1_PARALYSIS)
+            if (itemEffects[3] & ITEM3_PARALYSIS && gBattleMons[battler_2].status1 & STATUS1_PARALYSIS)
                 shouldUse = TRUE;
-            if (itemEffects[3] & ITEM3_CONFUSION && gBattleMons[battler].status2 & STATUS2_CONFUSION)
+            if (itemEffects[3] & ITEM3_CONFUSION && gBattleMons[battler_2].status2 & STATUS2_CONFUSION)
                 shouldUse = TRUE;
             break;
         case EFFECT_ITEM_INCREASE_STAT:
@@ -2120,18 +2136,27 @@ static bool32 ShouldUseItem(u32 battler)
         default:
             return FALSE;
         }
+        DebugPrintf("shouldUse = %d", shouldUse);
         if (shouldUse)
         {
+            DebugPrintf("gBattlerPartyIndexes[battler_2] = %d", gBattlerPartyIndexes[battler_2]);
+            DebugPrintf("gBattlerPartyIndexes[battler] = %d", gBattlerPartyIndexes[battler]);
+            DebugPrintf("gBattleStruct->itemPartyIndex[battler] = %d", gBattleStruct->itemPartyIndex[battler]);
             // Set selected party ID to current battler if none chosen.
             if (gBattleStruct->itemPartyIndex[battler] == PARTY_SIZE)
-                gBattleStruct->itemPartyIndex[battler] = gBattlerPartyIndexes[battler];
+                gBattleStruct->itemPartyIndex[battler] = gBattlerPartyIndexes[battler_2];
             BtlController_EmitTwoReturnValues(battler, BUFFER_B, B_ACTION_USE_ITEM, 0);
+            DebugPrintf("battler = %S", gSpeciesInfo[gBattleMons[GetBattlerAtPosition(battler)].species].speciesName);
             gBattleStruct->chosenItem[battler] = item;
-            gBattleResources->battleHistory->trainerItems[i] = 0;
+            DebugPrintf("item = %S", gItemsInfo[item].name);
+            //make item reusable
+            //if (gItemsInfo[item])
+            //gBattleResources->battleHistory->trainerItems[i] = 0;
             return shouldUse;
         }
     }
 
+    DebugPrintf("NO ITEM TO USE!");
     return FALSE;
 }
 

@@ -641,6 +641,7 @@ static void OpponentHandleChooseMove(u32 battler)
 static void OpponentHandleChooseItem(u32 battler)
 {
     BtlController_EmitOneReturnValue(battler, BUFFER_B, gBattleStruct->chosenItem[battler]);
+    DebugPrintf("OpponentHandleChooseItem for %S", gSpeciesInfo[gBattleMons[GetBattlerAtPosition(battler)].species].speciesName);
     OpponentBufferExecCompleted(battler);
 }
 

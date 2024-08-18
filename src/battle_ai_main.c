@@ -867,6 +867,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case ABILITY_WONDER_GUARD:
                 if (effectiveness < AI_EFFECTIVENESS_x2)
                     return 0;
+                else
+                    ADJUST_SCORE(5);
                 break;
             case ABILITY_JUSTIFIED:
                 if (moveType == TYPE_DARK && !IS_MOVE_STATUS(move))
@@ -1883,7 +1885,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             break;
         case EFFECT_REST:
             if (!CanBeSlept(battlerAtk, aiData->abilities[battlerAtk]))
-                ADJUST_SCORE(-10);
+                ADJUST_SCORE(0);//-10); wiz1989
             //fallthrough
         case EFFECT_RESTORE_HP:
         case EFFECT_SOFTBOILED:
@@ -3222,7 +3224,9 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
 
     // check status move preference
     if (AI_THINKING_STRUCT->aiFlags[battlerAtk] & AI_FLAG_PREFER_STATUS_MOVES && IS_MOVE_STATUS(move) && effectiveness != AI_EFFECTIVENESS_x0)
+    {
         ADJUST_SCORE(10);
+    }
 
     // check thawing moves
     if ((gBattleMons[battlerAtk].status1 & (STATUS1_FREEZE | STATUS1_FROSTBITE)) && gMovesInfo[move].thawsUser)
@@ -3490,7 +3494,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
               || aiData->abilities[battlerAtk] == ABILITY_SHED_SKIN
               || aiData->abilities[battlerAtk] == ABILITY_EARLY_BIRD
               || (AI_GetWeather(aiData) & B_WEATHER_RAIN && gWishFutureKnock.weatherDuration != 1 && aiData->abilities[battlerAtk] == ABILITY_HYDRATION && aiData->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA))
-                ADJUST_SCORE(GOOD_EFFECT);
+                ADJUST_SCORE(BEST_EFFECT);
         }
         break;
     case EFFECT_OHKO:
@@ -5097,6 +5101,18 @@ static s32 AI_HPAware(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             case EFFECT_RAIN_DANCE:
             case EFFECT_FILLET_AWAY:
                 ADJUST_SCORE(-2);
+                break;
+            default:
+                break;
+            }
+        }
+        if (AI_DATA->hpPercents[battlerAtk] < 50)
+        {
+            // high hp
+            switch (effect)
+            {
+            case EFFECT_REST:
+                ADJUST_SCORE(10);
                 break;
             default:
                 break;

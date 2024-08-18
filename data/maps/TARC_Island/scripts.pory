@@ -12,6 +12,14 @@ script TARC_Island_OnResume {
 script TARC_Island_OnTransition {
     setrespawn(HEAL_LOCATION_TARC_ISLAND)
     clearflag(FLAG_DONT_REMOVE_OFFSCREEN_OBJECT)
+    if (var(VAR_RHYDON_STATE) < 5)
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 0)
+    }
+    if (var(VAR_RHYDON_STATE) == 5)
+    {
+        setobjectxyperm(20, 26, 13)
+    }
 }
 
 
@@ -195,6 +203,67 @@ script TARC_Island_sign_Rock_Climb {
 	releaseall
 }
 
+script TARC_Island_Rhydon {
+    lock
+    faceplayer
+    msgbox("RHYHORN!", MSGBOX_AUTOCLOSE)
+    waitmessage
+    if (var(VAR_RHYDON_STATE) == 0 && var(VAR_FACING) == DIR_SOUTH)
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 1)
+        //msgbox("Step 1 ", MSGBOX_AUTOCLOSE)
+    }
+    elif (var(VAR_RHYDON_STATE) == 1 && var(VAR_FACING) == DIR_WEST)
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 2)
+        //msgbox("Step 2 ", MSGBOX_AUTOCLOSE)
+    }
+    elif (var(VAR_RHYDON_STATE) == 2 && var(VAR_FACING) == DIR_SOUTH)
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 3)
+        //msgbox("Step 3 ", MSGBOX_AUTOCLOSE)
+    }
+    elif (var(VAR_RHYDON_STATE) == 3 && var(VAR_FACING) == DIR_EAST)
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 4)
+        //msgbox("Step 4 ", MSGBOX_AUTOCLOSE)
+    }
+    elif (var(VAR_RHYDON_STATE) == 4 && var(VAR_FACING) == DIR_NORTH)
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 5)
+        applymovement(20, Move_exclmark)
+        waitmovement(0)
+        msgbox("GRWAHH!", MSGBOX_AUTOCLOSE)
+        playmoncry(SPECIES_RHYDON, CRY_MODE_ENCOUNTER)
+        delay(40)
+        waitmoncry
+        applymovement(20, Move_Rhydon)
+        special(SpawnCameraObject)
+	    applymovement(OBJ_EVENT_ID_CAMERA, Move_Camera)
+        waitmovement(0)
+        applymovement(21, Move_Rock_smash_break)
+        waitmovement(0)
+        removeobject(21)
+        setflag(FLAG_TARC_BREAKABLE_ROCK)
+        setvar(VAR_0x8004, 2)  //vertical pan
+        setvar(VAR_0x8005, 2)  //horizontal pan
+        setvar(VAR_0x8006, 4)  //num shakes
+        setvar(VAR_0x8007, 5)  //shake delay
+        special(ShakeCamera)
+        waitstate
+        delay(60)
+	    applymovement(OBJ_EVENT_ID_CAMERA, Move_CameraBack)
+        waitmovement(0)
+        special(RemoveCameraObject)
+        setobjectxyperm(20, 26, 13)
+    }
+    else
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 0)
+    }
+    release
+}
+
 // Battles
 
 script TARC_Island_Battle_Seismitoad {
@@ -264,4 +333,44 @@ script TARC_Island_Battle_Slowking {
         msgbox(format("...snore..."), MSGBOX_AUTOCLOSE)
     }
 	release
+}
+
+script TARC_Island_Battle_Wonderguard {
+    trainerbattle_single(TRAINER_CHASE, Route129_Text_ChaseIntro, Route129_Text_ChaseDefeat)
+}
+
+
+// ############### movements ###############
+
+movement Move_Rhydon {
+    walk_slow_right*2
+    walk_slow_down*5
+    jump_2_down
+    walk_slow_left*2
+    walk_slow_down*2
+    walk_fast_left*9
+    lock_facing_direction
+	jump_right
+	unlock_facing_direction
+}
+movement Move_Camera {
+    walk_slow_right*2
+    walk_slow_down*5
+    walk_down*2
+    walk_slow_left*2
+    walk_slow_down*2
+    walk_fast_left*9
+    walk_right
+}
+
+movement Move_Rhydon_collision {
+}
+
+movement Move_Rock_smash_break {
+    rock_smash_break
+}
+
+movement Move_CameraBack {
+    walk_diag_northeast*8
+    walk_up
 }

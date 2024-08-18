@@ -12,6 +12,19 @@ TARC_Island_OnResume::
 TARC_Island_OnTransition::
 	setrespawn HEAL_LOCATION_TARC_ISLAND
 	clearflag FLAG_DONT_REMOVE_OFFSCREEN_OBJECT
+	compare VAR_RHYDON_STATE, 5
+	goto_if_lt TARC_Island_OnTransition_2
+TARC_Island_OnTransition_1:
+	compare VAR_RHYDON_STATE, 5
+	goto_if_eq TARC_Island_OnTransition_4
+	return
+
+TARC_Island_OnTransition_2:
+	setorcopyvar VAR_RHYDON_STATE, 0
+	goto TARC_Island_OnTransition_1
+
+TARC_Island_OnTransition_4:
+	setobjectxyperm 20, 26, 13
 	return
 
 
@@ -205,6 +218,102 @@ TARC_Island_sign_Rock_Climb::
 	return
 
 
+TARC_Island_Rhydon::
+	lock
+	faceplayer
+	msgbox TARC_Island_Rhydon_Text_0, MSGBOX_AUTOCLOSE
+	waitmessage
+	compare VAR_RHYDON_STATE, 0
+	goto_if_eq TARC_Island_Rhydon_20
+TARC_Island_Rhydon_18:
+	compare VAR_RHYDON_STATE, 1
+	goto_if_eq TARC_Island_Rhydon_17
+TARC_Island_Rhydon_15:
+	compare VAR_RHYDON_STATE, 2
+	goto_if_eq TARC_Island_Rhydon_14
+TARC_Island_Rhydon_12:
+	compare VAR_RHYDON_STATE, 3
+	goto_if_eq TARC_Island_Rhydon_11
+TARC_Island_Rhydon_9:
+	compare VAR_RHYDON_STATE, 4
+	goto_if_eq TARC_Island_Rhydon_8
+TARC_Island_Rhydon_7:
+	setorcopyvar VAR_RHYDON_STATE, 0
+TARC_Island_Rhydon_1:
+	release
+	return
+
+TARC_Island_Rhydon_2:
+	setorcopyvar VAR_RHYDON_STATE, 1
+	goto TARC_Island_Rhydon_1
+
+TARC_Island_Rhydon_3:
+	setorcopyvar VAR_RHYDON_STATE, 2
+	goto TARC_Island_Rhydon_1
+
+TARC_Island_Rhydon_4:
+	setorcopyvar VAR_RHYDON_STATE, 3
+	goto TARC_Island_Rhydon_1
+
+TARC_Island_Rhydon_5:
+	setorcopyvar VAR_RHYDON_STATE, 4
+	goto TARC_Island_Rhydon_1
+
+TARC_Island_Rhydon_6:
+	setorcopyvar VAR_RHYDON_STATE, 5
+	applymovement 20, Move_exclmark
+	waitmovement 0
+	msgbox TARC_Island_Rhydon_Text_1, MSGBOX_AUTOCLOSE
+	playmoncry SPECIES_RHYDON, CRY_MODE_ENCOUNTER
+	delay 40
+	waitmoncry
+	applymovement 20, Move_Rhydon
+	special SpawnCameraObject
+	applymovement OBJ_EVENT_ID_CAMERA, Move_Camera
+	waitmovement 0
+	applymovement 21, Move_Rock_smash_break
+	waitmovement 0
+	removeobject 21
+	setflag FLAG_TARC_BREAKABLE_ROCK
+	setvar VAR_0x8004, 2
+	setvar VAR_0x8005, 2
+	setvar VAR_0x8006, 4
+	setvar VAR_0x8007, 5
+	special ShakeCamera
+	waitstate
+	delay 60
+	applymovement OBJ_EVENT_ID_CAMERA, Move_CameraBack
+	waitmovement 0
+	special RemoveCameraObject
+	setobjectxyperm 20, 26, 13
+	goto TARC_Island_Rhydon_1
+
+TARC_Island_Rhydon_8:
+	compare VAR_FACING, DIR_NORTH
+	goto_if_eq TARC_Island_Rhydon_6
+	goto TARC_Island_Rhydon_7
+
+TARC_Island_Rhydon_11:
+	compare VAR_FACING, DIR_EAST
+	goto_if_eq TARC_Island_Rhydon_5
+	goto TARC_Island_Rhydon_9
+
+TARC_Island_Rhydon_14:
+	compare VAR_FACING, DIR_SOUTH
+	goto_if_eq TARC_Island_Rhydon_4
+	goto TARC_Island_Rhydon_12
+
+TARC_Island_Rhydon_17:
+	compare VAR_FACING, DIR_WEST
+	goto_if_eq TARC_Island_Rhydon_3
+	goto TARC_Island_Rhydon_15
+
+TARC_Island_Rhydon_20:
+	compare VAR_FACING, DIR_SOUTH
+	goto_if_eq TARC_Island_Rhydon_2
+	goto TARC_Island_Rhydon_18
+
+
 TARC_Island_Battle_Seismitoad::
 	lock
 	faceplayer
@@ -279,6 +388,83 @@ TARC_Island_Battle_Slowking_7:
 	goto EventScript_FieldWhiteOut
 	goto TARC_Island_Battle_Slowking_1
 
+
+TARC_Island_Battle_Wonderguard::
+	trainerbattle_single TRAINER_CHASE, Route129_Text_ChaseIntro, Route129_Text_ChaseDefeat
+	return
+
+
+Move_Rhydon:
+	walk_slow_right
+	walk_slow_right
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	jump_2_down
+	walk_slow_left
+	walk_slow_left
+	walk_slow_down
+	walk_slow_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	lock_facing_direction
+	jump_right
+	unlock_facing_direction
+	step_end
+
+Move_Camera:
+	walk_slow_right
+	walk_slow_right
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_slow_down
+	walk_down
+	walk_down
+	walk_slow_left
+	walk_slow_left
+	walk_slow_down
+	walk_slow_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_right
+	step_end
+
+Move_Rhydon_collision:
+	step_end
+
+Move_Rock_smash_break:
+	rock_smash_break
+	step_end
+
+Move_CameraBack:
+	walk_diag_northeast
+	walk_diag_northeast
+	walk_diag_northeast
+	walk_diag_northeast
+	walk_diag_northeast
+	walk_diag_northeast
+	walk_diag_northeast
+	walk_diag_northeast
+	walk_up
+	step_end
 
 TARC_Island_Fisherman_Text_0:
 	.string "Ohh....what a tasty catch!$"
@@ -357,6 +543,12 @@ TARC_Island_sign_Game_Start_Text_0:
 
 TARC_Island_sign_Rock_Climb_Text_0:
 	.string "The rock below looks climbable. {DOWN_ARROW}$"
+
+TARC_Island_Rhydon_Text_0:
+	.string "RHYHORN!$"
+
+TARC_Island_Rhydon_Text_1:
+	.string "GRWAHH!$"
 
 TARC_Island_Battle_Seismitoad_Text_0:
 	.string "RIBBIT!$"

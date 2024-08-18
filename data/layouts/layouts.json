@@ -4440,6 +4440,16 @@
       "secondary_tileset": "gTileset_MeteorFalls",
       "border_filepath": "data/layouts/TARC_CAVE/border.bin",
       "blockdata_filepath": "data/layouts/TARC_CAVE/map.bin"
+    },
+    {
+      "id": "LAYOUT_TARC_UNDERWATER",
+      "name": "TARC_UNDERWATER_Layout",
+      "width": 60,
+      "height": 60,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Underwater",
+      "border_filepath": "data/layouts/TARC_UNDERWATER/border.bin",
+      "blockdata_filepath": "data/layouts/TARC_UNDERWATER/map.bin"
     }
   ]
 }

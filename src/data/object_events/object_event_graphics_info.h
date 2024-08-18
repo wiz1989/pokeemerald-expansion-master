@@ -4861,3 +4861,22 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Regirock = {
     .images = sPicTable_Regirock,
     .affineAnims = gDummySpriteAffineAnimTable,
 };
+
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Rhyhorn = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_RHYHORN,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 512,
+    .width = 32,
+    .height = 32,
+    .paletteSlot = PALSLOT_NPC_SPECIAL,
+    .shadowSize = SHADOW_SIZE_M,
+    .inanimate = FALSE,
+    .disableReflectionPaletteLoad = FALSE,
+    .tracks = TRACKS_FOOT,
+    .oam = &gObjectEventBaseOam_32x32,
+    .subspriteTables = sOamTables_32x32,
+    .anims = sAnimTable_Standard,
+    .images = sPicTable_Rhyhorn,
+    .affineAnims = gDummySpriteAffineAnimTable,
+};

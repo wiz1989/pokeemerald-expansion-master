@@ -680,8 +680,8 @@
 #define FLAG_WON_SLOWKING      0x27D // Unused Flag
 #define FLAG_WON_SEISMITOAD    0x27E // Unused Flag
 #define FLAG_REMORAID_TRADE_COMPLETED  0x27F // Unused Flag
-#define FLAG_ENTERED_CAVE  0x280 // Unused Flag
-#define FLAG_UNUSED_0x281  0x281 // Unused Flag
+#define FLAG_ENTERED_CAVE      0x280 // Unused Flag
+#define FLAG_TARC_BREAKABLE_ROCK  0x281 // Unused Flag
 #define FLAG_UNUSED_0x282  0x282 // Unused Flag
 #define FLAG_UNUSED_0x283  0x283 // Unused Flag
 #define FLAG_UNUSED_0x284  0x284 // Unused Flag

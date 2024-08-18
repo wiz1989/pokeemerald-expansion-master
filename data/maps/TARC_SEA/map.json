@@ -5,11 +5,11 @@
   "music": "MUS_ABANDONED_SHIP",
   "region_map_section": "MAPSEC_NONE",
   "requires_flash": false,
-  "weather": "WEATHER_NONE",
-  "map_type": "MAP_TYPE_NONE",
-  "allow_cycling": false,
+  "weather": "WEATHER_SUNNY",
+  "map_type": "MAP_TYPE_OCEAN_ROUTE",
+  "allow_cycling": true,
   "allow_escaping": false,
-  "allow_running": false,
+  "allow_running": true,
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
@@ -17,6 +17,11 @@
       "map": "MAP_TARC_ISLAND",
       "offset": 0,
       "direction": "up"
+    },
+    {
+      "map": "MAP_TARC_UNDERWATER",
+      "offset": 0,
+      "direction": "dive"
     }
   ],
   "object_events": [
@@ -57,7 +62,393 @@
     }
   ],
   "coord_events": [
-
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 14,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 12,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 11,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 10,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 9,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 5,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 20,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 21,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 22,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 23,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 24,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 25,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 26,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 27,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 28,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 29,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 30,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 31,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 32,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 33,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 34,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 35,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 36,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 37,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 38,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 39,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 47,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 46,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 45,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 44,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 43,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 42,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 41,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 40,
+      "y": 51,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_SEA_GameEnd"
+    }
   ],
   "bg_events": [
 

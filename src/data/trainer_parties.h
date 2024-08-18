@@ -4749,14 +4749,19 @@ static const struct TrainerMon sParty_Pablo1[] = {
 
 static const struct TrainerMon sParty_Chase[] = {
     {
-    .lvl = 26,
-    .species = SPECIES_WINGULL,
+    .lvl = 15,
+    .species = SPECIES_CURSOLA,
+    .iv = TRAINER_PARTY_IVS(0, 0, 31, 31, 0, 0),
+    .moves = {MOVE_ASTONISH, MOVE_ANCIENT_POWER, MOVE_REST},
+    .nature = NATURE_TIMID,
+    .heldItem = ITEM_LUM_BERRY,
     },
     {
-    .iv = TRAINER_PARTY_IVS(9, 9, 9, 9, 9, 9),
-    .lvl = 34,
-    .species = SPECIES_STARYU,
-    }
+    .lvl = 20,
+    .species = SPECIES_CRAMORANT,
+    .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
+    .moves = {MOVE_SURF, MOVE_DRILL_PECK},
+    },
 };
 
 static const struct TrainerMon sParty_Isaiah2[] = {

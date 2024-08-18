@@ -1905,6 +1905,7 @@ const struct Ability gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_STRING("If hit, spits prey from sea."),
         .aiRating = 3,
         .cantBeCopied = TRUE,
+        .cantBeTraced = TRUE,
         .cantBeSuppressed = TRUE,
         .cantBeOverwritten = TRUE,
         .failsOnImposter = TRUE,

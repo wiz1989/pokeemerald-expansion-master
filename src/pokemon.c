@@ -838,7 +838,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     bool32 isShiny;
     u16 moves[4]; //added var
     u8 nature; //added var
-    u32 otId; //added var
 
     //always set default IVs to zero
     fixedIV = 0;
@@ -849,7 +848,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     if (hasFixedPersonality)
         personality = fixedPersonality;
     else if (species == SPECIES_SLOWKING) {
-        DebugPrintf("set nature to Hasty");
+        DebugPrintf("set Slowking's nature to Hasty");
         nature = NATURE_HASTY;
         do {
             personality = Random32();
@@ -857,8 +856,16 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         while (GetNatureFromPersonality(personality) != nature);
     }
     else if (species == SPECIES_SEISMITOAD) {
-        DebugPrintf("set nature to Gentle");
+        DebugPrintf("set Toad's nature to Gentle");
         nature = NATURE_GENTLE;
+        do {
+            personality = Random32();
+        }
+        while (GetNatureFromPersonality(personality) != nature);
+    }
+    else if (species == SPECIES_PORYGON) {
+        DebugPrintf("set Porygon's nature to Relaxed");
+        nature = NATURE_RELAXED;
         do {
             personality = Random32();
         }
@@ -1066,6 +1073,18 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         moves[1] = MOVE_SURF;
         moves[2] = MOVE_DRAIN_PUNCH;
         moves[3] = MOVE_POISON_JAB;
+
+        for(i=0; i<=3; i++)
+        {
+            //set move
+            DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
+        }
+    }
+    if (species == SPECIES_PORYGON) {
+        moves[0] = MOVE_CONVERSION;
+        moves[1] = MOVE_CONVERSION_2;
+        moves[2] = MOVE_AGILITY;
+        moves[3] = MOVE_FOUL_PLAY;
 
         for(i=0; i<=3; i++)
         {

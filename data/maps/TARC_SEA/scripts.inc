@@ -17,7 +17,7 @@ TARC_Sea_OnResume::
 TARC_Sea_OnResume_1:
 	setorcopyvar VAR_LITTLEROOT_TOWN_STATE, 1
 	givemon SPECIES_MANTYKE, 10, ITEM_NONE, 0, NATURE_LONELY, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, MOVE_TACKLE, MOVE_WING_ATTACK, MOVE_WATER_GUN, MOVE_SURF
-	givemon SPECIES_SABLEYE, 10, ITEM_SILK_SCARF, 0, NATURE_BRAVE, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, MOVE_SCRATCH, MOVE_FLING, MOVE_PROTECT, MOVE_DISABLE
+	givemon SPECIES_SABLEYE, 10, ITEM_TWISTED_SPOON, 0, NATURE_BRAVE, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, MOVE_PSYBEAM, MOVE_FLING, MOVE_PROTECT, MOVE_DISABLE
 	setflag FLAG_SYS_POKEMON_GET
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	setflag FLAG_SYS_B_DASH
@@ -46,6 +46,13 @@ TARC_Sea_EveryFrame_GameStart::
 	setorcopyvar VAR_LITTLEROOT_TOWN_STATE, 2
 	applymovement OBJ_EVENT_ID_PLAYER, Move_driftintocurrents
 	waitmovement 0
+	release
+	return
+
+
+TARC_SEA_GameEnd::
+	lock
+	msgbox TARC_SEA_GameEnd_Text_0, MSGBOX_AUTOCLOSE
 	release
 	return
 
@@ -104,3 +111,6 @@ Move_AfterCurrent:
 	face_left
 	delay_1
 	step_end
+
+TARC_SEA_GameEnd_Text_0:
+	.string "YOU WON!$"

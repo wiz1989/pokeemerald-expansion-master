@@ -1305,3 +1305,7 @@ static const struct SpriteFrameImage sPicTable_Kadabra[] = {
 static const struct SpriteFrameImage sPicTable_Regirock[] = {
     overworld_ascending_frames(gObjectEventPic_Regirock, 4, 4),
 };
+
+static const struct SpriteFrameImage sPicTable_Rhyhorn[] = {
+    overworld_ascending_frames(gObjectEventPic_Rhyhorn, 4, 4),
+};

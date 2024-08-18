@@ -298,7 +298,7 @@ static u8 CheckTrainer(u8 objectEventId)
     u8 approachDistance;
     u16 scriptFlag = GetObjectEventTrainerSightFlagByObjectEventId(objectEventId);
 
-    DebugPrintf("flag = %d", scriptFlag);
+    //DebugPrintf("flag = %d", scriptFlag);
 
     if (InTrainerHill() == TRUE)
         scriptPtr = GetTrainerHillTrainerScript();

@@ -95,7 +95,8 @@
     "Underwater_Route125",
     "TARC_Island",
     "TARC_SEA",
-    "TARC_CAVE"
+    "TARC_CAVE",
+    "TARC_UNDERWATER"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",

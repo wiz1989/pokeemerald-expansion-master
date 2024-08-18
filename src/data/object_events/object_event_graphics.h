@@ -398,3 +398,5 @@ const u32 gObjectEventPic_Kadabra[] = INCBIN_U32("graphics/object_events/pics/po
 const u16 gObjectEventPal_Kadabra[] = INCBIN_U16("graphics/object_events/palettes/kadabra.gbapal");
 const u32 gObjectEventPic_Regirock[] = INCBIN_U32("graphics/object_events/pics/pokemon/regirock.4bpp");
 const u16 gObjectEventPal_Regirock[] = INCBIN_U16("graphics/object_events/palettes/regirock.gbapal");
+const u32 gObjectEventPic_Rhyhorn[] = INCBIN_U32("graphics/object_events/pics/pokemon/rhyhorn.4bpp");
+const u16 gObjectEventPal_Rhyhorn[] = INCBIN_U16("graphics/object_events/palettes/rhyhorn.gbapal");

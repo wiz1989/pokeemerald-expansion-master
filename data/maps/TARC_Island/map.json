@@ -213,7 +213,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "EventScript_CutTree",
-      "flag": "0"
+      "flag": "FLAG_TEMP_11"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SLOWKING",
@@ -266,6 +266,45 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "TARC_Island_ItemBall_Balls",
       "flag": "FLAG_TARC_item_Pokeballs2"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_RHYHORN",
+      "x": 34,
+      "y": 4,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TARC_Island_Rhydon",
+      "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_BREAKABLE_ROCK",
+      "x": 24,
+      "y": 13,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EventScript_RockSmash",
+      "flag": "FLAG_TARC_BREAKABLE_ROCK"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_DRAKE",
+      "x": 25,
+      "y": 10,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
+      "script": "TARC_Island_Battle_Wonderguard",
+      "flag": "0"
     }
   ],
   "warp_events": [

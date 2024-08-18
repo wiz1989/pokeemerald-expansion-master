@@ -4549,12 +4549,12 @@ const struct Trainer gTrainers[] = {
     [TRAINER_CHASE] =
     {
         .trainerClass = TRAINER_CLASS_TRIATHLETE,
-        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_SWIMMER,
-        .trainerPic = TRAINER_PIC_SWIMMING_TRIATHLETE_M,
-        .trainerName = _("CHASE"),
-        .items = {},
-        .doubleBattle = FALSE,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE,
+        .encounterMusic_gender = TRAINER_ENCOUNTER_MUSIC_INTENSE,
+        .trainerPic = TRAINER_PIC_ELITE_FOUR_DRAKE,
+        .trainerName = _("WILSON"),
+        .items = {ITEM_BLUE_FLUTE},
+        .doubleBattle = TRUE,
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY | AI_FLAG_HP_AWARE | AI_FLAG_PREFER_STATUS_MOVES,
         .party = TRAINER_PARTY(sParty_Chase),
     },
 

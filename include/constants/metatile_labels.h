@@ -372,7 +372,8 @@
 #define METATILE_Mossdeep_Door_SpaceCenter  0x2ED
 
 // gTileset_Orange
-#define METATILE_Orange_Island_MetatileRedX  0x02D
+#define METATILE_Orange_Island_MetatileRedX    0x02D
+#define METATILE_Orange_Island_RoughDeepWater  0x13E
 
 // gTileset_Pacifidlog
 #define METATILE_Pacifidlog_Door                               0x21A

@@ -28,6 +28,7 @@ EventScript_CutTreeDown::
 	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
 	waitmovement 0
 	removeobject VAR_LAST_TALKED
+	setflag FLAG_TEMP_11
 	releaseall
 	end
 

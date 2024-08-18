@@ -531,7 +531,7 @@ const u16 DecorGfx_WYNAUT_DOLL[] = {
 };
 
 const u16 DecorGfx_BALTOY_DOLL[] = {
-    OBJ_EVENT_GFX_BALTOY_DOLL
+    OBJ_EVENT_GFX_SWABLU_DOLL
 };
 
 const u16 DecorGfx_SWABLU_DOLL[] = {
