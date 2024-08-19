@@ -11569,8 +11569,8 @@
                 "species": "SPECIES_SHARPEDO"
               },
               {
-                "min_level": 5,
-                "max_level": 5,
+                "min_level": 10,
+                "max_level": 10,
                 "species": "SPECIES_REMORAID"
               },
               {

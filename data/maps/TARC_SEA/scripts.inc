@@ -46,15 +46,149 @@ TARC_Sea_EveryFrame_GameStart::
 	setorcopyvar VAR_LITTLEROOT_TOWN_STATE, 2
 	applymovement OBJ_EVENT_ID_PLAYER, Move_driftintocurrents
 	waitmovement 0
+	msgbox TARC_Sea_EveryFrame_GameStart_Text_0
+	waitmessage
 	release
 	return
 
 
 TARC_SEA_GameEnd::
 	lock
-	msgbox TARC_SEA_GameEnd_Text_0, MSGBOX_AUTOCLOSE
-	release
+	special StopPlayTimer
+	specialvar VAR_RESULT, GetPlayTimeHours
+	buffernumberstring STR_VAR_1, VAR_RESULT
+	specialvar VAR_RESULT, GetPlayTimeMinutes
+	buffertimestring STR_VAR_2, VAR_RESULT
+	specialvar VAR_RESULT, GetPlayTimeSeconds
+	buffertimestring STR_VAR_3, VAR_RESULT
+	msgbox TARC_SEA_GameEnd_Text_0
+	waitmessage
+	setorcopyvar VAR_TARC_COUNT, 0
+	goto_if_set FLAG_HINT01, TARC_SEA_GameEnd_2
+TARC_SEA_GameEnd_1:
+	goto_if_set FLAG_HINT02, TARC_SEA_GameEnd_5
+TARC_SEA_GameEnd_4:
+	goto_if_set FLAG_HINT03, TARC_SEA_GameEnd_8
+TARC_SEA_GameEnd_7:
+	goto_if_set FLAG_HINT04, TARC_SEA_GameEnd_11
+TARC_SEA_GameEnd_10:
+	goto_if_set FLAG_HINT05, TARC_SEA_GameEnd_14
+TARC_SEA_GameEnd_13:
+	goto_if_set FLAG_HINT06, TARC_SEA_GameEnd_17
+TARC_SEA_GameEnd_16:
+	goto_if_set FLAG_HINT07, TARC_SEA_GameEnd_20
+TARC_SEA_GameEnd_19:
+	goto_if_set FLAG_HINT08, TARC_SEA_GameEnd_23
+TARC_SEA_GameEnd_22:
+	goto_if_set FLAG_HINT09, TARC_SEA_GameEnd_26
+TARC_SEA_GameEnd_25:
+	goto_if_set FLAG_HINT10, TARC_SEA_GameEnd_29
+TARC_SEA_GameEnd_28:
+	goto_if_set FLAG_HINT11, TARC_SEA_GameEnd_32
+TARC_SEA_GameEnd_31:
+	goto_if_set FLAG_HINT12, TARC_SEA_GameEnd_35
+TARC_SEA_GameEnd_34:
+	goto_if_set FLAG_HINT13, TARC_SEA_GameEnd_38
+TARC_SEA_GameEnd_37:
+	goto_if_set FLAG_HINT14, TARC_SEA_GameEnd_41
+TARC_SEA_GameEnd_40:
+	goto_if_set FLAG_HINT15, TARC_SEA_GameEnd_44
+TARC_SEA_GameEnd_43:
+	goto_if_set FLAG_HINT16, TARC_SEA_GameEnd_47
+TARC_SEA_GameEnd_46:
+	goto_if_set FLAG_HINT17, TARC_SEA_GameEnd_50
+TARC_SEA_GameEnd_49:
+	goto_if_set FLAG_HINT18, TARC_SEA_GameEnd_53
+TARC_SEA_GameEnd_52:
+	goto_if_set FLAG_HINT19, TARC_SEA_GameEnd_56
+TARC_SEA_GameEnd_55:
+	goto_if_set FLAG_HINT20, TARC_SEA_GameEnd_59
+TARC_SEA_GameEnd_58:
+	buffernumberstring STR_VAR_1, VAR_TARC_COUNT
+	msgbox TARC_SEA_GameEnd_Text_1
+	waitmessage
+	special StartCredits
 	return
+
+TARC_SEA_GameEnd_2:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_1
+
+TARC_SEA_GameEnd_5:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_4
+
+TARC_SEA_GameEnd_8:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_7
+
+TARC_SEA_GameEnd_11:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_10
+
+TARC_SEA_GameEnd_14:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_13
+
+TARC_SEA_GameEnd_17:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_16
+
+TARC_SEA_GameEnd_20:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_19
+
+TARC_SEA_GameEnd_23:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_22
+
+TARC_SEA_GameEnd_26:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_25
+
+TARC_SEA_GameEnd_29:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_28
+
+TARC_SEA_GameEnd_32:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_31
+
+TARC_SEA_GameEnd_35:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_34
+
+TARC_SEA_GameEnd_38:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_37
+
+TARC_SEA_GameEnd_41:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_40
+
+TARC_SEA_GameEnd_44:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_43
+
+TARC_SEA_GameEnd_47:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_46
+
+TARC_SEA_GameEnd_50:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_49
+
+TARC_SEA_GameEnd_53:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_52
+
+TARC_SEA_GameEnd_56:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_55
+
+TARC_SEA_GameEnd_59:
+	addvar VAR_TARC_COUNT, 1
+	goto TARC_SEA_GameEnd_58
 
 
 Move_exclmark:
@@ -112,5 +246,19 @@ Move_AfterCurrent:
 	delay_1
 	step_end
 
+TARC_Sea_EveryFrame_GameStart_Text_0:
+	.string "This is a preliminary Alpha Testing\n"
+	.string "Version of this hack.\p"
+	.string "Please do not share it outside of the\n"
+	.string "closed testing circle.$"
+
 TARC_SEA_GameEnd_Text_0:
-	.string "YOU WON!$"
+	.string "Congratulations {PLAYER}!\p"
+	.string "You have completed the challenge. Well\n"
+	.string "done!\p"
+	.string "Your final time is\n"
+	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.$"
+
+TARC_SEA_GameEnd_Text_1:
+	.string "You have been using {STR_VAR_1}\n"
+	.string "hint(s).$"

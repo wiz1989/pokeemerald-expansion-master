@@ -3,7 +3,7 @@
   "name": "TARC_SEA",
   "layout": "LAYOUT_TARC_SEA",
   "music": "MUS_ABANDONED_SHIP",
-  "region_map_section": "MAPSEC_NONE",
+  "region_map_section": "MAPSEC_DESERT_UNDERPASS",
   "requires_flash": false,
   "weather": "WEATHER_SUNNY",
   "map_type": "MAP_TYPE_OCEAN_ROUTE",

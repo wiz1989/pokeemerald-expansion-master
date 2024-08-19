@@ -1813,6 +1813,29 @@
 	_dynmultichoice \left, \top, \ignoreBPress, \maxBeforeScroll, \shouldSort, \initialSelected, \callbacks, NULL
 	.endm
 
+	@ Converts the value of input to a decimal string in form "00", and writes that string to the specified buffer.
+	.macro buffertimestring stringVarId:req, input:req
+	.byte 0xe5
+	stringvar \stringVarId
+	.2byte \input
+	.endm
+
+	@ Checks if at least one Pokemon in the player's party holds the specified item. If so, VAR_RESULT is set to the
+	@ (zero-indexed) slot number of the first Pokemon that holds the item. If not, VAR_RESULT is set to PARTY_SIZE.
+	@ VAR_0x8004 is also set to this Pokemon's species.
+	.macro checkpartyitem item:req
+	.byte 0xe6
+	.2byte \item
+	.endm
+
+	@ Checks if at least one Pokemon in the player's party knows the specified ability. If so, VAR_RESULT is set to the
+	@ (zero-indexed) slot number of the first Pokemon that knows the ability. If not, VAR_RESULT is set to PARTY_SIZE.
+	@ VAR_0x8004 is also set to this Pokemon's species.
+	.macro checkpartyability ability:req
+	.byte 0xe7
+	.2byte \ability
+	.endm
+
 
 @ Supplementary
 
@@ -2193,4 +2216,11 @@
 	.macro getpartymonslot species: req
 	setvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, GetMonPartySlot
+	.endm
+
+	@ check if a certain species is found in the player's party.
+	@ TRUE/FALSE is written into VAR_RESULT
+	.macro checkpartymon species:req
+	setvar VAR_TEMP_1, \species
+	specialvar VAR_RESULT, IsPokemonInParty
 	.endm

@@ -53,7 +53,7 @@ TARC_CAVE_EveryFrame_FirstTime::
 	hidemonpic
 	getpartymonslot SPECIES_SABLEYE
 	special DeletePartyMon
-	givemon SPECIES_CUBONE, 5, ITEM_NONE, 0, NATURE_LONELY, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MOVE_STRENGTH, MOVE_FALSE_SWIPE, MOVE_TAIL_WHIP, MOVE_NONE
+	givemon SPECIES_CUBONE, 5, ITEM_NONE, 0, NATURE_LONELY, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MOVE_STRENGTH, MOVE_MUD_SLAP, MOVE_TAIL_WHIP, MOVE_GROWL
 	playfanfare MUS_OBTAIN_ITEM
 	message TARC_CAVE_EveryFrame_FirstTime_Text_4
 	waitmessage

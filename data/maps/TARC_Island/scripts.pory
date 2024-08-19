@@ -34,8 +34,9 @@ script TARC_Island_Fisherman {
     	//check if Remoraid was caught
         if (flag(FLAG_TARC_REMORAID))
         {
-            //check if Seismitoad was already defeated
-            if (flag(FLAG_WON_SEISMITOAD))
+            //check if Mantine already in party
+            checkpartymon(SPECIES_MANTINE)
+            if (var(VAR_RESULT) == TRUE)
             {
                 //trade Remoraid
                 if (flag(FLAG_REMORAID_TRADE_COMPLETED))
@@ -80,6 +81,7 @@ script TARC_Island_Fisherman {
             }
             else
             {
+                msgbox(format("Ohh....what a tasty catch!"), MSGBOX_AUTOCLOSE)
                 msgbox(format("How sad you still need it for now..."), MSGBOX_AUTOCLOSE)
             }
         }
@@ -169,18 +171,299 @@ script EndOfRelearnerScript {
     releaseall
 }
 
-script TARC_Island_Zigzagoon {
-    lockall
-    faceplayer
-	msgbox("Ziggie!!!", MSGBOX_AUTOCLOSE)
-	releaseall
+script TARC_Island_Zigzagoon { //wiz1989
+	lock
+	faceplayer
+	msgbox(format("Zigzagoon is running around searching for items!\pIt will help you out in case you lost crucial items after obtaining them in the first place."), MSGBOX_AUTOCLOSE)
+	waitmessage
+	setorcopyvar(VAR_TARC_COLLECTOR_COUNT, 0)
+
+	//check Pokeball 1
+    clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	if (flag(FLAG_TARC_item_Pokeballs) && !flag(FLAG_TARC_REMORAID)) {
+		checkitem(ITEM_POKE_BALL)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_POKE_BALL)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//player is still holding the item
+		}
+		else {
+            msgbox(format("Oh no, you lost a POKE BALL!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            giveitem(ITEM_POKE_BALL)
+		}
+	}
+
+    //check Big Nugget
+    clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	if (flag(FLAG_TARC_item_Big_Nugget) && !flag(FLAG_WON_SLOWKING)) {
+		checkitem(ITEM_BIG_NUGGET)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_BIG_NUGGET)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//player is still holding the item
+		}
+		else {
+            msgbox(format("Oh no, you lost a precious BIG NUGGET!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            giveitem(ITEM_BIG_NUGGET)
+		}
+	}
+
+    //check Pokeball 2
+    clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	if (flag(FLAG_TARC_item_Pokeballs2) && !flag(FLAG_TARC_FARFETCHD)) {
+		checkitem(ITEM_POKE_BALL)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_POKE_BALL)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//player is still holding the item
+		}
+		else {
+            msgbox(format("Oh no, you lost a POKE BALL!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            giveitem(ITEM_POKE_BALL)
+		}
+	}
+
+    //check Ability Capsule
+    clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	if (flag(FLAG_TARC_ITEM_X) && !flag(FLAG_HIDE_WILSON)) {
+		checkitem(ITEM_ABILITY_CAPSULE)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_ABILITY_CAPSULE)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//player is still holding the item
+		}
+		else {
+            checkpartyability(36) //36 = ABILITY_TRACE
+            if (var(VAR_RESULT) == PARTY_SIZE)
+            {
+                msgbox(format("Oh no, you lost an Ability Capsule!"), MSGBOX_AUTOCLOSE)
+                waitmessage
+                msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+                waitmessage
+                giveitem(ITEM_ABILITY_CAPSULE)
+            }
+		}
+	}
+	release
 }
 
 script TARC_Island_Game_Master {
-    lockall
+    lock
+    clearflag(FLAG_TARC_ADDTIME)
+    clearflag(FLAG_TARC_GIVE_NO_ADVICE)
     faceplayer
-	msgbox("I am the Game Master.", MSGBOX_AUTOCLOSE)
-	releaseall
+    msgbox(format("I am the Game Master. \pI will give you helpful advice for each situation, but it adds an additional 20min to your play clock."))
+    waitmessage
+    msgbox(format("Do you want me to give you a hint?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        setflag(FLAG_TARC_GIVE_NO_ADVICE)
+        //handle all different scenarios below
+
+        //first battle - fling strat
+        if(!flag(FLAG_WON_SLOWKING))
+        {
+            //check if hint was already given
+            if (!flag(FLAG_HINT01)) {
+                setflag(FLAG_HINT01)
+                setflag(FLAG_TARC_ADDTIME)
+            }
+            //msgbox(format("Are you struggling against Slowking?\pCheck out how Fling works and make use of your nugget!"), MSGBOX_AUTOCLOSE)
+            msgbox(format("Are you struggling against Slowking?\pYou should look into the move mechanics of Sableye to find a solution."), MSGBOX_AUTOCLOSE)
+            clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+        }
+
+        //second battle - evolve Mantyne
+        if(flag(FLAG_WON_SLOWKING) && !flag(FLAG_WON_SEISMITOAD))
+        {
+            checkpartymon(SPECIES_MANTINE)
+            
+            //searching for the first Pokéball
+            if (!flag(FLAG_TARC_item_Pokeballs))
+            {
+                //check if hint was already given
+                if (!flag(FLAG_HINT02)) {
+                    setflag(FLAG_HINT02)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                //msgbox(format("Your party seems too small to continue from here.\pTake a closer look at the water currents in the south to further explore the area!"), MSGBOX_AUTOCLOSE)
+                msgbox(format("Your party seems too small to continue from here.\pYou should explore the outer limits of this island to make progress from your CURRENT situation!"), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
+            //catch Remoraid
+            elif (!flag(FLAG_TARC_REMORAID))
+            {
+                //check if hint was already given
+                if (!flag(FLAG_HINT03)) {
+                    setflag(FLAG_HINT03)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                msgbox(format("Seismitoad is too much for you?\pHaving a team member with a super effective move would help tremendously!\pYou should check out the pond above."), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
+            //evolve Mantyke to Mantine
+            elif (var(VAR_RESULT) == FALSE)
+            {
+                //check if hint was already given
+                if (!flag(FLAG_HINT04)) {
+                    setflag(FLAG_HINT04)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                //msgbox(format("What a cute Mantyke you have there!\pYou should consider evolving it!"), MSGBOX_AUTOCLOSE)
+                msgbox(format("What a cute Mantyke you have there!\pIt's just a little weak compared to what it could be."), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
+            else
+            {
+                //teach Bullet Seed to Mantine
+                checkpartymove(MOVE_BULLET_SEED)
+                if (var(VAR_RESULT) == PARTY_SIZE) {
+                    //check if hint was already given
+                    if (!flag(FLAG_HINT05)) {
+                        setflag(FLAG_HINT05)
+                        setflag(FLAG_TARC_ADDTIME)
+                    }
+                    msgbox(format("Have you visited Celebi?\pMantine is so versatile to even learn a Grass type move!"), MSGBOX_AUTOCLOSE)
+                    clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+                }
+            }
+        }
+
+        //cave puzzle
+        if (flag(FLAG_WON_SEISMITOAD) && !flag(FLAG_CAVE_SOLVED2))
+        {
+            //check if hint was already given
+            if (!flag(FLAG_HINT06)) {
+                setflag(FLAG_HINT06)
+                setflag(FLAG_TARC_ADDTIME)
+            }
+            msgbox(format("You need help with the cave mechanics?\pI cannot solve the puzzle for you, but I can explain the details for you.\pWhen spotted by a Kadabra or Onix it will warp you back to the last entrance.\pIf spotted by a Zubat it will move towards you and stay there.\pWhen all boulders are placed on the target fields Onix will turn around and let you pass."), MSGBOX_AUTOCLOSE)
+            clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+        }
+
+        //Farfetch'd
+        if (flag(FLAG_CAVE_SOLVED2) && !flag(FLAG_TARC_ITEM_X))
+        {
+            //searching for the second Pokéball
+            if (!flag(FLAG_TARC_item_Pokeballs2))
+            {
+                //check if hint was already given
+                if (!flag(FLAG_HINT07)) {
+                    setflag(FLAG_HINT07)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                msgbox(format("Oh, you haven't picked up the second Pokéball, yet.\pGo to the north to find it!"), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
+            //use cut on grass patches
+            elif (flag(FLAG_TARC_FARFETCHD) && !flag(FLAG_TARC_CUT_X))
+            {
+                //check if hint was already given
+                if (!flag(FLAG_HINT08)) {
+                    setflag(FLAG_HINT08)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                msgbox(format("Your Farfetch'd looks strong!\pIt seems to be able to even cut patches of grass.\pYou should look into that possibility!"), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
+        }
+
+        //Wonder Guard battle
+        if (flag(FLAG_TARC_ITEM_X) && !defeated(TRAINER_CHASE))
+        {
+            //check if hint was already given
+            if (!flag(FLAG_HINT09)) {
+                setflag(FLAG_HINT09)
+                setflag(FLAG_TARC_ADDTIME)
+            }
+            //msgbox(format("The Castaway is too much for you?\pChanging Porygon's ability with the Ability Pill will allow you to copy Wonder Guard!\pThen try to change its type to Dark using the Conversion moves."), MSGBOX_AUTOCLOSE)
+            msgbox(format("The Castaway is too much for you?\pYou should look into Porygon's abilities to make it a fair pairing!\pThe key to success is to manage your typing skillfully!"), MSGBOX_AUTOCLOSE)
+            clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+        }
+
+        //Rhyhorn
+        if (defeated(TRAINER_CHASE) && !flag(FLAG_TARC_BREAKABLE_ROCK))
+        {
+            //check if hint was already given
+            if (!flag(FLAG_HINT10)) {
+                setflag(FLAG_HINT10)
+                setflag(FLAG_TARC_ADDTIME)
+            }
+            //msgbox(format("You still cannot reach past the breakable rock?\pTake a deep look into your Pokedex' searching features to find a solution!"), MSGBOX_AUTOCLOSE)
+            msgbox(format("You still cannot reach past the breakable rock?\pTake a deep look into your Pokedex' features to find a solution!"), MSGBOX_AUTOCLOSE)
+            clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+        }
+
+        //Dive away
+        if (defeated(TRAINER_CHASE) && flag(FLAG_TARC_BREAKABLE_ROCK))
+        {
+            //check if hint was already given
+            if (!flag(FLAG_HINT11)) {
+                setflag(FLAG_HINT11)
+                setflag(FLAG_TARC_ADDTIME)
+            }
+            msgbox(format("You are free, {PLAYER}!\pJust dive out of here and follow the way south."), MSGBOX_AUTOCLOSE)
+            clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+        }
+    }
+    else {
+        msgbox(format("Come back whenever you need me."), MSGBOX_AUTOCLOSE)
+        waitmessage
+        release
+        end
+    }
+    waitmessage
+
+    //add x min to play clock
+    if (flag(FLAG_TARC_ADDTIME)) {
+        setorcopyvar(VAR_0x8004, 20)
+        special(PlayTimeAddMin)
+    }
+    else {
+        //default message for missing branches
+        if (flag(FLAG_TARC_GIVE_NO_ADVICE)) {
+            msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for items, catching Pokémon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
+            waitmessage
+        }
+        else {
+            msgbox(format("\p...\pI had already given this hint to you before. \pI guess it's fair if I don't charge you any more time for it."))
+            waitmessage
+        }
+    }
+
+    release
 }
 
 script TARC_Island_Maxie {
@@ -192,9 +475,10 @@ script TARC_Island_Maxie {
 }
 
 script TARC_Island_sign_Game_Start {
-    lockall
-	msgbox("Info sign for game start.", MSGBOX_AUTOCLOSE)
-	releaseall
+    lock
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 level up move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed and some base stats, RNG odds etc. might have been slightly altered to balance the game."))// \p4.) Running from trainer battles is explicitly ALLOWED."))
+    waitmessage
+    release
 }
 
 script TARC_Island_sign_Rock_Climb {

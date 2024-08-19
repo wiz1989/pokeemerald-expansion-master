@@ -7762,3 +7762,13 @@ static bool8 SetUpFieldMove_RockClimb(void)
     
     return FALSE;
 }
+
+bool8 MonKnowsAbility(struct Pokemon *mon, u16 ability)
+{
+    u8 i;
+
+    if (GetAbilityBySpecies(GetMonData(mon, MON_DATA_SPECIES),GetMonData(mon, MON_DATA_ABILITY_NUM)) == ability)
+        return TRUE;
+
+    return FALSE;
+}

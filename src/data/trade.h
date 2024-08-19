@@ -1050,7 +1050,7 @@ static const struct InGameTrade sIngameTrades[] =
     },
     [INGAME_TRADE_REMORAID] =
     {
-        .nickname = _("PETE"),
+        .nickname = _("Pete"),
         .species = SPECIES_PORYGON,
         .ivs = {0, 0, 0, 0, 0, 0},
         .abilityNum = 1,
@@ -1059,10 +1059,10 @@ static const struct InGameTrade sIngameTrades[] =
         .personality = 0x6F,
         .heldItem = ITEM_NONE,
         .mailNum = 0,
-        .otName = _("MOXI"),
+        .otName = _("Moxi"),
         .otGender = MALE,
         .sheen = 10,
-        .requestedSpecies = SPECIES_REMORAID
+        .requestedSpecies = SPECIES_REMORAID,
     }
 };
 

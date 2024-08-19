@@ -48,6 +48,8 @@ script TARC_Sea_EveryFrame_GameStart {
     setorcopyvar(VAR_LITTLEROOT_TOWN_STATE, 2)
     applymovement(OBJ_EVENT_ID_PLAYER, Move_driftintocurrents)
     waitmovement(0)
+	msgbox(format("This is a preliminary Alpha Testing Version of this hack.\pPlease do not share it outside of the closed testing circle."))
+    waitmessage
     release
 }
 
@@ -55,9 +57,89 @@ script TARC_Sea_EveryFrame_GameStart {
 // ############### Regular EventScripts ###############
 
 script TARC_SEA_GameEnd {
-    lock
-    msgbox("YOU WON!", MSGBOX_AUTOCLOSE)
-    release
+	lock
+	//fadescreen(FADE_TO_BLACK)
+	special(StopPlayTimer)
+	//get time
+	specialvar(VAR_RESULT, GetPlayTimeHours)
+	buffernumberstring(STR_VAR_1, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeMinutes)
+	buffertimestring(STR_VAR_2, VAR_RESULT)
+	specialvar(VAR_RESULT, GetPlayTimeSeconds)
+	buffertimestring(STR_VAR_3, VAR_RESULT)
+	msgbox(format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}."))
+	waitmessage
+
+	//get hints count
+	setorcopyvar(VAR_TARC_COUNT, 0)
+	if (flag(FLAG_HINT01)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT02)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT03)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT04)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT05)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT06)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT07)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT08)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT09)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT10)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT11)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT12)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT13)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT14)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT15)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT16)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT17)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT18)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT19)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	if (flag(FLAG_HINT20)) {
+		addvar(VAR_TARC_COUNT, 1)
+	}
+	buffernumberstring(STR_VAR_1, VAR_TARC_COUNT)
+	msgbox(format("You have been using {STR_VAR_1} hint(s)."))
+	waitmessage
+	//fadescreen(FADE_FROM_BLACK)
+	//fadescreen(FADE_TO_BLACK)
+
+	//show game credits
+	special(StartCredits)
 }
 
 

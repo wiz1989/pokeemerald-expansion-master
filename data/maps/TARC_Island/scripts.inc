@@ -180,19 +180,391 @@ EndOfRelearnerScript::
 
 
 TARC_Island_Zigzagoon::
-	lockall
+	lock
 	faceplayer
 	msgbox TARC_Island_Zigzagoon_Text_0, MSGBOX_AUTOCLOSE
-	releaseall
+	waitmessage
+	setorcopyvar VAR_TARC_COLLECTOR_COUNT, 0
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_TARC_item_Pokeballs, TARC_Island_Zigzagoon_3
+TARC_Island_Zigzagoon_1:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_TARC_item_Big_Nugget, TARC_Island_Zigzagoon_8
+TARC_Island_Zigzagoon_6:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_TARC_item_Pokeballs2, TARC_Island_Zigzagoon_16
+TARC_Island_Zigzagoon_14:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_TARC_ITEM_X, TARC_Island_Zigzagoon_27
+TARC_Island_Zigzagoon_25:
+	release
 	return
+
+TARC_Island_Zigzagoon_2:
+	checkitem ITEM_POKE_BALL
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_12
+TARC_Island_Zigzagoon_11:
+	checkpartyitem ITEM_POKE_BALL
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_23
+TARC_Island_Zigzagoon_22:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_36
+	msgbox TARC_Island_Zigzagoon_Text_1, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_POKE_BALL
+	goto TARC_Island_Zigzagoon_1
+
+TARC_Island_Zigzagoon_3:
+	goto_if_unset FLAG_TARC_REMORAID, TARC_Island_Zigzagoon_2
+	goto TARC_Island_Zigzagoon_1
+
+TARC_Island_Zigzagoon_7:
+	checkitem ITEM_BIG_NUGGET
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_20
+TARC_Island_Zigzagoon_19:
+	checkpartyitem ITEM_BIG_NUGGET
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_34
+TARC_Island_Zigzagoon_33:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_45
+	msgbox TARC_Island_Zigzagoon_Text_3, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_BIG_NUGGET
+	goto TARC_Island_Zigzagoon_6
+
+TARC_Island_Zigzagoon_8:
+	goto_if_unset FLAG_WON_SLOWKING, TARC_Island_Zigzagoon_7
+	goto TARC_Island_Zigzagoon_6
+
+TARC_Island_Zigzagoon_12:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_11
+
+TARC_Island_Zigzagoon_15:
+	checkitem ITEM_POKE_BALL
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_31
+TARC_Island_Zigzagoon_30:
+	checkpartyitem ITEM_POKE_BALL
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_43
+TARC_Island_Zigzagoon_42:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_51
+	msgbox TARC_Island_Zigzagoon_Text_1, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_POKE_BALL
+	goto TARC_Island_Zigzagoon_14
+
+TARC_Island_Zigzagoon_16:
+	goto_if_unset FLAG_TARC_FARFETCHD, TARC_Island_Zigzagoon_15
+	goto TARC_Island_Zigzagoon_14
+
+TARC_Island_Zigzagoon_20:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_19
+
+TARC_Island_Zigzagoon_23:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_22
+
+TARC_Island_Zigzagoon_26:
+	checkitem ITEM_ABILITY_CAPSULE
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_40
+TARC_Island_Zigzagoon_39:
+	checkpartyitem ITEM_ABILITY_CAPSULE
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_49
+TARC_Island_Zigzagoon_48:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_54
+	checkpartyability 36
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq TARC_Island_Zigzagoon_57
+	goto TARC_Island_Zigzagoon_25
+
+TARC_Island_Zigzagoon_27:
+	goto_if_unset FLAG_HIDE_WILSON, TARC_Island_Zigzagoon_26
+	goto TARC_Island_Zigzagoon_25
+
+TARC_Island_Zigzagoon_31:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_30
+
+TARC_Island_Zigzagoon_34:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_33
+
+TARC_Island_Zigzagoon_36:
+	goto TARC_Island_Zigzagoon_1
+
+TARC_Island_Zigzagoon_40:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_39
+
+TARC_Island_Zigzagoon_43:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_42
+
+TARC_Island_Zigzagoon_45:
+	goto TARC_Island_Zigzagoon_6
+
+TARC_Island_Zigzagoon_49:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_48
+
+TARC_Island_Zigzagoon_51:
+	goto TARC_Island_Zigzagoon_14
+
+TARC_Island_Zigzagoon_54:
+	goto TARC_Island_Zigzagoon_25
+
+TARC_Island_Zigzagoon_57:
+	msgbox TARC_Island_Zigzagoon_Text_4, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_ABILITY_CAPSULE
+	goto TARC_Island_Zigzagoon_25
 
 
 TARC_Island_Game_Master::
-	lockall
+	lock
+	clearflag FLAG_TARC_ADDTIME
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	faceplayer
-	msgbox TARC_Island_Game_Master_Text_0, MSGBOX_AUTOCLOSE
-	releaseall
+	msgbox TARC_Island_Game_Master_Text_0
+	waitmessage
+	msgbox TARC_Island_Game_Master_Text_1, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq TARC_Island_Game_Master_2
+	msgbox TARC_Island_Game_Master_Text_13, MSGBOX_AUTOCLOSE
+	waitmessage
+	release
+	end
+
+TARC_Island_Game_Master_1:
+	waitmessage
+	goto_if_set FLAG_TARC_ADDTIME, TARC_Island_Game_Master_6
+	goto_if_set FLAG_TARC_GIVE_NO_ADVICE, TARC_Island_Game_Master_12
+	msgbox TARC_Island_Game_Master_Text_15
+	waitmessage
+TARC_Island_Game_Master_5:
+	release
 	return
+
+TARC_Island_Game_Master_2:
+	setflag FLAG_TARC_GIVE_NO_ADVICE
+	goto_if_unset FLAG_WON_SLOWKING, TARC_Island_Game_Master_10
+TARC_Island_Game_Master_9:
+	goto_if_set FLAG_WON_SLOWKING, TARC_Island_Game_Master_17
+TARC_Island_Game_Master_15:
+	goto_if_set FLAG_WON_SEISMITOAD, TARC_Island_Game_Master_25
+TARC_Island_Game_Master_23:
+	goto_if_set FLAG_CAVE_SOLVED2, TARC_Island_Game_Master_37
+TARC_Island_Game_Master_35:
+	goto_if_set FLAG_TARC_ITEM_X, TARC_Island_Game_Master_56
+TARC_Island_Game_Master_54:
+	checktrainerflag TRAINER_CHASE
+	goto_if 1, TARC_Island_Game_Master_70
+TARC_Island_Game_Master_68:
+	checktrainerflag TRAINER_CHASE
+	goto_if 1, TARC_Island_Game_Master_83
+	goto TARC_Island_Game_Master_1
+
+TARC_Island_Game_Master_6:
+	setorcopyvar VAR_0x8004, 20
+	special PlayTimeAddMin
+	goto TARC_Island_Game_Master_5
+
+TARC_Island_Game_Master_10:
+	goto_if_unset FLAG_HINT01, TARC_Island_Game_Master_21
+TARC_Island_Game_Master_20:
+	msgbox TARC_Island_Game_Master_Text_2, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_9
+
+TARC_Island_Game_Master_12:
+	msgbox TARC_Island_Game_Master_Text_14
+	waitmessage
+	goto TARC_Island_Game_Master_5
+
+TARC_Island_Game_Master_16:
+	checkpartymon SPECIES_MANTINE
+	goto_if_unset FLAG_TARC_item_Pokeballs, TARC_Island_Game_Master_28
+	goto_if_unset FLAG_TARC_REMORAID, TARC_Island_Game_Master_29
+	compare VAR_RESULT, FALSE
+	goto_if_eq TARC_Island_Game_Master_30
+	checkpartymove MOVE_BULLET_SEED
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq TARC_Island_Game_Master_52
+	goto TARC_Island_Game_Master_15
+
+TARC_Island_Game_Master_17:
+	goto_if_unset FLAG_WON_SEISMITOAD, TARC_Island_Game_Master_16
+	goto TARC_Island_Game_Master_15
+
+TARC_Island_Game_Master_21:
+	setflag FLAG_HINT01
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_20
+
+TARC_Island_Game_Master_24:
+	goto_if_unset FLAG_HINT06, TARC_Island_Game_Master_41
+TARC_Island_Game_Master_40:
+	msgbox TARC_Island_Game_Master_Text_7, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_23
+
+TARC_Island_Game_Master_25:
+	goto_if_unset FLAG_CAVE_SOLVED2, TARC_Island_Game_Master_24
+	goto TARC_Island_Game_Master_23
+
+TARC_Island_Game_Master_28:
+	goto_if_unset FLAG_HINT02, TARC_Island_Game_Master_44
+TARC_Island_Game_Master_43:
+	msgbox TARC_Island_Game_Master_Text_3, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_15
+
+TARC_Island_Game_Master_29:
+	goto_if_unset FLAG_HINT03, TARC_Island_Game_Master_47
+TARC_Island_Game_Master_46:
+	msgbox TARC_Island_Game_Master_Text_4, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_15
+
+TARC_Island_Game_Master_30:
+	goto_if_unset FLAG_HINT04, TARC_Island_Game_Master_50
+TARC_Island_Game_Master_49:
+	msgbox TARC_Island_Game_Master_Text_5, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_15
+
+TARC_Island_Game_Master_36:
+	goto_if_unset FLAG_TARC_item_Pokeballs2, TARC_Island_Game_Master_59
+	goto_if_set FLAG_TARC_FARFETCHD, TARC_Island_Game_Master_61
+	goto TARC_Island_Game_Master_35
+
+TARC_Island_Game_Master_37:
+	goto_if_unset FLAG_TARC_ITEM_X, TARC_Island_Game_Master_36
+	goto TARC_Island_Game_Master_35
+
+TARC_Island_Game_Master_41:
+	setflag FLAG_HINT06
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_40
+
+TARC_Island_Game_Master_44:
+	setflag FLAG_HINT02
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_43
+
+TARC_Island_Game_Master_47:
+	setflag FLAG_HINT03
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_46
+
+TARC_Island_Game_Master_50:
+	setflag FLAG_HINT04
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_49
+
+TARC_Island_Game_Master_52:
+	goto_if_unset FLAG_HINT05, TARC_Island_Game_Master_66
+TARC_Island_Game_Master_65:
+	msgbox TARC_Island_Game_Master_Text_6, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_15
+
+TARC_Island_Game_Master_55:
+	goto_if_unset FLAG_HINT09, TARC_Island_Game_Master_74
+TARC_Island_Game_Master_73:
+	msgbox TARC_Island_Game_Master_Text_10, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_54
+
+TARC_Island_Game_Master_56:
+	checktrainerflag TRAINER_CHASE
+	goto_if 0, TARC_Island_Game_Master_55
+	goto TARC_Island_Game_Master_54
+
+TARC_Island_Game_Master_59:
+	goto_if_unset FLAG_HINT07, TARC_Island_Game_Master_77
+TARC_Island_Game_Master_76:
+	msgbox TARC_Island_Game_Master_Text_8, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_35
+
+TARC_Island_Game_Master_60:
+	goto_if_unset FLAG_HINT08, TARC_Island_Game_Master_80
+TARC_Island_Game_Master_79:
+	msgbox TARC_Island_Game_Master_Text_9, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_35
+
+TARC_Island_Game_Master_61:
+	goto_if_unset FLAG_TARC_CUT_X, TARC_Island_Game_Master_60
+	goto TARC_Island_Game_Master_35
+
+TARC_Island_Game_Master_66:
+	setflag FLAG_HINT05
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_65
+
+TARC_Island_Game_Master_69:
+	goto_if_unset FLAG_HINT10, TARC_Island_Game_Master_87
+TARC_Island_Game_Master_86:
+	msgbox TARC_Island_Game_Master_Text_11, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_68
+
+TARC_Island_Game_Master_70:
+	goto_if_unset FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_69
+	goto TARC_Island_Game_Master_68
+
+TARC_Island_Game_Master_74:
+	setflag FLAG_HINT09
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_73
+
+TARC_Island_Game_Master_77:
+	setflag FLAG_HINT07
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_76
+
+TARC_Island_Game_Master_80:
+	setflag FLAG_HINT08
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_79
+
+TARC_Island_Game_Master_82:
+	goto_if_unset FLAG_HINT11, TARC_Island_Game_Master_90
+TARC_Island_Game_Master_89:
+	msgbox TARC_Island_Game_Master_Text_12, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_1
+
+TARC_Island_Game_Master_83:
+	goto_if_set FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_82
+	goto TARC_Island_Game_Master_1
+
+TARC_Island_Game_Master_87:
+	setflag FLAG_HINT10
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_86
+
+TARC_Island_Game_Master_90:
+	setflag FLAG_HINT11
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_89
 
 
 TARC_Island_Maxie::
@@ -205,9 +577,10 @@ TARC_Island_Maxie::
 
 
 TARC_Island_sign_Game_Start::
-	lockall
-	msgbox TARC_Island_sign_Game_Start_Text_0, MSGBOX_AUTOCLOSE
-	releaseall
+	lock
+	msgbox TARC_Island_sign_Game_Start_Text_0
+	waitmessage
+	release
 	return
 
 
@@ -517,10 +890,123 @@ TARC_Island_Celebi_Text_1:
 	.string "move to.$"
 
 TARC_Island_Zigzagoon_Text_0:
-	.string "Ziggie!!!$"
+	.string "Zigzagoon is running around searching\n"
+	.string "for items!\p"
+	.string "It will help you out in case you lost\n"
+	.string "crucial items after obtaining them in\l"
+	.string "the first place.$"
+
+TARC_Island_Zigzagoon_Text_1:
+	.string "Oh no, you lost a POKE BALL!$"
+
+TARC_Island_Zigzagoon_Text_2:
+	.string "You are very lucky that Zigzagoon\n"
+	.string "found it!$"
+
+TARC_Island_Zigzagoon_Text_3:
+	.string "Oh no, you lost a precious BIG NUGGET!$"
+
+TARC_Island_Zigzagoon_Text_4:
+	.string "Oh no, you lost an Ability Capsule!$"
 
 TARC_Island_Game_Master_Text_0:
-	.string "I am the Game Master.$"
+	.string "I am the Game Master.\p"
+	.string "I will give you helpful advice for each\n"
+	.string "situation, but it adds an additional\l"
+	.string "20min to your play clock.$"
+
+TARC_Island_Game_Master_Text_1:
+	.string "Do you want me to give you a hint?$"
+
+TARC_Island_Game_Master_Text_2:
+	.string "Are you struggling against Slowking?\p"
+	.string "You should look into the move mechanics\n"
+	.string "of Sableye to find a solution.$"
+
+TARC_Island_Game_Master_Text_3:
+	.string "Your party seems too small to continue\n"
+	.string "from here.\p"
+	.string "You should explore the outer limits of\n"
+	.string "this island to make progress from your\l"
+	.string "CURRENT situation!$"
+
+TARC_Island_Game_Master_Text_4:
+	.string "Seismitoad is too much for you?\p"
+	.string "Having a team member with a super\n"
+	.string "effective move would help\l"
+	.string "tremendously!\p"
+	.string "You should check out the pond above.$"
+
+TARC_Island_Game_Master_Text_5:
+	.string "What a cute Mantyke you have there!\p"
+	.string "It's just a little weak comparted to\n"
+	.string "what it could be.$"
+
+TARC_Island_Game_Master_Text_6:
+	.string "Have you visited Celebi?\p"
+	.string "Mantine is so versatile to even learn a\n"
+	.string "Grass type move!$"
+
+TARC_Island_Game_Master_Text_7:
+	.string "You need help with the cave mechanics?\p"
+	.string "I cannot solve the puzzle for you, but I\n"
+	.string "can explain the details for you.\p"
+	.string "When spotted by a Kadabra or Onix it\n"
+	.string "will warp you back to the last entrance.\p"
+	.string "If spotted by a Zubat it will move\n"
+	.string "towards you and stay there.\p"
+	.string "When all boulders are placed on the\n"
+	.string "target fields Onix will turn around and\l"
+	.string "let you pass.$"
+
+TARC_Island_Game_Master_Text_8:
+	.string "Oh, you haven't picked up the second\n"
+	.string "Pokéball, yet.\p"
+	.string "Go to the north to find it!$"
+
+TARC_Island_Game_Master_Text_9:
+	.string "Your Farfetch'd looks strong!\p"
+	.string "It seems to be able to even cut patches\n"
+	.string "of grass.\p"
+	.string "You should look into that possibility!$"
+
+TARC_Island_Game_Master_Text_10:
+	.string "The Castaway is too much for you?\p"
+	.string "You should look into Porygon's abilities\n"
+	.string "to make it a fair pairing!\p"
+	.string "The key to success is to manage your\n"
+	.string "typing skillfully!$"
+
+TARC_Island_Game_Master_Text_11:
+	.string "You still cannot reach past the\n"
+	.string "breakable rock?\p"
+	.string "Take a deep look into your Pokedex'\n"
+	.string "features to find a solution!$"
+
+TARC_Island_Game_Master_Text_12:
+	.string "You are free, {PLAYER}!\p"
+	.string "Just dive out of here and follow the\n"
+	.string "way south.$"
+
+TARC_Island_Game_Master_Text_13:
+	.string "Come back whenever you need me.$"
+
+TARC_Island_Game_Master_Text_14:
+	.string "I am sorry, but I currently have no\n"
+	.string "hints to give to you.\p"
+	.string "Try proceeding by looking for items,\n"
+	.string "catching Pokémon, talking to NPCs and\l"
+	.string "winning battles.\p"
+	.string "Of course, you won't be charged 20\n"
+	.string "minutes this time.$"
+
+TARC_Island_Game_Master_Text_15:
+	.string "\p"
+	.string "...\p"
+	.string "I had already given this hint to you\n"
+	.string "before.\p"
+	.string "I guess it's fair if I don't charge you\n"
+	.string "any more time for it.$"
 
 TARC_Island_Maxie_Text_0:
 	.string "Hello traveller!\l"
@@ -539,7 +1025,18 @@ TARC_Island_Maxie_Text_1:
 	.string "What an extraordinary person he was...$"
 
 TARC_Island_sign_Game_Start_Text_0:
-	.string "Info sign for game start.$"
+	.string "IMPORTANT INFORMATION:\p"
+	.string "1.) This game is featuring Gen 8 level up\n"
+	.string "move LEARNSETS for any Pokemon you\l"
+	.string "control yourself.\p"
+	.string "2.) It is NOT required to grind MULTIPLE\n"
+	.string "levels to win any of the fights.\p"
+	.string "3.) The game mechanics are basically\n"
+	.string "vanilla.\l"
+	.string "However, crits are removed and some\l"
+	.string "base stats, RNG odds etc. might have\l"
+	.string "been slightly altered to balance the\l"
+	.string "game.$"
 
 TARC_Island_sign_Rock_Climb_Text_0:
 	.string "The rock below looks climbable. {DOWN_ARROW}$"

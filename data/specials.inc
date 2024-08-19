@@ -557,3 +557,14 @@ gSpecials::
 	def_special isBoulderOnTarget_South
 	def_special GetMonPartySlot
 	def_special DeletePartyMon
+	def_special StartCredits
+	def_special GetPlayTimeHours
+	def_special GetPlayTimeMinutes
+	def_special GetPlayTimeSeconds
+	def_special StopPlayTimer
+	def_special PlayTimeAddMin
+	def_special PlayTimeAddHrs
+	def_special PlayTimeSubMin
+	def_special PlayTimeSubHrs
+	def_special RestartPlayTimer
+	def_special IsPokemonInParty

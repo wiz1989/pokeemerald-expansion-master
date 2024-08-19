@@ -369,15 +369,12 @@ static void SetCutGrassMetatile(s16 x, s16 y)
         break;
     case 0x028:
         MapGridSetMetatileIdAt(x, y, 0x0A9);
-        FlagSet(FLAG_TARC_CUT_X);
         break;
     case 0x00A:
         MapGridSetMetatileIdAt(x, y, 0x063);
-        FlagSet(FLAG_TARC_CUT_X);
         break;
     case 0x020:
         MapGridSetMetatileIdAt(x, y, 0x076);
-        FlagSet(FLAG_TARC_CUT_X);
         break;
     case METATILE_General_TallGrass_TreeLeft:
         MapGridSetMetatileIdAt(x, y, METATILE_General_Grass_TreeLeft);

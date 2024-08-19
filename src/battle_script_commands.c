@@ -4445,7 +4445,7 @@ static void Cmd_getexp(void)
                             gBattleMoveDamage = gExperienceTables[growthRate][levelCap] - currentExp;
                     }
 
-                    if (IsTradedMon(&gPlayerParty[*expMonId]))
+                    if (IsTradedMon(&gPlayerParty[*expMonId]) && FALSE)
                     {
                         // check if the Pokémon doesn't belong to the player
                         if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && *expMonId >= 3)

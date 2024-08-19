@@ -101,5 +101,6 @@ void MoveDeleterForgetMove(void);
 void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
+bool8 MonKnowsAbility(struct Pokemon *mon, u16 ability);
 
 #endif // GUARD_PARTY_MENU_H

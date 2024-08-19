@@ -2409,3 +2409,59 @@ bool8 ScrCmd_warpwhitefade(struct ScriptContext *ctx)
     ResetInitialPlayerAvatarState();
     return TRUE;
 }
+
+bool8 ScrCmd_buffertimestring(struct ScriptContext *ctx)
+{
+    u8 stringVarIndex = ScriptReadByte(ctx);
+    u16 num = VarGet(ScriptReadHalfword(ctx));
+    u8 numDigits = 2;
+
+    ConvertIntToDecimalStringN(sScriptStringVars[stringVarIndex], num, STR_CONV_MODE_LEADING_ZEROS, numDigits);
+    return FALSE;
+}
+
+bool8 ScrCmd_checkpartyitem(struct ScriptContext *ctx)
+{
+    u8 i;
+    u16 heldItem;
+    u16 itemId = ScriptReadHalfword(ctx);
+
+    gSpecialVar_Result = PARTY_SIZE;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+        if (!species)
+            break;
+        
+        heldItem = GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM);
+
+        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && heldItem == itemId)
+        {
+            gSpecialVar_Result = i;
+            gSpecialVar_0x8004 = species;
+            break;
+        }
+    }
+    return FALSE;
+}
+
+bool8 ScrCmd_checkpartyability(struct ScriptContext *ctx)
+{
+    u8 i;
+    u16 abilityId = ScriptReadHalfword(ctx);
+
+    gSpecialVar_Result = PARTY_SIZE;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+        if (!species)
+            break;
+        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && MonKnowsAbility(&gPlayerParty[i], abilityId) == TRUE)
+        {
+            gSpecialVar_Result = i;
+            gSpecialVar_0x8004 = species;
+            break;
+        }
+    }
+    return FALSE;
+}

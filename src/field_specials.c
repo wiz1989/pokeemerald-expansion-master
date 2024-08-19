@@ -68,6 +68,7 @@
 #include "constants/metatile_labels.h"
 #include "palette.h"
 #include "battle_util.h"
+#include "play_time.h"
 
 #define TAG_ITEM_ICON 5500
 
@@ -4316,4 +4317,85 @@ void DeletePartyMon(void)
 
     ZeroMonData(&gPlayerParty[slot]);
     CompactPartySlots();
+}
+
+u8 GetPlayTimeHours(void)
+{
+    s8 hours;
+
+    hours = gSaveBlock2Ptr->playTimeHours;
+    return hours;
+}
+
+u8 GetPlayTimeMinutes(void)
+{
+    s8 minutes;
+
+    minutes = gSaveBlock2Ptr->playTimeMinutes;
+    return minutes;
+}
+
+u8 GetPlayTimeSeconds(void)
+{
+    s8 seconds;
+
+    seconds = gSaveBlock2Ptr->playTimeSeconds;
+    return seconds;
+}
+
+void StopPlayTimer(void)
+{
+    PlayTimeCounter_Stop();
+}
+
+void PlayTimeAddMin(void)
+{
+    u16 minutes;
+    minutes = gSpecialVar_0x8004;
+
+    DebugPrintf("minutes = %d", minutes);
+
+    PlayTimeCounter_AddMin(minutes);
+}
+
+void PlayTimeAddHrs(void)
+{
+    s8 hours;
+    hours = gSpecialVar_0x8004;
+
+    PlayTimeCounter_AddHrs(hours);
+}
+
+void PlayTimeSubMin(void)
+{
+    s8 minutes;
+    minutes = gSpecialVar_0x8004;
+
+    PlayTimeCounter_SubMin(minutes);
+}
+
+void PlayTimeSubHrs(void)
+{
+    s8 hours;
+    hours = gSpecialVar_0x8004;
+
+    PlayTimeCounter_SubHrs(hours);
+}
+
+void RestartPlayTimer(void)
+{
+    PlayTimeCounter_Reset();
+    PlayTimeCounter_Start();
+}
+
+bool8 IsPokemonInParty(void)
+{
+    u16 species;
+    species = VarGet(VAR_TEMP_1);
+
+    if (CheckPartyPokemon(gPlayerParty, species) != 10) {
+        return TRUE;
+    }
+
+    return FALSE;
 }

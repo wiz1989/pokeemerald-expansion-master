@@ -1681,7 +1681,7 @@
     },
     {
       "map_section": "MAPSEC_DESERT_UNDERPASS",
-      "name": "DESERT UNDERPASS",
+      "name": "Open Sea",
       "x": 2,
       "y": 0,
       "width": 1,
@@ -1689,7 +1689,7 @@
     },
     {
       "map_section": "MAPSEC_ALTERING_CAVE",
-      "name": "ALTERING CAVE",
+      "name": "Maxie's Island",
       "x": 6,
       "y": 8,
       "width": 1,
@@ -1697,7 +1697,7 @@
     },
     {
       "map_section": "MAPSEC_NAVEL_ROCK",
-      "name": "NAVEL ROCK",
+      "name": "Regirock's Cave",
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1705,7 +1705,7 @@
     },
     {
       "map_section": "MAPSEC_TRAINER_HILL",
-      "name": "TRAINER HILL",
+      "name": "Underwater Passage",
       "x": 8,
       "y": 4,
       "width": 1,

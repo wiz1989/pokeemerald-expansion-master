@@ -4267,12 +4267,15 @@ Route128_Text_CarleePostBattle:
 	.string "I need to reapply my sunscreen.$"
 
 Route129_Text_ChaseIntro:
-	.string "This is my first triathlon.\n"
-	.string "I'm all tense and nervous!$"
+	.string "A real trainer, WONDERful!\n"
+	.string "I'll make a STAB at\n"
+	.string "defeating you!$"
 
 Route129_Text_ChaseDefeat:
-	.string "Wroooaaar!\n"
-	.string "I failed to win!$"
+	.string "I should've taken a look\n"
+	.string "into your Pokédex first!\p"
+	.string "You are way too experienced\n"
+	.string "for a Castaway like me.$"
 
 Route129_Text_ChasePostBattle:
 	.string "If I'm all tensed up, I won't be able to\n"
