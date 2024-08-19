@@ -2659,6 +2659,10 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             return 0;   // cannot even select
     } // move effect checks
 
+    //special rule for MOVE_SURF
+    if (move == MOVE_SURF)
+        ADJUST_SCORE(1);
+
     if (score < 0)
         score = 0;
 
