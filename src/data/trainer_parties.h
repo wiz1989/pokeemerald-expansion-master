@@ -4749,7 +4749,7 @@ static const struct TrainerMon sParty_Pablo1[] = {
 
 static const struct TrainerMon sParty_Chase[] = {
     {
-    .lvl = 15,
+    .lvl = 17,
     .species = SPECIES_CURSOLA,
     .iv = TRAINER_PARTY_IVS(0, 0, 31, 31, 0, 0),
     .moves = {MOVE_ASTONISH, MOVE_ANCIENT_POWER, MOVE_REST},

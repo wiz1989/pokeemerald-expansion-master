@@ -839,13 +839,23 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u16 moves[4]; //added var
     u8 nature; //added var
 
+    DebugPrintf("CreateBoxMon()");
+
     //always set default IVs to zero
     fixedIV = 0;
 
     ZeroBoxMonData(boxMon);
 
     //force specific natures for battles
-    if (hasFixedPersonality)
+    if (species == SPECIES_FARFETCHD) {
+        DebugPrintf("set nature to Bold");
+        nature = NATURE_BOLD;
+        do {
+            personality = Random32();
+        }
+        while (GetNatureFromPersonality(personality) != nature);
+    }
+    else if (hasFixedPersonality)
         personality = fixedPersonality;
     else if (species == SPECIES_SLOWKING) {
         DebugPrintf("set Slowking's nature to Hasty");
@@ -858,14 +868,6 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     else if (species == SPECIES_SEISMITOAD) {
         DebugPrintf("set Toad's nature to Gentle");
         nature = NATURE_GENTLE;
-        do {
-            personality = Random32();
-        }
-        while (GetNatureFromPersonality(personality) != nature);
-    }
-    else if (species == SPECIES_PORYGON) {
-        DebugPrintf("set Porygon's nature to Relaxed");
-        nature = NATURE_RELAXED;
         do {
             personality = Random32();
         }
@@ -1080,6 +1082,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
         }
     }
+
     if (species == SPECIES_PORYGON) {
         moves[0] = MOVE_CONVERSION;
         moves[1] = MOVE_CONVERSION_2;
@@ -1091,6 +1094,14 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             //set move
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
         }
+    }
+
+    if (species == SPECIES_FARFETCHD) {
+        value = ITEM_NONE;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+
+        value = 31;
+        SetBoxMonData(boxMon, MON_DATA_DEF_IV, &value);
     }
 }
 

@@ -10,7 +10,6 @@ script TARC_Island_OnResume {
 }
 
 script TARC_Island_OnTransition {
-    setrespawn(HEAL_LOCATION_TARC_ISLAND)
     clearflag(FLAG_DONT_REMOVE_OFFSCREEN_OBJECT)
     if (var(VAR_RHYDON_STATE) < 5)
     {
@@ -621,6 +620,9 @@ script TARC_Island_Battle_Slowking {
 
 script TARC_Island_Battle_Wonderguard {
     trainerbattle_single(TRAINER_CHASE, Route129_Text_ChaseIntro, Route129_Text_ChaseDefeat)
+    lock
+    msgbox(format("I should've taken a look into your Pokédex first!\pYou are way too experienced for a Castaway like me."), MSGBOX_AUTOCLOSE)
+    release
 }
 
 

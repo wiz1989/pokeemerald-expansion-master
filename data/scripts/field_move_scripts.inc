@@ -25,6 +25,7 @@ EventScript_UseCut::
 	end
 
 EventScript_CutTreeDown::
+	setrespawn HEAL_LOCATION_TARC_ISLAND_2
 	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
 	waitmovement 0
 	removeobject VAR_LAST_TALKED

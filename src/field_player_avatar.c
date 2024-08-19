@@ -30,6 +30,7 @@
 #include "constants/songs.h"
 #include "constants/trainer_types.h"
 #include "constants/metatile_labels.h"
+#include "constants/metatile_behaviors.h"
 
 #define NUM_FORCED_MOVEMENTS 18
 #define NUM_ACRO_BIKE_COLLISIONS 5
@@ -1851,12 +1852,20 @@ static bool8 Fishing_ShowDots(struct Task *task)
 static bool8 Fishing_CheckForBite(struct Task *task)
 {
     bool8 bite;
+    u16 tileBehavior;
+    s16 x, y;
 
     AlignFishingAnimationFrames();
     task->tStep++;
     bite = TRUE; //FALSE;
 
-    if (!DoesCurrentMapHaveFishingMons())
+    //no more pond bites after Mantine is evolved
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+
+    if (tileBehavior == MB_POND_WATER && CheckPartyPokemon(gPlayerParty, SPECIES_MANTINE) != 10)
+        task->tStep = FISHING_NO_BITE;
+    else if (!DoesCurrentMapHaveFishingMons())
     {
         task->tStep = FISHING_NO_BITE;
     }

@@ -116,7 +116,8 @@ TARC_CAVE_EveryFrame_Room2::
 	return
 
 TARC_CAVE_EveryFrame_Room2_1:
-	turnobject 13, DIR_WEST
+	addobject 13
+	applymovement 13, Move_faceleft
 	setflag FLAG_CAVE_SOLVED2
 	setorcopyvar VAR_TARC_CAVE_GUARD2_STATE, 1
 	setflag FLAG_CAVE_KICKOUT2
@@ -141,6 +142,7 @@ TARC_CAVE_EveryFrame_Guard2::
 	return
 
 TARC_CAVE_EveryFrame_Guard2_1:
+	addobject 13
 	turnobject 13, DIR_WEST
 	setorcopyvar VAR_TARC_CAVE_GUARD2_STATE, 2
 	return
@@ -206,6 +208,10 @@ TARC_Cave_Kickout_Guard2::
 
 Move_faceright:
 	face_right
+	step_end
+
+Move_faceleft:
+	face_left
 	step_end
 
 Move_Regirock:

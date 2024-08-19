@@ -10,7 +10,6 @@ TARC_Island_OnResume::
 
 
 TARC_Island_OnTransition::
-	setrespawn HEAL_LOCATION_TARC_ISLAND
 	clearflag FLAG_DONT_REMOVE_OFFSCREEN_OBJECT
 	compare VAR_RHYDON_STATE, 5
 	goto_if_lt TARC_Island_OnTransition_2
@@ -46,7 +45,10 @@ TARC_Island_Fisherman_2:
 	goto TARC_Island_Fisherman_1
 
 TARC_Island_Fisherman_5:
-	goto_if_set FLAG_WON_SEISMITOAD, TARC_Island_Fisherman_8
+	checkpartymon SPECIES_MANTINE
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Fisherman_8
+	msgbox TARC_Island_Fisherman_Text_0, MSGBOX_AUTOCLOSE
 	msgbox TARC_Island_Fisherman_Text_2, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Fisherman_1
 
@@ -764,6 +766,9 @@ TARC_Island_Battle_Slowking_7:
 
 TARC_Island_Battle_Wonderguard::
 	trainerbattle_single TRAINER_CHASE, Route129_Text_ChaseIntro, Route129_Text_ChaseDefeat
+	lock
+	msgbox TARC_Island_Battle_Wonderguard_Text_0, MSGBOX_AUTOCLOSE
+	release
 	return
 
 
@@ -939,8 +944,8 @@ TARC_Island_Game_Master_Text_4:
 
 TARC_Island_Game_Master_Text_5:
 	.string "What a cute Mantyke you have there!\p"
-	.string "It's just a little weak comparted to\n"
-	.string "what it could be.$"
+	.string "It's just a little weak compared to what\n"
+	.string "it could be.$"
 
 TARC_Island_Game_Master_Text_6:
 	.string "Have you visited Celebi?\p"
@@ -1063,3 +1068,9 @@ TARC_Island_Battle_Slowking_Text_0:
 
 TARC_Island_Battle_Slowking_Text_1:
 	.string "...snore...$"
+
+TARC_Island_Battle_Wonderguard_Text_0:
+	.string "I should've taken a look into your\n"
+	.string "Pokédex first!\p"
+	.string "You are way too experienced for a\n"
+	.string "Castaway like me.$"

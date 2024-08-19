@@ -120,7 +120,8 @@ script TARC_CAVE_EveryFrame_Room2 {
     setorcopyvar(VAR_TARC_CAVE_FIELD, 20)
     if(flag(FLAG_CAVE_SOLVED1))
     {
-        turnobject(13, DIR_WEST)
+        addobject(13)
+        applymovement(13, Move_faceleft)
         setflag(FLAG_CAVE_SOLVED2)
         setorcopyvar(VAR_TARC_CAVE_GUARD2_STATE, 1)
         setflag(FLAG_CAVE_KICKOUT2)
@@ -141,6 +142,7 @@ script TARC_CAVE_EveryFrame_Guard1 {
 script TARC_CAVE_EveryFrame_Guard2 {
     if(flag(FLAG_CAVE_SOLVED2))
     {
+        addobject(13)
         turnobject(13, DIR_WEST)
         setorcopyvar(VAR_TARC_CAVE_GUARD2_STATE, 2)
     }
@@ -206,6 +208,10 @@ script TARC_Cave_Kickout_Guard2 {
 
 movement Move_faceright {
 	face_right
+}
+
+movement Move_faceleft {
+	face_left
 }
 
 movement Move_Regirock {

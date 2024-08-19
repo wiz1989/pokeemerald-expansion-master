@@ -1052,7 +1052,7 @@ static const struct InGameTrade sIngameTrades[] =
     {
         .nickname = _("Pete"),
         .species = SPECIES_PORYGON,
-        .ivs = {0, 0, 0, 0, 0, 0},
+        .ivs = {0, 0, 31, 0, 0, 0},
         .abilityNum = 1,
         .otId = 73996,
         .conditions = {5, 5, 30, 5, 5},
@@ -1062,7 +1062,7 @@ static const struct InGameTrade sIngameTrades[] =
         .otName = _("Moxi"),
         .otGender = MALE,
         .sheen = 10,
-        .requestedSpecies = SPECIES_REMORAID,
+        .requestedSpecies = SPECIES_REMORAID
     }
 };
 
