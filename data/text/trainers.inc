@@ -4268,7 +4268,7 @@ Route128_Text_CarleePostBattle:
 
 Route129_Text_ChaseIntro:
 	.string "A real trainer, WONDERful!\n"
-	.string "I'll make a STAB at\n"
+	.string "I'll make a STAB at\l"
 	.string "defeating you!$"
 
 Route129_Text_ChaseDefeat:

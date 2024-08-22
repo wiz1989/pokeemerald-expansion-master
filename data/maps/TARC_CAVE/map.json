@@ -76,7 +76,7 @@
       "movement_range_y": 0,
       "trainer_type": "FLAG_CAVE_MOVER1",
       "trainer_sight_or_berry_tree_id": "4",
-      "script": "TARC_Cave_Mover",
+      "script": "TARC_Cave_Mover1",
       "flag": "FLAG_HIDE_MOVER1"
     },
     {
@@ -102,7 +102,7 @@
       "movement_range_y": 0,
       "trainer_type": "FLAG_CAVE_MOVER2",
       "trainer_sight_or_berry_tree_id": "5",
-      "script": "TARC_Cave_Mover",
+      "script": "TARC_Cave_Mover2",
       "flag": "FLAG_HIDE_MOVER2"
     },
     {
@@ -128,7 +128,7 @@
       "movement_range_y": 0,
       "trainer_type": "FLAG_CAVE_KICKOUT3",
       "trainer_sight_or_berry_tree_id": "4",
-      "script": "TARC_Cave_Kickout2",
+      "script": "TARC_Cave_Kickout3",
       "flag": "FLAG_HIDE_KICKOUT3"
     },
     {
@@ -159,8 +159,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
-      "x": 23,
-      "y": 36,
+      "x": 21,
+      "y": 37,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -195,6 +195,32 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "TARC_CAVE_Regirock",
       "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ZUBAT",
+      "x": 15,
+      "y": 3,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_MOVER0",
+      "trainer_sight_or_berry_tree_id": "5",
+      "script": "TARC_Cave_Mover",
+      "flag": "FLAG_HIDE_MOVER0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ZUBAT",
+      "x": 21,
+      "y": 39,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "FLAG_CAVE_MOVER3",
+      "trainer_sight_or_berry_tree_id": "5",
+      "script": "TARC_Cave_Mover3",
+      "flag": "FLAG_HIDE_MOVER3"
     }
   ],
   "warp_events": [
@@ -225,12 +251,75 @@
       "elevation": 0,
       "dest_map": "MAP_TARC_ISLAND",
       "dest_warp_id": "1"
+    },
+    {
+      "x": 21,
+      "y": 45,
+      "elevation": 0,
+      "dest_map": "MAP_TARC_CAVE",
+      "dest_warp_id": "5"
+    },
+    {
+      "x": 13,
+      "y": 66,
+      "elevation": 0,
+      "dest_map": "MAP_TARC_CAVE",
+      "dest_warp_id": "4"
     }
   ],
   "coord_events": [
-
+    {
+      "type": "trigger",
+      "x": 21,
+      "y": 44,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_Cave_Move_Zubat_away"
+    },
+    {
+      "type": "trigger",
+      "x": 13,
+      "y": 33,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_Cave_Turn_Onix"
+    },
+    {
+      "type": "trigger",
+      "x": 6,
+      "y": 38,
+      "elevation": 0,
+      "var": "VAR_TEMP_MIXED_RECORDS",
+      "var_value": "0",
+      "script": "TARC_Cave_Turn_Onix"
+    }
   ],
   "bg_events": [
-
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 64,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "TARC_CAVE_Braille1"
+    },
+    {
+      "type": "sign",
+      "x": 12,
+      "y": 64,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "TARC_CAVE_Braille2"
+    },
+    {
+      "type": "sign",
+      "x": 13,
+      "y": 64,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "TARC_CAVE_Braille3"
+    }
   ]
 }

@@ -66,11 +66,13 @@ TARC_CAVE_EveryFrame_FirstTime::
 TARC_CAVE_OnTransition::
 	setflag FLAG_DONT_REMOVE_OFFSCREEN_OBJECT
 	clearflag FLAG_CAVE_KICKOUT1
+	clearflag FLAG_CAVE_MOVER0
 	clearflag FLAG_CAVE_MOVER1
 	clearflag FLAG_CAVE_GUARD1
 	clearflag FLAG_CAVE_KICKOUT2
 	clearflag FLAG_CAVE_KICKOUT3
 	clearflag FLAG_CAVE_MOVER2
+	clearflag FLAG_CAVE_MOVER3
 	goto_if_set FLAG_CAVE_SOLVED1, TARC_CAVE_OnTransition_2
 	setorcopyvar VAR_TARC_CAVE_FIELD, 0
 TARC_CAVE_OnTransition_1:
@@ -81,6 +83,7 @@ TARC_CAVE_OnTransition_2:
 	setorcopyvar VAR_TARC_CAVE_FIELD, 10
 	setorcopyvar VAR_TARC_CAVE_GUARD1_STATE, 1
 	setflag FLAG_CAVE_KICKOUT1
+	setflag FLAG_CAVE_MOVER0
 	setflag FLAG_CAVE_MOVER1
 	setflag FLAG_CAVE_GUARD1
 	setobjectxyperm 5, 20, 9
@@ -105,6 +108,7 @@ TARC_CAVE_EveryFrame_Room1_1:
 	setflag FLAG_CAVE_SOLVED1
 	setorcopyvar VAR_TARC_CAVE_GUARD1_STATE, 1
 	setflag FLAG_CAVE_KICKOUT1
+	setflag FLAG_CAVE_MOVER0
 	setflag FLAG_CAVE_MOVER1
 	setflag FLAG_CAVE_GUARD1
 	return
@@ -117,7 +121,7 @@ TARC_CAVE_EveryFrame_Room2::
 
 TARC_CAVE_EveryFrame_Room2_1:
 	addobject 13
-	applymovement 13, Move_faceleft
+	turnobject 13, DIR_WEST
 	setflag FLAG_CAVE_SOLVED2
 	setorcopyvar VAR_TARC_CAVE_GUARD2_STATE, 1
 	setflag FLAG_CAVE_KICKOUT2
@@ -159,6 +163,7 @@ TARC_CAVE_Regirock::
 
 TARC_Cave_Kickout::
 	lock
+	setflag FLAG_CAVE_KICKOUT1
 	faceplayer
 	playmoncry SPECIES_KADABRA, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
@@ -169,6 +174,18 @@ TARC_Cave_Kickout::
 
 TARC_Cave_Kickout2::
 	lock
+	setflag FLAG_CAVE_KICKOUT2
+	faceplayer
+	playmoncry SPECIES_KADABRA, CRY_MODE_ENCOUNTER
+	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
+	warp MAP_TARC_CAVE, 2
+	release
+	return
+
+
+TARC_Cave_Kickout3::
+	lock
+	setflag FLAG_CAVE_KICKOUT3
 	faceplayer
 	playmoncry SPECIES_KADABRA, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
@@ -179,6 +196,37 @@ TARC_Cave_Kickout2::
 
 TARC_Cave_Mover::
 	lock
+	setflag FLAG_CAVE_MOVER0
+	faceplayer
+	playmoncry SPECIES_ZUBAT, CRY_MODE_ENCOUNTER
+	msgbox TARC_Cave_Mover_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Cave_Mover1::
+	lock
+	setflag FLAG_CAVE_MOVER1
+	faceplayer
+	playmoncry SPECIES_ZUBAT, CRY_MODE_ENCOUNTER
+	msgbox TARC_Cave_Mover_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Cave_Mover2::
+	lock
+	setflag FLAG_CAVE_MOVER2
+	faceplayer
+	playmoncry SPECIES_ZUBAT, CRY_MODE_ENCOUNTER
+	msgbox TARC_Cave_Mover_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Cave_Mover3::
+	lock
+	setflag FLAG_CAVE_MOVER3
 	faceplayer
 	playmoncry SPECIES_ZUBAT, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Mover_Text_0, MSGBOX_AUTOCLOSE
@@ -188,6 +236,7 @@ TARC_Cave_Mover::
 
 TARC_Cave_Kickout_Guard::
 	lock
+	setflag FLAG_CAVE_GUARD1
 	faceplayer
 	playmoncry SPECIES_ONIX, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
@@ -198,6 +247,7 @@ TARC_Cave_Kickout_Guard::
 
 TARC_Cave_Kickout_Guard2::
 	lock
+	setflag FLAG_CAVE_GUARD2
 	faceplayer
 	playmoncry SPECIES_ONIX, CRY_MODE_ENCOUNTER
 	msgbox TARC_Cave_Kickout_Text_0, MSGBOX_AUTOCLOSE
@@ -206,12 +256,60 @@ TARC_Cave_Kickout_Guard2::
 	return
 
 
+TARC_Cave_Move_Zubat_away::
+	lock
+	setobjectxy 16, 20, 38
+	release
+	return
+
+
+TARC_Cave_Turn_Onix::
+	lock
+	goto_if_set FLAG_CAVE_SOLVED2, TARC_Cave_Turn_Onix_2
+TARC_Cave_Turn_Onix_1:
+	release
+	return
+
+TARC_Cave_Turn_Onix_2:
+	turnobject 13, DIR_WEST
+	goto TARC_Cave_Turn_Onix_1
+
+
+TARC_CAVE_Braille1::
+	lockall
+	braillemsgbox TARC_CAVE_Braille1_Text
+	releaseall
+	return
+
+
+TARC_CAVE_Braille2::
+	lockall
+	braillemsgbox TARC_CAVE_Braille2_Text
+	releaseall
+	return
+
+
+TARC_CAVE_Braille3::
+	lockall
+	braillemsgbox TARC_CAVE_Braille3_Text
+	releaseall
+	return
+
+
 Move_faceright:
 	face_right
 	step_end
 
+Move_faceup:
+	face_up
+	step_end
+
 Move_faceleft:
 	face_left
+	step_end
+
+Move_facedown:
+	face_down
 	step_end
 
 Move_Regirock:

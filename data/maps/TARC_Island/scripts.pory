@@ -148,21 +148,52 @@ script TARC_Island_ItemBall_Rock_Climb {
 script TARC_Island_Celebi {
     lockall
     faceplayer
-    if(!flag(FLAG_TARC_TALKED_TO_CELEBI))
+    if (flag(FLAG_WON_SEISMITOAD))
     {
-        setflag(FLAG_TARC_TALKED_TO_CELEBI)
-        msgbox(format("Dear traveller,\nI am the guardian of this island.\pI can travel through time to grant you access to moves your Pokémon might have forgotten a long time ago."), MSGBOX_AUTOCLOSE)
+        msgbox(format("Dear traveller,\nmy time in this place is up.\pMy path is leading me to a far future, many years from now.\pFarewell!"), MSGBOX_AUTOCLOSE)
+        dofieldeffectsparkle(13, 3, 0)
+        waitfieldeffect(FLDEFF_SPARKLE)
+        delay(10)
+        dofieldeffectsparkle(15, 3, 0)
+        waitfieldeffect(FLDEFF_SPARKLE)
+        delay(10)
+        dofieldeffectsparkle(14, 3, 0)
+        waitfieldeffect(FLDEFF_SPARKLE)
+        delay(10)
+        dofieldeffect(FLDEFF_RAYQUAZA_SPOTLIGHT)
+        delay(400)
+        removeobject(9)
+        setflag(FLAG_HIDE_CELEBI)
+        delay(60)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_faceright)
+        waitmovement(0)
+        delay(60)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_faceleft)
+        waitmovement(0)
+        delay(60)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_facedown)
+        waitmovement(0)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+        waitmovement(0)        
     }
-    msgbox(format("Please choose a Pokémon to teach a move to."), MSGBOX_AUTOCLOSE)
-    //setvar(VAR_PIT_TUTOR_STATE, 0)
-    special(ChooseMonForMoveRelearner)
-	waitstate
-	goto_if_eq(VAR_0x8004, PARTY_NOTHING_CHOSEN, EndOfRelearnerScript)
-	special(IsSelectedMonEgg)
-	goto_if_eq(VAR_RESULT, TRUE, EndOfRelearnerScript)
-	goto_if_eq(VAR_0x8005, 0, EndOfRelearnerScript)
-	special(TeachMoveRelearnerMove)
-	waitstate
+    else
+    {
+        if(!flag(FLAG_TARC_TALKED_TO_CELEBI))
+        {
+            setflag(FLAG_TARC_TALKED_TO_CELEBI)
+            msgbox(format("Dear traveller,\nI am the guardian of this island.\pI can travel through time to grant you access to moves your Pokémon might have forgotten a long time ago."), MSGBOX_AUTOCLOSE)
+        }
+        msgbox(format("Please choose a Pokémon to teach a move to."), MSGBOX_AUTOCLOSE)
+        //setvar(VAR_PIT_TUTOR_STATE, 0)
+        special(ChooseMonForMoveRelearner)
+        waitstate
+        goto_if_eq(VAR_0x8004, PARTY_NOTHING_CHOSEN, EndOfRelearnerScript)
+        special(IsSelectedMonEgg)
+        goto_if_eq(VAR_RESULT, TRUE, EndOfRelearnerScript)
+        goto_if_eq(VAR_0x8005, 0, EndOfRelearnerScript)
+        special(TeachMoveRelearnerMove)
+        waitstate
+    }
     releaseall
 }
 
@@ -475,7 +506,7 @@ script TARC_Island_Maxie {
 
 script TARC_Island_sign_Game_Start {
     lock
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 level up move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed and some base stats, RNG odds etc. might have been slightly altered to balance the game."))// \p4.) Running from trainer battles is explicitly ALLOWED."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 level up move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and some base stats, RNG odds etc. might have been slightly altered to balance the game."))// \p4.) Running from trainer battles is explicitly ALLOWED."))
     waitmessage
     release
 }

@@ -4435,7 +4435,7 @@
       "id": "LAYOUT_TARC_CAVE",
       "name": "TARC_CAVE_Layout",
       "width": 34,
-      "height": 60,
+      "height": 70,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_MeteorFalls",
       "border_filepath": "data/layouts/TARC_CAVE/border.bin",

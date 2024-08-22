@@ -14,6 +14,7 @@
 #include "constants/field_effects.h"
 #include "constants/songs.h"
 #include "constants/event_objects.h"
+#include "event_data.h"
 
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 
@@ -1547,11 +1548,11 @@ void UpdateRayquazaSpotlightEffect(struct Sprite *sprite)
                 {
                     for (j = 12; j < 18; j++)
                     {
-                        ((u16 *)(BG_SCREEN_ADDR(31)))[i * 32 + j] = 0xBFF4 + i * 6 + j + 1;
+                        ((u16 *)(BG_SCREEN_ADDR(31)))[i * 32 + j] = ((0xBFF4 & 0x0FFF) | (12 << 12)) + i * 6 + j + 1;
                     }
                 }
             }
-            if (sprite->sTimer > 311)
+            if (sprite->sTimer > 230) // beam comes down, was 311
             {
                 sprite->sState = 1;
                 sprite->sTimer = 0;
@@ -1559,9 +1560,9 @@ void UpdateRayquazaSpotlightEffect(struct Sprite *sprite)
             break;
         case 1:
             sprite->y = (gSineTable[sprite->sTimer / 3] >> 2) + sprite->sStartY;
-            if (sprite->sTimer == 189)
+            if (sprite->sTimer == 140) //graphic stays, was 189
             {
-                sprite->sState = 2;
+                sprite->sState = 7; //2
                 sprite->sCounter = 0;
                 sprite->sTimer = 0;
             }

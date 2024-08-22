@@ -156,9 +156,10 @@ TARC_Island_ItemBall_Rock_Climb::
 TARC_Island_Celebi::
 	lockall
 	faceplayer
-	goto_if_unset FLAG_TARC_TALKED_TO_CELEBI, TARC_Island_Celebi_2
-TARC_Island_Celebi_1:
-	msgbox TARC_Island_Celebi_Text_1, MSGBOX_AUTOCLOSE
+	goto_if_set FLAG_WON_SEISMITOAD, TARC_Island_Celebi_2
+	goto_if_unset FLAG_TARC_TALKED_TO_CELEBI, TARC_Island_Celebi_6
+TARC_Island_Celebi_5:
+	msgbox TARC_Island_Celebi_Text_2, MSGBOX_AUTOCLOSE
 	special ChooseMonForMoveRelearner
 	waitstate
 	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, EndOfRelearnerScript
@@ -167,13 +168,42 @@ TARC_Island_Celebi_1:
 	goto_if_eq VAR_0x8005, 0, EndOfRelearnerScript
 	special TeachMoveRelearnerMove
 	waitstate
+TARC_Island_Celebi_1:
 	releaseall
 	return
 
 TARC_Island_Celebi_2:
-	setflag FLAG_TARC_TALKED_TO_CELEBI
 	msgbox TARC_Island_Celebi_Text_0, MSGBOX_AUTOCLOSE
+	dofieldeffectsparkle 13, 3, 0
+	waitfieldeffect FLDEFF_SPARKLE
+	delay 10
+	dofieldeffectsparkle 15, 3, 0
+	waitfieldeffect FLDEFF_SPARKLE
+	delay 10
+	dofieldeffectsparkle 14, 3, 0
+	waitfieldeffect FLDEFF_SPARKLE
+	delay 10
+	dofieldeffect FLDEFF_RAYQUAZA_SPOTLIGHT
+	delay 400
+	removeobject 9
+	setflag FLAG_HIDE_CELEBI
+	delay 60
+	applymovement OBJ_EVENT_ID_PLAYER, Move_faceright
+	waitmovement 0
+	delay 60
+	applymovement OBJ_EVENT_ID_PLAYER, Move_faceleft
+	waitmovement 0
+	delay 60
+	applymovement OBJ_EVENT_ID_PLAYER, Move_facedown
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
 	goto TARC_Island_Celebi_1
+
+TARC_Island_Celebi_6:
+	setflag FLAG_TARC_TALKED_TO_CELEBI
+	msgbox TARC_Island_Celebi_Text_1, MSGBOX_AUTOCLOSE
+	goto TARC_Island_Celebi_5
 
 
 EndOfRelearnerScript::
@@ -885,12 +915,19 @@ TARC_Island_Corphish_Text_0:
 
 TARC_Island_Celebi_Text_0:
 	.string "Dear traveller,\n"
+	.string "my time in this place is up.\p"
+	.string "My path is leading me to a far future,\n"
+	.string "many years from now.\p"
+	.string "Farewell!$"
+
+TARC_Island_Celebi_Text_1:
+	.string "Dear traveller,\n"
 	.string "I am the guardian of this island.\p"
 	.string "I can travel through time to grant you\n"
 	.string "access to moves your Pokémon might\l"
 	.string "have forgotten a long time ago.$"
 
-TARC_Island_Celebi_Text_1:
+TARC_Island_Celebi_Text_2:
 	.string "Please choose a Pokémon to teach a\n"
 	.string "move to.$"
 
@@ -1038,10 +1075,10 @@ TARC_Island_sign_Game_Start_Text_0:
 	.string "levels to win any of the fights.\p"
 	.string "3.) The game mechanics are basically\n"
 	.string "vanilla.\l"
-	.string "However, crits are removed and some\l"
-	.string "base stats, RNG odds etc. might have\l"
-	.string "been slightly altered to balance the\l"
-	.string "game.$"
+	.string "However, crits are removed, confusions\l"
+	.string "snap out immediately and some base\l"
+	.string "stats, RNG odds etc. might have been\l"
+	.string "slightly altered to balance the game.$"
 
 TARC_Island_sign_Rock_Climb_Text_0:
 	.string "The rock below looks climbable. {DOWN_ARROW}$"

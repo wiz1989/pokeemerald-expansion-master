@@ -141,6 +141,7 @@ static u8 Fishing_NoMon(struct Task *);
 static u8 Fishing_PutRodAway(struct Task *);
 static u8 Fishing_EndNoMon(struct Task *);
 static void AlignFishingAnimationFrames(void);
+static u8 Fishing_NoMoreFish(struct Task *);
 
 static u8 TrySpinPlayerForWarp(struct ObjectEvent *, s16 *);
 
@@ -1714,6 +1715,7 @@ static void Task_WaitStopSurfing(u8 taskId)
 #define FISHING_START_ROUND 3
 #define FISHING_GOT_BITE 6
 #define FISHING_ON_HOOK 9
+#define FISHING_IMMEDIATE_BATTLE 10
 #define FISHING_NO_BITE 11
 #define FISHING_GOT_AWAY 12
 #define FISHING_SHOW_RESULT 13
@@ -1899,7 +1901,8 @@ static bool8 Fishing_GotBite(struct Task *task)
 {
     AlignFishingAnimationFrames();
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_OhABite, 0, 17, 0, NULL);
-    task->tStep++;
+    task->tStep = FISHING_IMMEDIATE_BATTLE; //immediate battle start wiz1989
+    //task->tStep++;
     task->tFrameCounter = 0;
     return FALSE;
 }
@@ -1997,10 +2000,21 @@ static bool8 Fishing_StartEncounter(struct Task *task)
 
 static bool8 Fishing_NotEvenNibble(struct Task *task)
 {
+    u16 tileBehavior;
+    s16 x, y;
+
     AlignFishingAnimationFrames();
     StartSpriteAnim(&gSprites[gPlayerAvatar.spriteId], GetFishingNoCatchDirectionAnimNum(GetPlayerFacingDirection()));
     FillWindowPixelBuffer(0, PIXEL_FILL(1));
-    AddTextPrinterParameterized2(0, FONT_NORMAL, gText_NotEvenANibble, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
+
+    //no more pond bites after Mantine is evolved
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+
+    if (tileBehavior == MB_POND_WATER && CheckPartyPokemon(gPlayerParty, SPECIES_MANTINE) != 10)
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_NoMoreFish, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
+    else
+        AddTextPrinterParameterized2(0, FONT_NORMAL, gText_NotEvenANibble, 1, 0, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
     task->tStep = FISHING_SHOW_RESULT;
     return TRUE;
 }

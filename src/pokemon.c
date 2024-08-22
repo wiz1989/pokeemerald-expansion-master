@@ -1086,8 +1086,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     if (species == SPECIES_PORYGON) {
         moves[0] = MOVE_CONVERSION;
         moves[1] = MOVE_CONVERSION_2;
-        moves[2] = MOVE_AGILITY;
-        moves[3] = MOVE_FOUL_PLAY;
+        moves[2] = MOVE_MAGIC_COAT;
+        moves[3] = MOVE_REVELATION_DANCE;
 
         for(i=0; i<=3; i++)
         {
@@ -5655,6 +5655,8 @@ bool8 IsMoveHM(u16 move)
         if (sHMMoves[i++] == move)
             return TRUE;
     }
+    if (MOVE_ROCK_CLIMB == move)
+        return TRUE;
     return FALSE;
 }
 

@@ -4748,20 +4748,29 @@ static const struct TrainerMon sParty_Pablo1[] = {
 };
 
 static const struct TrainerMon sParty_Chase[] = {
-    {
+    /*{
     .lvl = 17,
     .species = SPECIES_CURSOLA,
-    .iv = TRAINER_PARTY_IVS(0, 0, 31, 31, 0, 0),
+    .iv = TRAINER_PARTY_IVS(0, 0, 0, 31, 0, 0),
     .moves = {MOVE_ASTONISH, MOVE_ANCIENT_POWER, MOVE_REST},
-    .nature = NATURE_TIMID,
+    .nature = NATURE_HASTY,
+    .heldItem = ITEM_LUM_BERRY,
+    },*/
+    {
+    .lvl = 12,
+    .species = SPECIES_DHELMISE,
+    .iv = TRAINER_PARTY_IVS(31, 0, 31, 31, 31, 20),
+    .moves = {MOVE_ASTONISH, MOVE_ROCK_SLIDE, MOVE_REST},
+    .nature = NATURE_NAIVE,
     .heldItem = ITEM_LUM_BERRY,
     },
     {
-    .lvl = 20,
+    .lvl = 17,
     .species = SPECIES_CRAMORANT,
-    .iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0),
+    .iv = TRAINER_PARTY_IVS(0, 31, 0, 0, 31, 0),
     .moves = {MOVE_SURF, MOVE_DRILL_PECK},
-    },
+    .nature = NATURE_NAIVE,
+    }
 };
 
 static const struct TrainerMon sParty_Isaiah2[] = {

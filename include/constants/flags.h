@@ -684,11 +684,11 @@
 #define FLAG_TARC_BREAKABLE_ROCK            0x281 // Unused Flag
 #define FLAG_COLLECTOR_DONT_GIVE_ITEM       0x282 // Unused Flag
 #define FLAG_HIDE_WILSON                    0x283 // Unused Flag
-#define FLAG_UNUSED_0x284  0x284 // Unused Flag
-#define FLAG_UNUSED_0x285  0x285 // Unused Flag
-#define FLAG_UNUSED_0x286  0x286 // Unused Flag
-#define FLAG_UNUSED_0x287  0x287 // Unused Flag
-#define FLAG_UNUSED_0x288  0x288 // Unused Flag
+#define FLAG_CAVE_MOVER0                    0x284 // Unused Flag
+#define FLAG_HIDE_MOVER0                    0x285 // Unused Flag
+#define FLAG_CAVE_MOVER3                    0x286 // Unused Flag
+#define FLAG_HIDE_MOVER3                    0x287 // Unused Flag
+#define FLAG_HIDE_CELEBI                    0x288 // Unused Flag
 #define FLAG_UNUSED_0x289  0x289 // Unused Flag
 #define FLAG_UNUSED_0x28A  0x28A // Unused Flag
 #define FLAG_UNUSED_0x28B  0x28B // Unused Flag

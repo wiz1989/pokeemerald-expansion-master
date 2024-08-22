@@ -2660,7 +2660,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     } // move effect checks
 
     //special rule for MOVE_SURF
-    if (move == MOVE_SURF)
+    if (move == MOVE_SURF && FlagGet(FLAG_WON_SEISMITOAD) && gBattleMons[battlerDef].type1 != TYPE_WATER && gBattleMons[battlerDef].type2 != TYPE_WATER)
         ADJUST_SCORE(1);
 
     if (score < 0)

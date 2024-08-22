@@ -115,3 +115,20 @@ AncientTomb_Braille_ShineInTheMiddle:
 	.braille "INHERIT OUR\n"
 	.braille "WILL, SHINE\n"
 	.braille "IN THE MIDDLE.$"
+
+TARC_CAVE_Braille1_Text:
+	brailleformat 7, 2, 23, 17, 10, 5
+	.braille "ONE WHO\n"
+	.braille "SEARCHES\n"
+	.braille "CAN FIND.$"
+
+TARC_CAVE_Braille2_Text:
+	brailleformat 0, 0, 29, 19, 3, 3
+	.braille "THIS IS\n"
+	.braille "WHY\n"
+	.braille "THERE IS$"
+
+TARC_CAVE_Braille3_Text:
+	brailleformat 0, 0, 29, 19, 3, 3
+	.braille "A SEARCH\n"
+	.braille "FUNCTION.$"

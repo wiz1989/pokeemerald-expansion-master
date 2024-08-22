@@ -2965,7 +2965,6 @@ static const struct LevelUpMove sExeggutorAlolanLevelUpLearnset[] = {
 
 #if P_FAMILY_CUBONE
 static const struct LevelUpMove sCuboneLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_STRENGTH),
     LEVEL_UP_MOVE( 1, MOVE_MUD_SLAP),
     LEVEL_UP_MOVE( 1, MOVE_GROWL),
     LEVEL_UP_MOVE( 4, MOVE_TAIL_WHIP),
@@ -4316,8 +4315,8 @@ static const struct LevelUpMove sPorygonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_CONVERSION),
     LEVEL_UP_MOVE( 1, MOVE_CONVERSION_2),
-    LEVEL_UP_MOVE( 1, MOVE_AGILITY),
-    LEVEL_UP_MOVE( 1, MOVE_FOUL_PLAY),
+    LEVEL_UP_MOVE( 1, MOVE_MAGIC_COAT),
+    LEVEL_UP_MOVE( 1, MOVE_REVELATION_DANCE),
     LEVEL_UP_MOVE( 5, MOVE_RECYCLE),
     LEVEL_UP_MOVE(10, MOVE_MAGNET_RISE),
     LEVEL_UP_MOVE(15, MOVE_THUNDER_SHOCK),

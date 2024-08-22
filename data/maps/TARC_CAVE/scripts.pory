@@ -64,11 +64,13 @@ script TARC_CAVE_EveryFrame_FirstTime {
 script TARC_CAVE_OnTransition {
     setflag(FLAG_DONT_REMOVE_OFFSCREEN_OBJECT)
     clearflag(FLAG_CAVE_KICKOUT1)
+    clearflag(FLAG_CAVE_MOVER0)
     clearflag(FLAG_CAVE_MOVER1)
     clearflag(FLAG_CAVE_GUARD1)
     clearflag(FLAG_CAVE_KICKOUT2)
     clearflag(FLAG_CAVE_KICKOUT3)
     clearflag(FLAG_CAVE_MOVER2)
+    clearflag(FLAG_CAVE_MOVER3)
     //clearflag(FLAG_CAVE_GUARD2)
 
     //handle object events to allow passage
@@ -77,6 +79,7 @@ script TARC_CAVE_OnTransition {
         setorcopyvar(VAR_TARC_CAVE_FIELD, 10)
         setorcopyvar(VAR_TARC_CAVE_GUARD1_STATE, 1)
         setflag(FLAG_CAVE_KICKOUT1)
+        setflag(FLAG_CAVE_MOVER0)
         setflag(FLAG_CAVE_MOVER1)
         setflag(FLAG_CAVE_GUARD1)
         setobjectxyperm(5, 20, 9)
@@ -111,6 +114,7 @@ script TARC_CAVE_EveryFrame_Room1 {
         setflag(FLAG_CAVE_SOLVED1)
         setorcopyvar(VAR_TARC_CAVE_GUARD1_STATE, 1)
         setflag(FLAG_CAVE_KICKOUT1)
+        setflag(FLAG_CAVE_MOVER0)
         setflag(FLAG_CAVE_MOVER1)
         setflag(FLAG_CAVE_GUARD1)
     }
@@ -121,7 +125,7 @@ script TARC_CAVE_EveryFrame_Room2 {
     if(flag(FLAG_CAVE_SOLVED1))
     {
         addobject(13)
-        applymovement(13, Move_faceleft)
+        turnobject(13, DIR_WEST)
         setflag(FLAG_CAVE_SOLVED2)
         setorcopyvar(VAR_TARC_CAVE_GUARD2_STATE, 1)
         setflag(FLAG_CAVE_KICKOUT2)
@@ -162,6 +166,7 @@ script TARC_CAVE_Regirock {
 
 script TARC_Cave_Kickout {
     lock
+    setflag(FLAG_CAVE_KICKOUT1)
     faceplayer
     playmoncry(SPECIES_KADABRA, CRY_MODE_ENCOUNTER)
     msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
@@ -171,6 +176,17 @@ script TARC_Cave_Kickout {
 
 script TARC_Cave_Kickout2 {
     lock
+    setflag(FLAG_CAVE_KICKOUT2)
+    faceplayer
+    playmoncry(SPECIES_KADABRA, CRY_MODE_ENCOUNTER)
+    msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
+	warp(MAP_TARC_CAVE, 2)
+	release
+}
+
+script TARC_Cave_Kickout3 {
+    lock
+    setflag(FLAG_CAVE_KICKOUT3)
     faceplayer
     playmoncry(SPECIES_KADABRA, CRY_MODE_ENCOUNTER)
     msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
@@ -180,6 +196,34 @@ script TARC_Cave_Kickout2 {
 
 script TARC_Cave_Mover {
     lock
+    setflag(FLAG_CAVE_MOVER0)
+    faceplayer
+    playmoncry(SPECIES_ZUBAT, CRY_MODE_ENCOUNTER)
+    msgbox(format("Screech!"), MSGBOX_AUTOCLOSE)
+	release
+}
+
+script TARC_Cave_Mover1 {
+    lock
+    setflag(FLAG_CAVE_MOVER1)
+    faceplayer
+    playmoncry(SPECIES_ZUBAT, CRY_MODE_ENCOUNTER)
+    msgbox(format("Screech!"), MSGBOX_AUTOCLOSE)
+	release
+}
+
+script TARC_Cave_Mover2 {
+    lock
+    setflag(FLAG_CAVE_MOVER2)
+    faceplayer
+    playmoncry(SPECIES_ZUBAT, CRY_MODE_ENCOUNTER)
+    msgbox(format("Screech!"), MSGBOX_AUTOCLOSE)
+	release
+}
+
+script TARC_Cave_Mover3 {
+    lock
+    setflag(FLAG_CAVE_MOVER3)
     faceplayer
     playmoncry(SPECIES_ZUBAT, CRY_MODE_ENCOUNTER)
     msgbox(format("Screech!"), MSGBOX_AUTOCLOSE)
@@ -188,6 +232,7 @@ script TARC_Cave_Mover {
 
 script TARC_Cave_Kickout_Guard {
     lock
+    setflag(FLAG_CAVE_GUARD1)
     faceplayer
     playmoncry(SPECIES_ONIX, CRY_MODE_ENCOUNTER)
     msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
@@ -197,11 +242,45 @@ script TARC_Cave_Kickout_Guard {
 
 script TARC_Cave_Kickout_Guard2 {
     lock
+    setflag(FLAG_CAVE_GUARD2)
     faceplayer
     playmoncry(SPECIES_ONIX, CRY_MODE_ENCOUNTER)
     msgbox(format("AN INTRUDER!\pLeave this sacred place immediately!"), MSGBOX_AUTOCLOSE)
 	warp(MAP_TARC_CAVE, 2)
 	release
+}
+
+script TARC_Cave_Move_Zubat_away {
+    lock
+    setobjectxy(16, 20, 38)
+    release
+}
+
+script TARC_Cave_Turn_Onix {
+    lock
+    if (flag(FLAG_CAVE_SOLVED2))
+    {
+        turnobject(13, DIR_WEST)
+    }
+    release
+}
+
+script TARC_CAVE_Braille1 {
+    lockall
+	braillemsgbox(TARC_CAVE_Braille1_Text)
+	releaseall
+}
+
+script TARC_CAVE_Braille2 {
+    lockall
+	braillemsgbox(TARC_CAVE_Braille2_Text)
+	releaseall
+}
+
+script TARC_CAVE_Braille3 {
+    lockall
+	braillemsgbox(TARC_CAVE_Braille3_Text)
+	releaseall
 }
 
 // ############### movements ###############
@@ -210,8 +289,16 @@ movement Move_faceright {
 	face_right
 }
 
+movement Move_faceup {
+	face_up
+}
+
 movement Move_faceleft {
 	face_left
+}
+
+movement Move_facedown {
+	face_down
 }
 
 movement Move_Regirock {

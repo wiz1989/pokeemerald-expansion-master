@@ -3371,7 +3371,7 @@ u8 AtkCanceller_UnableToUseMove(u32 moveType)
             {
                 if (!(gStatuses4[gBattlerAttacker] & STATUS4_INFINITE_CONFUSION))
                     gBattleMons[gBattlerAttacker].status2 -= STATUS2_CONFUSION_TURN(1);
-                if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION)
+                if (gBattleMons[gBattlerAttacker].status2 & STATUS2_CONFUSION && FALSE) //always snap out first turn! wiz1989
                 {
                      // confusion dmg
                     if (RandomPercentage(RNG_CONFUSION, (B_CONFUSION_SELF_DMG_CHANCE >= GEN_7 ? 33 : 50)))
