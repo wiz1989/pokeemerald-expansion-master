@@ -1906,9 +1906,10 @@ static const u8 sSearchMovementMap_ShiftHoennDex[SEARCH_COUNT][4] =
 
 static const struct SearchOptionText sDexModeOptions[] =
 {
+    [DEX_MODE_HINT]     = {gText_DexHintDescription,  gText_DexHintTitle},
     [DEX_MODE_HOENN]    = {gText_DexHoennDescription, gText_DexHoennTitle},
     [DEX_MODE_NATIONAL] = {gText_DexNatDescription,   gText_DexNatTitle},
-    [DEX_MODE_HINT]     = {gText_DexHintDescription,  gText_DexHintTitle},
+    //[DEX_MODE_HINT]     = {gText_DexHintDescription,  gText_DexHintTitle},
     {},
 };
 
@@ -1978,7 +1979,7 @@ static const struct SearchOptionText sDexSearchTypeOptions[NUMBER_OF_MON_TYPES +
     {},
 };
 
-static const u8 sPokedexModes[] = {DEX_MODE_HOENN, DEX_MODE_NATIONAL, DEX_MODE_HINT};
+static const u8 sPokedexModes[] = {DEX_MODE_HINT, DEX_MODE_HOENN, DEX_MODE_NATIONAL};
 static const u8 sOrderOptions[] =
 {
     ORDER_NUMERICAL,
@@ -2113,9 +2114,9 @@ void CB2_OpenPokedexPlusHGSS(void)
         sPokedexView = AllocZeroed(sizeof(struct PokedexView));
         ResetPokedexView(sPokedexView);
         CreateTask(Task_OpenPokedexMainPage, 0);
-        sPokedexView->dexMode = gSaveBlock2Ptr->pokedex.mode;
-        if (!IsNationalPokedexEnabled())
-            sPokedexView->dexMode = DEX_MODE_HOENN;
+        sPokedexView->dexMode = DEX_MODE_NATIONAL;//gSaveBlock2Ptr->pokedex.mode;
+        //if (!IsNationalPokedexEnabled())
+        //    sPokedexView->dexMode = DEX_MODE_HOENN;
         sPokedexView->dexOrder = gSaveBlock2Ptr->pokedex.order;
         sPokedexView->selectedPokemon = sLastSelectedPokemon;
         sPokedexView->pokeBallRotation = sPokeBallRotation;
@@ -2389,10 +2390,10 @@ static void Task_ClosePokedex(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
-        gSaveBlock2Ptr->pokedex.mode = sPokedexView->dexMode;
-        if (!IsNationalPokedexEnabled())
-            gSaveBlock2Ptr->pokedex.mode = DEX_MODE_HOENN;
-        gSaveBlock2Ptr->pokedex.order = sPokedexView->dexOrder;
+        //gSaveBlock2Ptr->pokedex.mode = sPokedexView->dexMode;
+        //if (!IsNationalPokedexEnabled())
+        //    gSaveBlock2Ptr->pokedex.mode = DEX_MODE_HOENN;
+        //gSaveBlock2Ptr->pokedex.order = sPokedexView->dexOrder;
         ClearMonSprites();
         FreeWindowAndBgBuffers();
         DestroyTask(taskId);
@@ -8419,6 +8420,7 @@ static void PrintSelectedSearchParameters(u8 taskId)
     if (IsNationalPokedexEnabled())
     {
         searchParamId = gTasks[taskId].tCursorPos_Mode + gTasks[taskId].tScrollOffset_Mode;
+        searchParamId = 0; //preset Hint option!
         PrintSearchText(sDexModeOptions[searchParamId].title, 0x2D, 0x51);
     }
 }

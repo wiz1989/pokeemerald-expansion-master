@@ -3389,8 +3389,9 @@ u8 AtkCanceller_UnableToUseMove(u32 moveType)
                     }
                     gBattlescriptCurrInstr = BattleScript_MoveUsedIsConfused;
                 }
-                else // snapped out of confusion
+                else // snap out of confusion // wiz1989
                 {
+                    gBattleMons[gBattlerAttacker].status2 = STATUS2_CONFUSION_TURN(0);
                     BattleScriptPushCursor();
                     gBattlescriptCurrInstr = BattleScript_MoveUsedIsConfusedNoMore;
                 }

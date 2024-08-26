@@ -73,8 +73,7 @@ script TARC_Island_Fisherman {
                     special(CreateInGameTradePokemon)
                     special(DoInGameTradeScene)
                     waitstate
-                    bufferspeciesname(STR_VAR_1, VAR_0x8009)
-                    msgbox(FortreeCity_House1_Text_MonYouTakeCare, MSGBOX_AUTOCLOSE)
+                    msgbox("This Pokémon is really weird.\pSomeone did install a very strange move on its hard drive.", MSGBOX_AUTOCLOSE)
                     setflag(FLAG_REMORAID_TRADE_COMPLETED)
                 }
             }
@@ -91,10 +90,10 @@ script TARC_Island_Fisherman {
     }
     else
     {
-    	msgbox(format("I am stranded here and try to catch some fish to survive.\pBut these are shark infested waters!\pI don't get anything else to bite.\pTake this rod of mine."), MSGBOX_AUTOCLOSE)
+    	msgbox(format("I am stranded here and trying to catch some fish to survive.\pBut these are shark infested waters!\pI can't get anything else to bite.\pHere, take this rod of mine."), MSGBOX_AUTOCLOSE)
 	    giveitem(ITEM_OLD_ROD)
 	    setflag(FLAG_RECEIVED_OLD_ROD)
-	    msgbox(format("And please think of me if you are getting luckier than I am."), MSGBOX_AUTOCLOSE)
+	    msgbox(format("And please think of me if you get luckier than I am."), MSGBOX_AUTOCLOSE)
     }
     release
     end
@@ -146,11 +145,11 @@ script TARC_Island_ItemBall_Rock_Climb {
 }
 
 script TARC_Island_Celebi {
-    lockall
+    lock
     faceplayer
     if (flag(FLAG_WON_SEISMITOAD))
     {
-        msgbox(format("Dear traveller,\nmy time in this place is up.\pMy path is leading me to a far future, many years from now.\pFarewell!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("Dear traveler,\nmy time in this place is up.\pMy path is leading me to a far future, many years from now.\pFarewell!"), MSGBOX_AUTOCLOSE)
         dofieldeffectsparkle(13, 3, 0)
         waitfieldeffect(FLDEFF_SPARKLE)
         delay(10)
@@ -163,7 +162,6 @@ script TARC_Island_Celebi {
         dofieldeffect(FLDEFF_RAYQUAZA_SPOTLIGHT)
         delay(400)
         removeobject(9)
-        setflag(FLAG_HIDE_CELEBI)
         delay(60)
         applymovement(OBJ_EVENT_ID_PLAYER, Move_faceright)
         waitmovement(0)
@@ -174,14 +172,15 @@ script TARC_Island_Celebi {
         applymovement(OBJ_EVENT_ID_PLAYER, Move_facedown)
         waitmovement(0)
         applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
-        waitmovement(0)        
+        waitmovement(0)
+        setflag(FLAG_HIDE_CELEBI)   
     }
     else
     {
         if(!flag(FLAG_TARC_TALKED_TO_CELEBI))
         {
             setflag(FLAG_TARC_TALKED_TO_CELEBI)
-            msgbox(format("Dear traveller,\nI am the guardian of this island.\pI can travel through time to grant you access to moves your Pokémon might have forgotten a long time ago."), MSGBOX_AUTOCLOSE)
+            msgbox(format("Dear traveler,\nI am the guardian of this island.\pI can travel through time to grant you access to moves your Pokémon might have forgotten a long time ago."), MSGBOX_AUTOCLOSE)
         }
         msgbox(format("Please choose a Pokémon to teach a move to."), MSGBOX_AUTOCLOSE)
         //setvar(VAR_PIT_TUTOR_STATE, 0)
@@ -194,7 +193,7 @@ script TARC_Island_Celebi {
         special(TeachMoveRelearnerMove)
         waitstate
     }
-    releaseall
+    release
 }
 
 script EndOfRelearnerScript {
@@ -226,7 +225,7 @@ script TARC_Island_Zigzagoon { //wiz1989
 		else {
             msgbox(format("Oh no, you lost a POKE BALL!"), MSGBOX_AUTOCLOSE)
             waitmessage
-            msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+            msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
             waitmessage
             giveitem(ITEM_POKE_BALL)
 		}
@@ -250,7 +249,7 @@ script TARC_Island_Zigzagoon { //wiz1989
 		else {
             msgbox(format("Oh no, you lost a precious BIG NUGGET!"), MSGBOX_AUTOCLOSE)
             waitmessage
-            msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+            msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
             waitmessage
             giveitem(ITEM_BIG_NUGGET)
 		}
@@ -274,7 +273,7 @@ script TARC_Island_Zigzagoon { //wiz1989
 		else {
             msgbox(format("Oh no, you lost a POKE BALL!"), MSGBOX_AUTOCLOSE)
             waitmessage
-            msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+            msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
             waitmessage
             giveitem(ITEM_POKE_BALL)
 		}
@@ -301,12 +300,37 @@ script TARC_Island_Zigzagoon { //wiz1989
             {
                 msgbox(format("Oh no, you lost an Ability Capsule!"), MSGBOX_AUTOCLOSE)
                 waitmessage
-                msgbox(format("You are very lucky that Zigzagoon found it!"), MSGBOX_AUTOCLOSE)
+                msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
                 waitmessage
                 giveitem(ITEM_ABILITY_CAPSULE)
             }
 		}
 	}
+
+    //check Life Orb
+    clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	if (!defeated(TRAINER_CHASE)) {
+		checkitem(ITEM_LIFE_ORB)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_LIFE_ORB)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//player is still holding the item
+		}
+		else {
+            msgbox(format("Oh no, you lost your LIFE ORB!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            giveitem(ITEM_LIFE_ORB)
+		}
+	}
+
 	release
 }
 
@@ -372,7 +396,7 @@ script TARC_Island_Game_Master {
                     setflag(FLAG_TARC_ADDTIME)
                 }
                 //msgbox(format("What a cute Mantyke you have there!\pYou should consider evolving it!"), MSGBOX_AUTOCLOSE)
-                msgbox(format("What a cute Mantyke you have there!\pIt's just a little weak compared to what it could be."), MSGBOX_AUTOCLOSE)
+                msgbox(format("What a cute Mantyke you have there!\pIt's just a little weak.\pMaybe you can make use of your Remoraid to make it stronger?"), MSGBOX_AUTOCLOSE)
                 clearflag(FLAG_TARC_GIVE_NO_ADVICE)
             }
             else
@@ -451,8 +475,8 @@ script TARC_Island_Game_Master {
                 setflag(FLAG_HINT10)
                 setflag(FLAG_TARC_ADDTIME)
             }
-            //msgbox(format("You still cannot reach past the breakable rock?\pTake a deep look into your Pokedex' searching features to find a solution!"), MSGBOX_AUTOCLOSE)
-            msgbox(format("You still cannot reach past the breakable rock?\pTake a deep look into your Pokedex' features to find a solution!"), MSGBOX_AUTOCLOSE)
+            //msgbox(format("You still cannot reach past the breakable rock?\pTake a look at your Pokédex' searching function to reveal its hidden secret!"), MSGBOX_AUTOCLOSE)
+            msgbox(format("You still cannot reach past the breakable rock?\pYou gotta SELECT the right functions of your Pokédex to find the HINT."), MSGBOX_AUTOCLOSE)
             clearflag(FLAG_TARC_GIVE_NO_ADVICE)
         }
 
@@ -499,8 +523,15 @@ script TARC_Island_Game_Master {
 script TARC_Island_Maxie {
     lock
     faceplayer
-    msgbox(format("Hello traveller!\lWelcome to my island!"), MSGBOX_AUTOCLOSE)
-    msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe said he was going to become as skillful as his big idol Link.\pWhat an extraordinary person he was..."), MSGBOX_AUTOCLOSE)
+    if(!flag(FLAG_TARC_ITEM_X))
+    {
+        msgbox(format("Hello traveler!\lWelcome to my island!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe was wandering these MEADOWS swinging his sword to become as skillful as his big idol Link.\pWhat an extraordinary person he was..."), MSGBOX_AUTOCLOSE)
+    }
+    else
+    {
+        msgbox(format("You found the item I had hidden!\pA magnificent feat that only a real Pokémon Master could've pulled off."), MSGBOX_AUTOCLOSE)
+    }
     release
 }
 
@@ -541,6 +572,11 @@ script TARC_Island_Rhydon {
     {
         setorcopyvar(VAR_RHYDON_STATE, 4)
         //msgbox("Step 4 ", MSGBOX_AUTOCLOSE)
+    }
+    elif (var(VAR_FACING) == DIR_SOUTH) //default case when approaching from the north
+    {
+        setorcopyvar(VAR_RHYDON_STATE, 1)
+        //msgbox("Step 1 ", MSGBOX_AUTOCLOSE)
     }
     elif (var(VAR_RHYDON_STATE) == 4 && var(VAR_FACING) == DIR_NORTH)
     {
@@ -626,7 +662,7 @@ script TARC_Island_Battle_Slowking {
         playmoncry(SPECIES_SLOWKING, CRY_MODE_ENCOUNTER)
         delay(20)
         waitmoncry
-        msgbox(format("Slowking looks furious being disturbed from sleeping!"), MSGBOX_AUTOCLOSE)
+        msgbox(format("Slowking looks furious at being disturbed from sleeping!"), MSGBOX_AUTOCLOSE)
         setflag(FLAG_SYS_CTRL_OBJ_DELETE)
         dowildbattle
         clearflag(FLAG_SYS_CTRL_OBJ_DELETE)

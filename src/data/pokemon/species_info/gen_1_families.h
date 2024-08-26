@@ -8500,7 +8500,6 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .catchRate = 45,
         .expYield = 1,
         .evYield_Attack = 1,
-        .itemRare = ITEM_LEEK,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
         .friendship = STANDARD_FRIENDSHIP,

@@ -31,17 +31,17 @@ TARC_Island_Fisherman::
 	lock
 	faceplayer
 	goto_if_set FLAG_RECEIVED_OLD_ROD, TARC_Island_Fisherman_2
-	msgbox TARC_Island_Fisherman_Text_4, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Fisherman_Text_5, MSGBOX_AUTOCLOSE
 	giveitem ITEM_OLD_ROD
 	setflag FLAG_RECEIVED_OLD_ROD
-	msgbox TARC_Island_Fisherman_Text_5, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Fisherman_Text_6, MSGBOX_AUTOCLOSE
 TARC_Island_Fisherman_1:
 	release
 	end
 
 TARC_Island_Fisherman_2:
 	goto_if_set FLAG_TARC_REMORAID, TARC_Island_Fisherman_5
-	msgbox TARC_Island_Fisherman_Text_3, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Fisherman_Text_4, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Fisherman_1
 
 TARC_Island_Fisherman_5:
@@ -49,7 +49,7 @@ TARC_Island_Fisherman_5:
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC_Island_Fisherman_8
 	msgbox TARC_Island_Fisherman_Text_0, MSGBOX_AUTOCLOSE
-	msgbox TARC_Island_Fisherman_Text_2, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Fisherman_Text_3, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Fisherman_1
 
 TARC_Island_Fisherman_8:
@@ -80,8 +80,7 @@ TARC_Island_Fisherman_20:
 	special CreateInGameTradePokemon
 	special DoInGameTradeScene
 	waitstate
-	bufferspeciesname STR_VAR_1, VAR_0x8009
-	msgbox FortreeCity_House1_Text_MonYouTakeCare, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Fisherman_Text_2, MSGBOX_AUTOCLOSE
 	setflag FLAG_REMORAID_TRADE_COMPLETED
 	goto TARC_Island_Fisherman_1
 
@@ -154,7 +153,7 @@ TARC_Island_ItemBall_Rock_Climb::
 
 
 TARC_Island_Celebi::
-	lockall
+	lock
 	faceplayer
 	goto_if_set FLAG_WON_SEISMITOAD, TARC_Island_Celebi_2
 	goto_if_unset FLAG_TARC_TALKED_TO_CELEBI, TARC_Island_Celebi_6
@@ -169,7 +168,7 @@ TARC_Island_Celebi_5:
 	special TeachMoveRelearnerMove
 	waitstate
 TARC_Island_Celebi_1:
-	releaseall
+	release
 	return
 
 TARC_Island_Celebi_2:
@@ -186,7 +185,6 @@ TARC_Island_Celebi_2:
 	dofieldeffect FLDEFF_RAYQUAZA_SPOTLIGHT
 	delay 400
 	removeobject 9
-	setflag FLAG_HIDE_CELEBI
 	delay 60
 	applymovement OBJ_EVENT_ID_PLAYER, Move_faceright
 	waitmovement 0
@@ -198,6 +196,7 @@ TARC_Island_Celebi_2:
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
+	setflag FLAG_HIDE_CELEBI
 	goto TARC_Island_Celebi_1
 
 TARC_Island_Celebi_6:
@@ -229,6 +228,10 @@ TARC_Island_Zigzagoon_14:
 	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto_if_set FLAG_TARC_ITEM_X, TARC_Island_Zigzagoon_27
 TARC_Island_Zigzagoon_25:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	checktrainerflag TRAINER_CHASE
+	goto_if 0, TARC_Island_Zigzagoon_40
+TARC_Island_Zigzagoon_39:
 	release
 	return
 
@@ -262,7 +265,7 @@ TARC_Island_Zigzagoon_19:
 	compare VAR_RESULT, 6
 	goto_if_lt TARC_Island_Zigzagoon_34
 TARC_Island_Zigzagoon_33:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_45
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_48
 	msgbox TARC_Island_Zigzagoon_Text_3, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -285,9 +288,9 @@ TARC_Island_Zigzagoon_15:
 TARC_Island_Zigzagoon_30:
 	checkpartyitem ITEM_POKE_BALL
 	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_43
-TARC_Island_Zigzagoon_42:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_51
+	goto_if_lt TARC_Island_Zigzagoon_46
+TARC_Island_Zigzagoon_45:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_57
 	msgbox TARC_Island_Zigzagoon_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -310,16 +313,16 @@ TARC_Island_Zigzagoon_23:
 TARC_Island_Zigzagoon_26:
 	checkitem ITEM_ABILITY_CAPSULE
 	compare VAR_RESULT, TRUE
-	goto_if_eq TARC_Island_Zigzagoon_40
-TARC_Island_Zigzagoon_39:
+	goto_if_eq TARC_Island_Zigzagoon_43
+TARC_Island_Zigzagoon_42:
 	checkpartyitem ITEM_ABILITY_CAPSULE
 	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_49
-TARC_Island_Zigzagoon_48:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_54
+	goto_if_lt TARC_Island_Zigzagoon_55
+TARC_Island_Zigzagoon_54:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_63
 	checkpartyability 36
 	compare VAR_RESULT, PARTY_SIZE
-	goto_if_eq TARC_Island_Zigzagoon_57
+	goto_if_eq TARC_Island_Zigzagoon_69
 	goto TARC_Island_Zigzagoon_25
 
 TARC_Island_Zigzagoon_27:
@@ -338,27 +341,55 @@ TARC_Island_Zigzagoon_36:
 	goto TARC_Island_Zigzagoon_1
 
 TARC_Island_Zigzagoon_40:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	checkitem ITEM_LIFE_ORB
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_52
+TARC_Island_Zigzagoon_51:
+	checkpartyitem ITEM_LIFE_ORB
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_61
+TARC_Island_Zigzagoon_60:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_66
+	msgbox TARC_Island_Zigzagoon_Text_5, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_LIFE_ORB
 	goto TARC_Island_Zigzagoon_39
 
 TARC_Island_Zigzagoon_43:
 	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto TARC_Island_Zigzagoon_42
 
-TARC_Island_Zigzagoon_45:
+TARC_Island_Zigzagoon_46:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_45
+
+TARC_Island_Zigzagoon_48:
 	goto TARC_Island_Zigzagoon_6
 
-TARC_Island_Zigzagoon_49:
+TARC_Island_Zigzagoon_52:
 	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto TARC_Island_Zigzagoon_48
+	goto TARC_Island_Zigzagoon_51
 
-TARC_Island_Zigzagoon_51:
-	goto TARC_Island_Zigzagoon_14
-
-TARC_Island_Zigzagoon_54:
-	goto TARC_Island_Zigzagoon_25
+TARC_Island_Zigzagoon_55:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_54
 
 TARC_Island_Zigzagoon_57:
+	goto TARC_Island_Zigzagoon_14
+
+TARC_Island_Zigzagoon_61:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_60
+
+TARC_Island_Zigzagoon_63:
+	goto TARC_Island_Zigzagoon_25
+
+TARC_Island_Zigzagoon_66:
+	goto TARC_Island_Zigzagoon_39
+
+TARC_Island_Zigzagoon_69:
 	msgbox TARC_Island_Zigzagoon_Text_4, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -602,10 +633,16 @@ TARC_Island_Game_Master_90:
 TARC_Island_Maxie::
 	lock
 	faceplayer
-	msgbox TARC_Island_Maxie_Text_0, MSGBOX_AUTOCLOSE
-	msgbox TARC_Island_Maxie_Text_1, MSGBOX_AUTOCLOSE
+	goto_if_unset FLAG_TARC_ITEM_X, TARC_Island_Maxie_2
+	msgbox TARC_Island_Maxie_Text_2, MSGBOX_AUTOCLOSE
+TARC_Island_Maxie_1:
 	release
 	return
+
+TARC_Island_Maxie_2:
+	msgbox TARC_Island_Maxie_Text_0, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Maxie_Text_1, MSGBOX_AUTOCLOSE
+	goto TARC_Island_Maxie_1
 
 
 TARC_Island_sign_Game_Start::
@@ -629,20 +666,22 @@ TARC_Island_Rhydon::
 	msgbox TARC_Island_Rhydon_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
 	compare VAR_RHYDON_STATE, 0
-	goto_if_eq TARC_Island_Rhydon_20
-TARC_Island_Rhydon_18:
+	goto_if_eq TARC_Island_Rhydon_22
+TARC_Island_Rhydon_20:
 	compare VAR_RHYDON_STATE, 1
-	goto_if_eq TARC_Island_Rhydon_17
-TARC_Island_Rhydon_15:
+	goto_if_eq TARC_Island_Rhydon_19
+TARC_Island_Rhydon_17:
 	compare VAR_RHYDON_STATE, 2
-	goto_if_eq TARC_Island_Rhydon_14
-TARC_Island_Rhydon_12:
+	goto_if_eq TARC_Island_Rhydon_16
+TARC_Island_Rhydon_14:
 	compare VAR_RHYDON_STATE, 3
-	goto_if_eq TARC_Island_Rhydon_11
-TARC_Island_Rhydon_9:
+	goto_if_eq TARC_Island_Rhydon_13
+TARC_Island_Rhydon_12:
+	compare VAR_FACING, DIR_SOUTH
+	goto_if_eq TARC_Island_Rhydon_6
 	compare VAR_RHYDON_STATE, 4
-	goto_if_eq TARC_Island_Rhydon_8
-TARC_Island_Rhydon_7:
+	goto_if_eq TARC_Island_Rhydon_9
+TARC_Island_Rhydon_8:
 	setorcopyvar VAR_RHYDON_STATE, 0
 TARC_Island_Rhydon_1:
 	release
@@ -665,6 +704,10 @@ TARC_Island_Rhydon_5:
 	goto TARC_Island_Rhydon_1
 
 TARC_Island_Rhydon_6:
+	setorcopyvar VAR_RHYDON_STATE, 1
+	goto TARC_Island_Rhydon_1
+
+TARC_Island_Rhydon_7:
 	setorcopyvar VAR_RHYDON_STATE, 5
 	applymovement 20, Move_exclmark
 	waitmovement 0
@@ -693,30 +736,30 @@ TARC_Island_Rhydon_6:
 	setobjectxyperm 20, 26, 13
 	goto TARC_Island_Rhydon_1
 
-TARC_Island_Rhydon_8:
+TARC_Island_Rhydon_9:
 	compare VAR_FACING, DIR_NORTH
-	goto_if_eq TARC_Island_Rhydon_6
-	goto TARC_Island_Rhydon_7
+	goto_if_eq TARC_Island_Rhydon_7
+	goto TARC_Island_Rhydon_8
 
-TARC_Island_Rhydon_11:
+TARC_Island_Rhydon_13:
 	compare VAR_FACING, DIR_EAST
 	goto_if_eq TARC_Island_Rhydon_5
-	goto TARC_Island_Rhydon_9
-
-TARC_Island_Rhydon_14:
-	compare VAR_FACING, DIR_SOUTH
-	goto_if_eq TARC_Island_Rhydon_4
 	goto TARC_Island_Rhydon_12
 
-TARC_Island_Rhydon_17:
+TARC_Island_Rhydon_16:
+	compare VAR_FACING, DIR_SOUTH
+	goto_if_eq TARC_Island_Rhydon_4
+	goto TARC_Island_Rhydon_14
+
+TARC_Island_Rhydon_19:
 	compare VAR_FACING, DIR_WEST
 	goto_if_eq TARC_Island_Rhydon_3
-	goto TARC_Island_Rhydon_15
+	goto TARC_Island_Rhydon_17
 
-TARC_Island_Rhydon_20:
+TARC_Island_Rhydon_22:
 	compare VAR_FACING, DIR_SOUTH
 	goto_if_eq TARC_Island_Rhydon_2
-	goto TARC_Island_Rhydon_18
+	goto TARC_Island_Rhydon_20
 
 
 TARC_Island_Battle_Seismitoad::
@@ -886,22 +929,25 @@ TARC_Island_Fisherman_Text_1:
 	.string "...trading it for my Porygon?$"
 
 TARC_Island_Fisherman_Text_2:
-	.string "How sad you still need it for now...$"
+	.string "This Pokémon is really weird.\pSomeone did install a very strange move on its hard drive.$"
 
 TARC_Island_Fisherman_Text_3:
+	.string "How sad you still need it for now...$"
+
+TARC_Island_Fisherman_Text_4:
 	.string "Please think of me if you are getting\n"
 	.string "luckier than I am.$"
 
-TARC_Island_Fisherman_Text_4:
-	.string "I am stranded here and try to catch\n"
+TARC_Island_Fisherman_Text_5:
+	.string "I am stranded here and trying to catch\n"
 	.string "some fish to survive.\p"
 	.string "But these are shark infested waters!\p"
-	.string "I don't get anything else to bite.\p"
-	.string "Take this rod of mine.$"
+	.string "I can't get anything else to bite.\p"
+	.string "Here, take this rod of mine.$"
 
-TARC_Island_Fisherman_Text_5:
-	.string "And please think of me if you are\n"
-	.string "getting luckier than I am.$"
+TARC_Island_Fisherman_Text_6:
+	.string "And please think of me if you get\n"
+	.string "luckier than I am.$"
 
 TARC_Island_Chansey_Text_0:
 	.string "Chansey wants to take care of your\n"
@@ -914,14 +960,14 @@ TARC_Island_Corphish_Text_0:
 	.string "Corph...$"
 
 TARC_Island_Celebi_Text_0:
-	.string "Dear traveller,\n"
+	.string "Dear traveler,\n"
 	.string "my time in this place is up.\p"
 	.string "My path is leading me to a far future,\n"
 	.string "many years from now.\p"
 	.string "Farewell!$"
 
 TARC_Island_Celebi_Text_1:
-	.string "Dear traveller,\n"
+	.string "Dear traveler,\n"
 	.string "I am the guardian of this island.\p"
 	.string "I can travel through time to grant you\n"
 	.string "access to moves your Pokémon might\l"
@@ -942,7 +988,7 @@ TARC_Island_Zigzagoon_Text_1:
 	.string "Oh no, you lost a POKE BALL!$"
 
 TARC_Island_Zigzagoon_Text_2:
-	.string "You are very lucky that Zigzagoon\n"
+	.string "You are very lucky that Zigzagoon has\n"
 	.string "found it!$"
 
 TARC_Island_Zigzagoon_Text_3:
@@ -950,6 +996,9 @@ TARC_Island_Zigzagoon_Text_3:
 
 TARC_Island_Zigzagoon_Text_4:
 	.string "Oh no, you lost an Ability Capsule!$"
+
+TARC_Island_Zigzagoon_Text_5:
+	.string "Oh no, you lost your LIFE ORB!$"
 
 TARC_Island_Game_Master_Text_0:
 	.string "I am the Game Master.\p"
@@ -981,8 +1030,9 @@ TARC_Island_Game_Master_Text_4:
 
 TARC_Island_Game_Master_Text_5:
 	.string "What a cute Mantyke you have there!\p"
-	.string "It's just a little weak compared to what\n"
-	.string "it could be.$"
+	.string "It's just a little weak.\p"
+	.string "Maybe you can make use of your\n"
+	.string "Remoraid to make it stronger?$"
 
 TARC_Island_Game_Master_Text_6:
 	.string "Have you visited Celebi?\p"
@@ -1022,8 +1072,8 @@ TARC_Island_Game_Master_Text_10:
 TARC_Island_Game_Master_Text_11:
 	.string "You still cannot reach past the\n"
 	.string "breakable rock?\p"
-	.string "Take a deep look into your Pokedex'\n"
-	.string "features to find a solution!$"
+	.string "You gotta SELECT the right functions\n"
+	.string "of your Pokédex to find the HINT.$"
 
 TARC_Island_Game_Master_Text_12:
 	.string "You are free, {PLAYER}!\p"
@@ -1051,7 +1101,7 @@ TARC_Island_Game_Master_Text_15:
 	.string "any more time for it.$"
 
 TARC_Island_Maxie_Text_0:
-	.string "Hello traveller!\l"
+	.string "Hello traveler!\l"
 	.string "Welcome to my island!$"
 
 TARC_Island_Maxie_Text_1:
@@ -1062,9 +1112,15 @@ TARC_Island_Maxie_Text_1:
 	.string "He visited this place riding a Kyogre\n"
 	.string "and came here to practice his sword\l"
 	.string "fighting skills.\p"
-	.string "He said he was going to become as\n"
-	.string "skillful as his big idol Link.\p"
+	.string "He was wandering these MEADOWS\n"
+	.string "swinging his sword to become as skillful\l"
+	.string "as his big idol Link.\p"
 	.string "What an extraordinary person he was...$"
+
+TARC_Island_Maxie_Text_2:
+	.string "You found the item I had hidden!\p"
+	.string "A magnificent feat that only a real\n"
+	.string "Pokémon Master could've pulled off.$"
 
 TARC_Island_sign_Game_Start_Text_0:
 	.string "IMPORTANT INFORMATION:\p"
@@ -1100,8 +1156,8 @@ TARC_Island_Battle_Seismitoad_Text_2:
 	.string "Seismitoad is watching the pond.$"
 
 TARC_Island_Battle_Slowking_Text_0:
-	.string "Slowking looks furious being disturbed\n"
-	.string "from sleeping!$"
+	.string "Slowking looks furious at being\n"
+	.string "disturbed from sleeping!$"
 
 TARC_Island_Battle_Slowking_Text_1:
 	.string "...snore...$"

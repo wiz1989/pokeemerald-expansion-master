@@ -262,7 +262,7 @@ $(FONTGFXDIR)/frlg_female.fwjpnfont: $(FONTGFXDIR)/japanese_frlg_female.png
 
 ### Miscellaneous ###
 graphics/title_screen/pokemon_logo.gbapal: %.gbapal: %.pal
-	$(GFX) $< $@ -num_colors 224
+	$(GFX) $< $@ -num_colors 256
 
 graphics/pokemon_jump/bg.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 63 -Wnum_tiles

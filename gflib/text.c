@@ -75,8 +75,8 @@ static const u8 sUnusedFRLGDownArrow[] = INCBIN_U8("graphics/fonts/unused_frlg_d
 static const u8 sDownArrowYCoords[] = { 0, 1, 2, 1 };
 static const u8 sWindowVerticalScrollSpeeds[] = {
     [OPTIONS_TEXT_SPEED_SLOW] = 1,
-    [OPTIONS_TEXT_SPEED_MID] = 2,
     [OPTIONS_TEXT_SPEED_FAST] = 4,
+    [OPTIONS_TEXT_SPEED_INSTANT] = 4,
 };
 
 static const struct GlyphWidthFunc sGlyphWidthFuncs[] =
@@ -316,7 +316,7 @@ bool32 AddTextPrinter(struct TextPrinterTemplate *printerTemplate, u8 speed, voi
     return TRUE;
 }
 
-void RunTextPrinters(void)
+/*void RunTextPrinters(void)
 {
     int i;
 
@@ -342,6 +342,55 @@ void RunTextPrinters(void)
             }
         }
     }
+}*/
+
+void RunTextPrinters(void)
+{
+    int i;
+    bool8 isInstantText;
+    
+    if (gSaveBlock2Ptr->optionsTextSpeed == OPTIONS_TEXT_SPEED_INSTANT)
+        isInstantText = TRUE;
+    else
+        isInstantText = FALSE;
+
+    do
+    {
+        int numEmpty = 0;
+        if (gDisableTextPrinters == 0)
+        {
+            for (i = 0; i < 0x20; ++i)
+            {
+                if (sTextPrinters[i].active)
+                {
+                    u16 temp = RenderFont(&sTextPrinters[i]);
+                    switch (temp)
+                    {
+                    case RENDER_PRINT:
+                        CopyWindowToVram(sTextPrinters[i].printerTemplate.windowId, COPYWIN_GFX);
+                        if (sTextPrinters[i].callback != NULL)
+                            sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, temp);
+                        break;
+                    case RENDER_UPDATE:
+                        if (sTextPrinters[i].callback != NULL)
+                            sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, temp);
+                        isInstantText = FALSE;
+                        break;
+                    case RENDER_FINISH:
+                        sTextPrinters[i].active = FALSE;
+                        return;
+                    }
+                }
+                else
+                {
+                    numEmpty++;
+                }
+            }
+
+            if (numEmpty == 0x20)
+                return;
+        }
+    } while (isInstantText);
 }
 
 bool32 IsTextPrinterActive(u8 id)

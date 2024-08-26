@@ -7709,8 +7709,10 @@ static void Cmd_getmoneyreward(void)
     if (gBattleOutcome == B_OUTCOME_WON)
     {
         money = GetTrainerMoneyToGive(gTrainerBattleOpponent_A);
+        money = 0; //wiz1989
         if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
-            money += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
+            money = 0; //wiz1989
+            //money += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
         AddMoney(&gSaveBlock1Ptr->money, money);
     }
     else
@@ -7731,7 +7733,8 @@ static void Cmd_getmoneyreward(void)
                 ++count;
         }
         money = sWhiteOutBadgeMoney[count] * sPartyLevel;
-        RemoveMoney(&gSaveBlock1Ptr->money, money);
+        money = 0; //wiz1989
+        //RemoveMoney(&gSaveBlock1Ptr->money, money);
     }
 
     PREPARE_WORD_NUMBER_BUFFER(gBattleTextBuff1, 5, money);

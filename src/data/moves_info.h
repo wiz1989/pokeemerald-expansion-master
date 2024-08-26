@@ -3921,7 +3921,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .name = COMPOUND_STRING("Conversion"),
         .description = COMPOUND_STRING(
             "Changes the user's type\n"
-            "into a known move's type."),
+            "to the first move slot's."),
         .effect = EFFECT_CONVERSION,
         .power = 0,
         .type = TYPE_NORMAL,

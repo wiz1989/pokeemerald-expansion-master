@@ -1637,11 +1637,15 @@ void UpdateRayquazaSpotlightEffect(struct Sprite *sprite)
                     ((u16 *)(BG_SCREEN_ADDR(31)))[i * 32 + j] = 0;
                 }
             }
+            //Reset GpuRegs
+            SetGpuReg(REG_OFFSET_BLDCNT, 0);
             SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+            SetGpuReg(REG_OFFSET_BLDALPHA, 0);
             FieldEffectStop(sprite, FLDEFF_RAYQUAZA_SPOTLIGHT);
             break;
     }
 
+    /*
     if (sprite->sState == 1)
     {
         // Update movement
@@ -1651,7 +1655,7 @@ void UpdateRayquazaSpotlightEffect(struct Sprite *sprite)
         if ((sprite->sMoveTimer & 15) == 0)
             sprite->sVelocity = -sprite->sVelocity;
         sprite->sMoveTimer++;
-    }
+    }*/
 
     sprite->sTimer++;
 }
