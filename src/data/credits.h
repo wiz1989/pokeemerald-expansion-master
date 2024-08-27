@@ -258,10 +258,10 @@ static const u8 sCreditsText_Celia[]                         = _("Celia Dawn");
 static const u8 sCreditsText_Bric13[]                        = _("Bric13");
 static const u8 sCreditsText_Archie[]                        = _("Archie");
 static const u8 sCreditsText_AquasHideout[]                  = _("The Team Aqua's Hideout Crew");
-static const u8 sCreditsText_Kasen[]                         = _("Kasen");
-static const u8 sCreditsText_ghoulslash[]                    = _("ghoulslash");
-static const u8 sCreditsText_lucas7562[]                     = _("lucas7562");
-static const u8 sCreditsText_purrfectdoodle[]                = _("purrfectdoodle");
+static const u8 sCreditsText_Kasen[]                         = _("Kasen (Fisherman)");
+static const u8 sCreditsText_ghoulslash[]                    = _("ghoulslash (Rock Climb, NPC scripts)");
+static const u8 sCreditsText_lucas7562[]                     = _("lucas7562 (DynPals)");
+static const u8 sCreditsText_purrfectdoodle[]                = _("purrfectdoodle (Birds weather)");
 static const u8 sCreditsText_ToolsUsed[]                     = _("Tools used");
 static const u8 sCreditsText_Porymap[]                       = _("Porymap");
 static const u8 sCreditsText_Poryscript[]                    = _("Poryscript");
@@ -511,8 +511,8 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         &sCreditsEntry_AddResources,
         &sCreditsEntry_ghoulslash,
         &sCreditsEntry_lucas7562,
-        &sCreditsText_tbd,//sCreditsEntry_purrfectdoodle,
-        _
+        &sCreditsEntry_purrfectdoodle,
+        &sCreditsEntry_Kasen
     },
     [PAGE_TITLE_SCREEN] = {
         _,

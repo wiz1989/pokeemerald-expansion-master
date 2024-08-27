@@ -21,4 +21,16 @@
 #define FADE_FROM_WHITE  2
 #define FADE_TO_WHITE    3
 
+// Birds weather
+#define MAX_BIRD_SPRITES                5 // Max number of birds that can exist at the same time
+#define BIRD_NB_SPECIES                 1  // Number of different species that can exist in the same "weather instance"
+#define BIRD_DESTROY_PIXEL_BUFFER       128 // how many pixels off screen to wait before destroying birds
+#define BIRD_X_SPAWN_DISTANCE           16 // how many pixels outside the edge of the screen to create sprites
+#define BIRD_Y_SPAWN_RANGE              64 // range of how many pixels above/below the center of the screen to create sprites
+#define BIRD_X_FLOCK_RANGE              30 // how many horizontal pixels apart birds in a flock should be
+#define BIRD_X_FLOCK_RANGE_V_FORMATION  20 // how many horizontal pixels apart birds in a flock should be
+#define BIRD_Y_FLOCK_RANGE              20 // how many vertical pixels apart birds in a flock should be
+#define BIRD_MIN_FLOCK_SIZE_FOR_V_FORMATION 4 // how many birds a flock must have to allow V formation
+#define BIRD_MIN_FLOCK_SIZE_FOR_MANDATORY_V_FORMATION 7 // how many birds a flock must have to make V formation mandatory (unless canVFormation is false)
+
 #endif // GUARD_CONSTANTS_FIELD_WEATHER_H

@@ -8,17 +8,23 @@
 #include "script.h"
 #include "constants/weather.h"
 #include "constants/songs.h"
+#include "constants/rgb.h"
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
 #include "trig.h"
 #include "gpu_regs.h"
+#include "field_camera.h"
+#include "util.h"
+
+#include <math.h>
 
 EWRAM_DATA static u8 sCurrentAbnormalWeather = 0;
 EWRAM_DATA static u16 sUnusedWeatherRelated = 0;
 
 const u16 gCloudsWeatherPalette[] = INCBIN_U16("graphics/weather/cloud.gbapal");
 const u16 gSandstormWeatherPalette[] = INCBIN_U16("graphics/weather/sandstorm.gbapal");
+const u16 gBirdsWeatherPalette[] = INCBIN_U16("graphics/weather/bird.gbapal");
 const u8 gWeatherFogDiagonalTiles[] = INCBIN_U8("graphics/weather/fog_diagonal.4bpp");
 const u8 gWeatherFogHorizontalTiles[] = INCBIN_U8("graphics/weather/fog_horizontal.4bpp");
 const u8 gWeatherCloudTiles[] = INCBIN_U8("graphics/weather/cloud.4bpp");
@@ -28,10 +34,362 @@ const u8 gWeatherBubbleTiles[] = INCBIN_U8("graphics/weather/bubble.4bpp");
 const u8 gWeatherAshTiles[] = INCBIN_U8("graphics/weather/ash.4bpp");
 const u8 gWeatherRainTiles[] = INCBIN_U8("graphics/weather/rain.4bpp");
 const u8 gWeatherSandstormTiles[] = INCBIN_U8("graphics/weather/sandstorm.4bpp");
+const u8 gWeatherBirdTiles[] = INCBIN_U8("graphics/weather/bird.4bpp");
 
-const struct SpritePalette sFogSpritePalette = {gFogPalette, 0x1201};
+const struct SpritePalette sFogSpritePalette = {gFogPalette, PALTAG_WEATHER_2};
 const struct SpritePalette sCloudsSpritePalette = {gCloudsWeatherPalette, 0x1207};
+const struct SpritePalette sBirdsSpritePalette = {gBirdsWeatherPalette, PALTAG_WEATHER_2};
 const struct SpritePalette sSandstormSpritePalette = {gSandstormWeatherPalette, 0x1204};
+
+
+//------------------------------------------------------------------------------
+// WEATHER_FLYING_BIRDS
+//------------------------------------------------------------------------------
+
+static void CreateBirdSprites(void);
+static void DestroyBirdSprites(void);
+static void UpdateBirdSprite(struct Sprite *);
+
+#define frameOddEven data[0]
+#define speciesId data[1]
+
+static const struct SpriteSheet sBirdSpriteSheet =
+{
+    .data = gWeatherBirdTiles,
+    .size = sizeof(gWeatherBirdTiles),
+    .tag = GFXTAG_BIRD
+};
+
+static const struct OamData sBirdSpriteOamData =
+{
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(32x32),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(32x32),
+    .tileNum = 0,
+    .priority = 1,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const u32 NB_BIRD_ANIMS = 4;
+
+// Wings go up-down
+static const union AnimCmd sBirdSpriteFlap1AnimCmd[] =
+{
+    ANIMCMD_FRAME(0, 8),
+    ANIMCMD_FRAME(16, 8),
+    ANIMCMD_JUMP(0),
+};
+
+// Wings go down-up
+static const union AnimCmd sBirdSpriteFlap2AnimCmd[] =
+{
+    ANIMCMD_FRAME(16, 8),
+    ANIMCMD_FRAME(0, 8),
+    ANIMCMD_JUMP(0),
+};
+
+// Wings go up-down slower
+static const union AnimCmd sBirdSpriteSlowFlap1AnimCmd[] =
+{
+    ANIMCMD_FRAME(0, 16),
+    ANIMCMD_FRAME(16, 16),
+    ANIMCMD_JUMP(0),
+};
+
+// Wings go down-up slower
+static const union AnimCmd sBirdSpriteSlowFlap2AnimCmd[] =
+{
+    ANIMCMD_FRAME(16, 16),
+    ANIMCMD_FRAME(8, 16),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd *const sBirdSpriteAnimCmds[] =
+{
+    sBirdSpriteFlap1AnimCmd,
+    sBirdSpriteFlap2AnimCmd,
+    sBirdSpriteSlowFlap1AnimCmd,
+    sBirdSpriteSlowFlap2AnimCmd,
+};
+
+static const struct SpriteTemplate sBirdSpriteTemplate =
+{
+    .tileTag = GFXTAG_BIRD,
+    .paletteTag = PALTAG_WEATHER_2,
+    .oam = &sBirdSpriteOamData,
+    .anims = sBirdSpriteAnimCmds,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = UpdateBirdSprite,
+};
+
+enum BIRD_INDEX {
+    BIRD_INDEX_DEFAULT,
+    BIRD_INDEX_ROUTE_TRANQUIL,
+};
+
+static const u32 sBirdGroupsByMap[][3][3] =
+{
+    // Default
+    {{SPECIES_TAILLOW, SPECIES_TAILLOW, SPECIES_SWELLOW}, {SPECIES_TAILLOW, SPECIES_SWELLOW, SPECIES_TAILLOW}, {SPECIES_PIDGEY, SPECIES_PIDGEOTTO, SPECIES_PIDGEY}},
+    // Tranquil route
+    {{SPECIES_TAILLOW, SPECIES_TAILLOW, SPECIES_TAILLOW}, {SPECIES_PIDGEY, SPECIES_PIDGEY, SPECIES_PIDGEY}, {SPECIES_TAILLOW, SPECIES_TAILLOW, SPECIES_TAILLOW}},
+};
+
+// Init function for bird weather
+void Birds_InitVars(void)
+{
+    DebugPrintf("Birds_InitVars");
+    gWeatherPtr->targetColorMapIndex = 0;
+    gWeatherPtr->colorMapStepDelay = 20;
+    gWeatherPtr->weatherGfxLoaded = FALSE;
+    gWeatherPtr->initStep = 0;
+    gWeatherPtr->birdTimer = 0;
+    gWeatherPtr->birdCurrentFlockHasCried = FALSE;
+
+    // Default behavior
+    gWeatherPtr->birdSpeciesIndex = BIRD_INDEX_DEFAULT;
+    gWeatherPtr->birdNbSecondsBetweenFlocks = 250; //wiz1989
+    gWeatherPtr->birdFlockSpeed = 1;
+    gWeatherPtr->birdFlockSize = 2;
+    gWeatherPtr->birdCanVFormation = 0;
+}
+
+// Init function for bird weather
+void Birds_InitAll(void)
+{
+    DebugPrintf("Birds_InitAll");
+    Birds_InitVars();
+    while (gWeatherPtr->weatherGfxLoaded == FALSE)
+        Birds_Main();
+}
+
+// Handles waiting time between two flocks, and flock creation
+void Birds_Main(void)
+{
+    // DebugPrintf("Birds_Main");
+    switch (gWeatherPtr->initStep)
+    {
+        case 0:
+            // DebugPrintf("Birds_Main 0");
+            gWeatherPtr->birdTimer += 1;
+            // A new bird flock waits a set amount of time before spawning
+            if (gWeatherPtr->birdTimer > gWeatherPtr->birdCurrentNbSecondsBetweenFlocks * 60) {
+                DebugPrintf("Birds_Main timer has reached the end");
+                gWeatherPtr->initStep++;
+                gWeatherPtr->birdTimer = 0;
+            }
+            break;
+        case 1:
+            DebugPrintf("Birds_Main 1");
+            CreateBirdSprites();
+            gWeatherPtr->initStep++;
+            break;
+        case 2:
+            DebugPrintf("Birds_Main 2");
+            gWeatherPtr->weatherGfxLoaded = TRUE;
+            gWeatherPtr->initStep++;
+            break;
+    }
+}
+
+// Handles the end of bird weather
+bool8 Birds_Finish(void)
+{
+    DebugPrintf("Birds_Finish");
+    switch (gWeatherPtr->finishStep)
+    {
+    case 0:
+        DebugPrintf("Birds_Finish 0");
+        gWeatherPtr->finishStep++;
+        return TRUE;
+    case 1:
+        DebugPrintf("Birds_Finish 1");
+        DestroyBirdSprites();
+        gWeatherPtr->finishStep++;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+// Creates a flock of birds (one separate sprite per bird), placing them right outside of the screen
+static void CreateBirdSprites(void)
+{
+    gWeatherPtr->birdCurrentFlockHasCried = FALSE;
+    // Adding slight variation to the parameters
+    gWeatherPtr->birdCurrentFlockDirection = (Random() % 2) ? -1 : 1;
+
+    gWeatherPtr->birdCurrentNbSecondsBetweenFlocks = gWeatherPtr->birdNbSecondsBetweenFlocks + ((Random() % 7) - 2);
+    gWeatherPtr->birdCurrentFlockSize = Random() % gWeatherPtr->birdFlockSize + 1;//gWeatherPtr->birdFlockSize + ((Random() % 2) - 1);
+    gWeatherPtr->birdCurrentFlockSpeed = gWeatherPtr->birdFlockSpeed + (Random() % 1);
+    // TODO EVA
+    // gWeatherPtr->birdCurrentSpecies = gWeatherPtr->birdSpecies[Random() % BIRD_NB_SPECIES - 1];
+
+    // ~Half of flocks of 4 birds or more will be V formations
+    // All flocks of over 7 birds or more will be V formations
+    const u32 isCurrentFlockVFormation = (
+        gWeatherPtr->birdCanVFormation
+        && gWeatherPtr->birdCurrentFlockSize >= BIRD_MIN_FLOCK_SIZE_FOR_V_FORMATION
+        && (gWeatherPtr->birdCurrentFlockSize >= BIRD_MIN_FLOCK_SIZE_FOR_MANDATORY_V_FORMATION || !(Random() % 3))
+    );
+
+    DebugPrintf("CreateBirdSprites: %d birds to create. Dir=%d", gWeatherPtr->birdCurrentFlockSize, gWeatherPtr->birdCurrentFlockDirection);
+
+    if (gWeatherPtr->birdSpritesCreated == TRUE) {
+        DebugPrintf("Birds already created");
+        return;
+    }
+
+    LoadSpriteSheet(&sBirdSpriteSheet);
+    LoadCustomWeatherSpritePalette(&sBirdsSpritePalette);
+
+    u32 i, spriteId;
+    // Coordinates of the current bird, updated for each new one
+    u32 currentBirdX, currentBirdY;
+
+    // Creating a bird flock, which will spawn:
+    // X value: right outside the horizontal edge of the screen
+    // Y value: a random range above or below the center of the screen
+    if (gWeatherPtr->birdCurrentFlockDirection == -1)
+    {
+        currentBirdX = DISPLAY_WIDTH + BIRD_X_SPAWN_DISTANCE - (s16)gTotalCameraPixelOffsetX;
+    }
+    else
+    {
+        currentBirdX = 0 - BIRD_X_SPAWN_DISTANCE - (s16)gTotalCameraPixelOffsetX;
+    }
+
+    if (isCurrentFlockVFormation)
+    {
+        currentBirdX += BIRD_X_SPAWN_DISTANCE * floor(gWeatherPtr->birdCurrentFlockSize / 2 - 1) * -gWeatherPtr->birdCurrentFlockDirection;
+    }
+
+    currentBirdY = (DISPLAY_WIDTH / 2) + (Random() % BIRD_Y_SPAWN_RANGE * 2) - BIRD_Y_SPAWN_RANGE - (s16)gTotalCameraPixelOffsetY;
+
+    struct Sprite *sprite;
+    for (i = 0; i < gWeatherPtr->birdCurrentFlockSize; i++)
+    {
+        // Creating new sprite
+        spriteId = CreateSprite(&sBirdSpriteTemplate, 0, 0, 0xFF);
+        if (spriteId != MAX_SPRITES)
+        {
+            DebugPrintf("Creating %d", i);
+
+            gWeatherPtr->sprites.s1.birdSprites[i] = &gSprites[spriteId];
+            sprite = gWeatherPtr->sprites.s1.birdSprites[i];
+
+            u32 groupIndex = Random() % (NELEMS(sBirdGroupsByMap[gWeatherPtr->birdSpeciesIndex]) - 1);
+            u32 birdIndex = Random() % (NELEMS(sBirdGroupsByMap[gWeatherPtr->birdSpeciesIndex][groupIndex]) - 1);
+        
+            DebugPrintf("Species ID index [%d][%d][%d]", gWeatherPtr->birdSpeciesIndex, groupIndex, birdIndex);
+            sprite->speciesId = sBirdGroupsByMap[gWeatherPtr->birdSpeciesIndex][groupIndex][birdIndex];
+
+            // Flip sprite if direction = right
+            sprite->hFlip = (gWeatherPtr->birdCurrentFlockDirection == 1);
+
+            // Not all birds have the same exact animation
+            StartSpriteAnim(sprite, Random() % (NB_BIRD_ANIMS - 1));
+
+            sprite->x = currentBirdX;
+            sprite->y = currentBirdY;
+            sprite->coordOffsetEnabled = TRUE;
+
+            // Each bird is placed below the previous one
+            // Unless the flock is a V formation, a random horizontal stagger is applied
+            if (isCurrentFlockVFormation)
+            {
+                u32 isNextBirdSecondHalf = i >= ceil(gWeatherPtr->birdCurrentFlockSize / 2);
+                currentBirdX += BIRD_X_FLOCK_RANGE_V_FORMATION * gWeatherPtr->birdCurrentFlockDirection * (isNextBirdSecondHalf ? -1 : 1);
+                DebugPrintf("Next bird X +=%d --> %d", BIRD_X_FLOCK_RANGE_V_FORMATION * -gWeatherPtr->birdCurrentFlockDirection * (isNextBirdSecondHalf ? -1 : 1), currentBirdX);
+            }
+            else
+            {
+                currentBirdX += (Random() % (BIRD_X_FLOCK_RANGE * 2)) - BIRD_X_FLOCK_RANGE;
+            }
+            currentBirdY += BIRD_Y_FLOCK_RANGE;
+        }
+        else
+        {
+            gWeatherPtr->sprites.s1.birdSprites[i] = NULL;
+        }
+    }
+
+    gWeatherPtr->birdSpritesCreated = TRUE;
+}
+
+// Destroys all the bird sprites
+static void DestroyBirdSprites(void)
+{
+    DebugPrintf("DestroyBirdSprites");
+
+    if (!gWeatherPtr->birdSpritesCreated)
+        return;
+
+    DebugPrintf("%d birds to destroy, destroying:", gWeatherPtr->birdCurrentFlockSize);
+    u32 i;
+    for (i = 0; i < gWeatherPtr->birdCurrentFlockSize; i++) {
+        if (gWeatherPtr->sprites.s1.birdSprites[i] != NULL) {
+            DebugPrintf("Bird %d", i);
+
+            DestroySprite(gWeatherPtr->sprites.s1.birdSprites[i]);
+        }
+    }
+
+    FreeSpriteTilesByTag(GFXTAG_BIRD);
+    gWeatherPtr->birdSpritesCreated = FALSE;
+}
+
+// Runs at every frame, for each bird sprite
+// Moves the bird a few pixels in its direction, and calls destroy function for all birds if one
+// goes too far from the player's field of view
+static void UpdateBirdSprite(struct Sprite *sprite)
+{
+    bool32 isOffscreen;
+    
+    // Move a set amount of pixels left every 2 frames.
+    sprite->frameOddEven = (sprite->frameOddEven + 1) & 1;
+    if (sprite->frameOddEven)
+    {
+        sprite->x += gWeatherPtr->birdCurrentFlockSpeed * 2 * gWeatherPtr->birdCurrentFlockDirection;
+
+        // Logs
+        // if (gWeatherPtr->sprites.s1.birdSprites[0]->x == sprite->x) {
+        //     DebugPrintfLevel(
+        //         MGBA_LOG_WARN,
+        //         "birdX=%d, pX=%d, pXPx=%d",
+        //         sprite->x,
+        //         playerX,
+        //         playerX*16
+        //     );
+        // }
+    }
+
+    // The flock is destroyed when a bird goes too far from the player's field of view
+    if (gWeatherPtr->birdCurrentFlockDirection == -1)
+        isOffscreen = sprite->x + (s16)gTotalCameraPixelOffsetX < -1 * BIRD_DESTROY_PIXEL_BUFFER;
+    else
+        isOffscreen = sprite->x + (s16)gTotalCameraPixelOffsetX > DISPLAY_WIDTH + BIRD_DESTROY_PIXEL_BUFFER;
+
+    if (isOffscreen) {
+        DestroyBirdSprites();
+        gWeatherPtr->initStep = 0;
+    } else {
+        // DebugPrintf("CAN I CRY? %d %d", gWeatherPtr->birdCurrentFlockHasCried, !(Random() % 10));
+        // If the flock is onscreen, there's a chance that a cry will be heard
+        if (!gWeatherPtr->birdCurrentFlockHasCried && !(Random() % 10)) {
+            DebugPrintf("CRYING %d", sprite->speciesId);
+            gWeatherPtr->birdCurrentFlockHasCried = TRUE;
+            PlayCry_Normal(sprite->speciesId, 0);
+        }
+    }
+}
 
 //------------------------------------------------------------------------------
 // WEATHER_SUNNY_CLOUDS
@@ -2578,6 +2936,7 @@ static u8 TranslateWeatherNum(u8 weather)
     {
     case WEATHER_NONE:               return WEATHER_NONE;
     case WEATHER_SUNNY_CLOUDS:       return WEATHER_SUNNY_CLOUDS;
+    case WEATHER_FLYING_BIRDS:       return WEATHER_FLYING_BIRDS;
     case WEATHER_SUNNY:              return WEATHER_SUNNY;
     case WEATHER_RAIN:               return WEATHER_RAIN;
     case WEATHER_SNOW:               return WEATHER_SNOW;

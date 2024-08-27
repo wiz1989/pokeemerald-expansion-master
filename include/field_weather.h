@@ -13,6 +13,7 @@ enum {
     GFXTAG_SANDSTORM,
     GFXTAG_BUBBLE,
     GFXTAG_RAIN,
+    GFXTAG_BIRD,
 };
 enum {
     PALTAG_WEATHER = TAG_WEATHER_START,
@@ -30,6 +31,7 @@ struct Weather
             struct Sprite *rainSprites[MAX_RAIN_SPRITES];
             struct Sprite *snowflakeSprites[101];
             struct Sprite *cloudSprites[NUM_CLOUD_SPRITES];
+            struct Sprite *birdSprites[MAX_BIRD_SPRITES];
         } s1;
         struct
         {
@@ -71,6 +73,34 @@ struct Weather
     u8 isDownpour;
     u8 rainStrength;
     u8 cloudSpritesCreated;
+
+    // Birds
+    // True when the current flock has spawned
+    u8 birdSpritesCreated;
+    // Keeps track of time spent after the current flock has despawned
+    u16 birdTimer;
+    // Number of seconds between one flock's despawn and the next flock's spawn
+    u16 birdNbSecondsBetweenFlocks;
+    // Same as above, for the current flock (may vary slightly to give a more organic feel)
+    u16 birdCurrentNbSecondsBetweenFlocks;
+    // Flock speed (in number of pixels per frame)
+    u16 birdFlockSpeed;
+    // Same as above, for the current flock (may vary slightly to give a more organic feel)
+    u16 birdCurrentFlockSpeed;
+    // Current flock's direction (-1 is left, 1 is right)
+    s8 birdCurrentFlockDirection;
+    // Approximate number of birds per flock (actual number will vary between +1 and -1)
+    u16 birdFlockSize;
+    // Number of birds in the current flock
+    u16 birdCurrentFlockSize;
+    // True if flocks are allowed to spawn in a V formation (like migratory birds)
+    u16 birdCanVFormation:1;
+    // Index in the sBirdGroupsByMap array defined in field_weather_effect.c
+    u16 birdSpeciesIndex;
+    // True if a Pokémon's cry has already been heard in the current flock
+    // (This prevents a single flock to emit more than one cry)
+    u16 birdCurrentFlockHasCried:1;
+
     // Snow
     u16 snowflakeVisibleCounter;
     u16 snowflakeTimer;
@@ -186,6 +216,10 @@ void Clouds_InitVars(void);
 void Clouds_Main(void);
 void Clouds_InitAll(void);
 bool8 Clouds_Finish(void);
+void Birds_InitVars(void);
+void Birds_Main(void);
+void Birds_InitAll(void);
+bool8 Birds_Finish(void);
 void Sunny_InitVars(void);
 void Sunny_Main(void);
 void Sunny_InitAll(void);

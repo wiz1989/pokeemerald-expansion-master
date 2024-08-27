@@ -5,7 +5,7 @@
   "music": "MUS_LILYCOVE",
   "region_map_section": "MAPSEC_ALTERING_CAVE",
   "requires_flash": false,
-  "weather": "WEATHER_SUNNY",
+  "weather": "WEATHER_FLYING_BIRDS",
   "map_type": "MAP_TYPE_NONE",
   "allow_cycling": false,
   "allow_escaping": false,
