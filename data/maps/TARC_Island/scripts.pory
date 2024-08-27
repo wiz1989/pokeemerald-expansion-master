@@ -102,6 +102,7 @@ script TARC_Island_Fisherman {
 script TARC_Island_Chansey {
     lock
     faceplayer
+    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
     msgbox(format("Chansey wants to take care of your Pokémon."), MSGBOX_AUTOCLOSE)
     call(Common_EventScript_OutOfCenterPartyHeal)
 	incrementgamestat(GAME_STAT_RESTED_AT_HOME)
@@ -112,6 +113,7 @@ script TARC_Island_Chansey {
 script TARC_Island_Corphish {
     lock
     faceplayer
+    playmoncry(SPECIES_CORPHISH, CRY_MODE_NORMAL)
     msgbox(format("Corph..."), MSGBOX_AUTOCLOSE)
     release
 }
@@ -147,6 +149,7 @@ script TARC_Island_ItemBall_Rock_Climb {
 script TARC_Island_Celebi {
     lock
     faceplayer
+    playmoncry(SPECIES_CELEBI, CRY_MODE_NORMAL)
     if (flag(FLAG_WON_SEISMITOAD))
     {
         msgbox(format("Dear traveler,\nmy time in this place is up.\pMy path is leading me to a far future, many years from now.\pFarewell!"), MSGBOX_AUTOCLOSE)
@@ -203,6 +206,7 @@ script EndOfRelearnerScript {
 script TARC_Island_Zigzagoon { //wiz1989
 	lock
 	faceplayer
+    playmoncry(SPECIES_ZIGZAGOON, CRY_MODE_NORMAL)
 	msgbox(format("Zigzagoon is running around searching for items!\pIt will help you out in case you lost crucial items after obtaining them in the first place."), MSGBOX_AUTOCLOSE)
 	waitmessage
 	setorcopyvar(VAR_TARC_COLLECTOR_COUNT, 0)

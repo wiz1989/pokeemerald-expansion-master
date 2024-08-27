@@ -226,7 +226,7 @@ static void CreateBirdSprites(void)
     // Adding slight variation to the parameters
     gWeatherPtr->birdCurrentFlockDirection = (Random() % 2) ? -1 : 1;
 
-    gWeatherPtr->birdCurrentNbSecondsBetweenFlocks = gWeatherPtr->birdNbSecondsBetweenFlocks + ((Random() % 7) - 2);
+    gWeatherPtr->birdCurrentNbSecondsBetweenFlocks = gWeatherPtr->birdNbSecondsBetweenFlocks + ((Random() % 20) + 5);
     gWeatherPtr->birdCurrentFlockSize = Random() % gWeatherPtr->birdFlockSize + 1;//gWeatherPtr->birdFlockSize + ((Random() % 2) - 1);
     gWeatherPtr->birdCurrentFlockSpeed = gWeatherPtr->birdFlockSpeed + (Random() % 1);
     // TODO EVA

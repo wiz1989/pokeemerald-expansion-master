@@ -104,6 +104,7 @@ TARC_Island_Fisherman_21:
 TARC_Island_Chansey::
 	lock
 	faceplayer
+	playmoncry SPECIES_CHANSEY, CRY_MODE_NORMAL
 	msgbox TARC_Island_Chansey_Text_0, MSGBOX_AUTOCLOSE
 	call Common_EventScript_OutOfCenterPartyHeal
 	incrementgamestat GAME_STAT_RESTED_AT_HOME
@@ -115,6 +116,7 @@ TARC_Island_Chansey::
 TARC_Island_Corphish::
 	lock
 	faceplayer
+	playmoncry SPECIES_CORPHISH, CRY_MODE_NORMAL
 	msgbox TARC_Island_Corphish_Text_0, MSGBOX_AUTOCLOSE
 	release
 	return
@@ -155,6 +157,7 @@ TARC_Island_ItemBall_Rock_Climb::
 TARC_Island_Celebi::
 	lock
 	faceplayer
+	playmoncry SPECIES_CELEBI, CRY_MODE_NORMAL
 	goto_if_set FLAG_WON_SEISMITOAD, TARC_Island_Celebi_2
 	goto_if_unset FLAG_TARC_TALKED_TO_CELEBI, TARC_Island_Celebi_6
 TARC_Island_Celebi_5:
@@ -213,6 +216,7 @@ EndOfRelearnerScript::
 TARC_Island_Zigzagoon::
 	lock
 	faceplayer
+	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
 	msgbox TARC_Island_Zigzagoon_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
 	setorcopyvar VAR_TARC_COLLECTOR_COUNT, 0
