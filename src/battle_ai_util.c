@@ -3232,6 +3232,8 @@ s32 CountUsablePartyMons(u32 battlerId)
         }
     }
 
+    DebugPrintf("UsablePartyMons = %d", ret);
+
     return ret;
 }
 

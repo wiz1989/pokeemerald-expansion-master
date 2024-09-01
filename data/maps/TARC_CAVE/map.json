@@ -159,8 +159,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
-      "x": 21,
-      "y": 37,
+      "x": 20,
+      "y": 36,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -211,7 +211,7 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ZUBAT",
-      "x": 21,
+      "x": 20,
       "y": 39,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -221,6 +221,19 @@
       "trainer_sight_or_berry_tree_id": "5",
       "script": "TARC_Cave_Mover3",
       "flag": "FLAG_HIDE_MOVER3"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 17,
+      "y": 66,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "TARC_CAVE_ItemBall",
+      "flag": "FLAG_HIDE_MEGA_RING"
     }
   ],
   "warp_events": [
@@ -260,7 +273,7 @@
       "dest_warp_id": "5"
     },
     {
-      "x": 13,
+      "x": 14,
       "y": 66,
       "elevation": 0,
       "dest_map": "MAP_TARC_CAVE",

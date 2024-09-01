@@ -1080,3 +1080,5 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/TARC_CAVE/scripts.inc"
 
 	.include "data/maps/TARC_UNDERWATER/scripts.inc"
+
+	.include "data/maps/TARC_AQUA_HIDEOUT/scripts.inc"

@@ -1,0 +1,77 @@
+// ############### Mapscripts ###############
+
+mapscripts TARC_AQUA_HIDEOUT_MapScripts {
+
+}
+
+// ############### Regular EventScripts ###############
+
+script TARC_AQUA_ChangeParty {
+    lock
+    faceplayer
+    if (!flag(FLAG_TALKED_TO_GRUNT))
+    {
+        msgbox(format("Archie has gone mad!\pHe and Maxie met on this island before they founded their competing organizations.\pAnd now Archie wants to build the new Hideout exactly here.\pBut why?\pI'd rather have a nice casino and a bar next door than living on this god forsaken rock."), MSGBOX_AUTOCLOSE)
+        msgbox(format("Let me help you out to dissuade him from his obscure intentions."), MSGBOX_AUTOCLOSE)
+        setflag(FLAG_TALKED_TO_GRUNT)
+    }
+    msgbox(format("I have two special Pokémon with me that might be able to get you the win.\pBut I would need your party for it instead.\pI'm Team Aqua after all...\pYou can keep your Surfing buddy though.\pI am not a monster.\pDeal?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        setflag(FLAG_AQUA_CHANGED_PARTY)
+        getpartymonslot(SPECIES_PORYGON)
+        special(DeletePartyMon) //using VAR_RESULT from above macro
+        getpartymonslot(SPECIES_CUBONE)
+        special(DeletePartyMon) //using VAR_RESULT from above macro
+        getpartymonslot(SPECIES_FARFETCHD)
+        special(DeletePartyMon) //using VAR_RESULT from above macro
+
+        givemon(SPECIES_GYARADOS, 30, nature = NATURE_CALM, abilityNum = 0, hpEv = 252, spDefEv = 252, hpIv = 31, atkIv = 0, defIv = 31,speedIv = 31, spAtkIv = 0, spDefIv = 31, move1 = MOVE_CRUNCH, move2 = MOVE_WATERFALL, move3 = MOVE_ROAR, move4 = MOVE_DIVE)
+        givemon(SPECIES_WEEZING, 30, nature = NATURE_CAREFUL, abilityNum = 0, hpEv = 252, atkEv = 4, spDefEv = 252, hpIv = 31, atkIv = 31, defIv = 31,speedIv = 31, spAtkIv = 0, spDefIv = 31, move1 = MOVE_SLUDGE_BOMB, move2 = MOVE_FLAMETHROWER, move3 = MOVE_SELF_DESTRUCT, move4 = MOVE_NONE)
+
+        msgbox(format("{PLAYER} acquired two Pokéballs from Team Aqua.\pWas that worth it...?"))
+        waitmessage
+        closemessage
+
+        //waitbuttonpress
+
+        msgbox(format("Hehehe..."), MSGBOX_AUTOCLOSE)
+        applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+        if (var(VAR_FACING) == DIR_NORTH)
+        {
+            applymovement(1, Move_Grunt_around)
+            waitmovement(0)
+            removeobject(1)
+        }
+        else
+        {
+            applymovement(1, Move_Grunt)
+            waitmovement(0)
+            removeobject(1)
+        }
+    }
+    else {
+        msgbox(format("You'll be coming back."))
+        waitmessage
+    }
+    release
+}
+
+script TARC_AQUA_ItemBall {
+    lock
+	removeobject(2, MAP_TARC_AQUA_HIDEOUT)
+    finditem(ITEM_MEGA_RING, 1)
+	release
+}
+
+// ############### movements ###############
+
+movement Move_Grunt {
+    walk_down*5
+    jump_down
+}
+
+movement Move_Grunt_around {
+    walk_right
+    walk_down*5
+    jump_down
+}

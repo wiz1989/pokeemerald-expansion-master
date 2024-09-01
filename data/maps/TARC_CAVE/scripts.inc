@@ -152,6 +152,14 @@ TARC_CAVE_EveryFrame_Guard2_1:
 	return
 
 
+TARC_CAVE_ItemBall::
+	lock
+	removeobject 17, MAP_TARC_CAVE
+	finditem ITEM_GYARADOSITE, 1
+	release
+	return
+
+
 TARC_CAVE_Regirock::
 	lock
 	faceplayer

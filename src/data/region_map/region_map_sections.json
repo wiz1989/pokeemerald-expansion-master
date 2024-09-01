@@ -1673,7 +1673,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_129",
-      "name": "UNDERWATER",
+      "name": "Hidden Cave",
       "x": 24,
       "y": 10,
       "width": 2,
@@ -1705,7 +1705,7 @@
     },
     {
       "map_section": "MAPSEC_TRAINER_HILL",
-      "name": "Underwater Passage",
+      "name": "Underwater Path",
       "x": 8,
       "y": 4,
       "width": 1,

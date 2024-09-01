@@ -1615,6 +1615,9 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-10);
             else if (PartnerMoveIsSameNoTarget(BATTLE_PARTNER(battlerAtk), move, aiData->partnerMove) && gSideTimers[GetBattlerSide(battlerDef)].toxicSpikesAmount == 1)
                 ADJUST_SCORE(-10); // only one mon needs to set up the last layer of Toxic Spikes
+            //don't use if opponent can no longer switch
+            else if (CountUsablePartyMons(FOE(battlerAtk)) < 1) //wiz1989
+                ADJUST_SCORE(-10);
             break;
         case EFFECT_STICKY_WEB:
             if (gSideTimers[GetBattlerSide(battlerDef)].stickyWebAmount)
@@ -2659,9 +2662,23 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             return 0;   // cannot even select
     } // move effect checks
 
-    //special rule for MOVE_SURF
-    if (move == MOVE_SURF && FlagGet(FLAG_WON_SEISMITOAD) && gBattleMons[battlerDef].type1 != TYPE_WATER && gBattleMons[battlerDef].type2 != TYPE_WATER)
+    //special rules for single moves
+    //if (move == MOVE_SURF && FlagGet(FLAG_WON_SEISMITOAD) && gBattleMons[battlerDef].type1 != TYPE_WATER && gBattleMons[battlerDef].type2 != TYPE_WATER)
+    //    ADJUST_SCORE(1);
+    //general effectiveness bonus
+    if (effectiveness > AI_EFFECTIVENESS_x1)
         ADJUST_SCORE(1);
+    //general ineffectiveness malus
+    if (effectiveness <= AI_EFFECTIVENESS_x0_5)
+        ADJUST_SCORE(-1);
+    //OHKO bonus
+    if (GetNoOfHitsToKOBattler(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex) == 1)
+        ADJUST_SCORE(1);
+    //if (move == MOVE_THUNDERBOLT && ((gBattleMons[battlerDef].type1 == TYPE_FLYING || gBattleMons[battlerDef].type2 != TYPE_FLYING) || (gBattleMons[battlerDef].type1 == TYPE_WATER || gBattleMons[battlerDef].type2 != TYPE_WATER)))
+    //    ADJUST_SCORE(1);
+    //ignore Mantine if possible
+    if (VarGet(VAR_TARC_UNDERWATER_CAVE) > 0 && gBattleMons[battlerDef].species == SPECIES_MANTINE)
+        ADJUST_SCORE(-2);
 
     if (score < 0)
         score = 0;
@@ -3419,6 +3436,8 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             break;
         else if (IsDynamaxed(battlerDef))
             break;
+        else if (gSideTimers[GetBattlerSide(battlerDef)].toxicSpikesAmount >= 2 && AI_CanPoison(battlerAtk, battlerDef, aiData->abilities[battlerDef], move, aiData->partnerMove)) //wiz1989
+            score += 10;
         score += AI_TryToClearStats(battlerAtk, battlerDef, isDoubleBattle);
         break;
     case EFFECT_MULTI_HIT:
@@ -4834,7 +4853,6 @@ static s32 AI_SetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
     case EFFECT_ELECTRIC_TERRAIN:
     case EFFECT_MISTY_TERRAIN:
     case EFFECT_STEALTH_ROCK:
-    case EFFECT_TOXIC_SPIKES:
     case EFFECT_TRICK_ROOM:
     case EFFECT_WONDER_ROOM:
     case EFFECT_MAGIC_ROOM:
@@ -4868,6 +4886,8 @@ static s32 AI_SetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
             }
         }
     }
+    case EFFECT_TOXIC_SPIKES:
+        ADJUST_SCORE(10);
     default:
         break;
     }

@@ -122,6 +122,13 @@ TARC_Island_Corphish::
 	return
 
 
+TARC_Island_Shark::
+	lock
+	playmoncry SPECIES_SHARPEDO, CRY_MODE_ENCOUNTER
+	release
+	return
+
+
 TARC_Island_ItemBall_Nugget::
 	lock
 	removeobject 12, MAP_TARC_ISLAND
@@ -933,7 +940,9 @@ TARC_Island_Fisherman_Text_1:
 	.string "...trading it for my Porygon?$"
 
 TARC_Island_Fisherman_Text_2:
-	.string "This Pokémon is really weird.\pSomeone did install a very strange move on its hard drive.$"
+	.string "This Pokémon is really weird.\p"
+	.string "Someone did install a very strange move\n"
+	.string "on its hard drive.$"
 
 TARC_Island_Fisherman_Text_3:
 	.string "How sad you still need it for now...$"

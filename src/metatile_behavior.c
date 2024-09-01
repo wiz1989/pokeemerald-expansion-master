@@ -32,7 +32,7 @@ static const u8 sTileBitAttributes[NUM_METATILE_BEHAVIORS] =
     [MB_SHALLOW_WATER]                   = TILE_FLAG_UNUSED,
     [MB_NO_SURFACING]                    = TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
     [MB_STAIRS_OUTSIDE_ABANDONED_SHIP]   = TILE_FLAG_UNUSED,
-    [MB_SHOAL_CAVE_ENTRANCE]             = TILE_FLAG_UNUSED,
+    [MB_SHOAL_CAVE_ENTRANCE]             = TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE,
     [MB_ICE]                             = TILE_FLAG_UNUSED,
     [MB_SAND]                            = TILE_FLAG_UNUSED,
     [MB_SEAWEED]                         = TILE_FLAG_UNUSED | TILE_FLAG_SURFABLE | TILE_FLAG_HAS_ENCOUNTERS,
@@ -853,8 +853,8 @@ bool8 MetatileBehavior_IsMountain(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsDiveable(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_INTERIOR_DEEP_WATER
-     || metatileBehavior == MB_DEEP_WATER
+    if (/*metatileBehavior == MB_INTERIOR_DEEP_WATER
+     || */metatileBehavior == MB_DEEP_WATER
      || metatileBehavior == MB_SOOTOPOLIS_DEEP_WATER)
         return TRUE;
     else
@@ -880,8 +880,8 @@ bool8 MetatileBehavior_IsUnableToEmerge(u8 metatileBehavior)
 bool8 MetatileBehavior_IsShallowFlowingWater(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_SHALLOW_WATER
-     || metatileBehavior == MB_STAIRS_OUTSIDE_ABANDONED_SHIP
-     || metatileBehavior == MB_SHOAL_CAVE_ENTRANCE)
+     || metatileBehavior == MB_STAIRS_OUTSIDE_ABANDONED_SHIP)
+     //|| metatileBehavior == MB_SHOAL_CAVE_ENTRANCE)
         return TRUE;
     else
         return FALSE;
@@ -907,8 +907,12 @@ bool8 MetatileBehavior_IsDeepOrOceanWater(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_OCEAN_WATER
      || metatileBehavior == MB_INTERIOR_DEEP_WATER
-     || metatileBehavior == MB_DEEP_WATER)
+     || metatileBehavior == MB_DEEP_WATER
+     || metatileBehavior == MB_SHOAL_CAVE_ENTRANCE)
+     {
+        DebugPrintf("MetatileBehavior_IsDeepOrOceanWater");
         return TRUE;
+     }
     else
         return FALSE;
 }
@@ -1167,11 +1171,15 @@ bool8 MetatileBehavior_IsSurfableFishableWater(u8 metatileBehavior)
      || metatileBehavior == MB_INTERIOR_DEEP_WATER
      || metatileBehavior == MB_DEEP_WATER
      || metatileBehavior == MB_SOOTOPOLIS_DEEP_WATER
+     || metatileBehavior == MB_SHOAL_CAVE_ENTRANCE
      || (metatileBehavior == MB_EASTWARD_CURRENT
       || metatileBehavior == MB_WESTWARD_CURRENT
       || metatileBehavior == MB_NORTHWARD_CURRENT
       || metatileBehavior == MB_SOUTHWARD_CURRENT))
+    {
+        DebugPrintf("MetatileBehavior_IsSurfableFishableWater");
         return TRUE;
+    }
     else
         return FALSE;
 }

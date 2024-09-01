@@ -1,1 +1,67 @@
-mapscripts TARC_UNDERWATER_MapScripts {}
+// ############### Mapscripts ###############
+
+mapscripts TARC_UNDERWATER_MapScripts {
+
+}
+
+// ############### Regular EventScripts ###############
+
+script TARC_UNDERWATER_Archie {
+    trainerbattle_single(TRAINER_ARCHIE, Archie_Intro, Archie_Defeat)
+    lock
+    msgbox(format("Archie placeholder text"), MSGBOX_AUTOCLOSE)
+    release
+}
+
+script TARC_UNDERWATER_OpenCave_Sign {
+    lock
+    if (var(VAR_TARC_UNDERWATER_CAVE) > 0)
+    {
+        msgbox(format("The secret switch is hidden in the sand."), MSGBOX_AUTOCLOSE)
+    }
+    else
+    {
+        msgbox("What is this?", MSGBOX_AUTOCLOSE)
+    }
+    release
+}
+
+script TARC_UNDERWATER_OpenCave {
+    lockall
+    msgbox(format("A hidden trigger activated."), MSGBOX_AUTOCLOSE)
+    waitmessage
+    setvar(VAR_TARC_UNDERWATER_CAVE, 1)
+    setmetatile(49, 23, METATILE_Underwater_DoorTop, TRUE)
+    setmetatile(49, 24, METATILE_Underwater_DoorBottom, FALSE)
+    special(DrawWholeMapView)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+    waitmovement(0)
+    releaseall
+}
+
+script TARC_UNDERWATER_OpenCave_Pre {
+    lockall
+    setmetatile(49, 23, METATILE_Underwater_RockWall, TRUE)
+    setmetatile(49, 24, METATILE_Underwater_RockWall, TRUE)
+    special(DrawWholeMapView)
+    releaseall
+}
+
+script TARC_UNDERWATER_Update_Healspot {
+    lock
+    setrespawn(HEAL_LOCATION_TARC_UNDERWATER)
+    release
+}
+
+// ############### texts ###############
+
+text Archie_Intro {
+    "Hello, there.\p"
+    "You can refer to me in scripts or C code."
+}
+
+text Archie_Defeat {
+    "Hello, there.\p"
+    "You can refer to me in scripts or C code."
+}

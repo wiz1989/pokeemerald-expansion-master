@@ -52,6 +52,15 @@ TARC_Sea_EveryFrame_GameStart::
 	return
 
 
+TARC_SEA_Wingull::
+	lock
+	faceplayer
+	playmoncry SPECIES_WINGULL, CRY_MODE_NORMAL
+	msgbox TARC_SEA_Wingull_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
 TARC_SEA_GameEnd::
 	lock
 	special StopPlayTimer
@@ -251,6 +260,9 @@ TARC_Sea_EveryFrame_GameStart_Text_0:
 	.string "Version of this hack.\p"
 	.string "Please do not share it outside of the\n"
 	.string "closed testing circle.$"
+
+TARC_SEA_Wingull_Text_0:
+	.string "Wingull!$"
 
 TARC_SEA_GameEnd_Text_0:
 	.string "Congratulations {PLAYER}!\p"

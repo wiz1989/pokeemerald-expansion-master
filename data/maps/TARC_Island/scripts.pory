@@ -73,7 +73,7 @@ script TARC_Island_Fisherman {
                     special(CreateInGameTradePokemon)
                     special(DoInGameTradeScene)
                     waitstate
-                    msgbox("This Pokémon is really weird.\pSomeone did install a very strange move on its hard drive.", MSGBOX_AUTOCLOSE)
+                    msgbox(format("This Pokémon is really weird.\pSomeone did install a very strange move on its hard drive."), MSGBOX_AUTOCLOSE)
                     setflag(FLAG_REMORAID_TRADE_COMPLETED)
                 }
             }
@@ -115,6 +115,20 @@ script TARC_Island_Corphish {
     faceplayer
     playmoncry(SPECIES_CORPHISH, CRY_MODE_NORMAL)
     msgbox(format("Corph..."), MSGBOX_AUTOCLOSE)
+    release
+}
+
+script TARC_Island_Azurill {
+    lock
+    faceplayer
+    playmoncry(SPECIES_AZURILL, CRY_MODE_NORMAL)
+    msgbox(format("Rill..."), MSGBOX_AUTOCLOSE)
+    release
+}
+
+script TARC_Island_Shark {
+    lock
+    playmoncry(SPECIES_SHARPEDO, CRY_MODE_ENCOUNTER)
     release
 }
 
@@ -203,7 +217,7 @@ script EndOfRelearnerScript {
     releaseall
 }
 
-script TARC_Island_Zigzagoon { //wiz1989
+script TARC_Island_Zigzagoon {
 	lock
 	faceplayer
     playmoncry(SPECIES_ZIGZAGOON, CRY_MODE_NORMAL)
@@ -332,6 +346,30 @@ script TARC_Island_Zigzagoon { //wiz1989
             msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
             waitmessage
             giveitem(ITEM_LIFE_ORB)
+		}
+	}
+
+    //check Life Orb
+    clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	if (flag(FLAG_HIDE_GYARADOSITE)) {
+		checkitem(ITEM_GYARADOSITE)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_GYARADOSITE)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//player is still holding the item
+		}
+		else {
+            msgbox(format("Oh no, you lost your GYARADOSITE!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            giveitem(ITEM_GYARADOSITE)
 		}
 	}
 
@@ -530,7 +568,7 @@ script TARC_Island_Maxie {
     if(!flag(FLAG_TARC_ITEM_X))
     {
         msgbox(format("Hello traveler!\lWelcome to my island!"), MSGBOX_AUTOCLOSE)
-        msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe was wandering these MEADOWS swinging his sword to become as skillful as his big idol Link.\pWhat an extraordinary person he was..."), MSGBOX_AUTOCLOSE)
+        msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe was wandering these MEADOWS swinging his sword to become as skillful as his big idol Link.\pSuch a tragedy he founded that stupid ass Team Aqua..."), MSGBOX_AUTOCLOSE)
     }
     else
     {
@@ -541,7 +579,7 @@ script TARC_Island_Maxie {
 
 script TARC_Island_sign_Game_Start {
     lock
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 level up move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and some base stats, RNG odds etc. might have been slightly altered to balance the game."))// \p4.) Running from trainer battles is explicitly ALLOWED."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 LEVEL UP move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and some base stats, RNG odds etc. might have been slightly altered to balance the game."))// \p4.) Running from trainer battles is explicitly ALLOWED."))
     waitmessage
     release
 }

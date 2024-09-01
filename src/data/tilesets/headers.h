@@ -834,7 +834,7 @@ const struct Tileset gTileset_gTileset_Orange_Island =
     .palettes = gTilesetPalettes_gTileset_Orange_Island,
     .metatiles = gMetatiles_gTileset_Orange_Island,
     .metatileAttributes = gMetatileAttributes_gTileset_Orange_Island,
-    .callback = InitTilesetAnim_General,
+    .callback = InitTilesetAnim_Island,
 };
 
 const struct Tileset gTileset_gTileset_Valencia_Island =

@@ -264,7 +264,7 @@ static const u8 sPlayerAvatarGfxIds[][2] =
 static const u8 sFRLGAvatarGfxIds[GENDER_COUNT] =
 {
     [MALE]   = OBJ_EVENT_GFX_RED,
-    [FEMALE] = OBJ_EVENT_GFX_LEAF
+    [FEMALE] = OBJ_EVENT_GFX_RED
 };
 
 static const u8 sRSAvatarGfxIds[GENDER_COUNT] =
@@ -883,6 +883,8 @@ static void PlayerAvatarTransition_AcroBike(struct ObjectEvent *objEvent)
 static void PlayerAvatarTransition_Surfing(struct ObjectEvent *objEvent)
 {
     u8 spriteId;
+
+    DebugPrintf("PlayerAvatarTransition_Surfing");
 
     ObjectEventSetGraphicsId(objEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_SURFING));
     ObjectEventTurn(objEvent, objEvent->movementDirection);

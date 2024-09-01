@@ -56,6 +56,14 @@ script TARC_Sea_EveryFrame_GameStart {
 
 // ############### Regular EventScripts ###############
 
+script TARC_SEA_Wingull {
+    lock
+    faceplayer
+    playmoncry(SPECIES_WINGULL, CRY_MODE_NORMAL)
+    msgbox(format("Wingull!"), MSGBOX_AUTOCLOSE)
+    release
+}
+
 script TARC_SEA_GameEnd {
 	lock
 	//fadescreen(FADE_TO_BLACK)

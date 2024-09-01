@@ -457,6 +457,18 @@ static const struct SpriteFrameImage sPicTable_MayUnderwater[] = {
     overworld_frame(gObjectEventPic_MayUnderwater, 4, 4, 2),
 };
 
+static const struct SpriteFrameImage sPicTable_ArchieUnderwater[] = {
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 0),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 1),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 2),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 0),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 0),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 1),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 1),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 2),
+    overworld_frame(gObjectEventPic_ArchieUnderwater, 4, 4, 2),
+};
+
 static const struct SpriteFrameImage sPicTable_MayFieldMove[] = {
     overworld_ascending_frames(gObjectEventPic_MayFieldMove, 4, 4),
 };

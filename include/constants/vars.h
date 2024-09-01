@@ -269,7 +269,7 @@
 #define VAR_TARC_CAVE_GUARD2_STATE                       0x40F9 // Unused Var
 #define VAR_CAVE_STATE                                   0x40FA // Unused Var
 #define VAR_RHYDON_STATE                                 0x40FB // Unused Var
-#define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
+#define VAR_TARC_UNDERWATER_CAVE                         0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
 #define VAR_TARC_COLLECTOR_COUNT                         0x40FE // Unused Var
 #define VAR_TARC_COUNT                                   0x40FF // Unused Var

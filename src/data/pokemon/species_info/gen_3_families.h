@@ -9435,11 +9435,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .types = MON_TYPES(TYPE_WATER),
         .catchRate = 3,
     #if P_UPDATED_EXP_YIELDS >= GEN_8
-        .expYield = 335,
+        .expYield = 1,
     #elif P_UPDATED_EXP_YIELDS >= GEN_5
-        .expYield = 302,
+        .expYield = 1,
     #else
-        .expYield = 218,
+        .expYield = 1,
     #endif
         .evYield_SpAttack = 3,
         .genderRatio = MON_GENDERLESS,

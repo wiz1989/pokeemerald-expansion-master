@@ -733,6 +733,7 @@ static bool8 TryArrowWarp(struct MapPosition *position, u16 metatileBehavior, u8
     {
         StoreInitialPlayerAvatarState();
         SetupWarp(&gMapHeader, warpEventId, position);
+        DebugPrintf("TryArrowWarp - Do Warp"); //wiz1989
         DoWarp();
         return TRUE;
     }

@@ -4315,8 +4315,11 @@ void DeletePartyMon(void)
     slot = VarGet(VAR_RESULT);
     DebugPrintf("Deletion slot: %d\n", slot);
 
-    ZeroMonData(&gPlayerParty[slot]);
-    CompactPartySlots();
+    if(slot < PARTY_SIZE)
+    {
+        ZeroMonData(&gPlayerParty[slot]);
+        CompactPartySlots();
+    }
 }
 
 u8 GetPlayTimeHours(void)
