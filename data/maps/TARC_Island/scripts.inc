@@ -122,6 +122,15 @@ TARC_Island_Corphish::
 	return
 
 
+TARC_Island_Azurill::
+	lock
+	faceplayer
+	playmoncry SPECIES_AZURILL, CRY_MODE_NORMAL
+	msgbox TARC_Island_Azurill_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
 TARC_Island_Shark::
 	lock
 	playmoncry SPECIES_SHARPEDO, CRY_MODE_ENCOUNTER
@@ -243,6 +252,9 @@ TARC_Island_Zigzagoon_25:
 	checktrainerflag TRAINER_CHASE
 	goto_if 0, TARC_Island_Zigzagoon_40
 TARC_Island_Zigzagoon_39:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Zigzagoon_52
+TARC_Island_Zigzagoon_51:
 	release
 	return
 
@@ -301,7 +313,7 @@ TARC_Island_Zigzagoon_30:
 	compare VAR_RESULT, 6
 	goto_if_lt TARC_Island_Zigzagoon_46
 TARC_Island_Zigzagoon_45:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_57
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_60
 	msgbox TARC_Island_Zigzagoon_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -328,12 +340,12 @@ TARC_Island_Zigzagoon_26:
 TARC_Island_Zigzagoon_42:
 	checkpartyitem ITEM_ABILITY_CAPSULE
 	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_55
-TARC_Island_Zigzagoon_54:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_63
+	goto_if_lt TARC_Island_Zigzagoon_58
+TARC_Island_Zigzagoon_57:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_69
 	checkpartyability 36
 	compare VAR_RESULT, PARTY_SIZE
-	goto_if_eq TARC_Island_Zigzagoon_69
+	goto_if_eq TARC_Island_Zigzagoon_78
 	goto TARC_Island_Zigzagoon_25
 
 TARC_Island_Zigzagoon_27:
@@ -354,13 +366,13 @@ TARC_Island_Zigzagoon_36:
 TARC_Island_Zigzagoon_40:
 	checkitem ITEM_LIFE_ORB
 	compare VAR_RESULT, TRUE
-	goto_if_eq TARC_Island_Zigzagoon_52
-TARC_Island_Zigzagoon_51:
+	goto_if_eq TARC_Island_Zigzagoon_55
+TARC_Island_Zigzagoon_54:
 	checkpartyitem ITEM_LIFE_ORB
 	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_61
-TARC_Island_Zigzagoon_60:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_66
+	goto_if_lt TARC_Island_Zigzagoon_67
+TARC_Island_Zigzagoon_66:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_75
 	msgbox TARC_Island_Zigzagoon_Text_5, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -380,33 +392,61 @@ TARC_Island_Zigzagoon_48:
 	goto TARC_Island_Zigzagoon_6
 
 TARC_Island_Zigzagoon_52:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	checkitem ITEM_GYARADOSITE
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_64
+TARC_Island_Zigzagoon_63:
+	checkpartyitem ITEM_GYARADOSITE
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_73
+TARC_Island_Zigzagoon_72:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_80
+	msgbox TARC_Island_Zigzagoon_Text_6, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_GYARADOSITE
 	goto TARC_Island_Zigzagoon_51
 
 TARC_Island_Zigzagoon_55:
 	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto TARC_Island_Zigzagoon_54
 
-TARC_Island_Zigzagoon_57:
+TARC_Island_Zigzagoon_58:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_57
+
+TARC_Island_Zigzagoon_60:
 	goto TARC_Island_Zigzagoon_14
 
-TARC_Island_Zigzagoon_61:
+TARC_Island_Zigzagoon_64:
 	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto TARC_Island_Zigzagoon_60
+	goto TARC_Island_Zigzagoon_63
 
-TARC_Island_Zigzagoon_63:
-	goto TARC_Island_Zigzagoon_25
-
-TARC_Island_Zigzagoon_66:
-	goto TARC_Island_Zigzagoon_39
+TARC_Island_Zigzagoon_67:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_66
 
 TARC_Island_Zigzagoon_69:
+	goto TARC_Island_Zigzagoon_25
+
+TARC_Island_Zigzagoon_73:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_72
+
+TARC_Island_Zigzagoon_75:
+	goto TARC_Island_Zigzagoon_39
+
+TARC_Island_Zigzagoon_78:
 	msgbox TARC_Island_Zigzagoon_Text_4, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_ABILITY_CAPSULE
 	goto TARC_Island_Zigzagoon_25
+
+TARC_Island_Zigzagoon_80:
+	goto TARC_Island_Zigzagoon_51
 
 
 TARC_Island_Game_Master::
@@ -972,6 +1012,9 @@ TARC_Island_Chansey_Text_1:
 TARC_Island_Corphish_Text_0:
 	.string "Corph...$"
 
+TARC_Island_Azurill_Text_0:
+	.string "Rill...$"
+
 TARC_Island_Celebi_Text_0:
 	.string "Dear traveler,\n"
 	.string "my time in this place is up.\p"
@@ -1012,6 +1055,9 @@ TARC_Island_Zigzagoon_Text_4:
 
 TARC_Island_Zigzagoon_Text_5:
 	.string "Oh no, you lost your LIFE ORB!$"
+
+TARC_Island_Zigzagoon_Text_6:
+	.string "Oh no, you lost your GYARADOSITE!$"
 
 TARC_Island_Game_Master_Text_0:
 	.string "I am the Game Master.\p"
@@ -1128,7 +1174,8 @@ TARC_Island_Maxie_Text_1:
 	.string "He was wandering these MEADOWS\n"
 	.string "swinging his sword to become as skillful\l"
 	.string "as his big idol Link.\p"
-	.string "What an extraordinary person he was...$"
+	.string "Such a tragedy he founded that stupid\n"
+	.string "ass Team Aqua...$"
 
 TARC_Island_Maxie_Text_2:
 	.string "You found the item I had hidden!\p"
@@ -1137,8 +1184,8 @@ TARC_Island_Maxie_Text_2:
 
 TARC_Island_sign_Game_Start_Text_0:
 	.string "IMPORTANT INFORMATION:\p"
-	.string "1.) This game is featuring Gen 8 level up\n"
-	.string "move LEARNSETS for any Pokemon you\l"
+	.string "1.) This game is featuring Gen 8 LEVEL\n"
+	.string "UP move LEARNSETS for any Pokemon you\l"
 	.string "control yourself.\p"
 	.string "2.) It is NOT required to grind MULTIPLE\n"
 	.string "levels to win any of the fights.\p"
@@ -1147,7 +1194,9 @@ TARC_Island_sign_Game_Start_Text_0:
 	.string "However, crits are removed, confusions\l"
 	.string "snap out immediately and some base\l"
 	.string "stats, RNG odds etc. might have been\l"
-	.string "slightly altered to balance the game.$"
+	.string "slightly altered to balance the game.\p"
+	.string "4.) Running from trainer battles is\n"
+	.string "explicitly ALLOWED.$"
 
 TARC_Island_sign_Rock_Climb_Text_0:
 	.string "The rock below looks climbable. {DOWN_ARROW}$"

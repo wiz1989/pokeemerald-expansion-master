@@ -1430,6 +1430,11 @@ static void CB2_EndTrainerBattle(void)
         else
             SetMainCallback2(CB2_WhiteOut);
     }
+    else if (gBattleOutcome == B_OUTCOME_RAN)
+    {
+        DebugPrintf("CB2_EndTrainerBattle -> Ran away");
+        SetMainCallback2(CB2_WhiteOut);
+    }
     else
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);

@@ -266,7 +266,7 @@ TARC_Cave_Kickout_Guard2::
 
 TARC_Cave_Move_Zubat_away::
 	lock
-	setobjectxy 16, 20, 38
+	setobjectxy 16, 21, 37
 	release
 	return
 

@@ -35,8 +35,8 @@ TARC_AQUA_ChangeParty_5:
 	msgbox TARC_AQUA_ChangeParty_Text_3
 	waitmessage
 	closemessage
-	waitbuttonpress
 	msgbox TARC_AQUA_ChangeParty_Text_4, MSGBOX_AUTOCLOSE
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	compare VAR_FACING, DIR_NORTH
 	goto_if_eq TARC_AQUA_ChangeParty_8
 	applymovement 1, Move_Grunt
@@ -72,7 +72,6 @@ Move_Grunt_around:
 	walk_right
 	walk_down
 	walk_down
-	walk_left
 	walk_down
 	walk_down
 	walk_down

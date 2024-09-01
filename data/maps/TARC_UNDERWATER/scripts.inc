@@ -32,6 +32,7 @@ TARC_UNDERWATER_OpenCave::
 	setmetatile 49, 23, METATILE_Underwater_DoorTop, TRUE
 	setmetatile 49, 24, METATILE_Underwater_DoorBottom, FALSE
 	special DrawWholeMapView
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
 	releaseall
@@ -49,7 +50,7 @@ TARC_UNDERWATER_OpenCave_Pre::
 
 TARC_UNDERWATER_Update_Healspot::
 	lock
-	setrespawn HEAL_LOCATION_TARC_ISLAND
+	setrespawn HEAL_LOCATION_TARC_UNDERWATER
 	release
 	return
 
@@ -58,8 +59,7 @@ TARC_UNDERWATER_Archie_Text_0:
 	.string "Archie placeholder text$"
 
 TARC_UNDERWATER_OpenCave_Sign_Text_0:
-	.string "It is the trigger for the secret door,\n"
-	.string "dummy.$"
+	.string "The secret switch is hidden in the sand.$"
 
 TARC_UNDERWATER_OpenCave_Sign_Text_1:
 	.string "What is this?$"

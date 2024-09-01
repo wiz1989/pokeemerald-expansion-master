@@ -579,7 +579,7 @@ script TARC_Island_Maxie {
 
 script TARC_Island_sign_Game_Start {
     lock
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 LEVEL UP move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and some base stats, RNG odds etc. might have been slightly altered to balance the game."))// \p4.) Running from trainer battles is explicitly ALLOWED."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 LEVEL UP move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and some base stats, RNG odds etc. might have been slightly altered to balance the game.\p4.) Running from trainer battles is explicitly ALLOWED."))
     waitmessage
     release
 }
