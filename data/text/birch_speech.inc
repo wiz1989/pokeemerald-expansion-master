@@ -2,21 +2,26 @@ gText_Birch_Welcome::
 	.string "Hello, explorer!\p"
 	.string "Welcome to the Pokémon Escape\n"
 	.string "Room challenge MAXIE'S ISLAND!\p"
-	.string "$"
-
-gText_Birch_Pokemon::
 	.string "I will give you all information\n"
 	.string "you may need to start your\l"
 	.string "adventure.\p"
+	.string "...\p"
+	.string "You where surfing calm waters\n"
+	.string "in the Hoenn Sea when suddenly\p"
 	.string "$"
 
-gText_Birch_MainSpeech::
-	.string "...you where surfing calm waters\n"
-	.string "in the Hoenn Sea when suddenly\l"
-	.string "a giant Dondozo jumped out of\l"
+gText_ThisIsAPokemon::
+	.string "a giant Dondozo{PAUSE 96} jumped out of\n"
 	.string "the surface and crushed right next\l"
 	.string "to you leaving you unconscious\l"
 	.string "and drifting into the open water.\p"
+	.string "$"
+
+gText_Birch_Pokemon::
+
+	.string "$"
+
+gText_Birch_MainSpeech::
 	.string "You ended up in the rough currents\n"
 	.string "around MAXIE'S ISLAND where you awake.\p"
 	.string "To escape from there you will need to\n"

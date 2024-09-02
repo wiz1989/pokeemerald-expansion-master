@@ -533,7 +533,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         &sCreditsEntry_Archie,
         &sCreditsEntry_AquasHideout,
         &sCreditsEntry_Celia,
-        _
+        &sCreditsEntry_purrfectdoodle
     },/*
     [PAGE_SPECIAL_THANKS2] = {
         &sCreditsEntry_SpecialThanks,
