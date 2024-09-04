@@ -469,8 +469,8 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_REGIROCK                0x1133
 #define OBJ_EVENT_PAL_TAG_RHYHORN                 0x1134
 #define OBJ_EVENT_PAL_TAG_RHYDON                  0x1135
-#define OBJ_EVENT_PAL_TAG_OCTILLERY               0x1134
-#define OBJ_EVENT_PAL_TAG_LANTURN                 0x1135
+#define OBJ_EVENT_PAL_TAG_OCTILLERY               0x1136
+#define OBJ_EVENT_PAL_TAG_LANTURN                 0x1137
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 #include "data/field_effects/field_effect_object_template_pointers.h"
