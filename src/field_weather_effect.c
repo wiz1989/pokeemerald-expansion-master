@@ -25,6 +25,8 @@ EWRAM_DATA static u16 sUnusedWeatherRelated = 0;
 const u16 gCloudsWeatherPalette[] = INCBIN_U16("graphics/weather/cloud.gbapal");
 const u16 gSandstormWeatherPalette[] = INCBIN_U16("graphics/weather/sandstorm.gbapal");
 const u16 gBirdsWeatherPalette[] = INCBIN_U16("graphics/weather/bird.gbapal");
+const u16 gBirdsWeatherPalette2[] = INCBIN_U16("graphics/weather/bird2.gbapal");
+const u16 gBirdsWeatherPalette3[] = INCBIN_U16("graphics/weather/bird3.gbapal");
 const u8 gWeatherFogDiagonalTiles[] = INCBIN_U8("graphics/weather/fog_diagonal.4bpp");
 const u8 gWeatherFogHorizontalTiles[] = INCBIN_U8("graphics/weather/fog_horizontal.4bpp");
 const u8 gWeatherCloudTiles[] = INCBIN_U8("graphics/weather/cloud.4bpp");
@@ -35,10 +37,18 @@ const u8 gWeatherAshTiles[] = INCBIN_U8("graphics/weather/ash.4bpp");
 const u8 gWeatherRainTiles[] = INCBIN_U8("graphics/weather/rain.4bpp");
 const u8 gWeatherSandstormTiles[] = INCBIN_U8("graphics/weather/sandstorm.4bpp");
 const u8 gWeatherBirdTiles[] = INCBIN_U8("graphics/weather/bird.4bpp");
+const u8 gWeatherBirdTiles2[] = INCBIN_U8("graphics/weather/bird2.4bpp");
+const u8 gWeatherBirdTiles3[] = INCBIN_U8("graphics/weather/bird3.4bpp");
 
 const struct SpritePalette sFogSpritePalette = {gFogPalette, PALTAG_WEATHER_2};
 const struct SpritePalette sCloudsSpritePalette = {gCloudsWeatherPalette, 0x1207};
-const struct SpritePalette sBirdsSpritePalette = {gBirdsWeatherPalette, PALTAG_WEATHER_2};
+const struct SpritePalette sBirdsSpritePalette[] = 
+{
+    {gBirdsWeatherPalette, PALTAG_WEATHER_2},
+    {gBirdsWeatherPalette2, PALTAG_WEATHER_2},
+    {gBirdsWeatherPalette3, PALTAG_WEATHER_2}
+    
+};
 const struct SpritePalette sSandstormSpritePalette = {gSandstormWeatherPalette, 0x1204};
 
 
@@ -53,11 +63,23 @@ static void UpdateBirdSprite(struct Sprite *);
 #define frameOddEven data[0]
 #define speciesId data[1]
 
-static const struct SpriteSheet sBirdSpriteSheet =
+static const struct SpriteSheet sBirdSpriteSheet[] =
 {
-    .data = gWeatherBirdTiles,
-    .size = sizeof(gWeatherBirdTiles),
-    .tag = GFXTAG_BIRD
+    {
+        .data = gWeatherBirdTiles,
+        .size = sizeof(gWeatherBirdTiles),
+        .tag = GFXTAG_BIRD
+    },
+    {
+        .data = gWeatherBirdTiles2,
+        .size = sizeof(gWeatherBirdTiles2),
+        .tag = GFXTAG_BIRD
+    },
+    {
+        .data = gWeatherBirdTiles3,
+        .size = sizeof(gWeatherBirdTiles3),
+        .tag = GFXTAG_BIRD
+    }
 };
 
 static const struct OamData sBirdSpriteOamData =
@@ -173,7 +195,7 @@ void Birds_InitAll(void)
     DebugPrintf("Birds_InitAll");
     Birds_InitVars();
     //while (gWeatherPtr->weatherGfxLoaded == FALSE)
-        Birds_Main();
+    Birds_Main();
 }
 
 // Handles waiting time between two flocks, and flock creation
@@ -257,8 +279,9 @@ static void CreateBirdSprites(void)
         return;
     }
 
-    LoadSpriteSheet(&sBirdSpriteSheet);
-    LoadCustomWeatherSpritePalette(&sBirdsSpritePalette);
+    u8 bird_species = Random() % 3;
+    LoadSpriteSheet(&sBirdSpriteSheet[bird_species]);
+    LoadCustomWeatherSpritePalette(&sBirdsSpritePalette[bird_species]);
 
     u32 i, spriteId;
     // Coordinates of the current bird, updated for each new one
