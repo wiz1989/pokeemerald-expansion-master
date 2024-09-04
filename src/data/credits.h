@@ -506,7 +506,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         _,
         &sCreditsEntry_CustomArt,
         &sCreditsEntry_kalarie,
-        _,
+        &sCreditsEntry_wiz1989,
         _
     },
     [PAGE_ADDED_FEATURES] = {

@@ -153,6 +153,7 @@ void Birds_InitVars(void)
     gWeatherPtr->initStep = 0;
     gWeatherPtr->birdTimer = 0;
     gWeatherPtr->birdCurrentFlockHasCried = FALSE;
+    gWeatherPtr->birdSpritesCreated = FALSE;
 
     // Default behavior
     gWeatherPtr->birdSpeciesIndex = BIRD_INDEX_DEFAULT;
@@ -160,6 +161,10 @@ void Birds_InitVars(void)
     gWeatherPtr->birdFlockSpeed = 1;
     gWeatherPtr->birdFlockSize = 2;
     gWeatherPtr->birdCanVFormation = 0;
+
+    //initial delay
+    gWeatherPtr->birdCurrentNbSecondsBetweenFlocks = (Random() % 30) + 10;
+    DebugPrintf("new birdCurrentNbSecondsBetweenFlocks = %d", gWeatherPtr->birdCurrentNbSecondsBetweenFlocks);
 }
 
 // Init function for bird weather
@@ -167,22 +172,25 @@ void Birds_InitAll(void)
 {
     DebugPrintf("Birds_InitAll");
     Birds_InitVars();
-    while (gWeatherPtr->weatherGfxLoaded == FALSE)
+    //while (gWeatherPtr->weatherGfxLoaded == FALSE)
         Birds_Main();
 }
 
 // Handles waiting time between two flocks, and flock creation
 void Birds_Main(void)
 {
-    // DebugPrintf("Birds_Main");
+    //DebugPrintf("Birds_Main");
     switch (gWeatherPtr->initStep)
     {
         case 0:
             // DebugPrintf("Birds_Main 0");
             gWeatherPtr->birdTimer += 1;
             // A new bird flock waits a set amount of time before spawning
+
             if (gWeatherPtr->birdTimer > gWeatherPtr->birdCurrentNbSecondsBetweenFlocks * 60) {
-                DebugPrintf("Birds_Main timer has reached the end");
+                DebugPrintf("### Birds_Main timer has reached the end");
+                DebugPrintf("birdTimer = %d", gWeatherPtr->birdTimer);
+                DebugPrintf("birdCurrentNbSecondsBetweenFlocks = %d - %d", gWeatherPtr->birdCurrentNbSecondsBetweenFlocks, gWeatherPtr->birdCurrentNbSecondsBetweenFlocks * 60);
                 gWeatherPtr->initStep++;
                 gWeatherPtr->birdTimer = 0;
             }
@@ -222,11 +230,13 @@ bool8 Birds_Finish(void)
 // Creates a flock of birds (one separate sprite per bird), placing them right outside of the screen
 static void CreateBirdSprites(void)
 {
+    DebugPrintf("CreateBirdSprites");
     gWeatherPtr->birdCurrentFlockHasCried = FALSE;
     // Adding slight variation to the parameters
     gWeatherPtr->birdCurrentFlockDirection = (Random() % 2) ? -1 : 1;
 
     gWeatherPtr->birdCurrentNbSecondsBetweenFlocks = gWeatherPtr->birdNbSecondsBetweenFlocks + ((Random() % 20) + 5);
+    DebugPrintf("new birdCurrentNbSecondsBetweenFlocks = %d", gWeatherPtr->birdCurrentNbSecondsBetweenFlocks);
     gWeatherPtr->birdCurrentFlockSize = Random() % gWeatherPtr->birdFlockSize + 1;//gWeatherPtr->birdFlockSize + ((Random() % 2) - 1);
     gWeatherPtr->birdCurrentFlockSpeed = gWeatherPtr->birdFlockSpeed + (Random() % 1);
     // TODO EVA

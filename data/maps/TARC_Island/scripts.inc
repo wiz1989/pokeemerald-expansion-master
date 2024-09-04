@@ -204,7 +204,7 @@ TARC_Island_Celebi::
 	goto_if_set FLAG_WON_SEISMITOAD, TARC_Island_Celebi_2
 	goto_if_unset FLAG_TARC_TALKED_TO_CELEBI, TARC_Island_Celebi_6
 TARC_Island_Celebi_5:
-	msgbox TARC_Island_Celebi_Text_2, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Celebi_Text_3, MSGBOX_AUTOCLOSE
 	special ChooseMonForMoveRelearner
 	waitstate
 	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, EndOfRelearnerScript
@@ -242,12 +242,12 @@ TARC_Island_Celebi_2:
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
-	setflag FLAG_HIDE_CELEBI
+	msgbox TARC_Island_Celebi_Text_1, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Celebi_1
 
 TARC_Island_Celebi_6:
 	setflag FLAG_TARC_TALKED_TO_CELEBI
-	msgbox TARC_Island_Celebi_Text_1, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Celebi_Text_2, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Celebi_5
 
 
@@ -1112,13 +1112,16 @@ TARC_Island_Celebi_Text_0:
 	.string "Farewell!$"
 
 TARC_Island_Celebi_Text_1:
+	.string "Celebi vanished in a beam of light.$"
+
+TARC_Island_Celebi_Text_2:
 	.string "Dear traveler,\n"
 	.string "I am the guardian of this island.\p"
 	.string "I can travel through time to grant you\n"
 	.string "access to moves your Pokémon might\l"
 	.string "have forgotten a long time ago.$"
 
-TARC_Island_Celebi_Text_2:
+TARC_Island_Celebi_Text_3:
 	.string "Please choose a Pokémon to teach a\n"
 	.string "move to.$"
 
@@ -1312,8 +1315,8 @@ TARC_Island_Battle_Seismitoad_Text_0:
 	.string "RIBBIT!$"
 
 TARC_Island_Battle_Seismitoad_Text_1:
-	.string "Seismitoad vanished in the depths of\n"
-	.string "the pond.$"
+	.string "Seismitoad disappeared in the depths\n"
+	.string "of the pond.$"
 
 TARC_Island_Battle_Seismitoad_Text_2:
 	.string "Seismitoad is watching the pond.$"

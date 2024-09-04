@@ -43,12 +43,12 @@ script TARC_CAVE_EveryFrame_FirstTime {
     waitmoncry
     applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
     waitmovement(0)
-    msgbox(format("Sableye jumped out of its Pokéball to stay in the cave and explore its depths with Regirock."), MSGBOX_AUTOCLOSE)
+    msgbox(format("What?\pSableye just freed itself from its Pokéball."), MSGBOX_AUTOCLOSE)
     hidemonpic
     showmonpic(SPECIES_REGIROCK, 10, 3)
     playmoncry(SPECIES_REGIROCK, CRY_MODE_NORMAL)
 	delay(40)
-    msgbox(format("Traveller, I will grant you a new companion to continue your journey through these halls.\pFarewell!"), MSGBOX_AUTOCLOSE)
+    msgbox(format("Traveller, it seems that Sableye is willing to stay in this cave.\pI will give you a new companion to continue your journey through these halls.\pFarewell!"), MSGBOX_AUTOCLOSE)
     hidemonpic
     getpartymonslot(SPECIES_SABLEYE)
 	special(DeletePartyMon) //using VAR_RESULT from above macro

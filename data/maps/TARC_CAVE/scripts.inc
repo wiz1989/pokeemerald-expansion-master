@@ -341,14 +341,16 @@ TARC_CAVE_EveryFrame_FirstTime_Text_1:
 	.string "The guardian of the mines!$"
 
 TARC_CAVE_EveryFrame_FirstTime_Text_2:
-	.string "Sableye jumped out of its Pokéball to\n"
-	.string "stay in the cave and explore its depths\l"
-	.string "with Regirock.$"
+	.string "What?\p"
+	.string "Sableye just freed itself from its\n"
+	.string "Pokéball.$"
 
 TARC_CAVE_EveryFrame_FirstTime_Text_3:
-	.string "Traveller, I will grant you a new\n"
-	.string "companion to continue your journey\l"
-	.string "through these halls.\p"
+	.string "Traveller, it seems that Sableye is\n"
+	.string "willing to stay in this cave.\p"
+	.string "I will give you a new companion to\n"
+	.string "continue your journey through these\l"
+	.string "halls.\p"
 	.string "Farewell!$"
 
 TARC_CAVE_EveryFrame_FirstTime_Text_4:
