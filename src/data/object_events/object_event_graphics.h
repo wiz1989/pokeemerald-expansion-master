@@ -402,3 +402,7 @@ const u16 gObjectEventPal_Regirock[] = INCBIN_U16("graphics/object_events/palett
 const u32 gObjectEventPic_Rhyhorn[] = INCBIN_U32("graphics/object_events/pics/pokemon/rhyhorn.4bpp");
 const u16 gObjectEventPal_Rhyhorn[] = INCBIN_U16("graphics/object_events/palettes/rhyhorn.gbapal");
 const u16 gObjectEventPal_Rhydon[] = INCBIN_U16("graphics/object_events/palettes/rhydon.gbapal");
+const u32 gObjectEventPic_Octillery[] = INCBIN_U32("graphics/object_events/pics/pokemon/octillery.4bpp");
+const u16 gObjectEventPal_Octillery[] = INCBIN_U16("graphics/object_events/palettes/octillery.gbapal");
+const u32 gObjectEventPic_Lanturn[] = INCBIN_U32("graphics/object_events/pics/pokemon/lanturn.4bpp");
+const u16 gObjectEventPal_Lanturn[] = INCBIN_U16("graphics/object_events/palettes/lanturn.gbapal");

@@ -1322,3 +1322,11 @@ static const struct SpriteFrameImage sPicTable_Regirock[] = {
 static const struct SpriteFrameImage sPicTable_Rhyhorn[] = {
     overworld_ascending_frames(gObjectEventPic_Rhyhorn, 4, 4),
 };
+
+static const struct SpriteFrameImage sPicTable_Octillery[] = {
+    overworld_ascending_frames(gObjectEventPic_Octillery, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_Lanturn[] = {
+    overworld_ascending_frames(gObjectEventPic_Lanturn, 4, 4),
+};

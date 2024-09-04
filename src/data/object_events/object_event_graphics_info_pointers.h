@@ -256,6 +256,8 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Onix;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Zubat;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kadabra;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Rhyhorn;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Octillery;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lanturn;
 
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
@@ -416,8 +418,8 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_TREECKO_DOLL] =             &gObjectEventGraphicsInfo_TreeckoDoll,
     [OBJ_EVENT_GFX_TORCHIC_DOLL] =             &gObjectEventGraphicsInfo_TorchicDoll,
     [OBJ_EVENT_GFX_MUDKIP_DOLL] =              &gObjectEventGraphicsInfo_MudkipDoll,
-    [OBJ_EVENT_GFX_DUSKULL_DOLL] =             &gObjectEventGraphicsInfo_DuskullDoll,
-    [OBJ_EVENT_GFX_WYNAUT_DOLL] =              &gObjectEventGraphicsInfo_WynautDoll,
+    [OBJ_EVENT_GFX_OCTILLERY] =                &gObjectEventGraphicsInfo_Octillery,
+    [OBJ_EVENT_GFX_LANTURN] =                  &gObjectEventGraphicsInfo_Lanturn,
     [OBJ_EVENT_GFX_RHYHORN] =                  &gObjectEventGraphicsInfo_Rhyhorn,
     [OBJ_EVENT_GFX_ONIX] =                     &gObjectEventGraphicsInfo_Onix,
     [OBJ_EVENT_GFX_ZUBAT] =                    &gObjectEventGraphicsInfo_Zubat,

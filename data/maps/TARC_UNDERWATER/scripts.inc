@@ -58,6 +58,24 @@ TARC_UNDERWATER_Update_Healspot::
 	return
 
 
+TARC_UNDERWATER_Octillery::
+	lock
+	faceplayer
+	playmoncry SPECIES_OCTILLERY, CRY_MODE_NORMAL
+	msgbox TARC_UNDERWATER_Octillery_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_UNDERWATER_Lanturn::
+	lock
+	faceplayer
+	playmoncry SPECIES_LANTURN, CRY_MODE_NORMAL
+	msgbox TARC_UNDERWATER_Lanturn_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
 Move_ArchieLeaves:
 	walk_down
 	walk_down
@@ -78,6 +96,12 @@ TARC_UNDERWATER_OpenCave_Sign_Text_1:
 
 TARC_UNDERWATER_OpenCave_Text_0:
 	.string "A hidden trigger activated.$"
+
+TARC_UNDERWATER_Octillery_Text_0:
+	.string "Octillery!$"
+
+TARC_UNDERWATER_Lanturn_Text_0:
+	.string "Lanturn!$"
 
 Archie_Intro::
 	.string "Why are you here???\p"

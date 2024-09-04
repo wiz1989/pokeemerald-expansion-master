@@ -247,6 +247,7 @@ static const u8 sCreditsText_pret[]                          = _("pret");
 static const u8 sCreditsText_RHH[]                           = _("RH Hideout");
 static const u8 sCreditsText_CustomArt[]                     = _("Custom Art and Tiles");
 static const u8 sCreditsText_kalarie[]                       = _("Kalarie (Orange Islands Tileset)");
+static const u8 sCreditsText_ekat[]                          = _("Ekat (Underwater shell and plant)");
 static const u8 sCreditsText_mudskip[]                       = _("Name 2");
 static const u8 sCreditsText_ladymiko[]                      = _("Name 3");
 static const u8 sCreditsText_rbrnnova[]                      = _("Name 4");
@@ -441,6 +442,7 @@ static const struct CreditsEntry sCreditsEntry_pret                             
 static const struct CreditsEntry sCreditsEntry_RHH                              = {11, FALSE, sCreditsText_RHH};
 static const struct CreditsEntry sCreditsEntry_CustomArt                        = {11, TRUE, sCreditsText_CustomArt};
 static const struct CreditsEntry sCreditsEntry_kalarie                          = {11, FALSE, sCreditsText_kalarie};
+static const struct CreditsEntry sCreditsEntry_ekat                             = {11, FALSE, sCreditsText_ekat};
 static const struct CreditsEntry sCreditsEntry_ladymiko                         = {11, FALSE, sCreditsText_ladymiko};
 static const struct CreditsEntry sCreditsEntry_mudskip                          = {11, FALSE, sCreditsText_mudskip};
 static const struct CreditsEntry sCreditsEntry_rbrnnova                         = {11, FALSE, sCreditsText_rbrnnova};
@@ -503,9 +505,9 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         _
     },
     [PAGE_CUSTOM_ART] = {
-        _,
         &sCreditsEntry_CustomArt,
         &sCreditsEntry_kalarie,
+        &sCreditsEntry_ekat,
         &sCreditsEntry_wiz1989,
         _
     },

@@ -57,6 +57,22 @@ script TARC_UNDERWATER_Update_Healspot {
     release
 }
 
+script TARC_UNDERWATER_Octillery {
+    lock
+    faceplayer
+    playmoncry(SPECIES_OCTILLERY, CRY_MODE_NORMAL)
+    msgbox(format("Octillery!"), MSGBOX_AUTOCLOSE)
+    release
+}
+
+script TARC_UNDERWATER_Lanturn {
+    lock
+    faceplayer
+    playmoncry(SPECIES_LANTURN, CRY_MODE_NORMAL)
+    msgbox(format("Lanturn!"), MSGBOX_AUTOCLOSE)
+    release
+}
+
 // ############### movements 
 
 movement Move_ArchieLeaves {

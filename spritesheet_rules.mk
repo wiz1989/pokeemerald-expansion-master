@@ -766,3 +766,9 @@ $(OBJEVENTGFXDIR)/pokemon/regirock.4bpp: %.4bpp: %.png
 
 $(OBJEVENTGFXDIR)/pokemon/rhyhorn.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
+
+$(OBJEVENTGFXDIR)/pokemon/octillery.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+
+$(OBJEVENTGFXDIR)/pokemon/lanturn.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
