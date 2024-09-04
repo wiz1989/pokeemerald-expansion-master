@@ -1145,8 +1145,9 @@ static const struct SpriteFrameImage sPicTable_Statue[] = {
     obj_frame_tiles(gObjectEventPic_Statue),
 };
 
+//used for Rhydon
 static const struct SpriteFrameImage sPicTable_Dusclops[] = {
-    overworld_ascending_frames(gObjectEventPic_Dusclops, 2, 4),
+    overworld_ascending_frames(gObjectEventPic_Dusclops, 4, 4),
 };
 
 static const struct SpriteFrameImage sPicTable_Kirlia[] = {

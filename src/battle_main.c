@@ -4692,11 +4692,13 @@ static void HandleTurnActionSelectionState(void)
                         RecordedBattle_CheckMovesetChanges(B_RECORD_MODE_PLAYBACK);
                         if ((gBattleResources->bufferB[battler][2] | (gBattleResources->bufferB[battler][3] << 8)) == 0xFFFF)
                         {
+                            DebugPrintf("STATE A");
                             gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
                             RecordedBattle_ClearBattlerAction(battler, 1);
                         }
                         else if (TrySetCantSelectMoveBattleScript(battler))
                         {
+                            DebugPrintf("STATE B");
                             RecordedBattle_ClearBattlerAction(battler, 1);
                             gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
                             *(gBattleStruct->selectionScriptFinished + battler) = FALSE;
@@ -4706,6 +4708,7 @@ static void HandleTurnActionSelectionState(void)
                         }
                         else
                         {
+                            DebugPrintf("STATE C");
                             if (!(gBattleTypeFlags & BATTLE_TYPE_PALACE))
                             {
                                 RecordedBattle_SetBattlerAction(battler, gBattleResources->bufferB[battler][2]);

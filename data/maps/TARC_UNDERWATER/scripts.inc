@@ -6,6 +6,9 @@ TARC_UNDERWATER_Archie::
 	trainerbattle_single TRAINER_ARCHIE, Archie_Intro, Archie_Defeat
 	lock
 	msgbox TARC_UNDERWATER_Archie_Text_0, MSGBOX_AUTOCLOSE
+	applymovement 1, Move_ArchieLeaves
+	waitmovement 0
+	removeobject 1
 	release
 	return
 
@@ -55,8 +58,17 @@ TARC_UNDERWATER_Update_Healspot::
 	return
 
 
+Move_ArchieLeaves:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
 TARC_UNDERWATER_Archie_Text_0:
-	.string "Archie placeholder text$"
+	.string "I will return stronger!$"
 
 TARC_UNDERWATER_OpenCave_Sign_Text_0:
 	.string "The secret switch is hidden in the sand.$"
@@ -68,9 +80,13 @@ TARC_UNDERWATER_OpenCave_Text_0:
 	.string "A hidden trigger activated.$"
 
 Archie_Intro::
-	.string "Hello, there.\p"
-	.string "You can refer to me in scripts or C code.$"
+	.string "Why are you here???\p"
+	.string "I am on a secret mission to take\n"
+	.string "over this island!\p"
+	.string "You won't BREAK my plans!$"
 
 Archie_Defeat::
-	.string "Hello, there.\p"
-	.string "You can refer to me in scripts or C code.$"
+	.string "How dare you!\p"
+	.string "Where did you get these Pokémon\n"
+	.string "from?\p"
+	.string "Aaaargh!$"

@@ -228,6 +228,7 @@ EventScript_UseDive::
 	goto_if_eq VAR_RESULT, NO, EventScript_EndDive
 	msgbox Text_MonUsedDive, MSGBOX_DEFAULT
 	dofieldeffect FLDEFF_USE_DIVE
+	setflag FLAG_USED_DIVE
 	goto EventScript_EndDive
 	end
 

@@ -318,7 +318,7 @@ static const struct TrainerMon sParty_ShellySeafloorCavern[] = {
 static const struct TrainerMon sParty_Archie[] = {
     {
     .iv = TRAINER_PARTY_IVS(31, 0, 31, 0, 0, 31),
-    .ev = TRAINER_PARTY_EVS(0, 0, 252, 0, 0, 252),
+    .ev = TRAINER_PARTY_EVS(252, 0, 0, 0, 0, 252),
     .lvl = 30,
     .species = SPECIES_KYOGRE,
     .heldItem = ITEM_NONE,
@@ -326,7 +326,7 @@ static const struct TrainerMon sParty_Archie[] = {
     .moves = {MOVE_ROAR, MOVE_THUNDERBOLT, MOVE_AQUA_TAIL, MOVE_NONE}
     },
     {
-    .iv = TRAINER_PARTY_IVS(31, 0, 31, 31, 0, 31),
+    .iv = TRAINER_PARTY_IVS(31, 10, 31, 31, 0, 31),
     .ev = TRAINER_PARTY_EVS(0, 0, 252, 0, 0, 252),
     .lvl = 30,
     .species = SPECIES_OVERQWIL,
@@ -4765,14 +4765,15 @@ static const struct TrainerMon sParty_Chase[] = {
     .species = SPECIES_DHELMISE,
     .iv = TRAINER_PARTY_IVS(31, 0, 31, 31, 31, 31),
     .ev = TRAINER_PARTY_EVS(0, 0, 0, 0, 0, 140),
-    .moves = {MOVE_ASTONISH, MOVE_ROCK_SLIDE, MOVE_REST},
+    .moves = {MOVE_ASTONISH, MOVE_ROCK_SLIDE, MOVE_REST, MOVE_GROWTH},
     .nature = NATURE_NAIVE,
     .heldItem = ITEM_LUM_BERRY,
     },
     {
     .lvl = 17,
     .species = SPECIES_CRAMORANT,
-    .iv = TRAINER_PARTY_IVS(0, 31, 0, 0, 31, 0),
+    .iv = TRAINER_PARTY_IVS(0, 31, 0, 31, 31, 0),
+    .ev = TRAINER_PARTY_EVS(0, 252, 0, 0, 252, 0),
     .moves = {MOVE_SURF, MOVE_DRILL_PECK},
     .nature = NATURE_NAIVE,
     }

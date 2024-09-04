@@ -30,8 +30,8 @@ TARC_AQUA_ChangeParty_5:
 	special DeletePartyMon
 	getpartymonslot SPECIES_FARFETCHD
 	special DeletePartyMon
-	givemon SPECIES_GYARADOS, 30, nature = NATURE_CALM, abilityNum = 0, hpEv = 252, spDefEv = 252, hpIv = 31, atkIv = 0, defIv = 31, speedIv = 31, spAtkIv = 0, spDefIv = 31, move1 = MOVE_CRUNCH, move2 = MOVE_WATERFALL, move3 = MOVE_ROAR, move4 = MOVE_DIVE
-	givemon SPECIES_WEEZING, 30, nature = NATURE_CAREFUL, abilityNum = 0, hpEv = 252, atkEv = 4, spDefEv = 252, hpIv = 31, atkIv = 31, defIv = 31, speedIv = 31, spAtkIv = 0, spDefIv = 31, move1 = MOVE_SLUDGE_BOMB, move2 = MOVE_FLAMETHROWER, move3 = MOVE_SELF_DESTRUCT, move4 = MOVE_NONE
+	givemon SPECIES_GYARADOS, 30, nature = NATURE_CALM, abilityNum = 0, hpEv = 252, spDefEv = 252, hpIv = 31, atkIv = 0, defIv = 31, speedIv = 31, spAtkIv = 0, spDefIv = 31, move1 = MOVE_STRENGTH, move2 = MOVE_WATERFALL, move3 = MOVE_ROAR, move4 = MOVE_DIVE
+	givemon SPECIES_WEEZING, 30, nature = NATURE_CAREFUL, abilityNum = 0, hpEv = 252, atkEv = 4, spDefEv = 252, hpIv = 31, atkIv = 31, defIv = 31, speedIv = 31, spAtkIv = 0, spDefIv = 31, move1 = MOVE_SLUDGE, move2 = MOVE_FLAMETHROWER, move3 = MOVE_SELF_DESTRUCT, move4 = MOVE_NONE
 	msgbox TARC_AQUA_ChangeParty_Text_3
 	waitmessage
 	closemessage

@@ -1501,6 +1501,7 @@ u32 TrySetCantSelectMoveBattleScript(u32 battler)
 
     if (gBattleMons[battler].pp[moveId] == 0)
     {
+        DebugPrintf("Move has no more PP!");
         if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
         {
             gProtectStructs[battler].palaceUnableToUseMove = TRUE;

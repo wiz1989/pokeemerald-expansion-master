@@ -866,7 +866,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 break;
             case ABILITY_WONDER_GUARD:
                 if (effectiveness < AI_EFFECTIVENESS_x2)
-                    return 0;
+                    return 1;
                 else
                     ADJUST_SCORE(10);
                 break;
@@ -5132,15 +5132,31 @@ static s32 AI_HPAware(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         }
         if (AI_DATA->hpPercents[battlerAtk] < 50)
         {
-            // high hp
-            switch (effect)
+            /*u8 i, move_slot;
+            move_slot = -1;
+
+            //check PP
+            for (i = 0; i < MAX_MON_MOVES; i++)
             {
-            case EFFECT_REST:
-                ADJUST_SCORE(10);
-                break;
-            default:
-                break;
+                if (gBattleMons[battlerAtk].moves[i] == move)
+                    move_slot = i;
             }
+
+            //hacky try to handle infinite AI loop when Rest reaches 0 PP
+            if (move_slot >= 0 && gBattleMons[battlerAtk].pp[move_slot] > 0 && move == MOVE_REST)
+            {
+                DebugPrintf("current REST PP = %d", gBattleMons[battlerAtk].pp[move_slot]);*/
+                //handle move effects
+                switch (effect)
+                {
+                case EFFECT_REST:
+                    ADJUST_SCORE(10);
+                    break;
+                default:
+                    break;
+                }
+            //}
+            
         }
     }
 

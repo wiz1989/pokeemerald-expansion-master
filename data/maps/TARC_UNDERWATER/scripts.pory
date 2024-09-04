@@ -9,7 +9,10 @@ mapscripts TARC_UNDERWATER_MapScripts {
 script TARC_UNDERWATER_Archie {
     trainerbattle_single(TRAINER_ARCHIE, Archie_Intro, Archie_Defeat)
     lock
-    msgbox(format("Archie placeholder text"), MSGBOX_AUTOCLOSE)
+    msgbox(format("I will return stronger!"), MSGBOX_AUTOCLOSE)
+    applymovement(1, Move_ArchieLeaves)
+    waitmovement(0)
+    removeobject(1)
     release
 }
 
@@ -54,14 +57,24 @@ script TARC_UNDERWATER_Update_Healspot {
     release
 }
 
+// ############### movements 
+
+movement Move_ArchieLeaves {
+    walk_down * 6
+}
+
 // ############### texts ###############
 
 text Archie_Intro {
-    "Hello, there.\p"
-    "You can refer to me in scripts or C code."
+    "Why are you here???\p"
+    "I am on a secret mission to take\n"
+    "over this island!\p"
+    "You won't BREAK my plans!"
 }
 
 text Archie_Defeat {
-    "Hello, there.\p"
-    "You can refer to me in scripts or C code."
+    "How dare you!\p"
+    "Where did you get these Pokémon\n"
+    "from?\p"
+    "Aaaargh!"
 }

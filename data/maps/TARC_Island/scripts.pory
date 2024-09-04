@@ -7,6 +7,9 @@ mapscripts TARC_Island_MapScripts {
 
 script TARC_Island_OnResume {
 	setvar(VAR_TEMP_2, 0) //var for EveryFrame
+    // #### uncomment to remove joke
+    setflag(FLAG_HIDE_RHYDON)
+    setflag(FLAG_HIDE_RHYDON_TRAINER)
 }
 
 script TARC_Island_OnTransition {
@@ -118,6 +121,29 @@ script TARC_Island_Corphish {
     release
 }
 
+script TARC_Island_Rhydon {
+    lock
+    faceplayer
+    playmoncry(SPECIES_RHYDON, CRY_MODE_ENCOUNTER)
+    msgbox(format("RHYDON!!!"), MSGBOX_AUTOCLOSE)
+    release
+}
+
+script TARC_Island_Rhydon_Trainer {
+    lock
+    faceplayer
+    msgbox(format("Hello {PLAYER},\phave you seen that stupid Rhydon next to me?"), MSGBOX_AUTOCLOSE)
+    dynmultichoice(0,0, TRUE, 6, 0, DYN_MULTICHOICE_CB_NONE, "Rhydon?")
+    msgbox(format("RHYDON DEEZ NUTS!"), MSGBOX_AUTOCLOSE)
+    msgbox("HAHAHAHA!")
+    applymovement(24, Move_walk_away_right)
+    applymovement(25, Move_walk_away_right)
+    waitmovement(0)
+    removeobject(24)
+    removeobject(25)
+    release
+}
+
 script TARC_Island_Azurill {
     lock
     faceplayer
@@ -190,7 +216,7 @@ script TARC_Island_Celebi {
         waitmovement(0)
         applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
         waitmovement(0)
-        setflag(FLAG_HIDE_CELEBI)   
+        msgbox(format("Celebi vanished in a beam of light."), MSGBOX_AUTOCLOSE) 
     }
     else
     {
@@ -314,7 +340,7 @@ script TARC_Island_Zigzagoon {
 		}
 		else {
             checkpartyability(36) //36 = ABILITY_TRACE
-            if (var(VAR_RESULT) == PARTY_SIZE)
+            if (var(VAR_RESULT) == PARTY_SIZE && !flag(FLAG_AQUA_CHANGED_PARTY))
             {
                 msgbox(format("Oh no, you lost an Ability Capsule!"), MSGBOX_AUTOCLOSE)
                 waitmessage
@@ -327,29 +353,27 @@ script TARC_Island_Zigzagoon {
 
     //check Life Orb
     clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
-	if (!defeated(TRAINER_CHASE)) {
-		checkitem(ITEM_LIFE_ORB)
-		if (var(VAR_RESULT) == TRUE) {
-			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
-		}
-		checkpartyitem(ITEM_LIFE_ORB)
-		if (var(VAR_RESULT) < 6) {
-			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
-		}
-		
-		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
-			//player is still holding the item
-		}
-		else {
-            msgbox(format("Oh no, you lost your LIFE ORB!"), MSGBOX_AUTOCLOSE)
-            waitmessage
-            msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
-            waitmessage
-            giveitem(ITEM_LIFE_ORB)
-		}
-	}
+    checkitem(ITEM_LIFE_ORB)
+    if (var(VAR_RESULT) == TRUE) {
+        setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+    }
+    checkpartyitem(ITEM_LIFE_ORB)
+    if (var(VAR_RESULT) < 6) {
+        setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+    }
+    
+    if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+        //player is still holding the item
+    }
+    else {
+        msgbox(format("Oh no, you lost your LIFE ORB!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
+        waitmessage
+        giveitem(ITEM_LIFE_ORB)
+    }
 
-    //check Life Orb
+    //check Gyaradosite
     clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
 	if (flag(FLAG_HIDE_GYARADOSITE)) {
 		checkitem(ITEM_GYARADOSITE)
@@ -523,7 +547,7 @@ script TARC_Island_Game_Master {
         }
 
         //Dive away
-        if (defeated(TRAINER_CHASE) && flag(FLAG_TARC_BREAKABLE_ROCK))
+        if (defeated(TRAINER_CHASE) && flag(FLAG_TARC_BREAKABLE_ROCK) && !flag(FLAG_USED_DIVE))
         {
             //check if hint was already given
             if (!flag(FLAG_HINT11)) {
@@ -532,6 +556,33 @@ script TARC_Island_Game_Master {
             }
             msgbox(format("You are free, {PLAYER}!\pJust dive out of here and follow the way south."), MSGBOX_AUTOCLOSE)
             clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+        }
+
+        //UNDERWATER part
+        if (flag(FLAG_USED_DIVE) && !defeated(TRAINER_ARCHIE))
+        {
+            //find hidden cave
+            if (var(VAR_TARC_UNDERWATER_CAVE) == 0)
+            {
+                //check if hint was already given
+                if (!flag(FLAG_HINT12)) {
+                    setflag(FLAG_HINT12)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                msgbox(format("Archie is stopping you from leaving the UNDERWATER PATH?\pYou need to closely explore the area then!"), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
+            else
+            {
+                //Archie battle
+                //check if hint was already given
+                if (!flag(FLAG_HINT13)) {
+                    setflag(FLAG_HINT13)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                msgbox(format("You keep losing to toxic damage?\pThere is a way to get rid of the spikes!\pIt will be teamwork but Mega Gyarados is your secret sauce!"), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
         }
     }
     else {
@@ -590,7 +641,7 @@ script TARC_Island_sign_Rock_Climb {
 	releaseall
 }
 
-script TARC_Island_Rhydon {
+script TARC_Island_Rhyhorn {
     lock
     faceplayer
     msgbox("RHYHORN!", MSGBOX_AUTOCLOSE)
@@ -678,11 +729,11 @@ script TARC_Island_Battle_Seismitoad {
             case B_OUTCOME_WON:
                 setflag(FLAG_WON_SEISMITOAD)
                 removeobject(18)
-                msgbox(format("Seismitoad vanished in the depths of the pond."), MSGBOX_AUTOCLOSE)
+                msgbox(format("Seismitoad disappeared in the depths of the pond."), MSGBOX_AUTOCLOSE)
                 setflag(FLAG_HIDE_SEISMITOAD)
             case B_OUTCOME_RAN:
                 clearflag(FLAG_BATTLE_SEISMITOAD)
-                goto(EventScript_FieldWhiteOut)
+                goto(EventScript_FieldWhiteOutAfterRunning)
             default:
                 clearflag(FLAG_BATTLE_SEISMITOAD)
         }
@@ -715,7 +766,7 @@ script TARC_Island_Battle_Slowking {
                 setflag(FLAG_WON_SLOWKING)
             case B_OUTCOME_RAN:
                 clearflag(FLAG_BATTLE_SLOWKING)
-                goto(EventScript_FieldWhiteOut)
+                goto(EventScript_FieldWhiteOutAfterRunning)
             default:
                 clearflag(FLAG_BATTLE_SLOWKING)
         }
@@ -748,6 +799,11 @@ movement Move_Rhydon {
 	jump_right
 	unlock_facing_direction
 }
+
+movement Move_walk_away_right {
+    walk_right * 9
+}
+
 movement Move_Camera {
     walk_slow_right*2
     walk_slow_down*5
@@ -756,9 +812,6 @@ movement Move_Camera {
     walk_slow_down*2
     walk_fast_left*9
     walk_right
-}
-
-movement Move_Rhydon_collision {
 }
 
 movement Move_Rock_smash_break {

@@ -1086,7 +1086,8 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     if (species == SPECIES_PORYGON) {
         moves[0] = MOVE_CONVERSION;
         moves[1] = MOVE_CONVERSION_2;
-        moves[2] = MOVE_MAGIC_COAT;
+        moves[2] = MOVE_REST;
+        //moves[2] = MOVE_MAGIC_COAT;
         moves[3] = MOVE_REVELATION_DANCE;
 
         for(i=0; i<=3; i++)
@@ -1094,6 +1095,10 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
             //set move
             DeleteFirstMoveAndGiveMoveToBoxMon(boxMon, moves[i]);
         }
+
+        //value = 252;
+        //SetBoxMonData(boxMon, MON_DATA_HP_EV, &value);
+        //SetBoxMonData(boxMon, MON_DATA_DEF_EV, &value);
     }
 
     if (species == SPECIES_FARFETCHD) {

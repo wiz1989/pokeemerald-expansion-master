@@ -6,6 +6,8 @@ TARC_Island_MapScripts::
 
 TARC_Island_OnResume::
 	setvar VAR_TEMP_2, 0
+	setflag FLAG_HIDE_RHYDON
+	setflag FLAG_HIDE_RHYDON_TRAINER
 	return
 
 
@@ -118,6 +120,31 @@ TARC_Island_Corphish::
 	faceplayer
 	playmoncry SPECIES_CORPHISH, CRY_MODE_NORMAL
 	msgbox TARC_Island_Corphish_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Island_Rhydon::
+	lock
+	faceplayer
+	playmoncry SPECIES_RHYDON, CRY_MODE_ENCOUNTER
+	msgbox TARC_Island_Rhydon_Text_0, MSGBOX_AUTOCLOSE
+	release
+	return
+
+
+TARC_Island_Rhydon_Trainer::
+	lock
+	faceplayer
+	msgbox TARC_Island_Rhydon_Trainer_Text_0, MSGBOX_AUTOCLOSE
+	dynmultichoice 0, 0, TRUE, 6, 0, DYN_MULTICHOICE_CB_NONE, TARC_Island_Rhydon_Trainer_Text_1
+	msgbox TARC_Island_Rhydon_Trainer_Text_2, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Rhydon_Trainer_Text_3
+	applymovement 24, Move_walk_away_right
+	applymovement 25, Move_walk_away_right
+	waitmovement 0
+	removeobject 24
+	removeobject 25
 	release
 	return
 
@@ -249,12 +276,24 @@ TARC_Island_Zigzagoon_14:
 	goto_if_set FLAG_TARC_ITEM_X, TARC_Island_Zigzagoon_27
 TARC_Island_Zigzagoon_25:
 	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	checktrainerflag TRAINER_CHASE
-	goto_if 0, TARC_Island_Zigzagoon_40
+	checkitem ITEM_LIFE_ORB
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_40
 TARC_Island_Zigzagoon_39:
-	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Zigzagoon_52
+	checkpartyitem ITEM_LIFE_ORB
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_52
 TARC_Island_Zigzagoon_51:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_61
+	msgbox TARC_Island_Zigzagoon_Text_5, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_LIFE_ORB
+TARC_Island_Zigzagoon_60:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Zigzagoon_68
+TARC_Island_Zigzagoon_67:
 	release
 	return
 
@@ -313,7 +352,7 @@ TARC_Island_Zigzagoon_30:
 	compare VAR_RESULT, 6
 	goto_if_lt TARC_Island_Zigzagoon_46
 TARC_Island_Zigzagoon_45:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_60
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_57
 	msgbox TARC_Island_Zigzagoon_Text_1, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -340,12 +379,12 @@ TARC_Island_Zigzagoon_26:
 TARC_Island_Zigzagoon_42:
 	checkpartyitem ITEM_ABILITY_CAPSULE
 	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_58
-TARC_Island_Zigzagoon_57:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_69
+	goto_if_lt TARC_Island_Zigzagoon_55
+TARC_Island_Zigzagoon_54:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_64
 	checkpartyability 36
 	compare VAR_RESULT, PARTY_SIZE
-	goto_if_eq TARC_Island_Zigzagoon_78
+	goto_if_eq TARC_Island_Zigzagoon_71
 	goto TARC_Island_Zigzagoon_25
 
 TARC_Island_Zigzagoon_27:
@@ -364,20 +403,7 @@ TARC_Island_Zigzagoon_36:
 	goto TARC_Island_Zigzagoon_1
 
 TARC_Island_Zigzagoon_40:
-	checkitem ITEM_LIFE_ORB
-	compare VAR_RESULT, TRUE
-	goto_if_eq TARC_Island_Zigzagoon_55
-TARC_Island_Zigzagoon_54:
-	checkpartyitem ITEM_LIFE_ORB
-	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_67
-TARC_Island_Zigzagoon_66:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_75
-	msgbox TARC_Island_Zigzagoon_Text_5, MSGBOX_AUTOCLOSE
-	waitmessage
-	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
-	waitmessage
-	giveitem ITEM_LIFE_ORB
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto TARC_Island_Zigzagoon_39
 
 TARC_Island_Zigzagoon_43:
@@ -392,52 +418,40 @@ TARC_Island_Zigzagoon_48:
 	goto TARC_Island_Zigzagoon_6
 
 TARC_Island_Zigzagoon_52:
-	checkitem ITEM_GYARADOSITE
-	compare VAR_RESULT, TRUE
-	goto_if_eq TARC_Island_Zigzagoon_64
-TARC_Island_Zigzagoon_63:
-	checkpartyitem ITEM_GYARADOSITE
-	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_73
-TARC_Island_Zigzagoon_72:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_80
-	msgbox TARC_Island_Zigzagoon_Text_6, MSGBOX_AUTOCLOSE
-	waitmessage
-	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
-	waitmessage
-	giveitem ITEM_GYARADOSITE
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto TARC_Island_Zigzagoon_51
 
 TARC_Island_Zigzagoon_55:
 	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto TARC_Island_Zigzagoon_54
 
-TARC_Island_Zigzagoon_58:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto TARC_Island_Zigzagoon_57
-
-TARC_Island_Zigzagoon_60:
+TARC_Island_Zigzagoon_57:
 	goto TARC_Island_Zigzagoon_14
 
+TARC_Island_Zigzagoon_61:
+	goto TARC_Island_Zigzagoon_60
+
 TARC_Island_Zigzagoon_64:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto TARC_Island_Zigzagoon_63
-
-TARC_Island_Zigzagoon_67:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto TARC_Island_Zigzagoon_66
-
-TARC_Island_Zigzagoon_69:
 	goto TARC_Island_Zigzagoon_25
 
-TARC_Island_Zigzagoon_73:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto TARC_Island_Zigzagoon_72
+TARC_Island_Zigzagoon_68:
+	checkitem ITEM_GYARADOSITE
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_75
+TARC_Island_Zigzagoon_74:
+	checkpartyitem ITEM_GYARADOSITE
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_78
+TARC_Island_Zigzagoon_77:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_80
+	msgbox TARC_Island_Zigzagoon_Text_6, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_GYARADOSITE
+	goto TARC_Island_Zigzagoon_67
 
-TARC_Island_Zigzagoon_75:
-	goto TARC_Island_Zigzagoon_39
-
-TARC_Island_Zigzagoon_78:
+TARC_Island_Zigzagoon_70:
 	msgbox TARC_Island_Zigzagoon_Text_4, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -445,8 +459,20 @@ TARC_Island_Zigzagoon_78:
 	giveitem ITEM_ABILITY_CAPSULE
 	goto TARC_Island_Zigzagoon_25
 
+TARC_Island_Zigzagoon_71:
+	goto_if_unset FLAG_AQUA_CHANGED_PARTY, TARC_Island_Zigzagoon_70
+	goto TARC_Island_Zigzagoon_25
+
+TARC_Island_Zigzagoon_75:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_74
+
+TARC_Island_Zigzagoon_78:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_77
+
 TARC_Island_Zigzagoon_80:
-	goto TARC_Island_Zigzagoon_51
+	goto TARC_Island_Zigzagoon_67
 
 
 TARC_Island_Game_Master::
@@ -459,7 +485,7 @@ TARC_Island_Game_Master::
 	msgbox TARC_Island_Game_Master_Text_1, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq TARC_Island_Game_Master_2
-	msgbox TARC_Island_Game_Master_Text_13, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Game_Master_Text_15, MSGBOX_AUTOCLOSE
 	waitmessage
 	release
 	end
@@ -468,7 +494,7 @@ TARC_Island_Game_Master_1:
 	waitmessage
 	goto_if_set FLAG_TARC_ADDTIME, TARC_Island_Game_Master_6
 	goto_if_set FLAG_TARC_GIVE_NO_ADVICE, TARC_Island_Game_Master_12
-	msgbox TARC_Island_Game_Master_Text_15
+	msgbox TARC_Island_Game_Master_Text_17
 	waitmessage
 TARC_Island_Game_Master_5:
 	release
@@ -490,7 +516,9 @@ TARC_Island_Game_Master_54:
 	goto_if 1, TARC_Island_Game_Master_70
 TARC_Island_Game_Master_68:
 	checktrainerflag TRAINER_CHASE
-	goto_if 1, TARC_Island_Game_Master_83
+	goto_if 1, TARC_Island_Game_Master_85
+TARC_Island_Game_Master_82:
+	goto_if_set FLAG_USED_DIVE, TARC_Island_Game_Master_93
 	goto TARC_Island_Game_Master_1
 
 TARC_Island_Game_Master_6:
@@ -506,7 +534,7 @@ TARC_Island_Game_Master_20:
 	goto TARC_Island_Game_Master_9
 
 TARC_Island_Game_Master_12:
-	msgbox TARC_Island_Game_Master_Text_14
+	msgbox TARC_Island_Game_Master_Text_16
 	waitmessage
 	goto TARC_Island_Game_Master_5
 
@@ -634,8 +662,8 @@ TARC_Island_Game_Master_66:
 	goto TARC_Island_Game_Master_65
 
 TARC_Island_Game_Master_69:
-	goto_if_unset FLAG_HINT10, TARC_Island_Game_Master_87
-TARC_Island_Game_Master_86:
+	goto_if_unset FLAG_HINT10, TARC_Island_Game_Master_90
+TARC_Island_Game_Master_89:
 	msgbox TARC_Island_Game_Master_Text_11, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_68
@@ -659,26 +687,61 @@ TARC_Island_Game_Master_80:
 	setflag FLAG_TARC_ADDTIME
 	goto TARC_Island_Game_Master_79
 
-TARC_Island_Game_Master_82:
-	goto_if_unset FLAG_HINT11, TARC_Island_Game_Master_90
-TARC_Island_Game_Master_89:
+TARC_Island_Game_Master_83:
+	goto_if_unset FLAG_HINT11, TARC_Island_Game_Master_97
+TARC_Island_Game_Master_96:
 	msgbox TARC_Island_Game_Master_Text_12, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_82
+
+TARC_Island_Game_Master_84:
+	goto_if_unset FLAG_USED_DIVE, TARC_Island_Game_Master_83
+	goto TARC_Island_Game_Master_82
+
+TARC_Island_Game_Master_85:
+	goto_if_set FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_84
+	goto TARC_Island_Game_Master_82
+
+TARC_Island_Game_Master_90:
+	setflag FLAG_HINT10
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_89
+
+TARC_Island_Game_Master_92:
+	compare VAR_TARC_UNDERWATER_CAVE, 0
+	goto_if_eq TARC_Island_Game_Master_99
+	goto_if_unset FLAG_HINT13, TARC_Island_Game_Master_106
+TARC_Island_Game_Master_105:
+	msgbox TARC_Island_Game_Master_Text_14, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_83:
-	goto_if_set FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_82
+TARC_Island_Game_Master_93:
+	checktrainerflag TRAINER_ARCHIE
+	goto_if 0, TARC_Island_Game_Master_92
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_87:
-	setflag FLAG_HINT10
-	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_86
-
-TARC_Island_Game_Master_90:
+TARC_Island_Game_Master_97:
 	setflag FLAG_HINT11
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_89
+	goto TARC_Island_Game_Master_96
+
+TARC_Island_Game_Master_99:
+	goto_if_unset FLAG_HINT12, TARC_Island_Game_Master_103
+TARC_Island_Game_Master_102:
+	msgbox TARC_Island_Game_Master_Text_13, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_1
+
+TARC_Island_Game_Master_103:
+	setflag FLAG_HINT12
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_102
+
+TARC_Island_Game_Master_106:
+	setflag FLAG_HINT13
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_105
 
 
 TARC_Island_Maxie::
@@ -711,58 +774,58 @@ TARC_Island_sign_Rock_Climb::
 	return
 
 
-TARC_Island_Rhydon::
+TARC_Island_Rhyhorn::
 	lock
 	faceplayer
-	msgbox TARC_Island_Rhydon_Text_0, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Rhyhorn_Text_0, MSGBOX_AUTOCLOSE
 	waitmessage
 	compare VAR_RHYDON_STATE, 0
-	goto_if_eq TARC_Island_Rhydon_22
-TARC_Island_Rhydon_20:
+	goto_if_eq TARC_Island_Rhyhorn_22
+TARC_Island_Rhyhorn_20:
 	compare VAR_RHYDON_STATE, 1
-	goto_if_eq TARC_Island_Rhydon_19
-TARC_Island_Rhydon_17:
+	goto_if_eq TARC_Island_Rhyhorn_19
+TARC_Island_Rhyhorn_17:
 	compare VAR_RHYDON_STATE, 2
-	goto_if_eq TARC_Island_Rhydon_16
-TARC_Island_Rhydon_14:
+	goto_if_eq TARC_Island_Rhyhorn_16
+TARC_Island_Rhyhorn_14:
 	compare VAR_RHYDON_STATE, 3
-	goto_if_eq TARC_Island_Rhydon_13
-TARC_Island_Rhydon_12:
+	goto_if_eq TARC_Island_Rhyhorn_13
+TARC_Island_Rhyhorn_12:
 	compare VAR_FACING, DIR_SOUTH
-	goto_if_eq TARC_Island_Rhydon_6
+	goto_if_eq TARC_Island_Rhyhorn_6
 	compare VAR_RHYDON_STATE, 4
-	goto_if_eq TARC_Island_Rhydon_9
-TARC_Island_Rhydon_8:
+	goto_if_eq TARC_Island_Rhyhorn_9
+TARC_Island_Rhyhorn_8:
 	setorcopyvar VAR_RHYDON_STATE, 0
-TARC_Island_Rhydon_1:
+TARC_Island_Rhyhorn_1:
 	release
 	return
 
-TARC_Island_Rhydon_2:
+TARC_Island_Rhyhorn_2:
 	setorcopyvar VAR_RHYDON_STATE, 1
-	goto TARC_Island_Rhydon_1
+	goto TARC_Island_Rhyhorn_1
 
-TARC_Island_Rhydon_3:
+TARC_Island_Rhyhorn_3:
 	setorcopyvar VAR_RHYDON_STATE, 2
-	goto TARC_Island_Rhydon_1
+	goto TARC_Island_Rhyhorn_1
 
-TARC_Island_Rhydon_4:
+TARC_Island_Rhyhorn_4:
 	setorcopyvar VAR_RHYDON_STATE, 3
-	goto TARC_Island_Rhydon_1
+	goto TARC_Island_Rhyhorn_1
 
-TARC_Island_Rhydon_5:
+TARC_Island_Rhyhorn_5:
 	setorcopyvar VAR_RHYDON_STATE, 4
-	goto TARC_Island_Rhydon_1
+	goto TARC_Island_Rhyhorn_1
 
-TARC_Island_Rhydon_6:
+TARC_Island_Rhyhorn_6:
 	setorcopyvar VAR_RHYDON_STATE, 1
-	goto TARC_Island_Rhydon_1
+	goto TARC_Island_Rhyhorn_1
 
-TARC_Island_Rhydon_7:
+TARC_Island_Rhyhorn_7:
 	setorcopyvar VAR_RHYDON_STATE, 5
 	applymovement 20, Move_exclmark
 	waitmovement 0
-	msgbox TARC_Island_Rhydon_Text_1, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Rhyhorn_Text_1, MSGBOX_AUTOCLOSE
 	playmoncry SPECIES_RHYDON, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
@@ -785,32 +848,32 @@ TARC_Island_Rhydon_7:
 	waitmovement 0
 	special RemoveCameraObject
 	setobjectxyperm 20, 26, 13
-	goto TARC_Island_Rhydon_1
+	goto TARC_Island_Rhyhorn_1
 
-TARC_Island_Rhydon_9:
+TARC_Island_Rhyhorn_9:
 	compare VAR_FACING, DIR_NORTH
-	goto_if_eq TARC_Island_Rhydon_7
-	goto TARC_Island_Rhydon_8
+	goto_if_eq TARC_Island_Rhyhorn_7
+	goto TARC_Island_Rhyhorn_8
 
-TARC_Island_Rhydon_13:
+TARC_Island_Rhyhorn_13:
 	compare VAR_FACING, DIR_EAST
-	goto_if_eq TARC_Island_Rhydon_5
-	goto TARC_Island_Rhydon_12
+	goto_if_eq TARC_Island_Rhyhorn_5
+	goto TARC_Island_Rhyhorn_12
 
-TARC_Island_Rhydon_16:
+TARC_Island_Rhyhorn_16:
 	compare VAR_FACING, DIR_SOUTH
-	goto_if_eq TARC_Island_Rhydon_4
-	goto TARC_Island_Rhydon_14
+	goto_if_eq TARC_Island_Rhyhorn_4
+	goto TARC_Island_Rhyhorn_14
 
-TARC_Island_Rhydon_19:
+TARC_Island_Rhyhorn_19:
 	compare VAR_FACING, DIR_WEST
-	goto_if_eq TARC_Island_Rhydon_3
-	goto TARC_Island_Rhydon_17
+	goto_if_eq TARC_Island_Rhyhorn_3
+	goto TARC_Island_Rhyhorn_17
 
-TARC_Island_Rhydon_22:
+TARC_Island_Rhyhorn_22:
 	compare VAR_FACING, DIR_SOUTH
-	goto_if_eq TARC_Island_Rhydon_2
-	goto TARC_Island_Rhydon_20
+	goto_if_eq TARC_Island_Rhyhorn_2
+	goto TARC_Island_Rhyhorn_20
 
 
 TARC_Island_Battle_Seismitoad::
@@ -848,7 +911,7 @@ TARC_Island_Battle_Seismitoad_6:
 
 TARC_Island_Battle_Seismitoad_7:
 	clearflag FLAG_BATTLE_SEISMITOAD
-	goto EventScript_FieldWhiteOut
+	goto EventScript_FieldWhiteOutAfterRunning
 	goto TARC_Island_Battle_Seismitoad_1
 
 
@@ -884,7 +947,7 @@ TARC_Island_Battle_Slowking_6:
 
 TARC_Island_Battle_Slowking_7:
 	clearflag FLAG_BATTLE_SLOWKING
-	goto EventScript_FieldWhiteOut
+	goto EventScript_FieldWhiteOutAfterRunning
 	goto TARC_Island_Battle_Slowking_1
 
 
@@ -923,6 +986,18 @@ Move_Rhydon:
 	unlock_facing_direction
 	step_end
 
+Move_walk_away_right:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
 Move_Camera:
 	walk_slow_right
 	walk_slow_right
@@ -947,9 +1022,6 @@ Move_Camera:
 	walk_fast_left
 	walk_fast_left
 	walk_right
-	step_end
-
-Move_Rhydon_collision:
 	step_end
 
 Move_Rock_smash_break:
@@ -1011,6 +1083,23 @@ TARC_Island_Chansey_Text_1:
 
 TARC_Island_Corphish_Text_0:
 	.string "Corph...$"
+
+TARC_Island_Rhydon_Text_0:
+	.string "RHYDON!!!$"
+
+TARC_Island_Rhydon_Trainer_Text_0:
+	.string "Hello {PLAYER},\p"
+	.string "have you seen that stupid Rhydon next\n"
+	.string "to me?$"
+
+TARC_Island_Rhydon_Trainer_Text_1:
+	.string "Rhydon?$"
+
+TARC_Island_Rhydon_Trainer_Text_2:
+	.string "RHYDON DEEZ NUTS!$"
+
+TARC_Island_Rhydon_Trainer_Text_3:
+	.string "HAHAHAHA!$"
 
 TARC_Island_Azurill_Text_0:
 	.string "Rill...$"
@@ -1140,9 +1229,21 @@ TARC_Island_Game_Master_Text_12:
 	.string "way south.$"
 
 TARC_Island_Game_Master_Text_13:
-	.string "Come back whenever you need me.$"
+	.string "Archie is stopping you from leaving the\n"
+	.string "UNDERWATER PATH?\p"
+	.string "You need to closely explore the area\n"
+	.string "then!$"
 
 TARC_Island_Game_Master_Text_14:
+	.string "You keep losing to toxic damage?\p"
+	.string "There is a way to get rid of the spikes!\p"
+	.string "It will be teamwork but Mega Gyarados\n"
+	.string "is your secret sauce!$"
+
+TARC_Island_Game_Master_Text_15:
+	.string "Come back whenever you need me.$"
+
+TARC_Island_Game_Master_Text_16:
 	.string "I am sorry, but I currently have no\n"
 	.string "hints to give to you.\p"
 	.string "Try proceeding by looking for items,\n"
@@ -1151,7 +1252,7 @@ TARC_Island_Game_Master_Text_14:
 	.string "Of course, you won't be charged 20\n"
 	.string "minutes this time.$"
 
-TARC_Island_Game_Master_Text_15:
+TARC_Island_Game_Master_Text_17:
 	.string "\p"
 	.string "...\p"
 	.string "I had already given this hint to you\n"
@@ -1201,10 +1302,10 @@ TARC_Island_sign_Game_Start_Text_0:
 TARC_Island_sign_Rock_Climb_Text_0:
 	.string "The rock below looks climbable. {DOWN_ARROW}$"
 
-TARC_Island_Rhydon_Text_0:
+TARC_Island_Rhyhorn_Text_0:
 	.string "RHYHORN!$"
 
-TARC_Island_Rhydon_Text_1:
+TARC_Island_Rhyhorn_Text_1:
 	.string "GRWAHH!$"
 
 TARC_Island_Battle_Seismitoad_Text_0:

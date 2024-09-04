@@ -261,7 +261,8 @@ static const u8 sCreditsText_AquasHideout[]                  = _("The Team Aqua'
 static const u8 sCreditsText_Kasen[]                         = _("Kasen (Fisherman)");
 static const u8 sCreditsText_ghoulslash[]                    = _("ghoulslash (Rock Climb, NPC scripts)");
 static const u8 sCreditsText_lucas7562[]                     = _("lucas7562 (DynPals)");
-static const u8 sCreditsText_purrfectdoodle[]                = _("purrfectdoodle (Birds weather)");
+static const u8 sCreditsText_purrfectdoodle[]                = _("purrfectdoodle");
+static const u8 sCreditsText_purrfectdoodle_Weather[]        = _("purrfectdoodle (Birds weather)");
 static const u8 sCreditsText_ToolsUsed[]                     = _("Tools used");
 static const u8 sCreditsText_Porymap[]                       = _("Porymap");
 static const u8 sCreditsText_Poryscript[]                    = _("Poryscript");
@@ -455,6 +456,7 @@ static const struct CreditsEntry sCreditsEntry_Kasen                            
 static const struct CreditsEntry sCreditsEntry_ghoulslash                       = {11, FALSE, sCreditsText_ghoulslash};
 static const struct CreditsEntry sCreditsEntry_lucas7562                        = {11, FALSE, sCreditsText_lucas7562};
 static const struct CreditsEntry sCreditsEntry_purrfectdoodle                   = {11, FALSE, sCreditsText_purrfectdoodle};
+static const struct CreditsEntry sCreditsEntry_purrfectdoodle_Weather           = {11, FALSE, sCreditsText_purrfectdoodle_Weather};
 static const struct CreditsEntry sCreditsEntry_ToolsUsed                        = {11, TRUE, sCreditsText_ToolsUsed};
 static const struct CreditsEntry sCreditsEntry_Porymap                          = {11, FALSE, sCreditsText_Porymap};
 static const struct CreditsEntry sCreditsEntry_Poryscript                       = {11, FALSE, sCreditsText_Poryscript};
@@ -511,7 +513,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         &sCreditsEntry_AddResources,
         &sCreditsEntry_ghoulslash,
         &sCreditsEntry_lucas7562,
-        &sCreditsEntry_purrfectdoodle,
+        &sCreditsEntry_purrfectdoodle_Weather,
         &sCreditsEntry_Kasen
     },
     [PAGE_TITLE_SCREEN] = {

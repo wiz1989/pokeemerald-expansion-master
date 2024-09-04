@@ -695,9 +695,9 @@
 #define FLAG_HIDE_AQUA_NPC                  0x28C // Unused Flag
 #define FLAG_TALKED_TO_GRUNT                0x28D // Unused Flag
 #define FLAG_AQUA_CHANGED_PARTY             0x28E // Unused Flag
-#define FLAG_UNUSED_0x28F  0x28F // Unused Flag
-#define FLAG_UNUSED_0x290  0x290 // Unused Flag
-#define FLAG_UNUSED_0x291  0x291 // Unused Flag
+#define FLAG_USED_DIVE                      0x28F // Unused Flag
+#define FLAG_HIDE_RHYDON_TRAINER            0x290 // Unused Flag
+#define FLAG_HIDE_RHYDON                    0x291 // Unused Flag
 #define FLAG_UNUSED_0x292  0x292 // Unused Flag
 #define FLAG_UNUSED_0x293  0x293 // Unused Flag
 #define FLAG_UNUSED_0x294  0x294 // Unused Flag
