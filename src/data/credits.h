@@ -6,6 +6,7 @@ enum
     PAGE_MAPPING,
     PAGE_DECOMP,
     PAGE_CUSTOM_ART,
+    PAGE_CUSTOM_ART2,
     PAGE_ADDED_FEATURES,
     PAGE_TITLE_SCREEN,
     PAGE_TESTERS,
@@ -264,6 +265,10 @@ static const u8 sCreditsText_ghoulslash[]                    = _("ghoulslash (Ro
 static const u8 sCreditsText_lucas7562[]                     = _("lucas7562 (DynPals)");
 static const u8 sCreditsText_purrfectdoodle[]                = _("purrfectdoodle");
 static const u8 sCreditsText_purrfectdoodle_Weather[]        = _("purrfectdoodle (Birds weather)");
+static const u8 sCreditsText_emcee_mikey[]                   = _("Emcee Mikey");
+static const u8 sCreditsText_kWharever[]                     = _("kWharever (Battle backgrounds)");
+static const u8 sCreditsText_Zeo254[]                        = _("Zeo254 (Battle backgrounds)");
+static const u8 sCreditsText_WesleyFG[]                      = _("WesleyFG (Battle backgrounds)");
 static const u8 sCreditsText_ToolsUsed[]                     = _("Tools used");
 static const u8 sCreditsText_Porymap[]                       = _("Porymap");
 static const u8 sCreditsText_Poryscript[]                    = _("Poryscript");
@@ -459,6 +464,10 @@ static const struct CreditsEntry sCreditsEntry_ghoulslash                       
 static const struct CreditsEntry sCreditsEntry_lucas7562                        = {11, FALSE, sCreditsText_lucas7562};
 static const struct CreditsEntry sCreditsEntry_purrfectdoodle                   = {11, FALSE, sCreditsText_purrfectdoodle};
 static const struct CreditsEntry sCreditsEntry_purrfectdoodle_Weather           = {11, FALSE, sCreditsText_purrfectdoodle_Weather};
+static const struct CreditsEntry sCreditsEntry_emcee_mikey                      = {11, FALSE, sCreditsText_emcee_mikey};
+static const struct CreditsEntry sCreditsEntry_kWharever                        = {11, FALSE, sCreditsText_kWharever};
+static const struct CreditsEntry sCreditsEntry_Zeo254                           = {11, FALSE, sCreditsText_Zeo254};
+static const struct CreditsEntry sCreditsEntry_WesleyFG                         = {11, FALSE, sCreditsText_WesleyFG};
 static const struct CreditsEntry sCreditsEntry_ToolsUsed                        = {11, TRUE, sCreditsText_ToolsUsed};
 static const struct CreditsEntry sCreditsEntry_Porymap                          = {11, FALSE, sCreditsText_Porymap};
 static const struct CreditsEntry sCreditsEntry_Poryscript                       = {11, FALSE, sCreditsText_Poryscript};
@@ -511,6 +520,13 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         &sCreditsEntry_wiz1989,
         _
     },
+    [PAGE_CUSTOM_ART2] = {
+        &sCreditsEntry_CustomArt,
+        &sCreditsEntry_kalarie,
+        &sCreditsEntry_ekat,
+        &sCreditsEntry_wiz1989,
+        _
+    },
     [PAGE_ADDED_FEATURES] = {
         &sCreditsEntry_AddResources,
         &sCreditsEntry_ghoulslash,
@@ -530,7 +546,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         &sCreditsEntry_BetaTesters,
         &sCreditsEntry_Celia,
         &sCreditsEntry_Bric13,
-        _
+        &sCreditsEntry_emcee_mikey
     },
     [PAGE_SPECIAL_THANKS] = {
         &sCreditsEntry_SpecialThanks,

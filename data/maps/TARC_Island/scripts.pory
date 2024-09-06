@@ -420,8 +420,8 @@ script TARC_Island_Game_Master {
                 setflag(FLAG_HINT01)
                 setflag(FLAG_TARC_ADDTIME)
             }
-            //msgbox(format("Are you struggling against Slowking?\pCheck out how Fling works and make use of your nugget!"), MSGBOX_AUTOCLOSE)
-            msgbox(format("Are you struggling against Slowking?\pYou should look into the move mechanics of Sableye to find a solution."), MSGBOX_AUTOCLOSE)
+            msgbox(format("Are you struggling against Slowking?\pCheck out how Fling works to make good use of your items!"), MSGBOX_AUTOCLOSE)
+            //msgbox(format("Are you struggling against Slowking?\pYou should look into the move mechanics of Sableye to find a solution."), MSGBOX_AUTOCLOSE)
             clearflag(FLAG_TARC_GIVE_NO_ADVICE)
         }
 
@@ -475,7 +475,7 @@ script TARC_Island_Game_Master {
                         setflag(FLAG_HINT05)
                         setflag(FLAG_TARC_ADDTIME)
                     }
-                    msgbox(format("Have you visited Celebi?\pMantine is so versatile to even learn a Grass type move!"), MSGBOX_AUTOCLOSE)
+                    msgbox(format("Have you visited Celebi?\pMantine is so versatile to even learn a Grass type move!\pAnd don't forget to include Sableye in the fight!"), MSGBOX_AUTOCLOSE)
                     clearflag(FLAG_TARC_GIVE_NO_ADVICE)
                 }
             }
@@ -529,7 +529,7 @@ script TARC_Island_Game_Master {
                 setflag(FLAG_TARC_ADDTIME)
             }
             //msgbox(format("The Castaway is too much for you?\pChanging Porygon's ability with the Ability Pill will allow you to copy Wonder Guard!\pThen try to change its type to Dark using the Conversion moves."), MSGBOX_AUTOCLOSE)
-            msgbox(format("The Castaway is too much for you?\pYou should look into Porygon's abilities to make it a fair pairing!\pThe key to success is to manage your typing skillfully!"), MSGBOX_AUTOCLOSE)
+            msgbox(format("The Castaway is too much for you?\pYou should look into Porygon's abilities to make it a fair pairing!\pThe key to success then is to manage your typing skillfully!"), MSGBOX_AUTOCLOSE)
             clearflag(FLAG_TARC_GIVE_NO_ADVICE)
         }
 
@@ -630,7 +630,7 @@ script TARC_Island_Maxie {
 
 script TARC_Island_sign_Game_Start {
     lock
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 LEVEL UP move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and some base stats, RNG odds etc. might have been slightly altered to balance the game.\p4.) Running from trainer battles is explicitly ALLOWED."))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 LEVEL UP move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and RNG odds are either 100% or 0% to balance the game.\p4.) Running from trainer battles is explicitly ALLOWED.\p5.) Bulbapedia is your friend!"))
     waitmessage
     release
 }
