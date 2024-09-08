@@ -48,8 +48,11 @@ script TARC_Sea_EveryFrame_GameStart {
     setorcopyvar(VAR_LITTLEROOT_TOWN_STATE, 2)
     applymovement(OBJ_EVENT_ID_PLAYER, Move_driftintocurrents)
     waitmovement(0)
-	msgbox(format("This is a preliminary Alpha Testing Version of this hack.\pPlease do not share it outside of the closed testing circle."))
-    waitmessage
+    applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)
+    waitmovement(0)
+	msgbox(format("{PLAYER} regained consciousness."), MSGBOX_AUTOCLOSE)
+	//msgbox(format("This is a preliminary Alpha Testing Version of this hack.\pPlease do not share it outside of the closed testing circle."))
+    //waitmessage
     release
 }
 
@@ -75,7 +78,15 @@ script TARC_SEA_GameEnd {
 	buffertimestring(STR_VAR_2, VAR_RESULT)
 	specialvar(VAR_RESULT, GetPlayTimeSeconds)
 	buffertimestring(STR_VAR_3, VAR_RESULT)
-	msgbox(format("Congratulations {PLAYER}! \pYou have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}."))
+
+	msgbox(format("Congratulations {PLAYER}!\pYou freed yourself from the island and can now safely surf back home."), MSGBOX_AUTOCLOSE)
+
+	//surf out of screen
+    applymovement(OBJ_EVENT_ID_PLAYER, Move_ArchieLeaves)
+	waitmovement(0)
+	fadescreen(FADE_TO_BLACK)
+
+	msgbox(format("You have completed the challenge. Well done! \pYour final time is {STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}."))
 	waitmessage
 
 	//get hints count
@@ -143,8 +154,6 @@ script TARC_SEA_GameEnd {
 	buffernumberstring(STR_VAR_1, VAR_TARC_COUNT)
 	msgbox(format("You have been using {STR_VAR_1} hint(s)."))
 	waitmessage
-	//fadescreen(FADE_FROM_BLACK)
-	//fadescreen(FADE_TO_BLACK)
 
 	//show game credits
 	special(StartCredits)

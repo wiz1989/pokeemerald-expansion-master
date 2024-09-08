@@ -120,7 +120,7 @@ TARC_CAVE_Braille1_Text:
 	brailleformat 7, 2, 23, 17, 10, 5
 	.braille "ONE WHO\n"
 	.braille "SEARCHES\n"
-	.braille "CAN FIND.$"
+	.braille "WILL FIND.$"
 
 TARC_CAVE_Braille2_Text:
 	brailleformat 0, 0, 29, 19, 3, 3

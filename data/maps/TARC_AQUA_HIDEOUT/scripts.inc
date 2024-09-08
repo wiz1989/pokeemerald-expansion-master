@@ -3,7 +3,7 @@ TARC_AQUA_HIDEOUT_MapScripts::
 
 
 TARC_AQUA_ChangeParty::
-	lock
+	lockall
 	faceplayer
 	goto_if_unset FLAG_TALKED_TO_GRUNT, TARC_AQUA_ChangeParty_2
 TARC_AQUA_ChangeParty_1:
@@ -13,7 +13,7 @@ TARC_AQUA_ChangeParty_1:
 	msgbox TARC_AQUA_ChangeParty_Text_5
 	waitmessage
 TARC_AQUA_ChangeParty_4:
-	release
+	releaseall
 	return
 
 TARC_AQUA_ChangeParty_2:

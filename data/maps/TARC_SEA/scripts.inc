@@ -46,8 +46,9 @@ TARC_Sea_EveryFrame_GameStart::
 	setorcopyvar VAR_LITTLEROOT_TOWN_STATE, 2
 	applymovement OBJ_EVENT_ID_PLAYER, Move_driftintocurrents
 	waitmovement 0
-	msgbox TARC_Sea_EveryFrame_GameStart_Text_0
-	waitmessage
+	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
+	waitmovement 0
+	msgbox TARC_Sea_EveryFrame_GameStart_Text_0, MSGBOX_AUTOCLOSE
 	release
 	return
 
@@ -70,7 +71,11 @@ TARC_SEA_GameEnd::
 	buffertimestring STR_VAR_2, VAR_RESULT
 	specialvar VAR_RESULT, GetPlayTimeSeconds
 	buffertimestring STR_VAR_3, VAR_RESULT
-	msgbox TARC_SEA_GameEnd_Text_0
+	msgbox TARC_SEA_GameEnd_Text_0, MSGBOX_AUTOCLOSE
+	applymovement OBJ_EVENT_ID_PLAYER, Move_ArchieLeaves
+	waitmovement 0
+	fadescreen FADE_TO_BLACK
+	msgbox TARC_SEA_GameEnd_Text_1
 	waitmessage
 	setorcopyvar VAR_TARC_COUNT, 0
 	goto_if_set FLAG_HINT01, TARC_SEA_GameEnd_2
@@ -114,7 +119,7 @@ TARC_SEA_GameEnd_55:
 	goto_if_set FLAG_HINT20, TARC_SEA_GameEnd_59
 TARC_SEA_GameEnd_58:
 	buffernumberstring STR_VAR_1, VAR_TARC_COUNT
-	msgbox TARC_SEA_GameEnd_Text_1
+	msgbox TARC_SEA_GameEnd_Text_2
 	waitmessage
 	special StartCredits
 	return
@@ -256,21 +261,22 @@ Move_AfterCurrent:
 	step_end
 
 TARC_Sea_EveryFrame_GameStart_Text_0:
-	.string "This is a preliminary Alpha Testing\n"
-	.string "Version of this hack.\p"
-	.string "Please do not share it outside of the\n"
-	.string "closed testing circle.$"
+	.string "{PLAYER} regained consciousness.$"
 
 TARC_SEA_Wingull_Text_0:
 	.string "Wingull!$"
 
 TARC_SEA_GameEnd_Text_0:
 	.string "Congratulations {PLAYER}!\p"
+	.string "You freed yourself from the island and\n"
+	.string "can now safely surf back home.$"
+
+TARC_SEA_GameEnd_Text_1:
 	.string "You have completed the challenge. Well\n"
 	.string "done!\p"
 	.string "Your final time is\n"
 	.string "{STR_VAR_1}:{STR_VAR_2}:{STR_VAR_3}.$"
 
-TARC_SEA_GameEnd_Text_1:
+TARC_SEA_GameEnd_Text_2:
 	.string "You have been using {STR_VAR_1}\n"
 	.string "hint(s).$"

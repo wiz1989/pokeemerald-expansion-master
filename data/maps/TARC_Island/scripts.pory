@@ -397,6 +397,34 @@ script TARC_Island_Zigzagoon {
 		}
 	}
 
+    //check TM100 ROCK_CLIMB
+    clearflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+	if (flag(FLAG_TARC_item_Rock_Climb) && !flag(FLAG_AQUA_CHANGED_PARTY)) {
+		checkitem(ITEM_TM100)
+		if (var(VAR_RESULT) == TRUE) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		checkpartyitem(ITEM_TM100)
+		if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+        checkpartymove(MOVE_ROCK_CLIMB)
+        if (var(VAR_RESULT) < 6) {
+			setflag(FLAG_COLLECTOR_DONT_GIVE_ITEM)
+		}
+		
+		if (flag(FLAG_COLLECTOR_DONT_GIVE_ITEM)) {
+			//player is still holding the item
+		}
+		else {
+            msgbox(format("Oh no, you lost your ROCK CLIMB TM!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
+            waitmessage
+            giveitem(ITEM_TM100)
+		}
+	}
+
 	release
 }
 
@@ -619,7 +647,7 @@ script TARC_Island_Maxie {
     if(!flag(FLAG_TARC_ITEM_X))
     {
         msgbox(format("Hello traveler!\lWelcome to my island!"), MSGBOX_AUTOCLOSE)
-        msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe was wandering these MEADOWS swinging his sword to become as skillful as his big idol Link.\pSuch a tragedy he founded that stupid ass Team Aqua..."), MSGBOX_AUTOCLOSE)
+        msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe was wandering these MEADOWS swinging his sword to become as skillful as his big idol Link.\pSuch a tragedy he later founded that stupid ass Team Aqua..."), MSGBOX_AUTOCLOSE)
     }
     else
     {

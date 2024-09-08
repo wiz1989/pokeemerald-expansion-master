@@ -22,7 +22,7 @@ gText_Birch_Pokemon::
 	.string "$"
 
 gText_Birch_MainSpeech::
-	.string "You ended up in the rough currents\n"
+	.string "You end up in the rough currents\n"
 	.string "around MAXIE'S ISLAND where you awake.\p"
 	.string "To escape from there you will need to\n"
 	.string "develop unique tactics to battle your\l"

@@ -7,7 +7,7 @@ mapscripts TARC_AQUA_HIDEOUT_MapScripts {
 // ############### Regular EventScripts ###############
 
 script TARC_AQUA_ChangeParty {
-    lock
+    lockall
     faceplayer
     if (!flag(FLAG_TALKED_TO_GRUNT))
     {
@@ -53,7 +53,7 @@ script TARC_AQUA_ChangeParty {
         msgbox(format("You'll be coming back."))
         waitmessage
     }
-    release
+    releaseall
 }
 
 script TARC_AQUA_ItemBall {

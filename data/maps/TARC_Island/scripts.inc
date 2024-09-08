@@ -294,6 +294,9 @@ TARC_Island_Zigzagoon_60:
 	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
 	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Zigzagoon_68
 TARC_Island_Zigzagoon_67:
+	clearflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto_if_set FLAG_TARC_item_Rock_Climb, TARC_Island_Zigzagoon_76
+TARC_Island_Zigzagoon_74:
 	release
 	return
 
@@ -437,13 +440,13 @@ TARC_Island_Zigzagoon_64:
 TARC_Island_Zigzagoon_68:
 	checkitem ITEM_GYARADOSITE
 	compare VAR_RESULT, TRUE
-	goto_if_eq TARC_Island_Zigzagoon_75
-TARC_Island_Zigzagoon_74:
+	goto_if_eq TARC_Island_Zigzagoon_80
+TARC_Island_Zigzagoon_79:
 	checkpartyitem ITEM_GYARADOSITE
 	compare VAR_RESULT, 6
-	goto_if_lt TARC_Island_Zigzagoon_78
-TARC_Island_Zigzagoon_77:
-	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_80
+	goto_if_lt TARC_Island_Zigzagoon_86
+TARC_Island_Zigzagoon_85:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_91
 	msgbox TARC_Island_Zigzagoon_Text_6, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
@@ -464,15 +467,55 @@ TARC_Island_Zigzagoon_71:
 	goto TARC_Island_Zigzagoon_25
 
 TARC_Island_Zigzagoon_75:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	checkitem ITEM_TM100
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC_Island_Zigzagoon_83
+TARC_Island_Zigzagoon_82:
+	checkpartyitem ITEM_TM100
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_89
+TARC_Island_Zigzagoon_88:
+	checkpartymove MOVE_ROCK_CLIMB
+	compare VAR_RESULT, 6
+	goto_if_lt TARC_Island_Zigzagoon_95
+TARC_Island_Zigzagoon_94:
+	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_97
+	msgbox TARC_Island_Zigzagoon_Text_7, MSGBOX_AUTOCLOSE
+	waitmessage
+	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
+	waitmessage
+	giveitem ITEM_TM100
 	goto TARC_Island_Zigzagoon_74
 
-TARC_Island_Zigzagoon_78:
-	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
-	goto TARC_Island_Zigzagoon_77
+TARC_Island_Zigzagoon_76:
+	goto_if_unset FLAG_AQUA_CHANGED_PARTY, TARC_Island_Zigzagoon_75
+	goto TARC_Island_Zigzagoon_74
 
 TARC_Island_Zigzagoon_80:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_79
+
+TARC_Island_Zigzagoon_83:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_82
+
+TARC_Island_Zigzagoon_86:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_85
+
+TARC_Island_Zigzagoon_89:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_88
+
+TARC_Island_Zigzagoon_91:
 	goto TARC_Island_Zigzagoon_67
+
+TARC_Island_Zigzagoon_95:
+	setflag FLAG_COLLECTOR_DONT_GIVE_ITEM
+	goto TARC_Island_Zigzagoon_94
+
+TARC_Island_Zigzagoon_97:
+	goto TARC_Island_Zigzagoon_74
 
 
 TARC_Island_Game_Master::
@@ -1151,6 +1194,9 @@ TARC_Island_Zigzagoon_Text_5:
 TARC_Island_Zigzagoon_Text_6:
 	.string "Oh no, you lost your GYARADOSITE!$"
 
+TARC_Island_Zigzagoon_Text_7:
+	.string "Oh no, you lost your ROCK CLIMB TM!$"
+
 TARC_Island_Game_Master_Text_0:
 	.string "I am the Game Master.\p"
 	.string "I will give you helpful advice for each\n"
@@ -1162,8 +1208,8 @@ TARC_Island_Game_Master_Text_1:
 
 TARC_Island_Game_Master_Text_2:
 	.string "Are you struggling against Slowking?\p"
-	.string "You should look into the move mechanics\n"
-	.string "of Sableye to find a solution.$"
+	.string "Check out how Fling works to make good\n"
+	.string "use of your items!$"
 
 TARC_Island_Game_Master_Text_3:
 	.string "Your party seems too small to continue\n"
@@ -1188,7 +1234,9 @@ TARC_Island_Game_Master_Text_5:
 TARC_Island_Game_Master_Text_6:
 	.string "Have you visited Celebi?\p"
 	.string "Mantine is so versatile to even learn a\n"
-	.string "Grass type move!$"
+	.string "Grass type move!\p"
+	.string "And don't forget to include Sableye in\n"
+	.string "the fight!$"
 
 TARC_Island_Game_Master_Text_7:
 	.string "You need help with the cave mechanics?\p"
@@ -1217,8 +1265,8 @@ TARC_Island_Game_Master_Text_10:
 	.string "The Castaway is too much for you?\p"
 	.string "You should look into Porygon's abilities\n"
 	.string "to make it a fair pairing!\p"
-	.string "The key to success is to manage your\n"
-	.string "typing skillfully!$"
+	.string "The key to success then is to manage\n"
+	.string "your typing skillfully!$"
 
 TARC_Island_Game_Master_Text_11:
 	.string "You still cannot reach past the\n"
@@ -1278,8 +1326,8 @@ TARC_Island_Maxie_Text_1:
 	.string "He was wandering these MEADOWS\n"
 	.string "swinging his sword to become as skillful\l"
 	.string "as his big idol Link.\p"
-	.string "Such a tragedy he founded that stupid\n"
-	.string "ass Team Aqua...$"
+	.string "Such a tragedy he later founded that\n"
+	.string "stupid ass Team Aqua...$"
 
 TARC_Island_Maxie_Text_2:
 	.string "You found the item I had hidden!\p"
@@ -1296,11 +1344,11 @@ TARC_Island_sign_Game_Start_Text_0:
 	.string "3.) The game mechanics are basically\n"
 	.string "vanilla.\l"
 	.string "However, crits are removed, confusions\l"
-	.string "snap out immediately and some base\l"
-	.string "stats, RNG odds etc. might have been\l"
-	.string "slightly altered to balance the game.\p"
+	.string "snap out immediately and RNG odds are\l"
+	.string "either 100% or 0% to balance the game.\p"
 	.string "4.) Running from trainer battles is\n"
-	.string "explicitly ALLOWED.$"
+	.string "explicitly ALLOWED.\p"
+	.string "5.) Bulbapedia is your friend!$"
 
 TARC_Island_sign_Rock_Climb_Text_0:
 	.string "The rock below looks climbable. {DOWN_ARROW}$"

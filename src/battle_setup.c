@@ -730,11 +730,15 @@ static void CB2_EndScriptedWildBattle(void)
 
 u8 BattleSetup_GetTerrainId(void)
 {
-    u16 tileBehavior;
+    u16 tileBehavior, tileBehavior_inFront;
     s16 x, y;
 
     PlayerGetDestCoords(&x, &y);
     tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
+
+    //get tiledata in front of player
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    tileBehavior_inFront = MapGridGetMetatileBehaviorAt(x, y);
 
     if (MetatileBehavior_IsTallGrass(tileBehavior))
         return BATTLE_TERRAIN_GRASS;
@@ -767,8 +771,6 @@ u8 BattleSetup_GetTerrainId(void)
     }
     if (MetatileBehavior_IsDeepOrOceanWater(tileBehavior))
         return BATTLE_TERRAIN_WATER;
-    if (MetatileBehavior_IsSurfableWaterOrUnderwater(tileBehavior))
-        return BATTLE_TERRAIN_POND;
     if (MetatileBehavior_IsMountain(tileBehavior))
         return BATTLE_TERRAIN_MOUNTAIN;
     if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
@@ -784,7 +786,12 @@ u8 BattleSetup_GetTerrainId(void)
         return BATTLE_TERRAIN_SAND;
     if (GetSavedWeather() == WEATHER_SANDSTORM)
         return BATTLE_TERRAIN_SAND;
-
+    if (MetatileBehavior_IsSurfableWaterOrUnderwater(tileBehavior))
+        return BATTLE_TERRAIN_POND;
+    //only true if fishing in a pond
+    if (MetatileBehavior_IsSurfableWaterOrUnderwater(tileBehavior_inFront))
+        return BATTLE_TERRAIN_POND;
+    
     return BATTLE_TERRAIN_PLAIN;
 }
 

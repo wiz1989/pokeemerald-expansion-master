@@ -279,6 +279,7 @@ static void CreateBirdSprites(void)
         return;
     }
 
+    //roll bird species
     u8 bird_species = Random() % 3;
     LoadSpriteSheet(&sBirdSpriteSheet[bird_species]);
     LoadCustomWeatherSpritePalette(&sBirdsSpritePalette[bird_species]);

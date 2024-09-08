@@ -247,6 +247,7 @@ static const u8 sCreditsText_BasedOn[]                       = _("Based on the P
 static const u8 sCreditsText_pret[]                          = _("pret");
 static const u8 sCreditsText_RHH[]                           = _("RH Hideout");
 static const u8 sCreditsText_CustomArt[]                     = _("Custom Art and Tiles");
+static const u8 sCreditsText_CustomArt2[]                    = _("Custom Battle Backgrounds");
 static const u8 sCreditsText_kalarie[]                       = _("Kalarie (Orange Islands Tileset)");
 static const u8 sCreditsText_ekat[]                          = _("Ekat (Underwater shell and plant)");
 static const u8 sCreditsText_mudskip[]                       = _("Name 2");
@@ -266,6 +267,7 @@ static const u8 sCreditsText_lucas7562[]                     = _("lucas7562 (Dyn
 static const u8 sCreditsText_purrfectdoodle[]                = _("purrfectdoodle");
 static const u8 sCreditsText_purrfectdoodle_Weather[]        = _("purrfectdoodle (Birds weather)");
 static const u8 sCreditsText_emcee_mikey[]                   = _("Emcee Mikey");
+static const u8 sCreditsText_Chairry[]                       = _("Chairry (Battle backgrounds)");
 static const u8 sCreditsText_kWharever[]                     = _("kWharever (Battle backgrounds)");
 static const u8 sCreditsText_Zeo254[]                        = _("Zeo254 (Battle backgrounds)");
 static const u8 sCreditsText_WesleyFG[]                      = _("WesleyFG (Battle backgrounds)");
@@ -446,6 +448,7 @@ static const struct CreditsEntry sCreditsEntry_BasedOn                          
 static const struct CreditsEntry sCreditsEntry_pret                             = {11, FALSE, sCreditsText_pret};
 static const struct CreditsEntry sCreditsEntry_RHH                              = {11, FALSE, sCreditsText_RHH};
 static const struct CreditsEntry sCreditsEntry_CustomArt                        = {11, TRUE, sCreditsText_CustomArt};
+static const struct CreditsEntry sCreditsEntry_CustomArt2                       = {11, TRUE, sCreditsText_CustomArt2};
 static const struct CreditsEntry sCreditsEntry_kalarie                          = {11, FALSE, sCreditsText_kalarie};
 static const struct CreditsEntry sCreditsEntry_ekat                             = {11, FALSE, sCreditsText_ekat};
 static const struct CreditsEntry sCreditsEntry_ladymiko                         = {11, FALSE, sCreditsText_ladymiko};
@@ -465,6 +468,7 @@ static const struct CreditsEntry sCreditsEntry_lucas7562                        
 static const struct CreditsEntry sCreditsEntry_purrfectdoodle                   = {11, FALSE, sCreditsText_purrfectdoodle};
 static const struct CreditsEntry sCreditsEntry_purrfectdoodle_Weather           = {11, FALSE, sCreditsText_purrfectdoodle_Weather};
 static const struct CreditsEntry sCreditsEntry_emcee_mikey                      = {11, FALSE, sCreditsText_emcee_mikey};
+static const struct CreditsEntry sCreditsEntry_Chairry                          = {11, FALSE, sCreditsText_Chairry};
 static const struct CreditsEntry sCreditsEntry_kWharever                        = {11, FALSE, sCreditsText_kWharever};
 static const struct CreditsEntry sCreditsEntry_Zeo254                           = {11, FALSE, sCreditsText_Zeo254};
 static const struct CreditsEntry sCreditsEntry_WesleyFG                         = {11, FALSE, sCreditsText_WesleyFG};
@@ -521,11 +525,11 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         _
     },
     [PAGE_CUSTOM_ART2] = {
-        &sCreditsEntry_CustomArt,
-        &sCreditsEntry_kalarie,
-        &sCreditsEntry_ekat,
-        &sCreditsEntry_wiz1989,
-        _
+        &sCreditsEntry_CustomArt2,
+        &sCreditsEntry_Chairry,
+        &sCreditsEntry_kWharever,
+        &sCreditsEntry_Zeo254,
+        &sCreditsEntry_WesleyFG
     },
     [PAGE_ADDED_FEATURES] = {
         &sCreditsEntry_AddResources,
