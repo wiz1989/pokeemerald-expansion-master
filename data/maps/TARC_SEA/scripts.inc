@@ -46,6 +46,12 @@ TARC_Sea_EveryFrame_GameStart::
 	setorcopyvar VAR_LITTLEROOT_TOWN_STATE, 2
 	applymovement OBJ_EVENT_ID_PLAYER, Move_driftintocurrents
 	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Move_faceright
+	waitmovement 0
+	delay 60
+	applymovement OBJ_EVENT_ID_PLAYER, Move_faceleft
+	waitmovement 0
+	delay 60
 	applymovement OBJ_EVENT_ID_PLAYER, Move_exclmark
 	waitmovement 0
 	msgbox TARC_Sea_EveryFrame_GameStart_Text_0, MSGBOX_AUTOCLOSE
@@ -72,9 +78,11 @@ TARC_SEA_GameEnd::
 	specialvar VAR_RESULT, GetPlayTimeSeconds
 	buffertimestring STR_VAR_3, VAR_RESULT
 	msgbox TARC_SEA_GameEnd_Text_0, MSGBOX_AUTOCLOSE
+	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_PLAYER, Move_ArchieLeaves
-	waitmovement 0
-	fadescreen FADE_TO_BLACK
+	fadescreenspeed FADE_TO_BLACK, 8
+	delay 48
+	special RemoveCameraObject
 	msgbox TARC_SEA_GameEnd_Text_1
 	waitmessage
 	setorcopyvar VAR_TARC_COUNT, 0

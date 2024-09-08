@@ -44,9 +44,9 @@ const struct SpritePalette sFogSpritePalette = {gFogPalette, PALTAG_WEATHER_2};
 const struct SpritePalette sCloudsSpritePalette = {gCloudsWeatherPalette, 0x1207};
 const struct SpritePalette sBirdsSpritePalette[] = 
 {
-    {gBirdsWeatherPalette, PALTAG_WEATHER_2},
-    {gBirdsWeatherPalette2, PALTAG_WEATHER_2},
-    {gBirdsWeatherPalette3, PALTAG_WEATHER_2}
+    {gBirdsWeatherPalette, PALTAG_BIRD},
+    {gBirdsWeatherPalette2, PALTAG_BIRD},
+    {gBirdsWeatherPalette3, PALTAG_BIRD}
     
 };
 const struct SpritePalette sSandstormSpritePalette = {gSandstormWeatherPalette, 0x1204};
@@ -144,7 +144,7 @@ static const union AnimCmd *const sBirdSpriteAnimCmds[] =
 static const struct SpriteTemplate sBirdSpriteTemplate =
 {
     .tileTag = GFXTAG_BIRD,
-    .paletteTag = PALTAG_WEATHER_2,
+    .paletteTag = PALTAG_BIRD,
     .oam = &sBirdSpriteOamData,
     .anims = sBirdSpriteAnimCmds,
     .images = NULL,

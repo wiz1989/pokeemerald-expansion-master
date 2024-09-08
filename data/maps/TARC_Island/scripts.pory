@@ -600,12 +600,22 @@ script TARC_Island_Game_Master {
                 msgbox(format("Archie is stopping you from leaving the UNDERWATER PATH?\pYou need to closely explore the area then!"), MSGBOX_AUTOCLOSE)
                 clearflag(FLAG_TARC_GIVE_NO_ADVICE)
             }
+            elif (flag(FLAG_HIDE_GYARADOSITE) && !(flag(FLAG_HIDE_MEGA_RING)))
+            {
+                //check if hint was already given
+                if (!flag(FLAG_HINT13)) {
+                    setflag(FLAG_HINT13)
+                    setflag(FLAG_TARC_ADDTIME)
+                }
+                msgbox(format("Oh, you have found a Gyaradosite!\pBut you are still searching for a Mega Ring?\pSeems like you missed to properly explore the cave."), MSGBOX_AUTOCLOSE)
+                clearflag(FLAG_TARC_GIVE_NO_ADVICE)
+            }
             else
             {
                 //Archie battle
                 //check if hint was already given
-                if (!flag(FLAG_HINT13)) {
-                    setflag(FLAG_HINT13)
+                if (!flag(FLAG_HINT14)) {
+                    setflag(FLAG_HINT14)
                     setflag(FLAG_TARC_ADDTIME)
                 }
                 msgbox(format("You keep losing to toxic damage?\pThere is a way to get rid of the spikes!\pIt will be teamwork but Mega Gyarados is your secret sauce!"), MSGBOX_AUTOCLOSE)
@@ -644,14 +654,21 @@ script TARC_Island_Game_Master {
 script TARC_Island_Maxie {
     lock
     faceplayer
-    if(!flag(FLAG_TARC_ITEM_X))
+    if(!flag(FLAG_TARC_CUT_X))
     {
         msgbox(format("Hello traveler!\lWelcome to my island!"), MSGBOX_AUTOCLOSE)
-        msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe was wandering these MEADOWS swinging his sword to become as skillful as his big idol Link.\pSuch a tragedy he later founded that stupid ass Team Aqua..."), MSGBOX_AUTOCLOSE)
+        msgbox(format("It's been a long time since I have seen a soul on this plateau.\pA famous trainer named Archie was the last one in ages.\pHe visited this place riding a Kyogre and came here to practice his sword fighting skills.\pHe was wandering these MEADOWS swinging his sword to become as skillful as his big idol Link.\pSuch a tragedy he later founded that stupid ass Team Aqua..."), MSGBOX_AUTOCLOSE)     
     }
     else
     {
-        msgbox(format("You found the item I had hidden!\pA magnificent feat that only a real Pokémon Master could've pulled off."), MSGBOX_AUTOCLOSE)
+        if (!flag(FLAG_TARC_ITEM_X))
+        {
+            msgbox(format("That's weird!\pYou found the hidden spot cutting the grass and didn't interact with it?\pWhy wouldn't you?"), MSGBOX_AUTOCLOSE)
+        }
+        else
+        {
+            msgbox(format("You found the item I had hidden!\pA magnificent feat that only a real Pokémon Master could've pulled off."), MSGBOX_AUTOCLOSE)
+        }
     }
     release
 }

@@ -528,7 +528,7 @@ TARC_Island_Game_Master::
 	msgbox TARC_Island_Game_Master_Text_1, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq TARC_Island_Game_Master_2
-	msgbox TARC_Island_Game_Master_Text_15, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Game_Master_Text_16, MSGBOX_AUTOCLOSE
 	waitmessage
 	release
 	end
@@ -537,7 +537,7 @@ TARC_Island_Game_Master_1:
 	waitmessage
 	goto_if_set FLAG_TARC_ADDTIME, TARC_Island_Game_Master_6
 	goto_if_set FLAG_TARC_GIVE_NO_ADVICE, TARC_Island_Game_Master_12
-	msgbox TARC_Island_Game_Master_Text_17
+	msgbox TARC_Island_Game_Master_Text_18
 	waitmessage
 TARC_Island_Game_Master_5:
 	release
@@ -577,7 +577,7 @@ TARC_Island_Game_Master_20:
 	goto TARC_Island_Game_Master_9
 
 TARC_Island_Game_Master_12:
-	msgbox TARC_Island_Game_Master_Text_16
+	msgbox TARC_Island_Game_Master_Text_17
 	waitmessage
 	goto TARC_Island_Game_Master_5
 
@@ -753,9 +753,11 @@ TARC_Island_Game_Master_90:
 TARC_Island_Game_Master_92:
 	compare VAR_TARC_UNDERWATER_CAVE, 0
 	goto_if_eq TARC_Island_Game_Master_99
-	goto_if_unset FLAG_HINT13, TARC_Island_Game_Master_106
-TARC_Island_Game_Master_105:
-	msgbox TARC_Island_Game_Master_Text_14, MSGBOX_AUTOCLOSE
+	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Game_Master_102
+TARC_Island_Game_Master_101:
+	goto_if_unset FLAG_HINT14, TARC_Island_Game_Master_113
+TARC_Island_Game_Master_112:
+	msgbox TARC_Island_Game_Master_Text_15, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
@@ -770,28 +772,45 @@ TARC_Island_Game_Master_97:
 	goto TARC_Island_Game_Master_96
 
 TARC_Island_Game_Master_99:
-	goto_if_unset FLAG_HINT12, TARC_Island_Game_Master_103
-TARC_Island_Game_Master_102:
+	goto_if_unset FLAG_HINT12, TARC_Island_Game_Master_107
+TARC_Island_Game_Master_106:
 	msgbox TARC_Island_Game_Master_Text_13, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_103:
+TARC_Island_Game_Master_100:
+	goto_if_unset FLAG_HINT13, TARC_Island_Game_Master_110
+TARC_Island_Game_Master_109:
+	msgbox TARC_Island_Game_Master_Text_14, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_1
+
+TARC_Island_Game_Master_102:
+	goto_if_unset FLAG_HIDE_MEGA_RING, TARC_Island_Game_Master_100
+	goto TARC_Island_Game_Master_101
+
+TARC_Island_Game_Master_107:
 	setflag FLAG_HINT12
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_102
+	goto TARC_Island_Game_Master_106
 
-TARC_Island_Game_Master_106:
+TARC_Island_Game_Master_110:
 	setflag FLAG_HINT13
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_105
+	goto TARC_Island_Game_Master_109
+
+TARC_Island_Game_Master_113:
+	setflag FLAG_HINT14
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_112
 
 
 TARC_Island_Maxie::
 	lock
 	faceplayer
-	goto_if_unset FLAG_TARC_ITEM_X, TARC_Island_Maxie_2
-	msgbox TARC_Island_Maxie_Text_2, MSGBOX_AUTOCLOSE
+	goto_if_unset FLAG_TARC_CUT_X, TARC_Island_Maxie_2
+	goto_if_unset FLAG_TARC_ITEM_X, TARC_Island_Maxie_5
+	msgbox TARC_Island_Maxie_Text_3, MSGBOX_AUTOCLOSE
 TARC_Island_Maxie_1:
 	release
 	return
@@ -799,6 +818,10 @@ TARC_Island_Maxie_1:
 TARC_Island_Maxie_2:
 	msgbox TARC_Island_Maxie_Text_0, MSGBOX_AUTOCLOSE
 	msgbox TARC_Island_Maxie_Text_1, MSGBOX_AUTOCLOSE
+	goto TARC_Island_Maxie_1
+
+TARC_Island_Maxie_5:
+	msgbox TARC_Island_Maxie_Text_2, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Maxie_1
 
 
@@ -1286,15 +1309,22 @@ TARC_Island_Game_Master_Text_13:
 	.string "then!$"
 
 TARC_Island_Game_Master_Text_14:
+	.string "Oh, you have found a Gyaradosite!\p"
+	.string "But you are still searching for a Mega\n"
+	.string "Ring?\p"
+	.string "Seems like you missed to properly\n"
+	.string "explore the cave.$"
+
+TARC_Island_Game_Master_Text_15:
 	.string "You keep losing to toxic damage?\p"
 	.string "There is a way to get rid of the spikes!\p"
 	.string "It will be teamwork but Mega Gyarados\n"
 	.string "is your secret sauce!$"
 
-TARC_Island_Game_Master_Text_15:
+TARC_Island_Game_Master_Text_16:
 	.string "Come back whenever you need me.$"
 
-TARC_Island_Game_Master_Text_16:
+TARC_Island_Game_Master_Text_17:
 	.string "I am sorry, but I currently have no\n"
 	.string "hints to give to you.\p"
 	.string "Try proceeding by looking for items,\n"
@@ -1303,7 +1333,7 @@ TARC_Island_Game_Master_Text_16:
 	.string "Of course, you won't be charged 20\n"
 	.string "minutes this time.$"
 
-TARC_Island_Game_Master_Text_17:
+TARC_Island_Game_Master_Text_18:
 	.string "\p"
 	.string "...\p"
 	.string "I had already given this hint to you\n"
@@ -1330,6 +1360,12 @@ TARC_Island_Maxie_Text_1:
 	.string "stupid ass Team Aqua...$"
 
 TARC_Island_Maxie_Text_2:
+	.string "That's weird!\p"
+	.string "You found the hidden spot cutting the\n"
+	.string "grass and didn't interact with it?\p"
+	.string "Why wouldn't you?$"
+
+TARC_Island_Maxie_Text_3:
 	.string "You found the item I had hidden!\p"
 	.string "A magnificent feat that only a real\n"
 	.string "Pokémon Master could've pulled off.$"

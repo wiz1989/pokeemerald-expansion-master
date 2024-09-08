@@ -22,7 +22,7 @@
 #define FADE_TO_WHITE    3
 
 // Birds weather
-#define MAX_BIRD_SPRITES                5 // Max number of birds that can exist at the same time
+#define MAX_BIRD_SPRITES                2 // Max number of birds that can exist at the same time
 #define BIRD_NB_SPECIES                 1  // Number of different species that can exist in the same "weather instance"
 #define BIRD_DESTROY_PIXEL_BUFFER       128 // how many pixels off screen to wait before destroying birds
 #define BIRD_X_SPAWN_DISTANCE           16 // how many pixels outside the edge of the screen to create sprites
