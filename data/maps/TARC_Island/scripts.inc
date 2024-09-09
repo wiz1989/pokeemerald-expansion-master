@@ -1318,8 +1318,8 @@ TARC_Island_Game_Master_Text_14:
 TARC_Island_Game_Master_Text_15:
 	.string "You keep losing to toxic damage?\p"
 	.string "There is a way to get rid of the spikes!\p"
-	.string "It will be teamwork but Mega Gyarados\n"
-	.string "is your secret sauce!$"
+	.string "It will be teamwork but you need to find\n"
+	.string "a way to ignore Weezing's Levitate!$"
 
 TARC_Island_Game_Master_Text_16:
 	.string "Come back whenever you need me.$"
