@@ -3881,7 +3881,7 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
     [SPECIES_OVERQWIL] =
     {
         .baseHP        = 85,
-        .baseAttack    = 115,
+        .baseAttack    = 115, //was 115 wiz1989
         .baseDefense   = 95,
         .baseSpeed     = 85,
         .baseSpAttack  = 65,

@@ -11,8 +11,10 @@ script TARC_AQUA_ChangeParty {
     faceplayer
     if (!flag(FLAG_TALKED_TO_GRUNT))
     {
-        msgbox(format("Archie has gone mad!\pHe and Maxie met on this island before they founded their competing organizations.\pAnd now Archie wants to build the new Hideout exactly here.\pBut why?\pI'd rather have a nice casino and a bar next door than living on this god forsaken rock."), MSGBOX_AUTOCLOSE)
-        msgbox(format("Let me help you out to dissuade him from his obscure intentions."), MSGBOX_AUTOCLOSE)
+        msgbox(format("Archie has gone mad!\pHe and Maxie met on this island before they founded their competing organizations.\pAnd now Archie wants to build the new Hideout exactly here.\pBut why?\pI'd rather have a nice casino and a bar next door than living on this god forsaken rock."))
+        waitmessage
+        msgbox(format("Let me help you out to dissuade him from his obscure intentions."))
+        waitmessage
         setflag(FLAG_TALKED_TO_GRUNT)
     }
     msgbox(format("I have two special Pokémon with me that might be able to get you the win.\pBut I would need your party for it instead.\pI'm Team Aqua after all...\pYou can keep your Surfing buddy though.\pI am not a monster.\pDeal?"), MSGBOX_YESNO)
@@ -31,8 +33,6 @@ script TARC_AQUA_ChangeParty {
         msgbox(format("{PLAYER} acquired two Pokéballs from Team Aqua.\pWas that worth it...?"))
         waitmessage
         closemessage
-
-        //waitbuttonpress
 
         msgbox(format("Hehehe..."), MSGBOX_AUTOCLOSE)
         applymovement(OBJ_EVENT_ID_PLAYER, Move_exclmark)

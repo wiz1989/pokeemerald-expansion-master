@@ -17,8 +17,10 @@ TARC_AQUA_ChangeParty_4:
 	return
 
 TARC_AQUA_ChangeParty_2:
-	msgbox TARC_AQUA_ChangeParty_Text_0, MSGBOX_AUTOCLOSE
-	msgbox TARC_AQUA_ChangeParty_Text_1, MSGBOX_AUTOCLOSE
+	msgbox TARC_AQUA_ChangeParty_Text_0
+	waitmessage
+	msgbox TARC_AQUA_ChangeParty_Text_1
+	waitmessage
 	setflag FLAG_TALKED_TO_GRUNT
 	goto TARC_AQUA_ChangeParty_1
 

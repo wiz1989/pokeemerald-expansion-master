@@ -618,7 +618,7 @@ script TARC_Island_Game_Master {
                     setflag(FLAG_HINT14)
                     setflag(FLAG_TARC_ADDTIME)
                 }
-                msgbox(format("You keep losing to toxic damage?\pThere is a way to get rid of the spikes!\pIt will be teamwork but Mega Gyarados is your secret sauce!"), MSGBOX_AUTOCLOSE)
+                msgbox(format("You keep losing to toxic damage?\pThere is a way to get rid of the spikes!\pIt will be teamwork but you need to find a way to ignore Weezing's Levitate!"), MSGBOX_AUTOCLOSE)
                 clearflag(FLAG_TARC_GIVE_NO_ADVICE)
             }
         }

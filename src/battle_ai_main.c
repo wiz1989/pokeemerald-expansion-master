@@ -2674,14 +2674,43 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     //OHKO bonus
     if (GetNoOfHitsToKOBattler(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex) == 1)
         ADJUST_SCORE(1);
-    //if (move == MOVE_THUNDERBOLT && ((gBattleMons[battlerDef].type1 == TYPE_FLYING || gBattleMons[battlerDef].type2 != TYPE_FLYING) || (gBattleMons[battlerDef].type1 == TYPE_WATER || gBattleMons[battlerDef].type2 != TYPE_WATER)))
-    //    ADJUST_SCORE(1);
-    //ignore Mantine if possible
-    if (VarGet(VAR_TARC_UNDERWATER_CAVE) > 0 && gBattleMons[battlerDef].species == SPECIES_MANTINE)
+    //Kyogre to ignore Mantine if possible
+    //if (VarGet(VAR_TARC_UNDERWATER_CAVE) > 0 && gBattleMons[battlerAtk].species == SPECIES_KYOGRE && gBattleMons[battlerDef].species == SPECIES_MANTINE)
+    //    ADJUST_SCORE(-2);
+    //Kyogre to prefer one-turn OHKOs
+    DebugPrintf("species = %d", gBattleMons[battlerAtk].species);
+    DebugPrintf("move = %d", move);
+    DebugPrintf("hits to KO = %d", GetNoOfHitsToKOBattler(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex));
+    
+    if (gBattleMons[battlerAtk].species == SPECIES_KYOGRE && (move == MOVE_SURF || move == MOVE_ORIGIN_PULSE) && GetNoOfHitsToKOBattler(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex) == 1)
+    {
+         DebugPrintf("score before = %d", score);
+        //if (score < 90)
+        //    score = 100;
+        ADJUST_SCORE(5);
+        DebugPrintf("score after = %d", score);
+    }
+    //Overqwil to prefer Dive on 1:1 if not against Mantine
+    if (gBattleMons[battlerAtk].species == SPECIES_OVERQWIL && move == MOVE_DIVE && CountTotalUsableMons(battlerDef) == 1)
+        ADJUST_SCORE(10);
+    else if (move == MOVE_DIVE)
         ADJUST_SCORE(-2);
+    //focus on Gyarados
+    if (gBattleMons[battlerDef].species == SPECIES_GYARADOS || gBattleMons[battlerDef].species == SPECIES_GYARADOS_MEGA)
+    {
+        if (gBattleMons[battlerAtk].species == SPECIES_OVERQWIL && move == MOVE_CRUNCH)
+            ADJUST_SCORE(3);
+        else
+            ADJUST_SCORE(2);
+    }
+    //special rule for Toxic Spikes
+    if (move == MOVE_TOXIC_SPIKES && !gDisableStructs[battlerAtk].isFirstTurn && gSideTimers[GetBattlerSide(battlerDef)].toxicSpikesAmount == 0)
+        ADJUST_SCORE(-1);
 
     if (score < 0)
         score = 0;
+
+    DebugPrintf("move = %d, score = %d", move, score);
 
     return score;
 }
@@ -4736,6 +4765,8 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         }
     }
 
+    DebugPrintf("CalcMoveEffect - score = %d", score);
+
     if (score <= 1)
         return NOT_GOOD_ENOUGH;
     else if (score <= 3)
@@ -4781,6 +4812,8 @@ static s32 AI_SetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
     {
         RETURN_SCORE_MINUS(20);    // No point in setting up if you will faint. Should just switch if possible..
     }
+
+    DebugPrintf("SetUpFirstTurn");
 
     // check effects to prioritize first turn
     switch (gMovesInfo[move].effect)
@@ -4853,6 +4886,7 @@ static s32 AI_SetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
     case EFFECT_ELECTRIC_TERRAIN:
     case EFFECT_MISTY_TERRAIN:
     case EFFECT_STEALTH_ROCK:
+    case EFFECT_TOXIC_SPIKES:
     case EFFECT_TRICK_ROOM:
     case EFFECT_WONDER_ROOM:
     case EFFECT_MAGIC_ROOM:
@@ -4886,8 +4920,6 @@ static s32 AI_SetupFirstTurn(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
             }
         }
     }
-    case EFFECT_TOXIC_SPIKES:
-        ADJUST_SCORE(10);
     default:
         break;
     }

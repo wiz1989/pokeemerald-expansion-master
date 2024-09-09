@@ -323,17 +323,17 @@ static const struct TrainerMon sParty_Archie[] = {
     .species = SPECIES_KYOGRE,
     .heldItem = ITEM_NONE,
     .nature = NATURE_CAREFUL,
-    .moves = {MOVE_ROAR, MOVE_THUNDERBOLT, MOVE_AQUA_TAIL, MOVE_NONE}
+    .moves = {MOVE_ROAR, MOVE_THUNDERBOLT, MOVE_ORIGIN_PULSE, MOVE_NONE}
     },
     {
-    .iv = TRAINER_PARTY_IVS(31, 10, 31, 31, 0, 31),
-    .ev = TRAINER_PARTY_EVS(0, 0, 252, 0, 0, 252),
+    .iv = TRAINER_PARTY_IVS(31, 31, 31, 31, 0, 31),
+    .ev = TRAINER_PARTY_EVS(0, 4, 252, 0, 0, 252),
     .lvl = 30,
     .species = SPECIES_OVERQWIL,
     .heldItem = ITEM_BLACK_SLUDGE,
     .nature = NATURE_CAREFUL,
     .ability = ABILITY_INTIMIDATE,
-    .moves = {MOVE_TOXIC_SPIKES, MOVE_DIVE, MOVE_NONE, MOVE_NONE}
+    .moves = {MOVE_TOXIC_SPIKES, MOVE_DIVE, MOVE_CRUNCH, MOVE_NONE}
     }
 };
 

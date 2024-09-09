@@ -416,7 +416,7 @@ const struct Trainer gTrainers[] = {
         .trainerName = _("ARCHIE"),
         .items = {},
         .doubleBattle = TRUE,
-        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY, // | AI_FLAG_TRY_TO_FAINT
+        .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_OMNISCIENT, // | AI_FLAG_TRY_TO_FAINT
         .party = TRAINER_PARTY(sParty_Archie),
     },
 
