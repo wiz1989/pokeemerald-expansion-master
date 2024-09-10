@@ -74,6 +74,7 @@
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "event_data.h"
 
 enum {
     MENU_SUMMARY,
@@ -4753,6 +4754,8 @@ void Task_AbilityCapsule(u8 taskId)
         break;
     case 5:
         SetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, &tAbilityNum);
+        VarSet(VAR_LAST_CAPSULE_USED_ON, tSpecies);
+        DebugPrintf("VAR_LAST_CAPSULE_USED_ON = %d", VarGet(VAR_LAST_CAPSULE_USED_ON));
         RemoveBagItem(gSpecialVar_ItemId, 1);
         gTasks[taskId].func = Task_ClosePartyMenu;
         break;

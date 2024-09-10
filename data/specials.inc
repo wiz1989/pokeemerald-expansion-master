@@ -568,3 +568,4 @@ gSpecials::
 	def_special PlayTimeSubHrs
 	def_special RestartPlayTimer
 	def_special IsPokemonInParty
+	def_special ReverseAbilityCapsule

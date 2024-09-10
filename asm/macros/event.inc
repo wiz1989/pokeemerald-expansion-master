@@ -2214,13 +2214,13 @@
 
 	@ get the slot of a certain species in the player's party
 	.macro getpartymonslot species: req
-	setvar VAR_TEMP_1, \species
+	setorcopyvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, GetMonPartySlot
 	.endm
 
 	@ check if a certain species is found in the player's party.
 	@ TRUE/FALSE is written into VAR_RESULT
 	.macro checkpartymon species:req
-	setvar VAR_TEMP_1, \species
+	setorcopyvar VAR_TEMP_1, \species
 	specialvar VAR_RESULT, IsPokemonInParty
 	.endm

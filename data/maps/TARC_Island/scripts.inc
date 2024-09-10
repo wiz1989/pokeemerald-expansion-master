@@ -285,7 +285,7 @@ TARC_Island_Zigzagoon_39:
 	goto_if_lt TARC_Island_Zigzagoon_52
 TARC_Island_Zigzagoon_51:
 	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_61
-	msgbox TARC_Island_Zigzagoon_Text_5, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Zigzagoon_Text_6, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
@@ -447,7 +447,7 @@ TARC_Island_Zigzagoon_79:
 	goto_if_lt TARC_Island_Zigzagoon_86
 TARC_Island_Zigzagoon_85:
 	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_91
-	msgbox TARC_Island_Zigzagoon_Text_6, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Zigzagoon_Text_7, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
@@ -460,6 +460,9 @@ TARC_Island_Zigzagoon_70:
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
 	giveitem ITEM_ABILITY_CAPSULE
+	getpartymonslot VAR_LAST_CAPSULE_USED_ON
+	special ReverseAbilityCapsule
+	msgbox TARC_Island_Zigzagoon_Text_5, MSGBOX_AUTOCLOSE
 	goto TARC_Island_Zigzagoon_25
 
 TARC_Island_Zigzagoon_71:
@@ -480,7 +483,7 @@ TARC_Island_Zigzagoon_88:
 	goto_if_lt TARC_Island_Zigzagoon_95
 TARC_Island_Zigzagoon_94:
 	goto_if_set FLAG_COLLECTOR_DONT_GIVE_ITEM, TARC_Island_Zigzagoon_97
-	msgbox TARC_Island_Zigzagoon_Text_7, MSGBOX_AUTOCLOSE
+	msgbox TARC_Island_Zigzagoon_Text_8, MSGBOX_AUTOCLOSE
 	waitmessage
 	msgbox TARC_Island_Zigzagoon_Text_2, MSGBOX_AUTOCLOSE
 	waitmessage
@@ -553,15 +556,15 @@ TARC_Island_Game_Master_15:
 TARC_Island_Game_Master_23:
 	goto_if_set FLAG_CAVE_SOLVED2, TARC_Island_Game_Master_37
 TARC_Island_Game_Master_35:
-	goto_if_set FLAG_TARC_ITEM_X, TARC_Island_Game_Master_56
+	goto_if_set FLAG_TARC_ITEM_X, TARC_Island_Game_Master_57
 TARC_Island_Game_Master_54:
 	checktrainerflag TRAINER_CHASE
-	goto_if 1, TARC_Island_Game_Master_70
-TARC_Island_Game_Master_68:
+	goto_if 1, TARC_Island_Game_Master_72
+TARC_Island_Game_Master_70:
 	checktrainerflag TRAINER_CHASE
-	goto_if 1, TARC_Island_Game_Master_85
-TARC_Island_Game_Master_82:
-	goto_if_set FLAG_USED_DIVE, TARC_Island_Game_Master_93
+	goto_if 1, TARC_Island_Game_Master_87
+TARC_Island_Game_Master_84:
+	goto_if_set FLAG_USED_DIVE, TARC_Island_Game_Master_95
 	goto TARC_Island_Game_Master_1
 
 TARC_Island_Game_Master_6:
@@ -634,8 +637,8 @@ TARC_Island_Game_Master_49:
 	goto TARC_Island_Game_Master_15
 
 TARC_Island_Game_Master_36:
-	goto_if_unset FLAG_TARC_item_Pokeballs2, TARC_Island_Game_Master_59
-	goto_if_set FLAG_TARC_FARFETCHD, TARC_Island_Game_Master_61
+	goto_if_unset FLAG_TARC_item_Pokeballs2, TARC_Island_Game_Master_61
+	goto_if_set FLAG_TARC_FARFETCHD, TARC_Island_Game_Master_63
 	goto TARC_Island_Game_Master_35
 
 TARC_Island_Game_Master_37:
@@ -663,15 +666,15 @@ TARC_Island_Game_Master_50:
 	goto TARC_Island_Game_Master_49
 
 TARC_Island_Game_Master_52:
-	goto_if_unset FLAG_HINT05, TARC_Island_Game_Master_66
-TARC_Island_Game_Master_65:
+	goto_if_unset FLAG_HINT05, TARC_Island_Game_Master_68
+TARC_Island_Game_Master_67:
 	msgbox TARC_Island_Game_Master_Text_6, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_15
 
 TARC_Island_Game_Master_55:
-	goto_if_unset FLAG_HINT09, TARC_Island_Game_Master_74
-TARC_Island_Game_Master_73:
+	goto_if_unset FLAG_HINT09, TARC_Island_Game_Master_76
+TARC_Island_Game_Master_75:
 	msgbox TARC_Island_Game_Master_Text_10, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_54
@@ -681,128 +684,132 @@ TARC_Island_Game_Master_56:
 	goto_if 0, TARC_Island_Game_Master_55
 	goto TARC_Island_Game_Master_54
 
-TARC_Island_Game_Master_59:
-	goto_if_unset FLAG_HINT07, TARC_Island_Game_Master_77
-TARC_Island_Game_Master_76:
+TARC_Island_Game_Master_57:
+	goto_if_set FLAG_REMORAID_TRADE_COMPLETED, TARC_Island_Game_Master_56
+	goto TARC_Island_Game_Master_54
+
+TARC_Island_Game_Master_61:
+	goto_if_unset FLAG_HINT07, TARC_Island_Game_Master_79
+TARC_Island_Game_Master_78:
 	msgbox TARC_Island_Game_Master_Text_8, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_35
 
-TARC_Island_Game_Master_60:
-	goto_if_unset FLAG_HINT08, TARC_Island_Game_Master_80
-TARC_Island_Game_Master_79:
+TARC_Island_Game_Master_62:
+	goto_if_unset FLAG_HINT08, TARC_Island_Game_Master_82
+TARC_Island_Game_Master_81:
 	msgbox TARC_Island_Game_Master_Text_9, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_35
 
-TARC_Island_Game_Master_61:
-	goto_if_unset FLAG_TARC_CUT_X, TARC_Island_Game_Master_60
+TARC_Island_Game_Master_63:
+	goto_if_unset FLAG_TARC_CUT_X, TARC_Island_Game_Master_62
 	goto TARC_Island_Game_Master_35
 
-TARC_Island_Game_Master_66:
+TARC_Island_Game_Master_68:
 	setflag FLAG_HINT05
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_65
+	goto TARC_Island_Game_Master_67
 
-TARC_Island_Game_Master_69:
-	goto_if_unset FLAG_HINT10, TARC_Island_Game_Master_90
-TARC_Island_Game_Master_89:
+TARC_Island_Game_Master_71:
+	goto_if_unset FLAG_HINT10, TARC_Island_Game_Master_92
+TARC_Island_Game_Master_91:
 	msgbox TARC_Island_Game_Master_Text_11, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
-	goto TARC_Island_Game_Master_68
+	goto TARC_Island_Game_Master_70
 
-TARC_Island_Game_Master_70:
-	goto_if_unset FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_69
-	goto TARC_Island_Game_Master_68
+TARC_Island_Game_Master_72:
+	goto_if_unset FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_71
+	goto TARC_Island_Game_Master_70
 
-TARC_Island_Game_Master_74:
+TARC_Island_Game_Master_76:
 	setflag FLAG_HINT09
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_73
+	goto TARC_Island_Game_Master_75
 
-TARC_Island_Game_Master_77:
+TARC_Island_Game_Master_79:
 	setflag FLAG_HINT07
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_76
+	goto TARC_Island_Game_Master_78
 
-TARC_Island_Game_Master_80:
+TARC_Island_Game_Master_82:
 	setflag FLAG_HINT08
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_79
-
-TARC_Island_Game_Master_83:
-	goto_if_unset FLAG_HINT11, TARC_Island_Game_Master_97
-TARC_Island_Game_Master_96:
-	msgbox TARC_Island_Game_Master_Text_12, MSGBOX_AUTOCLOSE
-	clearflag FLAG_TARC_GIVE_NO_ADVICE
-	goto TARC_Island_Game_Master_82
-
-TARC_Island_Game_Master_84:
-	goto_if_unset FLAG_USED_DIVE, TARC_Island_Game_Master_83
-	goto TARC_Island_Game_Master_82
+	goto TARC_Island_Game_Master_81
 
 TARC_Island_Game_Master_85:
-	goto_if_set FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_84
-	goto TARC_Island_Game_Master_82
+	goto_if_unset FLAG_HINT11, TARC_Island_Game_Master_99
+TARC_Island_Game_Master_98:
+	msgbox TARC_Island_Game_Master_Text_12, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_84
 
-TARC_Island_Game_Master_90:
-	setflag FLAG_HINT10
-	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_89
+TARC_Island_Game_Master_86:
+	goto_if_unset FLAG_USED_DIVE, TARC_Island_Game_Master_85
+	goto TARC_Island_Game_Master_84
+
+TARC_Island_Game_Master_87:
+	goto_if_set FLAG_TARC_BREAKABLE_ROCK, TARC_Island_Game_Master_86
+	goto TARC_Island_Game_Master_84
 
 TARC_Island_Game_Master_92:
+	setflag FLAG_HINT10
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_91
+
+TARC_Island_Game_Master_94:
 	compare VAR_TARC_UNDERWATER_CAVE, 0
-	goto_if_eq TARC_Island_Game_Master_99
-	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Game_Master_102
-TARC_Island_Game_Master_101:
-	goto_if_unset FLAG_HINT14, TARC_Island_Game_Master_113
-TARC_Island_Game_Master_112:
+	goto_if_eq TARC_Island_Game_Master_101
+	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Game_Master_104
+TARC_Island_Game_Master_103:
+	goto_if_unset FLAG_HINT14, TARC_Island_Game_Master_115
+TARC_Island_Game_Master_114:
 	msgbox TARC_Island_Game_Master_Text_15, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_93:
+TARC_Island_Game_Master_95:
 	checktrainerflag TRAINER_ARCHIE
-	goto_if 0, TARC_Island_Game_Master_92
+	goto_if 0, TARC_Island_Game_Master_94
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_97:
+TARC_Island_Game_Master_99:
 	setflag FLAG_HINT11
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_96
+	goto TARC_Island_Game_Master_98
 
-TARC_Island_Game_Master_99:
-	goto_if_unset FLAG_HINT12, TARC_Island_Game_Master_107
-TARC_Island_Game_Master_106:
+TARC_Island_Game_Master_101:
+	goto_if_unset FLAG_HINT12, TARC_Island_Game_Master_109
+TARC_Island_Game_Master_108:
 	msgbox TARC_Island_Game_Master_Text_13, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_100:
-	goto_if_unset FLAG_HINT13, TARC_Island_Game_Master_110
-TARC_Island_Game_Master_109:
+TARC_Island_Game_Master_102:
+	goto_if_unset FLAG_HINT13, TARC_Island_Game_Master_112
+TARC_Island_Game_Master_111:
 	msgbox TARC_Island_Game_Master_Text_14, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_102:
-	goto_if_unset FLAG_HIDE_MEGA_RING, TARC_Island_Game_Master_100
-	goto TARC_Island_Game_Master_101
+TARC_Island_Game_Master_104:
+	goto_if_unset FLAG_HIDE_MEGA_RING, TARC_Island_Game_Master_102
+	goto TARC_Island_Game_Master_103
 
-TARC_Island_Game_Master_107:
+TARC_Island_Game_Master_109:
 	setflag FLAG_HINT12
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_106
+	goto TARC_Island_Game_Master_108
 
-TARC_Island_Game_Master_110:
+TARC_Island_Game_Master_112:
 	setflag FLAG_HINT13
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_109
+	goto TARC_Island_Game_Master_111
 
-TARC_Island_Game_Master_113:
+TARC_Island_Game_Master_115:
 	setflag FLAG_HINT14
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_112
+	goto TARC_Island_Game_Master_114
 
 
 TARC_Island_Maxie::
@@ -1212,12 +1219,15 @@ TARC_Island_Zigzagoon_Text_4:
 	.string "Oh no, you lost an Ability Capsule!$"
 
 TARC_Island_Zigzagoon_Text_5:
-	.string "Oh no, you lost your LIFE ORB!$"
+	.string "{STR_VAR_1}'s ability became\n{STR_VAR_2} again!$"
 
 TARC_Island_Zigzagoon_Text_6:
-	.string "Oh no, you lost your GYARADOSITE!$"
+	.string "Oh no, you lost your LIFE ORB!$"
 
 TARC_Island_Zigzagoon_Text_7:
+	.string "Oh no, you lost your GYARADOSITE!$"
+
+TARC_Island_Zigzagoon_Text_8:
 	.string "Oh no, you lost your ROCK CLIMB TM!$"
 
 TARC_Island_Game_Master_Text_0:
@@ -1326,9 +1336,9 @@ TARC_Island_Game_Master_Text_16:
 
 TARC_Island_Game_Master_Text_17:
 	.string "I am sorry, but I currently have no\n"
-	.string "hints to give to you.\p"
-	.string "Try proceeding by looking for items,\n"
-	.string "catching Pokémon, talking to NPCs and\l"
+	.string "specific hint to give to you.\p"
+	.string "Try proceeding by talking to NPCs,\n"
+	.string "looking for items, catching Pokémon and\l"
 	.string "winning battles.\p"
 	.string "Of course, you won't be charged 20\n"
 	.string "minutes this time.$"
@@ -1382,8 +1392,8 @@ TARC_Island_sign_Game_Start_Text_0:
 	.string "However, crits are removed, confusions\l"
 	.string "snap out immediately and RNG odds are\l"
 	.string "either 100% or 0% to balance the game.\p"
-	.string "4.) Running from trainer battles is\n"
-	.string "explicitly ALLOWED.\p"
+	.string "4.) You can always run from ALL kinds of\n"
+	.string "battles.\p"
 	.string "5.) Bulbapedia is your friend!$"
 
 TARC_Island_sign_Rock_Climb_Text_0:

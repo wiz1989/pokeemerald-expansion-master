@@ -69,6 +69,7 @@
 #include "palette.h"
 #include "battle_util.h"
 #include "play_time.h"
+#include "party_menu.h"
 
 #define TAG_ITEM_ICON 5500
 
@@ -4304,6 +4305,10 @@ u8 GetMonPartySlot(void)
 
     slot = CheckPartyPokemon(gPlayerParty, species);
 
+    
+    DebugPrintf("slot = %d", slot);
+    DebugPrintf("species = %d", species);
+
     DebugPrintf("Species found at slot: %d\n", slot);
 
     return slot;
@@ -4401,4 +4406,33 @@ bool8 IsPokemonInParty(void)
     }
 
     return FALSE;
+}
+
+//INPUT slot = VAR_RESULT
+//EXPORT STR_VAR_1 as Pokémon nickname
+//EXPORT STR_VAR_2 as new ability
+void ReverseAbilityCapsule(void)
+{
+    u16 species, abilityNum;
+    u8 slot = VarGet(VAR_RESULT);
+
+    DebugPrintf("slot = %d", slot);
+
+    species = GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES, NULL);
+    abilityNum = GetMonData(&gPlayerParty[slot], MON_DATA_ABILITY_NUM, NULL) ^ 1;
+    DebugPrintf("abilityNum = %d", abilityNum);
+
+    if (gSpeciesInfo[species].abilities[0] == gSpeciesInfo[species].abilities[1]
+            || gSpeciesInfo[species].abilities[1] == 0)
+    {
+        //no ability change possible
+        DebugPrintf("no ability change possible");
+    }
+    else
+    {
+        SetMonData(&gPlayerParty[slot], MON_DATA_ABILITY_NUM, &abilityNum);
+
+        GetMonNickname(&gPlayerParty[slot], gStringVar1);
+        StringCopy(gStringVar2, gAbilitiesInfo[GetAbilityBySpecies(species, abilityNum)].name);
+    }
 }

@@ -233,7 +233,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "TARC_CAVE_ItemBall",
-      "flag": "FLAG_HIDE_MEGA_RING"
+      "flag": "FLAG_HIDE_GYARADOSITE"
     }
   ],
   "warp_events": [

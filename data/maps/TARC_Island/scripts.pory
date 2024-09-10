@@ -347,6 +347,12 @@ script TARC_Island_Zigzagoon {
                 msgbox(format("You are very lucky that Zigzagoon has found it!"), MSGBOX_AUTOCLOSE)
                 waitmessage
                 giveitem(ITEM_ABILITY_CAPSULE)
+
+                //reverse ability from last used capsule
+                getpartymonslot(VAR_LAST_CAPSULE_USED_ON)
+                //uses VAR_RESULT
+                special(ReverseAbilityCapsule)
+                msgbox("{STR_VAR_1}'s ability became\n{STR_VAR_2} again!", MSGBOX_AUTOCLOSE)
             }
 		}
 	}
@@ -549,7 +555,7 @@ script TARC_Island_Game_Master {
         }
 
         //Wonder Guard battle
-        if (flag(FLAG_TARC_ITEM_X) && !defeated(TRAINER_CHASE))
+        if (flag(FLAG_TARC_ITEM_X) && flag(FLAG_REMORAID_TRADE_COMPLETED)  && !defeated(TRAINER_CHASE))
         {
             //check if hint was already given
             if (!flag(FLAG_HINT09)) {
@@ -639,7 +645,7 @@ script TARC_Island_Game_Master {
     else {
         //default message for missing branches
         if (flag(FLAG_TARC_GIVE_NO_ADVICE)) {
-            msgbox(format("I am sorry, but I currently have no hints to give to you. \pTry proceeding by looking for items, catching Pokémon, talking to NPCs and winning battles. \pOf course, you won't be charged 20 minutes this time."))
+            msgbox(format("I am sorry, but I currently have no specific hint to give to you. \pTry proceeding by talking to NPCs, looking for items, catching Pokémon and winning battles. \pOf course, you won't be charged 20 minutes this time."))
             waitmessage
         }
         else {
@@ -675,7 +681,7 @@ script TARC_Island_Maxie {
 
 script TARC_Island_sign_Game_Start {
     lock
-    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 LEVEL UP move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and RNG odds are either 100% or 0% to balance the game.\p4.) Running from trainer battles is explicitly ALLOWED.\p5.) Bulbapedia is your friend!"))
+    msgbox(format("IMPORTANT INFORMATION: \p1.) This game is featuring Gen 8 LEVEL UP move LEARNSETS for any Pokemon you control yourself. \p2.) It is NOT required to grind MULTIPLE levels to win any of the fights. \p3.) The game mechanics are basically vanilla.\lHowever, crits are removed, confusions snap out immediately and RNG odds are either 100% or 0% to balance the game.\p4.) You can always run from ALL kinds of battles.\p5.) Bulbapedia is your friend!"))
     waitmessage
     release
 }
