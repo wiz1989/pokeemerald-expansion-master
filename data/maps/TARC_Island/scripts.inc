@@ -758,14 +758,11 @@ TARC_Island_Game_Master_92:
 	goto TARC_Island_Game_Master_91
 
 TARC_Island_Game_Master_94:
-	compare VAR_TARC_UNDERWATER_CAVE, 0
-	goto_if_eq TARC_Island_Game_Master_101
-	goto_if_set FLAG_HIDE_GYARADOSITE, TARC_Island_Game_Master_104
-TARC_Island_Game_Master_103:
-	goto_if_unset FLAG_HINT14, TARC_Island_Game_Master_115
-TARC_Island_Game_Master_114:
-	msgbox TARC_Island_Game_Master_Text_15, MSGBOX_AUTOCLOSE
-	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto_if_set FLAG_APPROACHED_ARCHIE, TARC_Island_Game_Master_110
+TARC_Island_Game_Master_108:
+	goto_if_unset FLAG_HIDE_GYARADOSITE, TARC_Island_Game_Master_107
+TARC_Island_Game_Master_105:
+	goto_if_set FLAG_APPROACHED_ARCHIE, TARC_Island_Game_Master_104
 	goto TARC_Island_Game_Master_1
 
 TARC_Island_Game_Master_95:
@@ -779,37 +776,53 @@ TARC_Island_Game_Master_99:
 	goto TARC_Island_Game_Master_98
 
 TARC_Island_Game_Master_101:
-	goto_if_unset FLAG_HINT12, TARC_Island_Game_Master_109
-TARC_Island_Game_Master_108:
+	goto_if_unset FLAG_HINT12, TARC_Island_Game_Master_114
+TARC_Island_Game_Master_113:
 	msgbox TARC_Island_Game_Master_Text_13, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
 TARC_Island_Game_Master_102:
-	goto_if_unset FLAG_HINT13, TARC_Island_Game_Master_112
-TARC_Island_Game_Master_111:
+	goto_if_unset FLAG_HINT13, TARC_Island_Game_Master_117
+TARC_Island_Game_Master_116:
 	msgbox TARC_Island_Game_Master_Text_14, MSGBOX_AUTOCLOSE
 	clearflag FLAG_TARC_GIVE_NO_ADVICE
 	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_104:
-	goto_if_unset FLAG_HIDE_MEGA_RING, TARC_Island_Game_Master_102
-	goto TARC_Island_Game_Master_103
+TARC_Island_Game_Master_103:
+	goto_if_unset FLAG_HINT14, TARC_Island_Game_Master_120
+TARC_Island_Game_Master_119:
+	msgbox TARC_Island_Game_Master_Text_15, MSGBOX_AUTOCLOSE
+	clearflag FLAG_TARC_GIVE_NO_ADVICE
+	goto TARC_Island_Game_Master_1
 
-TARC_Island_Game_Master_109:
-	setflag FLAG_HINT12
-	setflag FLAG_TARC_ADDTIME
+TARC_Island_Game_Master_104:
+	goto_if_set FLAG_AQUA_CHANGED_PARTY, TARC_Island_Game_Master_103
+	goto TARC_Island_Game_Master_1
+
+TARC_Island_Game_Master_107:
+	goto_if_set FLAG_HIDE_MEGA_RING, TARC_Island_Game_Master_102
+	goto TARC_Island_Game_Master_105
+
+TARC_Island_Game_Master_110:
+	compare VAR_TARC_UNDERWATER_CAVE, 0
+	goto_if_eq TARC_Island_Game_Master_101
 	goto TARC_Island_Game_Master_108
 
-TARC_Island_Game_Master_112:
+TARC_Island_Game_Master_114:
+	setflag FLAG_HINT12
+	setflag FLAG_TARC_ADDTIME
+	goto TARC_Island_Game_Master_113
+
+TARC_Island_Game_Master_117:
 	setflag FLAG_HINT13
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_111
+	goto TARC_Island_Game_Master_116
 
-TARC_Island_Game_Master_115:
+TARC_Island_Game_Master_120:
 	setflag FLAG_HINT14
 	setflag FLAG_TARC_ADDTIME
-	goto TARC_Island_Game_Master_114
+	goto TARC_Island_Game_Master_119
 
 
 TARC_Island_Maxie::
@@ -1315,15 +1328,15 @@ TARC_Island_Game_Master_Text_12:
 TARC_Island_Game_Master_Text_13:
 	.string "Archie is stopping you from leaving the\n"
 	.string "UNDERWATER PATH?\p"
-	.string "You need to closely explore the area\n"
-	.string "then!$"
+	.string "You need to closely explore the\n"
+	.string "underwater area then!$"
 
 TARC_Island_Game_Master_Text_14:
-	.string "Oh, you have found a Gyaradosite!\p"
+	.string "Oh, you have found a Mega Ring!\p"
 	.string "But you are still searching for a Mega\n"
-	.string "Ring?\p"
+	.string "Stone?\p"
 	.string "Seems like you missed to properly\n"
-	.string "explore the cave.$"
+	.string "explore Regirock's cave.$"
 
 TARC_Island_Game_Master_Text_15:
 	.string "You keep losing to toxic damage?\p"

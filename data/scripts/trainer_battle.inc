@@ -13,10 +13,17 @@ EventScript_TryDoNormalTrainerBattle::
 	applymovement VAR_LAST_TALKED, Movement_RevealTrainer
 	waitmovement 0
 	specialvar VAR_RESULT, GetTrainerFlag
+	compare VAR_RESULT, 1312
+	goto_if_eq EventScript_TryDoNormalTrainerBattle_1
+	specialvar VAR_RESULT, GetTrainerFlag
 	goto_if_ne VAR_RESULT, FALSE, EventScript_NoNormalTrainerBattle
 	special PlayTrainerEncounterMusic
 	special SetTrainerFacingDirection
 	goto EventScript_ShowTrainerIntroMsg
+
+EventScript_TryDoNormalTrainerBattle_1:
+	setflag FLAG_APPROACHED_ARCHIE
+	return
 
 EventScript_NoNormalTrainerBattle::
 	gotopostbattlescript

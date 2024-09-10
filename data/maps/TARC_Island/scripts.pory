@@ -596,27 +596,27 @@ script TARC_Island_Game_Master {
         if (flag(FLAG_USED_DIVE) && !defeated(TRAINER_ARCHIE))
         {
             //find hidden cave
-            if (var(VAR_TARC_UNDERWATER_CAVE) == 0)
+            if (flag(FLAG_APPROACHED_ARCHIE) && var(VAR_TARC_UNDERWATER_CAVE) == 0)
             {
                 //check if hint was already given
                 if (!flag(FLAG_HINT12)) {
                     setflag(FLAG_HINT12)
                     setflag(FLAG_TARC_ADDTIME)
                 }
-                msgbox(format("Archie is stopping you from leaving the UNDERWATER PATH?\pYou need to closely explore the area then!"), MSGBOX_AUTOCLOSE)
+                msgbox(format("Archie is stopping you from leaving the UNDERWATER PATH?\pYou need to closely explore the underwater area then!"), MSGBOX_AUTOCLOSE)
                 clearflag(FLAG_TARC_GIVE_NO_ADVICE)
             }
-            elif (flag(FLAG_HIDE_GYARADOSITE) && !(flag(FLAG_HIDE_MEGA_RING)))
+            elif (!flag(FLAG_HIDE_GYARADOSITE) && (flag(FLAG_HIDE_MEGA_RING)))
             {
                 //check if hint was already given
                 if (!flag(FLAG_HINT13)) {
                     setflag(FLAG_HINT13)
                     setflag(FLAG_TARC_ADDTIME)
                 }
-                msgbox(format("Oh, you have found a Gyaradosite!\pBut you are still searching for a Mega Ring?\pSeems like you missed to properly explore the cave."), MSGBOX_AUTOCLOSE)
+                msgbox(format("Oh, you have found a Mega Ring!\pBut you are still searching for a Mega Stone?\pSeems like you missed to properly explore Regirock's cave."), MSGBOX_AUTOCLOSE)
                 clearflag(FLAG_TARC_GIVE_NO_ADVICE)
             }
-            else
+            elif (flag(FLAG_APPROACHED_ARCHIE) && flag(FLAG_AQUA_CHANGED_PARTY))
             {
                 //Archie battle
                 //check if hint was already given
@@ -624,7 +624,7 @@ script TARC_Island_Game_Master {
                     setflag(FLAG_HINT14)
                     setflag(FLAG_TARC_ADDTIME)
                 }
-                msgbox(format("You keep losing to toxic damage?\pThere is a way to get rid of the spikes!\pIt will be teamwork but you need to find a way to ignore Weezing's Levitate!"), MSGBOX_AUTOCLOSE)
+                msgbox(format("You keep losing to Archie?\pLet me tell you that disregarding Intimidate and handling the Toxic Spikes is the way to go.\pYou can even get rid of these hazards!\pIt will be teamwork but you need to find a way to IGNORE Weezing's Levitate!"), MSGBOX_AUTOCLOSE)
                 clearflag(FLAG_TARC_GIVE_NO_ADVICE)
             }
         }

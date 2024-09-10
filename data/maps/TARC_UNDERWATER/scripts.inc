@@ -13,6 +13,25 @@ TARC_UNDERWATER_Archie::
 	return
 
 
+TARC_UNDERWATER_Archie_Continue::
+	lock
+	msgbox TARC_UNDERWATER_Archie_Continue_Text_0, MSGBOX_AUTOCLOSE
+	setflag FLAG_APPROACHED_ARCHIE
+	specialvar VAR_RESULT, GetBattleOutcome
+	compare VAR_RESULT, B_OUTCOME_WON
+	goto_if_eq TARC_UNDERWATER_Archie_Continue_2
+TARC_UNDERWATER_Archie_Continue_1:
+	release
+	return
+
+TARC_UNDERWATER_Archie_Continue_2:
+	msgbox TARC_UNDERWATER_Archie_Text_0, MSGBOX_AUTOCLOSE
+	applymovement 1, Move_ArchieLeaves
+	waitmovement 0
+	removeobject 1
+	goto TARC_UNDERWATER_Archie_Continue_1
+
+
 TARC_UNDERWATER_OpenCave_Sign::
 	lock
 	compare VAR_TARC_UNDERWATER_CAVE, 0
@@ -87,6 +106,9 @@ Move_ArchieLeaves:
 
 TARC_UNDERWATER_Archie_Text_0:
 	.string "I will return stronger!$"
+
+TARC_UNDERWATER_Archie_Continue_Text_0:
+	.string "TEST$"
 
 TARC_UNDERWATER_OpenCave_Sign_Text_0:
 	.string "The secret switch is hidden in the sand.$"

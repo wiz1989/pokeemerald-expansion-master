@@ -298,8 +298,6 @@ static u8 CheckTrainer(u8 objectEventId)
     u8 approachDistance;
     u16 scriptFlag = GetObjectEventTrainerSightFlagByObjectEventId(objectEventId);
 
-    //DebugPrintf("flag = %d", scriptFlag);
-
     if (InTrainerHill() == TRUE)
         scriptPtr = GetTrainerHillTrainerScript();
     else
@@ -488,6 +486,10 @@ static void StartTrainerApproach(TaskFunc followupFunc)
 {
     u8 taskId;
     TaskFunc taskFunc;
+
+    if (gTrainerBattleOpponent_A == TRAINER_ARCHIE)
+        FlagSet(FLAG_APPROACHED_ARCHIE);
+    DebugPrintf("gTrainerBattleOpponent_A = %d", gTrainerBattleOpponent_A);
 
     if (gApproachingTrainerId == 0)
         taskId = gApproachingTrainers[0].taskId;
