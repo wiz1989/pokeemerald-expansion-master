@@ -1339,10 +1339,13 @@ TARC_Island_Game_Master_Text_14:
 	.string "explore Regirock's cave.$"
 
 TARC_Island_Game_Master_Text_15:
-	.string "You keep losing to toxic damage?\p"
-	.string "There is a way to get rid of the spikes!\p"
+	.string "You keep losing to Archie?\p"
+	.string "Let me tell you that disregarding\n"
+	.string "Intimidate and handling the Toxic\l"
+	.string "Spikes is the way to go.\p"
+	.string "You can even get rid of these hazards!\p"
 	.string "It will be teamwork but you need to find\n"
-	.string "a way to ignore Weezing's Levitate!$"
+	.string "a way to IGNORE Weezing's Levitate!$"
 
 TARC_Island_Game_Master_Text_16:
 	.string "Come back whenever you need me.$"
