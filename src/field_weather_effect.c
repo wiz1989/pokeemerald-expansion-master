@@ -323,7 +323,16 @@ static void CreateBirdSprites(void)
             u32 birdIndex = Random() % (NELEMS(sBirdGroupsByMap[gWeatherPtr->birdSpeciesIndex][groupIndex]) - 1);
         
             DebugPrintf("Species ID index [%d][%d][%d]", gWeatherPtr->birdSpeciesIndex, groupIndex, birdIndex);
-            sprite->speciesId = sBirdGroupsByMap[gWeatherPtr->birdSpeciesIndex][groupIndex][birdIndex];
+            //sprite->speciesId = sBirdGroupsByMap[gWeatherPtr->birdSpeciesIndex][groupIndex][birdIndex];
+
+            switch (bird_species) {
+                case 0: sprite->speciesId = SPECIES_PIDGEOTTO;
+                    break;
+                case 1: sprite->speciesId = SPECIES_TAILLOW;
+                    break;
+                case 2: sprite->speciesId = SPECIES_UNFEZANT;
+                    break;
+            }
 
             // Flip sprite if direction = right
             sprite->hFlip = (gWeatherPtr->birdCurrentFlockDirection == 1);

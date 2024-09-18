@@ -2691,8 +2691,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         DebugPrintf("score after = %d", score);
     }
     //Overqwil to prefer Dive on 1:1 if not against Mantine
-    if (gBattleMons[battlerAtk].species == SPECIES_OVERQWIL && move == MOVE_DIVE && CountTotalUsableMons(battlerDef) == 1)
-        ADJUST_SCORE(10);
+    if (gBattleMons[battlerAtk].species == SPECIES_OVERQWIL && move == MOVE_DIVE && CountTotalUsableMons(battlerDef) == 1 && gBattleMons[battlerAtk].hp < gBattleMons[battlerAtk].maxHP * 0.9)
+        ADJUST_SCORE(9);
     else if (move == MOVE_DIVE)
         ADJUST_SCORE(-2);
     //focus on Gyarados

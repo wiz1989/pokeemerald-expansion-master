@@ -33,8 +33,8 @@ gText_Birch_MainSpeech::
 	.string "the Game Master NPC for help.\p"
 	.string "This challenge can be completed\n"
 	.string "without any savegame resets.\l"
-	.string "Worst case is that you have to\l"
-	.string "approach the Game Master to continue.\p"
+	.string "If you feel stuck, rest assured\l"
+	.string "that it is in fact still solvable.\p"
 	.string "$"
 
 gText_Birch_AndYouAre::

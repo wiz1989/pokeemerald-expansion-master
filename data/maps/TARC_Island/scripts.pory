@@ -624,7 +624,7 @@ script TARC_Island_Game_Master {
                     setflag(FLAG_HINT14)
                     setflag(FLAG_TARC_ADDTIME)
                 }
-                msgbox(format("You keep losing to Archie?\pLet me tell you that disregarding Intimidate and handling the Toxic Spikes is the way to go.\pYou can even get rid of these hazards!\pIt will be teamwork but you need to find a way to IGNORE Weezing's Levitate!"), MSGBOX_AUTOCLOSE)
+                msgbox(format("You keep losing to Archie?\pKeeping Mantine in the backline and handling the Toxic Spikes is the way to go.\pYou can even get rid of these hazards!\pIt will be teamwork but you need to find a way to IGNORE Weezing's Levitate!"), MSGBOX_AUTOCLOSE)
                 clearflag(FLAG_TARC_GIVE_NO_ADVICE)
             }
         }

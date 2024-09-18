@@ -6,8 +6,6 @@ TARC_Island_MapScripts::
 
 TARC_Island_OnResume::
 	setvar VAR_TEMP_2, 0
-	setflag FLAG_HIDE_RHYDON
-	setflag FLAG_HIDE_RHYDON_TRAINER
 	return
 
 
@@ -1340,9 +1338,9 @@ TARC_Island_Game_Master_Text_14:
 
 TARC_Island_Game_Master_Text_15:
 	.string "You keep losing to Archie?\p"
-	.string "Let me tell you that disregarding\n"
-	.string "Intimidate and handling the Toxic\l"
-	.string "Spikes is the way to go.\p"
+	.string "Keeping Mantine in the backline and\n"
+	.string "handling the Toxic Spikes is the way to\l"
+	.string "go.\p"
 	.string "You can even get rid of these hazards!\p"
 	.string "It will be teamwork but you need to find\n"
 	.string "a way to IGNORE Weezing's Levitate!$"

@@ -163,7 +163,7 @@ TARC_CAVE_ItemBall::
 TARC_CAVE_Regirock::
 	lock
 	faceplayer
-	playmoncry SPECIES_KADABRA, CRY_MODE_NORMAL
+	playmoncry SPECIES_REGIROCK, CRY_MODE_NORMAL
 	msgbox TARC_CAVE_Regirock_Text_0, MSGBOX_AUTOCLOSE
 	release
 	return

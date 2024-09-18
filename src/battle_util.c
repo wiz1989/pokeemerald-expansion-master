@@ -9896,11 +9896,21 @@ static inline s32 DoMoveDamageCalcVars(u32 move, u32 battlerAtk, u32 battlerDef,
     DAMAGE_APPLY_MODIFIER(GetCriticalModifier(isCrit));
     DAMAGE_APPLY_MODIFIER(GetGlaiveRushModifier(battlerDef));
 
-    if (randomFactor)
+    DebugPrintf("damage before RNG = %d", dmg);
+
+    /*if (randomFactor)
     {
         dmg *= 100 - RandomUniform(RNG_DAMAGE_MODIFIER, 0, 15);
         dmg /= 100;
-    }
+    }*/
+
+    //fixed rolls
+    if (randomFactor)
+        dmg = dmg * 0.93;
+
+    DebugPrintf("damage without RNG = %d", dmg);
+
+    //set fixed damage roll
 
     DAMAGE_APPLY_MODIFIER(GetSameTypeAttackBonusModifier(battlerAtk, moveType, move, abilityAtk));
     DAMAGE_APPLY_MODIFIER(typeEffectivenessModifier);
