@@ -385,6 +385,7 @@ static void DestroyBirdSprites(void)
         }
     }
 
+    FreeSpritePaletteByTag(PALTAG_BIRD);
     FreeSpriteTilesByTag(GFXTAG_BIRD);
     gWeatherPtr->birdSpritesCreated = FALSE;
 }

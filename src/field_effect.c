@@ -3103,6 +3103,7 @@ static void SurfFieldEffect_End(struct Task *task)
 u8 FldEff_RayquazaSpotlight(void)
 {
     u8 i, j, k;
+    s16 x, y, xP, yP;
 
     u8 spriteId = CreateSprite(gFieldEffectObjectTemplatePointers[FLDEFFOBJ_RAYQUAZA], 120, -24, 1);
     struct Sprite *sprite = &gSprites[spriteId];
@@ -3120,6 +3121,14 @@ u8 FldEff_RayquazaSpotlight(void)
     SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN0_CLR | WININ_WIN1_BG_ALL | WININ_WIN1_OBJ | WININ_WIN1_CLR);
     LoadPalette(sSpotlight_Pal, BG_PLTT_ID(13), sizeof(sSpotlight_Pal)); //wiz1989 was PLTT_ID(12)
     SetGpuReg(REG_OFFSET_BG0VOFS, 120);
+
+    //change x position of effect based on Celebi NPC
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    PlayerGetDestCoords(&xP, &yP);
+    DebugPrintf("y coord = %d", x);
+    DebugPrintf("yP coord = %d", xP);
+    x = (xP - x) * 16; //calc the offset
+    SetGpuReg(REG_OFFSET_BG0HOFS, x);
     for (i = 3; i < 15; i++)
     {
         for (j = 12; j < 18; j++)

@@ -9900,14 +9900,14 @@ const struct Item gItemsInfo[] =
         .name = _("TM45"),
         .price = 3000,
         .description = COMPOUND_STRING(
-            "Makes it tough to\n"
-            "attack a foe of the\n"
-            "opposite gender."),
+            "Dives underwater\n"
+            "the 1st turn, then\n"
+            "attacks next turn."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
-        .secondaryId = MOVE_ATTRACT,
+        .secondaryId = MOVE_DIVE,
     },
 
     [ITEM_TM_THIEF] =
@@ -10578,9 +10578,9 @@ const struct Item gItemsInfo[] =
         .name = _("TM100"),
         .price = 3000,
         .description = COMPOUND_STRING(
-            "A charging attack\n"
-            "that may confuse\n"
-            "the target."),
+            "Enables full-power\n"
+            "attack, but sharply\n"
+            "lowers Sp. Atk."),
         .importance = I_REUSABLE_TMS,
         .pocket = POCKET_TM_HM,
         .type = ITEM_USE_PARTY_MENU,

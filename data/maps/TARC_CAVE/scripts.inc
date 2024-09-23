@@ -83,8 +83,6 @@ TARC_CAVE_OnTransition_2:
 	setorcopyvar VAR_TARC_CAVE_FIELD, 10
 	setorcopyvar VAR_TARC_CAVE_GUARD1_STATE, 1
 	setflag FLAG_CAVE_KICKOUT1
-	setflag FLAG_CAVE_MOVER0
-	setflag FLAG_CAVE_MOVER1
 	setflag FLAG_CAVE_GUARD1
 	setobjectxyperm 5, 20, 9
 	goto TARC_CAVE_OnTransition_1
@@ -93,7 +91,6 @@ TARC_CAVE_OnTransition_5:
 	setorcopyvar VAR_TARC_CAVE_GUARD2_STATE, 1
 	setflag FLAG_CAVE_KICKOUT2
 	setflag FLAG_CAVE_KICKOUT3
-	setflag FLAG_CAVE_MOVER2
 	setflag FLAG_CAVE_GUARD2
 	return
 

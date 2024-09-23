@@ -182,7 +182,7 @@ TARC_Island_ItemBall_Balls::
 TARC_Island_ItemBall_Dive::
 	lock
 	removeobject 2, MAP_TARC_ISLAND
-	finditem ITEM_HM_DIVE
+	finditem ITEM_TM_ATTRACT
 	release
 	return
 

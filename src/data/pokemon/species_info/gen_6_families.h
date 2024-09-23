@@ -2949,8 +2949,8 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .weight = 353,
         .description = COMPOUND_STRING(
             "HINT:\n"
-            "You need to interact with Rhyhorn in\n"
-            "the following directions: {DOWN_ARROW} {LEFT_ARROW} {DOWN_ARROW} {RIGHT_ARROW} {UP_ARROW}\n"
+            "You need to interact with Rhyhorn FROM\n"
+            "the following directions: {UP_ARROW} {RIGHT_ARROW} {UP_ARROW} {LEFT_ARROW} {DOWN_ARROW}\n"
             "Gotta keep the order right!"),
         .pokemonScale = 272,
         .pokemonOffset = 3,

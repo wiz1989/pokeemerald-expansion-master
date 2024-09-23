@@ -8,8 +8,8 @@ mapscripts TARC_Island_MapScripts {
 script TARC_Island_OnResume {
 	setvar(VAR_TEMP_2, 0) //var for EveryFrame
     // #### uncomment to remove joke
-    setflag(FLAG_HIDE_RHYDON)
-    setflag(FLAG_HIDE_RHYDON_TRAINER)
+    //setflag(FLAG_HIDE_RHYDON)
+    //setflag(FLAG_HIDE_RHYDON_TRAINER)
 }
 
 script TARC_Island_OnTransition {
@@ -175,7 +175,7 @@ script TARC_Island_ItemBall_Balls {
 script TARC_Island_ItemBall_Dive {
     lock
 	removeobject(2, MAP_TARC_ISLAND)
-    finditem(ITEM_HM_DIVE)
+    finditem(ITEM_TM_ATTRACT) //changed TM45 (ATTRACT in Gen3) to MOVE_DIVE
 	release
 }
 

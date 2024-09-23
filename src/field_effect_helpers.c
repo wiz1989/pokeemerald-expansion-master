@@ -15,6 +15,7 @@
 #include "constants/songs.h"
 #include "constants/event_objects.h"
 #include "event_data.h"
+#include "field_player_avatar.h"
 
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF // duplicate of define in event_object_movement.c
 
@@ -1537,11 +1538,17 @@ static bool8 AnimateRayquazaInFigure8(struct Sprite *sprite)
 void UpdateRayquazaSpotlightEffect(struct Sprite *sprite)
 {
     u8 i, j;
+    s16 x, y, xP, yP;
 
+    //change x position of effect based on Celebi NPC
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    PlayerGetDestCoords(&xP, &yP);
+    y = (yP - y - 1) * 8; //calc the offset
+    
     switch (sprite->sState)
     {
         case 0:
-            SetGpuReg(REG_OFFSET_BG0VOFS, DISPLAY_WIDTH / 2 - (sprite->sTimer / 3));
+            SetGpuReg(REG_OFFSET_BG0VOFS, DISPLAY_WIDTH / 2 + y - 1 - (sprite->sTimer / 3));
             if (sprite->sTimer == 96)
             {
                 for (i = 0; i < 3; i++)
@@ -1640,6 +1647,7 @@ void UpdateRayquazaSpotlightEffect(struct Sprite *sprite)
             //Reset GpuRegs
             SetGpuReg(REG_OFFSET_BLDCNT, 0);
             SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+            SetGpuReg(REG_OFFSET_BG0HOFS, 0);
             SetGpuReg(REG_OFFSET_BLDALPHA, 0);
             FieldEffectStop(sprite, FLDEFF_RAYQUAZA_SPOTLIGHT);
             break;
