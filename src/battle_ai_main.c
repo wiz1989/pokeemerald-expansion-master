@@ -2682,16 +2682,18 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     DebugPrintf("move = %d", move);
     DebugPrintf("hits to KO = %d", GetNoOfHitsToKOBattler(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex));
     
-    if (gBattleMons[battlerAtk].species == SPECIES_KYOGRE && (move == MOVE_SURF || move == MOVE_ORIGIN_PULSE) && GetNoOfHitsToKOBattler(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex) == 1)
+    if (gBattleMons[battlerAtk].species == SPECIES_KYOGRE && (move == MOVE_SURF || move == MOVE_ORIGIN_PULSE) && !IsSemiInvulnerable(battlerDef, move) && GetNoOfHitsToKOBattler(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex) == 1)
     {
-         DebugPrintf("score before = %d", score);
-        //if (score < 90)
-        //    score = 100;
         ADJUST_SCORE(5);
-        DebugPrintf("score after = %d", score);
     }
-    //Overqwil to prefer Dive on 1:1 if not against Mantine
-    if (gBattleMons[battlerAtk].species == SPECIES_OVERQWIL && move == MOVE_DIVE && CountTotalUsableMons(battlerDef) == 1 && gBattleMons[battlerAtk].hp < gBattleMons[battlerAtk].maxHP * 0.9)
+
+    if (move == MOVE_ROAR)
+    {
+        ADJUST_SCORE(1);
+    }
+
+    //Overqwil to prefer Dive if Kyogre is already defeated
+    if (gBattleMons[battlerAtk].species == SPECIES_OVERQWIL && move == MOVE_DIVE && CountTotalUsableMons(battlerAtk) == 1 && gBattleMons[battlerAtk].hp < gBattleMons[battlerAtk].maxHP * 0.9)
         ADJUST_SCORE(9);
     else if (move == MOVE_DIVE)
         ADJUST_SCORE(-2);
