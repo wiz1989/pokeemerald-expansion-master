@@ -104,9 +104,10 @@ TARC_UNDERWATER_Lanturn_Text_0:
 	.string "Lanturn!$"
 
 Archie_Intro::
-	.string "Why are you here???\p"
-	.string "I am on a secret mission to take\n"
-	.string "over this island!\p"
+	.string "Maxie and I might have a\n"
+	.string "TOXIC relationship, but\l"
+	.string "this has nothing to do with\l"
+	.string "me taking over this island!\p"
 	.string "You won't BREAK my plans!$"
 
 Archie_Defeat::

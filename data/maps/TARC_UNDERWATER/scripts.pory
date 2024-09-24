@@ -82,9 +82,13 @@ movement Move_ArchieLeaves {
 // ############### texts ###############
 
 text Archie_Intro {
-    "Why are you here???\p"
-    "I am on a secret mission to take\n"
-    "over this island!\p"
+    //"Why are you here???\p"
+    //"My relationship with Maxie\n"
+    //"might be a TOXIC one, but\l"
+    "Maxie and I might have a\n"
+    "TOXIC relationship, but\l"
+    "this has nothing to do with\l"
+    "me taking over this island!\p"
     "You won't BREAK my plans!"
 }
 
