@@ -6,7 +6,7 @@ gText_Birch_Welcome::
 	.string "you may need to start your\l"
 	.string "adventure.\p"
 	.string "...\p"
-	.string "You where surfing calm waters\n"
+	.string "You were surfing calm waters\n"
 	.string "in the Hoenn Sea when suddenly\p"
 	.string "$"
 
