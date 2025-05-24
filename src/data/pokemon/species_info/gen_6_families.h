@@ -744,6 +744,15 @@ const struct SpeciesInfo gSpeciesInfoGen6[] =
         .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         SHADOW(1, 10, SHADOW_SIZE_L)
         FOOTPRINT(Greninja)
+        OVERWORLD(
+            sPicTable_GreninjaAsh,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GreninjaAsh,
+            gShinyOverworldPalette_GreninjaAsh
+        )
         .levelUpLearnset = sGreninjaLevelUpLearnset,
         .teachableLearnset = sGreninjaTeachableLearnset,
         .formSpeciesIdTable = sGreninjaFormSpeciesIdTable,
