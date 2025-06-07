@@ -4594,7 +4594,7 @@ static const struct SpriteFrameImage sPicTable_Greninja[] = {
 static const struct SpriteFrameImage sPicTable_GreninjaAsh[] = {
     overworld_ascending_frames(gObjectEventPic_GreninjaAsh, 4, 4),
 };
-#endif OW_BATTLE_ONLY_FORMS
+#endif //OW_BATTLE_ONLY_FORMS
 #endif //P_FAMILY_FROAKIE
 
 #if P_FAMILY_BUNNELBY
