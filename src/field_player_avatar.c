@@ -2139,6 +2139,8 @@ static bool32 Fishing_CheckForBite(struct Task *task)
     if (!bite)
         bite = Fishing_RollForBite(task->tFishingRod, FALSE);
 
+    bite = TRUE; //always guarantee a bite
+
     if (!bite)
         task->tStep = FISHING_NOT_EVEN_NIBBLE;
 
@@ -2152,7 +2154,7 @@ static bool32 Fishing_GotBite(struct Task *task)
 {
     AlignFishingAnimationFrames();
     AddTextPrinterParameterized(0, FONT_NORMAL, gText_OhABite, 0, 17, 0, NULL);
-    task->tStep = FISHING_CHANGE_MINIGAME;
+    task->tStep = FISHING_WAIT_FOR_A; //immediately start fishing encounter
     task->tFrameCounter = 0;
     return FALSE;
 }
@@ -2176,18 +2178,12 @@ static bool32 Fishing_ChangeMinigame(struct Task *task)
 // We have a bite. Now, wait for the player to press A, or the timer to expire.
 static bool32 Fishing_WaitForA(struct Task *task)
 {
-    const s16 reelTimeouts[3] = {
-        [OLD_ROD]   = 36,
-        [GOOD_ROD]  = 33,
-        [SUPER_ROD] = 30
-    };
-
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
-    if (task->tFrameCounter >= reelTimeouts[task->tFishingRod])
+    if (JOY_NEW(A_BUTTON))
+        task->tStep = FISHING_MON_ON_HOOK;
+    else if (JOY_NEW(B_BUTTON))
         task->tStep = FISHING_GOT_AWAY;
-    else if (JOY_NEW(A_BUTTON))
-        task->tStep = FISHING_CHECK_MORE_DOTS;
     return FALSE;
 }
 
