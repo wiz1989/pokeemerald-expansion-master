@@ -1893,6 +1893,7 @@ static void CB2_ReturnToFieldLocal(void)
 {
     if (ReturnToFieldLocal(&gMain.state))
     {
+        ScriptContext_Enable(); //wiz1989 - used for waitstate in scripts
         SetFieldVBlankCallback();
         SetMainCallback2(CB2_Overworld);
     }

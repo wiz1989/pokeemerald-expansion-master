@@ -730,7 +730,7 @@ static bool8 StartMenuQoLHubCallback(void)
     HideStartMenuDebug(); // Hide start menu without enabling movement
 
     FreezeObjectEvents();
-    Debug_ShowMainMenu();
+    Debug_ShowQoLHub();
 
     return TRUE;
 }

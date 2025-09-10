@@ -270,6 +270,84 @@ Debug_ShowExpansionVersion::
 Debug_ExpansionVersion:
 	.string "pokeemerald-expansion {STR_VAR_1}$"
 
+Debug_MsgForeverRepel_Active::
+	msgbox Debug_ForeverRepel_Active, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_MsgForeverRepel_Inactive::
+	msgbox Debug_ForeverRepel_Inactive, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_ForeverRepel_Active:
+	.string "Forever-Repel was activated.$"
+
+Debug_ForeverRepel_Inactive:
+	.string "Forever-Repel was deactivated.$"
+
+Debug_EventScript_LevelUpToNextEvent:: @wiz1989
+	special ChoosePartyMon
+	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_NotLeveledUpMessage
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_NotLeveledUpMessage
+	callnative DebugAction_LevelUp_NextEvent
+	waitstate
+Debug_EventScript_LevelUpMessageEvent::
+	callnative BufferLevelUpMonName
+	msgbox Debug_LevelUp_Event, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_LevelUp_Event:
+	.string "{STR_VAR_1} was leveled up\n"
+	.string "to the next event or cap.$"
+
+Debug_MsgLevelUp_Cap_Party::
+	msgbox Debug_LevelUp_Cap_Party, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_LevelUp_Cap_Party:
+	.string "All party members have been\n"
+	.string "leveled up to the current cap.$"
+
+Debug_EventScript_LevelUpToCap::
+	special ChoosePartyMon
+	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_NotLeveledUpMessage
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_NotLeveledUpMessage
+	callnative DebugAction_LevelUp_Cap
+Debug_EventScript_LevelUpMessageCap::
+	callnative BufferLevelUpMonName
+	msgbox Debug_LevelUp_Cap, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_EventScript_NotLeveledUpMessage::
+	msgbox Debug_ActionCancelled, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_LevelUp_Cap:
+	.string "{STR_VAR_1} was leveled up\n"
+	.string "to the current cap.$"
+
+Debug_ActionCancelled:
+	.string "Action cancelled.$"
+
+Debug_EventScript_ReleaseEnd::
+	release
+	end
+
 Debug_Follower_NPC_Not_Enabled::
 	msgbox Debug_Enable_To_Use_Follower_NPCs, MSGBOX_DEFAULT
 	release

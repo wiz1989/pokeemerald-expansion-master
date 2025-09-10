@@ -661,6 +661,7 @@ extern u8 gEnemyPartyCount;
 extern struct Pokemon gEnemyParty[PARTY_SIZE];
 extern struct SpriteTemplate gMultiuseSpriteTemplate;
 extern u16 gFollowerSteps;
+extern u8 gTriedEvolving;
 extern bool32 consumeItem;
 extern u32 removeBagItem;
 extern u32 removeBagItemCount;
@@ -886,5 +887,6 @@ struct Pokemon *GetSavedPlayerPartyMon(u32 index);
 u8 *GetSavedPlayerPartyCount(void);
 void SavePlayerPartyMon(u32 index, struct Pokemon *mon);
 u32 IsSpeciesOfType(u32 species, u32 type);
+void TryLevelUpEvolution(void);
 
 #endif // GUARD_POKEMON_H

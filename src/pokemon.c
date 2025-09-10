@@ -91,7 +91,7 @@ EWRAM_DATA struct Pokemon gPlayerParty[PARTY_SIZE] = {0};
 EWRAM_DATA struct Pokemon gEnemyParty[PARTY_SIZE] = {0};
 EWRAM_DATA struct SpriteTemplate gMultiuseSpriteTemplate = {0};
 EWRAM_DATA static struct MonSpritesGfxManager *sMonSpritesGfxManagers[MON_SPR_GFX_MANAGERS_COUNT] = {NULL};
-EWRAM_DATA static u8 sTriedEvolving = 0;
+EWRAM_DATA u8 gTriedEvolving = 0;
 EWRAM_DATA u16 gFollowerSteps = 0;
 
 #include "data/abilities.h"
@@ -6785,10 +6785,10 @@ void TryScriptEvolution(void)
     {
         u32 targetSpecies = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_SCRIPT_TRIGGER, 0, NULL, &canStopEvo, CHECK_EVO);
 
-        if (targetSpecies != SPECIES_NONE && !(sTriedEvolving & (1u << i)))
+        if (targetSpecies != SPECIES_NONE && !(gTriedEvolving & (1u << i)))
         {
             GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_SCRIPT_TRIGGER, 0, NULL, &canStopEvo, DO_EVO);
-            sTriedEvolving |= 1u << i;
+            gTriedEvolving |= 1u << i;
             if(gMain.callback2 == TryScriptEvolution) // This fixes small graphics glitches.
                 EvolutionScene(&gPlayerParty[i], targetSpecies, canStopEvo, i);
             else
@@ -6802,7 +6802,7 @@ void TryScriptEvolution(void)
         }
     }
 
-    sTriedEvolving = 0;
+    gTriedEvolving = 0;
     SetMainCallback2(CB2_ReturnToField);
 }
 
@@ -6816,10 +6816,10 @@ void TrySpecialOverworldEvo(void)
     {
         u32 targetSpecies = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_OVERWORLD_SPECIAL, 0, NULL, &canStopEvo, CHECK_EVO);
 
-        if (targetSpecies != SPECIES_NONE && !(sTriedEvolving & (1u << i)))
+        if (targetSpecies != SPECIES_NONE && !(gTriedEvolving & (1u << i)))
         {
             GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_OVERWORLD_SPECIAL, 0, NULL, &canStopEvo, DO_EVO);
-            sTriedEvolving |= 1u << i;
+            gTriedEvolving |= 1u << i;
             if(gMain.callback2 == TrySpecialOverworldEvo) // This fixes small graphics glitches.
                 EvolutionScene(&gPlayerParty[i], targetSpecies, canStopEvo, i);
             else
@@ -6833,7 +6833,7 @@ void TrySpecialOverworldEvo(void)
         }
     }
 
-    sTriedEvolving = 0;
+    gTriedEvolving = 0;
     SetMainCallback2(CB2_ReturnToField);
 }
 
@@ -7193,4 +7193,43 @@ u32 IsSpeciesOfType(u32 species, u32 type)
      || gSpeciesInfo[species].types[1] == type)
         return TRUE;
     return FALSE;
+}
+
+// use PARTY_SIZE as slot to check all party mons
+void TryLevelUpEvolution(void)
+{
+    u8 slot = gSpecialVar_0x8000;
+    bool32 canStopEvo = gSpecialVar_0x8001;
+    bool8 tryMultiple = gSpecialVar_0x8002;
+    u8 i;
+    u8 end = slot + 1;
+
+    if (slot == PARTY_SIZE)
+    {
+        slot = 0;
+        end = PARTY_SIZE;
+    }
+
+    for (i = slot; i < end; i++)
+    {
+        u32 targetSpecies = GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, 0, NULL, &canStopEvo, CHECK_EVO);
+
+        if (targetSpecies != SPECIES_NONE && !(gTriedEvolving & (1u << i)))
+        {
+            GetEvolutionTargetSpecies(&gPlayerParty[i], EVO_MODE_NORMAL, 0, NULL, &canStopEvo, DO_EVO);
+            if (gMain.callback2 == TryLevelUpEvolution) // This fixes small graphics glitches.
+                EvolutionScene(&gPlayerParty[i], targetSpecies, canStopEvo, i);
+            else
+                BeginEvolutionScene(&gPlayerParty[i], targetSpecies, canStopEvo, i);
+
+            if (tryMultiple)
+                gCB2_AfterEvolution = TryLevelUpEvolution;
+            else
+                gCB2_AfterEvolution = CB2_ReturnToField;
+            return;
+        }
+    }
+
+    gTriedEvolving = 0;
+    SetMainCallback2(CB2_ReturnToField);
 }

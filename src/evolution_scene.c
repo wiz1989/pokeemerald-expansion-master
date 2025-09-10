@@ -654,6 +654,7 @@ static void Task_EvolutionScene(u8 taskId)
         && gTasks[sEvoGraphicsTaskId].isActive
         && gTasks[taskId].tBits & TASK_BIT_CAN_STOP)
     {
+        gTriedEvolving |= 1u << gTasks[taskId].tPartyId;
         gTasks[taskId].tState = EVOSTATE_CANCEL;
         gTasks[sEvoGraphicsTaskId].tEvoStopped = TRUE;
         StopBgAnimation();

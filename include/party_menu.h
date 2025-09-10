@@ -54,6 +54,7 @@ void LoadHeldItemIcons(void);
 void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichParty);
 void LoadPartyMenuAilmentGfx(void);
 void CB2_ShowPartyMenuForItemUse(void);
+void CB2_ShowPartyMenuForItemUse_Debug(void);
 void ItemUseCB_BattleScript(u8 taskId, TaskFunc task);
 void ItemUseCB_BattleChooseMove(u8 taskId, TaskFunc task);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
