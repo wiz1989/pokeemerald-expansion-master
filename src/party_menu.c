@@ -1448,7 +1448,7 @@ static void HandleChooseMonSelection(u8 taskId, s8 *slotPtr)
                     sPartyMenuInternal->exitCallback = CB2_SetUpExitToBattleScreen;
 
                 PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
-                if (gSpecialVar_ItemId == ITEM_RARE_CANDY)
+                if (gUseDebugCandy)
                     gItemUseCB(taskId, Task_ReturnToChooseMonAfterText);
                 else
                     gItemUseCB(taskId, Task_ClosePartyMenuAfterText);
@@ -4592,12 +4592,6 @@ void CB2_ShowPartyMenuForItemUse_Debug(void)
     u8 msgId;
     TaskFunc task;
 
-    if (gPartyMenu.data1 == DATA1_PARTY_MENU_FROM_FIELD)
-    {
-        callback = CB2_ReturnToField;
-        gPartyMenu.data1 = 0;
-    }
-
     if (gMain.inBattle)
     {
         menuType = PARTY_MENU_TYPE_IN_BATTLE;
@@ -5533,7 +5527,7 @@ static void Task_LearnNextMoveOrClosePartyMenu(u8 taskId)
         {
             Task_TryLearningNextMove(taskId);
         }
-        else if (gSpecialVar_ItemId == ITEM_RARE_CANDY)
+        else if (gUseDebugCandy)
         {
             gPartyMenu.action = PARTY_ACTION_USE_ITEM;
             Task_ReturnToChooseMonAfterText(taskId);
@@ -5593,7 +5587,7 @@ static void CB2_ReturnToPartyMenuWhileLearningMove(void)
         SetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_LEVEL, &sFinalLevel); // to avoid displaying incorrect level
     if (GetItemFieldFunc(gSpecialVar_ItemId) == ItemUseOutOfBattle_RareCandy && gPartyMenu.menuType == PARTY_MENU_TYPE_FIELD && CheckBagHasItem(gSpecialVar_ItemId, 1))
         InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_USE_ITEM, TRUE, PARTY_MSG_NONE, Task_ReturnToPartyMenuWhileLearningMove, gPartyMenu.exitCallback);
-    else if (gSpecialVar_ItemId == ITEM_RARE_CANDY)
+    else if (gUseDebugCandy)
         InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_USE_ITEM, TRUE, PARTY_MSG_NONE, Task_ReturnToPartyMenuWhileLearningMove, gPartyMenu.exitCallback);
     else
         InitPartyMenu(PARTY_MENU_TYPE_FIELD, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, TRUE, PARTY_MSG_NONE, Task_ReturnToPartyMenuWhileLearningMove, gPartyMenu.exitCallback);
@@ -5951,8 +5945,8 @@ static void PartyMenuTryEvolution(u8 taskId)
         FreePartyPointers();
         if (GetItemFieldFunc(gSpecialVar_ItemId) == ItemUseOutOfBattle_RareCandy && gPartyMenu.menuType == PARTY_MENU_TYPE_FIELD && CheckBagHasItem(gSpecialVar_ItemId, 1))
             gCB2_AfterEvolution = CB2_ReturnToPartyMenuUsingRareCandy;
-        else if (gSpecialVar_ItemId == ITEM_RARE_CANDY)
-            gCB2_AfterEvolution = CB2_ReturnToPartyMenuUsingRareCandy;
+        else if (gUseDebugCandy)
+            gCB2_AfterEvolution = CB2_ShowPartyMenuForItemUse_Debug;
         else
             gCB2_AfterEvolution = gPartyMenu.exitCallback;
         BeginEvolutionScene(mon, targetSpecies, canStopEvo, gPartyMenu.slotId);
@@ -5962,7 +5956,7 @@ static void PartyMenuTryEvolution(u8 taskId)
     {
         if (gPartyMenu.menuType == PARTY_MENU_TYPE_FIELD && CheckBagHasItem(gSpecialVar_ItemId, 1))
             gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
-        else if (gSpecialVar_ItemId == ITEM_RARE_CANDY)
+        else if (gUseDebugCandy)
             gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
         else
             gTasks[taskId].func = Task_ClosePartyMenuAfterText;

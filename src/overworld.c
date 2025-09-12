@@ -1879,6 +1879,7 @@ static void CB2_LoadMapOnReturnToFieldCableClub(void)
 
 void CB2_ReturnToField(void)
 {
+    gUseDebugCandy = FALSE;
     gUseEventCandy = FALSE;
     if (IsOverworldLinkActive() == TRUE)
     {

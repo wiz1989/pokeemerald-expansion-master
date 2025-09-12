@@ -232,6 +232,7 @@ static EWRAM_DATA struct DebugMenuListData *sDebugMenuListData = NULL;
 EWRAM_DATA bool8 gIsDebugBattle = FALSE;
 EWRAM_DATA u64 gDebugAIFlags = 0;
 EWRAM_DATA bool8 gUseEventCandy = FALSE;
+EWRAM_DATA bool8 gUseDebugCandy = FALSE;
 
 // *******************************
 // Define functions
@@ -1580,6 +1581,7 @@ static void DebugAction_Player_Id(u8 taskId)
 
 static void DebugAction_LevelUp_Single(u8 taskId)
 {
+    gUseDebugCandy = TRUE;
     gSpecialVar_ItemId = ITEM_RARE_CANDY;
     gItemUseCB = ItemUseCB_RareCandy;
     Debug_DestroyMenu_Full(taskId);
@@ -1588,6 +1590,7 @@ static void DebugAction_LevelUp_Single(u8 taskId)
 
 static void DebugAction_LevelUp_Event(u8 taskId) //wiz1989 ToDo
 {
+    gUseDebugCandy = TRUE;
     gUseEventCandy = TRUE;
     gSpecialVar_ItemId = ITEM_RARE_CANDY;
     gItemUseCB = ItemUseCB_RareCandy;
