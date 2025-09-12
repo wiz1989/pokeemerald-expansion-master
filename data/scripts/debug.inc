@@ -288,21 +288,6 @@ Debug_ForeverRepel_Active:
 Debug_ForeverRepel_Inactive:
 	.string "Forever-Repel was deactivated.$"
 
-Debug_EventScript_LevelUpToNextEvent:: @wiz1989
-	special ChoosePartyMon
-	waitstate
-	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_NotLeveledUpMessage
-	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
-	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_NotLeveledUpMessage
-	callnative DebugAction_LevelUp_NextEvent
-	waitstate
-Debug_EventScript_LevelUpMessageEvent::
-	callnative BufferLevelUpMonName
-	msgbox Debug_LevelUp_Event, MSGBOX_AUTOCLOSE
-	waitmessage
-	releaseall
-	end
-
 Debug_LevelUp_Event:
 	.string "{STR_VAR_1} was leveled up\n"
 	.string "to the next event or cap.$"
@@ -324,6 +309,7 @@ Debug_EventScript_LevelUpToCap::
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
 	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_NotLeveledUpMessage
 	callnative DebugAction_LevelUp_Cap
+	waitstate
 Debug_EventScript_LevelUpMessageCap::
 	callnative BufferLevelUpMonName
 	msgbox Debug_LevelUp_Cap, MSGBOX_AUTOCLOSE

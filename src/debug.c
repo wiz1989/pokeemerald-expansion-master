@@ -23,6 +23,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
+#include "evolution_scene.h"
 #include "field_message_box.h"
 #include "field_screen_effect.h"
 #include "field_weather.h"
@@ -230,6 +231,7 @@ static EWRAM_DATA struct DebugMonData *sDebugMonData = NULL;
 static EWRAM_DATA struct DebugMenuListData *sDebugMenuListData = NULL;
 EWRAM_DATA bool8 gIsDebugBattle = FALSE;
 EWRAM_DATA u64 gDebugAIFlags = 0;
+EWRAM_DATA bool8 gUseEventCandy = FALSE;
 
 // *******************************
 // Define functions
@@ -343,6 +345,7 @@ static void DebugAction_Player_Gender(u8 taskId);
 static void DebugAction_Player_Id(u8 taskId);
 
 static void DebugAction_LevelUp_Single(u8 taskId);
+static void DebugAction_LevelUp_Event(u8 taskId);
 static void DebugAction_LevelUp_Cap_Party(u8 taskId);
 
 extern const u8 Debug_FlagsNotSetOverworldConfigMessage[];
@@ -384,7 +387,6 @@ extern const u8 Debug_EventScript_Steven_Multi[];
 extern const u8 Debug_EventScript_PrintTimeOfDay[];
 extern const u8 Debug_EventScript_TellTheTime[];
 extern const u8 Debug_EventScript_FakeRTCNotEnabled[];
-extern const u8 Debug_EventScript_LevelUpToNextEvent[];
 extern const u8 Debug_EventScript_LevelUpToCap[];
 
 extern const u8 Debug_BerryPestsDisabled[];
@@ -610,7 +612,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_Give[] =
 static const struct DebugMenuOption sDebugMenu_Actions_LevelUp[] =
 {
     { COMPOUND_STRING("Single Level"),    DebugAction_LevelUp_Single },
-    { COMPOUND_STRING("Next Move/Evo"),   DebugAction_ExecuteScript, Debug_EventScript_LevelUpToNextEvent },
+    { COMPOUND_STRING("Next Move/Evo"),   DebugAction_LevelUp_Event },
     { COMPOUND_STRING("Level Cap"),       DebugAction_ExecuteScript, Debug_EventScript_LevelUpToCap },
     { COMPOUND_STRING("Level Cap Party"), DebugAction_LevelUp_Cap_Party },
     { NULL }
@@ -1584,71 +1586,14 @@ static void DebugAction_LevelUp_Single(u8 taskId)
     SetMainCallback2(CB2_ShowPartyMenuForItemUse_Debug);
 }
 
-#define EVT_LEVEL_CAP 0
-#define EVT_EVOLUTION 1
-#define EVT_MOVE 2
-
-void DebugAction_LevelUp_NextEvent(u8 taskId)
+static void DebugAction_LevelUp_Event(u8 taskId) //wiz1989 ToDo
 {
-    u8 nextEventType = EVT_LEVEL_CAP;
-    u32 nextEvent = GetCurrentLevelCap();
-    u32 partyslot = gSpecialVar_0x8004;
-
-    struct Pokemon *mon = &gPlayerParty[partyslot];
-    u32 species = GetMonData(mon, MON_DATA_SPECIES);
-    u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
-    if (species != SPECIES_NONE && species != SPECIES_EGG)
-    {
-        const struct Evolution *evolutions = GetSpeciesEvolutions(species);
-        if (evolutions != NULL && evolutions->method == EVO_LEVEL && evolutions->param < nextEvent)
-        {
-            nextEvent = evolutions->param;
-            nextEventType = EVT_EVOLUTION;
-        }
-
-        const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
-        for (u8 i = 0; i < MAX_LEVEL_UP_MOVES; i++)
-        {
-            u16 moveLevel;
-
-            if (learnset[i].move == LEVEL_UP_MOVE_END)
-                break;
-
-            moveLevel = learnset[i].level;
-            if (moveLevel > level && moveLevel < nextEvent)
-            {
-                nextEvent = moveLevel;
-                nextEventType = EVT_MOVE;
-                break;
-            }
-        }
-        if (level < nextEvent)
-        {
-            SetMonData(mon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][nextEvent]);
-            CalculateMonStats(mon);
-        }
-
-        // after leveling up, check additional handling
-        switch (nextEventType)
-        {
-        case EVT_EVOLUTION:
-            gSpecialVar_0x8000 = partyslot;
-            gSpecialVar_0x8001 = TRUE; //canStopEvo
-            gSpecialVar_0x8002 = TRUE; //tryMultiple
-            TryLevelUpEvolution();
-            break;
-        case EVT_MOVE: //ToDo wiz1989 - handlelearnnewmove
-            DebugPrintf("EVT_MOVE");
-        //     TriggerLearningNewMovesTask(taskId);
-        //     // Task_TryLearnNewMoves(taskId);
-            break;
-        }
-    }
+    gUseEventCandy = TRUE;
+    gSpecialVar_ItemId = ITEM_RARE_CANDY;
+    gItemUseCB = ItemUseCB_RareCandy;
+    Debug_DestroyMenu_Full(taskId);
+    SetMainCallback2(CB2_ShowPartyMenuForItemUse_Debug);
 }
-
-#undef EVT_LEVEL_CAP
-#undef EVT_EVOLUTION
-#undef EVT_MOVE
 
 void DebugAction_LevelUp_Cap(u8 taskId)
 {
@@ -1663,6 +1608,14 @@ void DebugAction_LevelUp_Cap(u8 taskId)
         SetMonData(mon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][currentCap]);
         CalculateMonStats(mon);
     }
+
+    //set data for potential evolution
+    gSpecialVar_0x8000 = partyslot;
+    gSpecialVar_0x8001 = TRUE; //canStopEvo
+    gSpecialVar_0x8002 = TRUE; //tryMultiple
+    TryLevelUpEvolution();
+
+    ScriptContext_Stop();
     return;
 }
 

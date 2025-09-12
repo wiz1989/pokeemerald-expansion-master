@@ -9,5 +9,6 @@ const struct Trainer* GetDebugAiTrainer(void);
 
 extern EWRAM_DATA bool8 gIsDebugBattle;
 extern EWRAM_DATA u64 gDebugAIFlags;
+extern EWRAM_DATA bool8 gUseEventCandy;
 
 #endif // GUARD_DEBUG_H

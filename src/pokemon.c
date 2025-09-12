@@ -12,6 +12,7 @@
 #include "battle_tower.h"
 #include "battle_z_move.h"
 #include "data.h"
+#include "debug.h"
 #include "dexnav.h"
 #include "event_data.h"
 #include "event_object_movement.h"
@@ -83,6 +84,7 @@ static void EncryptBoxMon(struct BoxPokemon *boxMon);
 static void DecryptBoxMon(struct BoxPokemon *boxMon);
 static void Task_PlayMapChosenOrBattleBGM(u8 taskId);
 void TrySpecialOverworldEvo();
+static u8 GetLevelsNextEvent(struct Pokemon *mon);
 
 EWRAM_DATA static u8 sLearningMoveTableID = 0;
 EWRAM_DATA u8 gPlayerPartyCount = 0;
@@ -3803,7 +3805,11 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 
                 if (param == 0) // Rare Candy
                 {
-                    dataUnsigned = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate][GetMonData(mon, MON_DATA_LEVEL, NULL) + 1];
+                    u8 levelGain = 1;
+                    
+                    if (gUseEventCandy)
+                        levelGain = GetLevelsNextEvent(mon);
+                    dataUnsigned = gExperienceTables[gSpeciesInfo[GetMonData(mon, MON_DATA_SPECIES, NULL)].growthRate][GetMonData(mon, MON_DATA_LEVEL, NULL) + levelGain];
                 }
                 else if (param - 1 < ARRAY_COUNT(sExpCandyExperienceTable)) // EXP Candies
                 {
@@ -7225,11 +7231,47 @@ void TryLevelUpEvolution(void)
             if (tryMultiple)
                 gCB2_AfterEvolution = TryLevelUpEvolution;
             else
-                gCB2_AfterEvolution = CB2_ReturnToField;
+                gCB2_AfterEvolution = CB2_ReturnToFieldContinueScript;
             return;
         }
     }
 
     gTriedEvolving = 0;
-    SetMainCallback2(CB2_ReturnToField);
+    SetMainCallback2(CB2_ReturnToFieldContinueScript);
+}
+
+static u8 GetLevelsNextEvent(struct Pokemon *mon)
+{
+    u32 nextEvent = GetCurrentLevelCap();
+    u32 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
+
+    if (species != SPECIES_NONE && species != SPECIES_EGG)
+    {
+        const struct Evolution *evolutions = GetSpeciesEvolutions(species);
+        if (evolutions != NULL && evolutions->method == EVO_LEVEL && evolutions->param < nextEvent)
+        {
+            nextEvent = evolutions->param;
+        }
+
+        const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
+        for (u8 i = 0; i < MAX_LEVEL_UP_MOVES; i++)
+        {
+            u16 moveLevel;
+
+            if (learnset[i].move == LEVEL_UP_MOVE_END)
+                break;
+
+            moveLevel = learnset[i].level;
+            if (moveLevel > level && moveLevel < nextEvent)
+            {
+                nextEvent = moveLevel;
+                break;
+            }
+        }
+
+        if (level < nextEvent)
+            return (nextEvent - level);
+    }
+    return 1;
 }

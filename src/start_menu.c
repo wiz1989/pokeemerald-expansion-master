@@ -726,10 +726,10 @@ static bool8 StartMenuBagCallback(void)
 
 static bool8 StartMenuQoLHubCallback(void)
 {
+    FreezeObjectEvents();
     RemoveExtraStartMenuWindows();
     HideStartMenuDebug(); // Hide start menu without enabling movement
-
-    FreezeObjectEvents();
+    
     Debug_ShowQoLHub();
 
     return TRUE;
