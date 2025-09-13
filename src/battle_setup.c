@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "load_save.h"
+#include "battle_rules.h"
 #include "battle_setup.h"
 #include "battle_tower.h"
 #include "battle_transition.h"
@@ -1234,6 +1235,7 @@ void BattleSetup_StartTrainerBattle(void)
         SetHillTrainerFlag();
     }
 
+    GetRandomBattleRuleSeeded(); // roll the battle rule for this battle
     sNoOfPossibleTrainerRetScripts = gNoOfApproachingTrainers;
     gNoOfApproachingTrainers = 0;
     sShouldCheckTrainerBScript = FALSE;

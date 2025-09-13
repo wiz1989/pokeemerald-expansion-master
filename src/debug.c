@@ -9,6 +9,7 @@
 //AND OTHER RHH POKEEMERALD-EXPANSION CONTRIBUTORS
 #include "global.h"
 #include "battle.h"
+#include "battle_rules.h"
 #include "battle_setup.h"
 #include "berry.h"
 #include "caps.h"
@@ -348,6 +349,7 @@ static void DebugAction_Player_Id(u8 taskId);
 static void DebugAction_LevelUp_Single(u8 taskId);
 static void DebugAction_LevelUp_Event(u8 taskId);
 static void DebugAction_LevelUp_Cap_Party(u8 taskId);
+static void DebugAction_IncreaseRerollCounter(u8 taskId);
 
 extern const u8 Debug_FlagsNotSetOverworldConfigMessage[];
 extern const u8 Debug_FlagsNotSetBattleConfigMessage[];
@@ -701,6 +703,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_QoLHub[] =
     { COMPOUND_STRING("Access PC"),       DebugAction_ExecuteScript, EventScript_PC, },
     { COMPOUND_STRING("Inflict Status"),  DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
     { COMPOUND_STRING("Move Reminder"),   DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
+    { COMPOUND_STRING("Reroll Rule"),     DebugAction_IncreaseRerollCounter },
     { COMPOUND_STRING("Cancel"),          DebugAction_Cancel, },
     { NULL }
 };
@@ -1579,6 +1582,14 @@ static void DebugAction_Player_Id(u8 taskId)
     ScriptContext_Enable();
 }
 
+static void DebugAction_IncreaseRerollCounter(u8 taskId)
+{
+    DebugPrintf("MANUAL Battle Rule Reroll");
+    IncrementBattleRuleRerollCounter();
+    Debug_DestroyMenu_Full(taskId);
+    ScriptContext_Enable();
+}
+
 static void DebugAction_LevelUp_Single(u8 taskId)
 {
     gUseDebugCandy = TRUE;
@@ -1588,7 +1599,7 @@ static void DebugAction_LevelUp_Single(u8 taskId)
     SetMainCallback2(CB2_ShowPartyMenuForItemUse_Debug);
 }
 
-static void DebugAction_LevelUp_Event(u8 taskId) //wiz1989 ToDo
+static void DebugAction_LevelUp_Event(u8 taskId)
 {
     gUseDebugCandy = TRUE;
     gUseEventCandy = TRUE;
@@ -4130,6 +4141,7 @@ static void DebugAction_Party_HealParty(u8 taskId)
 {
     PlaySE(SE_USE_ITEM);
     HealPlayerParty();
+    GetRandomBattleRuleSeeded(); // wiz1989 REMOVE!!! only for testing purposes
     ScriptContext_Enable();
     Debug_DestroyMenu_Full(taskId);
 }

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "new_game.h"
 #include "random.h"
 #if MODERN
 #include <alloca.h>
@@ -223,4 +224,24 @@ u8 RandomWeightedIndex(u8 *weights, u8 length)
             return i;
     }
     return 0;
+}
+
+#define I_MAX 5
+u16 RandomSeededModulo2(u32 value, u16 modulo)
+{
+    u32 otId;
+    u32 RAND_MAX;
+    u32 result = 0;
+    u8 i = 0;
+
+    otId = GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
+    RAND_MAX = 0xFFFFFFFF - (0xFFFFFFFF % modulo);
+
+    do
+    {
+        result = ISO_RANDOMIZE1(otId + value + result);
+    }
+    while ((result >= RAND_MAX) && (++i != I_MAX));
+
+    return (result % modulo);
 }
