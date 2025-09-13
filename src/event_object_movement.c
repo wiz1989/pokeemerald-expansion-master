@@ -2281,11 +2281,6 @@ bool32 IsFollowerVisible(void)
             || MetatileBehavior_IsForcedMovementTile(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior));
 }
 
-static bool8 SpeciesHasType(u16 species, u8 type)
-{
-    return GetSpeciesType(species, 0) == type || GetSpeciesType(species, 1) == type;
-}
-
 // Display an emote above an object event
 // Note that this is not a movement action
 static void ObjectEventEmote(struct ObjectEvent *objEvent, u8 emotion)

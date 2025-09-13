@@ -888,5 +888,6 @@ u8 *GetSavedPlayerPartyCount(void);
 void SavePlayerPartyMon(u32 index, struct Pokemon *mon);
 u32 IsSpeciesOfType(u32 species, u32 type);
 void TryLevelUpEvolution(void);
+bool8 SpeciesHasType(u16 species, u8 type);
 
 #endif // GUARD_POKEMON_H

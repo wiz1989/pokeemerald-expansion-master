@@ -11869,3 +11869,12 @@ bool32 BreaksThroughSemiInvulnerablity(u32 battler, u32 move)
 
     return FALSE;
 }
+
+bool8 IsBattlerValidSpecies(u32 battler)
+{
+    if (gBattleMons[battler].hp
+      && gBattleMons[battler].species != SPECIES_NONE
+      && gBattleMons[battler].species != SPECIES_EGG)
+        return TRUE;
+    return FALSE;
+}

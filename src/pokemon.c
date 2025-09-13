@@ -7275,3 +7275,8 @@ static u8 GetLevelsNextEvent(struct Pokemon *mon)
     }
     return 1;
 }
+
+bool8 SpeciesHasType(u16 species, u8 type)
+{
+    return GetSpeciesType(species, 0) == type || GetSpeciesType(species, 1) == type;
+}

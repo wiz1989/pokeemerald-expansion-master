@@ -10,6 +10,7 @@
 #include "battle_main.h"
 #include "battle_message.h"
 #include "battle_pyramid.h"
+#include "battle_rules.h"
 #include "battle_scripts.h"
 #include "battle_setup.h"
 #include "battle_tower.h"
@@ -3895,6 +3896,11 @@ static void TryDoEventsBeforeFirstTurn(void)
         if (TrySwitchInEjectPack(ITEMEFFECT_ON_SWITCH_IN_FIRST_TURN))
             return;
         break;
+    case FIRST_TURN_EVENTS_BATTLERULE_FAINT:
+        BattleRuleViolated_SENDOUT();
+        gBattleStruct->switchInBattlerCounter = 0;
+        gBattleStruct->eventsBeforeFirstTurnState++;
+        break;
     case FIRST_TURN_EVENTS_END:
         for (i = 0; i < MAX_BATTLERS_COUNT; i++)
         {
@@ -6158,4 +6164,41 @@ void BattleDebug_WonBattle(void)
 {
     gBattleOutcome |= B_OUTCOME_WON;
     gBattleMainFunc = sEndTurnFuncsTable[gBattleOutcome & 0x7F];
+}
+
+bool8 BattleRuleViolated_SENDOUT(void)
+{
+    u8 rule = GetRandomBattleRuleSeeded();
+    bool8 faint = FALSE;
+
+    // rule = BATTLERULE_NOSAMESEX; // test line
+
+    if (gBattleRules[rule].category == BATTLERULE_CATEGORY_SENDOUT)
+    {
+        for (u8 i = 0; i < gBattlersCount; i++)
+        {
+            if (IsOnPlayerSide(i) && IsBattlerValidSpecies(i))
+            {
+                faint = FALSE;
+                if (rule == BATTLERULE_NOSAMESEX && !IsDoubleBattle())
+                {
+                    u8 gender = GetBattlerGender(i);
+                    u8 genderOpponent = GetBattlerGender(B_POSITION_OPPONENT_LEFT);
+
+                    if (gender == genderOpponent)
+                        faint = TRUE;
+                }
+                else if (SpeciesHasType(gBattleMons[i].species, rule + 1)) // TYPE_NORMAL is 1
+                    faint = TRUE;
+
+                if (faint)
+                {
+                    gBattleStruct->moveDamage[i] = gBattleMons[i].hp;
+                    BattleScriptExecute(BattleScript_BattleRule_FaintMon);
+                    return TRUE;
+                }
+            }
+        }
+    }
+    return faint;
 }

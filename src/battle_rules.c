@@ -1,4 +1,5 @@
 #include "global.h"
+#include "battle.h"
 #include "battle_rules.h"
 #include "battle_setup.h"
 #include "data.h"
@@ -23,46 +24,46 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_BANNEDTYPE_FLYING] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_POISON] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_GROUND] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_ROCK] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_BUG] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_GHOST] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_STEEL] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
-    [BATTLERULE_BANNEDTYPE_MYSTERY] =
+    [BATTLERULE_BANNEDTYPE_MYSTERY] = // always disabled
     {
         .weight = 1,
         .enabled = FALSE,
@@ -71,55 +72,55 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_BANNEDTYPE_FIRE] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_WATER] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_GRASS] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_ELECTRIC] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_PSYCHIC] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_ICE] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_DRAGON] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_DARK] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDTYPE_FAIRY] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDMOVETYPE_NORMAL] =
@@ -176,7 +177,7 @@ const struct BattleRule gBattleRules[] =
         .enabled = FALSE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
-    [BATTLERULE_BANNEDMOVETYPE_MYSTERY] =
+    [BATTLERULE_BANNEDMOVETYPE_MYSTERY] = // always disabled
     {
         .weight = 1,
         .enabled = FALSE,
@@ -389,7 +390,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOMISSES] =
     {
         .weight = 1,
-        .enabled = TRUE,
+        .enabled = FALSE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     }
 };
@@ -407,7 +408,7 @@ u8 GetRandomBattleRuleSeeded(void)
 
     value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
 
-    while (!gBattleRules[value].enabled)
+    while (!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX))
     {
         IncrementBattleRuleRerollCounter();
         value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
