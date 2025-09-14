@@ -1234,8 +1234,7 @@ void BattleSetup_StartTrainerBattle(void)
 
         SetHillTrainerFlag();
     }
-
-    GetRandomBattleRuleSeeded(); // roll the battle rule for this battle
+    gSaveBlock1Ptr->lastTrainerId = TRAINER_BATTLE_PARAM.opponentA;
     sNoOfPossibleTrainerRetScripts = gNoOfApproachingTrainers;
     gNoOfApproachingTrainers = 0;
     sShouldCheckTrainerBScript = FALSE;

@@ -196,32 +196,33 @@ void IncrementTypeRerollCounter(void)
 u8 GetRandomBattleRuleSeeded(void)
 {
     u16 value = 0;
+    u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
 
-    value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
+    value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
 
     while (!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX))
     {
         IncrementBattleRuleRerollCounter();
-        value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
-        DebugPrintf("Random Battle Rule: %d is %d", value, gBattleRules[value].enabled);
+        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
     
-    DebugPrintf("--- Random Battle Rule: %d ---\n", value);
+    DebugPrintf("--- Random Battle Rule: %d ---", value);
     return value;
 }
 
 u8 GetRandomTypeSeeded(void)
 {
     u16 value = 0;
+    u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
 
-    value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+    value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
 
     while (value == TYPE_MYSTERY || value == TYPE_NONE || value == TYPE_STELLAR)
     {
         IncrementTypeRerollCounter();
-        value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
     }
     
-    DebugPrintf("Random Type is %d", value);
+    DebugPrintf("--- Random Type is %d ---", value);
     return value;
 }

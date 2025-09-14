@@ -1586,7 +1586,6 @@ static void DebugAction_Player_Id(u8 taskId)
 
 static void DebugAction_IncreaseRerollCounter(u8 taskId)
 {
-    DebugPrintf("MANUAL Battle Rule Reroll");
     IncrementBattleRuleRerollCounter();
     Debug_DestroyMenu_Full(taskId);
     ScriptContext_Enable();
@@ -1620,7 +1619,6 @@ void DebugAction_LevelUp_Cap(u8 taskId)
     u32 species = GetMonData(mon, MON_DATA_SPECIES);
     if (species != SPECIES_NONE && species != SPECIES_EGG && GetMonData(mon, MON_DATA_LEVEL) < currentCap)
     {
-        DebugPrintf("Leveling up %S to level %d", gSpeciesInfo[species].speciesName, currentCap);
         SetMonData(mon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][currentCap]);
         CalculateMonStats(mon);
     }
@@ -1644,12 +1642,10 @@ static void DebugAction_LevelUp_Cap_Party(u8 taskId)
         u32 species = GetMonData(&gPlayerParty[partyslot], MON_DATA_SPECIES);
         if (species != SPECIES_NONE && species != SPECIES_EGG && GetMonData(mon, MON_DATA_LEVEL) < currentCap)
         {
-            DebugPrintf("Leveling up %S to level %d", gSpeciesInfo[species].speciesName, currentCap);
             SetMonData(mon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][currentCap]);
             CalculateMonStats(mon);
         }
     }
-    DebugPrintf("start mass evos");
     gSpecialVar_0x8000 = PARTY_SIZE;
     gSpecialVar_0x8001 = TRUE; //canStopEvo
     gSpecialVar_0x8002 = TRUE; //tryMultiple

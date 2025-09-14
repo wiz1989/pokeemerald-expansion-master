@@ -6209,7 +6209,7 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
     u8 moveType = GetRandomTypeSeeded();
     bool8 faint = FALSE;
 
-    // rule = BATTLERULE_BANNEDMOVETYPE; // test line
+    // rule = BATTLERULE_ONLYSTAB; // test line
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
     {
@@ -6219,7 +6219,6 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
             switch (rule)
             {
             case BATTLERULE_BANNEDMOVETYPE:
-                DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), moveType);
                 if (GetBattleMoveType(move) == moveType)
                     faint = TRUE;
                 break;
