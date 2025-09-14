@@ -6202,3 +6202,43 @@ bool8 BattleRuleViolated_SENDOUT(void)
     }
     return faint;
 }
+
+#define MOVETYPE_RULE_OFFSET -18
+bool8 BattleRuleViolated_USEMOVE(u32 move)
+{
+    DebugPrintf("BattleRuleViolated_USEMOVE");
+    u8 rule = GetRandomBattleRuleSeeded();
+    bool8 faint = FALSE;
+
+    // rule = BATTLERULE_BANNEDMOVETYPE_POISON; // test line
+
+    if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
+    {
+        DebugPrintf("battler species %S is valid? %d", gSpeciesInfo[gBattleMons[gBattlerAttacker].species].speciesName, IsBattlerValidSpecies(gBattlerAttacker));
+        if (IsOnPlayerSide(gBattlerAttacker) && IsBattlerValidSpecies(gBattlerAttacker))
+        {
+            faint = FALSE;
+            // if (rule == BATTLERULE_NOSAMESEX && !IsDoubleBattle())
+            // {
+            //     u8 gender = GetBattlerGender(gBattlerAttacker);
+            //     u8 genderOpponent = GetBattlerGender(B_POSITION_OPPONENT_LEFT);
+
+            //     if (gender == genderOpponent)
+            //         faint = TRUE;
+            // }
+            // else
+            DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), rule + MOVETYPE_RULE_OFFSET);
+            if (GetBattleMoveType(move) == (rule + MOVETYPE_RULE_OFFSET))
+                faint = TRUE;
+
+            if (faint)
+            {
+                gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+                BattleScriptExecute(BattleScript_BattleRule_FaintMon);
+                return TRUE;
+            }
+        }
+    }
+    return faint;
+}
+#undef MOVETYPE_RULE_OFFSET

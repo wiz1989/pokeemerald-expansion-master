@@ -410,5 +410,6 @@ bool32 IsSemiInvulnerable(u32 battler, enum SemiInvulnerableExclusion excludeCom
 bool32 BreaksThroughSemiInvulnerablity(u32 battler, u32 move);
 bool8 IsBattlerValidSpecies(u32 battler);
 bool8 BattleRuleViolated_SENDOUT(void);
+bool8 BattleRuleViolated_USEMOVE(u32 move);
 
 #endif // GUARD_BATTLE_UTIL_H

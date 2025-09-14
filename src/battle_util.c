@@ -516,6 +516,12 @@ void HandleAction_UseMove(void)
         }
     }
 
+    // enforce battle rules first
+    if (BattleRuleViolated_USEMOVE(gCurrentMove))
+    {
+        return;
+    }
+
     if (gBattleTypeFlags & BATTLE_TYPE_PALACE && gProtectStructs[gBattlerAttacker].palaceUnableToUseMove)
     {
         // Battle Palace, select battle script for failure to use move
