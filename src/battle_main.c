@@ -6187,8 +6187,8 @@ bool8 BattleRuleViolated_SENDOUT(void)
 
                     if (gender == genderOpponent)
                         faint = TRUE;
-                } //wiz1989 ToDo: weighted rules
-                else if (SpeciesHasType(gBattleMons[i].species, rule + 1)) // TYPE_NORMAL is 1
+                }
+                else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[i].species, GetRandomTypeSeeded()))
                     faint = TRUE;
 
                 if (faint)
@@ -6203,14 +6203,13 @@ bool8 BattleRuleViolated_SENDOUT(void)
     return faint;
 }
 
-#define MOVETYPE_RULE_OFFSET -18
 bool8 BattleRuleViolated_USEMOVE(u32 move)
 {
-    DebugPrintf("BattleRuleViolated_USEMOVE");
     u8 rule = GetRandomBattleRuleSeeded();
+    u8 moveType = GetRandomTypeSeeded();
     bool8 faint = FALSE;
 
-    rule = BATTLERULE_FIRSTMOVEONLY; // test line
+    // rule = BATTLERULE_BANNEDMOVETYPE; // test line
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
     {
@@ -6219,6 +6218,11 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
             faint = FALSE;
             switch (rule)
             {
+            case BATTLERULE_BANNEDMOVETYPE:
+                DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), moveType);
+                if (GetBattleMoveType(move) == moveType)
+                    faint = TRUE;
+                break;
             case BATTLERULE_NOSTAB:
                 if (IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
                     faint = TRUE;
@@ -6259,15 +6263,8 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                 if (gBattleMons[gBattlerAttacker].moves[0] != move)
                     faint = TRUE;
                 break;
-            
-            default:
-                DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), rule + MOVETYPE_RULE_OFFSET); //wiz1989 ToDo: weighted rules
-                if (GetBattleMoveType(move) == (rule + MOVETYPE_RULE_OFFSET))
-                    faint = TRUE;
-                break;
             }
         }
     }
     return faint;
 }
-#undef MOVETYPE_RULE_OFFSET

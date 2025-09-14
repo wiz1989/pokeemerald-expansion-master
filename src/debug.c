@@ -4141,7 +4141,6 @@ static void DebugAction_Party_HealParty(u8 taskId)
 {
     PlaySE(SE_USE_ITEM);
     HealPlayerParty();
-    GetRandomBattleRuleSeeded(); // wiz1989 REMOVE!!! only for testing purposes
     ScriptContext_Enable();
     Debug_DestroyMenu_Full(taskId);
 }
