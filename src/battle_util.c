@@ -516,12 +516,6 @@ void HandleAction_UseMove(void)
         }
     }
 
-    // enforce battle rules first
-    if (BattleRuleViolated_USEMOVE(gCurrentMove))
-    {
-        return;
-    }
-
     if (gBattleTypeFlags & BATTLE_TYPE_PALACE && gProtectStructs[gBattlerAttacker].palaceUnableToUseMove)
     {
         // Battle Palace, select battle script for failure to use move
@@ -543,6 +537,14 @@ void HandleAction_UseMove(void)
         }
     }
 
+    // check battle rule violation first
+    // if (BattleRuleViolated_USEMOVE(gCurrentMove))
+    // {
+    //     DebugPrintf("execute Faint script");
+    //     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+    //     gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon;
+    // }
+    // else 
     if (IsBattlerAlly(gBattlerAttacker, gBattlerTarget) && !IsBattlerAlive(gBattlerTarget))
     {
         gBattlescriptCurrInstr = BattleScript_FailedFromAtkCanceler;

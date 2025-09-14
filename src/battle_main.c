@@ -6233,12 +6233,12 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                 break;
             }
 
-            if (faint)
-            {
-                gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
-                BattleScriptExecute(BattleScript_BattleRule_FaintMon);
-                return TRUE;
-            }
+            // if (faint)
+            // {
+            //     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+            //     BattleScriptExecute(BattleScript_BattleRule_FaintMon);
+            //     return TRUE;
+            // }
         }
     }
     return faint;

@@ -1105,7 +1105,15 @@ static void Cmd_attackcanceler(void)
 
     enum BattleMoveEffects effect = GetMoveEffect(gCurrentMove);
 
-    if (!IsBattlerAlive(gBattlerAttacker)
+    if (BattleRuleViolated_USEMOVE(gCurrentMove))
+    {
+        DebugPrintf("execute Faint script");
+        gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+        gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon;
+        return;
+    }
+    else if (!IsBattlerAlive(gBattlerAttacker)
         && effect != EFFECT_EXPLOSION
         && effect != EFFECT_MISTY_EXPLOSION
         && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
