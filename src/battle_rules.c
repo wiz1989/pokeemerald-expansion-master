@@ -126,55 +126,55 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_BANNEDMOVETYPE_NORMAL] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_FIGHTING] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_FLYING] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_POISON] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_GROUND] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_ROCK] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_BUG] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_GHOST] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_STEEL] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_MYSTERY] = // always disabled
@@ -186,55 +186,55 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_BANNEDMOVETYPE_FIRE] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_WATER] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_GRASS] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_ELECTRIC] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_PSYCHIC] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_ICE] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_DRAGON] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_DARK] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVETYPE_FAIRY] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOHEALING] =
@@ -258,19 +258,19 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOSTAB] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_ONLYSTAB] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOSUPEREFFECTIVE] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_1HP] =
@@ -306,13 +306,13 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_SWITCHMOVES] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOPRIO] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOHELDITEMS] =
@@ -342,7 +342,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOSETUP] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_TRICKROOM] =
@@ -354,19 +354,19 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_BANNEDMOVECAT_PHYSICAL] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVECAT_SPECIAL] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVECAT_STATUS] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_INVERSE] =
@@ -402,6 +402,13 @@ void IncrementBattleRuleRerollCounter(void)
         gSaveBlock1Ptr->battleRuleRerollCounter = 0;
 }
 
+void IncrementTypeRerollCounter(void)
+{
+    gSaveBlock1Ptr->typeRerollCounter++;
+    if (gSaveBlock1Ptr->typeRerollCounter > 250)
+        gSaveBlock1Ptr->typeRerollCounter = 0;
+}
+
 u8 GetRandomBattleRuleSeeded(void)
 {
     u16 value = 0;
@@ -416,5 +423,21 @@ u8 GetRandomBattleRuleSeeded(void)
     }
     
     DebugPrintf("--- Random Battle Rule: %d ---\n", value);
+    return value;
+}
+
+u8 GetRandomTypeSeeded(void)
+{
+    u16 value = 0;
+
+    value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+
+    while (value == TYPE_MYSTERY || value == TYPE_NONE || value == TYPE_STELLAR)
+    {
+        IncrementTypeRerollCounter();
+        value = RandomSeededModulo2(GetTrainerFlag() + GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+    }
+    
+    DebugPrintf("Random Type is %d", value);
     return value;
 }

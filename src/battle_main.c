@@ -6187,7 +6187,7 @@ bool8 BattleRuleViolated_SENDOUT(void)
 
                     if (gender == genderOpponent)
                         faint = TRUE;
-                }
+                } //wiz1989 ToDo: weighted rules
                 else if (SpeciesHasType(gBattleMons[i].species, rule + 1)) // TYPE_NORMAL is 1
                     faint = TRUE;
 
@@ -6210,7 +6210,7 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
     u8 rule = GetRandomBattleRuleSeeded();
     bool8 faint = FALSE;
 
-    rule = BATTLERULE_NOSTAB; // test line
+    rule = BATTLERULE_FIRSTMOVEONLY; // test line
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
     {
@@ -6220,13 +6220,48 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
             switch (rule)
             {
             case BATTLERULE_NOSTAB:
-                DebugPrintf("move type = %d, STAB? %d", GetBattleMoveType(move), IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)));
                 if (IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                    faint = TRUE;
+                break;
+            case BATTLERULE_ONLYSTAB:
+                if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                    faint = TRUE;
+                break;
+            case BATTLERULE_NOSUPEREFFECTIVE:
+                if (CalcPartyMonTypeEffectivenessMultiplier(move, gBattleMons[gBattlerTarget].species, gBattleMons[gBattlerTarget].ability) >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
+                    faint = TRUE;
+                break;
+            case BATTLERULE_SWITCHMOVES:
+                if (move == gLastMoves[gBattlerAttacker] || move == gLastMoves[BATTLE_PARTNER(gBattlerAttacker)])
+                    faint = TRUE;
+                break;
+            case BATTLERULE_NOPRIO:
+                if (gMovesInfo[move].priority > 0)
+                    faint = TRUE;
+                break;
+            case BATTLERULE_NOSETUP:
+                if (IsSetupMove(move))
+                    faint = TRUE;
+                break;
+            case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
+                if (gMovesInfo[move].category == DAMAGE_CATEGORY_PHYSICAL)
+                    faint = TRUE;
+                break;
+            case BATTLERULE_BANNEDMOVECAT_SPECIAL:
+                if (gMovesInfo[move].category == DAMAGE_CATEGORY_SPECIAL)
+                    faint = TRUE;
+                break;
+            case BATTLERULE_BANNEDMOVECAT_STATUS:
+                if (gMovesInfo[move].category == DAMAGE_CATEGORY_STATUS)
+                    faint = TRUE;
+                break;
+            case BATTLERULE_FIRSTMOVEONLY:
+                if (gBattleMons[gBattlerAttacker].moves[0] != move)
                     faint = TRUE;
                 break;
             
             default:
-                DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), rule + MOVETYPE_RULE_OFFSET);
+                DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), rule + MOVETYPE_RULE_OFFSET); //wiz1989 ToDo: weighted rules
                 if (GetBattleMoveType(move) == (rule + MOVETYPE_RULE_OFFSET))
                     faint = TRUE;
                 break;

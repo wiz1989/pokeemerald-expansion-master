@@ -168,6 +168,7 @@ void NewGameInitData(void)
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
     gSaveBlock2Ptr->gcnLinkFlags = 0;
     gSaveBlock1Ptr->battleRuleRerollCounter = 0;
+    gSaveBlock1Ptr->typeRerollCounter = 0;
     InitPlayerTrainerId();
     PlayTimeCounter_Reset();
     ClearPokedexFlags();

@@ -1107,7 +1107,6 @@ static void Cmd_attackcanceler(void)
 
     if (BattleRuleViolated_USEMOVE(gCurrentMove))
     {
-        DebugPrintf("execute Faint script");
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
         gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;

@@ -2,6 +2,7 @@
 #define BATTLE_RULES_H
 
 void IncrementBattleRuleRerollCounter(void);
+void IncrementTypeRerollCounter(void);
 u8 GetRandomBattleRuleSeeded(void);
 
 enum battleRules {
@@ -84,7 +85,7 @@ enum battleRuleCategories {
 
 struct BattleRule
 {
-    u8 weight; // 1 = regular, 2 = double weighted, etc.
+    u8 weight; // currently not used;
     bool8 enabled;
     u8 category;
 };
