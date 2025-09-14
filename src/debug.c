@@ -391,6 +391,7 @@ extern const u8 Debug_EventScript_PrintTimeOfDay[];
 extern const u8 Debug_EventScript_TellTheTime[];
 extern const u8 Debug_EventScript_FakeRTCNotEnabled[];
 extern const u8 Debug_EventScript_LevelUpToCap[];
+extern const u8 Debug_CheckBattleRule[];
 
 extern const u8 Debug_BerryPestsDisabled[];
 extern const u8 Debug_BerryWeedsDisabled[];
@@ -704,6 +705,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_QoLHub[] =
     { COMPOUND_STRING("Inflict Status"),  DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
     { COMPOUND_STRING("Move Reminder"),   DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
     { COMPOUND_STRING("Reroll Rule"),     DebugAction_IncreaseRerollCounter },
+    { COMPOUND_STRING("Show Rule"),       DebugAction_ExecuteScript, Debug_CheckBattleRule }, // wiz1989 - comment for release
     { COMPOUND_STRING("Cancel"),          DebugAction_Cancel, },
     { NULL }
 };
@@ -4197,4 +4199,136 @@ void CheckEWRAMCounters(struct ScriptContext *ctx)
 {
     ConvertIntToDecimalStringN(gStringVar1, gFollowerSteps, STR_CONV_MODE_LEFT_ALIGN, 5);
     ConvertIntToDecimalStringN(gStringVar2, gChainFishingDexNavStreak, STR_CONV_MODE_LEFT_ALIGN, 5);
+}
+
+static const u8 sText_BannedType[] = _("Banned Type: ");
+static const u8 sText_BannedMoveType[] = _("Banned Move Type: ");
+static const u8 sText_NoHealing[] = _("No Healing");
+static const u8 sText_NoCrits[] = _("No Crits");
+static const u8 sText_NoRecoil[] = _("No Recoil");
+static const u8 sText_NoStab[] = _("No STAB");
+static const u8 sText_OnlyStab[] = _("Only STAB");
+static const u8 sText_NoSuperEffective[] = _("No Super Effective");
+static const u8 sText_1HPOnly[] = _("1HP only");
+static const u8 sText_1PPOnly[] = _("1PP only");
+static const u8 sText_DifferentGender[] = _("Different Gender");
+static const u8 sText_NoSwitching[] = _("No Switching");
+static const u8 sText_PerishCount[] = _("Perish Count");
+static const u8 sText_SwitchMoves[] = _("Switch Moves");
+static const u8 sText_NoPrioMoves[] = _("No Prio Moves");
+static const u8 sText_NoHeldItems[] = _("No Held Items");
+static const u8 sText_NoAbilities[] = _("No Abilities");
+static const u8 sText_NoStatus[] = _("No Status Cond.");
+static const u8 sText_SharedDamage[] = _("Shared Damage");
+static const u8 sText_NoSetup[] = _("No Setup Moves");
+static const u8 sText_TrickRoom[] = _("Trick Room");
+static const u8 sText_NoPhysicalMoves[] = _("No Physical Moves");
+static const u8 sText_NoSpecialMoves[] = _("No Special Moves");
+static const u8 sText_NoStatusMoves[] = _("No Status Moves");
+static const u8 sText_InverseBattle[] = _("Inverse Battle");
+static const u8 sText_FirstSlot[] = _("First Move Slot");
+static const u8 sText_Truant[] = _("Truant");
+static const u8 sText_NoMisses[] = _("No Misses");
+
+void BufferCurrentBattleRule(struct ScriptContext *ctx)
+{
+    u8 *string = gStringVar1;
+    u8 rule = GetRandomBattleRuleSeeded();
+
+    switch (rule)
+    {
+    case BATTLERULE_BANNEDTYPE:
+        string = StringCopy(string, sText_BannedType);
+        break;
+    case BATTLERULE_BANNEDMOVETYPE:
+        string = StringCopy(string, sText_BannedMoveType);
+        break;
+    case BATTLERULE_NOHEALING:
+        string = StringCopy(string, sText_NoHealing);
+        break;
+    case BATTLERULE_NOCRITS:
+        string = StringCopy(string, sText_NoCrits);
+        break;
+    case BATTLERULE_NORECOIL:
+        string = StringCopy(string, sText_NoRecoil);
+        break;
+    case BATTLERULE_NOSTAB:
+        string = StringCopy(string, sText_NoStab);
+        break;
+    case BATTLERULE_ONLYSTAB:
+        string = StringCopy(string, sText_OnlyStab);
+        break;
+    case BATTLERULE_NOSUPEREFFECTIVE:
+        string = StringCopy(string, sText_NoSuperEffective);
+        break;
+    case BATTLERULE_1HP:
+        string = StringCopy(string, sText_1HPOnly);
+        break;
+    case BATTLERULE_1PP:
+        string = StringCopy(string, sText_1PPOnly);
+        break;
+    case BATTLERULE_NOSAMESEX:
+        string = StringCopy(string, sText_DifferentGender);
+        break;
+    case BATTLERULE_NOSWITCHING:
+        string = StringCopy(string, sText_NoSwitching);
+        break;
+    case BATTLERULE_PERISHCOUNT:
+        string = StringCopy(string, sText_PerishCount);
+        break;
+    case BATTLERULE_SWITCHMOVES:
+        string = StringCopy(string, sText_SwitchMoves);
+        break;
+    case BATTLERULE_NOPRIO:
+        string = StringCopy(string, sText_NoPrioMoves);
+        break;
+    case BATTLERULE_NOHELDITEMS:
+        string = StringCopy(string, sText_NoHeldItems);
+        break;
+    case BATTLERULE_NOABILITY:
+        string = StringCopy(string, sText_NoAbilities);
+        break;
+    case BATTLERULE_NOSTATUS:
+        string = StringCopy(string, sText_NoStatus);
+        break;
+    case BATTLERULE_SHAREDDAMAGE:
+        string = StringCopy(string, sText_SharedDamage);
+        break;
+    case BATTLERULE_NOSETUP:
+        string = StringCopy(string, sText_NoSetup);
+        break;
+    case BATTLERULE_TRICKROOM:
+        string = StringCopy(string, sText_TrickRoom);
+        break;
+    case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
+        string = StringCopy(string, sText_NoPhysicalMoves);
+        break;
+    case BATTLERULE_BANNEDMOVECAT_SPECIAL:
+        string = StringCopy(string, sText_NoSpecialMoves);
+        break;
+    case BATTLERULE_BANNEDMOVECAT_STATUS:
+        string = StringCopy(string, sText_NoStatusMoves);
+        break;
+    case BATTLERULE_INVERSE:
+        string = StringCopy(string, sText_InverseBattle);
+        break;
+    case BATTLERULE_FIRSTMOVEONLY:
+        string = StringCopy(string, sText_FirstSlot);
+        break;
+    case BATTLERULE_TRUANT:
+        string = StringCopy(string, sText_Truant);
+        break;
+    case BATTLERULE_NOMISSES:
+        string = StringCopy(string, sText_NoMisses);
+        break;
+    
+    default:
+        break;
+    }
+
+    if (rule <= BATTLERULE_BANNEDMOVETYPE)
+    {
+        u8 type = GetRandomTypeSeeded();
+        string = StringCopy(string, gTypesInfo[type].name);
+    }
 }
