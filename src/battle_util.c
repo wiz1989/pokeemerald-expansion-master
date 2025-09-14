@@ -11884,3 +11884,11 @@ bool8 IsBattlerValidSpecies(u32 battler)
         return TRUE;
     return FALSE;
 }
+
+bool8 BattlerHasType(u32 battler, u8 type)
+{
+    u32 types[3];
+    GetBattlerTypes(battler, FALSE, types);
+
+    return type == types[0] || type == types[1];
+}

@@ -6210,7 +6210,7 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
     u8 rule = GetRandomBattleRuleSeeded();
     bool8 faint = FALSE;
 
-    // rule = BATTLERULE_BANNEDMOVETYPE_POISON; // test line
+    rule = BATTLERULE_NOSTAB; // test line
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
     {
@@ -6218,18 +6218,20 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
         if (IsOnPlayerSide(gBattlerAttacker) && IsBattlerValidSpecies(gBattlerAttacker))
         {
             faint = FALSE;
-            // if (rule == BATTLERULE_NOSAMESEX && !IsDoubleBattle())
-            // {
-            //     u8 gender = GetBattlerGender(gBattlerAttacker);
-            //     u8 genderOpponent = GetBattlerGender(B_POSITION_OPPONENT_LEFT);
-
-            //     if (gender == genderOpponent)
-            //         faint = TRUE;
-            // }
-            // else
-            DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), rule + MOVETYPE_RULE_OFFSET);
-            if (GetBattleMoveType(move) == (rule + MOVETYPE_RULE_OFFSET))
-                faint = TRUE;
+            switch (rule)
+            {
+            case BATTLERULE_NOSTAB:
+                DebugPrintf("move type = %d, STAB? %d", GetBattleMoveType(move), BattlerHasType(gBattlerAttacker, GetBattleMoveType(move)));
+                if (BattlerHasType(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                    faint = TRUE;
+                break;
+            
+            default:
+                DebugPrintf("type = %d, check = %d", GetBattleMoveType(move), rule + MOVETYPE_RULE_OFFSET);
+                if (GetBattleMoveType(move) == (rule + MOVETYPE_RULE_OFFSET))
+                    faint = TRUE;
+                break;
+            }
 
             if (faint)
             {
