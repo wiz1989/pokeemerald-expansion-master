@@ -9712,3 +9712,13 @@ BattleScript_BattleRule_FaintMon::
 	tryfaintmon BS_ATTACKER
 	moveendall
 	goto BattleScript_HandleFaintedMon
+
+BattleScript_BattleRule_FaintMon_End::
+	printstring STRINGID_RULEWASVIOLATED
+	waitmessage B_WAIT_TIME_LONG
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	tryfaintmon BS_ATTACKER
+	moveendall
+	end

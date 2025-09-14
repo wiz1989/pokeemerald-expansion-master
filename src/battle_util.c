@@ -537,14 +537,6 @@ void HandleAction_UseMove(void)
         }
     }
 
-    // check battle rule violation first
-    // if (BattleRuleViolated_USEMOVE(gCurrentMove))
-    // {
-    //     DebugPrintf("execute Faint script");
-    //     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
-    //     gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon;
-    // }
-    // else 
     if (IsBattlerAlly(gBattlerAttacker, gBattlerTarget) && !IsBattlerAlive(gBattlerTarget))
     {
         gBattlescriptCurrInstr = BattleScript_FailedFromAtkCanceler;
@@ -11885,12 +11877,4 @@ bool8 IsBattlerValidSpecies(u32 battler)
       && gBattleMons[battler].species != SPECIES_EGG)
         return TRUE;
     return FALSE;
-}
-
-bool8 BattlerHasType(u32 battler, u8 type)
-{
-    u32 types[3];
-    GetBattlerTypes(battler, FALSE, types);
-
-    return type == types[0] || type == types[1];
 }

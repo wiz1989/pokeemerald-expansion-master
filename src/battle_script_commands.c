@@ -1110,7 +1110,7 @@ static void Cmd_attackcanceler(void)
         DebugPrintf("execute Faint script");
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
         gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
-        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon;
+        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
         return;
     }
     else if (!IsBattlerAlive(gBattlerAttacker)

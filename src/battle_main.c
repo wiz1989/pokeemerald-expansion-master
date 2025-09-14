@@ -6214,15 +6214,14 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
     {
-        DebugPrintf("battler species %S is valid? %d", gSpeciesInfo[gBattleMons[gBattlerAttacker].species].speciesName, IsBattlerValidSpecies(gBattlerAttacker));
         if (IsOnPlayerSide(gBattlerAttacker) && IsBattlerValidSpecies(gBattlerAttacker))
         {
             faint = FALSE;
             switch (rule)
             {
             case BATTLERULE_NOSTAB:
-                DebugPrintf("move type = %d, STAB? %d", GetBattleMoveType(move), BattlerHasType(gBattlerAttacker, GetBattleMoveType(move)));
-                if (BattlerHasType(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                DebugPrintf("move type = %d, STAB? %d", GetBattleMoveType(move), IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)));
+                if (IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
                     faint = TRUE;
                 break;
             
@@ -6232,13 +6231,6 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                     faint = TRUE;
                 break;
             }
-
-            // if (faint)
-            // {
-            //     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
-            //     BattleScriptExecute(BattleScript_BattleRule_FaintMon);
-            //     return TRUE;
-            // }
         }
     }
     return faint;
