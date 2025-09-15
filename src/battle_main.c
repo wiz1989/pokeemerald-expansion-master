@@ -3920,7 +3920,7 @@ static void TryDoEventsBeforeFirstTurn(void)
             return;
         break;
     case FIRST_TURN_EVENTS_BATTLERULE_FAINT:
-        BattleRuleViolated_SENDOUT();
+        BattleRuleViolated_SENDOUT(FALSE);
         gBattleStruct->switchInBattlerCounter = 0;
         gBattleStruct->eventsBeforeFirstTurnState++;
         break;
@@ -6189,12 +6189,13 @@ void BattleDebug_WonBattle(void)
     gBattleMainFunc = sEndTurnFuncsTable[gBattleOutcome & 0x7F];
 }
 
-bool8 BattleRuleViolated_SENDOUT(void)
+bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
 {
     u8 rule = GetRandomBattleRuleSeeded();
     bool8 faint = FALSE;
 
-    // rule = BATTLERULE_NOSAMESEX; // test line
+    if(!gBattleTurnCounter)
+        midBattle = FALSE;
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_SENDOUT)
     {
@@ -6217,7 +6218,10 @@ bool8 BattleRuleViolated_SENDOUT(void)
                 if (faint)
                 {
                     gBattleStruct->moveDamage[i] = gBattleMons[i].hp;
-                    BattleScriptExecute(BattleScript_BattleRule_FaintMon);
+                    if (midBattle)
+                        BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
+                    else
+                        BattleScriptExecute(BattleScript_BattleRule_FaintMon);
                     return TRUE;
                 }
             }

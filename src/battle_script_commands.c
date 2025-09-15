@@ -7774,7 +7774,7 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
     u32 i = 0;
     u32 side = GetBattlerSide(battler);
     // Check battle rules first!
-    if (BattleRuleViolated_SENDOUT())
+    if (BattleRuleViolated_SENDOUT(TRUE))
     {
         // do nothing. Skip all other switch-in effects
     }
