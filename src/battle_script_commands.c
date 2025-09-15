@@ -3359,7 +3359,10 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         }
         break;
     case MOVE_EFFECT_RECOIL_HP_25: // Struggle
-        gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
+        if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL)
+            gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP);
+        else
+            gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
         if (gBattleStruct->moveDamage[gEffectBattler] == 0)
             gBattleStruct->moveDamage[gEffectBattler] = 1;
         if (GetBattlerAbility(gEffectBattler) == ABILITY_PARENTAL_BOND)
@@ -5821,7 +5824,12 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_RECOIL:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            gBattleStruct->moveDamage[gBattlerAttacker] = max(1, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
+            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL)
+            {
+                gBattleStruct->moveDamage[gBattlerAttacker] = (gBattleMons[gBattlerAttacker].maxHP);
+            }
+                else
+                gBattleStruct->moveDamage[gBattlerAttacker] = max(1, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
             BattleScriptCall(BattleScript_MoveEffectRecoil);
             effect = TRUE;
         }
@@ -5847,7 +5855,10 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_CHLOROBLAST:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
+            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL)
+                gBattleStruct->moveDamage[gBattlerAttacker] = (gBattleMons[gBattlerAttacker].maxHP);
+            else
+                gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
             BattleScriptCall(BattleScript_MoveEffectRecoil);
             effect = TRUE;
         }
