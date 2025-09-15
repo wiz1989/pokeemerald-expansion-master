@@ -4,6 +4,7 @@
 #include "battle_anim.h"
 #include "battle_ai_main.h"
 #include "battle_ai_util.h"
+#include "battle_rules.h"
 #include "battle_scripts.h"
 #include "battle_environment.h"
 #include "battle_z_move.h"
@@ -2464,6 +2465,8 @@ static void Cmd_critmessage(void)
 {
     CMD_ARGS();
 
+    bool8 crit = FALSE;
+
     if (gBattleControllerExecFlags == 0)
     {
         if (gSpecialStatuses[gBattlerTarget].criticalHit && !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT))
@@ -2474,8 +2477,16 @@ static void Cmd_critmessage(void)
             TryInitializeTrainerSlidePlayerLandsFirstCriticalHit(gBattlerTarget);
 
             gBattleCommunication[MSG_DISPLAY] = 1;
+            crit = TRUE;
         }
-        gBattlescriptCurrInstr = cmd->nextInstr;
+        if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS)
+        {
+            gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+            gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
+            return;
+        }
+        else
+            gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 

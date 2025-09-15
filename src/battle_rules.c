@@ -30,7 +30,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOCRITS] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     },
     [BATTLERULE_NORECOIL] =
@@ -205,7 +205,8 @@ u8 GetRandomBattleRuleSeeded(void)
         IncrementBattleRuleRerollCounter();
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
-    
+
+    //value = BATTLERULE_NOCRITS; // test line
     DebugPrintf("--- Random Battle Rule: %d ---", value);
     return value;
 }
