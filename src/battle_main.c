@@ -4346,6 +4346,14 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 case B_ACTION_SWITCH:
                     gBattleStruct->battlerPartyIndexes[battler] = gBattlerPartyIndexes[battler];
+                #if B_BATTLERULE_NOSWITCHING_NOPARTYMENU
+                    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING)
+                    {
+                        gBattleCommunication[battler] = STATE_WAIT_ACTION_CASE_CHOSEN;
+                        return;
+                    }
+                    else 
+                #endif
                     if (gBattleTypeFlags & BATTLE_TYPE_ARENA
                         || !CanBattlerEscape(battler))
                     {

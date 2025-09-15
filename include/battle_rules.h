@@ -6,6 +6,8 @@ void IncrementTypeRerollCounter(void);
 u8 GetRandomBattleRuleSeeded(void);
 u8 GetRandomTypeSeeded(void);
 
+#define B_BATTLERULE_NOSWITCHING_NOPARTYMENU    TRUE    // If TRUE, the party menu won't be shown when the switch rule activates
+
 enum battleRules {
     BATTLERULE_BANNEDTYPE,
     BATTLERULE_BANNEDMOVETYPE,

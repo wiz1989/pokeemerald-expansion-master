@@ -6,6 +6,7 @@
 #include "battle_util.h"
 #include "battle_controllers.h"
 #include "battle_interface.h"
+#include "battle_rules.h"
 #include "battle_setup.h"
 #include "battle_z_move.h"
 #include "battle_gimmick.h"
@@ -564,6 +565,14 @@ void HandleAction_UseMove(void)
 void HandleAction_Switch(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+
+    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING)
+    {
+        gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
+        gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
+        return;
+    }
 
     // if switching to a mon that is already on field, cancel switch
     if (!(gAbsentBattlerFlags & (1u << BATTLE_PARTNER(gBattlerAttacker)))

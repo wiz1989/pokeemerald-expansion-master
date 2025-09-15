@@ -72,13 +72,13 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOSAMESEX] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_NOSWITCHING] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SWITCHOUT,
     },
     [BATTLERULE_PERISHCOUNT] =
@@ -206,7 +206,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    // value = BATTLERULE_1PP; // test line
+    // value = BATTLERULE_NOSWITCHING; // test line
     DebugPrintf("--- Random Battle Rule: %d ---", value);
     return value;
 }
