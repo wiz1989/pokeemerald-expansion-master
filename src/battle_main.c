@@ -567,6 +567,29 @@ static void CB2_InitBattleInternal(void)
             SetWildMonHeldItem();
             CalculateEnemyPartyCount();
         }
+        if (GetRandomBattleRuleSeeded() == BATTLERULE_1HP)
+        {
+            u8 hp = 1;
+
+            for (i = 0; i < gPlayerPartyCount; i++)
+            {
+                if (GetMonData(&gPlayerParty[i], MON_DATA_HP) > 1)
+                    SetMonData(&gPlayerParty[i], MON_DATA_HP, &hp);
+            }
+        }
+        if (GetRandomBattleRuleSeeded() == BATTLERULE_1PP)
+        {
+            u8 pp = 1;
+
+            for (u8 monId = 0; monId < gPlayerPartyCount; monId++)
+            {
+                for (i = 0; i < MAX_MON_MOVES; i++)
+                {
+                    if (GetMonData(&gPlayerParty[monId], MON_DATA_MOVE1 + i) != MOVE_NONE)
+                        SetMonData(&gPlayerParty[monId], MON_DATA_PP1 + i, &pp);
+                }
+            }
+        }
     }
 
     gMain.inBattle = TRUE;

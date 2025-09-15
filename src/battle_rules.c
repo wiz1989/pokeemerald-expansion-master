@@ -36,7 +36,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NORECOIL] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     },
     [BATTLERULE_NOSTAB] =
@@ -60,13 +60,13 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_1HP] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_1PP] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_NOSAMESEX] =
@@ -206,7 +206,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    // value = BATTLERULE_NORECOIL; // test line
+    // value = BATTLERULE_1PP; // test line
     DebugPrintf("--- Random Battle Rule: %d ---", value);
     return value;
 }
