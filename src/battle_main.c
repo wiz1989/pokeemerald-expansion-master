@@ -173,6 +173,7 @@ EWRAM_DATA u8 gBattlerAttacker = 0;
 EWRAM_DATA u8 gBattlerTarget = 0;
 EWRAM_DATA u8 gBattlerFainted = 0;
 EWRAM_DATA u8 gEffectBattler = 0;
+EWRAM_DATA u8 gBattleRuleBattler = 0;
 EWRAM_DATA u8 gPotentialItemEffectBattler = 0;
 EWRAM_DATA u8 gAbsentBattlerFlags = 0;
 EWRAM_DATA u8 gMultiHitCounter = 0;
@@ -3078,6 +3079,7 @@ static void BattleStartClearSetData(void)
     gBattlerAttacker = 0;
     gBattlerTarget = 0;
     gEffectBattler = 0;
+    gBattleRuleBattler = 0;
     gBattlerAbility = 0;
     gBattleWeather = 0;
     gHitMarker = 0;
@@ -4347,7 +4349,7 @@ static void HandleTurnActionSelectionState(void)
                 case B_ACTION_SWITCH:
                     gBattleStruct->battlerPartyIndexes[battler] = gBattlerPartyIndexes[battler];
                 #if B_BATTLERULE_NOSWITCHING_NOPARTYMENU
-                    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING)
+                    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING && IsOnPlayerSide(battler))
                     {
                         gBattleCommunication[battler] = STATE_WAIT_ACTION_CASE_CHOSEN;
                         return;

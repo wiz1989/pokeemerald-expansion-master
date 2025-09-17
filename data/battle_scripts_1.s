@@ -6945,6 +6945,7 @@ BattleScript_UpdateEffectStatusIconRet::
 	waitstate
 	trytriggerstatusform
 	flushtextbox
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret
 	return
 
 BattleScript_YawnMakesAsleep::
@@ -7042,6 +7043,7 @@ BattleScript_MoveEffectConfusion::
 	volatileanimation BS_EFFECT_BATTLER, VOLATILE_CONFUSION
 	printstring STRINGID_PKMNWASCONFUSED
 	waitmessage B_WAIT_TIME_LONG
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret
 	return
 
 BattleScript_MoveEffectRecoil::
@@ -9722,3 +9724,13 @@ BattleScript_BattleRule_FaintMon_End::
 	tryfaintmon BS_ATTACKER
 	moveendall
 	end
+
+BattleScript_BattleRule_FaintMon_Ret::
+	printstring STRINGID_RULEWASVIOLATED
+	waitmessage B_WAIT_TIME_LONG
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
+	healthbarupdate BS_BATTLERULE_BATTLER
+	datahpupdate BS_BATTLERULE_BATTLER
+	tryfaintmon BS_BATTLERULE_BATTLER
+	moveendall
+	return

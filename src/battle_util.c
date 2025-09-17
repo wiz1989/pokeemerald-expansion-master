@@ -566,7 +566,7 @@ void HandleAction_Switch(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
 
-    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING)
+    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING && IsOnPlayerSide(gBattlerAttacker))
     {
         gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
@@ -1019,6 +1019,9 @@ u8 GetBattlerForBattleScript(u8 caseId)
         break;
     case BS_ABILITY_BATTLER:
         ret = gBattlerAbility;
+        break;
+    case BS_BATTLERULE_BATTLER:
+        ret = gBattleRuleBattler;
         break;
     }
     return ret;

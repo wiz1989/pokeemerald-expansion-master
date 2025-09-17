@@ -206,7 +206,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    value = BATTLERULE_SWITCHMOVES; // test line
+    // value = BATTLERULE_NOSTATUS; // test line
     if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         value = BATTLERULE_NONE;
     DebugPrintf("--- Random Battle Rule: %d ---", value);

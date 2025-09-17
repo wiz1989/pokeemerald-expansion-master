@@ -2479,7 +2479,7 @@ static void Cmd_critmessage(void)
             gBattleCommunication[MSG_DISPLAY] = 1;
             crit = TRUE;
         }
-        if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS)
+        if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
         {
             gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
             gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
@@ -3359,7 +3359,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         }
         break;
     case MOVE_EFFECT_RECOIL_HP_25: // Struggle
-        if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL)
+        if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
             gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP);
         else
             gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
@@ -4206,6 +4206,14 @@ static void Cmd_tryfaintmon(void)
     CMD_ARGS(u8 battler, bool8 isSpikes, const u8 *instr);
     u32 battler, destinyBondBattler;
     const u8 *faintScript;
+    bool8 faintTarget = FALSE;
+
+    if (cmd->battler == BS_BATTLERULE_BATTLER)
+    {
+        destinyBondBattler = gBattleRuleBattler;
+        if (gBattleRuleBattler == gBattlerAttacker)
+            faintTarget = TRUE;
+    }
 
     battler = GetBattlerForBattleScript(cmd->battler);
     if (cmd->isSpikes != 0)
@@ -4231,7 +4239,7 @@ static void Cmd_tryfaintmon(void)
             gBattlescriptCurrInstr = BattleScript_NeutralizingGasExits;
             return;
         }
-        if (cmd->battler == BS_ATTACKER)
+        if (cmd->battler == BS_ATTACKER || faintTarget)
         {
             destinyBondBattler = gBattlerTarget;
             faintScript = BattleScript_FaintAttacker;
@@ -5824,7 +5832,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_RECOIL:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL)
+            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
             {
                 gBattleStruct->moveDamage[gBattlerAttacker] = (gBattleMons[gBattlerAttacker].maxHP);
             }
@@ -5855,7 +5863,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_CHLOROBLAST:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL)
+            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
                 gBattleStruct->moveDamage[gBattlerAttacker] = (gBattleMons[gBattlerAttacker].maxHP);
             else
                 gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
@@ -14548,15 +14556,18 @@ static void Cmd_setnonvolatilestatus(void)
     switch (cmd->trigger)
     {
     case TRIGGER_ON_ABILITY:
+        gBattleRuleBattler = gBattlerAbility;
         if (gBattleScripting.moveEffect >= MOVE_EFFECT_CONFUSION)
             SetMoveEffect(gBattleScripting.battler, gEffectBattler, FALSE, FALSE);
         else
             SetNonVolatileStatusCondition(gEffectBattler, gBattleScripting.moveEffect, TRIGGER_ON_ABILITY);
         break;
     case TRIGGER_ON_MOVE:
+        gBattleRuleBattler = gBattlerAttacker;
         SetNonVolatileStatusCondition(gBattlerTarget, GetMoveNonVolatileStatus(gCurrentMove), TRIGGER_ON_MOVE);
         break;
     case TRIGGER_ON_PROTECT:
+        gBattleRuleBattler = gBattlerTarget;
         SetNonVolatileStatusCondition(gBattlerAttacker, gBattleScripting.moveEffect, TRIGGER_ON_PROTECT);
         break;
     }
@@ -18389,4 +18400,20 @@ void BS_JumpIfGenConfigLowerThan(void)
         gBattlescriptCurrInstr = cmd->jumpInstr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_TryEnforceBattleRule(void)
+{
+    NATIVE_ARGS(const u8 *jumpInstr);
+    u32 battler = gBattleRuleBattler;
+
+    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSTATUS && IsOnPlayerSide(battler))
+    {
+        gBattleStruct->moveDamage[battler] = gBattleMons[battler].hp;
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    }
+    else
+    {
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
 }

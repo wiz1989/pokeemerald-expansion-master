@@ -2531,3 +2531,8 @@
 	.byte \gen
 	.4byte \jumpInstr
 	.endm
+
+	.macro jumpifbattlerule jumpInstr:req
+	callnative BS_TryEnforceBattleRule
+	.4byte \jumpInstr
+	.endm
