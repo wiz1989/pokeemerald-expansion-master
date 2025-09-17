@@ -2,7 +2,7 @@
 #include "battle.h"
 #include "battle_rules.h"
 #include "battle_setup.h"
-#include "data.h"
+// #include "data.h"
 #include "malloc.h"
 #include "random.h"
 
@@ -114,7 +114,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOSTATUS] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     },
     [BATTLERULE_SHAREDDAMAGE] =

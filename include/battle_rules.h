@@ -1,5 +1,5 @@
 #ifndef GUARD_BATTLE_RULES_H
-#define BATTLE_RULES_H
+#define GUARD_BATTLE_RULES_H
 
 void IncrementBattleRuleRerollCounter(void);
 void IncrementTypeRerollCounter(void);
@@ -60,4 +60,4 @@ struct BattleRule
 
 extern const struct BattleRule gBattleRules[];
 
-#endif // BATTLE_RULES_H
+#endif // GUARD_BATTLE_RULES_H

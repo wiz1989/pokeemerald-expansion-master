@@ -4,6 +4,7 @@
 #include "constants/moves.h"
 #include "constants/trainers.h"
 #include "constants/battle.h"
+#include "battle_rules.h"
 #include "difficulty.h"
 #include "debug.h"
 
@@ -273,7 +274,10 @@ static inline const u8 GetTrainerBackPicFromId(u16 trainerId)
 
 static inline const u8 GetTrainerStartingStatusFromId(u16 trainerId)
 {
-    return GetTrainerStructFromId(trainerId)->startingStatus;
+    if (GetRandomBattleRuleSeeded() == BATTLERULE_TRICKROOM)
+        return STARTING_STATUS_TRICK_ROOM;
+    else
+        return GetTrainerStructFromId(trainerId)->startingStatus;
 }
 
 static inline const enum TrainerBattleType GetTrainerBattleType(u16 trainerId)
