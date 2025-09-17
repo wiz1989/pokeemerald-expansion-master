@@ -2,7 +2,7 @@
 #include "battle.h"
 #include "battle_rules.h"
 #include "battle_setup.h"
-// #include "data.h"
+#include "event_data.h"
 #include "malloc.h"
 #include "random.h"
 
@@ -132,7 +132,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_TRICKROOM] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_BANNEDMOVECAT_PHYSICAL] =
@@ -156,7 +156,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_INVERSE] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_FIRSTMOVEONLY] =
@@ -198,6 +198,8 @@ u8 GetRandomBattleRuleSeeded(void)
     u16 value = 0;
     u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
 
+    FlagClear(FLAG_INVERSE_BATTLE);
+
     value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
 
     while (!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX))
@@ -206,10 +208,14 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    // value = BATTLERULE_NOSTATUS; // test line
+    value = BATTLERULE_INVERSE; // test line
     if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         value = BATTLERULE_NONE;
     DebugPrintf("--- Random Battle Rule: %d ---", value);
+
+    if (value == BATTLERULE_INVERSE)
+        FlagSet(FLAG_INVERSE_BATTLE);
+
     return value;
 }
 
