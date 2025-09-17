@@ -2748,6 +2748,8 @@ BattleScript_MoveMissed::
 	effectivenesssound
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
+	copybyte gBattleRuleBattler, gBattlerAttacker
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End
 	goto BattleScript_MoveEnd
 
 BattleScript_TerrainPreventsEnd2::
@@ -3202,6 +3204,8 @@ BattleScript_KOFail::
 	pause B_WAIT_TIME_LONG
 	printfromtable gKOFailedStringIds
 	waitmessage B_WAIT_TIME_LONG
+	copybyte gBattleRuleBattler, gBattlerAttacker
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End
 	goto BattleScript_MoveEnd
 
 BattleScript_RecoilIfMiss::
@@ -6127,7 +6131,7 @@ BattleScript_FutureAttackEnd::
 	moveendfromto MOVEEND_ITEM_EFFECTS_ALL, MOVEEND_UPDATE_LAST_MOVES
 	setmoveresultflags 0
 	end2
-BattleScript_FutureAttackMiss::
+BattleScript_FutureAttackMiss:: @wiz1989: not included in BATTLERULE_NOMISSES
 	pause B_WAIT_TIME_SHORT
 	setmoveresultflags MOVE_RESULT_FAILED
 	resultmessage

@@ -162,7 +162,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_FIRSTMOVEONLY] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_TRUANT] =
@@ -174,7 +174,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOMISSES] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     }
 };
@@ -208,7 +208,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    value = BATTLERULE_INVERSE; // test line
+    value = BATTLERULE_NOMISSES; // test line
     if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         value = BATTLERULE_NONE;
     DebugPrintf("--- Random Battle Rule: %d ---", value);
