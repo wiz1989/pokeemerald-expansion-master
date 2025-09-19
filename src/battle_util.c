@@ -2082,13 +2082,21 @@ static enum MoveCanceller CancellerObedience(void)
 
 static enum MoveCanceller CancellerTruant(void)
 {
-    if (GetBattlerAbility(gBattlerAttacker) == ABILITY_TRUANT && gDisableStructs[gBattlerAttacker].truantCounter)
+    if ((GetBattlerAbility(gBattlerAttacker) == ABILITY_TRUANT || IsTruantBattleRule(gBattlerAttacker)) && gDisableStructs[gBattlerAttacker].truantCounter)
     {
         CancelMultiTurnMoves(gBattlerAttacker, SKY_DROP_ATTACKCANCELLER_CHECK);
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-        gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_LOAFING;
+        if (IsTruantBattleRule(gBattlerAttacker))
+        {
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_LOAFING_BATTLERULE;
+            gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAroundMsg;
+        }
+        else
+        {
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_LOAFING;
+            gBattlescriptCurrInstr = BattleScript_TruantLoafingAround;
+        }
         gBattlerAbility = gBattlerAttacker;
-        gBattlescriptCurrInstr = BattleScript_TruantLoafingAround;
         gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_MISSED;
         return MOVE_STEP_BREAK;
     }

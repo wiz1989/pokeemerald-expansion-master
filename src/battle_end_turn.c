@@ -1422,6 +1422,13 @@ static bool32 HandleEndTurnThirdEventBlock(u32 battler)
                 effect = TRUE;
             break;
         }
+
+        if (IsTruantBattleRule(battler))
+        {
+            gDisableStructs[battler].truantCounter ^= 1;
+            effect = TRUE;
+        }
+
         gBattleStruct->eventBlockCounter++;
         break;
     }

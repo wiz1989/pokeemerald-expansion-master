@@ -527,6 +527,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_TWOENEMIESDEFEATED]                   = sText_TwoInGameTrainersDefeated,
     [STRINGID_TRAINER2LOSETEXT]                     = COMPOUND_STRING("{B_TRAINER2_LOSE_TEXT}"),
     [STRINGID_PKMNINCAPABLEOFPOWER]                 = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} appears incapable of using its power!"),
+    [STRINGID_LOAFINGBATTLERULE]                    = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} is loafing around due to the current Battle Rule!"),
     [STRINGID_GLINTAPPEARSINEYE]                    = COMPOUND_STRING("A glint appears in {B_SCR_NAME_WITH_PREFIX2}'s eyes!"),
     [STRINGID_PKMNGETTINGINTOPOSITION]              = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX} is getting into position!"),
     [STRINGID_PKMNBEGANGROWLINGDEEPLY]              = COMPOUND_STRING("{B_SCR_NAME_WITH_PREFIX} began growling deeply!"),
@@ -1312,7 +1313,8 @@ const u16 gInobedientStringIds[] =
     [B_MSG_WONT_OBEY]          = STRINGID_PKMNWONTOBEY,
     [B_MSG_TURNED_AWAY]        = STRINGID_PKMNTURNEDAWAY,
     [B_MSG_PRETEND_NOT_NOTICE] = STRINGID_PKMNPRETENDNOTNOTICE,
-    [B_MSG_INCAPABLE_OF_POWER] = STRINGID_PKMNINCAPABLEOFPOWER
+    [B_MSG_INCAPABLE_OF_POWER] = STRINGID_PKMNINCAPABLEOFPOWER,
+    [B_MSG_LOAFING_BATTLERULE] = STRINGID_LOAFINGBATTLERULE
 };
 
 const u16 gSafariGetNearStringIds[] =

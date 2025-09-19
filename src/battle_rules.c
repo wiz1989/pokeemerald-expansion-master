@@ -5,6 +5,7 @@
 #include "event_data.h"
 #include "malloc.h"
 #include "random.h"
+#include "constants/abilities.h"
 
 #define BATTLE_RULES_COUNT ARRAY_COUNT(gBattleRules)
 const struct BattleRule gBattleRules[] = 
@@ -168,7 +169,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_TRUANT] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_NOMISSES] =
@@ -208,7 +209,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    value = BATTLERULE_NOMISSES; // test line
+    // value = BATTLERULE_TRUANT; // test line
     if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         value = BATTLERULE_NONE;
     DebugPrintf("--- Random Battle Rule: %d ---", value);
@@ -234,4 +235,13 @@ u8 GetRandomTypeSeeded(void)
     
     DebugPrintf("--- Random Type is %d ---", value);
     return value;
+}
+
+bool8 IsTruantBattleRule(u32 battler)
+{
+    if (GetRandomBattleRuleSeeded() == BATTLERULE_TRUANT && IsOnPlayerSide(battler)
+      && GetBattlerAbility(battler) != ABILITY_TRUANT)
+        return TRUE;
+    else
+        return FALSE;
 }

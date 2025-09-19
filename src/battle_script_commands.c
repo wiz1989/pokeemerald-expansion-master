@@ -7838,7 +7838,7 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
         u32 battlerAbility = GetBattlerAbility(battler);
         // There is a hack here to ensure the truant counter will be 0 when the battler's next turn starts.
         // The truant counter is not updated in the case where a mon switches in after a lost judgment in the battle arena.
-        if (battlerAbility == ABILITY_TRUANT
+        if ((battlerAbility == ABILITY_TRUANT || IsTruantBattleRule(battler))
             && gCurrentActionFuncId != B_ACTION_USE_MOVE
             && !gDisableStructs[battler].truantSwitchInHack)
             gDisableStructs[battler].truantCounter = 1;
