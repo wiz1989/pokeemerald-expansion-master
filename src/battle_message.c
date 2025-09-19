@@ -416,6 +416,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_SHAREDPAIN]                           = COMPOUND_STRING("The battlers shared their pain!"),
     [STRINGID_BELLCHIMED]                           = COMPOUND_STRING("A bell chimed!"),
     [STRINGID_FAINTINTHREE]                         = COMPOUND_STRING("All Pokémon that heard the song will faint in three turns!"),
+    [STRINGID_BATTLERULE_PERISH]                    = COMPOUND_STRING("BATTLERULE: PERISH!\nYour Pokémon will faint in three turns!"),
     [STRINGID_NOPPLEFT]                             = COMPOUND_STRING("There's no PP left for this move!\p"), //not in gen 5+
     [STRINGID_BUTNOPPLEFT]                          = COMPOUND_STRING("But there was no PP left for the move!"),
     [STRINGID_PLAYERUSEDITEM]                       = COMPOUND_STRING("You used {B_LAST_ITEM}!"),

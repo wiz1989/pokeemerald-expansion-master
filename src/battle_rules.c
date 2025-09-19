@@ -85,7 +85,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_PERISHCOUNT] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_SWITCHMOVES] =
@@ -209,10 +209,10 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    // value = BATTLERULE_TRUANT; // test line
+    // value = BATTLERULE_PERISHCOUNT; // test line
     if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         value = BATTLERULE_NONE;
-    DebugPrintf("--- Random Battle Rule: %d ---", value);
+    // DebugPrintf("--- Random Battle Rule: %d ---", value);
 
     if (value == BATTLERULE_INVERSE)
         FlagSet(FLAG_INVERSE_BATTLE);
@@ -233,7 +233,7 @@ u8 GetRandomTypeSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
     }
     
-    DebugPrintf("--- Random Type is %d ---", value);
+    // DebugPrintf("--- Random Type is %d ---", value);
     return value;
 }
 

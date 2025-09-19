@@ -9738,3 +9738,15 @@ BattleScript_BattleRule_FaintMon_Ret::
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendall
 	return
+
+BattleScript_BattleRule_Perish::
+	trysetperishcounter BattleScript_BattleRule_Perish_End
+	savetarget
+	printstring STRINGID_BATTLERULE_PERISH
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_BattleRule_PerishLoop::
+	addbyte gBattlerTarget, 1
+	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_BattleRule_PerishLoop
+	restoretarget
+BattleScript_BattleRule_Perish_End::
+	end

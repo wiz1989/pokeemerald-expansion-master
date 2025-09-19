@@ -2536,3 +2536,8 @@
 	callnative BS_TryEnforceBattleRule
 	.4byte \jumpInstr
 	.endm
+
+	.macro trysetperishcounter failInstr:req
+	callnative BS_TrySetPerishCounter
+	.4byte \failInstr
+	.endm

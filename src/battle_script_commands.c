@@ -18421,3 +18421,31 @@ void BS_TryEnforceBattleRule(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
+
+void BS_TrySetPerishCounter(void)
+{
+    NATIVE_ARGS(const u8 *failInstr);
+
+    s32 i;
+    s32 notAffectedCount = 0;
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (gBattleMons[i].volatiles.perishSong
+            || gBattleMons[i].volatiles.semiInvulnerable == STATE_COMMANDER
+            || !IsOnPlayerSide(i))
+        {
+            notAffectedCount++;
+        }
+        else
+        {
+            gBattleMons[i].volatiles.perishSong = TRUE;
+            gDisableStructs[i].perishSongTimer = 3;
+        }
+    }
+    
+    if (notAffectedCount == gBattlersCount)
+        gBattlescriptCurrInstr = cmd->failInstr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}

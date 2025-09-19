@@ -6207,6 +6207,12 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
     if(!gBattleTurnCounter)
         midBattle = FALSE;
 
+    if (rule == BATTLERULE_PERISHCOUNT)
+    {
+        BattleScriptExecute(BattleScript_BattleRule_Perish);
+        return TRUE;
+    }
+
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_SENDOUT)
     {
         for (u8 i = 0; i < gBattlersCount; i++)
