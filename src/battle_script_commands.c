@@ -18407,7 +18407,7 @@ void BS_TryEnforceBattleRule(void)
     NATIVE_ARGS(const u8 *jumpInstr);
     u32 battler = gBattleRuleBattler;
     u8 rule = GetRandomBattleRuleSeeded();
-    // DebugPrintf("battler = %d", battler);
+    //DebugPrintf("BS_TryEnforceBattleRule battler = %d", battler);
 
     if ((rule == BATTLERULE_NOSTATUS 
       || rule == BATTLERULE_NOMISSES)
