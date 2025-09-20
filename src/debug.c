@@ -4323,9 +4323,9 @@ void BufferCurrentBattleRule(struct ScriptContext *ctx)
         break;
     }
 
-    if (rule <= BATTLERULE_BANNEDMOVETYPE)
+    if (rule == BATTLERULE_BANNEDTYPE || rule == BATTLERULE_BANNEDMOVETYPE)
     {
         u8 type = GetRandomTypeSeeded();
-        string = StringCopy(string, gTypesInfo[type].name);
+        string = StringAppend(string, gTypesInfo[type].name);
     }
 }
