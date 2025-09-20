@@ -6,6 +6,7 @@
 #include "malloc.h"
 #include "random.h"
 #include "constants/abilities.h"
+#include "constants/battle_rules.h"
 
 #define BATTLE_RULES_COUNT ARRAY_COUNT(gBattleRules)
 const struct BattleRule gBattleRules[] = 
@@ -209,7 +210,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
     }
 
-    // value = BATTLERULE_PERISHCOUNT; // test line
+    // value = BATTLERULE_NOHELDITEMS; // test line
     if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         value = BATTLERULE_NONE;
     // DebugPrintf("--- Random Battle Rule: %d ---", value);

@@ -4,6 +4,7 @@
 #include "constants/moves.h"
 #include "constants/trainers.h"
 #include "constants/battle.h"
+#include "constants/battle_rules.h"
 #include "battle_rules.h"
 #include "difficulty.h"
 #include "debug.h"

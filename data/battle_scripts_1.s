@@ -15,6 +15,7 @@
 #include "constants/trainers.h"
 #include "constants/species.h"
 #include "constants/generational_changes.h"
+#include "constants/battle_rules.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/battle_script.inc"
 	.include "constants/constants.inc"
@@ -765,6 +766,8 @@ BattleScript_EffectFlingConsumeBerry:
 	bicword gHitMarker, HITMARKER_DISABLE_ANIMATION
 	setbyte sBERRY_OVERRIDE, 0
 	restorebattleritem
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_FlingEnd:
 	tryfaintmon BS_TARGET
 	trysymbiosis BS_ATTACKER
@@ -797,6 +800,8 @@ BattleScript_FlingMentalHerb:
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_ATTACKER
 	restoretarget
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	goto BattleScript_FlingEnd
 BattleScript_FlingPoisonBarb:
 	seteffectsecondary BS_ATTACKER, BS_TARGET, MOVE_EFFECT_POISON
@@ -2749,7 +2754,7 @@ BattleScript_MoveMissed::
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
 	copybyte gBattleRuleBattler, gBattlerAttacker
-	jumpifbattlerule BattleScript_BattleRule_FaintMon_End
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOMISSES
 	goto BattleScript_MoveEnd
 
 BattleScript_TerrainPreventsEnd2::
@@ -3205,7 +3210,7 @@ BattleScript_KOFail::
 	printfromtable gKOFailedStringIds
 	waitmessage B_WAIT_TIME_LONG
 	copybyte gBattleRuleBattler, gBattlerAttacker
-	jumpifbattlerule BattleScript_BattleRule_FaintMon_End
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOMISSES
 	goto BattleScript_MoveEnd
 
 BattleScript_RecoilIfMiss::
@@ -3373,6 +3378,8 @@ BattleScript_PowerHerbActivation:
 	printstring STRINGID_POWERHERB
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_ATTACKER
+	copybyte gBattleRuleBattler, gBattlerAttacker
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_EffectTwoTurnsAttack::
@@ -3992,6 +3999,8 @@ BattleScript_TryDestinyKnotTarget:
 	waitanimation
 	printstring STRINGID_DESTINYKNOTACTIVATES
 	waitmessage B_WAIT_TIME_LONG
+	copybyte gBattleRuleBattler, gBattlerAttacker
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_TryDestinyKnotTargetRet:
 	return
 
@@ -4004,6 +4013,8 @@ BattleScript_TryDestinyKnotAttacker:
 	waitanimation
 	printstring STRINGID_DESTINYKNOTACTIVATES
 	waitmessage B_WAIT_TIME_LONG
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_TryDestinyKnotAttackerRet:
 	return
 
@@ -5702,6 +5713,8 @@ BattleScript_WeaknessPolicySpAtk:
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_WeaknessPolicyRemoveItem:
 	removeitem BS_TARGET
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_WeaknessPolicyEnd:
 	return
 
@@ -5715,6 +5728,8 @@ BattleScript_TargetItemStatRaise::
 	printstring STRINGID_USINGITEMSTATOFPKMNROSE
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_TARGET
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_TargetItemStatRaiseRemoveItemRet:
 	return
 
@@ -5728,6 +5743,8 @@ BattleScript_AttackerItemStatRaise::
 	printstring STRINGID_USINGITEMSTATOFPKMNROSE
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_ATTACKER
+	copybyte gBattleRuleBattler, gBattlerAttacker
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_AttackerItemStatRaiseRet:
 	return
 
@@ -6949,7 +6966,7 @@ BattleScript_UpdateEffectStatusIconRet::
 	waitstate
 	trytriggerstatusform
 	flushtextbox
-	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret BATTLERULE_NOSTATUS
 	return
 
 BattleScript_YawnMakesAsleep::
@@ -7047,7 +7064,7 @@ BattleScript_MoveEffectConfusion::
 	volatileanimation BS_EFFECT_BATTLER, VOLATILE_CONFUSION
 	printstring STRINGID_PKMNWASCONFUSED
 	waitmessage B_WAIT_TIME_LONG
-	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret BATTLERULE_NOSTATUS
 	return
 
 BattleScript_MoveEffectRecoil::
@@ -7105,6 +7122,8 @@ BattleScript_AbilityShieldProtects::
 	printstring STRINGID_ABILITYSHIELDPROTECTS
 	waitmessage B_WAIT_TIME_LONG
 	restoreattacker
+	copybyte gBattleRuleBattler, gBattlerAttacker
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_AbilityPopUpTarget::
@@ -7355,6 +7374,8 @@ BattleScript_TryIntimidateHoldEffects:
 	printstring STRINGID_USINGITEMSTATOFPKMNROSE
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_TARGET
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_TryIntimidateHoldEffectsRet:
 	return
 
@@ -8127,6 +8148,8 @@ BattleScript_RockyHelmetActivates::
 	waitanimation
 BattleScript_RockyHelmetActivatesDmg:
 	call BattleScript_HurtAttacker
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_SpikyShieldEffect::
@@ -8309,6 +8332,8 @@ BattleScript_BerryCureParRet::
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryCurePsnEnd2::
@@ -8321,6 +8346,8 @@ BattleScript_BerryCurePsnRet::
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryCureBrnEnd2::
@@ -8333,6 +8360,8 @@ BattleScript_BerryCureBrnRet::
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryCureFrzEnd2::
@@ -8345,6 +8374,8 @@ BattleScript_BerryCureFrzRet::
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryCureFrbEnd2::
@@ -8357,6 +8388,8 @@ BattleScript_BerryCureFrbRet::
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryCureSlpEnd2::
@@ -8369,6 +8402,8 @@ BattleScript_BerryCureSlpRet::
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_GemActivates::
@@ -8378,6 +8413,8 @@ BattleScript_GemActivates::
 	printstring STRINGID_GEMACTIVATES
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_ATTACKER
+	copybyte gBattleRuleBattler, gBattlerAttacker
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryReduceDmg::
@@ -8387,6 +8424,8 @@ BattleScript_BerryReduceDmg::
 	printstring STRINGID_BERRYDMGREDUCES
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryCureConfusionEnd2::
@@ -8398,6 +8437,8 @@ BattleScript_BerryCureConfusionRet::
 	printstring STRINGID_PKMNSITEMSNAPPEDOUT
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryCureChosenStatusEnd2::
@@ -8410,6 +8451,8 @@ BattleScript_BerryCureChosenStatusRet::
 	waitmessage B_WAIT_TIME_LONG
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_MentalHerbCureRet::
@@ -8419,6 +8462,8 @@ BattleScript_MentalHerbCureRet::
 	updatestatusicon BS_SCRIPTING
 	removeitem BS_SCRIPTING
 	copybyte gBattlerAttacker, sSAVED_BATTLER   @ restore the original attacker just to be safe
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_MentalHerbCureEnd2::
@@ -8434,6 +8479,8 @@ BattleScript_WhiteHerbRet::
 	printstring STRINGID_PKMNSITEMRESTOREDSTATUS
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_ItemHealHP_RemoveItemRet::
@@ -8449,6 +8496,8 @@ BattleScript_ItemHealHP_RemoveItemRet_Anim:
 	healthbarupdate BS_SCRIPTING
 	datahpupdate BS_SCRIPTING
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_ItemHealHP_RemoveItemEnd2::
@@ -8464,6 +8513,8 @@ BattleScript_ItemHealHP_RemoveItemEnd2_Anim:
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
 	removeitem BS_ATTACKER
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	end2
 
 BattleScript_BerryPPHealRet::
@@ -8476,6 +8527,8 @@ BattleScript_BerryPPHeal_Anim:
 	printstring STRINGID_PKMNSITEMRESTOREDPP
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_ATTACKER
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryPPHealEnd2::
@@ -8519,6 +8572,8 @@ BattleScript_ItemHealHP_Ret::
 	orword gHitMarker, HITMARKER_IGNORE_BIDE | HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_IGNORE_DISGUISE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_SelectingNotAllowedMoveChoiceItem::
@@ -8560,6 +8615,8 @@ BattleScript_HangedOnMsg::
 	jumpifnoholdeffect BS_TARGET, HOLD_EFFECT_FOCUS_SASH, BattleScript_HangedOnMsgRet
 	removeitem BS_TARGET
 BattleScript_HangedOnMsgRet:
+	copybyte gBattleRuleBattler, gBattlerTarget
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryConfuseHealEnd2::
@@ -8576,6 +8633,8 @@ BattleScript_BerryConfuseHealEnd2_Anim:
 	datahpupdate BS_SCRIPTING
 	seteffectprimary BS_SCRIPTING, BS_SCRIPTING, MOVE_EFFECT_CONFUSION
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	end2
 
 BattleScript_BerryConfuseHealRet::
@@ -8592,6 +8651,8 @@ BattleScript_BerryConfuseHealRet_Anim:
 	datahpupdate BS_SCRIPTING
 	seteffectprimary BS_SCRIPTING, BS_SCRIPTING, MOVE_EFFECT_CONFUSION
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_ConsumableStatRaiseEnd2::
@@ -8615,6 +8676,8 @@ BattleScript_ConsumableStatRaiseRet_Anim:
 	setbyte cMULTISTRING_CHOOSER, B_MSG_STAT_ROSE_ITEM
 	call BattleScript_StatUp
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_ConsumableStatRaiseRet_End:
 	restoretarget
 	return
@@ -8624,6 +8687,8 @@ BattleScript_BerryFocusEnergyRet::
 	printstring STRINGID_PKMNUSEDXTOGETPUMPED
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerryFocusEnergyEnd2::
@@ -8778,6 +8843,8 @@ BattleScript_MirrorHerbCopyStatChange::
 	printstring STRINGID_MIRRORHERBCOPIED
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 BattleScript_MirrorHerbStartCopyStats:
 	copyfoesstatincrease BS_SCRIPTING, BattleScript_MirrorHerbStartReturn
 	statbuffchange BS_TARGET, STAT_CHANGE_ALLOW_PTR, BattleScript_MirrorHerbStartReturn
@@ -8848,6 +8915,8 @@ BattleScript_QuickClawActivation::
 	waitanimation
 	printstring STRINGID_CANACTFASTERTHANKSTO
 	waitmessage B_WAIT_TIME_LONG
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	end2
 
 BattleScript_QuickDrawActivation::
@@ -8864,6 +8933,8 @@ BattleScript_CustapBerryActivation::
 	printstring STRINGID_CANACTFASTERTHANKSTO
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_ATTACKER
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	end2
 
 BattleScript_MicleBerryActivateEnd2::
@@ -8876,6 +8947,8 @@ BattleScript_MicleBerryActivateEnd2_Anim:
 	printstring STRINGID_MICLEBERRYACTIVATES
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_ATTACKER
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	end2
 
 BattleScript_MicleBerryActivateRet::
@@ -8888,6 +8961,8 @@ BattleScript_MicleBerryActivateRet_Anim:
 	printstring STRINGID_MICLEBERRYACTIVATES
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_JabocaRowapBerryActivates::
@@ -8902,6 +8977,8 @@ BattleScript_JabocaRowapBerryActivate_Anim:
 BattleScript_JabocaRowapBerryActivate_Dmg:
 	call BattleScript_HurtAttacker
 	removeitem BS_TARGET
+	setbattlerulebattler BS_TARGET
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 @ z moves / effects
@@ -9075,12 +9152,16 @@ BattleScript_RedCardActivationNoSwitch::
 	removeitem BS_SCRIPTING
 	restoretarget
 	restoreattacker
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_RedCardActivates::
 	playanimation BS_SCRIPTING, B_ANIM_HELD_ITEM_EFFECT
 	printstring STRINGID_REDCARDACTIVATE
 	waitmessage B_WAIT_TIME_LONG
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	swapattackerwithtarget
 	jumpifvolatile BS_EFFECT_BATTLER, VOLATILE_ROOT, BattleScript_RedCardIngrain
 	jumpifability BS_EFFECT_BATTLER, ABILITY_SUCTION_CUPS, BattleScript_RedCardSuctionCups
@@ -9112,6 +9193,8 @@ BattleScript_EjectButtonActivates::
 	printstring STRINGID_EJECTBUTTONACTIVATE
 	waitmessage B_WAIT_TIME_LONG
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	undodynamax BS_SCRIPTING
 	makeinvisible BS_SCRIPTING
 	openpartyscreen BS_SCRIPTING, BattleScript_EjectButtonEnd
@@ -9653,6 +9736,8 @@ BattleScript_BerserkGeneRet_End:
 	restoreattacker
 	restoretarget
 	removeitem BS_ATTACKER
+	setbattlerulebattler BS_ATTACKER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_BerserkGeneRetEnd2::
@@ -9671,6 +9756,8 @@ BattleScript_BoosterEnergyRet::
 	printstring STRINGID_STATWASHEIGHTENED
 	waitmessage B_WAIT_TIME_MED
 	removeitem BS_SCRIPTING
+	setbattlerulebattler BS_SCRIPTING
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOHELDITEMS
 	return
 
 BattleScript_EffectSnow::
@@ -9719,16 +9806,6 @@ BattleScript_BattleRule_FaintMon::
 	moveendall
 	goto BattleScript_HandleFaintedMon
 
-BattleScript_BattleRule_FaintMon_End::
-	printstring STRINGID_RULEWASVIOLATED
-	waitmessage B_WAIT_TIME_LONG
-	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
-	healthbarupdate BS_ATTACKER
-	datahpupdate BS_ATTACKER
-	tryfaintmon BS_ATTACKER
-	moveendall
-	end
-
 BattleScript_BattleRule_FaintMon_Ret::
 	printstring STRINGID_RULEWASVIOLATED
 	waitmessage B_WAIT_TIME_LONG
@@ -9738,6 +9815,16 @@ BattleScript_BattleRule_FaintMon_Ret::
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendall
 	return
+
+BattleScript_BattleRule_FaintMon_End::
+	printstring STRINGID_RULEWASVIOLATED
+	waitmessage B_WAIT_TIME_LONG
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
+	healthbarupdate BS_BATTLERULE_BATTLER
+	datahpupdate BS_BATTLERULE_BATTLER
+	tryfaintmon BS_BATTLERULE_BATTLER
+	moveendall
+	end
 
 BattleScript_BattleRule_Perish::
 	trysetperishcounter BattleScript_BattleRule_Perish_End

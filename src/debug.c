@@ -65,6 +65,7 @@
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_frontier.h"
+#include "constants/battle_rules.h"
 #include "constants/coins.h"
 #include "constants/decorations.h"
 #include "constants/event_objects.h"

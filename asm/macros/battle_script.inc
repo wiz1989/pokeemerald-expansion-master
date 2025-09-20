@@ -1829,6 +1829,11 @@
 	callnative BS_RestoreSavedMove
 	.endm
 
+	.macro setbattlerulebattler battler:req
+	callnative BS_SetBattleRuleBattler
+	.byte \battler
+	.endm
+
 @ helpful macros
 	.macro setstatchanger stat:req, stages:req, down:req
 	setbyte sSTATCHANGER, \stat | \stages << 3 | \down << 7
@@ -2532,9 +2537,10 @@
 	.4byte \jumpInstr
 	.endm
 
-	.macro jumpifbattlerule jumpInstr:req
+	.macro jumpifbattlerule jumpInstr:req rule:req
 	callnative BS_TryEnforceBattleRule
 	.4byte \jumpInstr
+	.byte \rule
 	.endm
 
 	.macro trysetperishcounter failInstr:req

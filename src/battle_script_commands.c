@@ -54,6 +54,7 @@
 #include "constants/battle_move_effects.h"
 #include "constants/battle_string_ids.h"
 #include "constants/battle_partner.h"
+#include "constants/battle_rules.h"
 #include "constants/hold_effects.h"
 #include "constants/items.h"
 #include "constants/item_effects.h"
@@ -1109,6 +1110,7 @@ static void Cmd_attackcanceler(void)
     if (BattleRuleViolated_USEMOVE(gCurrentMove))
     {
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+        gBattleRuleBattler = gBattlerAttacker;
         gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
         return;
@@ -2481,6 +2483,7 @@ static void Cmd_critmessage(void)
         }
         if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
         {
+            gBattleRuleBattler = gBattlerAttacker;
             gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
             gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
             return;
@@ -18404,14 +18407,14 @@ void BS_JumpIfGenConfigLowerThan(void)
 
 void BS_TryEnforceBattleRule(void)
 {
-    NATIVE_ARGS(const u8 *jumpInstr);
+    NATIVE_ARGS(const u8 *jumpInstr, u8 rule);
     u32 battler = gBattleRuleBattler;
-    u8 rule = GetRandomBattleRuleSeeded();
+    u8 currentRule = GetRandomBattleRuleSeeded();
     //DebugPrintf("BS_TryEnforceBattleRule battler = %d", battler);
 
-    if ((rule == BATTLERULE_NOSTATUS 
-      || rule == BATTLERULE_NOMISSES)
-      && IsOnPlayerSide(battler))
+    if (currentRule == cmd->rule
+      && IsOnPlayerSide(battler)
+      && IsBattlerAlive(battler))
     {
         gBattleStruct->moveDamage[battler] = gBattleMons[battler].hp;
         gBattlescriptCurrInstr = cmd->jumpInstr;
@@ -18448,4 +18451,13 @@ void BS_TrySetPerishCounter(void)
         gBattlescriptCurrInstr = cmd->failInstr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_SetBattleRuleBattler(void)
+{
+    NATIVE_ARGS(u8 battler);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+
+    gBattleRuleBattler = battler;
+    gBattlescriptCurrInstr = cmd->nextInstr;
 }

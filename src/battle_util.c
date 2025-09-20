@@ -41,6 +41,7 @@
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
+#include "constants/battle_rules.h"
 #include "constants/battle_script_commands.h"
 #include "constants/battle_string_ids.h"
 #include "constants/hold_effects.h"
@@ -568,6 +569,7 @@ void HandleAction_Switch(void)
 
     if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING && IsOnPlayerSide(gBattlerAttacker))
     {
+        gBattleRuleBattler = gBattlerAttacker;
         gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
         gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;

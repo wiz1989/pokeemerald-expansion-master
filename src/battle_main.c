@@ -67,6 +67,7 @@
 #include "constants/battle_move_effects.h"
 #include "constants/battle_string_ids.h"
 #include "constants/battle_partner.h"
+#include "constants/battle_rules.h"
 #include "constants/hold_effects.h"
 #include "constants/items.h"
 #include "constants/moves.h"
@@ -6235,7 +6236,10 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
                 {
                     gBattleStruct->moveDamage[i] = gBattleMons[i].hp;
                     if (midBattle)
+                    {
+                        gBattleRuleBattler = gBattlerAttacker;
                         BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
+                    }
                     else
                         BattleScriptExecute(BattleScript_BattleRule_FaintMon);
                     return TRUE;

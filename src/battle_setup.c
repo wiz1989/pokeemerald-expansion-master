@@ -44,6 +44,7 @@
 #include "vs_seeker.h"
 #include "item.h"
 #include "constants/battle_frontier.h"
+#include "constants/battle_rules.h"
 #include "constants/battle_setup.h"
 #include "constants/event_objects.h"
 #include "constants/game_stat.h"
