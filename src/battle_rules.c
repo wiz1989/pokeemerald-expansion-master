@@ -104,7 +104,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOHELDITEMS] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_ACTIVATE_ITEM,
     },
     [BATTLERULE_NOABILITY] =
