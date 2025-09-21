@@ -2,6 +2,8 @@
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_message.h"
+#include "battle_rules.h"
+#include "event_data.h"
 #include "main.h"
 #include "menu.h"
 #include "menu_helpers.h"
@@ -96,6 +98,7 @@ struct __attribute__((__packed__)) BitfieldInfo
 
 enum
 {
+    LIST_ITEM_BATTLERULES,
     LIST_ITEM_MOVES,
     LIST_ITEM_ABILITY,
     LIST_ITEM_HELD_ITEM,
@@ -146,6 +149,12 @@ enum
     LIST_SIDE_TOXIC_SPIKES,
     LIST_SIDE_STEALTH_ROCK,
     LIST_SIDE_STEELSURGE,
+};
+
+enum
+{
+    LIST_ITEM2_BATTLERULE,
+    LIST_ITEM2_TYPE,
 };
 
 enum
@@ -227,6 +236,8 @@ enum
     VAR_U16_4_ENTRIES,
     VAL_S8,
     VAL_ALL_STAT_STAGES,
+    VAL_BATTLERULES,
+    VAL_BR_TYPES,
 };
 
 // Static Declarations
@@ -312,6 +323,7 @@ static const struct BitfieldInfo sAIBitfield[] =
 
 static const struct ListMenuItem sMainListItems[] =
 {
+    {COMPOUND_STRING("Battlerules"),  LIST_ITEM_BATTLERULES},
     {COMPOUND_STRING("Moves"),        LIST_ITEM_MOVES},
     {sText_Ability,                   LIST_ITEM_ABILITY},
     {sText_HeldItem,                  LIST_ITEM_HELD_ITEM},
@@ -588,6 +600,7 @@ static const struct BgTemplate sBgTemplates[] =
 
 static const bool8 sHasChangeableEntries[LIST_ITEM_COUNT] =
 {
+    [LIST_ITEM_BATTLERULES] = TRUE,
     [LIST_ITEM_MOVES] = TRUE,
     [LIST_ITEM_AI_MOVES_PTS] = TRUE,
     [LIST_ITEM_PP] = TRUE,
@@ -615,6 +628,7 @@ static void UpdateMonData(struct BattleDebugMenu *data);
 static void ChangeHazardsValue(struct BattleDebugMenu *data);
 static u32 GetHazardsValue(struct BattleDebugMenu *data);
 static u16 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus, bool32 statusTrue);
+static void ChangeBattlerulesValue(struct BattleDebugMenu *data);
 static bool32 TryMoveDigit(struct BattleDebugModifyArrows *modArrows, bool32 moveUp);
 static void SwitchToDebugView(u8 taskId);
 static void SwitchToDebugViewFromAiParty(u8 taskId);
@@ -1350,6 +1364,9 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
     case LIST_ITEM_TYPES:
         itemsCount = 3;
         break;
+    case LIST_ITEM_BATTLERULES:
+        itemsCount = 2;
+        break;
     case LIST_ITEM_MOVES:
         itemsCount = 5;
         break;
@@ -1450,6 +1467,15 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
 
     switch (data->currentMainListItemId)
     {
+    case LIST_ITEM_BATTLERULES:
+        BufferCurrentBattleRule();
+        PadString(gStringVar1, text);
+        printer.currentY = printer.y = (0 * yMultiplier) + sSecondaryListTemplate.upText_Y;
+        AddTextPrinter(&printer, 0, NULL);
+        PadString(gTypesInfo[GetRandomTypeSeeded()].name, text);
+        printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
+        AddTextPrinter(&printer, 0, NULL);
+        break;
     case LIST_ITEM_MOVES:
     case LIST_ITEM_PP:
         for (i = 0; i < 4; i++)
@@ -1621,6 +1647,10 @@ static void UpdateBattlerValue(struct BattleDebugMenu *data)
         {
             gBattleMons[data->battlerId].volatiles.infatuation = 0;
         }
+        break;
+    case VAL_BATTLERULES:
+    case VAL_BR_TYPES:
+        ChangeBattlerulesValue(data);
         break;
     }
     data->battlerWasChanged[data->battlerId] = TRUE;
@@ -1855,6 +1885,21 @@ static u16 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus
     }
 }
 
+static void ChangeBattlerulesValue(struct BattleDebugMenu *data)
+{
+    switch (data->currentSecondaryListItemId)
+    {
+    case LIST_ITEM2_BATTLERULE:
+        FlagSet(FLAG_DEBUG_BATTLERULE);
+        gSaveBlock1Ptr->debugBattleRule = data->modifyArrows.currValue;
+        break;
+    case LIST_ITEM2_TYPE:
+        FlagSet(FLAG_DEBUG_RANDOMTYPE);
+        gSaveBlock2Ptr->DebugRandomType = data->modifyArrows.currValue;
+        break;
+    }
+}
+
 static void SetUpModifyArrows(struct BattleDebugMenu *data)
 {
     LoadSpritePalette(&gSpritePalette_Arrow);
@@ -1870,6 +1915,22 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         data->modifyArrows.modifiedValPtr = &gBattleMons[data->battlerId].ability;
         data->modifyArrows.typeOfVal = VAL_U16;
         data->modifyArrows.currValue = gBattleMons[data->battlerId].ability;
+        break;
+    case LIST_ITEM_BATTLERULES:
+        data->modifyArrows.minValue = 0;
+        data->modifyArrows.maxDigits = 2;
+        if (data->currentSecondaryListItemId == LIST_ITEM2_BATTLERULE)
+        {  
+            data->modifyArrows.maxValue = GetBattleRuleCount() - 1;
+            data->modifyArrows.typeOfVal = VAL_BATTLERULES;
+            data->modifyArrows.currValue = GetRandomBattleRuleSeeded();
+        }
+        else if (data->currentSecondaryListItemId == LIST_ITEM2_TYPE)
+        {
+            data->modifyArrows.maxValue = TYPE_FAIRY - 1;
+            data->modifyArrows.typeOfVal = VAL_BR_TYPES;
+            data->modifyArrows.currValue = GetRandomTypeSeeded();
+        }
         break;
     case LIST_ITEM_MOVES:
         data->modifyArrows.minValue = 0;

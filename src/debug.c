@@ -1588,6 +1588,7 @@ static void DebugAction_Player_Id(u8 taskId)
 static void DebugAction_IncreaseRerollCounter(u8 taskId)
 {
     IncrementBattleRuleRerollCounter();
+    IncrementTypeRerollCounter();
     Debug_DestroyMenu_Full(taskId);
     ScriptContext_Enable();
 }
@@ -4198,125 +4199,106 @@ void CheckEWRAMCounters(struct ScriptContext *ctx)
     ConvertIntToDecimalStringN(gStringVar2, gChainFishingDexNavStreak, STR_CONV_MODE_LEFT_ALIGN, 5);
 }
 
-static const u8 sText_BannedType[] = _("Banned Type: ");
-static const u8 sText_BannedMoveType[] = _("Banned Move Type: ");
-static const u8 sText_NoHealing[] = _("No Healing");
-static const u8 sText_NoCrits[] = _("No Crits");
-static const u8 sText_NoRecoil[] = _("No Recoil");
-static const u8 sText_NoStab[] = _("No STAB");
-static const u8 sText_OnlyStab[] = _("Only STAB");
-static const u8 sText_NoSuperEffective[] = _("No Super Effective");
-static const u8 sText_1HPOnly[] = _("1HP only");
-static const u8 sText_1PPOnly[] = _("1PP only");
-static const u8 sText_DifferentGender[] = _("Different Gender");
-static const u8 sText_NoSwitching[] = _("No Switching");
-static const u8 sText_PerishCount[] = _("Perish Count");
-static const u8 sText_SwitchMoves[] = _("Switch Moves");
-static const u8 sText_NoPrioMoves[] = _("No Prio Moves");
-static const u8 sText_NoHeldItems[] = _("No Held Items");
-static const u8 sText_NoAbilities[] = _("No Abilities");
-static const u8 sText_NoStatus[] = _("No Status Cond.");
-static const u8 sText_SharedDamage[] = _("Shared Damage");
-static const u8 sText_NoSetup[] = _("No Setup Moves");
-static const u8 sText_TrickRoom[] = _("Trick Room");
-static const u8 sText_NoPhysicalMoves[] = _("No Physical Moves");
-static const u8 sText_NoSpecialMoves[] = _("No Special Moves");
-static const u8 sText_NoStatusMoves[] = _("No Status Moves");
-static const u8 sText_InverseBattle[] = _("Inverse Battle");
-static const u8 sText_FirstSlot[] = _("First Move Slot");
-static const u8 sText_Truant[] = _("Truant");
-static const u8 sText_NoMisses[] = _("No Misses");
+void BufferCurrentBattleRuleScript(struct ScriptContext *ctx)
+{
+    BufferCurrentBattleRule();
+}
 
-void BufferCurrentBattleRule(struct ScriptContext *ctx)
+static const u8 sText_Delimiter[] = _(": ");
+
+void BufferCurrentBattleRule(void)
 {
     u8 *string = gStringVar1;
+    u8 *string2 = gStringVar2;
     u8 rule = GetRandomBattleRuleSeeded();
+
+    string2 = StringCopy(string2, gText_Blank);
 
     switch (rule)
     {
     case BATTLERULE_BANNEDTYPE:
-        string = StringCopy(string, sText_BannedType);
+        string = StringCopy(string, gText_BannedType);
         break;
     case BATTLERULE_BANNEDMOVETYPE:
-        string = StringCopy(string, sText_BannedMoveType);
+        string = StringCopy(string, gText_BannedMoveType);
         break;
     case BATTLERULE_NOHEALING:
-        string = StringCopy(string, sText_NoHealing);
+        string = StringCopy(string, gText_NoHealing);
         break;
     case BATTLERULE_NOCRITS:
-        string = StringCopy(string, sText_NoCrits);
+        string = StringCopy(string, gText_NoCrits);
         break;
     case BATTLERULE_NORECOIL:
-        string = StringCopy(string, sText_NoRecoil);
+        string = StringCopy(string, gText_NoRecoil);
         break;
     case BATTLERULE_NOSTAB:
-        string = StringCopy(string, sText_NoStab);
+        string = StringCopy(string, gText_NoStab);
         break;
     case BATTLERULE_ONLYSTAB:
-        string = StringCopy(string, sText_OnlyStab);
+        string = StringCopy(string, gText_OnlyStab);
         break;
     case BATTLERULE_NOSUPEREFFECTIVE:
-        string = StringCopy(string, sText_NoSuperEffective);
+        string = StringCopy(string, gText_NoSuperEffective);
         break;
     case BATTLERULE_1HP:
-        string = StringCopy(string, sText_1HPOnly);
+        string = StringCopy(string, gText_1HPOnly);
         break;
     case BATTLERULE_1PP:
-        string = StringCopy(string, sText_1PPOnly);
+        string = StringCopy(string, gText_1PPOnly);
         break;
     case BATTLERULE_NOSAMESEX:
-        string = StringCopy(string, sText_DifferentGender);
+        string = StringCopy(string, gText_DifferentGender);
         break;
     case BATTLERULE_NOSWITCHING:
-        string = StringCopy(string, sText_NoSwitching);
+        string = StringCopy(string, gText_NoSwitching);
         break;
     case BATTLERULE_PERISHCOUNT:
-        string = StringCopy(string, sText_PerishCount);
+        string = StringCopy(string, gText_PerishCount);
         break;
     case BATTLERULE_SWITCHMOVES:
-        string = StringCopy(string, sText_SwitchMoves);
+        string = StringCopy(string, gText_SwitchMoves);
         break;
     case BATTLERULE_NOPRIO:
-        string = StringCopy(string, sText_NoPrioMoves);
+        string = StringCopy(string, gText_NoPrioMoves);
         break;
     case BATTLERULE_NOHELDITEMS:
-        string = StringCopy(string, sText_NoHeldItems);
+        string = StringCopy(string, gText_NoHeldItems);
         break;
     case BATTLERULE_NOABILITY:
-        string = StringCopy(string, sText_NoAbilities);
+        string = StringCopy(string, gText_NoAbilities);
         break;
     case BATTLERULE_NOSTATUS:
-        string = StringCopy(string, sText_NoStatus);
+        string = StringCopy(string, gText_NoStatus);
         break;
     case BATTLERULE_SHAREDDAMAGE:
-        string = StringCopy(string, sText_SharedDamage);
+        string = StringCopy(string, gText_SharedDamage);
         break;
     case BATTLERULE_NOSETUP:
-        string = StringCopy(string, sText_NoSetup);
+        string = StringCopy(string, gText_NoSetup);
         break;
     case BATTLERULE_TRICKROOM:
-        string = StringCopy(string, sText_TrickRoom);
+        string = StringCopy(string, gText_TrickRoom);
         break;
     case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
-        string = StringCopy(string, sText_NoPhysicalMoves);
+        string = StringCopy(string, gText_NoPhysicalMoves);
         break;
     case BATTLERULE_BANNEDMOVECAT_SPECIAL:
-        string = StringCopy(string, sText_NoSpecialMoves);
+        string = StringCopy(string, gText_NoSpecialMoves);
         break;
     case BATTLERULE_BANNEDMOVECAT_STATUS:
-        string = StringCopy(string, sText_NoStatusMoves);
+        string = StringCopy(string, gText_NoStatusMoves);
         break;
     case BATTLERULE_INVERSE:
-        string = StringCopy(string, sText_InverseBattle);
+        string = StringCopy(string, gText_InverseBattle);
         break;
     case BATTLERULE_FIRSTMOVEONLY:
-        string = StringCopy(string, sText_FirstSlot);
+        string = StringCopy(string, gText_FirstSlot);
         break;
     case BATTLERULE_TRUANT:
-        string = StringCopy(string, sText_Truant);
+        string = StringCopy(string, gText_Truant);
         break;
     case BATTLERULE_NOMISSES:
-        string = StringCopy(string, sText_NoMisses);
+        string = StringCopy(string, gText_NoMisses);
         break;
     
     default:
@@ -4326,6 +4308,7 @@ void BufferCurrentBattleRule(struct ScriptContext *ctx)
     if (rule == BATTLERULE_BANNEDTYPE || rule == BATTLERULE_BANNEDMOVETYPE)
     {
         u8 type = GetRandomTypeSeeded();
-        string = StringAppend(string, gTypesInfo[type].name);
+        string2 = StringAppend(string2, sText_Delimiter);
+        string2 = StringAppend(string2, gTypesInfo[type].name);
     }
 }

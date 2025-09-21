@@ -2428,4 +2428,34 @@ extern const u8 gText_Rename[]; // change nickname from summary screen
 // Switch Caught Mon into Party
 extern const u8 gText_CannotSendMonToBoxHM[];
 
+// Battlerule Debug
+extern const u8 gText_BannedType[];
+extern const u8 gText_BannedMoveType[];
+extern const u8 gText_NoHealing[];
+extern const u8 gText_NoCrits[];
+extern const u8 gText_NoRecoil[];
+extern const u8 gText_NoStab[];
+extern const u8 gText_OnlyStab[];
+extern const u8 gText_NoSuperEffective[];
+extern const u8 gText_1HPOnly[];
+extern const u8 gText_1PPOnly[];
+extern const u8 gText_DifferentGender[];
+extern const u8 gText_NoSwitching[];
+extern const u8 gText_PerishCount[];
+extern const u8 gText_SwitchMoves[];
+extern const u8 gText_NoPrioMoves[];
+extern const u8 gText_NoHeldItems[];
+extern const u8 gText_NoAbilities[];
+extern const u8 gText_NoStatus[];
+extern const u8 gText_SharedDamage[];
+extern const u8 gText_NoSetup[];
+extern const u8 gText_TrickRoom[];
+extern const u8 gText_NoPhysicalMoves[];
+extern const u8 gText_NoSpecialMoves[];
+extern const u8 gText_NoStatusMoves[];
+extern const u8 gText_InverseBattle[];
+extern const u8 gText_FirstSlot[];
+extern const u8 gText_Truant[];
+extern const u8 gText_NoMisses[];
+
 #endif // GUARD_STRINGS_H

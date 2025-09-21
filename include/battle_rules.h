@@ -6,6 +6,7 @@ void IncrementTypeRerollCounter(void);
 u8 GetRandomBattleRuleSeeded(void);
 u8 GetRandomTypeSeeded(void);
 bool8 IsTruantBattleRule(u32 battler);
+u8 GetBattleRuleCount(void);
 
 struct BattleRule
 {

@@ -5571,6 +5571,9 @@ static void HandleEndTurn_FinishBattle(void)
 {
     u32 i, battler;
 
+    FlagClear(FLAG_DEBUG_BATTLERULE);
+    FlagClear(FLAG_DEBUG_RANDOMTYPE);
+
     if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
     {
         if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK

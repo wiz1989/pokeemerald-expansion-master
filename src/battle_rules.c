@@ -181,6 +181,11 @@ const struct BattleRule gBattleRules[] =
     }
 };
 
+u8 GetBattleRuleCount(void)
+{
+    return BATTLE_RULES_COUNT;
+}
+
 void IncrementBattleRuleRerollCounter(void)
 {
     gSaveBlock1Ptr->battleRuleRerollCounter++;
@@ -213,6 +218,13 @@ u8 GetRandomBattleRuleSeeded(void)
     }
 
     // value = BATTLERULE_NOHELDITEMS; // test line
+
+    // battle debug
+    if (FlagGet(FLAG_DEBUG_BATTLERULE))
+    {
+        value = gSaveBlock1Ptr->debugBattleRule;
+    }
+
     if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
         value = BATTLERULE_NONE;
     // DebugPrintf("--- Random Battle Rule: %d ---", value);
@@ -236,6 +248,12 @@ u8 GetRandomTypeSeeded(void)
         increment++;
         // IncrementTypeRerollCounter();
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter + increment, NUMBER_OF_MON_TYPES);
+    }
+
+    // battle debug
+    if (FlagGet(FLAG_DEBUG_RANDOMTYPE))
+    {
+        value = gSaveBlock2Ptr->DebugRandomType;
     }
     
     // DebugPrintf("--- Random Type is %d ---", value);

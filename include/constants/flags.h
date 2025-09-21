@@ -45,8 +45,8 @@
 
 #define FLAG_FOREVER_REPEL   0x20
 #define FLAG_INVERSE_BATTLE  0x21 // Unused Flag
-#define FLAG_UNUSED_0x022    0x22 // Unused Flag
-#define FLAG_UNUSED_0x023    0x23 // Unused Flag
+#define FLAG_DEBUG_BATTLERULE 0x22 // Unused Flag
+#define FLAG_DEBUG_RANDOMTYPE 0x23 // Unused Flag
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag
