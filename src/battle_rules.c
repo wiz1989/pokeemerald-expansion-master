@@ -199,6 +199,7 @@ u8 GetRandomBattleRuleSeeded(void)
 {
     u16 value = 0;
     u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
+    u32 increment = 0;
 
     FlagClear(FLAG_INVERSE_BATTLE);
 
@@ -206,8 +207,9 @@ u8 GetRandomBattleRuleSeeded(void)
 
     while (!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX))
     {
-        IncrementBattleRuleRerollCounter();
-        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
+        increment++;
+        // IncrementBattleRuleRerollCounter();
+        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
     }
 
     // value = BATTLERULE_NOHELDITEMS; // test line
@@ -225,13 +227,15 @@ u8 GetRandomTypeSeeded(void)
 {
     u16 value = 0;
     u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
+    u32 increment = 0;
 
     value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
 
-    while (value == TYPE_MYSTERY || value == TYPE_NONE || value == TYPE_STELLAR)
+    while (value == TYPE_MYSTERY || value == TYPE_NONE || value == TYPE_STELLAR || value == TYPE_FAIRY)
     {
-        IncrementTypeRerollCounter();
-        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+        increment++;
+        // IncrementTypeRerollCounter();
+        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter + increment, NUMBER_OF_MON_TYPES);
     }
     
     // DebugPrintf("--- Random Type is %d ---", value);
