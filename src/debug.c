@@ -4216,6 +4216,9 @@ void BufferCurrentBattleRule(void)
 
     switch (rule)
     {
+    case BATTLERULE_NONE:
+        string = StringCopy(string, gText_NoRule);
+        break;
     case BATTLERULE_BANNEDTYPE:
         string = StringCopy(string, gText_BannedType);
         break;

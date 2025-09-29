@@ -2429,6 +2429,7 @@ extern const u8 gText_Rename[]; // change nickname from summary screen
 extern const u8 gText_CannotSendMonToBoxHM[];
 
 // Battlerule Debug
+extern const u8 gText_NoRule[];
 extern const u8 gText_BannedType[];
 extern const u8 gText_BannedMoveType[];
 extern const u8 gText_NoHealing[];

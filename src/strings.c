@@ -1304,6 +1304,7 @@ const u8 gText_Rename[] = _("RENAME");
 const u8 gText_CannotSendMonToBoxHM[] = _("Cannot send that mon to the box,\nbecause it knows a HM move.{PAUSE_UNTIL_PRESS}");
 
 // Battlerule Debug
+const u8 gText_NoRule[] = _("No Rule");
 const u8 gText_BannedType[] = _("Banned Type");
 const u8 gText_BannedMoveType[] = _("Banned Move");
 const u8 gText_NoHealing[] = _("No Healing");

@@ -5158,6 +5158,7 @@ BattleScript_FaintedMonSendOutNewEnd:
 	jumpifbattletype BATTLE_TYPE_DOUBLE, BattleScript_FaintedMonEnd
 	cancelallactions
 BattleScript_FaintedMonEnd::
+	gotoifnotmidturn BattleScript_FaintedMon_End3 @wiz1989 CHECK
 	end2
 BattleScript_FaintedMonShiftSwitched:
 	copybyte sSAVED_BATTLER, gBattlerTarget
@@ -5165,6 +5166,8 @@ BattleScript_FaintedMonShiftSwitched:
 	resetsentmonsvalue
 	copybyte gBattlerTarget, sSAVED_BATTLER
 	goto BattleScript_FaintedMonSendOutNewEnd
+BattleScript_FaintedMon_End3::
+	end3
 
 BattleScript_HandleFaintedMonMultiple::
 	openpartyscreen BS_FAINTED_MULTIPLE_1, BattleScript_HandleFaintedMonMultipleStart
@@ -7136,6 +7139,8 @@ BattleScript_AbilityPopUp::
 	.endif
 	recordability BS_ABILITY_BATTLER
 	sethword sABILITY_OVERWRITE, 0
+	setbattlerulebattler BS_ABILITY_BATTLER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOABILITY
 	return
 
 BattleScript_AbilityPopUpScripting:
@@ -7152,6 +7157,8 @@ BattleScript_AbilityPopUpOverwriteThenNormal:
 	recordability BS_ABILITY_BATTLER
 	destroyabilitypopup
 	setbyte sFIXED_ABILITY_POPUP, FALSE
+	setbattlerulebattler BS_ABILITY_BATTLER
+	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOABILITY
 	return
 
 BattleScript_SpeedBoostActivates::
@@ -9797,33 +9804,42 @@ BattleScript_ForfeitBattleGaveMoney::
 	end2
 
 BattleScript_BattleRule_FaintMon::
+	restoreallattackers
+	restorealltargets
 	printstring STRINGID_RULEWASVIOLATED
 	waitmessage B_WAIT_TIME_LONG
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
-	healthbarupdate BS_ATTACKER
-	datahpupdate BS_ATTACKER
-	tryfaintmon BS_ATTACKER
-	moveendall
+	healthbarupdate BS_BATTLERULE_BATTLER
+	datahpupdate BS_BATTLERULE_BATTLER
+	tryfaintmon BS_BATTLERULE_BATTLER
+	moveendcase MOVEEND_CLEAR_BITS
+	@ moveendall
 	goto BattleScript_HandleFaintedMon
 
 BattleScript_BattleRule_FaintMon_Ret::
+	restoreallattackers
+	restorealltargets
 	printstring STRINGID_RULEWASVIOLATED
 	waitmessage B_WAIT_TIME_LONG
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_BATTLERULE_BATTLER
 	datahpupdate BS_BATTLERULE_BATTLER
 	tryfaintmon BS_BATTLERULE_BATTLER
-	moveendall
+	moveendcase MOVEEND_CLEAR_BITS
+	@ moveendall
 	return
 
 BattleScript_BattleRule_FaintMon_End::
+	restoreallattackers
+	restorealltargets
 	printstring STRINGID_RULEWASVIOLATED
 	waitmessage B_WAIT_TIME_LONG
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_BATTLERULE_BATTLER
 	datahpupdate BS_BATTLERULE_BATTLER
 	tryfaintmon BS_BATTLERULE_BATTLER
-	moveendall
+	moveendcase MOVEEND_CLEAR_BITS
+	@ moveendall
 	end
 
 BattleScript_BattleRule_Perish::

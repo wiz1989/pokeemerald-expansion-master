@@ -412,5 +412,6 @@ bool8 IsBattlerValidSpecies(u32 battler);
 bool8 BattleRuleViolated_SENDOUT(bool8 midBattle);
 bool8 BattleRuleViolated_USEMOVE(u32 move);
 bool8 IsSetupMove(u32 move);
+bool8 IsMidTurn(void);
 
 #endif // GUARD_BATTLE_UTIL_H

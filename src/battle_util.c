@@ -878,6 +878,7 @@ void HandleAction_WallyBallThrow(void)
 
 void HandleAction_TryFinish(void)
 {
+    DebugPrintf("HandleAction_TryFinish");
     if (!HandleFaintedMonActions())
     {
         gBattleStruct->faintedActionsState = 0;
@@ -901,6 +902,7 @@ void HandleAction_NothingIsFainted(void)
 
 void HandleAction_ActionFinished(void)
 {
+    DebugPrintf("HandleAction_ActionFinished");
     u32 i, j;
     bool32 afterYouActive = gSpecialStatuses[gBattlerByTurnOrder[gCurrentTurnActionNumber + 1]].afterYou;
     gBattleStruct->monToSwitchIntoId[gBattlerByTurnOrder[gCurrentTurnActionNumber]] = gSelectedMonPartyId = PARTY_SIZE;
@@ -2839,7 +2841,8 @@ bool32 TryChangeBattleWeather(u32 battler, u32 battleWeatherId, bool32 viaAbilit
     else
     {
         u32 rock = sBattleWeatherInfo[battleWeatherId].rock;
-        gBattleWeather = sBattleWeatherInfo[battleWeatherId].flag;
+        if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+            gBattleWeather = sBattleWeatherInfo[battleWeatherId].flag;
         if (gBattleWeather & B_WEATHER_PRIMAL_ANY)
             gWishFutureKnock.weatherDuration = 0;
         else if (rock != 0 && GetBattlerHoldEffect(battler, TRUE) == rock)
@@ -2856,14 +2859,17 @@ static bool32 TryChangeBattleTerrain(u32 battler, u32 statusFlag, u16 *timer)
 {
     if ((!(gFieldStatuses & statusFlag) && (!gBattleStruct->isSkyBattle)))
     {
-        gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;
-        gFieldStatuses |= statusFlag;
-        gDisableStructs[battler].terrainAbilityDone = FALSE;
+        if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+        {
+            gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;
+            gFieldStatuses |= statusFlag;
+            gDisableStructs[battler].terrainAbilityDone = FALSE;
 
-        if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TERRAIN_EXTENDER)
-            *timer = gBattleTurnCounter + 8;
-        else
-            *timer = gBattleTurnCounter + 5;
+            if (GetBattlerHoldEffect(battler, TRUE) == HOLD_EFFECT_TERRAIN_EXTENDER)
+                *timer = gBattleTurnCounter + 8;
+            else
+                *timer = gBattleTurnCounter + 5;
+        }
 
         gBattleScripting.battler = battler;
         return TRUE;
@@ -3624,6 +3630,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     SaveBattlerTarget(gBattlerTarget);
                     gBattlerAttacker = battler;
                     gBattlerTarget = diagonalBattler;
+                    DebugPrintf("BattleScript_ImposterActivates");
                     BattleScriptPushCursorAndCallback(BattleScript_ImposterActivates);
                     effect++;
                 }
@@ -5097,9 +5104,12 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             case ABILITY_OPPORTUNIST:
                 if (gProtectStructs[battler].activateOpportunist == 2)
                 {
-                    gBattleScripting.battler = battler;
-                    gProtectStructs[battler].activateOpportunist--;
-                    ChooseStatBoostAnimation(battler);
+                    if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                    {
+                        gBattleScripting.battler = battler;
+                        gProtectStructs[battler].activateOpportunist--;
+                        ChooseStatBoostAnimation(battler);
+                    }
                     BattleScriptPushCursorAndCallback(BattleScript_OpportunistCopyStatChange);
                     effect = 1;
                 }
@@ -5138,8 +5148,11 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             case ABILITY_VITAL_SPIRIT:
                 if (gBattleMons[battler].status1 & STATUS1_SLEEP)
                 {
-                    TryDeactivateSleepClause(GetBattlerSide(battler), gBattlerPartyIndexes[battler]);
-                    gBattleMons[battler].volatiles.nightmare = FALSE;
+                    if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                    {
+                        TryDeactivateSleepClause(GetBattlerSide(battler), gBattlerPartyIndexes[battler]);
+                        gBattleMons[battler].volatiles.nightmare = FALSE;
+                    }
                     StringCopy(gBattleTextBuff1, gStatusConditionString_SleepJpn);
                     effect = 1;
                 }
@@ -5189,10 +5202,13 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     BattleScriptCall(BattleScript_BattlerShookOffTaunt);
                     break;
                 }
-
-                gBattleScripting.battler = gBattlerAbility = battler;
-                BtlController_EmitSetMonData(battler, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
-                MarkBattlerForControllerExec(battler);
+                
+                if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                {
+                    gBattleScripting.battler = gBattlerAbility = battler;
+                    BtlController_EmitSetMonData(battler, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);
+                    MarkBattlerForControllerExec(battler);
+                }
                 return effect;
             }
         }

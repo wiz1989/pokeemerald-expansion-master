@@ -5171,6 +5171,7 @@ static void TurnValuesCleanUp(bool8 var0)
         gSpecialStatuses[i].parentalBondState = PARENTAL_BOND_OFF;
         gBattleStruct->battlerState[i].usedEjectItem = FALSE;
         gProtectStructs[i].lashOutAffected = FALSE;
+        gBattleStruct->battlerState[i].afterSwitchin = FALSE;
     }
 
     gSideTimers[B_SIDE_PLAYER].followmeTimer = 0;
@@ -6316,4 +6317,13 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
         }
     }
     return faint;
+}
+
+bool8 IsMidTurn(void)
+{
+    if (gBattleMainFunc == HandleTurnActionSelectionState
+      || gBattleMainFunc == RunTurnActionsFunctions)
+        return TRUE;
+    else
+        return FALSE;
 }

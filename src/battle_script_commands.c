@@ -5367,6 +5367,7 @@ static void Cmd_return(void)
 
 static void Cmd_end(void)
 {
+    DebugPrintf("Cmd_end %d", gCurrentActionFuncId);
     CMD_ARGS();
 
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
@@ -5385,9 +5386,19 @@ static void Cmd_end2(void)
 // Pops the main function stack
 static void Cmd_end3(void)
 {
+    DebugPrintf("Cmd_end3");
     CMD_ARGS();
 
     BattleScriptPop();
+    // stop switch in scripts from execution after end3
+    if (gBattleResources->battleScriptsStack->size > 0 && GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY
+      && /*!IsMidTurn() && */gBattleStruct->battlerState[gBattleRuleBattler].afterSwitchin
+      && IsOnPlayerSide(gBattleRuleBattler))
+    {
+        DebugPrintf("cancel further actions");
+        gBattleResources->battleScriptsStack->size = 0;
+        gCurrentActionFuncId = B_ACTION_TRY_FINISH;
+    }
     if (gBattleResources->battleCallbackStack->size != 0)
         gBattleResources->battleCallbackStack->size--;
     gBattleMainFunc = gBattleResources->battleCallbackStack->function[gBattleResources->battleCallbackStack->size];
@@ -6785,7 +6796,8 @@ static void Cmd_moveend(void)
                     {
                         gBattlerTarget = gBattlerAbility = battler;
                         // Battle scripting is super brittle so we shall do the item exchange now (if possible)
-                        if (GetBattlerAbility(gBattlerAttacker) != ABILITY_STICKY_HOLD)
+                        if (GetBattlerAbility(gBattlerAttacker) != ABILITY_STICKY_HOLD
+                          && !(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(gBattlerTarget)))
                             StealTargetItem(gBattlerTarget, gBattlerAttacker);  // Target takes attacker's item
 
                         gEffectBattler = gBattlerAttacker;
@@ -6944,6 +6956,7 @@ static void Cmd_moveend(void)
             for (i = 0; i < gBattlersCount; i++)
             {
                 gBattleStruct->battlerState[gBattlerAttacker].targetsDone[i] = FALSE;
+                gBattleStruct->battlerState[gBattlerAttacker].afterSwitchin = FALSE;
                 gProtectStructs[i].tryEjectPack = FALSE;
 
                 if (gBattleStruct->battlerState[i].commanderSpecies != SPECIES_NONE && !IsBattlerAlive(i))
@@ -6969,7 +6982,8 @@ static void Cmd_moveend(void)
 
                 for (battler = 0; battler < gBattlersCount; battler++)
                 {
-                    if (gSpecialStatuses[battler].dancerUsedMove)
+                    if (gSpecialStatuses[battler].dancerUsedMove
+                      && !(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
                     {
                         // in case a battler fails to act on a Dancer-called move
                         hasDancerTriggered = TRUE;
@@ -6978,8 +6992,8 @@ static void Cmd_moveend(void)
                 }
 
                 if (!(gBattleStruct->moveResultFlags[gBattlerTarget] & (MOVE_RESULT_FAILED | MOVE_RESULT_DOESNT_AFFECT_FOE)
-                 || (gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE && !hasDancerTriggered)
-                 || (!gSpecialStatuses[gBattlerAttacker].dancerUsedMove && gBattleStruct->bouncedMoveIsUsed)))
+                || (gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE && !hasDancerTriggered)
+                || (!gSpecialStatuses[gBattlerAttacker].dancerUsedMove && gBattleStruct->bouncedMoveIsUsed)))
                 {   // Dance move succeeds
                     // Set target for other Dancer mons; set bit so that mon cannot activate Dancer off of its own move
                     if (!gSpecialStatuses[gBattlerAttacker].dancerUsedMove)
@@ -6990,7 +7004,8 @@ static void Cmd_moveend(void)
                     }
                     for (battler = 0; battler < gBattlersCount; battler++)
                     {
-                        if (GetBattlerAbility(battler) == ABILITY_DANCER && !gSpecialStatuses[battler].dancerUsedMove)
+                        if (GetBattlerAbility(battler) == ABILITY_DANCER && !gSpecialStatuses[battler].dancerUsedMove
+                          && !(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
                         {
                             if (!nextDancer || (gBattleMons[battler].speed < gBattleMons[nextDancer & 0x3].speed))
                                 nextDancer = battler | 0x4;
@@ -7782,6 +7797,7 @@ void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType)
 
 static bool32 DoSwitchInEffectsForBattler(u32 battler)
 {
+    DebugPrintf("DoSwitchInEffectsForBattler");
     u32 i = 0;
     u32 side = GetBattlerSide(battler);
     // Check battle rules first!
@@ -7896,6 +7912,8 @@ static void Cmd_switchineffects(void)
 {
     CMD_ARGS(u8 battler);
     u32 i, battler = GetBattlerForBattleScript(cmd->battler);
+    
+    gBattleStruct->battlerState[battler].afterSwitchin = TRUE;
 
     switch (cmd->battler)
     {
@@ -11163,6 +11181,8 @@ static void Cmd_setfocusenergy(void)
 static void Cmd_transformdataexecution(void)
 {
     CMD_ARGS();
+
+    DebugPrintf("Cmd_transformdataexecution");
 
     gChosenMove = MOVE_UNAVAILABLE;
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -18417,7 +18437,18 @@ void BS_TryEnforceBattleRule(void)
       && IsBattlerAlive(battler))
     {
         gBattleStruct->moveDamage[battler] = gBattleMons[battler].hp;
-        gBattlescriptCurrInstr = cmd->jumpInstr;
+        if (!IsMidTurn())
+        {
+            gBattleRuleBattler = battler;
+            gBattlerFainted = battler;
+            DebugPrintf("BattleScript_BattleRule_FaintMon");
+            gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon;
+        }
+        else
+        {
+            DebugPrintf("BattleScript_BattleRule_FaintMon_End");
+            gBattlescriptCurrInstr = cmd->jumpInstr;
+        }
     }
     else
     {
@@ -18459,5 +18490,40 @@ void BS_SetBattleRuleBattler(void)
     u32 battler = GetBattlerForBattleScript(cmd->battler);
 
     gBattleRuleBattler = battler;
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_GoToIfNotMidTurn(void)
+{
+    NATIVE_ARGS(const u8 *instr);
+    DebugPrintf("BS_GoToIfNotMidTurn? %d", !IsMidTurn());
+
+    if (!IsMidTurn())
+        gBattlescriptCurrInstr = cmd->instr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_RestoreAllTargets(void)
+{
+    NATIVE_ARGS();
+    while (gBattleStruct->savedTargetCount > 0)
+    {
+        gBattleStruct->savedTargetCount--;
+        gBattlerTarget = gBattleStruct->savedBattlerTarget[gBattleStruct->savedTargetCount];
+    }
+    
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_RestoreAllAttackers(void)
+{
+    NATIVE_ARGS();
+    while (gBattleStruct->savedAttackerCount > 0)
+    {
+        gBattleStruct->savedAttackerCount--;
+        gBattlerAttacker = gBattleStruct->savedBattlerAttacker[gBattleStruct->savedAttackerCount];
+    }
+
     gBattlescriptCurrInstr = cmd->nextInstr;
 }

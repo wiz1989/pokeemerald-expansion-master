@@ -586,7 +586,8 @@ struct BattlerState
     u32 itemCanBeKnockedOff:1;
     u32 ateBoost:1;
     u32 commanderSpecies:11;
-    u32 padding:4;
+    u32 afterSwitchin:1;
+    u32 padding:3;
     // End of Word
 };
 

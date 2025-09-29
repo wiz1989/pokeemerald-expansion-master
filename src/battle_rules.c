@@ -110,7 +110,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOABILITY] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_ACTIVATE_ABILITY,
     },
     [BATTLERULE_NOSTATUS] =
@@ -217,7 +217,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
     }
 
-    // value = BATTLERULE_NOHELDITEMS; // test line
+    value = BATTLERULE_NOABILITY; // test line
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_BATTLERULE))

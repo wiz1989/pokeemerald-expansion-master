@@ -2547,3 +2547,16 @@
 	callnative BS_TrySetPerishCounter
 	.4byte \failInstr
 	.endm
+
+	.macro gotoifnotmidturn instr:req
+	callnative BS_GoToIfNotMidTurn
+	.4byte \instr
+	.endm
+	
+	.macro restorealltargets
+	callnative BS_RestoreAllTargets
+	.endm
+
+	.macro restoreallattackers
+	callnative BS_RestoreAllAttackers
+	.endm
