@@ -5378,6 +5378,7 @@ static void Cmd_end(void)
 
 static void Cmd_end2(void)
 {
+    DebugPrintf("Cmd_end2 %d", gCurrentActionFuncId);
     CMD_ARGS();
 
     gCurrentActionFuncId = B_ACTION_TRY_FINISH;
@@ -5386,19 +5387,9 @@ static void Cmd_end2(void)
 // Pops the main function stack
 static void Cmd_end3(void)
 {
-    DebugPrintf("Cmd_end3");
+    DebugPrintf("Cmd_end3 %d", gCurrentActionFuncId);
     CMD_ARGS();
 
-    BattleScriptPop();
-    // stop switch in scripts from execution after end3
-    if (gBattleResources->battleScriptsStack->size > 0 && GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY
-      && /*!IsMidTurn() && */gBattleStruct->battlerState[gBattleRuleBattler].afterSwitchin
-      && IsOnPlayerSide(gBattleRuleBattler))
-    {
-        DebugPrintf("cancel further actions");
-        gBattleResources->battleScriptsStack->size = 0;
-        gCurrentActionFuncId = B_ACTION_TRY_FINISH;
-    }
     if (gBattleResources->battleCallbackStack->size != 0)
         gBattleResources->battleCallbackStack->size--;
     gBattleMainFunc = gBattleResources->battleCallbackStack->function[gBattleResources->battleCallbackStack->size];
@@ -6956,7 +6947,7 @@ static void Cmd_moveend(void)
             for (i = 0; i < gBattlersCount; i++)
             {
                 gBattleStruct->battlerState[gBattlerAttacker].targetsDone[i] = FALSE;
-                gBattleStruct->battlerState[gBattlerAttacker].afterSwitchin = FALSE;
+                // gBattleStruct->battlerState[gBattlerAttacker].afterSwitchin = FALSE;
                 gProtectStructs[i].tryEjectPack = FALSE;
 
                 if (gBattleStruct->battlerState[i].commanderSpecies != SPECIES_NONE && !IsBattlerAlive(i))
@@ -7803,6 +7794,7 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
     // Check battle rules first!
     if (BattleRuleViolated_SENDOUT(TRUE))
     {
+        DebugPrintf("Battlerule true");
         // do nothing. Skip all other switch-in effects
     }
     // Neutralizing Gas announces itself before hazards
@@ -7913,7 +7905,7 @@ static void Cmd_switchineffects(void)
     CMD_ARGS(u8 battler);
     u32 i, battler = GetBattlerForBattleScript(cmd->battler);
     
-    gBattleStruct->battlerState[battler].afterSwitchin = TRUE;
+    // gBattleStruct->battlerState[battler].afterSwitchin = TRUE;
 
     switch (cmd->battler)
     {
@@ -18425,12 +18417,12 @@ void BS_JumpIfGenConfigLowerThan(void)
         gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
-void BS_TryEnforceBattleRule(void)
+void BS_JumpIfBattleRule(void)
 {
     NATIVE_ARGS(const u8 *jumpInstr, u8 rule);
     u32 battler = gBattleRuleBattler;
     u8 currentRule = GetRandomBattleRuleSeeded();
-    //DebugPrintf("BS_TryEnforceBattleRule battler = %d", battler);
+    //DebugPrintf("BS_JumpIfBattleRule battler = %d", battler);
 
     if (currentRule == cmd->rule
       && IsOnPlayerSide(battler)
@@ -18498,7 +18490,7 @@ void BS_GoToIfNotMidTurn(void)
     NATIVE_ARGS(const u8 *instr);
     DebugPrintf("BS_GoToIfNotMidTurn? %d", !IsMidTurn());
 
-    if (!IsMidTurn())
+    if (!IsMidTurn() && GetRandomBattleRuleSeeded() != BATTLERULE_BANNEDTYPE)
         gBattlescriptCurrInstr = cmd->instr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -18524,6 +18516,18 @@ void BS_RestoreAllAttackers(void)
         gBattleStruct->savedAttackerCount--;
         gBattlerAttacker = gBattleStruct->savedBattlerAttacker[gBattleStruct->savedAttackerCount];
     }
+
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_ResetBSStack(void)
+{
+    NATIVE_ARGS();
+
+    DebugPrintf("BS_ResetBSStack");
+    BattleScriptPop();
+    gBattleResources->battleScriptsStack->size = 0;
+    gCurrentActionFuncId = B_ACTION_TRY_FINISH;
 
     gBattlescriptCurrInstr = cmd->nextInstr;
 }

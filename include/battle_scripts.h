@@ -867,6 +867,7 @@ extern const u8 BattleScript_QuestionForfeitBattle[];
 extern const u8 BattleScript_ForfeitBattleGaveMoney[];
 extern const u8 BattleScript_AbilityPopUp[];
 extern const u8 BattleScript_BattleRule_FaintMon[];
+extern const u8 BattleScript_BattleRule_FaintMon_NoStackReset[];
 extern const u8 BattleScript_BattleRule_FaintMon_End[];
 extern const u8 BattleScript_BattleRule_FaintMon_Ret[];
 extern const u8 BattleScript_BattleRule_Perish[];

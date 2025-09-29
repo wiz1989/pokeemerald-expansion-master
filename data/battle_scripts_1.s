@@ -9813,7 +9813,19 @@ BattleScript_BattleRule_FaintMon::
 	datahpupdate BS_BATTLERULE_BATTLER
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendcase MOVEEND_CLEAR_BITS
-	@ moveendall
+	resetbsstack
+	goto BattleScript_HandleFaintedMon
+
+BattleScript_BattleRule_FaintMon_NoStackReset::
+	restoreallattackers
+	restorealltargets
+	printstring STRINGID_RULEWASVIOLATED
+	waitmessage B_WAIT_TIME_LONG
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
+	healthbarupdate BS_BATTLERULE_BATTLER
+	datahpupdate BS_BATTLERULE_BATTLER
+	tryfaintmon BS_BATTLERULE_BATTLER
+	moveendcase MOVEEND_CLEAR_BITS
 	goto BattleScript_HandleFaintedMon
 
 BattleScript_BattleRule_FaintMon_Ret::
@@ -9826,7 +9838,6 @@ BattleScript_BattleRule_FaintMon_Ret::
 	datahpupdate BS_BATTLERULE_BATTLER
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendcase MOVEEND_CLEAR_BITS
-	@ moveendall
 	return
 
 BattleScript_BattleRule_FaintMon_End::
@@ -9839,7 +9850,6 @@ BattleScript_BattleRule_FaintMon_End::
 	datahpupdate BS_BATTLERULE_BATTLER
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendcase MOVEEND_CLEAR_BITS
-	@ moveendall
 	end
 
 BattleScript_BattleRule_Perish::

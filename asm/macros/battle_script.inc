@@ -2538,7 +2538,7 @@
 	.endm
 
 	.macro jumpifbattlerule jumpInstr:req rule:req
-	callnative BS_TryEnforceBattleRule
+	callnative BS_JumpIfBattleRule
 	.4byte \jumpInstr
 	.byte \rule
 	.endm
@@ -2559,4 +2559,8 @@
 
 	.macro restoreallattackers
 	callnative BS_RestoreAllAttackers
+	.endm
+
+	.macro resetbsstack
+	callnative BS_ResetBSStack
 	.endm

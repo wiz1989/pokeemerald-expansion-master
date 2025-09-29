@@ -217,7 +217,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
     }
 
-    value = BATTLERULE_NOABILITY; // test line
+    value = BATTLERULE_BANNEDTYPE; // test line
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_BATTLERULE))
@@ -249,6 +249,8 @@ u8 GetRandomTypeSeeded(void)
         // IncrementTypeRerollCounter();
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter + increment, NUMBER_OF_MON_TYPES);
     }
+
+    value = TYPE_NORMAL; // test line
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_RANDOMTYPE))
