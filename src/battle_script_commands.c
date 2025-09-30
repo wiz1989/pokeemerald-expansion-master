@@ -2331,6 +2331,7 @@ static void Cmd_datahpupdate(void)
 {
     CMD_ARGS(u8 battler);
     bool32 isPassiveHpUpdate = gHitMarker & HITMARKER_PASSIVE_HP_UPDATE;
+    bool8 wasHealed = FALSE;
 
     if (gBattleControllerExecFlags)
         return;
@@ -2379,6 +2380,7 @@ static void Cmd_datahpupdate(void)
             gHitMarker &= ~HITMARKER_IGNORE_SUBSTITUTE;
             if (gBattleStruct->moveDamage[battler] < 0)
             {
+                wasHealed = TRUE;
                 // Negative damage is HP gain
                 gBattleMons[battler].hp += -gBattleStruct->moveDamage[battler];
                 if (gBattleMons[battler].hp > gBattleMons[battler].maxHP)
@@ -2459,8 +2461,17 @@ static void Cmd_datahpupdate(void)
             gBattleStruct->battlerState[gBattlerTarget].itemCanBeKnockedOff = TRUE;
     }
 
-    TryRestoreDamageAfterCheekPouch(battler);
-    gBattlescriptCurrInstr = cmd->nextInstr;
+    if (wasHealed && IsOnPlayerSide(battler) && GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
+    {
+        gBattleStruct->moveDamage[battler] = gBattleMons[battler].hp;
+        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
+        return;
+    }
+    else
+    {
+        TryRestoreDamageAfterCheekPouch(battler);
+        gBattlescriptCurrInstr = cmd->nextInstr;
+    }
 }
 
 static void Cmd_critmessage(void)
@@ -15048,6 +15059,7 @@ void ApplyExperienceMultipliers(s32 *expAmount, u8 expGetterMonId, u8 faintedBat
 void BS_ItemRestoreHP(void)
 {
     NATIVE_ARGS(const u8 *alreadyMaxHpInstr, const u8 *restoreBattlerInstr);
+    bool8 faintMon = FALSE;
     u16 healAmount;
     u32 battler = MAX_BATTLERS_COUNT;
     u32 healParam = GetItemEffect(gLastUsedItem)[6];
@@ -15071,6 +15083,8 @@ void BS_ItemRestoreHP(void)
             battler = gBattlerAttacker;
         else if (IsDoubleBattle() && gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
             battler = BATTLE_PARTNER(gBattlerAttacker);
+        else
+            faintMon = TRUE;
 
         // Get amount to heal.
         switch (healParam)
@@ -15097,12 +15111,16 @@ void BS_ItemRestoreHP(void)
         // Heal is applied as move damage if battler is active.
         if (battler != MAX_BATTLERS_COUNT && hp != 0)
         {
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_ITEM_RESTORED_SPECIES_HEALTH;
             gBattleStruct->moveDamage[battler] = -healAmount;
             gBattlescriptCurrInstr = cmd->restoreBattlerInstr;
         }
         else
         {
-            hp += healAmount;
+            if (faintMon)
+                hp = 0;
+            else
+                hp += healAmount;
             SetMonData(&party[gBattleStruct->itemPartyIndex[gBattlerAttacker]], MON_DATA_HP, &hp);
 
             // Revived battlers on the field need to be brought back.
@@ -15112,6 +15130,11 @@ void BS_ItemRestoreHP(void)
                 gBattleMons[battler].hp = hp;
                 gBattleCommunication[MULTIUSE_STATE] = TRUE;
             }
+
+            if (faintMon)
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_BATTLERULE_VIOLATION;
+            else
+                gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_ITEM_RESTORED_SPECIES_HEALTH;
             gBattlescriptCurrInstr = cmd->nextInstr;
         }
     }

@@ -760,6 +760,13 @@ enum StatUpStringID
     B_MSG_USED_DIRE_HIT,
 };
 
+// gRestoreHPStringIds
+enum RestoreHPStringIds
+{
+    B_MSG_ITEM_RESTORED_SPECIES_HEALTH,
+    B_MSG_BATTLERULE_VIOLATION,
+};
+
 // gStatDownStringIds
 enum StatDownStringID
 {

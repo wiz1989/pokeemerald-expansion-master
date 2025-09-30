@@ -26,7 +26,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_NOHEALING] =
     {
         .weight = 1,
-        .enabled = FALSE,
+        .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MULTIPLE,
     },
     [BATTLERULE_NOCRITS] =
@@ -217,7 +217,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
     }
 
-    // value = BATTLERULE_BANNEDTYPE; // test line
+    // value = BATTLERULE_NOHEALING; // test line
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_BATTLERULE))

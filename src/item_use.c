@@ -1316,7 +1316,7 @@ bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_REVIVE:
-        if (hp != 0)
+        if (hp != 0 || (GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING))
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_RESTORE_PP:

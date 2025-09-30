@@ -70,7 +70,7 @@ BattleScript_ItemRestoreHPEnd:
 BattleScript_ItemRestoreHP_Party::
 	jumpifbyte CMP_EQUAL, gBattleCommunication, TRUE, BattleScript_ItemRestoreHP_SendOutRevivedBattler
 	clearmoveresultflags MOVE_RESULT_NO_EFFECT
-	printstring STRINGID_ITEMRESTOREDSPECIESHEALTH
+	printfromtable gRestoreHPStringIds
 	waitmessage B_WAIT_TIME_LONG
 	return
 
@@ -85,6 +85,7 @@ BattleScript_ItemCureStatus::
 BattleScript_ItemCureStatusAfterItemMsg:
 	itemcurestatus BattleScript_ItemCureStatusEnd
 	updatestatusicon BS_SCRIPTING
+	printfromtable gStatUpStringIds
 	printstring STRINGID_ITEMCUREDSPECIESSTATUS
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_ItemCureStatusEnd:
