@@ -4273,9 +4273,9 @@ void BufferCurrentBattleRule(void)
     case BATTLERULE_NOSTATUS:
         string = StringCopy(string, gText_NoStatus);
         break;
-    case BATTLERULE_SHAREDDAMAGE:
-        string = StringCopy(string, gText_SharedDamage);
-        break;
+    // case BATTLERULE_SHAREDDAMAGE:
+    //     string = StringCopy(string, gText_SharedDamage);
+    //     break;
     case BATTLERULE_NOSETUP:
         string = StringCopy(string, gText_NoSetup);
         break;

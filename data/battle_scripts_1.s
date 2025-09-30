@@ -5158,7 +5158,7 @@ BattleScript_FaintedMonSendOutNewEnd:
 	jumpifbattletype BATTLE_TYPE_DOUBLE, BattleScript_FaintedMonEnd
 	cancelallactions
 BattleScript_FaintedMonEnd::
-	gotoifnotmidturn BattleScript_FaintedMon_End3 @wiz1989 CHECK
+	gotoifnotmidturn BattleScript_FaintedMon_End3 @ outside of the turn action execution an end3 is required
 	end2
 BattleScript_FaintedMonShiftSwitched:
 	copybyte sSAVED_BATTLER, gBattlerTarget
@@ -9803,6 +9803,9 @@ BattleScript_ForfeitBattleGaveMoney::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+@ This variant is only used if the rule triggers outside of the
+@ sTurnActionsFuncsTable functions (e.g. before Action choice or
+@ after Action execution)
 BattleScript_BattleRule_FaintMon::
 	restoreallattackers
 	restorealltargets
@@ -9816,6 +9819,8 @@ BattleScript_BattleRule_FaintMon::
 	resetbsstack
 	goto BattleScript_HandleFaintedMon
 
+@ This variant is only used for case FIRST_TURN_EVENTS_BATTLERULE_FAINT
+@ when a rule triggers during send out of your first mon
 BattleScript_BattleRule_FaintMon_NoStackReset::
 	restoreallattackers
 	restorealltargets
@@ -9828,6 +9833,8 @@ BattleScript_BattleRule_FaintMon_NoStackReset::
 	moveendcase MOVEEND_CLEAR_BITS
 	goto BattleScript_HandleFaintedMon
 
+@ This variant is only used if the rule triggers from statusing
+@ the opponent. Return required.
 BattleScript_BattleRule_FaintMon_Ret::
 	restoreallattackers
 	restorealltargets
@@ -9840,6 +9847,7 @@ BattleScript_BattleRule_FaintMon_Ret::
 	moveendcase MOVEEND_CLEAR_BITS
 	return
 
+@ This is the standard variant if a rule triggers during turn actions.
 BattleScript_BattleRule_FaintMon_End::
 	restoreallattackers
 	restorealltargets

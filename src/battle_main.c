@@ -5171,7 +5171,6 @@ static void TurnValuesCleanUp(bool8 var0)
         gSpecialStatuses[i].parentalBondState = PARENTAL_BOND_OFF;
         gBattleStruct->battlerState[i].usedEjectItem = FALSE;
         gProtectStructs[i].lashOutAffected = FALSE;
-        // gBattleStruct->battlerState[i].afterSwitchin = FALSE;
     }
 
     gSideTimers[B_SIDE_PLAYER].followmeTimer = 0;
@@ -6206,7 +6205,6 @@ void BattleDebug_WonBattle(void)
 
 bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
 {
-    DebugPrintf("BattleRuleViolated_SENDOUT");
     u8 rule = GetRandomBattleRuleSeeded();
     bool8 faint = FALSE;
 

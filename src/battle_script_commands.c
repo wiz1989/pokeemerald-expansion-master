@@ -5367,7 +5367,6 @@ static void Cmd_return(void)
 
 static void Cmd_end(void)
 {
-    DebugPrintf("Cmd_end %d", gCurrentActionFuncId);
     CMD_ARGS();
 
     if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
@@ -5378,7 +5377,6 @@ static void Cmd_end(void)
 
 static void Cmd_end2(void)
 {
-    DebugPrintf("Cmd_end2 %d", gCurrentActionFuncId);
     CMD_ARGS();
 
     gCurrentActionFuncId = B_ACTION_TRY_FINISH;
@@ -5387,7 +5385,6 @@ static void Cmd_end2(void)
 // Pops the main function stack
 static void Cmd_end3(void)
 {
-    DebugPrintf("Cmd_end3 %d", gCurrentActionFuncId);
     CMD_ARGS();
 
     if (gBattleResources->battleCallbackStack->size != 0)
@@ -6947,7 +6944,6 @@ static void Cmd_moveend(void)
             for (i = 0; i < gBattlersCount; i++)
             {
                 gBattleStruct->battlerState[gBattlerAttacker].targetsDone[i] = FALSE;
-                // gBattleStruct->battlerState[gBattlerAttacker].afterSwitchin = FALSE;
                 gProtectStructs[i].tryEjectPack = FALSE;
 
                 if (gBattleStruct->battlerState[i].commanderSpecies != SPECIES_NONE && !IsBattlerAlive(i))
@@ -7788,13 +7784,11 @@ void TryHazardsOnSwitchIn(u32 battler, u32 side, enum Hazards hazardType)
 
 static bool32 DoSwitchInEffectsForBattler(u32 battler)
 {
-    DebugPrintf("DoSwitchInEffectsForBattler");
     u32 i = 0;
     u32 side = GetBattlerSide(battler);
     // Check battle rules first!
     if (BattleRuleViolated_SENDOUT(TRUE))
     {
-        DebugPrintf("Battlerule true");
         // do nothing. Skip all other switch-in effects
     }
     // Neutralizing Gas announces itself before hazards
@@ -7904,8 +7898,6 @@ static void Cmd_switchineffects(void)
 {
     CMD_ARGS(u8 battler);
     u32 i, battler = GetBattlerForBattleScript(cmd->battler);
-    
-    // gBattleStruct->battlerState[battler].afterSwitchin = TRUE;
 
     switch (cmd->battler)
     {
@@ -11173,8 +11165,6 @@ static void Cmd_setfocusenergy(void)
 static void Cmd_transformdataexecution(void)
 {
     CMD_ARGS();
-
-    DebugPrintf("Cmd_transformdataexecution");
 
     gChosenMove = MOVE_UNAVAILABLE;
     gBattlescriptCurrInstr = cmd->nextInstr;
@@ -18422,7 +18412,6 @@ void BS_JumpIfBattleRule(void)
     NATIVE_ARGS(const u8 *jumpInstr, u8 rule);
     u32 battler = gBattleRuleBattler;
     u8 currentRule = GetRandomBattleRuleSeeded();
-    //DebugPrintf("BS_JumpIfBattleRule battler = %d", battler);
 
     if (currentRule == cmd->rule
       && IsOnPlayerSide(battler)
@@ -18433,12 +18422,10 @@ void BS_JumpIfBattleRule(void)
         {
             gBattleRuleBattler = battler;
             gBattlerFainted = battler;
-            DebugPrintf("BattleScript_BattleRule_FaintMon");
             gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon;
         }
         else
         {
-            DebugPrintf("BattleScript_BattleRule_FaintMon_End");
             gBattlescriptCurrInstr = cmd->jumpInstr;
         }
     }
@@ -18488,8 +18475,9 @@ void BS_SetBattleRuleBattler(void)
 void BS_GoToIfNotMidTurn(void)
 {
     NATIVE_ARGS(const u8 *instr);
-    DebugPrintf("BS_GoToIfNotMidTurn? %d", !IsMidTurn());
 
+    // BATTLERULE_BANNEDTYPE always needs the end2 usage. Reason unknown to me.
+    // Probably because it's running during DoSwitchInEffectsForBattler while the BS stack is not built up yet.
     if (!IsMidTurn() && GetRandomBattleRuleSeeded() != BATTLERULE_BANNEDTYPE)
         gBattlescriptCurrInstr = cmd->instr;
     else
@@ -18524,7 +18512,6 @@ void BS_ResetBSStack(void)
 {
     NATIVE_ARGS();
 
-    DebugPrintf("BS_ResetBSStack");
     BattleScriptPop();
     gBattleResources->battleScriptsStack->size = 0;
     gCurrentActionFuncId = B_ACTION_TRY_FINISH;

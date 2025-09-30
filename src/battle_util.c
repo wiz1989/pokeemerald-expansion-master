@@ -878,7 +878,6 @@ void HandleAction_WallyBallThrow(void)
 
 void HandleAction_TryFinish(void)
 {
-    DebugPrintf("HandleAction_TryFinish");
     if (!HandleFaintedMonActions())
     {
         gBattleStruct->faintedActionsState = 0;
@@ -902,7 +901,6 @@ void HandleAction_NothingIsFainted(void)
 
 void HandleAction_ActionFinished(void)
 {
-    DebugPrintf("HandleAction_ActionFinished");
     u32 i, j;
     bool32 afterYouActive = gSpecialStatuses[gBattlerByTurnOrder[gCurrentTurnActionNumber + 1]].afterYou;
     gBattleStruct->monToSwitchIntoId[gBattlerByTurnOrder[gCurrentTurnActionNumber]] = gSelectedMonPartyId = PARTY_SIZE;
@@ -3630,7 +3628,6 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     SaveBattlerTarget(gBattlerTarget);
                     gBattlerAttacker = battler;
                     gBattlerTarget = diagonalBattler;
-                    DebugPrintf("BattleScript_ImposterActivates");
                     BattleScriptPushCursorAndCallback(BattleScript_ImposterActivates);
                     effect++;
                 }

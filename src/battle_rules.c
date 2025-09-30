@@ -119,12 +119,12 @@ const struct BattleRule gBattleRules[] =
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     },
-    [BATTLERULE_SHAREDDAMAGE] =
-    {
-        .weight = 1,
-        .enabled = FALSE,
-        .category = BATTLERULE_CATEGORY_GENERAL,
-    },
+    // [BATTLERULE_SHAREDDAMAGE] =
+    // {
+    //     .weight = 1,
+    //     .enabled = FALSE,
+    //     .category = BATTLERULE_CATEGORY_GENERAL,
+    // },
     [BATTLERULE_NOSETUP] =
     {
         .weight = 1,
@@ -217,7 +217,7 @@ u8 GetRandomBattleRuleSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
     }
 
-    value = BATTLERULE_BANNEDTYPE; // test line
+    // value = BATTLERULE_BANNEDTYPE; // test line
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_BATTLERULE))
@@ -250,7 +250,7 @@ u8 GetRandomTypeSeeded(void)
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter + increment, NUMBER_OF_MON_TYPES);
     }
 
-    value = TYPE_NORMAL; // test line
+    // value = TYPE_NORMAL; // test line
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_RANDOMTYPE))
