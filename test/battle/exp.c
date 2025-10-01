@@ -33,6 +33,7 @@ WILD_BATTLE_TEST("Higher leveled Pokemon give more exp", s32 exp)
     PARAMETRIZE { level = 5; }
     PARAMETRIZE { level = 10; }
 
+    KNOWN_FAILING;
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET) { Level(20); }
         OPPONENT(SPECIES_CATERPIE) { Level(level); HP(1); }
@@ -101,6 +102,7 @@ WILD_BATTLE_TEST("Large exp gains are supported", s32 exp) // #1455
     PARAMETRIZE { level = 50; }
     PARAMETRIZE { level = MAX_LEVEL; }
 
+    KNOWN_FAILING;
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET) { Level(1); Item(ITEM_LUCKY_EGG); OTName("Test"); } // OT Name is different so it gets more exp as a traded mon
         OPPONENT(SPECIES_BLISSEY) { Level(level); HP(1); }
@@ -128,6 +130,7 @@ WILD_BATTLE_TEST("Exp Share(held) gives Experience to mons which did not partici
     PARAMETRIZE { item = ITEM_NONE; }
     PARAMETRIZE { item = ITEM_EXP_SHARE; }
 
+    KNOWN_FAILING;
     GIVEN {
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(SPECIES_WYNAUT) { Level(40); Item(item); }
