@@ -2355,8 +2355,8 @@ const struct Item gItemsInfo[] =
             .importance = 1,
             .pocket = POCKET_KEY_ITEMS,
         #else
-            .price = (I_PRICE >= GEN_7) ? 1000 : 550,
-            .pocket = POCKET_ITEMS,
+            .price = 0,
+            .pocket = POCKET_KEY_ITEMS,
             .sortType = ITEM_TYPE_FIELD_USE,
         #endif
         .type = ITEM_USE_FIELD,

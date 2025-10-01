@@ -6261,8 +6261,6 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
     u8 moveType = GetRandomTypeSeeded();
     bool8 faint = FALSE;
 
-    // rule = BATTLERULE_ONLYSTAB; // test line
-
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
     {
         if (IsOnPlayerSide(gBattlerAttacker) && IsBattlerValidSpecies(gBattlerAttacker))
