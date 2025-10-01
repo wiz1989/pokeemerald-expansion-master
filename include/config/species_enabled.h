@@ -48,7 +48,7 @@
 #define P_CROSS_GENERATION_EVOS          TRUE
 #define P_GEN_2_CROSS_EVOS               P_CROSS_GENERATION_EVOS
 #define P_GEN_3_CROSS_EVOS               P_CROSS_GENERATION_EVOS
-#define P_GEN_4_CROSS_EVOS               FALSE
+#define P_GEN_4_CROSS_EVOS               TRUE
 //#define P_GEN_5_CROSS_EVOS             // Gen 5 didn't introduce any cross-gen evos.
 #define P_GEN_6_CROSS_EVOS               FALSE // Just Sylveon.
 //#define P_GEN_7_CROSS_EVOS             // Alolan evolutions handled by P_ALOLAN_FORMS.
