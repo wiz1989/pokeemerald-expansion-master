@@ -56,3 +56,4 @@ tools/compresSmol/compresSmolTilemap
 *.fastSmol
 *.smolTM
 __pycache__
+bisect_test.sh
