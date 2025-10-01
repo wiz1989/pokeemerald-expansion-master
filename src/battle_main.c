@@ -244,7 +244,6 @@ EWRAM_DATA u16 gLastThrownBall = 0;
 EWRAM_DATA u16 gBallToDisplay = 0;
 EWRAM_DATA bool8 gLastUsedBallMenuPresent = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
-// EWRAM_DATA static u8 gTriedEvolving = 0;
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
@@ -3923,7 +3922,10 @@ static void TryDoEventsBeforeFirstTurn(void)
             return;
         break;
     case FIRST_TURN_EVENTS_BATTLERULE_FAINT:
-        BattleRuleViolated_SENDOUT(FALSE);
+        if (BattleRuleViolated_SENDOUT(FALSE))
+        {
+            // do nothing. Skip all other switch-in effects
+        }
         gBattleStruct->switchInBattlerCounter = 0;
         gBattleStruct->eventsBeforeFirstTurnState++;
         break;

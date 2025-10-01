@@ -5398,6 +5398,7 @@ static void Cmd_end3(void)
 {
     CMD_ARGS();
 
+    BattleScriptPop();
     if (gBattleResources->battleCallbackStack->size != 0)
         gBattleResources->battleCallbackStack->size--;
     gBattleMainFunc = gBattleResources->battleCallbackStack->function[gBattleResources->battleCallbackStack->size];
@@ -15083,7 +15084,7 @@ void BS_ItemRestoreHP(void)
             battler = gBattlerAttacker;
         else if (IsDoubleBattle() && gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
             battler = BATTLE_PARTNER(gBattlerAttacker);
-        else
+        else if (GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
             faintMon = TRUE;
 
         // Get amount to heal.
@@ -18501,7 +18502,7 @@ void BS_GoToIfNotMidTurn(void)
 
     // BATTLERULE_BANNEDTYPE always needs the end2 usage. Reason unknown to me.
     // Probably because it's running during DoSwitchInEffectsForBattler while the BS stack is not built up yet.
-    if (!IsMidTurn() && GetRandomBattleRuleSeeded() != BATTLERULE_BANNEDTYPE)
+    if (!IsMidTurn() && GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY)
         gBattlescriptCurrInstr = cmd->instr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
