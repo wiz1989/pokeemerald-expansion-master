@@ -782,14 +782,6 @@
       "script": "Route123_EventScript_RouteSign"
     },
     {
-      "type": "hidden_item",
-      "x": 75,
-      "y": 1,
-      "elevation": 3,
-      "item": "ITEM_SUPER_REPEL",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_123_SUPER_REPEL"
-    },
-    {
       "type": "sign",
       "x": 20,
       "y": 7,

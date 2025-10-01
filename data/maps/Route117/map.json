@@ -399,14 +399,6 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route117_EventScript_DayCareSign"
-    },
-    {
-      "type": "hidden_item",
-      "x": 3,
-      "y": 18,
-      "elevation": 3,
-      "item": "ITEM_REPEL",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_117_REPEL"
     }
   ]
 }
