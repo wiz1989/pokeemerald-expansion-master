@@ -6076,7 +6076,7 @@ static void UseSacredAsh(u8 taskId)
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
     u16 hp;
 
-    if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE)
+    if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE || FlagGet(FLAG_PERMADEATH))
     {
         gTasks[taskId].func = Task_SacredAshLoop;
         return;
