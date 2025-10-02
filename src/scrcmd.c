@@ -2311,6 +2311,12 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
             break;
         }
     }
+    // If no mon has the move, but the player has the HM in bag, use the first mon
+    if (gSpecialVar_Result == PARTY_SIZE && PlayerHasMove(move))
+    {
+        gSpecialVar_Result = 0;
+        gSpecialVar_0x8004 = GetMonData(&gPlayerParty[0], MON_DATA_SPECIES, NULL);
+    }
 
     return FALSE;
 }
