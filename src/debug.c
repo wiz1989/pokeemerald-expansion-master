@@ -4308,9 +4308,15 @@ void BufferCurrentBattleRule(void)
         break;
     }
 
-    if (rule == BATTLERULE_BANNEDTYPE || rule == BATTLERULE_BANNEDMOVETYPE)
+    if (rule == BATTLERULE_BANNEDTYPE)
     {
-        u8 type = GetRandomTypeSeeded();
+        u8 type = GetRandomSpeciesTypeSeeded();
+        string2 = StringAppend(string2, sText_Delimiter);
+        string2 = StringAppend(string2, gTypesInfo[type].name);
+    }
+    if (rule == BATTLERULE_BANNEDMOVETYPE)
+    {
+        u8 type = GetRandomMoveTypeSeeded();
         string2 = StringAppend(string2, sText_Delimiter);
         string2 = StringAppend(string2, gTypesInfo[type].name);
     }

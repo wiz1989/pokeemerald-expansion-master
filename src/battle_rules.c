@@ -8,6 +8,17 @@
 #include "constants/abilities.h"
 #include "constants/battle_rules.h"
 
+static bool8 IsInArray(u8 value, const u8 *array, u8 size);
+
+#define INVALID_TYPES_COUNT ARRAY_COUNT(sInvalidTypes)
+static const u8 sInvalidTypes[] = 
+{
+    TYPE_MYSTERY,
+    TYPE_NONE,
+    TYPE_STELLAR,
+    TYPE_FAIRY
+};
+
 #define BATTLE_RULES_COUNT ARRAY_COUNT(gBattleRules)
 const struct BattleRule gBattleRules[] = 
 {
@@ -198,6 +209,13 @@ void IncrementTypeRerollCounter(void)
     gSaveBlock1Ptr->typeRerollCounter++;
     if (gSaveBlock1Ptr->typeRerollCounter > 250)
         gSaveBlock1Ptr->typeRerollCounter = 0;
+
+    //reset random type for all trainers
+    for (int i = 0; i < TRAINERS_COUNT; i++)
+    {
+        gSaveBlock2Ptr->randomSpeciesType[i] = TYPE_NONE;
+        gSaveBlock3Ptr->randomMoveType[i] = TYPE_NONE;
+    }
 }
 
 u8 GetRandomBattleRuleSeeded(void)
@@ -213,11 +231,10 @@ u8 GetRandomBattleRuleSeeded(void)
     while (!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX))
     {
         increment++;
-        // IncrementBattleRuleRerollCounter();
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
     }
 
-    value = BATTLERULE_NONE; // test line
+    // value = BATTLERULE_BANNEDTYPE; // test line
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_BATTLERULE))
@@ -225,7 +242,8 @@ u8 GetRandomBattleRuleSeeded(void)
         value = gSaveBlock1Ptr->debugBattleRule;
     }
 
-    if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+    // deactivate for Wild Battles and First Battle
+    if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE))
         value = BATTLERULE_NONE;
     // DebugPrintf("--- Random Battle Rule: %d ---", value);
 
@@ -235,27 +253,99 @@ u8 GetRandomBattleRuleSeeded(void)
     return value;
 }
 
-u8 GetRandomTypeSeeded(void)
+u8 GetRandomSpeciesTypeSeeded(void)
 {
     u16 value = 0;
     u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
     u32 increment = 0;
 
-    value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+    value = gSaveBlock2Ptr->randomSpeciesType[gSaveBlock1Ptr->lastTrainerId];
 
-    while (value == TYPE_MYSTERY || value == TYPE_NONE || value == TYPE_STELLAR || value == TYPE_FAIRY)
+    if (value == TYPE_NONE || REROLL_EACH_BATTLE)
     {
-        increment++;
-        // IncrementTypeRerollCounter();
-        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter + increment, NUMBER_OF_MON_TYPES);
+        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+
+        //get current party types
+        u8 *party_types = AllocZeroed(NUMBER_OF_MON_TYPES * sizeof(u8));
+        for (int i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE  && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+            {
+                u8 type1 = gSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)].types[0];
+                u8 type2 = gSpeciesInfo[GetMonData(&gPlayerParty[i], MON_DATA_SPECIES)].types[1];
+                party_types[type1] = TRUE;
+                party_types[type2] = TRUE;
+            }
+        }
+
+        while (IsInArray(value, sInvalidTypes, INVALID_TYPES_COUNT) || party_types[value] == FALSE)
+        {
+            increment++;
+            value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter + increment, NUMBER_OF_MON_TYPES);
+        }
+
+        gSaveBlock2Ptr->randomSpeciesType[gSaveBlock1Ptr->lastTrainerId] = value;
+        
+        // Cleanup
+        Free(party_types);
     }
 
     // value = TYPE_NORMAL; // test line
 
     // battle debug
-    if (FlagGet(FLAG_DEBUG_RANDOMTYPE))
+    if (FlagGet(FLAG_DEBUG_RANDOMSPECIESTYPE))
     {
-        value = gSaveBlock2Ptr->DebugRandomType;
+        value = gSaveBlock2Ptr->DebugRandomSpeciesType;
+    }
+    
+    // DebugPrintf("--- Random Type is %d ---", value);
+    return value;
+}
+
+u8 GetRandomMoveTypeSeeded(void)
+{
+    u16 value = 0;
+    u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
+    u32 increment = 0;
+
+    value = gSaveBlock3Ptr->randomMoveType[gSaveBlock1Ptr->lastTrainerId];
+
+    if (value == TYPE_NONE || REROLL_EACH_BATTLE)
+    {
+        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter, NUMBER_OF_MON_TYPES);
+
+        //get current party move types
+        u8 *party_movetypes = AllocZeroed(NUMBER_OF_MON_TYPES * sizeof(u8));
+        for (int i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE  && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+            {
+                for (u8 slot = 0; slot < MAX_MON_MOVES; slot++)
+                {
+                    u8 type = gMovesInfo[GetMonData(&gPlayerParty[i], MON_DATA_MOVE1 + slot)].type;
+                    party_movetypes[type] = TRUE;
+                }
+            }
+        }
+
+        while (IsInArray(value, sInvalidTypes, INVALID_TYPES_COUNT) || party_movetypes[value] == FALSE)
+        {
+            increment++;
+            value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->typeRerollCounter + increment, NUMBER_OF_MON_TYPES);
+        }
+
+        gSaveBlock3Ptr->randomMoveType[gSaveBlock1Ptr->lastTrainerId] = value;
+        
+        // Cleanup
+        Free(party_movetypes);
+    }
+
+    // value = TYPE_NORMAL; // test line
+
+    // battle debug
+    if (FlagGet(FLAG_DEBUG_RANDOMMOVETYPE))
+    {
+        value = gSaveBlock2Ptr->DebugRandomMoveType;
     }
     
     // DebugPrintf("--- Random Type is %d ---", value);
@@ -269,4 +359,14 @@ bool8 IsTruantBattleRule(u32 battler)
         return TRUE;
     else
         return FALSE;
+}
+
+static bool8 IsInArray(u8 value, const u8 *array, u8 size)
+{
+    for (int i = 0; i < size; i++) {
+        if (value == array[i]) {
+            return TRUE;
+        }
+    }
+    return FALSE;
 }

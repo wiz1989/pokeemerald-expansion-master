@@ -5574,7 +5574,8 @@ static void HandleEndTurn_FinishBattle(void)
     u32 i, battler;
 
     FlagClear(FLAG_DEBUG_BATTLERULE);
-    FlagClear(FLAG_DEBUG_RANDOMTYPE);
+    FlagClear(FLAG_DEBUG_RANDOMSPECIESTYPE);
+    FlagClear(FLAG_DEBUG_RANDOMMOVETYPE);
 
     if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
     {
@@ -6234,7 +6235,7 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
                     if (gender == genderOpponent)
                         faint = TRUE;
                 }
-                else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[i].species, GetRandomTypeSeeded()))
+                else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[i].species, GetRandomSpeciesTypeSeeded()))
                     faint = TRUE;
 
                 if (faint)
@@ -6258,7 +6259,7 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
 bool8 BattleRuleViolated_USEMOVE(u32 move)
 {
     u8 rule = GetRandomBattleRuleSeeded();
-    u8 moveType = GetRandomTypeSeeded();
+    u8 moveType = GetRandomMoveTypeSeeded();
     bool8 faint = FALSE;
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)

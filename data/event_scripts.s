@@ -596,7 +596,7 @@ EventScript_WhiteOut::
 
 EventScript_AfterWhiteOutHeal::
 	lockall
-	msgbox gText_FirstShouldRestoreMonsHealth
+	@ msgbox gText_FirstShouldRestoreMonsHealth
 	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
 	call_if_unset FLAG_DEFEATED_RUSTBORO_GYM, EventScript_AfterWhiteOutHealMsgPreRoxanne
 	call_if_set FLAG_DEFEATED_RUSTBORO_GYM, EventScript_AfterWhiteOutHealMsg
@@ -607,7 +607,7 @@ EventScript_AfterWhiteOutHeal::
 	end
 
 EventScript_AfterWhiteOutHealMsgPreRoxanne::
-	msgbox gText_MonsHealedShouldBuyPotions
+	msgbox gText_MonsHealed
 	return
 
 EventScript_AfterWhiteOutHealMsg::

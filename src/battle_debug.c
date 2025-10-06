@@ -154,7 +154,7 @@ enum
 enum
 {
     LIST_ITEM2_BATTLERULE,
-    LIST_ITEM2_TYPE,
+    LIST_ITEM2_RANDOMTYPE,
 };
 
 enum
@@ -1274,9 +1274,9 @@ static void Task_DebugMenuProcessInput(u8 taskId)
         {
             if (TryMoveDigit(&data->modifyArrows, TRUE))
             {
-                PrintDigitChars(data);
-                UpdateBattlerValue(data);
-                PrintSecondaryEntries(data);
+                    PrintDigitChars(data);
+                    UpdateBattlerValue(data);
+                    PrintSecondaryEntries(data);
             }
         }
         else if (JOY_NEW(DPAD_DOWN))
@@ -1472,9 +1472,25 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
         PadString(gStringVar1, text);
         printer.currentY = printer.y = (0 * yMultiplier) + sSecondaryListTemplate.upText_Y;
         AddTextPrinter(&printer, 0, NULL);
-        PadString(gTypesInfo[GetRandomTypeSeeded()].name, text);
-        printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
-        AddTextPrinter(&printer, 0, NULL);
+
+        if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDTYPE)
+        {
+            PadString(gTypesInfo[GetRandomSpeciesTypeSeeded()].name, text);
+            printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        else if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDMOVETYPE)
+        {
+            PadString(gTypesInfo[GetRandomMoveTypeSeeded()].name, text);
+            printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        else
+        {
+            PadString(gText_Blank, text);
+            printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
         break;
     case LIST_ITEM_MOVES:
     case LIST_ITEM_PP:
@@ -1893,10 +1909,19 @@ static void ChangeBattlerulesValue(struct BattleDebugMenu *data)
         FlagSet(FLAG_DEBUG_BATTLERULE);
         gSaveBlock1Ptr->debugBattleRule = data->modifyArrows.currValue;
         break;
-    case LIST_ITEM2_TYPE:
-        FlagSet(FLAG_DEBUG_RANDOMTYPE);
-        gSaveBlock2Ptr->DebugRandomType = data->modifyArrows.currValue;
-        break;
+    case LIST_ITEM2_RANDOMTYPE:
+        if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDTYPE)
+        {
+            FlagSet(FLAG_DEBUG_RANDOMSPECIESTYPE);
+            gSaveBlock2Ptr->DebugRandomSpeciesType = data->modifyArrows.currValue;
+            break;
+        }
+        else if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDMOVETYPE)
+        {
+            FlagSet(FLAG_DEBUG_RANDOMMOVETYPE);
+            gSaveBlock2Ptr->DebugRandomMoveType = data->modifyArrows.currValue;
+            break;
+        }
     }
 }
 
@@ -1908,6 +1933,7 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
     gSprites[data->modifyArrows.arrowSpriteId[1]].animNum = 1;
     switch (data->currentMainListItemId)
     {
+        
     case LIST_ITEM_ABILITY:
         data->modifyArrows.minValue = 0;
         data->modifyArrows.maxValue = ABILITIES_COUNT - 1;
@@ -1917,19 +1943,30 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         data->modifyArrows.currValue = gBattleMons[data->battlerId].ability;
         break;
     case LIST_ITEM_BATTLERULES:
+        u8 currentRule = GetRandomBattleRuleSeeded();
+
         data->modifyArrows.minValue = 0;
         data->modifyArrows.maxDigits = 2;
         if (data->currentSecondaryListItemId == LIST_ITEM2_BATTLERULE)
         {  
             data->modifyArrows.maxValue = GetBattleRuleCount() - 1;
             data->modifyArrows.typeOfVal = VAL_BATTLERULES;
-            data->modifyArrows.currValue = GetRandomBattleRuleSeeded();
+            data->modifyArrows.currValue = currentRule;
         }
-        else if (data->currentSecondaryListItemId == LIST_ITEM2_TYPE)
+        else if (data->currentSecondaryListItemId == LIST_ITEM2_RANDOMTYPE)
         {
-            data->modifyArrows.maxValue = TYPE_FAIRY - 1;
-            data->modifyArrows.typeOfVal = VAL_BR_TYPES;
-            data->modifyArrows.currValue = GetRandomTypeSeeded();
+            if (currentRule == BATTLERULE_BANNEDTYPE)
+            {
+                data->modifyArrows.maxValue = TYPE_FAIRY - 1;
+                data->modifyArrows.typeOfVal = VAL_BR_TYPES;
+                data->modifyArrows.currValue = GetRandomSpeciesTypeSeeded();
+            }
+            else if (currentRule == BATTLERULE_BANNEDMOVETYPE)
+            {
+                data->modifyArrows.maxValue = TYPE_FAIRY - 1;
+                data->modifyArrows.typeOfVal = VAL_BR_TYPES;
+                data->modifyArrows.currValue = GetRandomMoveTypeSeeded();
+            }
         }
         break;
     case LIST_ITEM_MOVES:

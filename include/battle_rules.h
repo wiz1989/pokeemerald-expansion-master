@@ -1,10 +1,13 @@
 #ifndef GUARD_BATTLE_RULES_H
 #define GUARD_BATTLE_RULES_H
 
+#define REROLL_EACH_BATTLE FALSE
+
 void IncrementBattleRuleRerollCounter(void);
 void IncrementTypeRerollCounter(void);
 u8 GetRandomBattleRuleSeeded(void);
-u8 GetRandomTypeSeeded(void);
+u8 GetRandomSpeciesTypeSeeded(void);
+u8 GetRandomMoveTypeSeeded(void);
 bool8 IsTruantBattleRule(u32 battler);
 u8 GetBattleRuleCount(void);
 
