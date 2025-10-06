@@ -6206,6 +6206,13 @@ void BattleDebug_WonBattle(void)
     gBattleMainFunc = sEndTurnFuncsTable[gBattleOutcome & 0x7F];
 }
 
+// Loses the battle instantly.
+void BattleDebug_LostBattle(void)
+{
+    gBattleOutcome |= B_OUTCOME_LOST;
+    gBattleMainFunc = sEndTurnFuncsTable[gBattleOutcome & 0x7F];
+}
+
 bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
 {
     u8 rule = GetRandomBattleRuleSeeded();
@@ -6247,7 +6254,9 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
                         BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
                     }
                     else
+                    {
                         BattleScriptExecute(BattleScript_BattleRule_FaintMon_NoStackReset);
+                    }
                     return TRUE;
                 }
             }

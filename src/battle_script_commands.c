@@ -4945,7 +4945,7 @@ static void Cmd_checkteamslost(void)
         return;
 
     if (NoAliveMonsForPlayer())
-        gBattleOutcome |= B_OUTCOME_LOST;
+        BattleDebug_LostBattle();
 
     if (NoAliveMonsForOpponent())
         gBattleOutcome |= B_OUTCOME_WON;
