@@ -212,7 +212,22 @@ static u64 GetAiFlags(u16 trainerId)
         else
         {
             flags = GetTrainerAIFlagsFromId(trainerId);
-            flags |= AI_FLAG_BASIC_TRAINER;
+
+            if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_LEADER
+              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_AQUA_LEADER
+              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_MAGMA_LEADER
+              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_ELITE_FOUR
+              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_CHAMPION
+              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_RIVAL
+              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_WINSTRATE)
+            {
+                flags |= AI_FLAG_SMART_TRAINER;
+            }
+            else
+            {
+                flags |= AI_FLAG_BASIC_TRAINER;
+            }
+
             // DebugPrintf("AI flags: %d", flags);
         }
     }
