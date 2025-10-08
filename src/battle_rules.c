@@ -243,7 +243,8 @@ u8 GetRandomBattleRuleSeeded(void)
     }
 
     // deactivate for Wild Battles and First Battle
-    if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE))
+    if ((!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE))
+      && !FlagGet(FLAG_DEBUG_BATTLERULE))
         value = BATTLERULE_NONE;
     // DebugPrintf("--- Random Battle Rule: %d ---", value);
 

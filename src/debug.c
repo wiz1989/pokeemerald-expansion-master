@@ -261,6 +261,8 @@ static void DebugAction_Util_Warp_SelectMap(u8 taskId);
 static void DebugAction_Util_Warp_SelectWarp(u8 taskId);
 static void DebugAction_Util_Weather(u8 taskId);
 static void DebugAction_Util_Weather_SelectId(u8 taskId);
+static void DebugAction_Util_Battlerule(u8 taskId);
+static void DebugAction_Util_Battlerule_SelectId(u8 taskId);
 static void DebugAction_Util_WatchCredits(u8 taskId);
 static void DebugAction_Util_CheatStart(u8 taskId);
 
@@ -417,6 +419,7 @@ static const u8 sDebugText_Util_WarpToMap_SelectMap[] =      _("Map: {STR_VAR_1}
 static const u8 sDebugText_Util_WarpToMap_SelectWarp[] =     _("Warp:{CLEAR_TO 90}\n{STR_VAR_1}{CLEAR_TO 90}\n{CLEAR_TO 90}\n{STR_VAR_3}{CLEAR_TO 90}");
 static const u8 sDebugText_Util_WarpToMap_SelMax[] =         _("{STR_VAR_1} / {STR_VAR_2}");
 static const u8 sDebugText_Util_Weather_ID[] =               _("Weather ID: {STR_VAR_3}\n{STR_VAR_1}\n{STR_VAR_2}");
+static const u8 sDebugText_Util_Battlerule_ID[] =            _("Battlerule: {STR_VAR_3}\n{STR_VAR_1}\n{STR_VAR_2}");
 
 //Time Menu
 
@@ -550,6 +553,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_FollowerNPCMenu[] =
 
 static const struct DebugMenuOption sDebugMenu_Actions_Utilities[] =
 {
+    { COMPOUND_STRING("Change Battlerule…"), DebugAction_Util_Battlerule },
     { COMPOUND_STRING("Fly to map…"),       DebugAction_Util_Fly },
     { COMPOUND_STRING("Warp to map warp…"), DebugAction_Util_Warp_Warp },
     { COMPOUND_STRING("Set weather…"),      DebugAction_Util_Weather },
@@ -736,6 +740,17 @@ static const struct WindowTemplate sDebugMenuWindowTemplateExtra =
 };
 
 static const struct WindowTemplate sDebugMenuWindowTemplateWeather =
+{
+    .bg = 0,
+    .tilemapLeft = 30 - DEBUG_MENU_WIDTH_WEATHER - 1,
+    .tilemapTop = 1,
+    .width = DEBUG_MENU_WIDTH_WEATHER,
+    .height = 2 * DEBUG_MENU_HEIGHT_WEATHER,
+    .paletteNum = 15,
+    .baseBlock = 1,
+};
+
+static const struct WindowTemplate sDebugMenuWindowTemplateBattlerule =
 {
     .bg = 0,
     .tilemapLeft = 30 - DEBUG_MENU_WIDTH_WEATHER - 1,
@@ -1547,6 +1562,69 @@ static void DebugAction_Util_Weather_SelectId(u8 taskId)
         {
             gTasks[taskId].data[5] = gTasks[taskId].tInput;
             SetWeather(gTasks[taskId].data[5]);
+        }
+    }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        DebugAction_DestroyExtraWindow(taskId);
+    }
+}
+
+static void DebugAction_Util_Battlerule(u8 taskId)
+{
+    u8 windowId;
+
+    ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
+    RemoveWindow(gTasks[taskId].tWindowId);
+
+    HideMapNamePopUpWindow();
+    LoadMessageBoxAndBorderGfx();
+    windowId = AddWindow(&sDebugMenuWindowTemplateBattlerule);
+    DrawStdWindowFrame(windowId, FALSE);
+
+    CopyWindowToVram(windowId, COPYWIN_FULL);
+
+    //Display initial ID
+    // StringCopy(gStringVar2, gText_DigitIndicator[0]);
+    ConvertIntToDecimalStringN(gStringVar3, 1, STR_CONV_MODE_LEADING_ZEROS, 2);
+    BufferCurrentBattleRule();
+    StringCopyPadded(gStringVar1, gStringVar1, CHAR_SPACE, 30);
+    StringCopy(gStringVar2, gText_DigitIndicator[0]);
+    StringExpandPlaceholders(gStringVar4, sDebugText_Util_Battlerule_ID);
+    AddTextPrinterParameterized(windowId, DEBUG_MENU_FONT, gStringVar4, 0, 0, 0, NULL);
+
+    gTasks[taskId].func = DebugAction_Util_Battlerule_SelectId;
+    gTasks[taskId].tSubWindowId = windowId;
+    gTasks[taskId].tInput = 0;
+    gTasks[taskId].tDigit = 0;
+}
+
+static void DebugAction_Util_Battlerule_SelectId(u8 taskId)
+{
+    if (JOY_NEW(DPAD_ANY))
+    {
+        PlaySE(SE_SELECT);
+        Debug_HandleInput_Numeric(taskId, BATTLERULE_NONE, BATTLERULE_NOMISSES, 3);
+
+        // StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
+        ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
+
+        FlagSet(FLAG_DEBUG_BATTLERULE);
+        gSaveBlock1Ptr->debugBattleRule = gTasks[taskId].tInput;
+        BufferCurrentBattleRule();
+        StringCopyPadded(gStringVar1, gStringVar1, CHAR_SPACE, 30);
+
+        StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
+        StringExpandPlaceholders(gStringVar4, sDebugText_Util_Battlerule_ID);
+        AddTextPrinterParameterized(gTasks[taskId].tSubWindowId, DEBUG_MENU_FONT, gStringVar4, 0, 0, 0, NULL);
+    }
+
+    if (JOY_NEW(A_BUTTON))
+    {
+        if (gTasks[taskId].tInput <= 14 || gTasks[taskId].tInput >= 20)
+        {
+            gTasks[taskId].data[5] = gTasks[taskId].tInput;
         }
     }
     else if (JOY_NEW(B_BUTTON))
