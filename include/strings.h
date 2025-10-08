@@ -268,6 +268,8 @@ extern const u8 gText_PermaDeathOff[];
 extern const u8 gText_PermaDeathOn[];
 extern const u8 gText_NoBagInBattleOff[];
 extern const u8 gText_NoBagInBattleOn[];
+extern const u8 gText_HarderTrainersOff[];
+extern const u8 gText_HarderTrainersOn[];
 extern const u8 gText_Option[];
 extern const u8 gText_OptionMenu[];
 extern const u8 gText_TextSpeed[];
@@ -282,6 +284,7 @@ extern const u8 gText_LargeDot[];
 extern const u8 gText_PageNav[];
 extern const u8 gText_PermaDeath[];
 extern const u8 gText_NoBagInBattle[];
+extern const u8 gText_HarderTrainers[];
 
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];
