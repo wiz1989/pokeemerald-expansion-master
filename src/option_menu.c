@@ -28,6 +28,7 @@
 #define tPermaDeathOn data[7]
 #define tNoBagInBattleOn data[8]
 #define tHarderTrainersOn data[9]
+#define tBattleSpeedUp data[10]
 
 enum menuItems_pg1
 {
@@ -43,6 +44,7 @@ enum menuItems_pg1
 
 enum menuItems_pg2
 {
+    MENUITEM_BATTLE_SPEEDUP,
     MENUITEM_PERMADEATH,
     MENUITEM_NOBAGINBATTLE,
     MENUITEM_HARDERTRAINERS,
@@ -62,6 +64,7 @@ enum
 #define YPOS_SOUND        (MENUITEM_SOUND * 16)
 #define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
 #define YPOS_FRAMETYPE    (MENUITEM_FRAMETYPE * 16)
+#define YPOS_BATTLESPEEDUP (MENUITEM_BATTLE_SPEEDUP * 16)
 #define YPOS_PERMADEATH   (MENUITEM_PERMADEATH * 16)
 #define YPOS_NOBAGINBATTLE (MENUITEM_NOBAGINBATTLE * 16)
 #define YPOS_HARDERTRAINERS (MENUITEM_HARDERTRAINERS * 16)
@@ -75,6 +78,8 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId);
 static void Task_OptionMenuSave(u8 taskId);
 static void Task_OptionMenuFadeOut(u8 taskId);
 static void HighlightOptionMenuItem(u8 selection);
+static u8 BattleSpeedup_ProcessInput(u8 selection);
+static void BattleSpeedup_DrawChoices(u8 selection);
 static u8 PermaDeath_ProcessInput(u8 selection);
 static void PermaDeath_DrawChoices(u8 selection);
 static u8 NoBagInBattle_ProcessInput(u8 selection);
@@ -117,10 +122,11 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
 
 static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
 {
-    [MENUITEM_PERMADEATH]    = gText_PermaDeath,
-    [MENUITEM_NOBAGINBATTLE] = gText_NoBagInBattle,
+    [MENUITEM_BATTLE_SPEEDUP] = gText_BattleSpeedup,
+    [MENUITEM_PERMADEATH]     = gText_PermaDeath,
+    [MENUITEM_NOBAGINBATTLE]  = gText_NoBagInBattle,
     [MENUITEM_HARDERTRAINERS] = gText_HarderTrainers,
-    [MENUITEM_CANCEL_PG2]    = gText_OptionMenuCancel,
+    [MENUITEM_CANCEL_PG2]     = gText_OptionMenuCancel,
 };
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -194,6 +200,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tSound = gSaveBlock2Ptr->optionsSound;
     gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
     gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
+    gTasks[taskId].tBattleSpeedUp = VarGet(VAR_BATTLE_SPEED);
     gTasks[taskId].tPermaDeathOn = FlagGet(FLAG_PERMADEATH);
     gTasks[taskId].tNoBagInBattleOn = FlagGet(FLAG_NO_BAG_IN_BATTLE);
     gTasks[taskId].tHarderTrainersOn = FlagGet(FLAG_HARDER_TRAINERS);
@@ -215,6 +222,7 @@ static void DrawOptionsPg1(u8 taskId)
 static void DrawOptionsPg2(u8 taskId)
 {
     ReadAllCurrentSettings(taskId);
+    BattleSpeedup_DrawChoices(gTasks[taskId].tBattleSpeedUp);
     PermaDeath_DrawChoices(gTasks[taskId].tPermaDeathOn);
     NoBagInBattle_DrawChoices(gTasks[taskId].tNoBagInBattleOn);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
@@ -505,6 +513,13 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
 
         switch (gTasks[taskId].tMenuSelection)
         {
+        case MENUITEM_BATTLE_SPEEDUP:
+            previousOption = gTasks[taskId].tBattleSpeedUp;
+            gTasks[taskId].tBattleSpeedUp = BattleSpeedup_ProcessInput(gTasks[taskId].tBattleSpeedUp);
+
+            if (previousOption != gTasks[taskId].tBattleSpeedUp)
+                BattleSpeedup_DrawChoices(gTasks[taskId].tBattleSpeedUp);
+            break;
         case MENUITEM_PERMADEATH:
             previousOption = gTasks[taskId].tPermaDeathOn;
             gTasks[taskId].tPermaDeathOn = PermaDeath_ProcessInput(gTasks[taskId].tPermaDeathOn);
@@ -546,6 +561,7 @@ static void Task_OptionMenuSave(u8 taskId)
     gSaveBlock2Ptr->optionsSound = gTasks[taskId].tSound;
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
     gSaveBlock2Ptr->optionsWindowFrameType = gTasks[taskId].tWindowFrameType;
+    VarSet(VAR_BATTLE_SPEED, gTasks[taskId].tBattleSpeedUp);
     gTasks[taskId].tPermaDeathOn == 0 ? FlagClear(FLAG_PERMADEATH) : FlagSet(FLAG_PERMADEATH);
     gTasks[taskId].tNoBagInBattleOn == 0 ? FlagClear(FLAG_NO_BAG_IN_BATTLE) : FlagSet(FLAG_NO_BAG_IN_BATTLE);
     gTasks[taskId].tHarderTrainersOn == 0 ? FlagClear(FLAG_HARDER_TRAINERS) : FlagSet(FLAG_HARDER_TRAINERS);
@@ -760,6 +776,45 @@ static void FrameType_DrawChoices(u8 selection)
 
     DrawOptionMenuChoice(gText_FrameType, 104, YPOS_FRAMETYPE, 0);
     DrawOptionMenuChoice(text, 128, YPOS_FRAMETYPE, 1);
+}
+
+static u8 BattleSpeedup_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        if (selection <= OPTIONS_BATTLE_SCENE_4X - 1)
+            selection++;
+        else
+            selection = OPTIONS_BATTLE_SCENE_1X;
+
+        sArrowPressed = TRUE;
+    }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        if (selection != 0)
+            selection--;
+        else
+            selection = OPTIONS_BATTLE_SCENE_4X;
+
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void BattleSpeedup_DrawChoices(u8 selection)
+{
+    u8 styles[4];;
+
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[2] = 0;
+    styles[3] = 0;
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(gText_BattleSpeedup1x, 104, YPOS_BATTLESPEEDUP, styles[0]);
+    DrawOptionMenuChoice(gText_BattleSpeedup2x, 131, YPOS_BATTLESPEEDUP, styles[1]);
+    DrawOptionMenuChoice(gText_BattleSpeedup3x, 158, YPOS_BATTLESPEEDUP, styles[2]);
+    DrawOptionMenuChoice(gText_BattleSpeedup4x, 185, YPOS_BATTLESPEEDUP, styles[3]);
 }
 
 static u8 PermaDeath_ProcessInput(u8 selection)

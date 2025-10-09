@@ -101,6 +101,11 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
+
+    VarSet(VAR_BATTLE_SPEED, OPTIONS_BATTLE_SCENE_1X);
+    FlagClear(FLAG_PERMADEATH);
+    FlagClear(FLAG_NO_BAG_IN_BATTLE);
+    FlagClear(FLAG_HARDER_TRAINERS);
 }
 
 static void ClearPokedexFlags(void)
@@ -132,6 +137,7 @@ static void ClearFrontierRecord(void)
 static void WarpToTruck(void)
 {
     SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
+    VarSet(VAR_BATTLE_SPEED, 1);
     WarpIntoMap();
 }
 

@@ -437,4 +437,6 @@ void BtlController_HandleSwitchInTryShinyAnim(u32 battler);
 void BtlController_HandleSwitchInSoundAndEnd(u32 battler);
 void BtlController_HandleSwitchInShowSubstitute(u32 battler);
 
+u32 Rogue_GetBattleSpeedScale(bool32 forHealthbar);
+
 #endif // GUARD_BATTLE_CONTROLLERS_H
