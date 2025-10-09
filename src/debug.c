@@ -394,7 +394,6 @@ extern const u8 Debug_EventScript_PrintTimeOfDay[];
 extern const u8 Debug_EventScript_TellTheTime[];
 extern const u8 Debug_EventScript_FakeRTCNotEnabled[];
 extern const u8 Debug_EventScript_LevelUpToCap[];
-extern const u8 Debug_CheckBattleRule[];
 
 extern const u8 Debug_BerryPestsDisabled[];
 extern const u8 Debug_BerryWeedsDisabled[];
@@ -710,7 +709,6 @@ static const struct DebugMenuOption sDebugMenu_Actions_QoLHub[] =
     { COMPOUND_STRING("Inflict Status"),  DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
     { COMPOUND_STRING("Move Reminder"),   DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
     { COMPOUND_STRING("Reroll Rule"),     DebugAction_IncreaseRerollCounter },
-    { COMPOUND_STRING("Show Rule"),       DebugAction_ExecuteScript, Debug_CheckBattleRule }, // wiz1989 - comment for release
     { COMPOUND_STRING("Cancel"),          DebugAction_Cancel, },
     { NULL }
 };

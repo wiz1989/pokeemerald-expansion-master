@@ -787,11 +787,5 @@ Debug_EventScript_TellTheTime_Text_0:
 DebugEventScript_PrintWeekday_Text_0:
 	.string "Time of day: {STR_VAR_1}$"
 
-Debug_CheckBattleRule::
-	callnative BufferCurrentBattleRuleScript
-	msgbox Debug_CurrentBattleRule, MSGBOX_DEFAULT
-	release
-	end
-
 Debug_CurrentBattleRule:
 	.string "{STR_VAR_1}{STR_VAR_2}$"
