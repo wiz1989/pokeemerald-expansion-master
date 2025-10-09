@@ -138,6 +138,8 @@ static void SetDefaultFlagsAndSettings(void)
     FlagSet(FLAG_LAPRAS1_DEST_INVISIBLE);
     FlagSet(FLAG_LAPRAS2_DEST_INVISIBLE);
     FlagSet(FLAG_HIDE_GOODRA);
+
+    VarSet(VAR_BATTLE_SPEED, OPTIONS_BATTLE_SCENE_2X);
 }
 
 static void ClearPokedexFlags(void)

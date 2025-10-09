@@ -211,6 +211,10 @@ extern const u8 gText_FrameType[];
 extern const u8 gText_ButtonTypeNormal[];
 extern const u8 gText_ButtonTypeLR[];
 extern const u8 gText_ButtonTypeLEqualsA[];
+extern const u8 gText_BattleSpeedup1x[];
+extern const u8 gText_BattleSpeedup2x[];
+extern const u8 gText_BattleSpeedup3x[];
+extern const u8 gText_BattleSpeedup4x[];
 extern const u8 gText_Option[];
 extern const u8 gText_OptionMenu[];
 extern const u8 gText_TextSpeed[];
@@ -225,6 +229,7 @@ extern const u8 gText_OptionFontEmerald[];  //tx_optionsPlus
 extern const u8 gText_OptionMatchCalls[];   //tx_optionsPlus
 extern const u8 gText_OptionMenuSave[];
 extern const u8 gText_ButtonMode[];
+extern const u8 gText_BattleSpeedup[];
 
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];
