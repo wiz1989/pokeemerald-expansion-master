@@ -107,6 +107,9 @@ static void SetDefaultOptions(void)
     FlagClear(FLAG_NO_BAG_IN_BATTLE);
     FlagClear(FLAG_HARDER_TRAINERS);
     FlagClear(FLAG_50_PERCENT_DAMAGE);
+
+    memset(gSaveBlock3Ptr->metLocations, 0, 32);
+    gSaveBlock3Ptr->metLocsInitialized = 1;
 }
 
 static void ClearPokedexFlags(void)

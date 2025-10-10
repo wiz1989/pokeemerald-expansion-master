@@ -233,6 +233,12 @@ BattleScript_TrainerBallBlock::
 	waitmessage B_WAIT_TIME_LONG
 	finishaction
 
+BattleScript_NoValidEncounter::
+	waitmessage B_WAIT_TIME_LONG
+	printstring STRINGID_NOVALIDENCOUNTER
+	waitmessage B_WAIT_TIME_LONG
+	finishaction
+
 BattleScript_RunByUsingItem::
 	playse SE_FLEE
 	setbyte gBattleOutcome, B_OUTCOME_RAN

@@ -13760,6 +13760,7 @@ static void Cmd_handleballthrow(void)
 
     u16 ballMultiplier = 100;
     s8 ballAddition = 0;
+    u8 metLoc = 0;
 
     if (gBattleControllerExecFlags)
         return;
@@ -13777,6 +13778,12 @@ static void Cmd_handleballthrow(void)
         BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_3_SHAKES_SUCCESS);
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_WallyBallThrow;
+    }
+    else if (!IsTargetValidEncounter(gBattleMons[gBattlerTarget].species))
+    {
+        BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
+        MarkBattlerForControllerExec(gBattlerAttacker);
+        gBattlescriptCurrInstr = BattleScript_NoValidEncounter;
     }
     else
     {
@@ -13984,6 +13991,9 @@ static void Cmd_handleballthrow(void)
             struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
             SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
 
+            metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
+            gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
+
             if (CalculatePlayerPartyCount() == PARTY_SIZE)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
             else
@@ -14043,6 +14053,9 @@ static void Cmd_handleballthrow(void)
                 gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
                 struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
                 SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
+
+                metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
+                gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
 
                 if (CalculatePlayerPartyCount() == PARTY_SIZE)
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0;

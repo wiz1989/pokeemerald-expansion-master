@@ -29,7 +29,8 @@
 #define tNoBagInBattleOn data[8]
 #define tHarderTrainersOn data[9]
 #define tBattleSpeedUp data[10]
-#define t50DamageOn data[10]
+#define t50DamageOn data[11]
+#define tDupeClause data[12]
 
 enum menuItems_pg1
 {
@@ -48,6 +49,7 @@ enum menuItems_pg2
     MENUITEM_BATTLE_SPEEDUP,
     MENUITEM_PERMADEATH,
     MENUITEM_NOBAGINBATTLE,
+    MENUITEM_DUPECLAUSE,
     MENUITEM_HARDERTRAINERS,
     MENUITEM_50DAMAGE,
     MENUITEM_CANCEL_PG2,
@@ -71,6 +73,7 @@ enum
 #define YPOS_NOBAGINBATTLE  (MENUITEM_NOBAGINBATTLE * 16)
 #define YPOS_HARDERTRAINERS (MENUITEM_HARDERTRAINERS * 16)
 #define YPOS_50DAMAGE       (MENUITEM_50DAMAGE * 16)
+#define YPOS_DUPECLAUSE     (MENUITEM_DUPECLAUSE * 16)
 
 #define PAGE_COUNT  2
 
@@ -91,6 +94,8 @@ static u8 HarderTrainers_ProcessInput(u8 selection);
 static void HarderTrainers_DrawChoices(u8 selection);
 static u8 HalfDamage_ProcessInput(u8 selection);
 static void HalfDamage_DrawChoices(u8 selection);
+static u8 DupeClause_ProcessInput(u8 selection);
+static void DupeClause_DrawChoices(u8 selection);
 static u8 BattleScene_ProcessInput(u8 selection);
 static void TextSpeed_DrawChoices(u8 selection);
 static u8 TextSpeed_ProcessInput(u8 selection);
@@ -132,6 +137,7 @@ static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
     [MENUITEM_NOBAGINBATTLE]  = gText_NoBagInBattle,
     [MENUITEM_HARDERTRAINERS] = gText_HarderTrainers,
     [MENUITEM_50DAMAGE]       = gText_50Damage,
+    [MENUITEM_DUPECLAUSE]     = gText_DupeClause,
     [MENUITEM_CANCEL_PG2]     = gText_OptionMenuCancel,
 };
 
@@ -211,6 +217,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tNoBagInBattleOn = FlagGet(FLAG_NO_BAG_IN_BATTLE);
     gTasks[taskId].tHarderTrainersOn = FlagGet(FLAG_HARDER_TRAINERS);
     gTasks[taskId].t50DamageOn = FlagGet(FLAG_50_PERCENT_DAMAGE);
+    gTasks[taskId].tDupeClause = FlagGet(FLAG_DUPE_CLAUSE);
 }
 
 static void DrawOptionsPg1(u8 taskId)
@@ -234,6 +241,7 @@ static void DrawOptionsPg2(u8 taskId)
     NoBagInBattle_DrawChoices(gTasks[taskId].tNoBagInBattleOn);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
     HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
+    DupeClause_DrawChoices(gTasks[taskId].tDupeClause);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -556,6 +564,13 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].t50DamageOn)
                 HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
             break;
+        case MENUITEM_DUPECLAUSE:
+            previousOption = gTasks[taskId].tDupeClause;
+            gTasks[taskId].tDupeClause = DupeClause_ProcessInput(gTasks[taskId].tDupeClause);
+
+            if (previousOption != gTasks[taskId].tDupeClause)
+                DupeClause_DrawChoices(gTasks[taskId].tDupeClause);
+            break;
         default:
             return;
         }
@@ -581,6 +596,7 @@ static void Task_OptionMenuSave(u8 taskId)
     gTasks[taskId].tNoBagInBattleOn == 0 ? FlagClear(FLAG_NO_BAG_IN_BATTLE) : FlagSet(FLAG_NO_BAG_IN_BATTLE);
     gTasks[taskId].tHarderTrainersOn == 0 ? FlagClear(FLAG_HARDER_TRAINERS) : FlagSet(FLAG_HARDER_TRAINERS);
     gTasks[taskId].t50DamageOn == 0 ? FlagClear(FLAG_50_PERCENT_DAMAGE) : FlagSet(FLAG_50_PERCENT_DAMAGE);
+    gTasks[taskId].tDupeClause == 0 ? FlagClear(FLAG_DUPE_CLAUSE) : FlagSet(FLAG_DUPE_CLAUSE);
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -915,6 +931,27 @@ static void HalfDamage_DrawChoices(u8 selection)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_HarderTrainersOff, 104, YPOS_50DAMAGE, styles[0]);
     DrawOptionMenuChoice(gText_HarderTrainersOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_HarderTrainersOn, 198), YPOS_50DAMAGE, styles[1]);
+}
+
+static u8 DupeClause_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void DupeClause_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+    DrawOptionMenuChoice(gText_HarderTrainersOff, 104, YPOS_DUPECLAUSE, styles[0]);
+    DrawOptionMenuChoice(gText_HarderTrainersOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_HarderTrainersOn, 198), YPOS_DUPECLAUSE, styles[1]);
 }
 
 static u8 ButtonMode_ProcessInput(u8 selection)

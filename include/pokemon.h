@@ -889,5 +889,7 @@ void SavePlayerPartyMon(u32 index, struct Pokemon *mon);
 u32 IsSpeciesOfType(u32 species, u32 type);
 void TryLevelUpEvolution(void);
 bool8 SpeciesHasType(u16 species, u8 type);
+bool8 IsTargetValidEncounter(u16 species);
+u16 GetEvolutionFamily(u16 species, u16 *buffer, u16 bufCapacity);
 
 #endif // GUARD_POKEMON_H

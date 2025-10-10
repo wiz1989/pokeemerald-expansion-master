@@ -252,6 +252,8 @@ struct SaveBlock3
 #endif
     u8 dexNavChain;
     u8 randomMoveType[TRAINERS_COUNT];
+    u8 metLocations[32]; // = 256 bits = 256 possible met locations
+    u8 metLocsInitialized; // 1 byte marker for save file compatibility
 }; /* max size 1624 bytes */
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;

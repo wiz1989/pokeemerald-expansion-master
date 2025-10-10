@@ -28,5 +28,12 @@ void ReloadSave(void)
         Sav2_ClearSetDefault();
     SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
     InitHeap(gHeap, HEAP_SIZE);
+
+    //wiz1989 - used for save file compatibility
+    if (gSaveBlock3Ptr->metLocsInitialized != 1)
+    {
+        memset(gSaveBlock3Ptr->metLocations, 0, 32);
+        gSaveBlock3Ptr->metLocsInitialized = 1;
+    }
     SetMainCallback2(CB2_ContinueSavedGame);
 }

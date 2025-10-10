@@ -291,6 +291,7 @@ extern const u8 gText_PermaDeath[];
 extern const u8 gText_NoBagInBattle[];
 extern const u8 gText_HarderTrainers[];
 extern const u8 gText_50Damage[];
+extern const u8 gText_DupeClause[];
 
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];

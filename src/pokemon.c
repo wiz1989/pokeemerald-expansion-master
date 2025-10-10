@@ -7287,3 +7287,104 @@ bool8 SpeciesHasType(u16 species, u8 type)
 {
     return GetSpeciesType(species, 0) == type || GetSpeciesType(species, 1) == type;
 }
+
+bool8 IsTargetValidEncounter(u16 species_catch)
+{
+    u8 metLocation;
+
+    species_catch = GetFormSpeciesId(species_catch, 0);
+
+    if (!FlagGet(FLAG_DUPE_CLAUSE))
+        return TRUE;
+
+    // check dupes
+    u16 family[NUM_SPECIES];
+    u16 familyCount = GetEvolutionFamily(species_catch, family, ARRAY_COUNT(family));
+
+    for (u8 i = 0; i < familyCount; i++)
+    {
+        u16 targetSpecies = family[i];
+        // DebugPrintf("check species = %S", gSpeciesInfo[targetSpecies].speciesName);
+        if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_GET_CAUGHT))
+            return FALSE;
+    }
+
+    // check met location
+    metLocation = GetCurrentRegionMapSectionId();
+    if (gSaveBlock3Ptr->metLocations[metLocation >> 3] & (1 << (metLocation & 7)))
+        return FALSE;
+
+    return TRUE;
+}
+
+// returns base species + all descendants into 'buffer', including alternative forms
+u16 GetEvolutionFamily(u16 species, u16 *buffer, u16 bufCapacity)
+{
+    if (species == SPECIES_NONE || !buffer || bufCapacity <= 0)
+        return 0;
+
+    // 1) Find base species by walking pre-evolutions
+    u16 base = species;
+    for (;;)
+    {
+        u16 pre = GetSpeciesPreEvolution(base);
+        if (pre == SPECIES_NONE)
+            break;
+        base = pre;
+    }
+
+    // 2) BFS the evolution and forms tree
+    u8 visited[NUM_SPECIES] = {0};
+    u16 queue[NUM_SPECIES];
+    u16 qHead = 0, qTail = 0;
+    u16 outCount = 0;
+
+    visited[base] = 1;
+    queue[qTail++] = base;
+
+    while (qHead < qTail)
+    {
+        u16 s = queue[qHead++];
+
+        if (outCount < bufCapacity)
+            buffer[outCount++] = s;
+
+        // 2a) Enqueue all alternative forms of s
+        const u16 *forms = gSpeciesInfo[s].formSpeciesIdTable;
+        if (forms != NULL)
+        {
+            for (const u16 *p = forms; *p != FORM_SPECIES_END; ++p)
+            {
+                u16 f = *p;
+                if (f == SPECIES_NONE)
+                    continue;
+                if (!visited[f])
+                {
+                    visited[f] = 1;
+                    queue[qTail++] = f;
+                }
+            }
+        }
+
+        // 2b) Enqueue all forward evolutions of s
+        const struct Evolution *ev = gSpeciesInfo[s].evolutions;
+
+        if (ev == NULL)
+            continue;
+
+        for (; ev->method != EVOLUTIONS_END; ++ev)
+        {
+            u16 target = ev->targetSpecies;
+            if (target == SPECIES_NONE)
+                continue;
+
+            if (!visited[target])
+            {
+                visited[target] = 1;
+                queue[qTail++] = target;
+            }
+        }
+    }
+
+    return outCount;
+}
