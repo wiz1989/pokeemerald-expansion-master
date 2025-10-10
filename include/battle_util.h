@@ -413,5 +413,6 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle);
 bool8 BattleRuleViolated_USEMOVE(u32 move);
 bool8 IsSetupMove(u32 move);
 bool8 IsMidTurn(void);
+bool8 IsBossTrainer(u16 trainerId);
 
 #endif // GUARD_BATTLE_UTIL_H

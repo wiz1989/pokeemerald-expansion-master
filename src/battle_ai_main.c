@@ -10,6 +10,7 @@
 #include "battle_controllers.h"
 #include "battle_factory.h"
 #include "battle_setup.h"
+#include "battle_util.h"
 #include "battle_z_move.h"
 #include "battle_terastal.h"
 #include "data.h"
@@ -213,13 +214,7 @@ static u64 GetAiFlags(u16 trainerId)
         {
             flags = GetTrainerAIFlagsFromId(trainerId);
 
-            if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_LEADER
-              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_AQUA_LEADER
-              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_MAGMA_LEADER
-              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_ELITE_FOUR
-              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_CHAMPION
-              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_RIVAL
-              || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_WINSTRATE)
+            if (IsBossTrainer(trainerId))
             {
                 flags |= AI_FLAG_SMART_TRAINER;
             }

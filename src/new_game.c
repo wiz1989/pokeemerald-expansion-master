@@ -106,6 +106,7 @@ static void SetDefaultOptions(void)
     FlagClear(FLAG_PERMADEATH);
     FlagClear(FLAG_NO_BAG_IN_BATTLE);
     FlagClear(FLAG_HARDER_TRAINERS);
+    FlagClear(FLAG_50_PERCENT_DAMAGE);
 }
 
 static void ClearPokedexFlags(void)

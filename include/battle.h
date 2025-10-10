@@ -71,6 +71,8 @@
 
 #define BATTLE_BUFFER_LINK_SIZE 0x1000
 
+#define NPC_LEVEL_OFFSET_FROM_CAP 3
+
 // Cleared each time a mon leaves the field, either by switching out or fainting
 struct DisableStruct
 {

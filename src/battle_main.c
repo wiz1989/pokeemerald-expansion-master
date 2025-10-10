@@ -1946,8 +1946,12 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
         if (partyEntry->moves[j] != MOVE_NONE)
             noMoveSet = FALSE;
     }
+    if (FlagGet(FLAG_HARDER_TRAINERS) && !IsBossTrainer(TRAINER_BATTLE_PARAM.opponentA))
+        noMoveSet = TRUE;
+
     if (noMoveSet)
     {
+        GiveMonInitialMoveset(mon);
         // TODO: Figure out a default strategy when moves are not set, to generate a good moveset
         return;
     }
@@ -2024,8 +2028,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             level = partyData[monIndex].lvl;
             if (FlagGet(FLAG_HARDER_TRAINERS))
             {
-                if (currentLevelCap > level + 3)
-                    level = currentLevelCap - 3;
+                if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
+                    level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
             }
             CreateMon(&party[i], partyData[monIndex].species, level, 0, TRUE, personalityValue, otIdType, fixedOtId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
