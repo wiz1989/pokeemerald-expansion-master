@@ -1,6 +1,7 @@
 enum
 {
     PAGE_TITLE,
+    PAGE_ROMHACK,
     PAGE_DIRECTOR,
     PAGE_ART_DIRECTOR,
     PAGE_WORLD_DIRECTOR,
@@ -221,10 +222,16 @@ static const u8 sCreditsText_MotoyasuTojima[]                 = _("Motoyasu Toji
 static const u8 sCreditsText_NicolaPrattBarlow[]              = _("Nicola Pratt-Barlow");
 static const u8 sCreditsText_ShellieDow[]                     = _("Shellie Dow");
 static const u8 sCreditsText_ErikJohnson[]                    = _("Erik Johnson");
+static const u8 sCreditsText_Developer[]                      = _("Developer");
+static const u8 sCreditsText_ConceptIdea[]                    = _("Concept & Idea");
+static const u8 sCreditsText_wiz1989[]                        = _("wiz1989");
+static const u8 sCreditsText_AstroidVideos[]                  = _("AstroidVideos");
 static const struct CreditsEntry sCreditsEntry_EmptyString                      = { 0, FALSE, sCreditsText_EmptyString};
 static const struct CreditsEntry sCreditsEntry_PkmnEmeraldVersion               = { 7,  TRUE, sCreditsText_PkmnEmeraldVersion};
 static const struct CreditsEntry sCreditsEntry_Credits                          = {11,  TRUE, sCreditsText_Credits};
 static const struct CreditsEntry sCreditsEntry_ExecutiveDirector                = { 8,  TRUE, sCreditsText_ExecutiveDirector};
+static const struct CreditsEntry sCreditsEntry_ConceptIdea                      = {12,  TRUE, sCreditsText_ConceptIdea};
+static const struct CreditsEntry sCreditsEntry_Developer                        = {12,  TRUE, sCreditsText_Developer};
 static const struct CreditsEntry sCreditsEntry_Director                         = {12,  TRUE, sCreditsText_Director};
 static const struct CreditsEntry sCreditsEntry_ArtDirector                      = {10,  TRUE, sCreditsText_ArtDirector};
 static const struct CreditsEntry sCreditsEntry_BattleDirector                   = {10,  TRUE, sCreditsText_BattleDirector};
@@ -262,6 +269,8 @@ static const struct CreditsEntry sCreditsEntry_LeadProgrammer                   
 static const struct CreditsEntry sCreditsEntry_LeadGraphicArtist                = { 9,  TRUE, sCreditsText_LeadGraphicArtist};
 static const struct CreditsEntry sCreditsEntry_SatoshiTajiri                    = {11, FALSE, sCreditsText_SatoshiTajiri};
 static const struct CreditsEntry sCreditsEntry_JunichiMasuda                    = {11, FALSE, sCreditsText_JunichiMasuda};
+static const struct CreditsEntry sCreditsEntry_AstroidVideos                    = {11, FALSE, sCreditsText_AstroidVideos};
+static const struct CreditsEntry sCreditsEntry_wiz1989                          = {11, FALSE, sCreditsText_wiz1989};
 static const struct CreditsEntry sCreditsEntry_KenSugimori                      = {11, FALSE, sCreditsText_KenSugimori};
 static const struct CreditsEntry sCreditsEntry_ShigekiMorimoto                  = {11, FALSE, sCreditsText_ShigekiMorimoto};
 static const struct CreditsEntry sCreditsEntry_TetsuyaWatanabe                  = {11, FALSE, sCreditsText_TetsuyaWatanabe};
@@ -390,6 +399,13 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         &sCreditsEntry_Credits,
         _,
         _
+    },
+    [PAGE_ROMHACK] = {
+        &sCreditsEntry_ConceptIdea,
+        &sCreditsEntry_AstroidVideos,
+        _,
+        &sCreditsEntry_Developer,
+        &sCreditsEntry_wiz1989,
     },
     [PAGE_DIRECTOR] = {
         _,
