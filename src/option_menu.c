@@ -29,6 +29,7 @@
 #define tNoBagInBattleOn data[8]
 #define tHarderTrainersOn data[9]
 #define tBattleSpeedUp data[10]
+#define t50DamageOn data[10]
 
 enum menuItems_pg1
 {
@@ -48,6 +49,7 @@ enum menuItems_pg2
     MENUITEM_PERMADEATH,
     MENUITEM_NOBAGINBATTLE,
     MENUITEM_HARDERTRAINERS,
+    MENUITEM_50DAMAGE,
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
 };
@@ -58,16 +60,17 @@ enum
     WIN_OPTIONS
 };
 
-#define YPOS_TEXTSPEED    (MENUITEM_TEXTSPEED * 16)
-#define YPOS_BATTLESCENE  (MENUITEM_BATTLESCENE * 16)
-#define YPOS_BATTLESTYLE  (MENUITEM_BATTLESTYLE * 16)
-#define YPOS_SOUND        (MENUITEM_SOUND * 16)
-#define YPOS_BUTTONMODE   (MENUITEM_BUTTONMODE * 16)
-#define YPOS_FRAMETYPE    (MENUITEM_FRAMETYPE * 16)
-#define YPOS_BATTLESPEEDUP (MENUITEM_BATTLE_SPEEDUP * 16)
-#define YPOS_PERMADEATH   (MENUITEM_PERMADEATH * 16)
-#define YPOS_NOBAGINBATTLE (MENUITEM_NOBAGINBATTLE * 16)
+#define YPOS_TEXTSPEED      (MENUITEM_TEXTSPEED * 16)
+#define YPOS_BATTLESCENE    (MENUITEM_BATTLESCENE * 16)
+#define YPOS_BATTLESTYLE    (MENUITEM_BATTLESTYLE * 16)
+#define YPOS_SOUND          (MENUITEM_SOUND * 16)
+#define YPOS_BUTTONMODE     (MENUITEM_BUTTONMODE * 16)
+#define YPOS_FRAMETYPE      (MENUITEM_FRAMETYPE * 16)
+#define YPOS_BATTLESPEEDUP  (MENUITEM_BATTLE_SPEEDUP * 16)
+#define YPOS_PERMADEATH     (MENUITEM_PERMADEATH * 16)
+#define YPOS_NOBAGINBATTLE  (MENUITEM_NOBAGINBATTLE * 16)
 #define YPOS_HARDERTRAINERS (MENUITEM_HARDERTRAINERS * 16)
+#define YPOS_50DAMAGE       (MENUITEM_50DAMAGE * 16)
 
 #define PAGE_COUNT  2
 
@@ -86,6 +89,8 @@ static u8 NoBagInBattle_ProcessInput(u8 selection);
 static void NoBagInBattle_DrawChoices(u8 selection);
 static u8 HarderTrainers_ProcessInput(u8 selection);
 static void HarderTrainers_DrawChoices(u8 selection);
+static u8 HalfDamage_ProcessInput(u8 selection);
+static void HalfDamage_DrawChoices(u8 selection);
 static u8 BattleScene_ProcessInput(u8 selection);
 static void TextSpeed_DrawChoices(u8 selection);
 static u8 TextSpeed_ProcessInput(u8 selection);
@@ -126,6 +131,7 @@ static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
     [MENUITEM_PERMADEATH]     = gText_PermaDeath,
     [MENUITEM_NOBAGINBATTLE]  = gText_NoBagInBattle,
     [MENUITEM_HARDERTRAINERS] = gText_HarderTrainers,
+    [MENUITEM_50DAMAGE]       = gText_50Damage,
     [MENUITEM_CANCEL_PG2]     = gText_OptionMenuCancel,
 };
 
@@ -204,6 +210,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tPermaDeathOn = FlagGet(FLAG_PERMADEATH);
     gTasks[taskId].tNoBagInBattleOn = FlagGet(FLAG_NO_BAG_IN_BATTLE);
     gTasks[taskId].tHarderTrainersOn = FlagGet(FLAG_HARDER_TRAINERS);
+    gTasks[taskId].t50DamageOn = FlagGet(FLAG_50_PERCENT_DAMAGE);
 }
 
 static void DrawOptionsPg1(u8 taskId)
@@ -226,6 +233,7 @@ static void DrawOptionsPg2(u8 taskId)
     PermaDeath_DrawChoices(gTasks[taskId].tPermaDeathOn);
     NoBagInBattle_DrawChoices(gTasks[taskId].tNoBagInBattleOn);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
+    HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -541,6 +549,13 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tHarderTrainersOn)
                 HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
             break;
+        case MENUITEM_50DAMAGE:
+            previousOption = gTasks[taskId].t50DamageOn;
+            gTasks[taskId].t50DamageOn = HalfDamage_ProcessInput(gTasks[taskId].t50DamageOn);
+
+            if (previousOption != gTasks[taskId].t50DamageOn)
+                HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
+            break;
         default:
             return;
         }
@@ -565,6 +580,7 @@ static void Task_OptionMenuSave(u8 taskId)
     gTasks[taskId].tPermaDeathOn == 0 ? FlagClear(FLAG_PERMADEATH) : FlagSet(FLAG_PERMADEATH);
     gTasks[taskId].tNoBagInBattleOn == 0 ? FlagClear(FLAG_NO_BAG_IN_BATTLE) : FlagSet(FLAG_NO_BAG_IN_BATTLE);
     gTasks[taskId].tHarderTrainersOn == 0 ? FlagClear(FLAG_HARDER_TRAINERS) : FlagSet(FLAG_HARDER_TRAINERS);
+    gTasks[taskId].t50DamageOn == 0 ? FlagClear(FLAG_50_PERCENT_DAMAGE) : FlagSet(FLAG_50_PERCENT_DAMAGE);
 
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
@@ -878,6 +894,27 @@ static void HarderTrainers_DrawChoices(u8 selection)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_HarderTrainersOff, 104, YPOS_HARDERTRAINERS, styles[0]);
     DrawOptionMenuChoice(gText_HarderTrainersOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_HarderTrainersOn, 198), YPOS_HARDERTRAINERS, styles[1]);
+}
+
+static u8 HalfDamage_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void HalfDamage_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+    DrawOptionMenuChoice(gText_HarderTrainersOff, 104, YPOS_50DAMAGE, styles[0]);
+    DrawOptionMenuChoice(gText_HarderTrainersOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_HarderTrainersOn, 198), YPOS_50DAMAGE, styles[1]);
 }
 
 static u8 ButtonMode_ProcessInput(u8 selection)

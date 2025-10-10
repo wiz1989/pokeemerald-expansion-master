@@ -570,7 +570,11 @@ void HandleAction_Switch(void)
     if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING && IsOnPlayerSide(gBattlerAttacker))
     {
         gBattleRuleBattler = gBattlerAttacker;
-        gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+            gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+        else
+            gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+        
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
         gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
         return;

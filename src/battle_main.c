@@ -6323,7 +6323,11 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
 
                 if (faint)
                 {
-                    gBattleStruct->moveDamage[i] = gBattleMons[i].hp;
+                    if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                        gBattleStruct->moveDamage[i] = max(1, ((gBattleMons[i].maxHP + 1) / 2)); // +1 to always round the dmg up
+                    else
+                        gBattleStruct->moveDamage[i] = gBattleMons[i].maxHP;
+                    
                     if (midBattle)
                     {
                         gBattleRuleBattler = gBattlerAttacker;

@@ -998,6 +998,7 @@ const u8 gText_BattleSpeedup[] = _("BATTLE SPEEDUP");
 const u8 gText_PermaDeath[] = _("PERMADEATH");
 const u8 gText_NoBagInBattle[] = _("NO BAG IN BATTLE");
 const u8 gText_HarderTrainers[] = _("HARDER TRAINERS");
+const u8 gText_50Damage[] = _("50% DAMAGE");
 const u8 gText_ButtonMode[] = _("BUTTON MODE");
 const u8 gText_TextSpeedSlow[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SLOW");
 const u8 gText_TextSpeedMid[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}MID");

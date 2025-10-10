@@ -1111,7 +1111,12 @@ static void Cmd_attackcanceler(void)
     {
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
         gBattleRuleBattler = gBattlerAttacker;
-        gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+
+        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+            gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+        else
+            gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+        
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
         return;
     }
@@ -2463,7 +2468,11 @@ static void Cmd_datahpupdate(void)
 
     if (wasHealed && IsOnPlayerSide(battler) && GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
     {
-        gBattleStruct->moveDamage[battler] = gBattleMons[battler].hp;
+        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+            gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
+        else
+            gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
+        
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
         return;
     }
@@ -2495,7 +2504,11 @@ static void Cmd_critmessage(void)
         if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
         {
             gBattleRuleBattler = gBattlerAttacker;
-            gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].hp;
+            if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+            else
+                gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+                
             gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
             return;
         }
@@ -18452,11 +18465,15 @@ void BS_JumpIfBattleRule(void)
       && IsOnPlayerSide(battler)
       && IsBattlerAlive(battler))
     {
-        gBattleStruct->moveDamage[battler] = gBattleMons[battler].hp;
+        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+            gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
+        else
+            gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
+        
         if (!IsMidTurn())
         {
             gBattleRuleBattler = battler;
-            gBattlerFainted = battler;
+            gBattlerFainted = battler; //required for correct battlers after fainting
             gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon;
         }
         else

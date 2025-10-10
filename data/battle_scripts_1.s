@@ -9815,8 +9815,12 @@ BattleScript_BattleRule_FaintMon::
 	datahpupdate BS_BATTLERULE_BATTLER
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendcase MOVEEND_CLEAR_BITS
+	jumpiffainted BS_BATTLERULE_BATTLER, FALSE, BattleScript_BattleRule_FaintMon_End2
 	resetbsstack
 	goto BattleScript_HandleFaintedMon
+BattleScript_BattleRule_FaintMon_End2::
+	gotoifnotmidturn BattleScript_FaintedMon_End3 @ outside of the turn action execution an end3 is required
+	end2
 
 @ This variant is only used for case FIRST_TURN_EVENTS_BATTLERULE_FAINT
 @ when a rule triggers during send out of your first mon
@@ -9830,6 +9834,7 @@ BattleScript_BattleRule_FaintMon_NoStackReset::
 	datahpupdate BS_BATTLERULE_BATTLER
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendcase MOVEEND_CLEAR_BITS
+	jumpiffainted BS_BATTLERULE_BATTLER, FALSE, BattleScript_BattleRule_FaintMon_End2
 	goto BattleScript_HandleFaintedMon
 
 @ This variant is only used if the rule triggers from statusing
