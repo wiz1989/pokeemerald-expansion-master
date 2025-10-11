@@ -929,8 +929,8 @@ static void HalfDamage_DrawChoices(u8 selection)
     styles[0] = 0;
     styles[1] = 0;
     styles[selection] = 1;
-    DrawOptionMenuChoice(gText_HarderTrainersOff, 104, YPOS_50DAMAGE, styles[0]);
-    DrawOptionMenuChoice(gText_HarderTrainersOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_HarderTrainersOn, 198), YPOS_50DAMAGE, styles[1]);
+    DrawOptionMenuChoice(gText_ViolationDamage100, 104, YPOS_50DAMAGE, styles[0]);
+    DrawOptionMenuChoice(gText_ViolationDamage50, GetStringRightAlignXOffset(FONT_NORMAL, gText_ViolationDamage50, 198), YPOS_50DAMAGE, styles[1]);
 }
 
 static u8 DupeClause_ProcessInput(u8 selection)

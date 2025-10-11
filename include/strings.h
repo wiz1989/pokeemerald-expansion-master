@@ -274,6 +274,8 @@ extern const u8 gText_NoBagInBattleOff[];
 extern const u8 gText_NoBagInBattleOn[];
 extern const u8 gText_HarderTrainersOff[];
 extern const u8 gText_HarderTrainersOn[];
+extern const u8 gText_ViolationDamage100[];
+extern const u8 gText_ViolationDamage50[];
 extern const u8 gText_Option[];
 extern const u8 gText_OptionMenu[];
 extern const u8 gText_TextSpeed[];
