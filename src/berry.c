@@ -267,7 +267,7 @@ const struct Berry gBerries[] =
         .color = BERRY_COLOR_YELLOW,
         .size = 95,
         .maxYield = YIELD_RATE(3, 5, 20, 27),
-        .minYield = YIELD_RATE(2, 2, 3, 3),
+        .minYield = YIELD_RATE(2, 2, 5, 5),
         .description1 = COMPOUND_STRING("Closely related to Oran. The large"),
         .description2 = COMPOUND_STRING("Berry has a well-rounded flavor."),
         .growthDuration = GROWTH_DURATION(24, 32, 48, 48, 32, 48),
@@ -2057,12 +2057,13 @@ static u8 CalcBerryYieldInternal(u16 max, u16 min, u8 water)
     u32 rand;
     u32 extraYield;
 
-    if (water == 0 || OW_BERRY_MOISTURE)
-    {
-        return min;
-    }
-    else
-    {
+    // if (water == 0 || OW_BERRY_MOISTURE)
+    // {
+    //     return min;
+    // }
+    // else
+    // {
+        water = RandomUniform(RNG_NONE, 2, 4);
         randMin = (max - min) * (water - 1);
         randMax = (max - min) * (water);
         rand = randMin + Random() % (randMax - randMin + 1);
@@ -2073,7 +2074,7 @@ static u8 CalcBerryYieldInternal(u16 max, u16 min, u8 water)
         else
             extraYield = rand / NUM_WATER_STAGES;
         return extraYield + min;
-    }
+    // }
 }
 
 static u8 CalcBerryYield(struct BerryTree *tree)
@@ -2082,10 +2083,10 @@ static u8 CalcBerryYield(struct BerryTree *tree)
     u8 min = tree->berryYield;
     u8 max = berry->maxYield;
     u8 result;
-    if (OW_BERRY_MULCH_USAGE && (tree->mulch == ITEM_TO_MULCH(ITEM_RICH_MULCH) || tree->mulch == ITEM_TO_MULCH(ITEM_AMAZE_MULCH)))
-        min += 2;
-    if (!(OW_BERRY_MOISTURE && OW_BERRY_ALWAYS_WATERABLE))
-        min += berry->minYield;
+    // if (OW_BERRY_MULCH_USAGE && (tree->mulch == ITEM_TO_MULCH(ITEM_RICH_MULCH) || tree->mulch == ITEM_TO_MULCH(ITEM_AMAZE_MULCH)))
+    //     min += 2;
+    // if (!(OW_BERRY_MOISTURE && OW_BERRY_ALWAYS_WATERABLE))
+    //     min += berry->minYield;
     if (min >= max)
         result = max;
     else
