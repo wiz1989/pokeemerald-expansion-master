@@ -13760,7 +13760,6 @@ static void Cmd_handleballthrow(void)
 
     u16 ballMultiplier = 100;
     s8 ballAddition = 0;
-    u8 metLoc = 0;
 
     if (gBattleControllerExecFlags)
         return;
@@ -13991,8 +13990,8 @@ static void Cmd_handleballthrow(void)
             struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
             SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
 
-            metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
-            gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
+            // metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
+            // gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
 
             if (CalculatePlayerPartyCount() == PARTY_SIZE)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
@@ -14054,8 +14053,8 @@ static void Cmd_handleballthrow(void)
                 struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
                 SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
 
-                metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
-                gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
+                // metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
+                // gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
 
                 if (CalculatePlayerPartyCount() == PARTY_SIZE)
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0;

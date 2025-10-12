@@ -430,6 +430,11 @@ static u32 ScriptGiveMonParameterized(u8 side, u8 slot, u16 species, u8 level, u
     SetMonData(&mon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
     SetMonData(&mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
+    // met location
+    u8 metLocation = GetCurrentRegionMapSectionId();
+    SetMonData(&mon, MON_DATA_MET_LOCATION, &metLocation);
+    gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));
+
     if (slot < PARTY_SIZE)
     {
         if (side == 0)

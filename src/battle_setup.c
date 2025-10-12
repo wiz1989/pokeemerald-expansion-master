@@ -580,6 +580,10 @@ static void DowngradeBadPoison(void)
 
 static void CB2_EndWildBattle(void)
 {
+    // met location
+    u8 metLocation = GetCurrentRegionMapSectionId();
+    gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));
+
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
 

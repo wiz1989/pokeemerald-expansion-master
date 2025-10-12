@@ -54,8 +54,8 @@
 #define FLAG_HARDER_TRAINERS 0x28 // Unused Flag
 #define FLAG_50_PERCENT_DAMAGE 0x29 // Unused Flag
 #define FLAG_DUPE_CLAUSE     0x2A // Unused Flag
-#define FLAG_UNUSED_0x02B    0x2B // Unused Flag
-#define FLAG_UNUSED_0x02C    0x2C // Unused Flag
+#define FLAG_REVEAL_RULE     0x2B // Unused Flag
+#define FLAG_METLOC_CLAUSE   0x2C // Unused Flag
 #define FLAG_UNUSED_0x02D    0x2D // Unused Flag
 #define FLAG_UNUSED_0x02E    0x2E // Unused Flag
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag

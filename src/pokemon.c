@@ -7294,25 +7294,28 @@ bool8 IsTargetValidEncounter(u16 species_catch)
 
     species_catch = GetFormSpeciesId(species_catch, 0);
 
-    if (!FlagGet(FLAG_DUPE_CLAUSE))
-        return TRUE;
-
-    // check dupes
-    u16 family[NUM_SPECIES];
-    u16 familyCount = GetEvolutionFamily(species_catch, family, ARRAY_COUNT(family));
-
-    for (u8 i = 0; i < familyCount; i++)
+    if (FlagGet(FLAG_DUPE_CLAUSE))
     {
-        u16 targetSpecies = family[i];
-        // DebugPrintf("check species = %S", gSpeciesInfo[targetSpecies].speciesName);
-        if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_GET_CAUGHT))
-            return FALSE;
+        // check dupes
+        u16 family[NUM_SPECIES];
+        u16 familyCount = GetEvolutionFamily(species_catch, family, ARRAY_COUNT(family));
+
+        for (u8 i = 0; i < familyCount; i++)
+        {
+            u16 targetSpecies = family[i];
+            // DebugPrintf("check species = %S", gSpeciesInfo[targetSpecies].speciesName);
+            if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_GET_CAUGHT))
+                return FALSE;
+        }
     }
 
-    // check met location
-    metLocation = GetCurrentRegionMapSectionId();
-    if (gSaveBlock3Ptr->metLocations[metLocation >> 3] & (1 << (metLocation & 7)))
-        return FALSE;
+    if (FlagGet(FLAG_METLOC_CLAUSE))
+    {
+        // check met location
+        metLocation = GetCurrentRegionMapSectionId();
+        if (gSaveBlock3Ptr->metLocations[metLocation >> 3] & (1 << (metLocation & 7)))
+            return FALSE;
+    }
 
     return TRUE;
 }
