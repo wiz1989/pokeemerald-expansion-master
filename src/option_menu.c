@@ -31,6 +31,8 @@
 #define tBattleSpeedUp data[10]
 #define t50DamageOn data[11]
 #define tDupeClause data[12]
+#define tMetLocClause data[13]
+#define tRevealRule data[14]
 
 enum menuItems_pg1
 {
@@ -47,13 +49,21 @@ enum menuItems_pg1
 enum menuItems_pg2
 {
     MENUITEM_BATTLE_SPEEDUP,
+    MENUITEM_50DAMAGE,
+    MENUITEM_REVEALRULE,
+    MENUITEM_HARDERTRAINERS,
+    MENUITEM_CANCEL_PG2,
+    MENUITEM_COUNT_PG2,
+};
+
+enum menuItems_pg3
+{
     MENUITEM_PERMADEATH,
     MENUITEM_NOBAGINBATTLE,
     MENUITEM_DUPECLAUSE,
-    MENUITEM_HARDERTRAINERS,
-    MENUITEM_50DAMAGE,
-    MENUITEM_CANCEL_PG2,
-    MENUITEM_COUNT_PG2,
+    MENUITEM_METLOCCLAUSE,
+    MENUITEM_CANCEL_PG3,
+    MENUITEM_COUNT_PG3,
 };
 
 enum
@@ -75,12 +85,14 @@ enum
 #define YPOS_50DAMAGE       (MENUITEM_50DAMAGE * 16)
 #define YPOS_DUPECLAUSE     (MENUITEM_DUPECLAUSE * 16)
 
-#define PAGE_COUNT  2
+#define PAGE_COUNT  3
 
 static void Task_OptionMenuFadeIn(u8 taskId);
 static void Task_OptionMenuProcessInput(u8 taskId);
 static void Task_OptionMenuFadeIn_Pg2(u8 taskId);
 static void Task_OptionMenuProcessInput_Pg2(u8 taskId);
+static void Task_OptionMenuFadeIn_Pg3(u8 taskId);
+static void Task_OptionMenuProcessInput_Pg3(u8 taskId);
 static void Task_OptionMenuSave(u8 taskId);
 static void Task_OptionMenuFadeOut(u8 taskId);
 static void HighlightOptionMenuItem(u8 selection);
@@ -133,12 +145,18 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
 static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
 {
     [MENUITEM_BATTLE_SPEEDUP] = gText_BattleSpeedup,
+    [MENUITEM_50DAMAGE]       = gText_50Damage,
+    [MENUITEM_REVEALRULE]     = gText_RevealRule,
+    [MENUITEM_HARDERTRAINERS] = gText_HarderTrainers,
+    [MENUITEM_CANCEL_PG2]     = gText_OptionMenuCancel,
+};
+
+static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
+{
     [MENUITEM_PERMADEATH]     = gText_PermaDeath,
     [MENUITEM_NOBAGINBATTLE]  = gText_NoBagInBattle,
-    [MENUITEM_HARDERTRAINERS] = gText_HarderTrainers,
-    [MENUITEM_50DAMAGE]       = gText_50Damage,
     [MENUITEM_DUPECLAUSE]     = gText_DupeClause,
-    [MENUITEM_CANCEL_PG2]     = gText_OptionMenuCancel,
+    [MENUITEM_CANCEL_PG3]     = gText_OptionMenuCancel,
 };
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -237,10 +255,18 @@ static void DrawOptionsPg2(u8 taskId)
 {
     ReadAllCurrentSettings(taskId);
     BattleSpeedup_DrawChoices(gTasks[taskId].tBattleSpeedUp);
+    HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
+    // BattleSpeedup_RevealRule(gTasks[taskId].tRevealRule);
+    HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
+    HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
+}
+
+static void DrawOptionsPg3(u8 taskId)
+{
+    ReadAllCurrentSettings(taskId);
     PermaDeath_DrawChoices(gTasks[taskId].tPermaDeathOn);
     NoBagInBattle_DrawChoices(gTasks[taskId].tNoBagInBattleOn);
-    HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
-    HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
     DupeClause_DrawChoices(gTasks[taskId].tDupeClause);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
@@ -334,6 +360,10 @@ void CB2_InitOptionMenu(void)
             taskId = CreateTask(Task_OptionMenuFadeIn_Pg2, 0);
             DrawOptionsPg2(taskId);
             break;            
+        case 2:
+            taskId = CreateTask(Task_OptionMenuFadeIn_Pg3, 0);
+            DrawOptionsPg3(taskId);
+            break;
         }
         gMain.state++;
         break;
@@ -379,6 +409,10 @@ static void Task_ChangePage(u8 taskId)
     case 1:
         DrawOptionsPg2(taskId);
         gTasks[taskId].func = Task_OptionMenuFadeIn_Pg2;
+        break;
+    case 2:
+        DrawOptionsPg3(taskId);
+        gTasks[taskId].func = Task_OptionMenuFadeIn_Pg3;
         break;
     }
 }
@@ -536,20 +570,6 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tBattleSpeedUp)
                 BattleSpeedup_DrawChoices(gTasks[taskId].tBattleSpeedUp);
             break;
-        case MENUITEM_PERMADEATH:
-            previousOption = gTasks[taskId].tPermaDeathOn;
-            gTasks[taskId].tPermaDeathOn = PermaDeath_ProcessInput(gTasks[taskId].tPermaDeathOn);
-
-            if (previousOption != gTasks[taskId].tPermaDeathOn)
-                PermaDeath_DrawChoices(gTasks[taskId].tPermaDeathOn);
-            break;
-        case MENUITEM_NOBAGINBATTLE:
-            previousOption = gTasks[taskId].tNoBagInBattleOn;
-            gTasks[taskId].tNoBagInBattleOn = NoBagInBattle_ProcessInput(gTasks[taskId].tNoBagInBattleOn);
-
-            if (previousOption != gTasks[taskId].tNoBagInBattleOn)
-                NoBagInBattle_DrawChoices(gTasks[taskId].tNoBagInBattleOn);
-            break;
         case MENUITEM_HARDERTRAINERS:
             previousOption = gTasks[taskId].tHarderTrainersOn;
             gTasks[taskId].tHarderTrainersOn = HarderTrainers_ProcessInput(gTasks[taskId].tHarderTrainersOn);
@@ -563,6 +583,78 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
 
             if (previousOption != gTasks[taskId].t50DamageOn)
                 HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
+            break;
+        default:
+            return;
+        }
+
+        if (sArrowPressed)
+        {
+            sArrowPressed = FALSE;
+            CopyWindowToVram(WIN_OPTIONS, COPYWIN_GFX);
+        }
+    }
+}
+
+static void Task_OptionMenuFadeIn_Pg3(u8 taskId)
+{
+    if (!gPaletteFade.active)
+        gTasks[taskId].func = Task_OptionMenuProcessInput_Pg3;
+}
+
+static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
+{
+    if (JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON))
+    {
+        FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
+        ClearStdWindowAndFrame(WIN_OPTIONS, FALSE);
+        sCurrPage = Process_ChangePage(sCurrPage);
+        gTasks[taskId].func = Task_ChangePage;
+    }
+    else if (JOY_NEW(A_BUTTON))
+    {
+        if (gTasks[taskId].tMenuSelection == MENUITEM_CANCEL_PG3)
+            gTasks[taskId].func = Task_OptionMenuSave;
+    }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        gTasks[taskId].func = Task_OptionMenuSave;
+    }
+    else if (JOY_NEW(DPAD_UP))
+    {
+        if (gTasks[taskId].tMenuSelection > 0)
+            gTasks[taskId].tMenuSelection--;
+        else
+            gTasks[taskId].tMenuSelection = MENUITEM_CANCEL_PG3;
+        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    }
+    else if (JOY_NEW(DPAD_DOWN))
+    {
+        if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL_PG3)
+            gTasks[taskId].tMenuSelection++;
+        else
+            gTasks[taskId].tMenuSelection = 0;
+        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    }
+    else
+    {
+        u8 previousOption;
+
+        switch (gTasks[taskId].tMenuSelection)
+        {
+        case MENUITEM_PERMADEATH:
+            previousOption = gTasks[taskId].tPermaDeathOn;
+            gTasks[taskId].tPermaDeathOn = PermaDeath_ProcessInput(gTasks[taskId].tPermaDeathOn);
+
+            if (previousOption != gTasks[taskId].tPermaDeathOn)
+                PermaDeath_DrawChoices(gTasks[taskId].tPermaDeathOn);
+            break;
+        case MENUITEM_NOBAGINBATTLE:
+            previousOption = gTasks[taskId].tNoBagInBattleOn;
+            gTasks[taskId].tNoBagInBattleOn = NoBagInBattle_ProcessInput(gTasks[taskId].tNoBagInBattleOn);
+
+            if (previousOption != gTasks[taskId].tNoBagInBattleOn)
+                NoBagInBattle_DrawChoices(gTasks[taskId].tNoBagInBattleOn);
             break;
         case MENUITEM_DUPECLAUSE:
             previousOption = gTasks[taskId].tDupeClause;
@@ -1004,7 +1096,7 @@ static void DrawHeaderText(void)
 {
     u8 i, widthOptions, xMid;
     u8 pageDots[9] = _("");  // Array size should be at least (2 * PAGE_COUNT) -1
-    widthOptions = GetStringWidth(FONT_NORMAL, gText_Option, 0);
+    widthOptions = GetStringWidth(FONT_NORMAL, gText_OptionNuzlocke, 0);
 
     for (i = 0; i < PAGE_COUNT; i++)
     {
@@ -1018,7 +1110,18 @@ static void DrawHeaderText(void)
 
     xMid = (8 + widthOptions + 5);
     FillWindowPixelBuffer(WIN_HEADER, PIXEL_FILL(1));
-    AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_Option, 8, 1, TEXT_SKIP_DRAW, NULL);
+    switch (sCurrPage)
+    {
+    case 0:
+        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_OptionVanilla, 8, 1, TEXT_SKIP_DRAW, NULL);
+        break;
+    case 1:
+        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_OptionHack, 8, 1, TEXT_SKIP_DRAW, NULL);
+        break;
+    case 2:
+        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_OptionNuzlocke, 8, 1, TEXT_SKIP_DRAW, NULL);
+        break;
+    }
     AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, pageDots, xMid, 1, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_PageNav, GetStringRightAlignXOffset(FONT_NORMAL, gText_PageNav, 198), 1, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(WIN_HEADER, COPYWIN_FULL);
@@ -1038,7 +1141,11 @@ static void DrawOptionMenuTexts(void)
     case 1:
         items = MENUITEM_COUNT_PG2;
         menu = sOptionMenuItemsNames_Pg2;
-        break;    
+        break;  
+    case 2:
+        items = MENUITEM_COUNT_PG3;
+        menu = sOptionMenuItemsNames_Pg3;
+        break;
     }
 
     FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
