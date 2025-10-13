@@ -213,7 +213,7 @@ struct SpecialStatus
     // End of byte
     u8 dancerUsedMove:1;
     u8 dancerOriginalTarget:3;
-    u8 criticalHitUser:1;
+    u8 triggeredBattleRule:1;
     u8 unused:3;
     // End of byte
 };

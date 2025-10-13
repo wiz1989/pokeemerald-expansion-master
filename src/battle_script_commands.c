@@ -2499,20 +2499,8 @@ static void Cmd_critmessage(void)
             TryInitializeTrainerSlidePlayerLandsFirstCriticalHit(gBattlerTarget);
 
             gBattleCommunication[MSG_DISPLAY] = 1;
-            gSpecialStatuses[gBattlerAttacker].criticalHitUser = TRUE;
+            gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
         }
-        // if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
-        // {
-        //     gBattleRuleBattler = gBattlerAttacker;
-        //     if (FlagGet(FLAG_50_PERCENT_DAMAGE))
-        //         gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
-        //     else
-        //         gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
-                
-        //     gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
-        //     return;
-        // }
-        // else
             gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
@@ -3387,7 +3375,13 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         break;
     case MOVE_EFFECT_RECOIL_HP_25: // Struggle
         if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
-            gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP);
+        {
+            gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+            if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                gBattleStruct->moveDamage[gEffectBattler] = max(1, ((gBattleMons[gEffectBattler].maxHP + 1) / 2)); // +1 to always round the dmg up
+            else
+                gBattleStruct->moveDamage[gEffectBattler] = gBattleMons[gEffectBattler].maxHP;
+        }
         else
             gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
         if (gBattleStruct->moveDamage[gEffectBattler] == 0)
@@ -5859,11 +5853,15 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_RECOIL:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
+            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
             {
-                gBattleStruct->moveDamage[gBattlerAttacker] = (gBattleMons[gBattlerAttacker].maxHP);
-            }
+                gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                    gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
                 else
+                    gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+            }
+            else
                 gBattleStruct->moveDamage[gBattlerAttacker] = max(1, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
             BattleScriptCall(BattleScript_MoveEffectRecoil);
             effect = TRUE;
@@ -5890,8 +5888,14 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_CHLOROBLAST:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
-                gBattleStruct->moveDamage[gBattlerAttacker] = (gBattleMons[gBattlerAttacker].maxHP);
+            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
+            {
+                gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                    gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+                else
+                    gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+            }
             else
                 gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
             BattleScriptCall(BattleScript_MoveEffectRecoil);
@@ -6907,7 +6911,8 @@ static void Cmd_moveend(void)
             gBattleScripting.moveendState++;
             break;
         case MOVEEND_ENFORCE_BATTLERULE:
-            if (gSpecialStatuses[gBattlerAttacker].criticalHitUser && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
+            if (gSpecialStatuses[gBattlerAttacker].triggeredBattleRule && IsOnPlayerSide(gBattlerAttacker)
+              && (GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS || GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL))
             {
                 gBattleRuleBattler = gBattlerAttacker;
                 if (FlagGet(FLAG_50_PERCENT_DAMAGE))
@@ -6915,7 +6920,7 @@ static void Cmd_moveend(void)
                 else
                     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
                     
-                gSpecialStatuses[gBattlerAttacker].criticalHitUser = FALSE;
+                gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = FALSE;
                 BattleScriptCall(BattleScript_BattleRule_FaintMon_Ret);
                 effect = TRUE;
             }
