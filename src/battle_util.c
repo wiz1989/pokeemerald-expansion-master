@@ -11359,6 +11359,7 @@ void ClearDamageCalcResults(void)
         gBattleStruct->noResultString[battler] = 0;
         gBattleStruct->missStringId[battler] = 0;
         gSpecialStatuses[battler].criticalHit = FALSE;
+        gSpecialStatuses[battler].criticalHitUser = FALSE;
     }
 
     gBattleStruct->doneDoublesSpreadHit = FALSE;

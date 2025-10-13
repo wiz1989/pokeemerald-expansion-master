@@ -2489,8 +2489,6 @@ static void Cmd_critmessage(void)
 {
     CMD_ARGS();
 
-    bool8 crit = FALSE;
-
     if (gBattleControllerExecFlags == 0)
     {
         if (gSpecialStatuses[gBattlerTarget].criticalHit && !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT))
@@ -2501,20 +2499,20 @@ static void Cmd_critmessage(void)
             TryInitializeTrainerSlidePlayerLandsFirstCriticalHit(gBattlerTarget);
 
             gBattleCommunication[MSG_DISPLAY] = 1;
-            crit = TRUE;
+            gSpecialStatuses[gBattlerAttacker].criticalHitUser = TRUE;
         }
-        if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
-        {
-            gBattleRuleBattler = gBattlerAttacker;
-            if (FlagGet(FLAG_50_PERCENT_DAMAGE))
-                gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
-            else
-                gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+        // if (crit && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
+        // {
+        //     gBattleRuleBattler = gBattlerAttacker;
+        //     if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+        //         gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+        //     else
+        //         gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
                 
-            gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
-            return;
-        }
-        else
+        //     gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
+        //     return;
+        // }
+        // else
             gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
@@ -6906,6 +6904,21 @@ static void Cmd_moveend(void)
                 gBattleStruct->sameMoveTurns[gBattlerAttacker] = 0;
             else if (gCurrentMove == gLastResultingMoves[gBattlerAttacker] && gSpecialStatuses[gBattlerAttacker].parentalBondState != PARENTAL_BOND_1ST_HIT)
                 gBattleStruct->sameMoveTurns[gBattlerAttacker]++;
+            gBattleScripting.moveendState++;
+            break;
+        case MOVEEND_ENFORCE_BATTLERULE:
+            if (gSpecialStatuses[gBattlerAttacker].criticalHitUser && GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS && IsOnPlayerSide(gBattlerAttacker))
+            {
+                gBattleRuleBattler = gBattlerAttacker;
+                if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                    gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+                else
+                    gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+                    
+                gSpecialStatuses[gBattlerAttacker].criticalHitUser = FALSE;
+                BattleScriptCall(BattleScript_BattleRule_FaintMon_Ret);
+                effect = TRUE;
+            }
             gBattleScripting.moveendState++;
             break;
         case MOVEEND_CLEAR_BITS: // Clear/Set bits for things like using a move for all targets and all hits.
@@ -18614,7 +18627,6 @@ void BS_CheckFlag(void)
 {
     NATIVE_ARGS(u16 flag);
     
-    DebugPrintf("CheckFlag %d = %d", cmd->flag, FlagGet(cmd->flag));
     gSpecialVar_Result = FlagGet(cmd->flag);
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
