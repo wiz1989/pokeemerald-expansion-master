@@ -335,5 +335,6 @@ extern const u8 gText_BattleTourney[];
 extern const u16 gMissStringIds[];
 extern const u16 gStatUpStringIds[];
 extern const u16 gRestoreHPStringIds[];
+extern const u16 gBattleRulesStringIds[];
 
 #endif // GUARD_BATTLE_MESSAGE_H

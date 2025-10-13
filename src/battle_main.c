@@ -246,6 +246,7 @@ EWRAM_DATA u16 gBallToDisplay = 0;
 EWRAM_DATA bool8 gLastUsedBallMenuPresent = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
+EWRAM_DATA u8 gSlowDown = 0;
 
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;
@@ -1780,6 +1781,9 @@ void BattleMainCB2(void)
         speedScale = 1;
 
     if (gBattleResults.caughtMonSpecies)
+        speedScale = 1;
+
+    if (gSlowDown)
         speedScale = 1;
 
     if(speedScale <= 1)

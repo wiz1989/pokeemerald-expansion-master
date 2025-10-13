@@ -73,7 +73,7 @@ const struct BattleRule gBattleRules[] =
     [BATTLERULE_1HP] =
     {
         .weight = 1,
-        .enabled = TRUE,
+        .enabled = FALSE, // rule is too impactful
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_1PP] =

@@ -2564,3 +2564,32 @@
 	.macro resetbsstack
 	callnative BS_ResetBSStack
 	.endm
+
+	.macro printbattlerule
+	callnative BS_PrintBattlerule
+	.endm
+
+	@ Compares flag to TRUE and stores the result in gSpecialVar_Result
+	@ See additional _if_unset and _if_set macros
+	.macro checkflag flag:req
+	callnative BS_CheckFlag
+	.2byte \flag
+	.endm
+
+	.macro jump_if_unset flag:req, dest:req
+	checkflag \flag
+	jumpifbyte CMP_EQUAL, gSpecialVar_Result, FALSE, \dest
+	.endm
+
+	.macro jump_if_set flag:req, dest:req
+	checkflag \flag
+	jumpifbyte CMP_EQUAL, gSpecialVar_Result, TRUE, \dest
+	.endm
+	
+	.macro deactivatespeedup
+	callnative BS_DeactivateSpeedUp
+	.endm
+
+	.macro restorespeedup
+	callnative BS_RestoreSpeedUp
+	.endm

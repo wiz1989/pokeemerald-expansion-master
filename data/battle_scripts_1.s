@@ -9,6 +9,7 @@
 #include "constants/battle_string_ids.h"
 #include "constants/abilities.h"
 #include "constants/hold_effects.h"
+#include "constants/flags.h"
 #include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/game_stat.h"
@@ -9802,14 +9803,24 @@ BattleScript_ForfeitBattleGaveMoney::
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
+BattleScript_RuleWasViolated::
+	deactivatespeedup
+	printstring STRINGID_RULEWASVIOLATED
+	waitmessage B_WAIT_TIME_LONG
+	jump_if_unset FLAG_REVEAL_RULE, BattleScript_RuleWasViolated_Ret
+	printbattlerule
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_RuleWasViolated_Ret:
+	restorespeedup
+	return
+
 @ This variant is only used if the rule triggers outside of the
 @ sTurnActionsFuncsTable functions (e.g. before Action choice or
 @ after Action execution)
 BattleScript_BattleRule_FaintMon::
 	restoreallattackers
 	restorealltargets
-	printstring STRINGID_RULEWASVIOLATED
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_RuleWasViolated
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_BATTLERULE_BATTLER
 	datahpupdate BS_BATTLERULE_BATTLER
@@ -9827,8 +9838,7 @@ BattleScript_BattleRule_FaintMon_End2::
 BattleScript_BattleRule_FaintMon_NoStackReset::
 	restoreallattackers
 	restorealltargets
-	printstring STRINGID_RULEWASVIOLATED
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_RuleWasViolated
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_BATTLERULE_BATTLER
 	datahpupdate BS_BATTLERULE_BATTLER
@@ -9842,8 +9852,7 @@ BattleScript_BattleRule_FaintMon_NoStackReset::
 BattleScript_BattleRule_FaintMon_Ret::
 	restoreallattackers
 	restorealltargets
-	printstring STRINGID_RULEWASVIOLATED
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_RuleWasViolated
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_BATTLERULE_BATTLER
 	datahpupdate BS_BATTLERULE_BATTLER
@@ -9855,8 +9864,7 @@ BattleScript_BattleRule_FaintMon_Ret::
 BattleScript_BattleRule_FaintMon_End::
 	restoreallattackers
 	restorealltargets
-	printstring STRINGID_RULEWASVIOLATED
-	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_RuleWasViolated
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_BATTLERULE_BATTLER
 	datahpupdate BS_BATTLERULE_BATTLER

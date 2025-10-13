@@ -8,6 +8,7 @@
 #include "battle_scripts.h"
 #include "battle_environment.h"
 #include "battle_z_move.h"
+#include "event_data.h"
 #include "item.h"
 #include "util.h"
 #include "pokemon.h"
@@ -49,6 +50,7 @@
 #include "data.h"
 #include "generational_changes.h"
 #include "move.h"
+#include "debug.h"
 #include "constants/abilities.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
@@ -18580,5 +18582,48 @@ void BS_ResetBSStack(void)
     gBattleResources->battleScriptsStack->size = 0;
     gCurrentActionFuncId = B_ACTION_TRY_FINISH;
 
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_PrintBattlerule(void)
+{
+    NATIVE_ARGS();
+
+    if (gBattleControllerExecFlags == 0)
+    {
+        u8 battleRule = GetRandomBattleRuleSeeded();
+        const u16 *ptr = gBattleRulesStringIds;
+
+        BufferCurrentBattleRule();
+
+        gBattleCommunication[MULTISTRING_CHOOSER] = battleRule;
+        ptr += gBattleCommunication[MULTISTRING_CHOOSER];
+
+        gBattlescriptCurrInstr = cmd->nextInstr;
+        PrepareStringBattle(*ptr, gBattlerAttacker);
+        gBattleCommunication[MSG_DISPLAY] = 1;
+    }
+}
+
+void BS_CheckFlag(void)
+{
+    NATIVE_ARGS(u16 flag);
+    
+    DebugPrintf("CheckFlag %d = %d", cmd->flag, FlagGet(cmd->flag));
+    gSpecialVar_Result = FlagGet(cmd->flag);
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_DeactivateSpeedUp(void)
+{
+    NATIVE_ARGS();
+    gSlowDown = TRUE;
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_RestoreSpeedUp(void)
+{
+    NATIVE_ARGS();
+    gSlowDown = FALSE;
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
