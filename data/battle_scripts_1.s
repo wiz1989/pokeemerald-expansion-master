@@ -9875,8 +9875,10 @@ BattleScript_BattleRule_FaintMon_End::
 BattleScript_BattleRule_Perish::
 	trysetperishcounter BattleScript_BattleRule_Perish_End
 	savetarget
+	deactivatespeedup
 	printstring STRINGID_BATTLERULE_PERISH
 	waitmessage B_WAIT_TIME_LONG
+	restorespeedup
 BattleScript_BattleRule_PerishLoop::
 	addbyte gBattlerTarget, 1
 	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_BattleRule_PerishLoop
