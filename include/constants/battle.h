@@ -560,6 +560,10 @@ enum BattleEnvironments
 #define FLEE_ITEM    1
 #define FLEE_ABILITY 2
 
+#define VALID_ENCOUNTER          0
+#define INVALID_ENCOUNTER_DUPE   1
+#define INVALID_ENCOUNTER_METLOC 2
+
 // Return value for IsRunningFromBattleImpossible.
 #define BATTLE_RUN_SUCCESS        0
 #define BATTLE_RUN_FORBIDDEN      1

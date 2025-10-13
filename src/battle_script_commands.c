@@ -13762,11 +13762,13 @@ static void Cmd_handleballthrow(void)
 
     u16 ballMultiplier = 100;
     s8 ballAddition = 0;
+    u8 validEncounter;
 
     if (gBattleControllerExecFlags)
         return;
 
     gBattlerTarget = GetCatchingBattler();
+    validEncounter = IsTargetValidEncounter(gBattleMons[gBattlerTarget].species);
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
@@ -13780,11 +13782,14 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_WallyBallThrow;
     }
-    else if (!IsTargetValidEncounter(gBattleMons[gBattlerTarget].species))
+    else if (validEncounter != VALID_ENCOUNTER)
     {
         BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_TRAINER_BLOCK);
         MarkBattlerForControllerExec(gBattlerAttacker);
-        gBattlescriptCurrInstr = BattleScript_NoValidEncounter;
+        if (validEncounter == INVALID_ENCOUNTER_DUPE)
+            gBattlescriptCurrInstr = BattleScript_NoValidEncounter_Dupe;
+        else if (validEncounter == INVALID_ENCOUNTER_METLOC)
+            gBattlescriptCurrInstr = BattleScript_NoValidEncounter_MetLoc;
     }
     else
     {

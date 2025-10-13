@@ -7288,7 +7288,7 @@ bool8 SpeciesHasType(u16 species, u8 type)
     return GetSpeciesType(species, 0) == type || GetSpeciesType(species, 1) == type;
 }
 
-bool8 IsTargetValidEncounter(u16 species_catch)
+u8 IsTargetValidEncounter(u16 species_catch)
 {
     u8 metLocation;
 
@@ -7296,28 +7296,18 @@ bool8 IsTargetValidEncounter(u16 species_catch)
 
     if (FlagGet(FLAG_DUPE_CLAUSE))
     {
-        // check dupes
-        u16 family[NUM_SPECIES];
-        u16 familyCount = GetEvolutionFamily(species_catch, family, ARRAY_COUNT(family));
-
-        for (u8 i = 0; i < familyCount; i++)
-        {
-            u16 targetSpecies = family[i];
-            // DebugPrintf("check species = %S", gSpeciesInfo[targetSpecies].speciesName);
-            if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_GET_CAUGHT))
-                return FALSE;
-        }
+        if (CheckDupes(species_catch) == INVALID_ENCOUNTER_DUPE)
+            return INVALID_ENCOUNTER_DUPE;
     }
 
     if (FlagGet(FLAG_METLOC_CLAUSE))
     {
-        // check met location
         metLocation = GetCurrentRegionMapSectionId();
-        if (gSaveBlock3Ptr->metLocations[metLocation >> 3] & (1 << (metLocation & 7)))
-            return FALSE;
+        if (CheckMetLocation(metLocation) == INVALID_ENCOUNTER_METLOC)
+            return INVALID_ENCOUNTER_METLOC;
     }
 
-    return TRUE;
+    return VALID_ENCOUNTER;
 }
 
 // returns base species + all descendants into 'buffer', including alternative forms
@@ -7390,4 +7380,27 @@ u16 GetEvolutionFamily(u16 species, u16 *buffer, u16 bufCapacity)
     }
 
     return outCount;
+}
+
+u8 CheckDupes(u16 species_catch)
+{
+    u16 family[NUM_SPECIES];
+    u16 familyCount = GetEvolutionFamily(species_catch, family, ARRAY_COUNT(family));
+
+    for (u8 i = 0; i < familyCount; i++)
+    {
+        u16 targetSpecies = family[i];
+        // DebugPrintf("check species = %S", gSpeciesInfo[targetSpecies].speciesName);
+        if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(targetSpecies), FLAG_GET_CAUGHT))
+            return INVALID_ENCOUNTER_DUPE;
+    }
+    return VALID_ENCOUNTER;
+}
+
+u8 CheckMetLocation(u8 metLoc)
+{
+    if (gSaveBlock3Ptr->metLocations[metLoc >> 3] & (1 << (metLoc & 7)))
+        return INVALID_ENCOUNTER_METLOC;
+    else
+        return VALID_ENCOUNTER;
 }

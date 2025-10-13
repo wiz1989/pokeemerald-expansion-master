@@ -233,10 +233,20 @@ BattleScript_TrainerBallBlock::
 	waitmessage B_WAIT_TIME_LONG
 	finishaction
 
-BattleScript_NoValidEncounter::
+BattleScript_NoValidEncounter_Dupe::
+	deactivatespeedup
 	waitmessage B_WAIT_TIME_LONG
-	printstring STRINGID_NOVALIDENCOUNTER
+	printstring STRINGID_NOVALIDENCOUNTER_DUPE
 	waitmessage B_WAIT_TIME_LONG
+	restorespeedup
+	finishaction
+
+BattleScript_NoValidEncounter_MetLoc::
+	deactivatespeedup
+	waitmessage B_WAIT_TIME_LONG
+	printstring STRINGID_NOVALIDENCOUNTER_METLOC
+	waitmessage B_WAIT_TIME_LONG
+	restorespeedup
 	finishaction
 
 BattleScript_RunByUsingItem::

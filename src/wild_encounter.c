@@ -15,6 +15,7 @@
 #include "tv.h"
 #include "link.h"
 #include "script.h"
+#include "battle.h"
 #include "battle_debug.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
@@ -573,6 +574,9 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
     if (gMapHeader.mapLayoutId != LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS && flags & WILD_CHECK_KEEN_EYE && !IsAbilityAllowingEncounter(level))
         return FALSE;
 
+    gIsDupe = FALSE;
+    if (CheckDupes(wildMonInfo->wildPokemon[wildMonIndex].species) == INVALID_ENCOUNTER_DUPE)
+        gIsDupe = TRUE;
     CreateWildMon(wildMonInfo->wildPokemon[wildMonIndex].species, level);
     return TRUE;
 }

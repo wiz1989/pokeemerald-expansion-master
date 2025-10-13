@@ -1132,7 +1132,8 @@ extern u16 gBallToDisplay;
 extern bool8 gLastUsedBallMenuPresent;
 extern u8 gPartyCriticalHits[PARTY_SIZE];
 extern u8 gCategoryIconSpriteId;
-extern u8 gSlowDown;
+extern u8 gSlowDown; // for battle speedup
+extern u8 gIsDupe; // required for metLoc clause
 
 static inline bool32 IsBattlerAlive(u32 battler)
 {

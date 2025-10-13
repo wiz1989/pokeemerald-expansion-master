@@ -247,6 +247,7 @@ EWRAM_DATA bool8 gLastUsedBallMenuPresent = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 EWRAM_DATA u8 gSlowDown = 0;
+EWRAM_DATA u8 gIsDupe = 0;
 
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;
