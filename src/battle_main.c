@@ -2033,7 +2033,11 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             level = partyData[monIndex].lvl;
             if (FlagGet(FLAG_HARDER_TRAINERS))
             {
-                if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
+                if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_WINSTRATE)
+                {
+                    level = currentLevelCap;
+                }
+                else if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
                     level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
             }
             CreateMon(&party[i], partyData[monIndex].species, level, 0, TRUE, personalityValue, otIdType, fixedOtId);
