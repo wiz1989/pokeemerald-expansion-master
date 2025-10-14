@@ -4951,6 +4951,40 @@ u32 GetEvolutionTargetSpecies(struct Pokemon *mon, enum EvolutionMode mode, u16 
     return targetSpecies;
 }
 
+u32 GetEvolutionLevelTargetBySpecies(u16 species, u8 level)
+{
+    const struct Evolution *evolutions;
+    u32 targetSpecies = species;
+    u32 found = SPECIES_NONE;
+
+    while (TRUE)
+    {
+        evolutions = GetSpeciesEvolutions(targetSpecies);
+        if (evolutions == NULL)
+            break;
+
+        found = SPECIES_NONE;
+        for (int i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
+        {
+            if (SanitizeSpeciesId(evolutions[i].targetSpecies) == SPECIES_NONE)
+                continue;
+
+            if (evolutions[i].method == EVO_LEVEL && evolutions[i].param <= level)
+            {
+                found = evolutions[i].targetSpecies;
+                // keep searching for further evolutions
+            }
+        }
+
+        if (found != SPECIES_NONE)
+            targetSpecies = found;
+        else
+            break;
+    }
+
+    return (targetSpecies == species) ? SPECIES_NONE : targetSpecies;
+}
+
 bool8 IsMonPastEvolutionLevel(struct Pokemon *mon)
 {
     int i;

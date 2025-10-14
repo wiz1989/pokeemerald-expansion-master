@@ -2007,6 +2007,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             u32 fixedOtId = 0;
             u32 abilityNum = 0;
             u8 level = 0;
+            u16 species = 0;
 
             if (trainer->battleType != TRAINER_BATTLE_TYPE_SINGLES)
                 personalityValue = 0x80;
@@ -2040,7 +2041,15 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 else if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
                     level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
             }
-            CreateMon(&party[i], partyData[monIndex].species, level, 0, TRUE, personalityValue, otIdType, fixedOtId);
+
+            // update species
+            species = partyData[monIndex].species;
+            if (FlagGet(FLAG_HARDER_TRAINERS))
+            {
+                species = GetEvolutionLevelTargetBySpecies(species, level);
+            }
+
+            CreateMon(&party[i], species, level, 0, TRUE, personalityValue, otIdType, fixedOtId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
