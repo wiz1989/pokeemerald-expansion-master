@@ -95,6 +95,7 @@ static void Task_OptionMenuFadeIn_Pg2(u8 taskId);
 static void Task_OptionMenuProcessInput_Pg2(u8 taskId);
 static void Task_OptionMenuFadeIn_Pg3(u8 taskId);
 static void Task_OptionMenuProcessInput_Pg3(u8 taskId);
+static void SaveOptions(u8 taskId);
 static void Task_OptionMenuSave(u8 taskId);
 static void Task_OptionMenuFadeOut(u8 taskId);
 static void HighlightOptionMenuItem(u8 selection);
@@ -402,6 +403,7 @@ static u8 Process_ChangePage(u8 CurrentPage)
        else
             CurrentPage = PAGE_COUNT - 1;
     }
+
     return CurrentPage;
 }
 
@@ -440,6 +442,7 @@ static void Task_OptionMenuProcessInput(u8 taskId)
         FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
         ClearStdWindowAndFrame(WIN_OPTIONS, FALSE);
         sCurrPage = Process_ChangePage(sCurrPage);
+        SaveOptions(taskId);
         gTasks[taskId].func = Task_ChangePage;
     }
     else if (JOY_NEW(A_BUTTON))
@@ -540,6 +543,7 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
         FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
         ClearStdWindowAndFrame(WIN_OPTIONS, FALSE);
         sCurrPage = Process_ChangePage(sCurrPage);
+        SaveOptions(taskId);
         gTasks[taskId].func = Task_ChangePage;
     }
     else if (JOY_NEW(A_BUTTON))
@@ -626,6 +630,7 @@ static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
         FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
         ClearStdWindowAndFrame(WIN_OPTIONS, FALSE);
         sCurrPage = Process_ChangePage(sCurrPage);
+        SaveOptions(taskId);
         gTasks[taskId].func = Task_ChangePage;
     }
     else if (JOY_NEW(A_BUTTON))
@@ -699,7 +704,7 @@ static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
     }
 }
 
-static void Task_OptionMenuSave(u8 taskId)
+static void SaveOptions(u8 taskId)
 {
     gSaveBlock2Ptr->optionsTextSpeed = gTasks[taskId].tTextSpeed;
     gSaveBlock2Ptr->optionsBattleSceneOff = gTasks[taskId].tBattleSceneOff;
@@ -715,7 +720,11 @@ static void Task_OptionMenuSave(u8 taskId)
     gTasks[taskId].tDupeClause == 0 ? FlagClear(FLAG_DUPE_CLAUSE) : FlagSet(FLAG_DUPE_CLAUSE);
     gTasks[taskId].tRevealRule == 0 ? FlagClear(FLAG_REVEAL_RULE) : FlagSet(FLAG_REVEAL_RULE);
     gTasks[taskId].tMetLocClause == 0 ? FlagClear(FLAG_METLOC_CLAUSE) : FlagSet(FLAG_METLOC_CLAUSE);
+}
 
+static void Task_OptionMenuSave(u8 taskId)
+{
+    SaveOptions(taskId);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_OptionMenuFadeOut;
 }
