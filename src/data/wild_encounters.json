@@ -8496,7 +8496,7 @@
           "map": "MAP_LILYCOVE_CITY",
           "base_label": "gLilycoveCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 28,
@@ -8739,7 +8739,7 @@
           "map": "MAP_SLATEPORT_CITY",
           "base_label": "gSlateportCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 9,
@@ -8893,7 +8893,7 @@
           "map": "MAP_MOSSDEEP_CITY",
           "base_label": "gMossdeepCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 31,
@@ -9136,7 +9136,7 @@
           "map": "MAP_EVER_GRANDE_CITY",
           "base_label": "gEverGrandeCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 40,
@@ -9290,7 +9290,7 @@
           "map": "MAP_PETALBURG_CITY",
           "base_label": "gPetalburgCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 7,
@@ -9616,7 +9616,7 @@
           "map": "MAP_SOOTOPOLIS_CITY",
           "base_label": "gSootopolisCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 35,
@@ -11886,7 +11886,7 @@
           "map": "MAP_LITTLEROOT_TOWN",
           "base_label": "gLittlerootTown",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 2,
@@ -11955,7 +11955,7 @@
           "map": "MAP_OLDALE_TOWN",
           "base_label": "gOldaleTown",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 4,
@@ -12024,7 +12024,7 @@
           "map": "MAP_RUSTBORO_CITY",
           "base_label": "gRustboroCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 8,
@@ -12093,7 +12093,7 @@
           "map": "MAP_MAUVILLE_CITY",
           "base_label": "gMauvilleCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 13,
@@ -12162,7 +12162,7 @@
           "map": "MAP_VERDANTURF_TOWN",
           "base_label": "gVerdanturfTown",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 15,
@@ -12300,7 +12300,7 @@
           "map": "MAP_LAVARIDGE_TOWN",
           "base_label": "gLavaridgeTown",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 19,
@@ -12369,7 +12369,7 @@
           "map": "MAP_FORTREE_CITY",
           "base_label": "gFortreeCity",
           "land_mons": {
-            "encounter_rate": 10,
+            "encounter_rate": 20,
             "mons": [
               {
                 "min_level": 24,
