@@ -95,6 +95,7 @@ static void InitPlayerTrainerId(void)
 // L=A isnt set here for some reason.
 static void SetDefaultOptions(void)
 {
+    // vanilla
     gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_SLOW;
     gSaveBlock2Ptr->optionsWindowFrameType = 0;
     gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
@@ -102,14 +103,17 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
 
+    // hack
     VarSet(VAR_BATTLE_SPEED, OPTIONS_BATTLE_SCENE_1X);
-    FlagClear(FLAG_PERMADEATH);
-    FlagClear(FLAG_NO_BAG_IN_BATTLE);
-    FlagClear(FLAG_HARDER_TRAINERS);
     FlagSet(FLAG_50_PERCENT_DAMAGE);
-    FlagClear(FLAG_DUPE_CLAUSE);
     FlagSet(FLAG_REVEAL_RULE);
-    FlagClear(FLAG_METLOC_CLAUSE);
+    FlagSet(FLAG_HARDER_TRAINERS);
+
+    // nuzlocke
+    FlagSet(FLAG_PERMADEATH);
+    FlagSet(FLAG_NO_BAG_IN_BATTLE);
+    FlagSet(FLAG_DUPE_CLAUSE);
+    FlagSet(FLAG_METLOC_CLAUSE);
 
     memset(gSaveBlock3Ptr->metLocations, 0, 32);
     gSaveBlock3Ptr->metLocsInitialized = 1;
