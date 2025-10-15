@@ -2513,8 +2513,10 @@ BattleScript_EffectTrickRoom::
 	setroom
 	attackanimation
 	waitanimation
+	deactivatespeedup
 	printfromtable gRoomsStringIds
 	waitmessage B_WAIT_TIME_LONG
+	restorespeedup
 	call BattleScript_TryRoomServiceLoop
 	goto BattleScript_MoveEnd
 
@@ -5911,8 +5913,10 @@ BattleScript_StickyWebOnSwitchInEnd:
 	return
 
 BattleScript_PerishSongTakesLife::
+	deactivatespeedup
 	printstring STRINGID_PKMNPERISHCOUNTFELL
 	waitmessage B_WAIT_TIME_LONG
+	restorespeedup
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_ATTACKER
 	datahpupdate BS_ATTACKER
@@ -8303,8 +8307,10 @@ BattleScript_MoveUsedLoafingAround::
 	palacetryescapestatus
 	setbyte cMULTISTRING_CHOOSER, B_MSG_INCAPABLE_OF_POWER
 BattleScript_MoveUsedLoafingAroundMsg::
+	deactivatespeedup
 	printfromtable gInobedientStringIds
 	waitmessage B_WAIT_TIME_LONG
+	restorespeedup
 	moveendto MOVEEND_NEXT_TARGET
 	end
 BattleScript_TruantLoafingAround::
