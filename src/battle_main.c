@@ -6397,8 +6397,12 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                     faint = TRUE;
                 break;
             case BATTLERULE_SWITCHMOVES:
-                if (move == gLastMoves[gBattlerAttacker] || move == gLastMoves[BATTLE_PARTNER(gBattlerAttacker)])
+                if (move == gLastMoves[gBattlerAttacker])
+                {
+                    gChosenMove = MOVE_NONE;
+                    gLastMoves[gBattlerAttacker] = MOVE_NONE;
                     faint = TRUE;
+                }
                 break;
             case BATTLERULE_NOPRIO:
                 if (gMovesInfo[move].priority > 0)
