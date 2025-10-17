@@ -59,32 +59,38 @@ Route103_EventScript_RivalBrendan::
 	end
 
 Route103_EventScript_StartMayBattleTreecko::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TREECKO, Route103_Text_MayDefeated
+	trainerbattle_earlyrival TRAINER_MAY_ROUTE_103_TREECKO, Route103_Text_MayDefeated
+	settrainerflag TRAINER_MAY_ROUTE_103_TREECKO
 	goto Route103_EventScript_AfterMayBattle
 	end
 
 Route103_EventScript_StartMayBattleTorchic::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_TORCHIC, Route103_Text_MayDefeated
+	trainerbattle_earlyrival TRAINER_MAY_ROUTE_103_TORCHIC, Route103_Text_MayDefeated
+	settrainerflag TRAINER_MAY_ROUTE_103_TORCHIC
 	goto Route103_EventScript_AfterMayBattle
 	end
 
 Route103_EventScript_StartMayBattleMudkip::
-	trainerbattle_no_intro TRAINER_MAY_ROUTE_103_MUDKIP, Route103_Text_MayDefeated
+	trainerbattle_earlyrival TRAINER_MAY_ROUTE_103_MUDKIP, Route103_Text_MayDefeated
+	settrainerflag TRAINER_MAY_ROUTE_103_MUDKIP
 	goto Route103_EventScript_AfterMayBattle
 	end
 
 Route103_EventScript_StartBrendanBattleTreecko::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TREECKO, Route103_Text_BrendanDefeated
+	trainerbattle_earlyrival TRAINER_BRENDAN_ROUTE_103_TREECKO, Route103_Text_MayDefeated
+	settrainerflag TRAINER_BRENDAN_ROUTE_103_TREECKO
 	goto Route103_EventScript_AfterBrendanBattle
 	end
 
 Route103_EventScript_StartBrendanBattleTorchic::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_TORCHIC, Route103_Text_BrendanDefeated
+	trainerbattle_earlyrival TRAINER_BRENDAN_ROUTE_103_TORCHIC, Route103_Text_MayDefeated
+	settrainerflag TRAINER_BRENDAN_ROUTE_103_TORCHIC
 	goto Route103_EventScript_AfterBrendanBattle
 	end
 
 Route103_EventScript_StartBrendanBattleMudkip::
-	trainerbattle_no_intro TRAINER_BRENDAN_ROUTE_103_MUDKIP, Route103_Text_BrendanDefeated
+	trainerbattle_earlyrival TRAINER_BRENDAN_ROUTE_103_MUDKIP, Route103_Text_MayDefeated
+	settrainerflag TRAINER_BRENDAN_ROUTE_103_MUDKIP
 	goto Route103_EventScript_AfterBrendanBattle
 	end
 
@@ -100,6 +106,7 @@ Route103_EventScript_AfterBrendanBattle::
 
 Route103_EventScript_RivalExit::
 	closemessage
+	setflag FLAG_APPROACHED_FIRST_RIVAL
 	switch VAR_FACING
 	case DIR_SOUTH, Route103_EventScript_RivalExitFacingSouth
 	case DIR_NORTH, Route103_EventScript_RivalExitFacingNorth
@@ -301,7 +308,8 @@ Route103_Text_MayLetsBattle:
 
 Route103_Text_MayDefeated:
 	.string "Wow! That's great!\n"
-	.string "{PLAYER}{KUN}, you're pretty good!$"
+	.string "{PLAYER}{KUN}, you're pretty good!\p"
+	.string "I think that was eye-opening.\p$"
 
 Route103_Text_MayTimeToHeadBack:
 	.string "MAY: I think I know why my dad has\n"

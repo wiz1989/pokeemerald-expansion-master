@@ -7040,7 +7040,7 @@ void HealPokemon(struct Pokemon *mon)
 {
     u32 data;
 
-    if (!(FlagGet(FLAG_PERMADEATH) && GetMonData(mon, MON_DATA_HP) == 0))
+    if ((!(FlagGet(FLAG_PERMADEATH)) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE_RIVAL)) && GetMonData(mon, MON_DATA_HP) == 0)
     {
         data = GetMonData(mon, MON_DATA_MAX_HP);
         SetMonData(mon, MON_DATA_HP, &data);

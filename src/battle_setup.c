@@ -1090,6 +1090,8 @@ const u8 *BattleSetup_ConfigureTrainerBattle(const u8 *data)
         gNoOfApproachingTrainers = 2; // set TWO_OPPONENTS gBattleTypeFlags
         gApproachingTrainerId = 1; // prevent trainer approach
         return EventScript_DoNoIntroTrainerBattle;
+    case TRAINER_BATTLE_EARLY_RIVAL:
+        return EventScript_DoNoIntroTrainerBattle;
     default:
         if (gApproachingTrainerId == 0)
         {
@@ -1206,6 +1208,8 @@ void BattleSetup_StartTrainerBattle(void)
         else
         {
             gBattleTypeFlags = (BATTLE_TYPE_TRAINER);
+            if (GetTrainerBattleMode() == TRAINER_BATTLE_EARLY_RIVAL)
+                gBattleTypeFlags |= BATTLE_TYPE_FIRST_BATTLE_RIVAL;
         }
     }
 
@@ -1315,6 +1319,14 @@ static void CB2_EndTrainerBattle(void)
     {
         if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InTrainerHillChallenge() || (!NoAliveMonsForPlayer()) || FlagGet(B_FLAG_NO_WHITEOUT))
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+        else if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE_RIVAL)
+        {
+            SetMainCallback2(CB2_ReturnToField);
+            DowngradeBadPoison();
+            HealPlayerParty();
+            ScriptContext_Enable();
+            gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
+        }
         else
             SetMainCallback2(CB2_WhiteOut);
     }

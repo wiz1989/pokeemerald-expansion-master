@@ -5252,6 +5252,14 @@ BattleScript_LocalBattleLostEnd::
 	end2
 .endif
 
+BattleScript_EarlyRivalBattleLost::
+	trainerslidein BS_OPPONENT1
+	waitstate
+	printstring STRINGID_PLAYERLOST_TUTORIAL
+	waitmessage B_WAIT_TIME_LONG
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_LocalBattleLostPrintWhiteOut
+	end2
+
 BattleScript_CheckDomeDrew::
 	jumpifbyte CMP_EQUAL, gBattleOutcome, B_OUTCOME_DREW, BattleScript_LocalBattleLostEnd_
 BattleScript_LocalBattleLostPrintTrainersWinText::
@@ -5367,6 +5375,10 @@ BattleScript_WildMonFled::
 
 BattleScript_PrintCantRunFromTrainer::
 	printstring STRINGID_NORUNNINGFROMTRAINERS
+	end2
+
+BattleScript_PrintCantRunFromTutorial::
+	printstring STRINGID_DONTLEAVETUTORIAL
 	end2
 
 BattleScript_PrintFailedToRunString::

@@ -1774,6 +1774,13 @@ static void Cmd_critcalc(void)
 
         if (gBattleTypeFlags & (BATTLE_TYPE_WALLY_TUTORIAL | BATTLE_TYPE_FIRST_BATTLE))
             gSpecialStatuses[battlerDef].criticalHit = FALSE;
+        else if (gBattleTypeFlags & (BATTLE_TYPE_FIRST_BATTLE_RIVAL))
+        {
+            if (gBattleMons[battlerDef].hp == gBattleMons[battlerDef].maxHP)
+                gSpecialStatuses[battlerDef].criticalHit = TRUE;
+            else
+                gSpecialStatuses[battlerDef].criticalHit = FALSE;
+        }
         else if (gBattleStruct->critChance[battlerDef] == -1)
             gSpecialStatuses[battlerDef].criticalHit = FALSE;
         else if (gBattleStruct->critChance[battlerDef] == -2)

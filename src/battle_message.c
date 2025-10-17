@@ -931,6 +931,8 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_BATTLERULE_FIRSTMOVEONLY]             = COMPOUND_STRING("Rule: First Move Only"),
     [STRINGID_BATTLERULE_TRUANT]                    = COMPOUND_STRING("Rule: Truant"),
     [STRINGID_BATTLERULE_NOMISSES]                  = COMPOUND_STRING("Rule: No Misses"),
+    [STRINGID_DONTLEAVETUTORIAL]                    = COMPOUND_STRING("You can't leave the tutorial battle!\p"),
+    [STRINGID_PLAYERLOST_TUTORIAL]                  = COMPOUND_STRING("Wow! That's great!\n{B_PLAYER_NAME}, you're pretty good!\pI think that was eye-opening.\p"),
 };
 
 const u16 gTrainerUsedItemStringIds[] =
@@ -1045,7 +1047,7 @@ const u16 gNoEscapeStringIds[] =
     [B_MSG_DONT_LEAVE_BIRCH]     = STRINGID_DONTLEAVEBIRCH,
     [B_MSG_PREVENTS_ESCAPE]      = STRINGID_PREVENTSESCAPE,
     [B_MSG_CANT_ESCAPE_2]        = STRINGID_CANTESCAPE2,
-    [B_MSG_ATTACKER_CANT_ESCAPE] = STRINGID_ATTACKERCANTESCAPE
+    [B_MSG_ATTACKER_CANT_ESCAPE] = STRINGID_ATTACKERCANTESCAPE,
 };
 
 const u16 gMoveWeatherChangeStringIds[] =

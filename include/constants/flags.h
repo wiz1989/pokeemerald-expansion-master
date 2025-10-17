@@ -56,7 +56,7 @@
 #define FLAG_DUPE_CLAUSE     0x2A // Unused Flag
 #define FLAG_REVEAL_RULE     0x2B // Unused Flag
 #define FLAG_METLOC_CLAUSE   0x2C // Unused Flag
-#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
+#define FLAG_APPROACHED_FIRST_RIVAL 0x2D // Unused Flag
 #define FLAG_UNUSED_0x02E    0x2E // Unused Flag
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag

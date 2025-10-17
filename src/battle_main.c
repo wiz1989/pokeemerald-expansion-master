@@ -66,6 +66,7 @@
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_move_effects.h"
+#include "constants/battle_setup.h"
 #include "constants/battle_string_ids.h"
 #include "constants/battle_partner.h"
 #include "constants/battle_rules.h"
@@ -2046,9 +2047,10 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             species = partyData[monIndex].species;
             if (FlagGet(FLAG_HARDER_TRAINERS))
             {
-                species = GetEvolutionLevelTargetBySpecies(species, level);
+                u8 evoSpecies = GetEvolutionLevelTargetBySpecies(species, level);
+                if (evoSpecies != SPECIES_NONE)
+                    species = evoSpecies;
             }
-
             CreateMon(&party[i], species, level, 0, TRUE, personalityValue, otIdType, fixedOtId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
 
@@ -4560,7 +4562,10 @@ static void HandleTurnActionSelectionState(void)
                       && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
                       && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
                 {
-                    BattleScriptExecute(BattleScript_PrintCantRunFromTrainer);
+                    if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE_RIVAL)
+                        BattleScriptExecute(BattleScript_PrintCantRunFromTutorial);
+                    else
+                        BattleScriptExecute(BattleScript_PrintCantRunFromTrainer);
                     gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
                 }
                 else if ((IsRunningFromBattleImpossible(battler) != BATTLE_RUN_SUCCESS
@@ -5612,7 +5617,10 @@ static void HandleEndTurn_BattleLost(void)
     }
     else
     {
-        gBattlescriptCurrInstr = BattleScript_LocalBattleLost;
+        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && GetTrainerBattleMode() == TRAINER_BATTLE_EARLY_RIVAL)
+            gBattlescriptCurrInstr = BattleScript_EarlyRivalBattleLost;
+        else
+            gBattlescriptCurrInstr = BattleScript_LocalBattleLost;
     }
 
     gBattleMainFunc = HandleEndTurn_FinishBattle;
@@ -5680,6 +5688,7 @@ static void HandleEndTurn_FinishBattle(void)
         if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK
                                   | BATTLE_TYPE_RECORDED_LINK
                                   | BATTLE_TYPE_FIRST_BATTLE
+                                  | BATTLE_TYPE_FIRST_BATTLE_RIVAL
                                   | BATTLE_TYPE_SAFARI
                                   | BATTLE_TYPE_EREADER_TRAINER
                                   | BATTLE_TYPE_WALLY_TUTORIAL
@@ -5712,6 +5721,7 @@ static void HandleEndTurn_FinishBattle(void)
                                   | BATTLE_TYPE_RECORDED_LINK
                                   | BATTLE_TYPE_TRAINER
                                   | BATTLE_TYPE_FIRST_BATTLE
+                                  | BATTLE_TYPE_FIRST_BATTLE_RIVAL
                                   | BATTLE_TYPE_SAFARI
                                   | BATTLE_TYPE_FRONTIER
                                   | BATTLE_TYPE_EREADER_TRAINER
@@ -5791,6 +5801,7 @@ static void FreeResetData_ReturnToOvOrDoEvolutions(void)
         if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK
                                   | BATTLE_TYPE_RECORDED_LINK
                                   | BATTLE_TYPE_FIRST_BATTLE
+                                  | BATTLE_TYPE_FIRST_BATTLE_RIVAL
                                   | BATTLE_TYPE_SAFARI
                                   | BATTLE_TYPE_FRONTIER
                                   | BATTLE_TYPE_EREADER_TRAINER

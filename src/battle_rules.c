@@ -246,6 +246,12 @@ u8 GetRandomBattleRuleSeeded(void)
     if ((!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE))
       && !FlagGet(FLAG_DEBUG_BATTLERULE))
         value = BATTLERULE_NONE;
+
+    // set fixed rule for tutorial battle
+    if ((gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE_RIVAL)
+      && !FlagGet(FLAG_DEBUG_BATTLERULE))
+        value = BATTLERULE_NOCRITS;
+    
     // DebugPrintf("--- Random Battle Rule: %d ---", value);
 
     if (value == BATTLERULE_INVERSE)
