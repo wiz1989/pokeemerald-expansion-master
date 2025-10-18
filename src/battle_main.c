@@ -2043,13 +2043,20 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
             }
 
-            // update species
+            // update species if evolved form is available at this level
             species = partyData[monIndex].species;
             if (FlagGet(FLAG_HARDER_TRAINERS))
             {
-                u8 evoSpecies = GetEvolutionLevelTargetBySpecies(species, level);
+                u16 evoSpecies = GetEvolutionLevelTargetBySpecies(species, level, FALSE);
                 if (evoSpecies != SPECIES_NONE)
                     species = evoSpecies;
+
+                if (FlagGet(FLAG_MET_RIVAL_LILYCOVE)) //defeated Lilycove Rival
+                {
+                    evoSpecies = GetEvolutionLevelTargetBySpecies(species, level, TRUE);
+                    if (evoSpecies != SPECIES_NONE)
+                        species = evoSpecies;
+                }
             }
             CreateMon(&party[i], species, level, 0, TRUE, personalityValue, otIdType, fixedOtId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
