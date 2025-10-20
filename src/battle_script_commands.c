@@ -2480,6 +2480,7 @@ static void Cmd_datahpupdate(void)
 
     if (wasHealed && !wasAtFullHP && IsOnPlayerSide(battler) && GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
     {
+        gBattleRuleBattler = battler;
         if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
