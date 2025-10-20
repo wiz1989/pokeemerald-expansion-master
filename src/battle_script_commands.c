@@ -2346,6 +2346,7 @@ static void Cmd_datahpupdate(void)
     CMD_ARGS(u8 battler);
     bool32 isPassiveHpUpdate = gHitMarker & HITMARKER_PASSIVE_HP_UPDATE;
     bool8 wasHealed = FALSE;
+    bool8 wasAtFullHP = FALSE;
 
     if (gBattleControllerExecFlags)
         return;
@@ -2395,6 +2396,8 @@ static void Cmd_datahpupdate(void)
             if (gBattleStruct->moveDamage[battler] < 0)
             {
                 wasHealed = TRUE;
+                if (gBattleMons[battler].hp == gBattleMons[battler].maxHP)
+                    wasAtFullHP = TRUE;
                 // Negative damage is HP gain
                 gBattleMons[battler].hp += -gBattleStruct->moveDamage[battler];
                 if (gBattleMons[battler].hp > gBattleMons[battler].maxHP)
@@ -2475,7 +2478,7 @@ static void Cmd_datahpupdate(void)
             gBattleStruct->battlerState[gBattlerTarget].itemCanBeKnockedOff = TRUE;
     }
 
-    if (wasHealed && IsOnPlayerSide(battler) && GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
+    if (wasHealed && !wasAtFullHP && IsOnPlayerSide(battler) && GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
     {
         if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
