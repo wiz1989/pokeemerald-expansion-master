@@ -4029,9 +4029,10 @@ static void TryDoEventsBeforeFirstTurn(void)
             return;
         break;
     case FIRST_TURN_EVENTS_BATTLERULE_FAINT:
-        if (BattleRuleViolated_SENDOUT(FALSE))
+        while (gBattleStruct->switchInBattlerCounter < gBattlersCount) // From fastest to slowest
         {
-            // do nothing. Skip all other switch-in effects
+            if (BattleRuleViolated_SENDOUT(gBattleStruct->switchInBattlerCounter++, FALSE))
+                return;
         }
         gBattleStruct->switchInBattlerCounter = 0;
         gBattleStruct->eventsBeforeFirstTurnState++;
@@ -6329,7 +6330,7 @@ void BattleDebug_LostBattle(void)
     gBattleMainFunc = sEndTurnFuncsTable[gBattleOutcome & 0x7F];
 }
 
-bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
+bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
 {
     u8 rule = GetRandomBattleRuleSeeded();
     bool8 faint = FALSE;
@@ -6345,39 +6346,37 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
 
     if (gBattleRules[rule].category == BATTLERULE_CATEGORY_SENDOUT)
     {
-        for (u8 i = 0; i < gBattlersCount; i++)
+        if (IsOnPlayerSide(battler) && IsBattlerValidSpecies(battler))
         {
-            if (IsOnPlayerSide(i) && IsBattlerValidSpecies(i))
+            faint = FALSE;
+            if (rule == BATTLERULE_NOSAMESEX && !IsDoubleBattle())
             {
-                faint = FALSE;
-                if (rule == BATTLERULE_NOSAMESEX && !IsDoubleBattle())
-                {
-                    u8 gender = GetBattlerGender(i);
-                    u8 genderOpponent = GetBattlerGender(B_POSITION_OPPONENT_LEFT);
+                u8 gender = GetBattlerGender(battler);
+                u8 genderOpponent = GetBattlerGender(B_POSITION_OPPONENT_LEFT);
 
-                    if (gender == genderOpponent)
-                        faint = TRUE;
-                }
-                else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[i].species, GetRandomSpeciesTypeSeeded()))
+                if (gender == genderOpponent)
                     faint = TRUE;
+            }
+            else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[battler].species, GetRandomSpeciesTypeSeeded()))
+                faint = TRUE;
 
-                if (faint)
+            if (faint)
+            {
+                gBattleRuleBattler = battler;
+
+                if (gSaveBlock2Ptr->halfDamage)
+                    gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
+                else
+                    gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
+
+                if (midBattle)
                 {
-                    if (gSaveBlock2Ptr->halfDamage)
-                        gBattleStruct->moveDamage[i] = max(1, ((gBattleMons[i].maxHP + 1) / 2)); // +1 to always round the dmg up
-                    else
-                        gBattleStruct->moveDamage[i] = gBattleMons[i].maxHP;
-                    
-                    if (midBattle)
-                    {
-                        gBattleRuleBattler = gBattlerAttacker;
-                        BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
-                    }
-                    else
-                    {
-                        BattleScriptExecute(BattleScript_BattleRule_FaintMon_NoStackReset);
-                    }
-                    return TRUE;
+                    // gBattleRuleBattler = gBattlerAttacker;
+                    BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
+                }
+                else
+                {
+                    BattleScriptExecute(BattleScript_BattleRule_FaintMon_NoStackReset);
                 }
             }
         }

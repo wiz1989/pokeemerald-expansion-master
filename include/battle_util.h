@@ -409,7 +409,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
 bool32 IsSemiInvulnerable(u32 battler, enum SemiInvulnerableExclusion excludeCommander);
 bool32 BreaksThroughSemiInvulnerablity(u32 battler, u32 move);
 bool8 IsBattlerValidSpecies(u32 battler);
-bool8 BattleRuleViolated_SENDOUT(bool8 midBattle);
+bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle);
 bool8 BattleRuleViolated_USEMOVE(u32 move);
 bool8 IsSetupMove(u32 move);
 bool8 IsMidTurn(void);
