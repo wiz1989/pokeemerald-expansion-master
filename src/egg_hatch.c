@@ -387,7 +387,8 @@ static void AddHatchedMonToParty(u8 id)
 
     metLocation = GetCurrentRegionMapSectionId();
     SetMonData(mon, MON_DATA_MET_LOCATION, &metLocation);
-    gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));
+    if (FlagGet(FLAG_SYS_POKEDEX_GET))
+        gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));
 
     MonRestorePP(mon);
     CalculateMonStats(mon);

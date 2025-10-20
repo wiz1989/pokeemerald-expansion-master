@@ -14022,9 +14022,6 @@ static void Cmd_handleballthrow(void)
             struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
             SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
 
-            // metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
-            // gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
-
             if (CalculatePlayerPartyCount() == PARTY_SIZE)
                 gBattleCommunication[MULTISTRING_CHOOSER] = 0;
             else
@@ -14084,9 +14081,6 @@ static void Cmd_handleballthrow(void)
                 gBattlescriptCurrInstr = BattleScript_SuccessBallThrow;
                 struct Pokemon *caughtMon = GetBattlerMon(gBattlerTarget);
                 SetMonData(caughtMon, MON_DATA_POKEBALL, &ballId);
-
-                // metLoc = GetMonData(caughtMon, MON_DATA_MET_LOCATION);
-                // gSaveBlock3Ptr->metLocations[metLoc >> 3] |= (1 << (metLoc & 7));
 
                 if (CalculatePlayerPartyCount() == PARTY_SIZE)
                     gBattleCommunication[MULTISTRING_CHOOSER] = 0;

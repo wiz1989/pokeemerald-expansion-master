@@ -580,8 +580,8 @@ static void DowngradeBadPoison(void)
 
 static void CB2_EndWildBattle(void)
 {
-    // write met location if the encounter wasn't a dupe
-    if (!gIsDupe)
+    // write met location if the encounter wasn't a dupe and Pokédex was obtained
+    if (!gIsDupe && FlagGet(FLAG_SYS_POKEDEX_GET))
     {
         u8 metLocation = GetCurrentRegionMapSectionId();
         gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));

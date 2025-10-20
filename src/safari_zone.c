@@ -98,7 +98,9 @@ void CB2_EndSafariBattle(void)
 {
     // met location
     u8 metLocation = GetCurrentRegionMapSectionId();
-    gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));
+    
+    if (FlagGet(FLAG_SYS_POKEDEX_GET))
+        gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));
 
     sSafariZonePkblkUses += gBattleResults.pokeblockThrows;
     if (gBattleOutcome == B_OUTCOME_CAUGHT)
