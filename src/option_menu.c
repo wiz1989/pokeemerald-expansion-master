@@ -238,14 +238,14 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tSound = gSaveBlock2Ptr->optionsSound;
     gTasks[taskId].tButtonMode = gSaveBlock2Ptr->optionsButtonMode;
     gTasks[taskId].tWindowFrameType = gSaveBlock2Ptr->optionsWindowFrameType;
-    gTasks[taskId].tBattleSpeedUp = VarGet(VAR_BATTLE_SPEED);
-    gTasks[taskId].tPermaDeathOn = FlagGet(FLAG_PERMADEATH);
-    gTasks[taskId].tNoBagInBattleOn = FlagGet(FLAG_NO_BAG_IN_BATTLE);
-    gTasks[taskId].tHarderTrainersOn = FlagGet(FLAG_HARDER_TRAINERS);
-    gTasks[taskId].t50DamageOn = FlagGet(FLAG_50_PERCENT_DAMAGE);
-    gTasks[taskId].tDupeClause = FlagGet(FLAG_DUPE_CLAUSE);
-    gTasks[taskId].tMetLocClause = FlagGet(FLAG_METLOC_CLAUSE);
-    gTasks[taskId].tRevealRule = FlagGet(FLAG_REVEAL_RULE);
+    gTasks[taskId].tBattleSpeedUp = gSaveBlock2Ptr->battleSpeed;
+    gTasks[taskId].tPermaDeathOn = gSaveBlock2Ptr->permadeath;
+    gTasks[taskId].tNoBagInBattleOn = gSaveBlock2Ptr->noBagInBattle;
+    gTasks[taskId].tHarderTrainersOn = gSaveBlock2Ptr->harderTrainers;
+    gTasks[taskId].t50DamageOn = gSaveBlock2Ptr->halfDamage;
+    gTasks[taskId].tDupeClause = gSaveBlock2Ptr->dupeClause;
+    gTasks[taskId].tMetLocClause = gSaveBlock2Ptr->metLocClause;
+    gTasks[taskId].tRevealRule = gSaveBlock2Ptr->revealRule;
 }
 
 static void DrawOptionsPg1(u8 taskId)
@@ -712,14 +712,26 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->optionsSound = gTasks[taskId].tSound;
     gSaveBlock2Ptr->optionsButtonMode = gTasks[taskId].tButtonMode;
     gSaveBlock2Ptr->optionsWindowFrameType = gTasks[taskId].tWindowFrameType;
+    gSaveBlock2Ptr->battleSpeed = gTasks[taskId].tBattleSpeedUp;
+    gSaveBlock2Ptr->permadeath = gTasks[taskId].tPermaDeathOn;
+    gSaveBlock2Ptr->noBagInBattle = gTasks[taskId].tNoBagInBattleOn;
+    gSaveBlock2Ptr->harderTrainers = gTasks[taskId].tHarderTrainersOn;
+    gSaveBlock2Ptr->halfDamage = gTasks[taskId].t50DamageOn;
+    gSaveBlock2Ptr->dupeClause = gTasks[taskId].tDupeClause;
+    gSaveBlock2Ptr->revealRule = gTasks[taskId].tRevealRule;
+    gSaveBlock2Ptr->metLocClause = gTasks[taskId].tMetLocClause;
+
     VarSet(VAR_BATTLE_SPEED, gTasks[taskId].tBattleSpeedUp);
-    gTasks[taskId].tPermaDeathOn == 0 ? FlagClear(FLAG_PERMADEATH) : FlagSet(FLAG_PERMADEATH);
-    gTasks[taskId].tNoBagInBattleOn == 0 ? FlagClear(FLAG_NO_BAG_IN_BATTLE) : FlagSet(FLAG_NO_BAG_IN_BATTLE);
-    gTasks[taskId].tHarderTrainersOn == 0 ? FlagClear(FLAG_HARDER_TRAINERS) : FlagSet(FLAG_HARDER_TRAINERS);
-    gTasks[taskId].t50DamageOn == 0 ? FlagClear(FLAG_50_PERCENT_DAMAGE) : FlagSet(FLAG_50_PERCENT_DAMAGE);
-    gTasks[taskId].tDupeClause == 0 ? FlagClear(FLAG_DUPE_CLAUSE) : FlagSet(FLAG_DUPE_CLAUSE);
-    gTasks[taskId].tRevealRule == 0 ? FlagClear(FLAG_REVEAL_RULE) : FlagSet(FLAG_REVEAL_RULE);
-    gTasks[taskId].tMetLocClause == 0 ? FlagClear(FLAG_METLOC_CLAUSE) : FlagSet(FLAG_METLOC_CLAUSE);
+
+    if (gSaveBlock2Ptr->revealRule)
+        FlagSet(FLAG_REVEAL_RULE);
+    else
+        FlagClear(FLAG_REVEAL_RULE);
+
+    if (gSaveBlock2Ptr->noBagInBattle)
+        FlagSet(FLAG_NO_BAG_IN_BATTLE);
+    else
+        FlagClear(FLAG_NO_BAG_IN_BATTLE);
 }
 
 static void Task_OptionMenuSave(u8 taskId)

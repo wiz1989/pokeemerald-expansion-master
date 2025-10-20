@@ -570,7 +570,7 @@ void HandleAction_Switch(void)
     if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING && IsOnPlayerSide(gBattlerAttacker))
     {
         gBattleRuleBattler = gBattlerAttacker;
-        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+        if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
             gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;

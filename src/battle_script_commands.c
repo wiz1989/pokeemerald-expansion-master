@@ -1114,7 +1114,7 @@ static void Cmd_attackcanceler(void)
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
         gBattleRuleBattler = gBattlerAttacker;
 
-        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+        if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
             gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
@@ -2477,7 +2477,7 @@ static void Cmd_datahpupdate(void)
 
     if (wasHealed && IsOnPlayerSide(battler) && GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
     {
-        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+        if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
             gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
@@ -3384,7 +3384,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
         {
             gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
-            if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+            if (gSaveBlock2Ptr->halfDamage)
                 gBattleStruct->moveDamage[gEffectBattler] = max(1, ((gBattleMons[gEffectBattler].maxHP + 1) / 2)); // +1 to always round the dmg up
             else
                 gBattleStruct->moveDamage[gEffectBattler] = gBattleMons[gEffectBattler].maxHP;
@@ -5863,7 +5863,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
             if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
             {
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
-                if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                if (gSaveBlock2Ptr->halfDamage)
                     gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
                 else
                     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
@@ -5898,7 +5898,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
             if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
             {
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
-                if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                if (gSaveBlock2Ptr->halfDamage)
                     gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
                 else
                     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
@@ -6922,7 +6922,7 @@ static void Cmd_moveend(void)
               && (GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS || GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL))
             {
                 gBattleRuleBattler = gBattlerAttacker;
-                if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                if (gSaveBlock2Ptr->halfDamage)
                     gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
                 else
                     gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
@@ -18503,7 +18503,7 @@ void BS_JumpIfBattleRule(void)
       && IsOnPlayerSide(battler)
       && IsBattlerAlive(battler))
     {
-        if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+        if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
             gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;

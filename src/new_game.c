@@ -104,16 +104,16 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->regionMapZoom = FALSE;
 
     // hack
-    VarSet(VAR_BATTLE_SPEED, OPTIONS_BATTLE_SCENE_1X);
-    FlagSet(FLAG_50_PERCENT_DAMAGE);
-    FlagSet(FLAG_REVEAL_RULE);
-    FlagSet(FLAG_HARDER_TRAINERS);
+    gSaveBlock2Ptr->battleSpeed = OPTIONS_BATTLE_SCENE_1X;
+    gSaveBlock2Ptr->halfDamage = TRUE;
+    gSaveBlock2Ptr->revealRule = TRUE;
+    gSaveBlock2Ptr->harderTrainers = TRUE;
 
     // nuzlocke
-    FlagSet(FLAG_PERMADEATH);
-    FlagSet(FLAG_NO_BAG_IN_BATTLE);
-    FlagSet(FLAG_DUPE_CLAUSE);
-    FlagSet(FLAG_METLOC_CLAUSE);
+    gSaveBlock2Ptr->permadeath = TRUE;
+    gSaveBlock2Ptr->noBagInBattle = TRUE;
+    gSaveBlock2Ptr->dupeClause = TRUE;
+    gSaveBlock2Ptr->metLocClause = TRUE;
 
     memset(gSaveBlock3Ptr->metLocations, 0, 32);
     gSaveBlock3Ptr->metLocsInitialized = 1;
@@ -148,7 +148,6 @@ static void ClearFrontierRecord(void)
 static void WarpToTruck(void)
 {
     SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
-    VarSet(VAR_BATTLE_SPEED, 1);
     WarpIntoMap();
 }
 
@@ -232,6 +231,18 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
+
+    //reset random type for all trainers
+    for (int i = 0; i < TRAINERS_COUNT; i++)
+    {
+        gSaveBlock2Ptr->randomSpeciesType[i] = TYPE_NONE;
+        gSaveBlock3Ptr->randomMoveType[i] = TYPE_NONE;
+    }
+
+    if (gSaveBlock2Ptr->revealRule)
+        FlagSet(FLAG_REVEAL_RULE);
+    if (gSaveBlock2Ptr->noBagInBattle)
+        FlagSet(FLAG_NO_BAG_IN_BATTLE);
 }
 
 static void ResetMiniGamesRecords(void)

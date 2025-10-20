@@ -587,7 +587,16 @@ struct SaveBlock2
              //u16 padding1:4;
              //u16 padding2;
     /*0x18*/ struct Pokedex pokedex;
-    /*0x90*/ u8 filler_90[0x6];
+    /*0x90*/ u8 filler_90[0x4];
+             u8 battleSpeed;
+             u8 revealRule:1;
+             u8 harderTrainers:1;
+             u8 permadeath:1;
+             u8 noBagInBattle:1;
+             u8 dupeClause:1;
+             u8 metLocClause:1;
+             u8 halfDamage:1;
+             u8 filler_95:1;
              u8 DebugRandomSpeciesType;
              u8 DebugRandomMoveType;
     /*0x98*/ struct Time localTimeOffset;

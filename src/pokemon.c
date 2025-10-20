@@ -3953,7 +3953,7 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         // Check use validity.
                         if ((effectFlags & (ITEM4_REVIVE >> 2) && currentHP != 0)
                               || (!(effectFlags & (ITEM4_REVIVE >> 2)) && currentHP == 0)
-                              || ((effectFlags & (ITEM4_REVIVE >> 2)) && currentHP == 0 && FlagGet(FLAG_PERMADEATH)))
+                              || ((effectFlags & (ITEM4_REVIVE >> 2)) && currentHP == 0 && gSaveBlock2Ptr->permadeath))
                         {
                             itemEffectParam++;
                             break;
@@ -4990,7 +4990,6 @@ u32 GetEvolutionLevelTargetBySpecies(u16 species, u8 level, bool8 allModes)
             break;
     }
 
-    DebugPrintf("return species = %S", gSpeciesInfo[targetSpecies].speciesName);
     return (targetSpecies == species) ? SPECIES_NONE : targetSpecies;
 }
 
@@ -7049,7 +7048,7 @@ void HealPokemon(struct Pokemon *mon)
 {
     u32 data;
 
-    if (!(FlagGet(FLAG_PERMADEATH) && GetMonData(mon, MON_DATA_HP) == 0) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE_RIVAL))
+    if (!(gSaveBlock2Ptr->permadeath && GetMonData(mon, MON_DATA_HP) == 0) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE_RIVAL))
     {
         data = GetMonData(mon, MON_DATA_MAX_HP);
         SetMonData(mon, MON_DATA_HP, &data);
@@ -7065,7 +7064,7 @@ void HealBoxPokemon(struct BoxPokemon *boxMon)
 {
     u32 data;
 
-    if (!(FlagGet(FLAG_PERMADEATH) && GetBoxMonData(boxMon, MON_DATA_HP) == 0))
+    if (!(gSaveBlock2Ptr->permadeath && GetBoxMonData(boxMon, MON_DATA_HP) == 0))
     {
         data = 0;
         SetBoxMonData(boxMon, MON_DATA_HP_LOST, &data);
@@ -7337,13 +7336,13 @@ u8 IsTargetValidEncounter(u16 species_catch)
 
     species_catch = GetFormSpeciesId(species_catch, 0);
 
-    if (FlagGet(FLAG_DUPE_CLAUSE))
+    if (gSaveBlock2Ptr->dupeClause)
     {
         if (CheckDupes(species_catch) == INVALID_ENCOUNTER_DUPE)
             return INVALID_ENCOUNTER_DUPE;
     }
 
-    if (FlagGet(FLAG_METLOC_CLAUSE))
+    if (gSaveBlock2Ptr->metLocClause)
     {
         metLocation = GetCurrentRegionMapSectionId();
         if (CheckMetLocation(metLocation) == INVALID_ENCOUNTER_METLOC)

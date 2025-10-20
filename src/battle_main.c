@@ -1952,7 +1952,7 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
         if (partyEntry->moves[j] != MOVE_NONE)
             noMoveSet = FALSE;
     }
-    if (FlagGet(FLAG_HARDER_TRAINERS) && !IsBossTrainer(TRAINER_BATTLE_PARAM.opponentA))
+    if (gSaveBlock2Ptr->harderTrainers && !IsBossTrainer(TRAINER_BATTLE_PARAM.opponentA))
         noMoveSet = TRUE;
 
     if (noMoveSet)
@@ -2033,7 +2033,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             //set level
             level = partyData[monIndex].lvl;
-            if (FlagGet(FLAG_HARDER_TRAINERS))
+            if (gSaveBlock2Ptr->harderTrainers)
             {
                 if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_WINSTRATE)
                 {
@@ -2045,7 +2045,7 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             // update species if evolved form is available at this level
             species = partyData[monIndex].species;
-            if (FlagGet(FLAG_HARDER_TRAINERS))
+            if (gSaveBlock2Ptr->harderTrainers)
             {
                 u16 evoSpecies = GetEvolutionLevelTargetBySpecies(species, level, FALSE);
                 if (evoSpecies != SPECIES_NONE)
@@ -6363,7 +6363,7 @@ bool8 BattleRuleViolated_SENDOUT(bool8 midBattle)
 
                 if (faint)
                 {
-                    if (FlagGet(FLAG_50_PERCENT_DAMAGE))
+                    if (gSaveBlock2Ptr->halfDamage)
                         gBattleStruct->moveDamage[i] = max(1, ((gBattleMons[i].maxHP + 1) / 2)); // +1 to always round the dmg up
                     else
                         gBattleStruct->moveDamage[i] = gBattleMons[i].maxHP;
