@@ -245,6 +245,10 @@ LittlerootTown_EventScript_FatMan::
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_NPC
 	end
 
+LittlerootTown_EventScript_OldWoman::
+	msgbox LittlerootTown_Text_PokemonShowUpLater, MSGBOX_NPC
+	end
+
 LittlerootTown_EventScript_Boy::
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_NPC
 	end
@@ -1013,4 +1017,9 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
+
+LittlerootTown_Text_PokemonShowUpLater:
+	.string "The wild POKéMON here are shy.\p"
+	.string "They'll come out of their hiding places\n"
+	.string "when you have your own POKéMON.$"
 

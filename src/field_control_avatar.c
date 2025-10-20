@@ -849,6 +849,9 @@ static bool8 CheckStandardWildEncounter(u16 metatileBehavior)
     if (FlagGet(OW_FLAG_NO_ENCOUNTER))
         return FALSE;
 
+    if (!FlagGet(FLAG_SYS_POKEMON_GET) && GetCurrentRegionMapSectionId() == MAPSEC_LITTLEROOT_TOWN)
+        return FALSE;
+
     if (sWildEncounterImmunitySteps < 4)
     {
         sWildEncounterImmunitySteps++;
