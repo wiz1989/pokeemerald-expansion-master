@@ -6351,6 +6351,7 @@ static void Cmd_moveend(void)
                         RecordKnownMove(gBattlerAttacker, gChosenMove);
                         gLastResultingMoves[gBattlerAttacker] = gCurrentMove;
                         gLastUsedMoveType[gBattlerAttacker] = GetBattleMoveType(gCurrentMove);
+                        gAlreadyChecked[gBattlerAttacker] = TRUE;
                     }
                 }
                 else

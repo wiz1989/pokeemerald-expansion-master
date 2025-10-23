@@ -249,6 +249,7 @@ EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 EWRAM_DATA u8 gSlowDown = 0;
 EWRAM_DATA u8 gIsDupe = 0;
+EWRAM_DATA bool8 gAlreadyChecked[MAX_BATTLERS_COUNT] = {0};
 
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;
@@ -4099,6 +4100,7 @@ static void HandleEndTurn_ContinueBattle(void)
             gBattleMons[i].volatiles.flinched = FALSE;
             if ((gBattleMons[i].status1 & STATUS1_SLEEP) && (gBattleMons[i].volatiles.multipleTurns))
                 CancelMultiTurnMoves(i, SKY_DROP_IGNORE);
+            gAlreadyChecked[i] = FALSE;
         }
         gBattleStruct->eventBlockCounter = 0;
         gBattleStruct->turnEffectsBattlerId = 0;
@@ -6414,7 +6416,7 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                     faint = TRUE;
                 break;
             case BATTLERULE_SWITCHMOVES:
-                if (move == gLastMoves[gBattlerAttacker])
+                if (move == gLastMoves[gBattlerAttacker] && gAlreadyChecked[gBattlerAttacker] == FALSE)
                 {
                     gChosenMove = MOVE_NONE;
                     gLastMoves[gBattlerAttacker] = MOVE_NONE;
