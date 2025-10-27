@@ -2593,3 +2593,8 @@
 	.macro restorespeedup
 	callnative BS_RestoreSpeedUp
 	.endm
+
+	.macro removebattelruleitem battler:req
+	callnative BS_RemoveItem
+	.byte \battler
+	.endm

@@ -250,6 +250,7 @@ EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 EWRAM_DATA u8 gSlowDown = 0;
 EWRAM_DATA u8 gIsDupe = 0;
 EWRAM_DATA bool8 gAlreadyChecked[MAX_BATTLERS_COUNT] = {0};
+EWRAM_DATA bool8 gRemoveItem = 0;
 
 COMMON_DATA void (*gPreBattleCallback1)(void) = NULL;
 COMMON_DATA void (*gBattleMainFunc)(void) = NULL;

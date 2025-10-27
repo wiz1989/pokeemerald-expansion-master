@@ -340,6 +340,7 @@ static void ResetValuesForCalledMove(void);
 static void TryRestoreDamageAfterCheekPouch(u32 battler);
 static bool32 TrySymbiosis(u32 battler, u32 itemId, bool32 moveEnd);
 static bool32 CanAbilityShieldActivateForBattler(u32 battler);
+static void CheckSetUnburden(u8 battler);
 
 static void Cmd_attackcanceler(void);
 static void Cmd_accuracycheck(void);
@@ -2485,6 +2486,10 @@ static void Cmd_datahpupdate(void)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
             gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
+
+        //remove held berry
+        if (GetItemPocket(gBattleMons[battler].item) == POCKET_BERRIES)
+            gRemoveItem = TRUE;
         
         gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
         return;
@@ -18653,5 +18658,26 @@ void BS_RestoreSpeedUp(void)
 {
     NATIVE_ARGS();
     gSlowDown = FALSE;
+    gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
+void BS_RemoveItem(void)
+{
+    NATIVE_ARGS(u8 battler);
+    u32 battler = GetBattlerForBattleScript(cmd->battler);
+
+    if (gRemoveItem)
+    {
+        gRemoveItem = FALSE;
+        gBattleMons[battler].item = ITEM_NONE;
+        gBattleStruct->battlerState[battler].canPickupItem = TRUE;
+        CheckSetUnburden(battler);
+
+        BtlController_EmitSetMonData(battler, B_COMM_TO_CONTROLLER, REQUEST_HELDITEM_BATTLE, 0, sizeof(gBattleMons[battler].item), &gBattleMons[battler].item);
+        MarkBattlerForControllerExec(battler);
+
+        ClearBattlerItemEffectHistory(battler);
+    }
+    
     gBattlescriptCurrInstr = cmd->nextInstr;
 }

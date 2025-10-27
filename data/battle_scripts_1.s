@@ -9886,6 +9886,7 @@ BattleScript_BattleRule_FaintMon_End::
 	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
 	healthbarupdate BS_BATTLERULE_BATTLER
 	datahpupdate BS_BATTLERULE_BATTLER
+	removebattelruleitem BS_BATTLERULE_BATTLER @only required for BR_NOHEALING
 	tryfaintmon BS_BATTLERULE_BATTLER
 	moveendcase MOVEEND_CLEAR_BITS
 	end

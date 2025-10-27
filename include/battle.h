@@ -1136,6 +1136,7 @@ extern u8 gPartyCriticalHits[PARTY_SIZE];
 extern u8 gCategoryIconSpriteId;
 extern u8 gSlowDown; // for battle speedup
 extern u8 gIsDupe; // required for metLoc clause
+extern bool8 gRemoveItem; // flag to indicate if an item should be removed during battle rule enforcement
 
 static inline bool32 IsBattlerAlive(u32 battler)
 {
