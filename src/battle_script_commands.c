@@ -3392,7 +3392,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
     case MOVE_EFFECT_RECOIL_HP_25: // Struggle
         if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
         {
-            gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+            gSpecialStatuses[gEffectBattler].triggeredBattleRule = TRUE;
             if (gSaveBlock2Ptr->halfDamage)
                 gBattleStruct->moveDamage[gEffectBattler] = max(1, ((gBattleMons[gEffectBattler].maxHP + 1) / 2)); // +1 to always round the dmg up
             else
