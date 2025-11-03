@@ -4429,7 +4429,7 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    if (FlagGet(B_FLAG_NO_BAG_USE) && (gBattleTypeFlags & BATTLE_TYPE_TRAINER))
+                    if (FlagGet(B_FLAG_NO_BAG_USE) && (gBattleTypeFlags & BATTLE_TYPE_TRAINER) && IsOnPlayerSide(battler))
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionItemsCantBeUsed;
