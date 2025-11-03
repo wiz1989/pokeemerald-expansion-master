@@ -242,6 +242,13 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         return TRUE;
     }
 
+    if (input->pressedRButton)
+    {
+        PlaySE(SE_WIN_OPEN);
+        Debug_ShowQoLHub();
+        return TRUE;
+    }
+
     if (input->tookStep && TryFindHiddenPokemon())
         return TRUE;
 
