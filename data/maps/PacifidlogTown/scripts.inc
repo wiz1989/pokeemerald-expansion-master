@@ -5,6 +5,7 @@ PacifidlogTown_MapScripts::
 
 PacifidlogTown_OnTransition:
 	setflag FLAG_VISITED_PACIFIDLOG_TOWN
+	setrespawn HEAL_LOCATION_PACIFIDLOG_TOWN
 	end
 
 PacifidlogTown_OnResume:

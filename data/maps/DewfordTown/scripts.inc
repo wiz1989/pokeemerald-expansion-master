@@ -4,6 +4,7 @@ DewfordTown_MapScripts::
 
 DewfordTown_OnTransition:
 	setflag FLAG_VISITED_DEWFORD_TOWN
+	setrespawn HEAL_LOCATION_DEWFORD_TOWN
 	end
 
 DewfordTown_EventScript_Briney::

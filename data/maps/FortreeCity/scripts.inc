@@ -5,6 +5,7 @@ FortreeCity_MapScripts::
 
 FortreeCity_OnTransition:
 	setflag FLAG_VISITED_FORTREE_CITY
+	setrespawn HEAL_LOCATION_FORTREE_CITY
 	end
 
 FortreeCity_OnResume:

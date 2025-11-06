@@ -33,6 +33,7 @@ SootopolisCity_EventScript_LockGymDoor::
 
 SootopolisCity_OnTransition:
 	setflag FLAG_VISITED_SOOTOPOLIS_CITY
+	setrespawn HEAL_LOCATION_SOOTOPOLIS_CITY
 	call_if_eq VAR_SOOTOPOLIS_CITY_STATE, 1, SootopolisCity_EventScript_HideMapNamePopup
 	call_if_eq VAR_SKY_PILLAR_STATE, 1, SootopolisCity_EventScript_HideMapNamePopup
 	call SootopolisCity_EventScript_SetWeather
