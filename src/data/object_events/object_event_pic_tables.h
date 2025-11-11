@@ -41,6 +41,37 @@ static const struct SpriteFrameImage sPicTable_BrendanFieldMove[] = {
     overworld_ascending_frames(gObjectEventPic_BrendanFieldMove, 4, 4),
 };
 
+static const struct SpriteFrameImage sPicTable_PatNormal[] = {
+    overworld_ascending_frames(gObjectEventPic_PatNormalRunning, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_PatMachBike[] = {
+    overworld_ascending_frames(gObjectEventPic_PatMachBike, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_PatAcroBike[] = {
+    overworld_ascending_frames(gObjectEventPic_PatAcroBike, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_PatSurfing[] = {
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 0),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 2),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 4),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 0),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 0),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 2),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 2),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 4),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 4),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 1),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 3),
+    overworld_frame(gObjectEventPic_PatSurfing, 4, 4, 5),
+};
+
+static const struct SpriteFrameImage sPicTable_PatFieldMove[] = {
+    overworld_ascending_frames(gObjectEventPic_PatFieldMove, 4, 4),
+};
+
 static const struct SpriteFrameImage sPicTable_QuintyPlump[] = {
     overworld_ascending_frames(gObjectEventPic_QuintyPlump, 4, 4),
 };

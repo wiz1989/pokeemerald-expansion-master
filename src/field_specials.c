@@ -619,10 +619,18 @@ static void LoadLinkPartnerObjectEventSpritePalette(u16 graphicsId, u8 localEven
                 LoadPalette(gObjectEventPal_RubySapphireMay, OBJ_PLTT_ID(adjustedPaletteNum), PLTT_SIZE_4BPP);
                 break;
             case OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL:
+#if OW_RIVAL_GFX_USE_PAT == FALSE
                 LoadPalette(gObjectEventPal_Brendan, OBJ_PLTT_ID(adjustedPaletteNum), PLTT_SIZE_4BPP);
+#else
+                LoadPalette(gObjectEventPal_Pat, OBJ_PLTT_ID(adjustedPaletteNum), PLTT_SIZE_4BPP);
+#endif
                 break;
             case OBJ_EVENT_GFX_RIVAL_MAY_NORMAL:
+#if OW_RIVAL_GFX_USE_PAT == FALSE
                 LoadPalette(gObjectEventPal_May, OBJ_PLTT_ID(adjustedPaletteNum), PLTT_SIZE_4BPP);
+#else
+                LoadPalette(gObjectEventPal_Pat, OBJ_PLTT_ID(adjustedPaletteNum), PLTT_SIZE_4BPP);
+#endif
                 break;
             }
         }
