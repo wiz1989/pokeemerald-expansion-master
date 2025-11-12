@@ -267,11 +267,18 @@ static inline const u8 *GetTrainerNameFromId(u16 trainerId)
 static inline const u8 GetTrainerPicFromId(u16 trainerId)
 {
     enum DifficultyLevel partnerDifficulty = GetBattlePartnerDifficultyLevel(trainerId);
+    u32 trainerClass = GetTrainerClassFromId(trainerId);
+    u8 result;
 
     if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
-        return gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerPic;
+        result = gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerPic;
+    else
+        result = GetTrainerStructFromId(trainerId)->trainerPic;
 
-    return GetTrainerStructFromId(trainerId)->trainerPic;
+    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+        return TRAINER_PIC_PAT;
+    else
+        return result;
 }
 
 static inline const u8 GetTrainerBackPicFromId(u16 trainerId)
