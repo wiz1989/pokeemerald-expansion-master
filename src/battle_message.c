@@ -2585,19 +2585,30 @@ static const u8 *BattleStringGetOpponentNameByTrainerId(u16 trainerId, u8 *text,
 static const u8 *BattleStringGetOpponentName(u8 *text, u8 multiplayerId, u8 battler)
 {
     const u8 *toCpy = NULL;
+    u32 trainerClass = 0;
 
     switch (GetBattlerPosition(battler))
     {
     case B_POSITION_OPPONENT_LEFT:
         toCpy = BattleStringGetOpponentNameByTrainerId(TRAINER_BATTLE_PARAM.opponentA, text, multiplayerId, battler);
+        trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
         break;
     case B_POSITION_OPPONENT_RIGHT:
         if (gBattleTypeFlags & (BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_MULTI) && !BATTLE_TWO_VS_ONE_OPPONENT)
+        {
+            trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentB);
             toCpy = BattleStringGetOpponentNameByTrainerId(TRAINER_BATTLE_PARAM.opponentB, text, multiplayerId, battler);
+        }
         else
+        {
+            trainerClass = GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA);
             toCpy = BattleStringGetOpponentNameByTrainerId(TRAINER_BATTLE_PARAM.opponentA, text, multiplayerId, battler);
+        }
         break;
     }
+
+    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+        toCpy = gText_ExpandedPlaceholder_Pat;
 
     return toCpy;
 }

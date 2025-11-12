@@ -16,8 +16,14 @@ const u8 gText_ExpandedPlaceholder_Archie[] = _("ARCHIE");
 const u8 gText_ExpandedPlaceholder_Maxie[] = _("MAXIE");
 const u8 gText_ExpandedPlaceholder_Kyogre[] = _("KYOGRE");
 const u8 gText_ExpandedPlaceholder_Groudon[] = _("GROUDON");
+#if OW_RIVAL_GFX_USE_PAT == FALSE
 const u8 gText_ExpandedPlaceholder_Brendan[] = _("BRENDAN");
 const u8 gText_ExpandedPlaceholder_May[] = _("MAY");
+#else
+const u8 gText_ExpandedPlaceholder_Brendan[] = _("PAT");
+const u8 gText_ExpandedPlaceholder_May[] = _("PAT");
+#endif
+const u8 gText_ExpandedPlaceholder_Pat[] = _("PAT");
 const u8 gText_EggNickname[POKEMON_NAME_LENGTH + 1] = _("EGG");
 const u8 gText_Pokemon[POKEMON_NAME_LENGTH + 1] = _("POKéMON");
 const u8 gText_Player[] = _("PLAYER"); // Unused

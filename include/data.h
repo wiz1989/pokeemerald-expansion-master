@@ -8,6 +8,7 @@
 #include "battle_rules.h"
 #include "difficulty.h"
 #include "debug.h"
+#include "strings.h"
 
 #define MAX_TRAINER_ITEMS 4
 
@@ -245,12 +246,22 @@ static inline const u8 *GetTrainerClassNameFromId(u16 trainerId)
 
 static inline const u8 *GetTrainerNameFromId(u16 trainerId)
 {
+    const u8 *name = NULL;
+    u32 trainerClass = GetTrainerClassFromId(trainerId);
+    
     if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
     {
         enum DifficultyLevel partnerDifficulty = GetBattlePartnerDifficultyLevel(trainerId);
-        return gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
+        name = gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
+        if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+            return gText_ExpandedPlaceholder_Pat;
+        else
+            return name;
     }
-    return GetTrainerStructFromId(trainerId)->trainerName;
+    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+        return gText_ExpandedPlaceholder_Pat;
+    else
+        return GetTrainerStructFromId(trainerId)->trainerName;
 }
 
 static inline const u8 GetTrainerPicFromId(u16 trainerId)

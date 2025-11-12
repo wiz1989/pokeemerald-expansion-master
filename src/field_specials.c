@@ -942,7 +942,7 @@ void GetPlayerBigGuyGirlString(void)
 
 void GetRivalSonDaughterString(void)
 {
-    if (gSaveBlock2Ptr->playerGender == MALE)
+    if (gSaveBlock2Ptr->playerGender == MALE && OW_RIVAL_GFX_USE_PAT == FALSE)
         StringCopy(gStringVar1, sText_Daughter);
     else
         StringCopy(gStringVar1, sText_Son);
