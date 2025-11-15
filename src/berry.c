@@ -2063,24 +2063,27 @@ static u8 CalcBerryYieldInternal(u16 max, u16 min, u8 water)
     // }
     // else
     // {
-        water = RandomUniform(RNG_NONE, 2, 4);
-        randMin = (max - min) * (water - 1);
+        // water = RandomUniform(RNG_NONE, 2, 4);
+        randMin = min * 2;
         randMax = (max - min) * (water);
-        rand = randMin + Random() % (randMax - randMin + 1);
+        DebugPrintf("CalcBerryYieldInternal: min=%d max=%d water=%d randMin=%d randMax=%d", min, max, water, randMin, randMax);
+        rand = Random() % randMax;
 
         // Round upwards
         if ((rand % NUM_WATER_STAGES) >= NUM_WATER_STAGES / 2)
             extraYield = rand / NUM_WATER_STAGES + 1;
         else
             extraYield = rand / NUM_WATER_STAGES;
-        return extraYield + min;
+        
+        DebugPrintf("CalcBerryYieldInternal: min=%d max=%d water=%d rand=%d extraYield=%d", min, max, water, rand, extraYield);
+        return (extraYield / 2) + min;
     // }
 }
 
 static u8 CalcBerryYield(struct BerryTree *tree)
 {
     const struct Berry *berry = GetBerryInfo(tree->berry);
-    u8 min = tree->berryYield;
+    u8 min = berry->minYield;
     u8 max = berry->maxYield;
     u8 result;
     // if (OW_BERRY_MULCH_USAGE && (tree->mulch == ITEM_TO_MULCH(ITEM_RICH_MULCH) || tree->mulch == ITEM_TO_MULCH(ITEM_AMAZE_MULCH)))
@@ -2090,7 +2093,10 @@ static u8 CalcBerryYield(struct BerryTree *tree)
     if (min >= max)
         result = max;
     else
-        result = CalcBerryYieldInternal(max, min, BerryTreeGetNumStagesWatered(tree));
+        result = CalcBerryYieldInternal(max, min, 4);
+
+    if (tree->berry == ITEM_TO_BERRY(520) || tree->berry == ITEM_TO_BERRY(523))
+        DebugPrintf("CalcBerryYield: berry=%d min=%d max=%d yield=%d", tree->berry, min, max, result);
 
     return result;
 }
