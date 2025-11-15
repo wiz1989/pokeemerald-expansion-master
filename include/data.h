@@ -9,6 +9,7 @@
 #include "difficulty.h"
 #include "debug.h"
 #include "strings.h"
+#include "string_util.h"
 
 #define MAX_TRAINER_ITEMS 4
 
@@ -247,21 +248,28 @@ static inline const u8 *GetTrainerClassNameFromId(u16 trainerId)
 static inline const u8 *GetTrainerNameFromId(u16 trainerId)
 {
     const u8 *name = NULL;
+    const u8 sText_May[] = _("MAY");
+    const u8 sText_Brendan[] = _("BRENDAN");
     u32 trainerClass = GetTrainerClassFromId(trainerId);
     
     if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
     {
         enum DifficultyLevel partnerDifficulty = GetBattlePartnerDifficultyLevel(trainerId);
         name = gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerName;
-        if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+        if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL
+          && (!StringCompare(name, sText_May) || !StringCompare(name, sText_Brendan)))
             return gText_ExpandedPlaceholder_Pat;
         else
             return name;
     }
-    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+
+    name = GetTrainerStructFromId(trainerId)->trainerName;
+
+    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL
+      && (!StringCompare(name, sText_May) || !StringCompare(name, sText_Brendan)))
         return gText_ExpandedPlaceholder_Pat;
     else
-        return GetTrainerStructFromId(trainerId)->trainerName;
+        return name;
 }
 
 static inline const u8 GetTrainerPicFromId(u16 trainerId)
@@ -269,13 +277,15 @@ static inline const u8 GetTrainerPicFromId(u16 trainerId)
     enum DifficultyLevel partnerDifficulty = GetBattlePartnerDifficultyLevel(trainerId);
     u32 trainerClass = GetTrainerClassFromId(trainerId);
     u8 result;
+    const u8 *name = GetTrainerNameFromId(trainerId);
 
     if (trainerId > TRAINER_PARTNER(PARTNER_NONE))
         result = gBattlePartners[partnerDifficulty][trainerId - TRAINER_PARTNER(PARTNER_NONE)].trainerPic;
     else
         result = GetTrainerStructFromId(trainerId)->trainerPic;
 
-    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL
+      && !StringCompare(name, gText_ExpandedPlaceholder_Pat))
         return TRAINER_PIC_PAT;
     else
         return result;

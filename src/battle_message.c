@@ -2607,7 +2607,7 @@ static const u8 *BattleStringGetOpponentName(u8 *text, u8 multiplayerId, u8 batt
         break;
     }
 
-    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL)
+    if (OW_RIVAL_GFX_USE_PAT && trainerClass == TRAINER_CLASS_RIVAL && !StringCompare(toCpy, gText_ExpandedPlaceholder_Pat))
         toCpy = gText_ExpandedPlaceholder_Pat;
 
     return toCpy;
