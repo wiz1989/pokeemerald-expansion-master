@@ -4034,7 +4034,7 @@ static void TryDoEventsBeforeFirstTurn(void)
     case FIRST_TURN_EVENTS_BATTLERULE_FAINT:
         while (gBattleStruct->switchInBattlerCounter < gBattlersCount) // From fastest to slowest
         {
-            if (BattleRuleViolated_SENDOUT(gBattleStruct->switchInBattlerCounter++, FALSE))
+            if (BattleRuleViolated_SENDOUT(gBattlerByTurnOrder[gBattleStruct->switchInBattlerCounter++], FALSE))
                 return;
         }
         gBattleStruct->switchInBattlerCounter = 0;
@@ -5777,6 +5777,16 @@ static void HandleEndTurn_FinishBattle(void)
             if (!changedForm && B_RECALCULATE_STATS >= GEN_5)
                 CalculateMonStats(&gPlayerParty[i]);
         }
+
+        // Reset PP in case of 1PP rule, especially necessary for gauntlets
+        if (GetRandomBattleRuleSeeded() == BATTLERULE_1PP)
+        {
+            for (i = 0; i < gPlayerPartyCount; i++)
+            {
+                MonRestorePP(&gPlayerParty[i]);
+            }
+        }
+
         // Clear battle mon species to avoid a bug on the next battle that causes
         // healthboxes loading incorrectly due to it trying to create a Mega Indicator
         // if the previous battler would've had it.
