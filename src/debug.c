@@ -339,6 +339,7 @@ static void DebugAction_Sound_SE_SelectId(u8 taskId);
 static void DebugAction_Sound_MUS(u8 taskId);
 static void DebugAction_Sound_MUS_SelectId(u8 taskId);
 
+static void DebugAction_BerryFunctions_ResetYield(u8 taskId);
 static void DebugAction_BerryFunctions_ClearAll(u8 taskId);
 static void DebugAction_BerryFunctions_Ready(u8 taskId);
 static void DebugAction_BerryFunctions_NextStage(u8 taskId);
@@ -399,6 +400,7 @@ extern const u8 Debug_BerryPestsDisabled[];
 extern const u8 Debug_BerryWeedsDisabled[];
 
 extern const u8 FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon[];
+extern const u8 EventScript_ResetAllBerries[];
 
 #include "data/map_group_count.h"
 
@@ -535,6 +537,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_TimeMenu[] =
 
 static const struct DebugMenuOption sDebugMenu_Actions_BerryFunctions[] =
 {
+    { COMPOUND_STRING("Reset tree yield"),     DebugAction_BerryFunctions_ResetYield },
     { COMPOUND_STRING("Clear map trees"),      DebugAction_BerryFunctions_ClearAll },
     { COMPOUND_STRING("Ready map trees"),      DebugAction_BerryFunctions_Ready },
     { COMPOUND_STRING("Grow map trees"),       DebugAction_BerryFunctions_NextStage },
@@ -4120,6 +4123,14 @@ static void DebugAction_BerryFunctions_ClearAll(u8 taskId)
             SetBerryTreeJustPicked(gObjectEvents[i].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
         }
     }
+
+    ScriptContext_Enable();
+    Debug_DestroyMenu_Full(taskId);
+}
+
+static void DebugAction_BerryFunctions_ResetYield(u8 taskId)
+{
+    RunScriptImmediately(EventScript_ResetAllBerries);
 
     ScriptContext_Enable();
     Debug_DestroyMenu_Full(taskId);
