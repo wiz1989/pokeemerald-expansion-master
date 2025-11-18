@@ -7298,7 +7298,7 @@ static u8 GetLevelsNextEvent(struct Pokemon *mon)
     if (species != SPECIES_NONE && species != SPECIES_EGG)
     {
         const struct Evolution *evolutions = GetSpeciesEvolutions(species);
-        if (evolutions != NULL && evolutions->method == EVO_LEVEL && evolutions->param < nextEvent)
+        if (evolutions != NULL && evolutions->method == EVO_LEVEL && evolutions->param > 0 && evolutions->param < nextEvent)
         {
             nextEvent = evolutions->param;
         }
