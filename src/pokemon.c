@@ -4956,32 +4956,50 @@ u32 GetEvolutionLevelTargetBySpecies(u16 species, u8 level, bool8 allModes)
     const struct Evolution *evolutions;
     u32 targetSpecies = species;
     u32 found = SPECIES_NONE;
+    u8 maxEvosCount = 0;
+    u8 i, evo = 0;
 
     while (TRUE)
     {
+        // get number of valid evolutions for targetSpecies
+        maxEvosCount = 0;
         evolutions = GetSpeciesEvolutions(targetSpecies);
         if (evolutions == NULL)
             break;
 
-        found = SPECIES_NONE;
-        for (int i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
+        for (i = 0; evolutions[i].method != EVOLUTIONS_END; i++)
         {
-            if (SanitizeSpeciesId(evolutions[i].targetSpecies) == SPECIES_NONE)
+            if (!allModes && !(evolutions[i].method == EVO_LEVEL && evolutions[i].param <= level && evolutions[i].param > 0))
                 continue;
 
-            if (!allModes)
+            maxEvosCount++;
+        }
+
+        found = SPECIES_NONE;
+        evo = 0;
+
+        //set evo to a random valid evolution
+        if (maxEvosCount > 1)
+            evo = Random() % (maxEvosCount);
+
+        if (SanitizeSpeciesId(evolutions[evo].targetSpecies) == SPECIES_NONE)
+            continue;
+
+        if (!allModes)
+        {
+            if (evolutions[evo].method == EVO_LEVEL && evolutions[evo].param <= level && evolutions[evo].param > 0)
             {
-                if (evolutions[i].method == EVO_LEVEL && evolutions[i].param <= level)
-                {
-                    found = evolutions[i].targetSpecies;
-                    // keep searching for further evolutions
-                }
-            }
-            else
-            {
-                found = evolutions[i].targetSpecies;
+                found = evolutions[evo].targetSpecies;
                 // keep searching for further evolutions
             }
+        }
+        else
+        {
+            if (evolutions[evo].targetSpecies != SPECIES_SHEDINJA)
+                found = evolutions[evo].targetSpecies;
+            else
+                found = SPECIES_NINJASK;
+            // keep searching for further evolutions
         }
 
         if (found != SPECIES_NONE)

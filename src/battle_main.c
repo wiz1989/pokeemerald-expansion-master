@@ -2050,16 +2050,9 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             species = partyData[monIndex].species;
             if (gSaveBlock2Ptr->harderTrainers)
             {
-                u16 evoSpecies = GetEvolutionLevelTargetBySpecies(species, level, FALSE);
+                u16 evoSpecies = GetEvolutionLevelTargetBySpecies(species, level, FlagGet(FLAG_MET_RIVAL_LILYCOVE));
                 if (evoSpecies != SPECIES_NONE)
                     species = evoSpecies;
-
-                if (FlagGet(FLAG_MET_RIVAL_LILYCOVE)) //defeated Lilycove Rival
-                {
-                    evoSpecies = GetEvolutionLevelTargetBySpecies(species, level, TRUE);
-                    if (evoSpecies != SPECIES_NONE)
-                        species = evoSpecies;
-                }
             }
             CreateMon(&party[i], species, level, 0, TRUE, personalityValue, otIdType, fixedOtId);
             SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[monIndex].heldItem);
