@@ -482,6 +482,10 @@ void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm = TRUE;
 
+    gIsDupe = FALSE;
+    if (CheckDupes(species) == INVALID_ENCOUNTER_DUPE)
+        gIsDupe = TRUE;
+
     ZeroEnemyPartyMons();
 
     switch (gSpeciesInfo[species].genderRatio)
@@ -574,9 +578,6 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
     if (gMapHeader.mapLayoutId != LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS && flags & WILD_CHECK_KEEN_EYE && !IsAbilityAllowingEncounter(level))
         return FALSE;
 
-    gIsDupe = FALSE;
-    if (CheckDupes(wildMonInfo->wildPokemon[wildMonIndex].species) == INVALID_ENCOUNTER_DUPE)
-        gIsDupe = TRUE;
     CreateWildMon(wildMonInfo->wildPokemon[wildMonIndex].species, level);
     return TRUE;
 }
