@@ -11,6 +11,7 @@ DewfordTown_EventScript_Briney::
 	lock
 	faceplayer
 	goto_if_unset FLAG_DELIVERED_STEVEN_LETTER, DewfordTown_EventScript_ReturnToPetalburgPrompt
+	goto_if_unset FLAG_DEFEATED_DEWFORD_GYM, DewfordTown_EventScript_StayInDewfordPrompt
 	message DewfordTown_Text_WhereAreWeBound
 	waitmessage
 	multichoicedefault 21, 6, MULTI_BRINEY_ON_DEWFORD, 2, FALSE
@@ -45,6 +46,11 @@ DewfordTown_EventScript_ReturnToPetalburgPrompt::
 	msgbox DewfordTown_Text_SetSailBackToPetalburg, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, DewfordTown_EventScript_SailBackToPetalburg
 	msgbox DewfordTown_Text_GoDeliverIllBeWaiting, MSGBOX_DEFAULT
+	release
+	end
+
+DewfordTown_EventScript_StayInDewfordPrompt::
+	msgbox DewfordTown_Text_SetSailBackToPetalburg_NoBrawly, MSGBOX_DEFAULT
 	release
 	end
 
@@ -657,6 +663,14 @@ DewfordTown_Text_SetSailBackToPetalburg:
 	.string "LETTER?\p"
 	.string "Or were you meaning to sail back to\n"
 	.string "PETALBURG?$"
+
+DewfordTown_Text_SetSailBackToPetalburg_NoBrawly:
+	.string "MR. BRINEY: I am deeply sorry,\n"
+	.string "but the electronics below deck\l"
+	.string "have just broken down.\p"
+	.string "Could you please defeat BRAWLY\n"
+	.string "in order to use FLASH so I can\l"
+	.string "fix them?$"
 
 DewfordTown_Text_PetalburgWereSettingSail2:
 	.string "MR. BRINEY: PETALBURG it is, then!\p"
