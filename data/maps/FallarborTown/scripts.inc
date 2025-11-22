@@ -1,6 +1,11 @@
 FallarborTown_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, FallarborTown_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, FallarborTown_OnTransition
 	.byte 0
+
+FallarborTown_OnResume:
+	setstepcallback STEP_CB_ASH
+	end
 
 FallarborTown_OnTransition:
 	setflag FLAG_VISITED_FALLARBOR_TOWN
