@@ -12018,6 +12018,7 @@ bool8 IsSetupMove(u32 move)
 bool8 IsBossTrainer(u16 trainerId)
 {
     if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_LEADER
+      || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_WINSTRATE
       || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_AQUA_LEADER
       || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_MAGMA_LEADER
       || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_ELITE_FOUR

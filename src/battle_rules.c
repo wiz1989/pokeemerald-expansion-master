@@ -9,6 +9,7 @@
 #include "constants/battle_rules.h"
 
 static bool8 IsInArray(u8 value, const u8 *array, u8 size);
+static bool8 IsBossRule(u8 battleRule);
 
 #define INVALID_TYPES_COUNT ARRAY_COUNT(sInvalidTypes)
 static const u8 sInvalidTypes[] = 
@@ -223,15 +224,25 @@ u8 GetRandomBattleRuleSeeded(void)
     u16 value = 0;
     u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
     u32 increment = 0;
+    u16 maxAttempts = 1000;
 
     FlagClear(FLAG_INVERSE_BATTLE);
 
     value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
 
-    while (!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX))
+    while ((!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX)
+        || (B_BOSS_LIMITED_RULES && !IsBossRule(value) && IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))) && increment < maxAttempts)
     {
         increment++;
         value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
+        // DebugPrintf("--- new rule %d ---", value);
+    }
+
+    // Fallback: if we reached max attempts or the final value is still invalid, use a safe default rule (none).
+    if (increment >= maxAttempts)
+    {
+        DebugPrintf("--- Battle rule reroll limit reached or invalid final rule, using fallback NONE ---");
+        value = BATTLERULE_NONE;
     }
 
     // value = BATTLERULE_BANNEDTYPE; // test line
@@ -376,4 +387,30 @@ static bool8 IsInArray(u8 value, const u8 *array, u8 size)
         }
     }
     return FALSE;
+}
+
+static bool8 IsBossRule(u8 battleRule)
+{
+    switch (battleRule)
+    {
+        case BATTLERULE_BANNEDTYPE:
+        case BATTLERULE_NOHEALING:
+        case BATTLERULE_NOSTAB:
+        case BATTLERULE_NOSUPEREFFECTIVE:
+        case BATTLERULE_NOSWITCHING:
+        case BATTLERULE_PERISHCOUNT:
+        case BATTLERULE_SWITCHMOVES:
+        case BATTLERULE_1HP:
+        case BATTLERULE_1PP:
+        case BATTLERULE_TRICKROOM:
+        case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
+        case BATTLERULE_BANNEDMOVECAT_SPECIAL:
+        case BATTLERULE_BANNEDMOVECAT_STATUS:
+        case BATTLERULE_INVERSE:
+        case BATTLERULE_FIRSTMOVEONLY:
+        case BATTLERULE_TRUANT:
+            return TRUE;
+        default:
+            return FALSE;
+    }
 }

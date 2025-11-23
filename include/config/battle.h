@@ -367,4 +367,7 @@
 #define B_POOL_RULE_ITEM_CLAUSE             FALSE    // Only allow each item to be picked once
 #define B_POOL_RULES_USE_ITEM_EXCLUSIONS    FALSE    // Exclude items listed in poolItemClauseExclusions
 
+// experimental boss rule setting
+#define B_BOSS_LIMITED_RULES       TRUE    // If set to TRUE, bosses will have a limited rules pool to pull battle rules from
+
 #endif // GUARD_CONFIG_BATTLE_H
