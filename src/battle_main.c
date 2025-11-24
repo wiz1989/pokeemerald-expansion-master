@@ -2042,13 +2042,19 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 {
                     level = currentLevelCap;
                 }
+                else if ((GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_CHAMPION
+                  || IsBossTrainer(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_ELITE_FOUR)
+                    && B_BOSS_REPLACE_TRAINERS)
+                {
+                    level = level; // keep original level for Champions and Elite Four if enabled
+                }
                 else if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
                     level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
             }
 
             // update species if evolved form is available at this level
             species = partyData[monIndex].species;
-            if (gSaveBlock2Ptr->harderTrainers)
+            if (gSaveBlock2Ptr->harderTrainers && partyData[monIndex].heldItem != ITEM_EVIOLITE)
             {
                 u16 evoSpecies = GetEvolutionLevelTargetBySpecies(species, level, FlagGet(FLAG_MET_RIVAL_LILYCOVE));
                 if (evoSpecies != SPECIES_NONE)
@@ -2157,6 +2163,12 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     }
     else
     {
+        if (gSaveBlock2Ptr->harderTrainers && B_BOSS_REPLACE_TRAINERS && trainerNum >= TRAINER_SIDNEY && (trainerNum + HARDER_TRAINERS_OFFSET) < TRAINERS_COUNT)
+        {
+            u16 trainerNumOld = trainerNum;
+            trainerNum = trainerNum + HARDER_TRAINERS_OFFSET;
+            DebugPrintf("updated trainerNum from %d to %d", trainerNumOld, trainerNum);
+        }
         retVal = CreateNPCTrainerPartyFromTrainer(party, GetTrainerStructFromId(trainerNum), firstTrainer, gBattleTypeFlags);
     }
     return retVal;

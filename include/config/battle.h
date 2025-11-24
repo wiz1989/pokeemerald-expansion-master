@@ -367,7 +367,8 @@
 #define B_POOL_RULE_ITEM_CLAUSE             FALSE    // Only allow each item to be picked once
 #define B_POOL_RULES_USE_ITEM_EXCLUSIONS    FALSE    // Exclude items listed in poolItemClauseExclusions
 
-// experimental boss rule setting
+// experimental difficulty settings
 #define B_BOSS_LIMITED_RULES       TRUE    // If set to TRUE, bosses will have a limited rules pool to pull battle rules from
+#define B_BOSS_REPLACE_TRAINERS    TRUE    // If set to TRUE, vanilla trainers will be replaced by new boss trainers in trainers.party
 
 #endif // GUARD_CONFIG_BATTLE_H
