@@ -17015,7 +17015,7 @@ Double Battle: No
 AI: Basic Trainer / Force Setup First Turn
 Mugshot: Purple
 
-Mightyena @ Bright Powder
+Mightyena @ Black Glasses
 Level: 48
 Ability: Intimidate
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
@@ -17067,7 +17067,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Sucker Punch
 - Rock Slide
 - Swords Dance
-- Slash
+- Night Slash
 
 === TRAINER_PHOEBE_HARD ===
 Name: PHOEBE
@@ -17104,7 +17104,7 @@ Ability: Prankster
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Trick
 - Will O Wisp
-- Night Shade
+- Recover
 - Foul Play
 
 Froslass @ Focus Sash
@@ -17181,7 +17181,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Lovely Kiss
 - Focus Punch
 
-Lapras @ Scope Lens
+Lapras @ Wide Lens
 Level: 52
 Ability: Shell Armor
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
@@ -17192,7 +17192,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 
 Walrein @ Sitrus Berry
 Level: 53
-Ability: Levitate
+Ability: Thick Fat
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Surf
 - Body Slam
@@ -17414,7 +17414,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Overheat
 - Sunny Day
 - Body Slam
-- Flamethrower
+- Incinerate
 
 === TRAINER_NORMAN_1_HARD ===
 Name: NORMAN
@@ -17432,7 +17432,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Teeter Dance
 - Psybeam
 - Facade
-- Encore
+- Trick
 
 Vigoroth @ Eviolite
 Level: 27
@@ -17442,7 +17442,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Encore
 - Feint Attack
 
-Linoone @ Bright Powder
+Linoone @ Sitrus Berry
 Level: 29
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Slash
@@ -17454,7 +17454,7 @@ Slaking @ Leftovers
 Level: 31
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Counter
-- Yawn
+- Earthquake
 - Facade
 - Shadow Claw
 
@@ -17476,8 +17476,9 @@ IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Attract
 - Aerial Ace
 
-Tropius
+Tropius @ Sitrus Berry
 Level: 29
+Ability: Harvest
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Sunny Day
 - Aerial Ace
@@ -17580,14 +17581,14 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Waterfall
 - Earthquake
 
-Sealeo @ Eviolite
+Gorebyss
 Level: 43
-Ability: Ice Body
+Ability: Swift Swim
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Encore
-- Brine
-- Hail
-- Aurora Beam
+- Rain Dance
+- Surf
+- Signal Beam
+- Shell Smash
 
 Crawdaunt @ Expert Belt
 Level: 43
