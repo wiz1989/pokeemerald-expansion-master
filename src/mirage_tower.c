@@ -330,6 +330,9 @@ void SetMirageTowerVisibility(void)
     if (FlagGet(FLAG_FORCE_MIRAGE_TOWER_VISIBLE) == TRUE)
         visible = TRUE;
 
+    // force visibility
+    visible = TRUE;
+
     if (visible)
     {
         FlagSet(FLAG_MIRAGE_TOWER_VISIBLE);
