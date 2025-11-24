@@ -5731,6 +5731,10 @@ Roselia @ Oran Berry
 Level: 17
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 
+Volbeat @ Oran Berry
+Level: 17
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+
 === TRAINER_VANESSA ===
 Name: VANESSA
 Class: Pokefan
@@ -5940,13 +5944,22 @@ Music: Intense
 Double Battle: No
 AI: Basic Trainer
 
-Meditite
+Meditite @ Sitrus Berry
 Level: 18
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - High Jump Kick
 - Meditate
 - Confusion
 - Detect
+
+Ponyta @ Sitrus Berry
+Level: 18
+Ability: Flame Body
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Hypnosis
+- Flame Charge
+- Wild Charge
+- Will O Wisp
 
 === TRAINER_SHELBY_1 ===
 Name: SHELBY
