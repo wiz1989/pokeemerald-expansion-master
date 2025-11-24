@@ -400,8 +400,8 @@ static bool8 IsBossRule(u8 battleRule)
         case BATTLERULE_NOSWITCHING:
         case BATTLERULE_PERISHCOUNT:
         case BATTLERULE_SWITCHMOVES:
-        case BATTLERULE_1HP:
-        case BATTLERULE_1PP:
+        // case BATTLERULE_1HP:
+        // case BATTLERULE_1PP:
         case BATTLERULE_TRICKROOM:
         case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
         case BATTLERULE_BANNEDMOVECAT_SPECIAL:
