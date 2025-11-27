@@ -131,6 +131,10 @@ Route116_EventScript_TrainerTipsBagHasPockets::
 	msgbox Route116_Text_TrainerTipsBagHasPockets, MSGBOX_SIGN
 	end
 
+Route116_EventScript_SignDoubleBattle::
+	msgbox Route116_Text_SignDoubleBattle, MSGBOX_SIGN
+	end
+
 Route116_EventScript_Briney::
 	lock
 	faceplayer
@@ -467,4 +471,8 @@ Route116_Text_TrainerTipsBagHasPockets:
 	.string "placed in the appropriate POCKETS.\p"
 	.string "No TRAINER can afford to be without\n"
 	.string "a BAG of their own.$"
+
+Route116_Text_SignDoubleBattle:
+	.string "Oh, look {RIGHT_ARROW}\n"
+	.string "A DOUBLE BATTLE!$"
 
