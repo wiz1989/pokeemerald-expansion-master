@@ -53,6 +53,7 @@ LilycoveCity_DepartmentStore_4F_Pokemart_EvoItems:
     .2byte ITEM_MOON_STONE
     .2byte ITEM_LEAF_STONE
     .2byte ITEM_LINKING_CORD
+	.2byte ITEM_SOOTHE_BELL
     .2byte ITEM_SUN_STONE
     .2byte ITEM_DRAGON_SCALE
     .2byte ITEM_UPGRADE

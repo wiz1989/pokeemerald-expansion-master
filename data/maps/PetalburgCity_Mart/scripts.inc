@@ -43,6 +43,7 @@ PetalburgCity_Mart_Pokemart_Expanded:
 	.2byte ITEM_X_SPEED
 	.2byte ITEM_X_ATTACK
 	.2byte ITEM_X_DEFENSE
+	.2byte ITEM_SOOTHE_BELL
 	.2byte ITEM_ORANGE_MAIL
 	pokemartlistend
 

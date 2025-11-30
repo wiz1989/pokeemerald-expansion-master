@@ -22,6 +22,7 @@ FortreeCity_Mart_Pokemart:
 	.2byte ITEM_PARALYZE_HEAL
 	.2byte ITEM_AWAKENING
 	.2byte ITEM_REVIVE
+	.2byte ITEM_SOOTHE_BELL
 	.2byte ITEM_WOOD_MAIL
 	pokemartlistend
 

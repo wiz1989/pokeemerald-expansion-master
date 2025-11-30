@@ -21,6 +21,7 @@ LavaridgeTown_Mart_Pokemart:
 	.2byte ITEM_BURN_HEAL
 	.2byte ITEM_REVIVE
 	.2byte ITEM_X_SPEED
+	.2byte ITEM_SOOTHE_BELL
 	pokemartlistend
 
 LavaridgeTown_Mart_EventScript_ExpertM::

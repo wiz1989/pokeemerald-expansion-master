@@ -20,6 +20,7 @@ SootopolisCity_Mart_Pokemart:
 	.2byte ITEM_REVIVE
 	.2byte ITEM_X_ATTACK
 	.2byte ITEM_X_DEFENSE
+	.2byte ITEM_SOOTHE_BELL
 	.2byte ITEM_SHADOW_MAIL
 	pokemartlistend
 

@@ -19,6 +19,7 @@ SlateportCity_Mart_Pokemart:
 	.2byte ITEM_SUPER_POTION
 	.2byte ITEM_ANTIDOTE
 	.2byte ITEM_PARALYZE_HEAL
+	.2byte ITEM_SOOTHE_BELL
 	.2byte ITEM_HARBOR_MAIL
 	pokemartlistend
 
