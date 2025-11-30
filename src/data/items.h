@@ -9866,7 +9866,7 @@ const struct Item gItemsInfo[] =
             .description = COMPOUND_STRING(
                 "A hold item that\n"
                 "restores the user's\n"
-                "HP a little."),
+                "HP by 25%."),
         #else
             .holdEffect = HOLD_EFFECT_RESTORE_HP,
             .holdEffectParam = 30,
@@ -10898,17 +10898,20 @@ const struct Item gItemsInfo[] =
 
     [ITEM_MARANGA_BERRY] =
     {
-        .name = ITEM_NAME("Maranga Berry"),
-        .pluralName = ITEM_PLURAL_NAME("Maranga Berries"),
+        .name = ITEM_NAME("Bull Berry"),
+        .pluralName = ITEM_PLURAL_NAME("Bull Berries"),
         .price = (I_BERRY_PRICE >= GEN_8) ? 80 : 20,
-        .holdEffect = HOLD_EFFECT_MARANGA_BERRY,
+        .holdEffect = HOLD_EFFECT_RESTORE_PCT_HP,
+        .holdEffectParam = 50,
         .description = COMPOUND_STRING(
-            "If hit by a special\n"
-            "move, it raises the\n"
-            "Sp. Def. a bit."),
+            "A hold item that\n"
+            "restores the user's\n"
+            "HP by 50%."),
         .pocket = POCKET_BERRIES,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .battleUsage = EFFECT_ITEM_RESTORE_HP,
+        .effect = gItemEffect_BullBerry,
         .flingPower = 10,
         .iconPic = gItemIcon_MarangaBerry,
         .iconPalette = gItemIconPalette_MarangaBerry,

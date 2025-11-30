@@ -1573,20 +1573,20 @@ const struct Berry gBerries[] =
 
     [ITEM_MARANGA_BERRY - FIRST_BERRY_INDEX] =
     {
-        .name = _("Marnga"), // "Maranga" is too long
+        .name = _("Bull"),
         .firmness = BERRY_FIRMNESS_UNKNOWN,
         .color = BERRY_COLOR_BLUE,
         .size = 0,
         .maxYield = YIELD_RATE(2, 5, 10, 13),
         .minYield = YIELD_RATE(1, 1, 1, 2),
-        .description1 = COMPOUND_STRING("Its outside is very bitter, but its"),
-        .description2 = COMPOUND_STRING("inside tastes like a sweet drink."),
+        .description1 = COMPOUND_STRING("A berry that is very sweet and"),
+        .description2 = COMPOUND_STRING("gives you wings."),
         .growthDuration = GROWTH_DURATION(96, 96, 144, 96, 48, 72),
-        .spicy = 10,
+        .spicy = 20,
         .dry = 10,
-        .sweet = 30,
-        .bitter = 30,
-        .sour = 10,
+        .sweet = 40,
+        .bitter = 20,
+        .sour = 20,
         .smoothness = 60,
         .drainRate = 7,
         .waterBonus = 2,
@@ -2100,8 +2100,11 @@ static u8 CalcBerryYield(struct BerryTree *tree)
     else
         result = CalcBerryYieldInternal(max, min, 4);
 
-    if (tree->berry == ITEM_TO_BERRY(ITEM_ORAN_BERRY) || tree->berry == ITEM_TO_BERRY(ITEM_SITRUS_BERRY))
-        DebugPrintf("CalcBerryYield: berry=%d min=%d max=%d yield=%d", tree->berry, min, max, result);
+    if (tree->berry == ITEM_TO_BERRY(ITEM_MARANGA_BERRY))
+        result = 5;
+
+    // if (tree->berry == ITEM_TO_BERRY(ITEM_ORAN_BERRY) || tree->berry == ITEM_TO_BERRY(ITEM_SITRUS_BERRY))
+    //     DebugPrintf("CalcBerryYield: berry=%d min=%d max=%d yield=%d", tree->berry, min, max, result);
 
     return result;
 }

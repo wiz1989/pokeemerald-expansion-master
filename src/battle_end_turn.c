@@ -281,11 +281,11 @@ static bool32 HandleEndTurnGenThreeBerryActivation(u32 battler)
 {
     bool32 effect = FALSE;
 
-    if (B_HP_BERRIES >= GEN_4) // Skip handler for > Gen3
-    {
-        gBattleStruct->endTurnEventsCounter++;
-        return effect;
-    }
+    // if (B_HP_BERRIES >= GEN_4) // Skip handler for > Gen3
+    // {
+    //     gBattleStruct->endTurnEventsCounter++;
+    //     return effect;
+    // }
     gBattleStruct->turnEffectsBattlerId++;
     effect = TryRestoreHPBerries(battler, ITEMEFFECT_NORMAL);
     return effect;
