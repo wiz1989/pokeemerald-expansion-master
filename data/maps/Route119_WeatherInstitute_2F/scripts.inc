@@ -82,6 +82,8 @@ Route119_WeatherInstitute_2F_EventScript_ShellyDefeated::
 Route119_WeatherInstitute_2F_EventScript_ReceiveCastform::
 	msgbox Route119_WeatherInstitute_2F_Text_ThanksPleaseTakePokemon, MSGBOX_DEFAULT
 	setvar VAR_TEMP_TRANSFERRED_SPECIES, SPECIES_CASTFORM_NORMAL
+	checkmetlocclausechecked
+	goto_if_eq VAR_RESULT, TRUE, Cant_receive_gift_mon
 	givemon SPECIES_CASTFORM_NORMAL, 25, ITEM_MYSTIC_WATER
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, Route119_WeatherInstitute_2F_EventScript_ReceiveCastformParty
 	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, Route119_WeatherInstitute_2F_EventScript_ReceiveCastformPC
@@ -324,3 +326,12 @@ Route119_WeatherInstitute_2F_Text_NoAbnormalWeather:
 	.string "The occasional rainfall is a blessing,\n"
 	.string "really.$"
 
+Cant_receive_gift_mon::
+	msgbox CantReceivePokemon, MSGBOX_DEFAULT
+	release
+	end
+
+CantReceivePokemon:
+	.string "Oh, unfortunately you can't receive\n"
+	.string "this POKéMON because you already\l"
+	.string "had an encounter around here.$"

@@ -7465,3 +7465,15 @@ u8 CheckMetLocation(u8 metLoc)
     else
         return VALID_ENCOUNTER;
 }
+
+void ScriptCheckMetlocClauseChecked(struct ScriptContext *ctx)
+{
+    gSpecialVar_Result = FALSE;
+
+    if (gSaveBlock2Ptr->metLocClause)
+    {
+        u8 metLocation = GetCurrentRegionMapSectionId();
+        if (CheckMetLocation(metLocation) == INVALID_ENCOUNTER_METLOC)
+            gSpecialVar_Result = TRUE;
+    }
+}

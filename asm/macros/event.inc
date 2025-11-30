@@ -2659,3 +2659,8 @@
 	callnative ScriptChangeFollowerNPCBattlePartner
 	.2byte \battlePartner
 	.endm
+
+	@ Checks if the current map already had a valid encounter (metloc clause).
+	.macro checkmetlocclausechecked
+	callnative ScriptCheckMetlocClauseChecked
+	.endm

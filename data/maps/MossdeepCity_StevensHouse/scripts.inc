@@ -73,6 +73,8 @@ MossdeepCity_StevensHouse_EventScript_BeldumPokeball::
 	lockall
 	msgbox MossdeepCity_StevensHouse_Text_TakeBallContainingBeldum, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, MossdeepCity_StevensHouse_EventScript_LeaveBeldum
+	checkmetlocclausechecked
+	goto_if_eq VAR_RESULT, TRUE, Cant_receive_gift_mon
 	goto MossdeepCity_StevensHouse_EventScript_GiveBeldum
 	end
 
