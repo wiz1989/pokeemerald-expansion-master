@@ -108,6 +108,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->halfDamage = TRUE;
     gSaveBlock2Ptr->revealRule = TRUE;
     gSaveBlock2Ptr->harderTrainers = TRUE;
+    gSaveBlock2Ptr->leadersUpgrade = FALSE;
 
     // nuzlocke
     gSaveBlock2Ptr->permadeath = TRUE;

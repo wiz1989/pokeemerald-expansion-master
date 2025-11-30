@@ -33,6 +33,7 @@
 #define tDupeClause data[12]
 #define tMetLocClause data[13]
 #define tRevealRule data[14]
+#define tLeadersUpgrade data[15]
 
 enum menuItems_pg1
 {
@@ -52,6 +53,7 @@ enum menuItems_pg2
     MENUITEM_50DAMAGE,
     MENUITEM_REVEALRULE,
     MENUITEM_HARDERTRAINERS,
+    MENUITEM_LEADERS_UPGRADE,
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
 };
@@ -72,20 +74,21 @@ enum
     WIN_OPTIONS
 };
 
-#define YPOS_TEXTSPEED      (MENUITEM_TEXTSPEED * 16)
-#define YPOS_BATTLESCENE    (MENUITEM_BATTLESCENE * 16)
-#define YPOS_BATTLESTYLE    (MENUITEM_BATTLESTYLE * 16)
-#define YPOS_SOUND          (MENUITEM_SOUND * 16)
-#define YPOS_BUTTONMODE     (MENUITEM_BUTTONMODE * 16)
-#define YPOS_FRAMETYPE      (MENUITEM_FRAMETYPE * 16)
-#define YPOS_BATTLESPEEDUP  (MENUITEM_BATTLE_SPEEDUP * 16)
-#define YPOS_PERMADEATH     (MENUITEM_PERMADEATH * 16)
-#define YPOS_NOBAGINBATTLE  (MENUITEM_NOBAGINBATTLE * 16)
-#define YPOS_HARDERTRAINERS (MENUITEM_HARDERTRAINERS * 16)
-#define YPOS_50DAMAGE       (MENUITEM_50DAMAGE * 16)
-#define YPOS_DUPECLAUSE     (MENUITEM_DUPECLAUSE * 16)
-#define YPOS_REVEALRULE     (MENUITEM_REVEALRULE * 16)
-#define YPOS_METLOCCLAUSE   (MENUITEM_METLOCCLAUSE * 16)
+#define YPOS_TEXTSPEED       (MENUITEM_TEXTSPEED * 16)
+#define YPOS_BATTLESCENE     (MENUITEM_BATTLESCENE * 16)
+#define YPOS_BATTLESTYLE     (MENUITEM_BATTLESTYLE * 16)
+#define YPOS_SOUND           (MENUITEM_SOUND * 16)
+#define YPOS_BUTTONMODE      (MENUITEM_BUTTONMODE * 16)
+#define YPOS_FRAMETYPE       (MENUITEM_FRAMETYPE * 16)
+#define YPOS_BATTLESPEEDUP   (MENUITEM_BATTLE_SPEEDUP * 16)
+#define YPOS_PERMADEATH      (MENUITEM_PERMADEATH * 16)
+#define YPOS_NOBAGINBATTLE   (MENUITEM_NOBAGINBATTLE * 16)
+#define YPOS_HARDERTRAINERS  (MENUITEM_HARDERTRAINERS * 16)
+#define YPOS_LEADERS_UPGRADE (MENUITEM_LEADERS_UPGRADE * 16)
+#define YPOS_50DAMAGE        (MENUITEM_50DAMAGE * 16)
+#define YPOS_DUPECLAUSE      (MENUITEM_DUPECLAUSE * 16)
+#define YPOS_REVEALRULE      (MENUITEM_REVEALRULE * 16)
+#define YPOS_METLOCCLAUSE    (MENUITEM_METLOCCLAUSE * 16)
 
 #define PAGE_COUNT  3
 
@@ -107,6 +110,8 @@ static u8 NoBagInBattle_ProcessInput(u8 selection);
 static void NoBagInBattle_DrawChoices(u8 selection);
 static u8 HarderTrainers_ProcessInput(u8 selection);
 static void HarderTrainers_DrawChoices(u8 selection);
+static u8 LeadersUpgrade_ProcessInput(u8 selection);
+static void LeadersUpgrade_DrawChoices(u8 selection);
 static u8 RevealRule_ProcessInput(u8 selection);
 static void RevealRule_DrawChoices(u8 selection);
 static u8 HalfDamage_ProcessInput(u8 selection);
@@ -151,11 +156,12 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
 
 static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
 {
-    [MENUITEM_BATTLE_SPEEDUP] = gText_BattleSpeedup,
-    [MENUITEM_50DAMAGE]       = gText_50Damage,
-    [MENUITEM_REVEALRULE]     = gText_RevealRule,
-    [MENUITEM_HARDERTRAINERS] = gText_HarderTrainers,
-    [MENUITEM_CANCEL_PG2]     = gText_OptionMenuCancel,
+    [MENUITEM_BATTLE_SPEEDUP]  = gText_BattleSpeedup,
+    [MENUITEM_50DAMAGE]        = gText_50Damage,
+    [MENUITEM_REVEALRULE]      = gText_RevealRule,
+    [MENUITEM_HARDERTRAINERS]  = gText_HarderTrainers,
+    [MENUITEM_LEADERS_UPGRADE] = gText_LeadersE4Upgrade,
+    [MENUITEM_CANCEL_PG2]      = gText_OptionMenuCancel,
 };
 
 static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
@@ -242,6 +248,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tPermaDeathOn = gSaveBlock2Ptr->permadeath;
     gTasks[taskId].tNoBagInBattleOn = gSaveBlock2Ptr->noBagInBattle;
     gTasks[taskId].tHarderTrainersOn = gSaveBlock2Ptr->harderTrainers;
+    gTasks[taskId].tLeadersUpgrade = gSaveBlock2Ptr->leadersUpgrade;
     gTasks[taskId].t50DamageOn = gSaveBlock2Ptr->halfDamage;
     gTasks[taskId].tDupeClause = gSaveBlock2Ptr->dupeClause;
     gTasks[taskId].tMetLocClause = gSaveBlock2Ptr->metLocClause;
@@ -268,6 +275,7 @@ static void DrawOptionsPg2(u8 taskId)
     HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
     RevealRule_DrawChoices(gTasks[taskId].tRevealRule);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
+    LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -591,6 +599,13 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tHarderTrainersOn)
                 HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
             break;
+        case MENUITEM_LEADERS_UPGRADE:
+            previousOption = gTasks[taskId].tLeadersUpgrade;
+            gTasks[taskId].tLeadersUpgrade = LeadersUpgrade_ProcessInput(gTasks[taskId].tLeadersUpgrade);
+
+            if (previousOption != gTasks[taskId].tLeadersUpgrade)
+                LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
+            break;
         case MENUITEM_50DAMAGE:
             previousOption = gTasks[taskId].t50DamageOn;
             gTasks[taskId].t50DamageOn = HalfDamage_ProcessInput(gTasks[taskId].t50DamageOn);
@@ -716,6 +731,7 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->permadeath = gTasks[taskId].tPermaDeathOn;
     gSaveBlock2Ptr->noBagInBattle = gTasks[taskId].tNoBagInBattleOn;
     gSaveBlock2Ptr->harderTrainers = gTasks[taskId].tHarderTrainersOn;
+    gSaveBlock2Ptr->leadersUpgrade = gTasks[taskId].tLeadersUpgrade;
     gSaveBlock2Ptr->halfDamage = gTasks[taskId].t50DamageOn;
     gSaveBlock2Ptr->dupeClause = gTasks[taskId].tDupeClause;
     gSaveBlock2Ptr->revealRule = gTasks[taskId].tRevealRule;
@@ -1049,6 +1065,27 @@ static void HarderTrainers_DrawChoices(u8 selection)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_OptionOff, 104, YPOS_HARDERTRAINERS, styles[0]);
     DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_HARDERTRAINERS, styles[1]);
+}
+
+static u8 LeadersUpgrade_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void LeadersUpgrade_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+    DrawOptionMenuChoice(gText_OptionOff, 104, YPOS_LEADERS_UPGRADE, styles[0]);
+    DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_LEADERS_UPGRADE, styles[1]);
 }
 
 static u8 HalfDamage_ProcessInput(u8 selection)

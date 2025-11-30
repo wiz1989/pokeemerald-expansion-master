@@ -1007,6 +1007,7 @@ const u8 gText_BattleSpeedup[] = _("BATTLE SPEEDUP");
 const u8 gText_PermaDeath[] = _("PERMADEATH");
 const u8 gText_NoBagInBattle[] = _("NO BAG IN BATTLE");
 const u8 gText_HarderTrainers[] = _("HARDER TRAINERS");
+const u8 gText_LeadersE4Upgrade[] = _("GYM LEADERS/E4 +");
 const u8 gText_50Damage[] = _("VIOLATION DMG");
 const u8 gText_RevealRule[] = _("REVEAL RULE");
 const u8 gText_DupeClause[] = _("DUPE CLAUSE");
