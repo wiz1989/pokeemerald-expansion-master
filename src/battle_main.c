@@ -5783,12 +5783,12 @@ static void HandleEndTurn_FinishBattle(void)
                 CalculateMonStats(&gPlayerParty[i]);
         }
 
-        // Reset PP in case of 1PP rule, especially necessary for gauntlets
-        if (GetRandomBattleRuleSeeded() == BATTLERULE_1PP)
+        // auto heal Pokemon after every trainer battle
+        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         {
             for (i = 0; i < gPlayerPartyCount; i++)
             {
-                MonRestorePP(&gPlayerParty[i]);
+                HealPokemon(&gPlayerParty[i]);
             }
         }
 
