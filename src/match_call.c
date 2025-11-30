@@ -1080,7 +1080,8 @@ static bool32 MapAllowsMatchCall(void)
      && FlagGet(FLAG_DEFEATED_EVIL_TEAM_MT_CHIMNEY) == FALSE)
         return FALSE;
 
-    return TRUE;
+    // never allow annoying match calls
+    return FALSE;
 }
 
 static bool32 UpdateMatchCallStepCounter(void)
