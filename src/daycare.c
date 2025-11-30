@@ -1213,6 +1213,14 @@ static bool8 TryProduceOrHatchEgg(struct DayCare *daycare)
 
 bool8 ShouldEggHatch(void)
 {
+    // don't hetch eggs in maps that have their matloc clause already ticked
+    if (gSaveBlock2Ptr->metLocClause)
+    {
+        u8 metLocation = GetCurrentRegionMapSectionId();
+        if (CheckMetLocation(metLocation) == INVALID_ENCOUNTER_METLOC)
+            return FALSE;
+    }
+    
     return TryProduceOrHatchEgg(&gSaveBlock1Ptr->daycare);
 }
 
