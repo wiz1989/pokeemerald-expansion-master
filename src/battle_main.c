@@ -2165,7 +2165,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     {
         if (gSaveBlock2Ptr->harderTrainers && gSaveBlock2Ptr->leadersUpgrade && trainerNum >= TRAINER_SIDNEY && (trainerNum + HARDER_TRAINERS_OFFSET) < TRAINERS_COUNT)
         {
-            u16 trainerNumOld = trainerNum;
+            // u16 trainerNumOld = trainerNum;
             trainerNum = trainerNum + HARDER_TRAINERS_OFFSET;
             // DebugPrintf("updated trainerNum from %d to %d", trainerNumOld, trainerNum);
         }
