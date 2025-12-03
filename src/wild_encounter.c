@@ -19,6 +19,7 @@
 #include "battle_debug.h"
 #include "battle_pike.h"
 #include "battle_pyramid.h"
+#include "caps.h"
 #include "constants/abilities.h"
 #include "constants/game_stat.h"
 #include "constants/item.h"
@@ -481,6 +482,18 @@ u8 PickWildMonNature(void)
 void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm = TRUE;
+    u8 offsetRandom = 0;
+    u8 offsetFixed = 0;
+    u8 currentLevelCap = GetCurrentLevelCap();
+
+    // keep level of wild mons 5 - 8 levels below the level cap
+    if (currentLevelCap <= 5)
+        offsetFixed = 1;
+    else
+        offsetFixed = 5;
+
+    offsetRandom = Random() % 4;
+    level = currentLevelCap - offsetFixed - offsetRandom;
 
     gIsDupe = FALSE;
     if (CheckDupes(species) == INVALID_ENCOUNTER_DUPE)
