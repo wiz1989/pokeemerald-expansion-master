@@ -6355,9 +6355,9 @@ Level: 13
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 === TRAINER_WALLACE ===
-Name: WALLACE
+Name: STEVEN
 Class: Champion
-Pic: Champion Wallace
+Pic: Steven
 Gender: Male
 Music: Male
 Items: Full Restore / Full Restore / Full Restore / Full Restore
@@ -6365,53 +6365,53 @@ Double Battle: No
 AI: Basic Trainer
 Mugshot: Yellow
 
-Wailord
+Skarmory
+Level: 56
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Toxic
+- Aerial Ace
+- Spikes
+- Steel Wing
+
+Claydol
+Level: 56
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Reflect
+- Light Screen
+- Ancient Power
+- Earthquake
+
+Aggron
 Level: 57
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rain Dance
-- Water Spout
-- Double Edge
-- Blizzard
+- Thunder
+- Earthquake
+- Solar Beam
+- Dragon Claw
 
-Tentacruel
-Level: 55
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Toxic
-- Hydro Pump
-- Sludge Bomb
-- Ice Beam
-
-Ludicolo
-Level: 56
+Cradily
+Level: 57
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Giga Drain
-- Surf
-- Leech Seed
-- Double Team
+- Ancient Power
+- Ingrain
+- Confuse Ray
 
-Whiscash
-Level: 56
+Armaldo
+Level: 57
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Surf
-- Amnesia
-- Hyper Beam
+- Water Pulse
+- Ancient Power
+- Aerial Ace
+- Slash
 
-Gyarados
-Level: 56
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Dragon Dance
-- Earthquake
-- Hyper Beam
-- Surf
-
-Milotic @ Sitrus Berry
+Metagross @ Sitrus Berry
 Level: 58
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Recover
-- Surf
-- Ice Beam
-- Toxic
+- Earthquake
+- Psychic
+- Meteor Mash
+- Shadow Ball
 
 === TRAINER_ANDREW ===
 Name: ANDREW
@@ -17609,9 +17609,9 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Ice Beam
 
 === TRAINER_WALLACE_HARD ===
-Name: WALLACE
+Name: STEVEN
 Class: Champion
-Pic: Champion Wallace
+Pic: Steven
 Gender: Male
 Music: Male
 Items: Full Restore / Full Restore / Full Restore / Full Restore
@@ -17619,56 +17619,55 @@ Double Battle: No
 AI: Basic Trainer
 Mugshot: Yellow
 
-Milotic @ Leftovers
-Level: 57
-Ability: Cute Charm
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Rain Dance
-- Scald
-- Ice Beam
-- Recover
-
-Tentacruel @ Black Sludge
-Level: 55
-Ability: Rain Dish
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Toxic
-- Hydro Pump
-- Sludge Bomb
-- Icy Wind
-
-Ludicolo @ Life Orb
+Skarmory @ Rocky Helmet
 Level: 56
-Ability: Swift Swim
+Ability: Sturdy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Roost
+- Aerial Ace
+- Spikes
+- Steel Wing
+
+Claydol @ Leftovers
+Level: 56
+Ability: Levitate
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Reflect
+- Light Screen
+- Ice Beam
+- Earthquake
+
+Aggron @ Sitrus Berry
+Level: 57
+Ability: Rock Head
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Thunder
+- Earthquake
+- Head Smash
+- Rock Polish
+
+Cradily @ Big Root
+Level: 57
+Ability: Storm Drain
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Giga Drain
-- Surf
-- Leech Seed
-- Rain Dance
+- Rock Slide
+- Recover
+- Toxic
 
-Sharpedo @ Expert Belt
+Archeops
 Level: 56
-Ability: Speed Boost
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Earthquake
-- Crunch
-- Waterfall
-- Poison Jab
+- Earth Power
+- Roost
+- Acrobatics
+- U Turn
 
-Gyarados @ Focus Sash
-Level: 56
-Ability: Intimidate
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Dragon Dance
-- Earthquake
-- Stone Edge
-- Waterfall
-
-Swampert @ Salac Berry
+Metagross @ Custap Berry
 Level: 58
-Ability: Torrent
+Ability: Clear Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Scald
+- Bullet Punch
+- Zen Headbutt
+- Hone Claws
 - Earthquake
-- Bulldoze
-- Yawn
