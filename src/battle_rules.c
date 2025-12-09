@@ -407,7 +407,7 @@ static bool8 IsBossRule(u8 battleRule)
         case BATTLERULE_BANNEDMOVECAT_SPECIAL:
         case BATTLERULE_BANNEDMOVECAT_STATUS:
         case BATTLERULE_INVERSE:
-        case BATTLERULE_FIRSTMOVEONLY:
+        // case BATTLERULE_FIRSTMOVEONLY:
         case BATTLERULE_TRUANT:
             return TRUE;
         default:
