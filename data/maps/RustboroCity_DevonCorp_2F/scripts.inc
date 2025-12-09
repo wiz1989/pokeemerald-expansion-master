@@ -86,7 +86,7 @@ RustboroCity_DevonCorp_2F_EventScript_GiveRootFossil::
 	bufferitemname STR_VAR_1, ITEM_ROOT_FOSSIL
 	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
 	removeitem ITEM_ROOT_FOSSIL
-	setvar VAR_FOSSIL_RESURRECTION_STATE, 1
+	setvar VAR_FOSSIL_RESURRECTION_STATE, 2
 	setvar VAR_WHICH_FOSSIL_REVIVED, 1
 	release
 	end
@@ -109,7 +109,7 @@ RustboroCity_DevonCorp_2F_EventScript_GiveClawFossil::
 	bufferitemname STR_VAR_1, ITEM_CLAW_FOSSIL
 	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
 	removeitem ITEM_CLAW_FOSSIL
-	setvar VAR_FOSSIL_RESURRECTION_STATE, 1
+	setvar VAR_FOSSIL_RESURRECTION_STATE, 2
 	setvar VAR_WHICH_FOSSIL_REVIVED, 2
 	release
 	end
