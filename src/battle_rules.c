@@ -336,6 +336,8 @@ u8 GetRandomMoveTypeSeeded(void)
         u8 *party_movetypes = AllocZeroed(NUMBER_OF_MON_TYPES * sizeof(u8));
         for (int i = 0; i < PARTY_SIZE; i++)
         {
+            if (i == 1 && Random() % 2 == 0) // in 50% of the cases, only check first mon
+                break;
             if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE  && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
             {
                 for (u8 slot = 0; slot < MAX_MON_MOVES; slot++)
