@@ -404,14 +404,14 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_LASS",
-      "x": 49,
-      "y": 16,
+      "x": 48,
+      "y": 15,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "1",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "Route123_EventScript_Jacki",
       "flag": "0"
     },
@@ -424,7 +424,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "4",
+      "trainer_sight_or_berry_tree_id": "5",
       "script": "Route123_EventScript_Kindra",
       "flag": "0"
     },
@@ -483,52 +483,52 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_MANIAC",
       "x": 89,
-      "y": 16,
+      "y": 17,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "4",
+      "trainer_sight_or_berry_tree_id": "5",
       "script": "Route123_EventScript_Ed",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_5",
-      "x": 66,
-      "y": 16,
+      "x": 67,
+      "y": 15,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "2",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "Route123_EventScript_Fernando",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_5",
-      "x": 66,
+      "x": 67,
       "y": 19,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "2",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "Route123_EventScript_Alberto",
       "flag": "0"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_EXPERT_M",
-      "x": 49,
+      "x": 48,
       "y": 19,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "2",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "Route123_EventScript_Frederick",
       "flag": "0"
     },
@@ -595,13 +595,6 @@
     }
   ],
   "coord_events": [
-    {
-      "type": "weather",
-      "x": 90,
-      "y": 16,
-      "elevation": 3,
-      "weather": "COORD_EVENT_WEATHER_ROUTE123_CYCLE"
-    },
     {
       "type": "weather",
       "x": 92,
@@ -748,6 +741,13 @@
       "y": 10,
       "elevation": 3,
       "weather": "COORD_EVENT_WEATHER_ROUTE123_CYCLE"
+    },
+    {
+      "type": "weather",
+      "x": 91,
+      "y": 16,
+      "elevation": 3,
+      "weather": "COORD_EVENT_WEATHER_ROUTE123_CYCLE"
     }
   ],
   "bg_events": [
@@ -806,7 +806,7 @@
     },
     {
       "type": "hidden_item",
-      "x": 91,
+      "x": 90,
       "y": 15,
       "elevation": 3,
       "item": "ITEM_HYPER_POTION",

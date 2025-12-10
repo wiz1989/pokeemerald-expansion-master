@@ -16,14 +16,14 @@
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_MAGMA_MEMBER_M",
-      "x": 16,
-      "y": 3,
+      "x": 7,
+      "y": 8,
       "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN_AND_LEFT",
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "3",
+      "trainer_sight_or_berry_tree_id": "1",
       "script": "MagmaHideout_3F_2R_EventScript_Grunt10",
       "flag": "FLAG_HIDE_MAGMA_HIDEOUT_GRUNTS"
     },
