@@ -24,9 +24,9 @@
         {
           "type": "water_mons",
           "encounter_rates": [
-            60,
-            30,
-            5,
+            40,
+            40,
+            15,
             4,
             1
           ]
