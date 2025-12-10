@@ -2810,3 +2810,17 @@ bool8 PartyHasMonWithFlash(void)
     }
     return FALSE;
 }
+
+bool8 PartyHasMonWithFly(void)
+{
+    u8 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+            break;
+        if (MonKnowsMove(&gPlayerParty[i], MOVE_FLY))
+            return TRUE;
+    }
+    return FALSE;
+}

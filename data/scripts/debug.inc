@@ -323,9 +323,30 @@ Debug_EventScript_NotLeveledUpMessage::
 	releaseall
 	end
 
+Debug_EventScript_CantUseFly::
+	msgbox Debug_CantUseFly, MSGBOX_DEFAULT
+	waitmessage
+	closemessage
+	releaseall
+	return
+
+Debug_EventScript_CantUseFlyHere::
+	msgbox Debug_CantUseFlyHere, MSGBOX_DEFAULT
+	waitmessage
+	closemessage
+	releaseall
+	return
+
 Debug_LevelUp_Cap:
 	.string "{STR_VAR_1} was leveled up\n"
 	.string "to the current cap.$"
+
+Debug_CantUseFly:
+	.string "You haven't obtained the ability\n"
+	.string "to use Fly yet.$"
+
+Debug_CantUseFlyHere:
+	.string "You can't use Fly here.$"
 
 Debug_ActionCancelled:
 	.string "Action cancelled.$"

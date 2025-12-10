@@ -26,6 +26,8 @@
 #include "event_scripts.h"
 #include "evolution_scene.h"
 #include "field_message_box.h"
+#include "field_move.h"
+#include "field_player_avatar.h"
 #include "field_screen_effect.h"
 #include "field_weather.h"
 #include "follower_npc.h"
@@ -255,6 +257,7 @@ static void DebugAction_ToggleFlag(u8 taskId);
 static void DebugTask_HandleMenuInput_General(u8 taskId);
 
 static void DebugAction_Util_Fly(u8 taskId);
+static void DebugAction_Util_FlyWithCheck(u8 taskId);
 static void DebugAction_Util_Warp_Warp(u8 taskId);
 static void DebugAction_Util_Warp_SelectMapGroup(u8 taskId);
 static void DebugAction_Util_Warp_SelectMap(u8 taskId);
@@ -395,6 +398,8 @@ extern const u8 Debug_EventScript_PrintTimeOfDay[];
 extern const u8 Debug_EventScript_TellTheTime[];
 extern const u8 Debug_EventScript_FakeRTCNotEnabled[];
 extern const u8 Debug_EventScript_LevelUpToCap[];
+extern const u8 Debug_EventScript_CantUseFly[];
+extern const u8 Debug_EventScript_CantUseFlyHere[];
 
 extern const u8 Debug_BerryPestsDisabled[];
 extern const u8 Debug_BerryWeedsDisabled[];
@@ -711,6 +716,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_QoLHub[] =
     { COMPOUND_STRING("Access PC"),       DebugAction_ExecuteScript, EventScript_PC, },
     { COMPOUND_STRING("Inflict Status"),  DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
     { COMPOUND_STRING("Move Reminder"),   DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
+    { COMPOUND_STRING("Fly to map…"),     DebugAction_Util_FlyWithCheck },
     { COMPOUND_STRING("Reroll Rule"),     DebugAction_IncreaseRerollCounter },
     { COMPOUND_STRING("Cancel"),          DebugAction_Cancel, },
     { NULL }
@@ -1272,6 +1278,27 @@ static void DebugAction_Util_Fly(u8 taskId)
 {
     Debug_DestroyMenu_Full(taskId);
     SetMainCallback2(CB2_OpenFlyMap);
+}
+
+static void DebugAction_Util_FlyWithCheck(u8 taskId)
+{
+    if (!(PartyHasMonWithFly() == TRUE || CheckBagHasItem(ITEM_HM02 ,1)))
+    {
+        Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_CantUseFly);
+    }
+    else if (!IsFieldMoveUnlocked(FIELD_MOVE_FLY))
+    {
+        Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_CantUseFly);
+    }
+    else if (SetUpFieldMove(FIELD_MOVE_FLY) == TRUE)
+    {
+        Debug_DestroyMenu_Full(taskId);
+        SetMainCallback2(CB2_OpenFlyMap);
+    }
+    else //map doesn't allow flying
+    {
+        Debug_DestroyMenu_Full_Script(taskId, Debug_EventScript_CantUseFlyHere);
+    }
 }
 
 #define tMapGroup  data[5]

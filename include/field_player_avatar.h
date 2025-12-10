@@ -74,5 +74,6 @@ void UpdateSpinData(void);
 void ResetSpinTimer(void);
 bool32 CanTriggerSpinEvolution();
 bool8 PartyHasMonWithFlash(void);
+bool8 PartyHasMonWithFly(void);
 
 #endif // GUARD_FIELD_PLAYER_AVATAR_H
