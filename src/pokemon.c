@@ -7445,6 +7445,21 @@ u16 GetEvolutionFamily(u16 species, u16 *buffer, u16 bufCapacity)
 
 u8 CheckDupes(u16 species_catch)
 {
+    u16 i = 0;
+    for (i = SPECIES_BULBASAUR; i < NUM_SPECIES; i++)
+    {
+        if (gSpeciesInfo[i].family == SPECIES_NONE)
+            continue;
+        if (gSpeciesInfo[i].family != gSpeciesInfo[species_catch].family)
+            continue;
+        if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(i), FLAG_GET_CAUGHT))
+            return INVALID_ENCOUNTER_DUPE;
+    }
+    return VALID_ENCOUNTER;
+}
+
+u8 UNUSED CheckDupes_old(u16 species_catch)
+{
     u16 family[NUM_SPECIES];
     u16 familyCount = GetEvolutionFamily(species_catch, family, ARRAY_COUNT(family));
 

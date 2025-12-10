@@ -6,6 +6,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TREECKO
     [SPECIES_TREECKO] =
     {
+        .family = SPECIES_TREECKO,
         .baseHP        = 40,
         .baseAttack    = 45,
         .baseDefense   = 35,
@@ -77,6 +78,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_GROVYLE] =
     {
+        .family = SPECIES_TREECKO,
         .baseHP        = 50,
         .baseAttack    = 65,
         .baseDefense   = 45,
@@ -147,6 +149,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SCEPTILE] =
     {
+        .family = SPECIES_TREECKO,
         .baseHP        = 70,
         .baseAttack    = 85,
         .baseDefense   = 65,
@@ -223,6 +226,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_SCEPTILE_MEGA] =
     {
+        .family = SPECIES_TREECKO,
         .baseHP        = 70,
         .baseAttack    = 110,
         .baseDefense   = 75,
@@ -294,6 +298,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TORCHIC
     [SPECIES_TORCHIC] =
     {
+        .family = SPECIES_TORCHIC,
         .baseHP        = 45,
         .baseAttack    = 60,
         .baseDefense   = 40,
@@ -378,6 +383,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_COMBUSKEN] =
     {
+        .family = SPECIES_TORCHIC,
         .baseHP        = 60,
         .baseAttack    = 85,
         .baseDefense   = 60,
@@ -460,6 +466,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_BLAZIKEN] =
     {
+        .family = SPECIES_TORCHIC,
         .baseHP        = 80,
         .baseAttack    = 120,
         .baseDefense   = 70,
@@ -551,6 +558,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_BLAZIKEN_MEGA] =
     {
+        .family = SPECIES_TORCHIC,
         .baseHP        = 80,
         .baseAttack    = 160,
         .baseDefense   = 80,
@@ -622,6 +630,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_MUDKIP
     [SPECIES_MUDKIP] =
     {
+        .family = SPECIES_MUDKIP,
         .baseHP        = 50,
         .baseAttack    = 70,
         .baseDefense   = 50,
@@ -693,6 +702,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MARSHTOMP] =
     {
+        .family = SPECIES_MUDKIP,
         .baseHP        = 70,
         .baseAttack    = 85,
         .baseDefense   = 70,
@@ -767,6 +777,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SWAMPERT] =
     {
+        .family = SPECIES_MUDKIP,
         .baseHP        = 100,
         .baseAttack    = 110,
         .baseDefense   = 90,
@@ -845,6 +856,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_SWAMPERT_MEGA] =
     {
+        .family = SPECIES_MUDKIP,
         .baseHP        = 100,
         .baseAttack    = 150,
         .baseDefense   = 110,
@@ -916,6 +928,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_POOCHYENA
     [SPECIES_POOCHYENA] =
     {
+        .family = SPECIES_POOCHYENA,
         .baseHP        = 35,
         .baseAttack    = 55,
         .baseDefense   = 35,
@@ -995,6 +1008,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MIGHTYENA] =
     {
+        .family = SPECIES_POOCHYENA,
         .baseHP        = 70,
         .baseAttack    = 90,
         .baseDefense   = 70,
@@ -1078,6 +1092,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_ZIGZAGOON] =
     {
+        .family = SPECIES_ZIGZAGOON,
         .baseHP        = 38,
         .baseAttack    = 30,
         .baseDefense   = 41,
@@ -1156,6 +1171,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LINOONE] =
     {
+        .family = SPECIES_ZIGZAGOON,
         .baseHP        = 78,
         .baseAttack    = 70,
         .baseDefense   = 61,
@@ -1233,6 +1249,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GALARIAN_FORMS
     [SPECIES_ZIGZAGOON_GALAR] =
     {
+        .family = SPECIES_ZIGZAGOON,
         .baseHP        = 38,
         .baseAttack    = 30,
         .baseDefense   = 41,
@@ -1300,6 +1317,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LINOONE_GALAR] =
     {
+        .family = SPECIES_ZIGZAGOON,
         .baseHP        = 78,
         .baseAttack    = 70,
         .baseDefense   = 61,
@@ -1366,6 +1384,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_OBSTAGOON] =
     {
+        .family = SPECIES_ZIGZAGOON,
         .baseHP        = 93,
         .baseAttack    = 90,
         .baseDefense   = 101,
@@ -1432,6 +1451,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_WURMPLE
     [SPECIES_WURMPLE] =
     {
+        .family = SPECIES_WURMPLE,
         .baseHP        = 45,
         .baseAttack    = 45,
         .baseDefense   = 35,
@@ -1510,6 +1530,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SILCOON] =
     {
+        .family = SPECIES_WURMPLE,
         .baseHP        = 50,
         .baseAttack    = 35,
         .baseDefense   = 55,
@@ -1579,6 +1600,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_BEAUTIFLY] =
     {
+        .family = SPECIES_WURMPLE,
         .baseHP        = 60,
         .baseAttack    = 70,
         .baseDefense   = 50,
@@ -1675,6 +1697,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CASCOON] =
     {
+        .family = SPECIES_WURMPLE,
         .baseHP        = 50,
         .baseAttack    = 35,
         .baseDefense   = 55,
@@ -1752,6 +1775,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_DUSTOX] =
     {
+        .family = SPECIES_WURMPLE,
         .baseHP        = 60,
         .baseAttack    = 50,
         .baseDefense   = 70,
@@ -1858,6 +1882,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_LOTAD
     [SPECIES_LOTAD] =
     {
+        .family = SPECIES_LOTAD,
         .baseHP        = 40,
         .baseAttack    = 30,
         .baseDefense   = 30,
@@ -1928,6 +1953,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LOMBRE] =
     {
+        .family = SPECIES_LOTAD,
         .baseHP        = 60,
         .baseAttack    = 50,
         .baseDefense   = 50,
@@ -1999,6 +2025,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LUDICOLO] =
     {
+        .family = SPECIES_LOTAD,
         .baseHP        = 80,
         .baseAttack    = 70,
         .baseDefense   = 70,
@@ -2092,6 +2119,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SEEDOT
     [SPECIES_SEEDOT] =
     {
+        .family = SPECIES_SEEDOT,
         .baseHP        = 40,
         .baseAttack    = 40,
         .baseDefense   = 50,
@@ -2168,6 +2196,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_NUZLEAF] =
     {
+        .family = SPECIES_SEEDOT,
         .baseHP        = 70,
         .baseAttack    = 70,
         .baseDefense   = 40,
@@ -2256,6 +2285,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SHIFTRY] =
     {
+        .family = SPECIES_SEEDOT,
         .baseHP        = 90,
         .baseAttack    = 100,
         .baseDefense   = 60,
@@ -2349,6 +2379,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TAILLOW
     [SPECIES_TAILLOW] =
     {
+        .family = SPECIES_TAILLOW,
         .baseHP        = 40,
         .baseAttack    = 55,
         .baseDefense   = 30,
@@ -2424,6 +2455,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SWELLOW] =
     {
+        .family = SPECIES_TAILLOW,
         .baseHP        = 60,
         .baseAttack    = 85,
         .baseDefense   = 60,
@@ -2499,6 +2531,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_WINGULL
     [SPECIES_WINGULL] =
     {
+        .family = SPECIES_WINGULL,
         .baseHP        = 40,
         .baseAttack    = 30,
         .baseDefense   = 30,
@@ -2574,6 +2607,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_PELIPPER] =
     {
+        .family = SPECIES_WINGULL,
         .baseHP        = 60,
         .baseAttack    = 50,
         .baseDefense   = 100,
@@ -2669,6 +2703,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_RALTS] =
     {
+        .family = SPECIES_RALTS,
         .baseHP        = 28,
         .baseAttack    = 25,
         .baseDefense   = 25,
@@ -2738,6 +2773,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_KIRLIA] =
     {
+        .family = SPECIES_RALTS,
         .baseHP        = 38,
         .baseAttack    = 35,
         .baseDefense   = 35,
@@ -2810,6 +2846,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_GARDEVOIR] =
     {
+        .family = SPECIES_RALTS,
         .baseHP        = 68,
         .baseAttack    = 65,
         .baseDefense   = 65,
@@ -2886,6 +2923,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_GARDEVOIR_MEGA] =
     {
+        .family = SPECIES_RALTS,
         .baseHP        = 68,
         .baseAttack    = 85,
         .baseDefense   = 65,
@@ -2956,6 +2994,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_GALLADE] =
     {
+        .family = SPECIES_RALTS,
         .baseHP        = 68,
         .baseAttack    = 125,
         .baseDefense   = 65,
@@ -3035,6 +3074,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_GALLADE_MEGA] =
     {
+        .family = SPECIES_RALTS,
         .baseHP        = 68,
         .baseAttack    = 165,
         .baseDefense   = 95,
@@ -3107,6 +3147,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SURSKIT
     [SPECIES_SURSKIT] =
     {
+        .family = SPECIES_SURSKIT,
         .baseHP        = 40,
         .baseAttack    = 30,
         .baseDefense   = 32,
@@ -3179,6 +3220,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MASQUERAIN] =
     {
+        .family = SPECIES_SURSKIT,
         .baseHP        = 70,
         .baseAttack    = 60,
         .baseDefense   = 62,
@@ -3263,6 +3305,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SHROOMISH
     [SPECIES_SHROOMISH] =
     {
+        .family = SPECIES_SHROOMISH,
         .baseHP        = 60,
         .baseAttack    = 40,
         .baseDefense   = 60,
@@ -3346,6 +3389,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_BRELOOM] =
     {
+        .family = SPECIES_SHROOMISH,
         .baseHP        = 60,
         .baseAttack    = 130,
         .baseDefense   = 80,
@@ -3423,6 +3467,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SLAKOTH
     [SPECIES_SLAKOTH] =
     {
+        .family = SPECIES_SLAKOTH,
         .baseHP        = 60,
         .baseAttack    = 60,
         .baseDefense   = 60,
@@ -3495,6 +3540,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_VIGOROTH] =
     {
+        .family = SPECIES_SLAKOTH,
         .baseHP        = 80,
         .baseAttack    = 80,
         .baseDefense   = 80,
@@ -3567,6 +3613,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SLAKING] =
     {
+        .family = SPECIES_SLAKOTH,
         .baseHP        = 150,
         .baseAttack    = 160,
         .baseDefense   = 100,
@@ -3646,6 +3693,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_NINCADA
     [SPECIES_NINCADA] =
     {
+        .family = SPECIES_NINCADA,
         .baseHP        = 31,
         .baseAttack    = 45,
         .baseDefense   = 90,
@@ -3723,6 +3771,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_NINJASK] =
     {
+        .family = SPECIES_NINCADA,
         .baseHP        = 61,
         .baseAttack    = 90,
         .baseDefense   = 45,
@@ -3806,6 +3855,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SHEDINJA] =
     {
+        .family = SPECIES_NINCADA,
         .baseHP        = 1,
         .baseAttack    = 90,
         .baseDefense   = 45,
@@ -3878,6 +3928,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_WHISMUR
     [SPECIES_WHISMUR] =
     {
+        .family = SPECIES_WHISMUR,
         .baseHP        = 64,
         .baseAttack    = 51,
         .baseDefense   = 23,
@@ -3954,6 +4005,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LOUDRED] =
     {
+        .family = SPECIES_WHISMUR,
         .baseHP        = 84,
         .baseAttack    = 71,
         .baseDefense   = 43,
@@ -4024,6 +4076,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_EXPLOUD] =
     {
+        .family = SPECIES_WHISMUR,
         .baseHP        = 104,
         .baseAttack    = 91,
         .baseDefense   = 63,
@@ -4101,6 +4154,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_MAKUHITA
     [SPECIES_MAKUHITA] =
     {
+        .family = SPECIES_MAKUHITA,
         .baseHP        = 72,
         .baseAttack    = 60,
         .baseDefense   = 30,
@@ -4177,6 +4231,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_HARIYAMA] =
     {
+        .family = SPECIES_MAKUHITA,
         .baseHP        = 144,
         .baseAttack    = 120,
         .baseDefense   = 60,
@@ -4248,6 +4303,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_NOSEPASS
     [SPECIES_NOSEPASS] =
     {
+        .family = SPECIES_NOSEPASS,
         .baseHP        = 30,
         .baseAttack    = 45,
         .baseDefense   = 135,
@@ -4326,6 +4382,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_PROBOPASS] =
     {
+        .family = SPECIES_NOSEPASS,
         .baseHP        = 60,
         .baseAttack    = 55,
         .baseDefense   = 145,
@@ -4401,6 +4458,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SKITTY
     [SPECIES_SKITTY] =
     {
+        .family = SPECIES_SKITTY,
         .baseHP        = 50,
         .baseAttack    = 45,
         .baseDefense   = 45,
@@ -4474,6 +4532,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_DELCATTY] =
     {
+        .family = SPECIES_SKITTY,
         .baseHP        = 70,
         .baseAttack    = 65,
         .baseDefense   = 65,
@@ -4554,6 +4613,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SABLEYE
     [SPECIES_SABLEYE] =
     {
+        .family = SPECIES_SABLEYE,
         .baseHP        = 50,
         .baseAttack    = 75,
         .baseDefense   = 75,
@@ -4633,6 +4693,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_SABLEYE_MEGA] =
     {
+        .family = SPECIES_SABLEYE,
         .baseHP        = 50,
         .baseAttack    = 85,
         .baseDefense   = 125,
@@ -4711,6 +4772,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MAWILE] =
     {
+        .family = SPECIES_MAWILE,
         .baseHP        = 50,
         .baseAttack    = 85,
         .baseDefense   = 85,
@@ -4788,6 +4850,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_MAWILE_MEGA] =
     {
+        .family = SPECIES_MAWILE,
         .baseHP        = 50,
         .baseAttack    = 105,
         .baseDefense   = 125,
@@ -4861,6 +4924,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_ARON
     [SPECIES_ARON] =
     {
+        .family = SPECIES_ARON,
         .baseHP        = 50,
         .baseAttack    = 70,
         .baseDefense   = 100,
@@ -4933,6 +4997,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_LAIRON] =
     {
+        .family = SPECIES_ARON,
         .baseHP        = 60,
         .baseAttack    = 90,
         .baseDefense   = 140,
@@ -5004,6 +5069,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_AGGRON] =
     {
+        .family = SPECIES_ARON,
         .baseHP        = 70,
         .baseAttack    = 110,
         .baseDefense   = 180,
@@ -5081,6 +5147,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_AGGRON_MEGA] =
     {
+        .family = SPECIES_ARON,
         .baseHP        = 70,
         .baseAttack    = 140,
         .baseDefense   = 230,
@@ -5153,6 +5220,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_MEDITITE
     [SPECIES_MEDITITE] =
     {
+        .family = SPECIES_MEDITITE,
         .baseHP        = 30,
         .baseAttack    = 40,
         .baseDefense   = 55,
@@ -5235,6 +5303,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MEDICHAM] =
     {
+        .family = SPECIES_MEDITITE,
         .baseHP        = 60,
         .baseAttack    = 60,
         .baseDefense   = 75,
@@ -5322,6 +5391,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_MEDICHAM_MEGA] =
     {
+        .family = SPECIES_MEDITITE,
         .baseHP        = 60,
         .baseAttack    = 100,
         .baseDefense   = 85,
@@ -5393,6 +5463,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_ELECTRIKE
     [SPECIES_ELECTRIKE] =
     {
+        .family = SPECIES_ELECTRIKE,
         .baseHP        = 40,
         .baseAttack    = 45,
         .baseDefense   = 40,
@@ -5464,6 +5535,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MANECTRIC] =
     {
+        .family = SPECIES_ELECTRIKE,
         .baseHP        = 70,
         .baseAttack    = 75,
         .baseDefense   = 60,
@@ -5536,6 +5608,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_MANECTRIC_MEGA] =
     {
+        .family = SPECIES_ELECTRIKE,
         .baseHP        = 70,
         .baseAttack    = 75,
         .baseDefense   = 80,
@@ -5606,6 +5679,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_PLUSLE
     [SPECIES_PLUSLE] =
     {
+        .family = SPECIES_PLUSLE,
         .baseHP        = 60,
         .baseAttack    = 50,
         .baseDefense   = 40,
@@ -5683,6 +5757,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_MINUN
     [SPECIES_MINUN] =
     {
+        .family = SPECIES_MINUN,
         .baseHP        = 60,
         .baseAttack    = 40,
         .baseDefense   = 50,
@@ -5760,6 +5835,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_VOLBEAT_ILLUMISE
     [SPECIES_VOLBEAT] =
     {
+        .family = SPECIES_VOLBEAT,
         .baseHP        = 65,
         .baseAttack    = 73,
         .baseDefense   = P_UPDATED_STATS >= GEN_7 ? 75 : 55,
@@ -5839,6 +5915,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_ILLUMISE] =
     {
+        .family = SPECIES_VOLBEAT,
         .baseHP        = 65,
         .baseAttack    = 47,
         .baseDefense   = P_UPDATED_STATS >= GEN_7 ? 75 : 55,
@@ -5923,6 +6000,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_BUDEW] =
     {
+        .family = SPECIES_BUDEW,
         .baseHP        = 40,
         .baseAttack    = 30,
         .baseDefense   = 35,
@@ -5996,6 +6074,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_ROSELIA] =
     {
+        .family = SPECIES_BUDEW,
         .baseHP        = 50,
         .baseAttack    = 60,
         .baseDefense   = 45,
@@ -6083,6 +6162,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_ROSERADE] =
     {
+        .family = SPECIES_BUDEW,
         .baseHP        = 60,
         .baseAttack    = 70,
         .baseDefense   = P_UPDATED_STATS >= GEN_6 ? 65 : 55,
@@ -6175,6 +6255,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_GULPIN
     [SPECIES_GULPIN] =
     {
+        .family = SPECIES_GULPIN,
         .baseHP        = 70,
         .baseAttack    = 43,
         .baseDefense   = 53,
@@ -6261,6 +6342,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SWALOT] =
     {
+        .family = SPECIES_GULPIN,
         .baseHP        = 100,
         .baseAttack    = 73,
         .baseDefense   = 83,
@@ -6346,6 +6428,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_CARVANHA
     [SPECIES_CARVANHA] =
     {
+        .family = SPECIES_CARVANHA,
         .baseHP        = 45,
         .baseAttack    = 90,
         .baseDefense   = 20,
@@ -6422,6 +6505,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SHARPEDO] =
     {
+        .family = SPECIES_CARVANHA,
         .baseHP        = 70,
         .baseAttack    = 120,
         .baseDefense   = 40,
@@ -6499,6 +6583,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_SHARPEDO_MEGA] =
     {
+        .family = SPECIES_CARVANHA,
         .baseHP        = 70,
         .baseAttack    = 140,
         .baseDefense   = 70,
@@ -6572,6 +6657,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_WAILMER
     [SPECIES_WAILMER] =
     {
+        .family = SPECIES_WAILMER,
         .baseHP        = 130,
         .baseAttack    = 70,
         .baseDefense   = 35,
@@ -6645,6 +6731,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_WAILORD] =
     {
+        .family = SPECIES_WAILMER,
         .baseHP        = 170,
         .baseAttack    = 90,
         .baseDefense   = 45,
@@ -6715,6 +6802,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_NUMEL
     [SPECIES_NUMEL] =
     {
+        .family = SPECIES_NUMEL,
         .baseHP        = 60,
         .baseAttack    = 60,
         .baseDefense   = 40,
@@ -6803,6 +6891,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CAMERUPT] =
     {
+        .family = SPECIES_NUMEL,
         .baseHP        = 70,
         .baseAttack    = 100,
         .baseDefense   = 70,
@@ -6895,6 +6984,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_CAMERUPT_MEGA] =
     {
+        .family = SPECIES_NUMEL,
         .baseHP        = 70,
         .baseAttack    = 120,
         .baseDefense   = 100,
@@ -6967,6 +7057,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TORKOAL
     [SPECIES_TORKOAL] =
     {
+        .family = SPECIES_TORKOAL,
         .baseHP        = 70,
         .baseAttack    = 85,
         .baseDefense   = 140,
@@ -7044,6 +7135,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SPOINK
     [SPECIES_SPOINK] =
     {
+        .family = SPECIES_SPOINK,
         .baseHP        = 60,
         .baseAttack    = 25,
         .baseDefense   = 35,
@@ -7121,6 +7213,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_GRUMPIG] =
     {
+        .family = SPECIES_SPOINK,
         .baseHP        = 80,
         .baseAttack    = 45,
         .baseDefense   = 65,
@@ -7193,6 +7286,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SPINDA
     [SPECIES_SPINDA] =
     {
+        .family = SPECIES_SPINDA,
         .baseHP        = 60,
         .baseAttack    = 60,
         .baseDefense   = 60,
@@ -7270,6 +7364,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TRAPINCH
     [SPECIES_TRAPINCH] =
     {
+        .family = SPECIES_TRAPINCH,
         .baseHP        = 45,
         .baseAttack    = 100,
         .baseDefense   = 45,
@@ -7346,6 +7441,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_VIBRAVA] =
     {
+        .family = SPECIES_TRAPINCH,
         .baseHP        = 50,
         .baseAttack    = 70,
         .baseDefense   = 50,
@@ -7423,6 +7519,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_FLYGON] =
     {
+        .family = SPECIES_TRAPINCH,
         .baseHP        = 80,
         .baseAttack    = 100,
         .baseDefense   = 80,
@@ -7508,6 +7605,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_CACNEA
     [SPECIES_CACNEA] =
     {
+        .family = SPECIES_CACNEA,
         .baseHP        = 50,
         .baseAttack    = 85,
         .baseDefense   = 40,
@@ -7586,6 +7684,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CACTURNE] =
     {
+        .family = SPECIES_CACNEA,
         .baseHP        = 70,
         .baseAttack    = 115,
         .baseDefense   = 60,
@@ -7670,6 +7769,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SWABLU
     [SPECIES_SWABLU] =
     {
+        .family = SPECIES_SWABLU,
         .baseHP        = 45,
         .baseAttack    = 40,
         .baseDefense   = 60,
@@ -7744,6 +7844,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_ALTARIA] =
     {
+        .family = SPECIES_SWABLU,
         .baseHP        = 75,
         .baseAttack    = 70,
         .baseDefense   = 90,
@@ -7817,6 +7918,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_ALTARIA_MEGA] =
     {
+        .family = SPECIES_SWABLU,
         .baseHP        = 75,
         .baseAttack    = 110,
         .baseDefense   = 110,
@@ -7889,6 +7991,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_ZANGOOSE
     [SPECIES_ZANGOOSE] =
     {
+        .family = SPECIES_ZANGOOSE,
         .baseHP        = 73,
         .baseAttack    = 115,
         .baseDefense   = 60,
@@ -7965,6 +8068,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SEVIPER
     [SPECIES_SEVIPER] =
     {
+        .family = SPECIES_SEVIPER,
         .baseHP        = 73,
         .baseAttack    = 100,
         .baseDefense   = 60,
@@ -8042,6 +8146,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_LUNATONE
     [SPECIES_LUNATONE] =
     {
+        .family = SPECIES_LUNATONE,
         .baseHP        = P_UPDATED_STATS >= GEN_7 ? 90 : 70,
         .baseAttack    = 55,
         .baseDefense   = 65,
@@ -8122,6 +8227,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SOLROCK
     [SPECIES_SOLROCK] =
     {
+        .family = SPECIES_SOLROCK,
         .baseHP        = P_UPDATED_STATS >= GEN_7 ? 90 : 70,
         .baseAttack    = 95,
         .baseDefense   = 85,
@@ -8202,6 +8308,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_BARBOACH
     [SPECIES_BARBOACH] =
     {
+        .family = SPECIES_BARBOACH,
         .baseHP        = 50,
         .baseAttack    = 48,
         .baseDefense   = 43,
@@ -8286,6 +8393,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_WHISCASH] =
     {
+        .family = SPECIES_BARBOACH,
         .baseHP        = 110,
         .baseAttack    = 78,
         .baseDefense   = 73,
@@ -8369,6 +8477,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_CORPHISH
     [SPECIES_CORPHISH] =
     {
+        .family = SPECIES_CORPHISH,
         .baseHP        = 43,
         .baseAttack    = 80,
         .baseDefense   = 65,
@@ -8442,6 +8551,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CRAWDAUNT] =
     {
+        .family = SPECIES_CORPHISH,
         .baseHP        = 63,
         .baseAttack    = 120,
         .baseDefense   = 85,
@@ -8513,6 +8623,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_BALTOY
     [SPECIES_BALTOY] =
     {
+        .family = SPECIES_BALTOY,
         .baseHP        = 40,
         .baseAttack    = 40,
         .baseDefense   = 55,
@@ -8587,6 +8698,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CLAYDOL] =
     {
+        .family = SPECIES_BALTOY,
         .baseHP        = 60,
         .baseAttack    = 70,
         .baseDefense   = 105,
@@ -8662,6 +8774,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_LILEEP
     [SPECIES_LILEEP] =
     {
+        .family = SPECIES_LILEEP,
         .baseHP        = 66,
         .baseAttack    = 41,
         .baseDefense   = 77,
@@ -8740,6 +8853,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CRADILY] =
     {
+        .family = SPECIES_LILEEP,
         .baseHP        = 86,
         .baseAttack    = 81,
         .baseDefense   = 97,
@@ -8820,6 +8934,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_ANORITH
     [SPECIES_ANORITH] =
     {
+        .family = SPECIES_ANORITH,
         .baseHP        = 45,
         .baseAttack    = 95,
         .baseDefense   = 50,
@@ -8899,6 +9014,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_ARMALDO] =
     {
+        .family = SPECIES_ANORITH,
         .baseHP        = 75,
         .baseAttack    = 125,
         .baseDefense   = 100,
@@ -8976,6 +9092,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_FEEBAS
     [SPECIES_FEEBAS] =
     {
+        .family = SPECIES_FEEBAS,
         .baseHP        = 20,
         .baseAttack    = 15,
         .baseDefense   = 20,
@@ -9055,6 +9172,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_MILOTIC] =
     {
+        .family = SPECIES_FEEBAS,
         .baseHP        = 95,
         .baseAttack    = 60,
         .baseDefense   = 79,
@@ -9146,6 +9264,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_CASTFORM
     [SPECIES_CASTFORM_NORMAL] =
     {
+        .family = SPECIES_CASTFORM_NORMAL,
         .baseHP        = 70,
         .baseAttack    = 70,
         .baseDefense   = 70,
@@ -9221,6 +9340,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CASTFORM_SUNNY] =
     {
+        .family = SPECIES_CASTFORM_NORMAL,
         .baseHP        = 70,
         .baseAttack    = 70,
         .baseDefense   = 70,
@@ -9298,6 +9418,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CASTFORM_RAINY] =
     {
+        .family = SPECIES_CASTFORM_NORMAL,
         .baseHP        = 70,
         .baseAttack    = 70,
         .baseDefense   = 70,
@@ -9373,6 +9494,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CASTFORM_SNOWY] =
     {
+        .family = SPECIES_CASTFORM_NORMAL,
         .baseHP        = 70,
         .baseAttack    = 70,
         .baseDefense   = 70,
@@ -9450,6 +9572,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_KECLEON
     [SPECIES_KECLEON] =
     {
+        .family = SPECIES_KECLEON,
         .baseHP        = 60,
         .baseAttack    = 90,
         .baseDefense   = 70,
@@ -9527,6 +9650,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SHUPPET
     [SPECIES_SHUPPET] =
     {
+        .family = SPECIES_SHUPPET,
         .baseHP        = 44,
         .baseAttack    = 75,
         .baseDefense   = 35,
@@ -9606,6 +9730,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_BANETTE] =
     {
+        .family = SPECIES_SHUPPET,
         .baseHP        = 64,
         .baseAttack    = 115,
         .baseDefense   = 65,
@@ -9686,6 +9811,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_BANETTE_MEGA] =
     {
+        .family = SPECIES_SHUPPET,
         .baseHP        = 64,
         .baseAttack    = 165,
         .baseDefense   = 75,
@@ -9758,6 +9884,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_DUSKULL
     [SPECIES_DUSKULL] =
     {
+        .family = SPECIES_DUSKULL,
         .baseHP        = 20,
         .baseAttack    = 40,
         .baseDefense   = 90,
@@ -9836,6 +9963,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_DUSCLOPS] =
     {
+        .family = SPECIES_DUSKULL,
         .baseHP        = 40,
         .baseAttack    = 70,
         .baseDefense   = 130,
@@ -9917,6 +10045,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_DUSKNOIR] =
     {
+        .family = SPECIES_DUSKULL,
         .baseHP        = 45,
         .baseAttack    = 100,
         .baseDefense   = 135,
@@ -10007,6 +10136,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TROPIUS
     [SPECIES_TROPIUS] =
     {
+        .family = SPECIES_TROPIUS,
         .baseHP        = 99,
         .baseAttack    = 68,
         .baseDefense   = 83,
@@ -10084,6 +10214,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_CHINGLING] =
     {
+        .family = SPECIES_CHINGLING,
         .baseHP        = 45,
         .baseAttack    = 30,
         .baseDefense   = 50,
@@ -10161,6 +10292,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_CHIMECHO] =
     {
+        .family = SPECIES_CHINGLING,
         .baseHP        = P_UPDATED_STATS >= GEN_7 ? 75 : 65,
         .baseAttack    = 50,
         .baseDefense   = P_UPDATED_STATS >= GEN_7 ? 80 : 70,
@@ -10246,6 +10378,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_ABSOL
     [SPECIES_ABSOL] =
     {
+        .family = SPECIES_ABSOL,
         .baseHP        = 65,
         .baseAttack    = 130,
         .baseDefense   = 60,
@@ -10325,6 +10458,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_ABSOL_MEGA] =
     {
+        .family = SPECIES_ABSOL,
         .baseHP        = 65,
         .baseAttack    = 150,
         .baseDefense   = 60,
@@ -10398,6 +10532,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SNORUNT
     [SPECIES_SNORUNT] =
     {
+        .family = SPECIES_SNORUNT,
         .baseHP        = 50,
         .baseAttack    = 50,
         .baseDefense   = 50,
@@ -10479,6 +10614,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_GLALIE] =
     {
+        .family = SPECIES_SNORUNT,
         .baseHP        = 80,
         .baseAttack    = 80,
         .baseDefense   = 80,
@@ -10556,6 +10692,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_GLALIE_MEGA] =
     {
+        .family = SPECIES_SNORUNT,
         .baseHP        = 80,
         .baseAttack    = 120,
         .baseDefense   = 80,
@@ -10626,6 +10763,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_GEN_4_CROSS_EVOS
     [SPECIES_FROSLASS] =
     {
+        .family = SPECIES_SNORUNT,
         .baseHP        = 70,
         .baseAttack    = 80,
         .baseDefense   = 70,
@@ -10697,6 +10835,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_SPHEAL
     [SPECIES_SPHEAL] =
     {
+        .family = SPECIES_SPHEAL,
         .baseHP        = 70,
         .baseAttack    = 40,
         .baseDefense   = 50,
@@ -10776,6 +10915,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SEALEO] =
     {
+        .family = SPECIES_SPHEAL,
         .baseHP        = 90,
         .baseAttack    = 60,
         .baseDefense   = 70,
@@ -10850,6 +10990,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_WALREIN] =
     {
+        .family = SPECIES_SPHEAL,
         .baseHP        = 110,
         .baseAttack    = 80,
         .baseDefense   = 90,
@@ -10931,6 +11072,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_CLAMPERL
     [SPECIES_CLAMPERL] =
     {
+        .family = SPECIES_CLAMPERL,
         .baseHP        = 35,
         .baseAttack    = 64,
         .baseDefense   = 85,
@@ -11007,6 +11149,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_HUNTAIL] =
     {
+        .family = SPECIES_CLAMPERL,
         .baseHP        = 55,
         .baseAttack    = 104,
         .baseDefense   = 105,
@@ -11078,6 +11221,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_GOREBYSS] =
     {
+        .family = SPECIES_CLAMPERL,
         .baseHP        = 55,
         .baseAttack    = 84,
         .baseDefense   = 105,
@@ -11150,6 +11294,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_RELICANTH
     [SPECIES_RELICANTH] =
     {
+        .family = SPECIES_RELICANTH,
         .baseHP        = 100,
         .baseAttack    = 90,
         .baseDefense   = 130,
@@ -11237,6 +11382,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_LUVDISC
     [SPECIES_LUVDISC] =
     {
+        .family = SPECIES_LUVDISC,
         .baseHP        = 43,
         .baseAttack    = 30,
         .baseDefense   = 55,
@@ -11310,6 +11456,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_BAGON
     [SPECIES_BAGON] =
     {
+        .family = SPECIES_BAGON,
         .baseHP        = 45,
         .baseAttack    = 75,
         .baseDefense   = 60,
@@ -11382,6 +11529,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SHELGON] =
     {
+        .family = SPECIES_BAGON,
         .baseHP        = 65,
         .baseAttack    = 95,
         .baseDefense   = 100,
@@ -11453,6 +11601,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_SALAMENCE] =
     {
+        .family = SPECIES_BAGON,
         .baseHP        = 95,
         .baseAttack    = 135,
         .baseDefense   = 80,
@@ -11533,6 +11682,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_SALAMENCE_MEGA] =
     {
+        .family = SPECIES_BAGON,
         .baseHP        = 95,
         .baseAttack    = 145,
         .baseDefense   = 130,
@@ -11605,6 +11755,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_BELDUM
     [SPECIES_BELDUM] =
     {
+        .family = SPECIES_BELDUM,
         .baseHP        = 40,
         .baseAttack    = 55,
         .baseDefense   = 80,
@@ -11678,6 +11829,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_METANG] =
     {
+        .family = SPECIES_BELDUM,
         .baseHP        = 60,
         .baseAttack    = 75,
         .baseDefense   = 100,
@@ -11749,6 +11901,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_METAGROSS] =
     {
+        .family = SPECIES_BELDUM,
         .baseHP        = 80,
         .baseAttack    = 135,
         .baseDefense   = 130,
@@ -11828,6 +11981,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_METAGROSS_MEGA] =
     {
+        .family = SPECIES_BELDUM,
         .baseHP        = 80,
         .baseAttack    = 145,
         .baseDefense   = 150,
@@ -11900,6 +12054,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_REGIROCK
     [SPECIES_REGIROCK] =
     {
+        .family = SPECIES_REGIROCK,
         .baseHP        = 80,
         .baseAttack    = 100,
         .baseDefense   = 200,
@@ -11980,6 +12135,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_REGICE
     [SPECIES_REGICE] =
     {
+        .family = SPECIES_REGICE,
         .baseHP        = 80,
         .baseAttack    = 50,
         .baseDefense   = 100,
@@ -12059,6 +12215,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_REGISTEEL
     [SPECIES_REGISTEEL] =
     {
+        .family = SPECIES_REGISTEEL,
         .baseHP        = 80,
         .baseAttack    = 75,
         .baseDefense   = 150,
@@ -12139,6 +12296,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_LATIAS
     [SPECIES_LATIAS] =
     {
+        .family = SPECIES_LATIAS,
         .baseHP        = 80,
         .baseAttack    = 80,
         .baseDefense   = 90,
@@ -12220,6 +12378,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_LATIAS_MEGA] =
     {
+        .family = SPECIES_LATIAS,
         .baseHP        = 80,
         .baseAttack    = 100,
         .baseDefense   = 120,
@@ -12294,6 +12453,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_LATIOS
     [SPECIES_LATIOS] =
     {
+        .family = SPECIES_LATIOS,
         .baseHP        = 80,
         .baseAttack    = 90,
         .baseDefense   = 80,
@@ -12375,6 +12535,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_LATIOS_MEGA] =
     {
+        .family = SPECIES_LATIOS,
         .baseHP        = 80,
         .baseAttack    = 130,
         .baseDefense   = 100,
@@ -12449,6 +12610,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_KYOGRE
     [SPECIES_KYOGRE] =
     {
+        .family = SPECIES_KYOGRE,
         .baseHP        = 100,
         .baseAttack    = 100,
         .baseDefense   = 90,
@@ -12530,6 +12692,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_PRIMAL_REVERSIONS
     [SPECIES_KYOGRE_PRIMAL] =
     {
+        .family = SPECIES_KYOGRE,
         .baseHP        = 100,
         .baseAttack    = 150,
         .baseDefense   = 90,
@@ -12604,6 +12767,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_GROUDON
     [SPECIES_GROUDON] =
     {
+        .family = SPECIES_GROUDON,
         .baseHP        = 100,
         .baseAttack    = 150,
         .baseDefense   = 140,
@@ -12685,6 +12849,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_PRIMAL_REVERSIONS
     [SPECIES_GROUDON_PRIMAL] =
     {
+        .family = SPECIES_GROUDON,
         .baseHP        = 100,
         .baseAttack    = 180,
         .baseDefense   = 160,
@@ -12759,6 +12924,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_RAYQUAZA
     [SPECIES_RAYQUAZA] =
     {
+        .family = SPECIES_RAYQUAZA,
         .baseHP        = 105,
         .baseAttack    = 150,
         .baseDefense   = 90,
@@ -12843,6 +13009,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_MEGA_EVOLUTIONS
     [SPECIES_RAYQUAZA_MEGA] =
     {
+        .family = SPECIES_RAYQUAZA,
         .baseHP        = 105,
         .baseAttack    = 180,
         .baseDefense   = 100,
@@ -12919,6 +13086,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_JIRACHI
     [SPECIES_JIRACHI] =
     {
+        .family = SPECIES_JIRACHI,
         .baseHP        = 100,
         .baseAttack    = 100,
         .baseDefense   = 100,
@@ -13015,6 +13183,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_DEOXYS_NORMAL] =
     {
+        .family = SPECIES_DEOXYS_NORMAL,
         .baseHP        = 50,
         .baseAttack    = 150,
         .baseDefense   = 50,
@@ -13087,6 +13256,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_DEOXYS_ATTACK] =
     {
+        .family = SPECIES_DEOXYS_NORMAL,
         .baseHP        = 50,
         .baseAttack    = 180,
         .baseDefense   = 20,
@@ -13157,6 +13327,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_DEOXYS_DEFENSE] =
     {
+        .family = SPECIES_DEOXYS_NORMAL,
         .baseHP        = 50,
         .baseAttack    = 70,
         .baseDefense   = 160,
@@ -13228,6 +13399,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 
     [SPECIES_DEOXYS_SPEED] =
     {
+        .family = SPECIES_DEOXYS_NORMAL,
         .baseHP        = 50,
         .baseAttack    = 95,
         .baseDefense   = 90,
