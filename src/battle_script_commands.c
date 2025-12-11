@@ -1110,20 +1110,7 @@ static void Cmd_attackcanceler(void)
 
     enum BattleMoveEffects effect = GetMoveEffect(gCurrentMove);
 
-    if (BattleRuleViolated_USEMOVE(gCurrentMove))
-    {
-        gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
-        gBattleRuleBattler = gBattlerAttacker;
-
-        if (gSaveBlock2Ptr->halfDamage)
-            gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
-        else
-            gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
-        
-        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
-        return;
-    }
-    else if (!IsBattlerAlive(gBattlerAttacker)
+    if (!IsBattlerAlive(gBattlerAttacker)
         && effect != EFFECT_EXPLOSION
         && effect != EFFECT_MISTY_EXPLOSION
         && !(gHitMarker & HITMARKER_NO_ATTACKSTRING))
@@ -1272,6 +1259,20 @@ static void Cmd_attackcanceler(void)
             BattleScriptCall(BattleScript_SnatchedMove);
             return;
         }
+    }
+
+    if (BattleRuleViolated_USEMOVE(gCurrentMove))
+    {
+        gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+        gBattleRuleBattler = gBattlerAttacker;
+
+        if (gSaveBlock2Ptr->halfDamage)
+            gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+        else
+            gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
+        
+        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
+        return;
     }
 
     if (gSpecialStatuses[gBattlerTarget].lightningRodRedirected)
