@@ -1357,6 +1357,7 @@ static void Cmd_setchargingturn(void)
         gBattleMons[gBattlerAttacker].volatiles.multipleTurns = TRUE;
         gLockedMoves[gBattlerAttacker] = gCurrentMove;
         gProtectStructs[gBattlerAttacker].chargingTurn = TRUE;
+        gDisableStructs[gBattlerAttacker].lastTurnWasChargingTurn = TRUE;
     }
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
@@ -6349,7 +6350,7 @@ static void Cmd_moveend(void)
             if (!(gAbsentBattlerFlags & (1u << gBattlerAttacker))
                 && originalEffect != EFFECT_BATON_PASS && originalEffect != EFFECT_HEALING_WISH)
             {
-                if (gHitMarker & HITMARKER_OBEYS)
+                if (gHitMarker & HITMARKER_OBEYS && !(gHitMarker & HITMARKER_UNABLE_TO_USE_MOVE))
                 {
                     if (!gSpecialStatuses[gBattlerAttacker].dancerUsedMove)
                     {
@@ -6364,6 +6365,7 @@ static void Cmd_moveend(void)
                 {
                     gLastMoves[gBattlerAttacker] = MOVE_UNAVAILABLE;
                     gLastResultingMoves[gBattlerAttacker] = MOVE_UNAVAILABLE;
+                    DebugPrintf("last resulting move set to %d for battler %d", gLastResultingMoves[gBattlerAttacker], gBattlerAttacker);
                     gLastUsedMoveType[gBattlerAttacker] = 0;
                 }
 

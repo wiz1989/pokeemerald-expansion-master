@@ -50,6 +50,7 @@ enum EndTurnResolutionOrder
     ENDTURN_YAWN,
     ENDTURN_PERISH_SONG,
     ENDTURN_ROOST,
+    ENDTURN_CHARGING_TURN_FLAG,
     ENDTURN_EMERGENCY_EXIT_3,
     ENDTURN_SECOND_EVENT_BLOCK,
     ENDTURN_TRICK_ROOM,
@@ -1097,6 +1098,18 @@ static bool32 HandleEndTurnRoost(u32 battler)
     return effect;
 }
 
+static bool32 HandleEndTurnChargingTurnFlag(u32 battler)
+{
+    bool32 effect = FALSE;
+
+    gBattleStruct->turnEffectsBattlerId++;
+
+    if (gDisableStructs[battler].lastTurnWasChargingTurn && !gProtectStructs[battler].chargingTurn)
+        gDisableStructs[battler].lastTurnWasChargingTurn = FALSE;
+    
+    return effect;
+}
+
 static bool32 HandleEndTurnSecondEventBlock(u32 battler)
 {
     bool32 effect = FALSE;
@@ -1567,6 +1580,7 @@ static bool32 (*const sEndTurnEffectHandlers[])(u32 battler) =
     [ENDTURN_YAWN] = HandleEndTurnYawn,
     [ENDTURN_PERISH_SONG] = HandleEndTurnPerishSong,
     [ENDTURN_ROOST] = HandleEndTurnRoost,
+    [ENDTURN_CHARGING_TURN_FLAG] = HandleEndTurnChargingTurnFlag,
     [ENDTURN_EMERGENCY_EXIT_3] = HandleEndTurnEmergencyExit,
     [ENDTURN_SECOND_EVENT_BLOCK] = HandleEndTurnSecondEventBlock,
     [ENDTURN_TRICK_ROOM] = HandleEndTurnTrickRoom,

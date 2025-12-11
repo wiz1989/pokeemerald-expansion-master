@@ -6434,10 +6434,14 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                     faint = TRUE;
                 break;
             case BATTLERULE_SWITCHMOVES:
-                if (move == gLastMoves[gBattlerAttacker] && gAlreadyChecked[gBattlerAttacker] == FALSE)
+                if (move == gLastResultingMoves[gBattlerAttacker] && gAlreadyChecked[gBattlerAttacker] == FALSE)
                 {
+                    if (gDisableStructs[gBattlerAttacker].lastTurnWasChargingTurn && !gProtectStructs[gBattlerAttacker].chargingTurn)
+                        break;
+
                     gChosenMove = MOVE_NONE;
                     gLastMoves[gBattlerAttacker] = MOVE_NONE;
+                    gLastResultingMoves[gBattlerAttacker] = MOVE_NONE;
                     faint = TRUE;
                 }
                 break;
