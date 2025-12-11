@@ -17024,15 +17024,6 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Sand Attack
 - Crunch
 
-Shiftry @ Sitrus Berry
-Level: 48
-Ability: Early Bird
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Torment
-- Double Team
-- Swagger
-- Extrasensory
-
 Cacturne @ Focus Sash
 Level: 48
 Ability: Water Absorb
@@ -17088,15 +17079,6 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Confuse Ray
 - Curse
 - Protect
-
-Banette @ Ghost Gem
-Level: 50
-Ability: Cursed Body
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Shadow Ball
-- Grudge
-- Will O Wisp
-- Feint Attack
 
 Sableye @ Flame Orb
 Level: 50
@@ -17154,15 +17136,6 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Substitute
 - Ice Shard
 
-Sealeo @ Eviolite
-Level: 52
-Ability: Ice Body
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Encore
-- Brine
-- Hail
-- Blizzard
-
 Glalie @ Lum Berry
 Level: 52
 Ability: Inner Focus
@@ -17209,15 +17182,6 @@ Items: Full Restore / Full Restore
 Double Battle: No
 AI: Basic Trainer
 Mugshot: Blue
-
-Shelgon @ Eviolite
-Level: 54
-Ability: Overcoat
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Rock Tomb
-- Dragon Rush
-- Toxic
-- Swagger
 
 Druddigon @ Rocky Helmet
 Level: 54
