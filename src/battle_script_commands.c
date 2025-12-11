@@ -3393,15 +3393,9 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         break;
     case MOVE_EFFECT_RECOIL_HP_25: // Struggle
         if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
-        {
             gSpecialStatuses[gEffectBattler].triggeredBattleRule = TRUE;
-            if (gSaveBlock2Ptr->halfDamage)
-                gBattleStruct->moveDamage[gEffectBattler] = max(1, ((gBattleMons[gEffectBattler].maxHP + 1) / 2)); // +1 to always round the dmg up
-            else
-                gBattleStruct->moveDamage[gEffectBattler] = gBattleMons[gEffectBattler].maxHP;
-        }
-        else
-            gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
+
+        gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
         if (gBattleStruct->moveDamage[gEffectBattler] == 0)
             gBattleStruct->moveDamage[gEffectBattler] = 1;
         if (GetBattlerAbility(gEffectBattler) == ABILITY_PARENTAL_BOND)
@@ -5854,6 +5848,9 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
          && (!IsBattlerTurnDamaged(gBattlerTarget) || gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
          && !gBattleStruct->noTargetPresent)
         {
+            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
+                gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                
             if (B_RECOIL_IF_MISS_DMG >= GEN_5 || (B_CRASH_IF_TARGET_IMMUNE == GEN_4 && gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_DOESNT_AFFECT_FOE))
                 gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
             else if (B_RECOIL_IF_MISS_DMG == GEN_4 && (GetNonDynamaxMaxHP(gBattlerTarget) / 2) < gBattleStruct->moveDamage[gBattlerTarget])
@@ -5872,15 +5869,9 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
             if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
-            {
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
-                if (gSaveBlock2Ptr->halfDamage)
-                    gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
-                else
-                    gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
-            }
-            else
-                gBattleStruct->moveDamage[gBattlerAttacker] = max(1, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
+                
+            gBattleStruct->moveDamage[gBattlerAttacker] = max(1, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
             BattleScriptCall(BattleScript_MoveEffectRecoil);
             effect = TRUE;
         }
@@ -5907,15 +5898,9 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
             if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
-            {
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
-                if (gSaveBlock2Ptr->halfDamage)
-                    gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
-                else
-                    gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
-            }
-            else
-                gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
+
+            gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
             BattleScriptCall(BattleScript_MoveEffectRecoil);
             effect = TRUE;
         }
