@@ -6365,7 +6365,6 @@ static void Cmd_moveend(void)
                 {
                     gLastMoves[gBattlerAttacker] = MOVE_UNAVAILABLE;
                     gLastResultingMoves[gBattlerAttacker] = MOVE_UNAVAILABLE;
-                    DebugPrintf("last resulting move set to %d for battler %d", gLastResultingMoves[gBattlerAttacker], gBattlerAttacker);
                     gLastUsedMoveType[gBattlerAttacker] = 0;
                 }
 

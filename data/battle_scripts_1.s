@@ -6985,6 +6985,7 @@ BattleScript_UpdateEffectStatusIconRet::
 	waitstate
 	trytriggerstatusform
 	flushtextbox
+	setbattlerulebattler BS_ATTACKER
 	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret BATTLERULE_NOSTATUS
 	return
 
@@ -7083,6 +7084,7 @@ BattleScript_MoveEffectConfusion::
 	volatileanimation BS_EFFECT_BATTLER, VOLATILE_CONFUSION
 	printstring STRINGID_PKMNWASCONFUSED
 	waitmessage B_WAIT_TIME_LONG
+	setbattlerulebattler BS_ATTACKER
 	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret BATTLERULE_NOSTATUS
 	return
 
