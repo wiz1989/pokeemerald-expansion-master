@@ -6429,7 +6429,8 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                     faint = TRUE;
                 break;
             case BATTLERULE_NOSUPEREFFECTIVE:
-                if (CalcPartyMonTypeEffectivenessMultiplier(move, gBattleMons[gBattlerTarget].species, gBattleMons[gBattlerTarget].ability) >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
+                u16 effectiveness = CalcTypeEffectivenessMultiplierHelper(move, GetBattleMoveType(move), gBattlerAttacker, gBattlerTarget, gBattleMons[gBattlerAttacker].ability, gBattleMons[gBattlerTarget].ability, TRUE);
+                if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
                     faint = TRUE;
                 break;
             case BATTLERULE_SWITCHMOVES:
