@@ -1,7 +1,7 @@
 #ifndef GUARD_CONSTANTS_BATTLE_RULES_H
 #define GUARD_CONSTANTS_BATTLE_RULES_H
 
-#define B_BATTLERULE_NOSWITCHING_NOPARTYMENU    TRUE    // If TRUE, the party menu won't be shown when the switch rule activates
+#define B_BATTLERULE_NOSWITCHING_NOPARTYMENU    FALSE    // If TRUE, the party menu won't be shown when the switch rule activates
 
 enum battleRules {
     BATTLERULE_NONE,
