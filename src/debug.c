@@ -356,6 +356,7 @@ static void DebugAction_Player_Id(u8 taskId);
 static void DebugAction_LevelUp_Single(u8 taskId);
 static void DebugAction_LevelUp_Event(u8 taskId);
 static void DebugAction_LevelUp_Cap_Party(u8 taskId);
+static void DebugAction_LevelUp_Cap_Boxes(u8 taskId);
 static void DebugAction_IncreaseRerollCounter(u8 taskId);
 
 extern const u8 Debug_FlagsNotSetOverworldConfigMessage[];
@@ -390,6 +391,7 @@ extern const u8 Debug_ShowExpansionVersion[];
 extern const u8 Debug_MsgForeverRepel_Active[];
 extern const u8 Debug_MsgForeverRepel_Inactive[];
 extern const u8 Debug_MsgLevelUp_Cap_Party[];
+extern const u8 Debug_MsgLevelUp_Cap_Boxes[];
 extern const u8 Debug_EventScript_EWRAMCounters[];
 extern const u8 Debug_Follower_NPC_Event_Script[];
 extern const u8 Debug_Follower_NPC_Not_Enabled[];
@@ -631,6 +633,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_LevelUp[] =
     { COMPOUND_STRING("Next Move/Evo"),   DebugAction_LevelUp_Event },
     { COMPOUND_STRING("Level Cap"),       DebugAction_ExecuteScript, Debug_EventScript_LevelUpToCap },
     { COMPOUND_STRING("Level Cap Party"), DebugAction_LevelUp_Cap_Party },
+    { COMPOUND_STRING("Level Cap PC Boxes"), DebugAction_LevelUp_Cap_Boxes },
     { NULL }
 };
 
@@ -1760,6 +1763,14 @@ static void DebugAction_LevelUp_Cap_Party(u8 taskId)
     TryLevelUpEvolution();
 
     Debug_DestroyMenu_Full_Script(taskId, Debug_MsgLevelUp_Cap_Party);
+    ScriptContext_Enable();
+}
+
+static void DebugAction_LevelUp_Cap_Boxes(u8 taskId)
+{
+    LevelBoxesToCap();
+
+    Debug_DestroyMenu_Full_Script(taskId, Debug_MsgLevelUp_Cap_Boxes);
     ScriptContext_Enable();
 }
 

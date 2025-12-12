@@ -302,6 +302,16 @@ Debug_LevelUp_Cap_Party:
 	.string "All party members have been\n"
 	.string "leveled up to the current cap.$"
 
+Debug_MsgLevelUp_Cap_Boxes::
+	msgbox Debug_LevelUp_Cap_Boxes, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_LevelUp_Cap_Boxes:
+	.string "All Pokémon in PC boxes have been\n"
+	.string "leveled up to the current cap.$"
+
 Debug_EventScript_LevelUpToCap::
 	special ChoosePartyMon
 	waitstate
