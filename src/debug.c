@@ -715,11 +715,11 @@ static const struct DebugMenuOption sDebugMenu_Actions_QoLHub[] =
 {
     { COMPOUND_STRING("Heal Party"),      DebugAction_Party_HealParty },
     { COMPOUND_STRING("Forever-Repel"),   DebugAction_FlagsVars_EncounterOnOff },
-    { COMPOUND_STRING("Level Up…"),       DebugAction_OpenSubMenu, sDebugMenu_Actions_LevelUp, },
+    { COMPOUND_STRING("Level Up"),       DebugAction_OpenSubMenu, sDebugMenu_Actions_LevelUp, },
     { COMPOUND_STRING("Access PC"),       DebugAction_ExecuteScript, EventScript_PC, },
     { COMPOUND_STRING("Inflict Status"),  DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
     { COMPOUND_STRING("Move Reminder"),   DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
-    { COMPOUND_STRING("Fly to map…"),     DebugAction_Util_FlyWithCheck },
+    { COMPOUND_STRING("Fly to map"),     DebugAction_Util_FlyWithCheck },
     { COMPOUND_STRING("Reroll Rule"),     DebugAction_IncreaseRerollCounter },
     { COMPOUND_STRING("Cancel"),          DebugAction_Cancel, },
     { NULL }
