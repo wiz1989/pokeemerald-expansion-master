@@ -323,8 +323,11 @@ static const struct BitfieldInfo sAIBitfield[] =
 
 static const struct ListMenuItem sMainListItems[] =
 {
+#if DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE
     {COMPOUND_STRING("Battlerules"),  LIST_ITEM_BATTLERULES},
+#endif
     {COMPOUND_STRING("Moves"),        LIST_ITEM_MOVES},
+#if DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE
     {sText_Ability,                   LIST_ITEM_ABILITY},
     {sText_HeldItem,                  LIST_ITEM_HELD_ITEM},
     {COMPOUND_STRING("PP"),           LIST_ITEM_PP},
@@ -341,6 +344,7 @@ static const struct ListMenuItem sMainListItems[] =
     {COMPOUND_STRING("AI Party"),     LIST_ITEM_AI_PARTY},
     {COMPOUND_STRING("Various"),      LIST_ITEM_VARIOUS},
     {COMPOUND_STRING("Instant Win"),  LIST_ITEM_INSTANT_WIN},
+#endif
 };
 
 static const struct ListMenuItem sStatsListItems[] =
@@ -1231,7 +1235,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             data->activeWindow = ACTIVE_WIN_MAIN;
             data->secondaryListTaskId = 0xFF;
         }
-        else if (listItemId != LIST_NOTHING_CHOSEN)
+        else if (listItemId != LIST_NOTHING_CHOSEN && DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE)
         {
             data->currentSecondaryListItemId = listItemId;
             data->modifyWindowId = AddWindow(&sModifyWindowTemplate);
