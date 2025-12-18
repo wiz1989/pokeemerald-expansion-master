@@ -62,6 +62,8 @@ EWRAM_DATA static u32 sFeebasRngValue = 0;
 EWRAM_DATA bool8 gIsFishingEncounter = 0;
 EWRAM_DATA bool8 gIsSurfingEncounter = 0;
 EWRAM_DATA u8 gChainFishingDexNavStreak = 0;
+EWRAM_DATA u16 gUniqueEncounters[LAND_WILD_COUNT] = {0};
+EWRAM_DATA u16 gValidEncounters[LAND_WILD_COUNT] = {0};
 
 #include "data/wild_encounters.h"
 
@@ -111,7 +113,7 @@ static u16 GetFeebasFishingSpotId(s16 targetX, s16 targetY, u8 section)
     return spotId + 1;
 }
 
-static bool8 CheckFeebas(void)
+static bool8 UNUSED CheckFeebas(void)
 {
     u8 i;
     u16 feebasSpots[NUM_FEEBAS_SPOTS];
@@ -275,7 +277,7 @@ u32 ChooseWildMonIndex_Rocks(void)
 }
 
 // FISH_WILD_COUNT
-static u32 ChooseWildMonIndex_Fishing(u8 rod)
+static u32 ChooseWildMonIndex_Fishing(u8 rod) //wiz1989
 {
     u8 wildMonIndex = 0;
     bool8 swap = FALSE;
@@ -494,11 +496,6 @@ void CreateWildMon(u16 species, u8 level)
 
     offsetRandom = Random() % 4;
     level = currentLevelCap - offsetFixed - offsetRandom;
-
-    gIsDupe = FALSE;
-    if (CheckDupes(species) == INVALID_ENCOUNTER_DUPE)
-        gIsDupe = TRUE;
-
     ZeroEnemyPartyMons();
 
     switch (gSpeciesInfo[species].genderRatio)
@@ -537,10 +534,165 @@ void CreateWildMon(u16 species, u8 level)
 #define TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildPokemon, type, ability, ptr, count) TryGetAbilityInfluencedWildMonIndex(wildPokemon, type, ability, ptr)
 #endif
 
+static u8 GetMaxEncounterSlots(enum WildPokemonArea area, u8 rod)
+{
+    switch (area)
+    {
+    case WILD_AREA_LAND:
+        return LAND_WILD_COUNT;
+    case WILD_AREA_WATER:
+        return WATER_WILD_COUNT;
+    case WILD_AREA_ROCKS:
+        return ROCK_WILD_COUNT;
+    case WILD_AREA_FISHING:
+    {
+        switch (rod)
+        {
+        case OLD_ROD:
+            return 2; // = first Good Rod slot index
+        case GOOD_ROD:
+            return 5; // = first Super Rod slot index
+        case SUPER_ROD:
+        default:
+            return FISH_WILD_COUNT;
+        }
+    }
+    default:
+        return LAND_WILD_COUNT;
+    }
+}
+
+static u8 GetMinEncounterSlotIndex(enum WildPokemonArea area, u8 rod)
+{
+    switch(area)
+    {
+    case WILD_AREA_FISHING:
+        switch (rod)
+        {
+        case OLD_ROD:
+            return 0;
+        case GOOD_ROD:
+            return 2;
+        case SUPER_ROD:
+            return 5;
+        default:
+            return 0;
+        }
+    default:
+        return 0;
+    }
+}
+
+static u8 GetEncounterIndexBySpecies(u16 species, const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 rod)
+{
+    u8 encounterIndex = 0;
+    u8 maxIndex = GetMaxEncounterSlots(area, rod);
+    u8 minIndex = GetMinEncounterSlotIndex(area, rod);
+    enum TimeOfDay timeOfDay;
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+    
+    switch (area)
+    {
+    case WILD_AREA_LAND:
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_LAND);
+        wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo;
+        break;
+    case WILD_AREA_WATER:
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_WATER);
+        wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].waterMonsInfo;
+        break;
+    case WILD_AREA_ROCKS:
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_ROCKS);
+        wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].rockSmashMonsInfo;
+        break;
+    case WILD_AREA_FISHING:
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
+        wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo;
+        break;
+    default:
+        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_LAND);
+        wildMonInfo = gWildMonHeaders[headerId].encounterTypes[timeOfDay].landMonsInfo;
+        break;
+    }
+
+    for (u8 i = minIndex; i < maxIndex; i++)
+    {
+        if (wildMonInfo->wildPokemon[i].species == species)
+        {
+            encounterIndex = i;
+            break;
+        }
+    }
+
+    return encounterIndex;
+}
+
+static u8 GetValidEncountersforMap(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 rod)
+{
+    u8 maxIndex = GetMaxEncounterSlots(area, rod);
+    u8 minIndex = GetMinEncounterSlotIndex(area, rod);
+    u8 uniqueEncountersOnMap = 0;
+    u8 validEncountersLeftOnMap = 0;
+
+    for (u8 i = minIndex; i < maxIndex; i++)
+    {
+        // Clear the list on first iteration
+        if (i == minIndex)
+        {
+            for (u8 j = 0; j < LAND_WILD_COUNT; j++)
+                gUniqueEncounters[j] = 0;
+        }
+        u16 species = wildMonInfo->wildPokemon[i].species;
+        for (u8 j = 0; j < maxIndex; j++)
+        {
+            if (gUniqueEncounters[j] == 0)
+            {
+                gUniqueEncounters[j] = species;
+                uniqueEncountersOnMap++;
+                break;
+            }
+            if (gUniqueEncounters[j] == species)
+                break;
+        }
+    }
+    DebugPrintf("---\n");
+
+    // Count valid encounters left for the map
+    for (u8 i = 0; i < uniqueEncountersOnMap; i++)
+    {
+        // Clear the list on first iteration
+        if (i == 0)
+        {
+            validEncountersLeftOnMap = 0;
+            for (u8 j = 0; j < LAND_WILD_COUNT; j++)
+                gValidEncounters[j] = 0;
+        }
+
+        u16 species = gUniqueEncounters[i];
+        if (species != SPECIES_NONE && CheckDupes(species) != INVALID_ENCOUNTER_DUPE)
+        {
+            for (u8 j = 0; j < uniqueEncountersOnMap; j++)
+            {
+                if (gValidEncounters[j] == 0)
+                {
+                    gValidEncounters[j] = species;
+                    validEncountersLeftOnMap++;
+                    break;
+                }
+            }
+        }
+    }
+
+    return validEncountersLeftOnMap;
+}
+
 static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum WildPokemonArea area, u8 flags)
 {
     u8 wildMonIndex = 0;
     u8 level;
+    u8 validEncountersLeftOnMap = 0;
+    bool8 dupeEncounter = TRUE;
+    u8 rod = NO_ROD;
 
     switch (area)
     {
@@ -558,7 +710,34 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
         if (OW_STORM_DRAIN >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORM_DRAIN, &wildMonIndex, LAND_WILD_COUNT))
             break;
 
-        wildMonIndex = ChooseWildMonIndex_Land();
+        // Count valid encounters for the map
+        validEncountersLeftOnMap = GetValidEncountersforMap(wildMonInfo, area, NO_ROD);
+        do
+        {
+            if (!gSaveBlock2Ptr->dupeClause)
+                wildMonIndex = ChooseWildMonIndex_Land();
+            else if (validEncountersLeftOnMap != 1)
+                wildMonIndex = ChooseWildMonIndex_Land();
+            else
+                wildMonIndex = GetEncounterIndexBySpecies(gValidEncounters[0], wildMonInfo, area, rod);
+
+            for (u8 i = 0; i < validEncountersLeftOnMap; i++)
+            {
+                u16 checkSpecies = gValidEncounters[i];
+                if (wildMonInfo->wildPokemon[wildMonIndex].species == checkSpecies)
+                {
+                    dupeEncounter = FALSE;
+                    break;
+                }
+            }
+            if (dupeEncounter)
+            {
+                gIsDupe = TRUE;
+            }
+            else
+                gIsDupe = FALSE;
+        }
+        while (gSaveBlock2Ptr->dupeClause && dupeEncounter && validEncountersLeftOnMap > 1);
         break;
     case WILD_AREA_WATER:
         if (TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_STEEL, ABILITY_MAGNET_PULL, &wildMonIndex, WATER_WILD_COUNT))
@@ -574,7 +753,33 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
         if (OW_STORM_DRAIN >= GEN_8 && TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildMonInfo->wildPokemon, TYPE_WATER, ABILITY_STORM_DRAIN, &wildMonIndex, WATER_WILD_COUNT))
             break;
 
-        wildMonIndex = ChooseWildMonIndex_Water();
+        // Count valid encounters for the map
+        validEncountersLeftOnMap = GetValidEncountersforMap(wildMonInfo, area, NO_ROD);
+        do
+        {
+            if (!gSaveBlock2Ptr->dupeClause)
+                wildMonIndex = ChooseWildMonIndex_Water();
+            else if (validEncountersLeftOnMap != 1)
+                wildMonIndex = ChooseWildMonIndex_Water();
+            else
+                wildMonIndex = GetEncounterIndexBySpecies(gValidEncounters[0], wildMonInfo, area, rod);
+            for (u8 i = 0; i < validEncountersLeftOnMap; i++)
+            {
+                u16 checkSpecies = gValidEncounters[i];
+                if (wildMonInfo->wildPokemon[wildMonIndex].species == checkSpecies)
+                {
+                    dupeEncounter = FALSE;
+                    break;
+                }
+            }
+            if (dupeEncounter)
+            {
+                gIsDupe = TRUE;
+            }
+            else
+                gIsDupe = FALSE;
+        }
+        while (gSaveBlock2Ptr->dupeClause && dupeEncounter && validEncountersLeftOnMap > 1);
         break;
     case WILD_AREA_ROCKS:
         wildMonIndex = ChooseWildMonIndex_Rocks();
@@ -597,9 +802,42 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
 
 static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod)
 {
-    u8 wildMonIndex = ChooseWildMonIndex_Fishing(rod);
-    u16 wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
-    u8 level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
+    u8 level = 0;
+    u8 wildMonIndex = 0;
+    u16 wildMonSpecies = SPECIES_NONE;
+    u8 validEncountersLeftOnMap = 0;
+    bool8 dupeEncounter = TRUE;
+    // Count valid encounters for the map
+    validEncountersLeftOnMap = GetValidEncountersforMap(wildMonInfo, WILD_AREA_FISHING, rod);
+    do
+    {
+        if (!gSaveBlock2Ptr->dupeClause)
+            wildMonIndex = ChooseWildMonIndex_Fishing(rod);
+        else if (validEncountersLeftOnMap != 1)
+            wildMonIndex = ChooseWildMonIndex_Fishing(rod);
+        else
+            wildMonIndex = GetEncounterIndexBySpecies(gValidEncounters[0], wildMonInfo, WILD_AREA_FISHING, rod);
+        for (u8 i = 0; i < validEncountersLeftOnMap; i++)
+        {
+            u16 checkSpecies = gValidEncounters[i];
+            if (wildMonInfo->wildPokemon[wildMonIndex].species == checkSpecies)
+            {
+                dupeEncounter = FALSE;
+                break;
+            }
+        }
+        if (dupeEncounter)
+        {
+            gIsDupe = TRUE;
+        }
+        else
+            gIsDupe = FALSE;
+    }
+    while (gSaveBlock2Ptr->dupeClause && dupeEncounter && validEncountersLeftOnMap > 1);
+    // u8 wildMonIndex = ChooseWildMonIndex_Fishing(rod);
+
+    wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
+    level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
 
     UpdateChainFishingStreak();
     CreateWildMon(wildMonSpecies, level);
@@ -1005,19 +1243,9 @@ void FishingWildEncounter(u8 rod)
     enum TimeOfDay timeOfDay;
 
     gIsFishingEncounter = TRUE;
-    if (CheckFeebas() == TRUE)
-    {
-        u8 level = ChooseWildMonLevel(&sWildFeebas, 0, WILD_AREA_FISHING);
-
-        species = sWildFeebas.species;
-        CreateWildMon(species, level);
-    }
-    else
-    {
-        headerId = GetCurrentMapWildMonHeaderId();
-        timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
-        species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo, rod);
-    }
+    headerId = GetCurrentMapWildMonHeaderId();
+    timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
+    species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo, rod);
 
     IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
     SetPokemonAnglerSpecies(species);

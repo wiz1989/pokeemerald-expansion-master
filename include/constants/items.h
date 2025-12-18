@@ -1038,6 +1038,7 @@
 #define OLD_ROD   0
 #define GOOD_ROD  1
 #define SUPER_ROD 2
+#define NO_ROD    0xF
 
 // Secondary IDs for bikes
 #define MACH_BIKE 0
