@@ -6,7 +6,7 @@
 
 bool16 ScriptGetPokedexInfo(void)
 {
-    if (gSpecialVar_0x8004 == 0) // is national dex not present?
+    if (!IsNationalPokedexEnabled()) // is national dex not present?
     {
         gSpecialVar_0x8005 = GetHoennPokedexCount(FLAG_GET_SEEN);
         gSpecialVar_0x8006 = GetHoennPokedexCount(FLAG_GET_CAUGHT);

@@ -112,11 +112,21 @@ PetalburgCity_Gym_EventScript_Norman::
 	case 8, PetalburgCity_Gym_EventScript_NormanRematch
 	msgbox PetalburgCity_Gym_Text_DadYoureHereWithYourPokemon, MSGBOX_DEFAULT
 	closemessage
+	specialvar VAR_RESULT, ScriptGetPokedexInfo
+	call_if_gt VAR_0x8006, 1, PetalburgCity_Gym_EventScript_Norman_SkipWallyTutorial
 	switch VAR_FACING
 	case DIR_SOUTH, PetalburgCity_Gym_EventScript_BeginWallyTutorialSouth
 	case DIR_NORTH, PetalburgCity_Gym_EventScript_BeginWallyTutorialNorth
 	case DIR_WEST, PetalburgCity_Gym_EventScript_BeginWallyTutorialWest
 	case DIR_EAST, PetalburgCity_Gym_EventScript_BeginWallyTutorialEast
+	end
+
+PetalburgCity_Gym_EventScript_Norman_SkipWallyTutorial::
+	msgbox PetalburgCity_Gym_Text_DadGoCollectBadges, MSGBOX_DEFAULT
+	setvar VAR_PETALBURG_GYM_STATE, 2 @ 2: finished Wally tutorial inside
+	setvar VAR_PETALBURG_CITY_STATE, 3 @ 3: finished Wally tutorial outside
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	release
 	end
 
 PetalburgCity_Gym_EventScript_BeginWallyTutorialSouth::
