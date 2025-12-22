@@ -1,6 +1,7 @@
 #include "global.h"
 #include "main.h"
 #include "crt0.h"
+#include "event_data.h"
 #include "gpu_regs.h"
 #include "m4a.h"
 #include "load_save.h"
@@ -25,7 +26,10 @@ void ReloadSave(void)
     Save_ResetSaveCounters();
     LoadGameSave(SAVE_NORMAL);
     if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
+    {
         Sav2_ClearSetDefault();
+        gSaveBlock2Ptr->firstRun = TRUE;
+    }
     SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
     InitHeap(gHeap, HEAP_SIZE);
 

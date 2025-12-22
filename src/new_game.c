@@ -268,3 +268,13 @@ static void ResetDexNav(void)
 #endif
     gSaveBlock3Ptr->dexNavChain = 0;
 }
+
+void IsFirstRun(void)
+{
+    if (gSaveBlock2Ptr->firstRun)
+        VarSet(VAR_RESULT, TRUE);
+    else
+        VarSet(VAR_RESULT, FALSE);
+
+    gSaveBlock2Ptr->firstRun = FALSE;
+}

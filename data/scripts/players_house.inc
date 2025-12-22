@@ -151,6 +151,8 @@ PlayersHouse_1F_EventScript_PetalburgGymReportMale::
 	call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
 	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymMale
 	waitmovement 0
+	callnative IsFirstRun
+	call_if_eq VAR_RESULT, FALSE, PlayersHouse_1F_EventScript_SkipIntro_YesNo
 	playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
 	msgbox PlayersHouse_1F_Text_MaybeDadWillBeOn, MSGBOX_DEFAULT
 	closemessage
@@ -176,6 +178,8 @@ PlayersHouse_1F_EventScript_PetalburgGymReportFemale::
 	call PlayersHouse_1F_EventScript_MomNoticeGymBroadcast
 	applymovement LOCALID_PLAYER, PlayersHouse_1F_Movement_PlayerApproachTVForGymFemale
 	waitmovement 0
+	callnative IsFirstRun
+	call_if_eq VAR_RESULT, FALSE, PlayersHouse_1F_EventScript_SkipIntro_YesNo
 	playbgm MUS_ENCOUNTER_INTERVIEWER, FALSE
 	msgbox PlayersHouse_1F_Text_MaybeDadWillBeOn, MSGBOX_DEFAULT
 	closemessage
@@ -204,6 +208,55 @@ PlayersHouse_1F_EventScript_MomNoticeGymBroadcast::
 	msgbox PlayersHouse_1F_Text_OhComeQuickly, MSGBOX_DEFAULT
 	closemessage
 	return
+
+PlayersHouse_1F_EventScript_SkipIntro_YesNo::
+	msgbox PlayersHouse_1F_EventScript_SkipIntro_Question, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, PlayersHouse_1F_EventScript_SkipIntro
+	return
+
+PlayersHouse_1F_EventScript_SkipIntro_Question:
+	.string "MOM: Oh? You have played this game\n"
+	.string "before?\p"
+	.string "Do you want to skip the intro and\n"
+	.string "start immediately towards\l"
+	.string "PETALBURG CITY?$"
+
+PlayersHouse_1F_EventScript_SkipIntro::
+	setflag FLAG_SKIP_INTRO
+	giveitem ITEM_POKE_BALL, 5
+	setflag FLAG_SYS_POKEMON_GET
+	setflag FLAG_RESCUED_BIRCH
+	fadescreen FADE_TO_BLACK
+	setflag FLAG_HIDE_ROUTE_101_ZIGZAGOON
+	setflag FLAG_APPROACHED_FIRST_RIVAL @required here for correct level cap
+	special ChooseStarter
+	waitstate
+	setflag FLAG_HIDE_ROUTE_101_BIRCH_ZIGZAGOON_BATTLE
+	setflag FLAG_HIDE_ROUTE_103_RIVAL
+	setflag FLAG_ADVENTURE_STARTED
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+	setflag FLAG_HIDE_ROUTE_101_BIRCH_STARTERS_BAG
+	setvar VAR_BIRCH_LAB_STATE, 2
+	setvar VAR_ROUTE101_STATE, 3
+	setflag FLAG_SYS_POKEDEX_GET
+	special SetUnlockedPokedexFlags
+	setflag FLAG_RECEIVED_POKEDEX_FROM_BIRCH
+	setflag FLAG_SYS_NATIONAL_DEX
+	special EnableNationalPokedex
+	setflag FLAG_RECEIVED_RUNNING_SHOES
+	setflag FLAG_SYS_B_DASH
+	setvar VAR_LITTLEROOT_TOWN_STATE, 4 @ 4: Received Running Shoes
+	setvar VAR_LITTLEROOT_INTRO_STATE, 7 @ 7: Told to go meet rival
+	setvar VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 2 @ 2: Met Rival's Mom (and is corresponding gender)
+	setvar VAR_LITTLEROOT_HOUSES_STATE_MAY, 2 @ 2: Met Rival's Mom (and is corresponding gender)
+	setvar VAR_LITTLEROOT_RIVAL_STATE, 4 @ 4: Received Pokedex
+	msgbox PlayersHouse_1F_EventScript_SkipIntro_AllSet, MSGBOX_DEFAULT
+	release
+	end
+
+PlayersHouse_1F_EventScript_SkipIntro_AllSet:
+	.string "MOM: Perfect! There you go!\p"
+	.string "You are all set!$"
 
 PlayersHouse_1F_EventScript_WatchGymBroadcast::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp

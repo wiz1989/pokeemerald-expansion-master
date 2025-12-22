@@ -475,7 +475,11 @@ static void Task_StarterChoose(u8 taskId)
 {
     CreateStarterPokemonLabel(gTasks[taskId].tStarterSelection);
     DrawStdFrameWithCustomTileAndPalette(0, FALSE, 0x2A8, 0xD);
-    AddTextPrinterParameterized(0, FONT_NORMAL, gText_BirchInTrouble, 0, 1, 0, NULL);
+    if(!sStarterLabelWindowId)
+        AddTextPrinterParameterized(0, FONT_NORMAL, gText_BirchInTrouble, 0, 1, 0, NULL);
+    else
+        AddTextPrinterParameterized(0, FONT_NORMAL, gText_ChooseYourStarter, 0, 1, 0, NULL);
+    
     PutWindowTilemap(0);
     ScheduleBgCopyTilemapToVram(0);
     gTasks[taskId].func = Task_HandleStarterChooseInput;

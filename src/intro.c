@@ -24,6 +24,7 @@
 #include "util.h"
 #include "title_screen.h"
 #include "expansion_intro.h"
+#include "event_data.h"
 #include "constants/rgb.h"
 #include "constants/battle_anim.h"
 
@@ -1162,7 +1163,10 @@ void CB2_InitCopyrightScreenAfterBootup(void)
         Save_ResetSaveCounters();
         LoadGameSave(SAVE_NORMAL);
         if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_CORRUPT)
+        {
             Sav2_ClearSetDefault();
+            gSaveBlock2Ptr->firstRun = TRUE;
+        }
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
         InitHeap(gHeap, HEAP_SIZE);
     }

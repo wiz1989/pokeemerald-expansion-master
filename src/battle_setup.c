@@ -5,6 +5,7 @@
 #include "battle_setup.h"
 #include "battle_tower.h"
 #include "battle_transition.h"
+#include "caps.h"
 #include "main.h"
 #include "task.h"
 #include "safari_zone.h"
@@ -881,11 +882,18 @@ static void CB2_GiveStarter(void)
 
     *GetVarPointer(VAR_STARTER_MON) = gSpecialVar_Result;
     starterMon = GetStarterPokemon(gSpecialVar_Result);
-    ScriptGiveMon(starterMon, 5, ITEM_NONE);
-    ResetTasks();
-    PlayBattleBGM();
-    SetMainCallback2(CB2_StartFirstBattle);
-    BattleTransition_Start(B_TRANSITION_BLUR);
+    ScriptGiveMon(starterMon, GetCurrentLevelCap(), ITEM_NONE);
+    if (!FlagGet(FLAG_SKIP_INTRO))
+    {
+        ResetTasks();
+        PlayBattleBGM();
+        SetMainCallback2(CB2_StartFirstBattle);
+        BattleTransition_Start(B_TRANSITION_BLUR);
+    }
+    else
+    {
+        SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
+    }
 }
 
 static void CB2_StartFirstBattle(void)

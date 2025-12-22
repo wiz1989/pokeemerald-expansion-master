@@ -587,7 +587,9 @@ struct SaveBlock2
              //u16 padding1:4;
              //u16 padding2;
     /*0x18*/ struct Pokedex pokedex;
-    /*0x90*/ u8 filler_90[0x4];
+    /*0x90*/ u8 filler_90[0x3];
+    /*0x93*/ u8 firstRun:1;
+             u8 padding3:7;
              u8 battleSpeed;
              u8 revealRule:1;
              u8 harderTrainers:1;

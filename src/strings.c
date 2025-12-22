@@ -125,6 +125,7 @@ const u8 gText_IdNumberSlash[] = _("IDNo. /"); // Unused
 const u8 gText_Name[] = _("NAME");
 const u8 gText_IDNumber[] = _("IDNo.");
 const u8 gText_BirchInTrouble[] = _("PROF. BIRCH is in trouble!\nRelease a POKéMON and rescue him!");
+const u8 gText_ChooseYourStarter[] = _("Choose your starter POKéMON!");
 const u8 gText_ConfirmStarterChoice[] = _("Do you choose this POKéMON?");
 const u8 gText_Pokemon4[] = _("POKéMON"); // Unused
 const u8 gText_FlyToWhere[] = _("FLY to where?");

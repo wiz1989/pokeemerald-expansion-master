@@ -57,7 +57,7 @@
 #define FLAG_REVEAL_RULE     0x2B // Unused Flag
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
 #define FLAG_APPROACHED_FIRST_RIVAL 0x2D // Unused Flag
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
+#define FLAG_SKIP_INTRO      0x2E // Unused Flag
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag
