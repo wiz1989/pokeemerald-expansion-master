@@ -63,7 +63,7 @@ static const u16 sUnusedUnknownPal[] = INCBIN_U16("graphics/title_screen/unused.
 static const u32 sTitleScreenRayquazaGfx[] = INCBIN_U32("graphics/title_screen/rayquaza.4bpp.smol");
 static const u32 sTitleScreenRayquazaTilemap[] = INCBIN_U32("graphics/title_screen/rayquaza.bin.smolTM");
 static const u32 sTitleScreenLogoShineGfx[] = INCBIN_U32("graphics/title_screen/logo_shine.4bpp.smol");
-static const u32 sTitleScreenCloudsGfx[] = INCBIN_U32("graphics/title_screen/clouds.4bpp.smol");
+// static const u32 sTitleScreenCloudsGfx[] = INCBIN_U32("graphics/title_screen/clouds.4bpp.smol");
 
 
 
@@ -603,8 +603,8 @@ void CB2_InitTitleScreen(void)
         DecompressDataWithHeaderVram(sTitleScreenRayquazaGfx, (void *)(BG_CHAR_ADDR(2)));
         DecompressDataWithHeaderVram(sTitleScreenRayquazaTilemap, (void *)(BG_SCREEN_ADDR(26)));
         // bg1
-        DecompressDataWithHeaderVram(sTitleScreenCloudsGfx, (void *)(BG_CHAR_ADDR(3)));
-        DecompressDataWithHeaderVram(gTitleScreenCloudsTilemap, (void *)(BG_SCREEN_ADDR(27)));
+        // DecompressDataWithHeaderVram(sTitleScreenCloudsGfx, (void *)(BG_CHAR_ADDR(3)));
+        // DecompressDataWithHeaderVram(gTitleScreenCloudsTilemap, (void *)(BG_SCREEN_ADDR(27)));
         ScanlineEffect_Stop();
         ResetTasks();
         ResetSpriteData();
@@ -854,16 +854,26 @@ static void CB2_GoToBerryFixScreen(void)
     }
 }
 
+// color swap for the Pikachu ear animation (brown to black)
 static void UpdateLegendaryMarkingColor(u8 frameNum)
 {
     if ((frameNum % 4) == 0) // Change color every 4th frame
     {
         s32 intensity = Cos(frameNum, 128) + 128;
-        s32 r = 31 - ((intensity * 32 - intensity) / 256);
-        s32 g = 31 - (intensity * 22 / 256);
-        s32 b = 12;
-
-        u16 color = RGB(r, g, b);
-        LoadPalette(&color, BG_PLTT_ID(14) + 15, sizeof(color));
+        u16 baseColorEars = gTitleScreenBgPalettes[BG_PLTT_ID(14) + 10];
+        s32 r = (GET_R(baseColorEars) * intensity) / 256;
+        s32 g = (GET_G(baseColorEars) * intensity) / 256;
+        s32 b = (GET_B(baseColorEars) * intensity) / 256;
+        u16 colorEars = RGB(r, g, b);
+        
+        u16 baseColorCheeks = gTitleScreenBgPalettes[BG_PLTT_ID(14) + 14];
+        // Iterate between base color and vibrant red (255, 52, 20 -> 31, 6, 2)
+        s32 r2 = (GET_R(baseColorCheeks) * intensity + 29 * (256 - intensity)) / 256;
+        s32 g2 = (GET_G(baseColorCheeks) * intensity + 6 * (256 - intensity)) / 256;
+        s32 b2 = (GET_B(baseColorCheeks) * intensity + 2 * (256 - intensity)) / 256;
+        u16 colorCheeks = RGB(r2, g2, b2);
+        
+        LoadPalette(&colorEars, BG_PLTT_ID(14) + 10, sizeof(colorEars));
+        LoadPalette(&colorCheeks, BG_PLTT_ID(14) + 14, sizeof(colorCheeks));
    }
 }
