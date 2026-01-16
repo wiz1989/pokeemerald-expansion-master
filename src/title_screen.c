@@ -854,7 +854,7 @@ static void CB2_GoToBerryFixScreen(void)
     }
 }
 
-// color swap for the Pikachu ear animation (brown to black)
+// color swap for the Pikachu ear and cheeks animation (brown to black, brown to red)
 static void UpdateLegendaryMarkingColor(u8 frameNum)
 {
     if ((frameNum % 4) == 0) // Change color every 4th frame
@@ -867,7 +867,6 @@ static void UpdateLegendaryMarkingColor(u8 frameNum)
         u16 colorEars = RGB(r, g, b);
         
         u16 baseColorCheeks = gTitleScreenBgPalettes[BG_PLTT_ID(14) + 14];
-        // Iterate between base color and vibrant red (255, 52, 20 -> 31, 6, 2)
         s32 r2 = (GET_R(baseColorCheeks) * intensity + 29 * (256 - intensity)) / 256;
         s32 g2 = (GET_G(baseColorCheeks) * intensity + 6 * (256 - intensity)) / 256;
         s32 b2 = (GET_B(baseColorCheeks) * intensity + 2 * (256 - intensity)) / 256;

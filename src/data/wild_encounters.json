@@ -1310,7 +1310,7 @@
               {
                 "min_level": 6,
                 "max_level": 6,
-                "species": "SPECIES_SKITTY"
+                "species": "SPECIES_STARLY"
               },
               {
                 "min_level": 6,
@@ -11536,7 +11536,7 @@
               {
                 "min_level": 2,
                 "max_level": 2,
-                "species": "SPECIES_STARLY"
+                "species": "SPECIES_SKITTY"
               },
               {
                 "min_level": 2,
@@ -11551,7 +11551,7 @@
               {
                 "min_level": 3,
                 "max_level": 3,
-                "species": "SPECIES_STARLY"
+                "species": "SPECIES_SKITTY"
               },
               {
                 "min_level": 3,
