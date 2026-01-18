@@ -447,6 +447,63 @@ s32 ListMenu_ProcessInput(u8 listTaskId)
     }
 }
 
+s32 ListMenu_ProcessInputDisplayOnly(u8 listTaskId)
+{
+    struct ListMenu *list = (void *) gTasks[listTaskId].data;
+
+    if (JOY_NEW(B_BUTTON))
+    {
+        return LIST_CANCEL;
+    }
+    else if (JOY_REPEAT(DPAD_UP))
+    {
+        ListMenuChangeSelection(list, TRUE, 1, FALSE);
+        return list->template.items[list->scrollOffset + list->selectedRow].id;
+    }
+    else if (JOY_REPEAT(DPAD_DOWN))
+    {
+        ListMenuChangeSelection(list, TRUE, 1, TRUE);
+        return list->template.items[list->scrollOffset + list->selectedRow].id;
+    }
+    else // try to move by one window scroll
+    {
+        bool16 rightButton, leftButton;
+        switch (list->template.scrollMultiple)
+        {
+        case LIST_NO_MULTIPLE_SCROLL:
+        default:
+            leftButton = FALSE;
+            rightButton = FALSE;
+            break;
+        case LIST_MULTIPLE_SCROLL_DPAD:
+            // note: JOY_REPEAT won't match here
+            leftButton = JOY_REPEAT(DPAD_LEFT);
+            rightButton = JOY_REPEAT(DPAD_RIGHT);
+            break;
+        case LIST_MULTIPLE_SCROLL_L_R:
+            // same as above
+            leftButton = JOY_REPEAT(L_BUTTON);
+            rightButton = JOY_REPEAT(R_BUTTON);
+            break;
+        }
+
+        if (leftButton)
+        {
+            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, FALSE);
+            return LIST_NOTHING_CHOSEN;
+        }
+        else if (rightButton)
+        {
+            ListMenuChangeSelection(list, TRUE, list->template.maxShowed, TRUE);
+            return LIST_NOTHING_CHOSEN;
+        }
+        else
+        {
+            return LIST_NOTHING_CHOSEN;
+        }
+    }
+}
+
 void DestroyListMenuTask(u8 listTaskId, u16 *scrollOffset, u16 *selectedRow)
 {
     struct ListMenu *list = (void *) gTasks[listTaskId].data;

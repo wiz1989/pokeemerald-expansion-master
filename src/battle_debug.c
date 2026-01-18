@@ -130,6 +130,16 @@ enum
     LIST_STAT_SP_DEF,
 };
 
+enum BaseStats
+{
+    LIST_BASE_STAT_HP,
+    LIST_BASE_STAT_ATTACK,
+    LIST_BASE_STAT_DEFENSE,
+    LIST_BASE_STAT_SP_ATK,
+    LIST_BASE_STAT_SP_DEF,
+    LIST_BASE_STAT_SPEED,
+};
+
 enum
 {
     LIST_STATUS1_SLEEP,
@@ -323,11 +333,9 @@ static const struct BitfieldInfo sAIBitfield[] =
 
 static const struct ListMenuItem sMainListItems[] =
 {
-#if DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE
     {COMPOUND_STRING("Battlerules"),  LIST_ITEM_BATTLERULES},
-#endif
     {COMPOUND_STRING("Moves"),        LIST_ITEM_MOVES},
-#if DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE
     {sText_Ability,                   LIST_ITEM_ABILITY},
     {sText_HeldItem,                  LIST_ITEM_HELD_ITEM},
     {COMPOUND_STRING("PP"),           LIST_ITEM_PP},
@@ -344,6 +352,11 @@ static const struct ListMenuItem sMainListItems[] =
     {COMPOUND_STRING("AI Party"),     LIST_ITEM_AI_PARTY},
     {COMPOUND_STRING("Various"),      LIST_ITEM_VARIOUS},
     {COMPOUND_STRING("Instant Win"),  LIST_ITEM_INSTANT_WIN},
+#else
+    {COMPOUND_STRING("Moves & PP"),   LIST_ITEM_PP},
+    {COMPOUND_STRING("Base Stats"),   LIST_ITEM_STATS},
+    {COMPOUND_STRING("Abilities"),    LIST_ITEM_ABILITY},
+    {COMPOUND_STRING("Types"),        LIST_ITEM_TYPES},
 #endif
 };
 
@@ -356,6 +369,16 @@ static const struct ListMenuItem sStatsListItems[] =
     {COMPOUND_STRING("Speed"),      LIST_STAT_SPEED},
     {COMPOUND_STRING("Sp. Atk"),    LIST_STAT_SP_ATK},
     {COMPOUND_STRING("Sp. Def"),    LIST_STAT_SP_DEF},
+};
+
+static const struct ListMenuItem sBaseStatsListItems[] =
+{
+    {COMPOUND_STRING("HP:           "),  LIST_BASE_STAT_HP},
+    {COMPOUND_STRING("Attack:   "),      LIST_BASE_STAT_ATTACK},
+    {COMPOUND_STRING("Defense: "),       LIST_BASE_STAT_DEFENSE},
+    {COMPOUND_STRING("Sp. Atk:   "),     LIST_BASE_STAT_SP_ATK},
+    {COMPOUND_STRING("Sp. Def:   "),     LIST_BASE_STAT_SP_DEF},
+    {COMPOUND_STRING("Speed:     "),     LIST_BASE_STAT_SPEED},
 };
 
 static const struct ListMenuItem sStatus1ListItems[] =
@@ -525,9 +548,14 @@ static const struct ListMenuTemplate sSecondaryListTemplate =
     .item_X = 8,
     .cursor_X = 0,
     .upText_Y = 1,
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == TRUE
+    .cursorPal = 0,
+    .cursorShadowPal = 0,
+#else
     .cursorPal = 2,
-    .fillValue = 1,
     .cursorShadowPal = 3,
+#endif
+    .fillValue = 1,
     .lettersSpacing = 1,
     .itemVerticalPadding = 0,
     .scrollMultiple = LIST_NO_MULTIPLE_SCROLL,
@@ -572,9 +600,9 @@ static const struct WindowTemplate sModifyWindowTemplate =
 static const struct WindowTemplate sBattlerWindowTemplate =
 {
     .bg = 0,
-    .tilemapLeft = 10,
+    .tilemapLeft = 2,
     .tilemapTop = 0,
-    .width = 14,
+    .width = 30,
     .height = 2,
     .paletteNum = 0xF,
     .baseBlock = 0x1B5
@@ -612,6 +640,9 @@ static const bool8 sHasChangeableEntries[LIST_ITEM_COUNT] =
     [LIST_ITEM_TYPES] = TRUE,
     [LIST_ITEM_HELD_ITEM] = TRUE,
     [LIST_ITEM_STAT_STAGES] = TRUE,
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == TRUE
+    [LIST_ITEM_STATS] = TRUE,
+#endif
 };
 
 static const u16 sBgColor[] = {RGB_WHITE};
@@ -728,6 +759,13 @@ void CB2_BattleDebugMenu(void)
         data->activeWindow = ACTIVE_WIN_MAIN;
         data->secondaryListTaskId = 0xFF;
         CopyWindowToVram(data->mainListWindowId, COPYWIN_FULL);
+
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == TRUE
+        // Create the secondary menu list immediately.
+        data->currentMainListItemId = LIST_ITEM_PP; // first item to show
+        CreateSecondaryListMenu(data);
+        PrintSecondaryEntries(data);
+#endif
         gMain.state++;
         break;
     case 5:
@@ -1190,6 +1228,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
     // A main list item is active, handle input.
     if (data->activeWindow == ACTIVE_WIN_MAIN)
     {
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE
         listItemId = ListMenu_ProcessInput(data->mainListTaskId);
         if (listItemId != LIST_CANCEL && listItemId != LIST_NOTHING_CHOSEN && listItemId < LIST_ITEM_COUNT)
         {
@@ -1222,6 +1261,23 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             PrintSecondaryEntries(data);
             data->activeWindow = ACTIVE_WIN_SECONDARY;
         }
+#else
+        if (JOY_NEW(DPAD_UP) || JOY_NEW(DPAD_DOWN))
+        {
+            listItemId = ListMenu_ProcessInputDisplayOnly(data->mainListTaskId);
+            if (listItemId != LIST_CANCEL && listItemId < LIST_ITEM_COUNT)
+            {
+                data->currentMainListItemId = listItemId;
+
+                // Create the secondary menu list.
+                DestroyListMenuTask(data->secondaryListTaskId, 0, 0);
+                RemoveWindow(data->secondaryListWindowId);
+                CreateSecondaryListMenu(data);
+                data->currentSecondaryListItemId = 0;
+                PrintSecondaryEntries(data);
+            }
+        }
+#endif
     }
     // Secondary list is active, handle input.
     else if (data->activeWindow == ACTIVE_WIN_SECONDARY)
@@ -1235,7 +1291,7 @@ static void Task_DebugMenuProcessInput(u8 taskId)
             data->activeWindow = ACTIVE_WIN_MAIN;
             data->secondaryListTaskId = 0xFF;
         }
-        else if (listItemId != LIST_NOTHING_CHOSEN && DEBUG_BATTLE_MOVE_DISPLAY_ONLY == FALSE)
+        else if (listItemId != LIST_NOTHING_CHOSEN && DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE)
         {
             data->currentSecondaryListItemId = listItemId;
             data->modifyWindowId = AddWindow(&sModifyWindowTemplate);
@@ -1315,13 +1371,14 @@ static void Task_DebugMenuFadeOut(u8 taskId)
 
 static void PrintOnBattlerWindow(u8 windowId, u8 battlerId)
 {
-    u8 text[POKEMON_NAME_LENGTH + 10];
+    u8 text[POKEMON_NAME_LENGTH + 30];
+    u8 stringValue[1];
 
-    text[0] = CHAR_0 + battlerId;
-    text[1] = CHAR_SPACE;
-    text[2] = CHAR_HYPHEN;
-    text[3] = CHAR_SPACE;
-    StringCopy(&text[4], gBattleMons[battlerId].nickname);
+    StringCopy(text, COMPOUND_STRING("{LEFT_ARROW}    L/R    {RIGHT_ARROW}           "));
+    ConvertIntToDecimalStringN(stringValue, battlerId, STR_CONV_MODE_LEFT_ALIGN, 2);
+    StringAppend(text, stringValue);
+    StringAppend(text, COMPOUND_STRING(" - "));
+    StringAppend(text, gSpeciesInfo[gBattleMons[battlerId].species].speciesName);
 
     FillWindowPixelBuffer(windowId, 0x11);
     AddTextPrinterParameterized(windowId, FONT_NORMAL, text, 0, 0, 0, NULL);
@@ -1360,7 +1417,11 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
     switch (data->currentMainListItemId)
     {
     case LIST_ITEM_ABILITY:
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE
         itemsCount = 1;
+#else
+        itemsCount = 3;
+#endif
         break;
     case LIST_ITEM_HELD_ITEM:
         itemsCount = 1;
@@ -1378,8 +1439,12 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
         itemsCount = 4;
         break;
     case LIST_ITEM_STATS:
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE
         listTemplate.items = sStatsListItems;
         itemsCount = ARRAY_COUNT(sStatsListItems);
+#else
+        itemsCount = ARRAY_COUNT(sBaseStatsListItems);
+#endif
         break;
     case LIST_ITEM_STAT_STAGES:
         itemsCount = 8;
@@ -1497,7 +1562,6 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
         }
         break;
     case LIST_ITEM_MOVES:
-    case LIST_ITEM_PP:
         for (i = 0; i < 4; i++)
         {
             PadString(GetMoveName(gBattleMons[data->battlerId].moves[i]), text);
@@ -1511,11 +1575,69 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
             printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
             AddTextPrinter(&printer, 0, NULL);
         }
+    case LIST_ITEM_PP:
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE
+        for (i = 0; i < 4; i++)
+        {
+            PadString(GetMoveName(gBattleMons[data->battlerId].moves[i]), text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        // Allow changing all moves at once. Useful for testing in wild doubles.
+        if (data->currentMainListItemId == LIST_ITEM_MOVES)
+        {
+            PadString(sTextAll, text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+#else
+        for (i = 0; i < 4; i++)
+        {
+            u8 stringValue[5];
+            
+            StringCopy(text, GetMoveName(gBattleMons[data->battlerId].moves[i]));
+            StringAppend(text, gText_Space);
+            
+            ConvertIntToDecimalStringN(stringValue, gBattleMons[data->battlerId].pp[i], STR_CONV_MODE_LEFT_ALIGN, 2);
+            StringAppend(text, stringValue);
+            StringAppend(text, gText_Slash);
+            ConvertIntToDecimalStringN(stringValue, gMovesInfo[gBattleMons[data->battlerId].moves[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 2);
+            StringAppend(text, stringValue);
+
+            PadString(text, text);
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+#endif
         break;
     case LIST_ITEM_ABILITY:
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE
         PadString(gAbilitiesInfo[gBattleMons[data->battlerId].ability].name, text);
         printer.currentY = printer.y = sSecondaryListTemplate.upText_Y;
         AddTextPrinter(&printer, 0, NULL);
+#else
+        for (i = 0; i < 3; i++)
+        {
+            switch (i)
+            {
+            case 0:
+                StringCopy(text, COMPOUND_STRING("1ST: "));
+                break;
+            case 1:
+                StringCopy(text, COMPOUND_STRING("2ND: "));
+                break;
+            case 2:
+                StringCopy(text, COMPOUND_STRING("HDN: "));
+                break;
+            }
+
+            StringAppend(text, gAbilitiesInfo[GetAbilityBySpecies(gBattleMons[data->battlerId].species, i)].name);
+            PadString(text, text);
+
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+#endif
         break;
     case LIST_ITEM_HELD_ITEM:
         PadString(GetItemName(gBattleMons[data->battlerId].item), text);
@@ -1532,6 +1654,42 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
             AddTextPrinter(&printer, 0, NULL);
         }
         break;
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == TRUE
+    case LIST_ITEM_STATS:
+        for (i = 0; i < ARRAY_COUNT(sBaseStatsListItems); i++)
+        {
+            u8 stringValue[5];
+
+            StringCopy(text, sBaseStatsListItems[i].name);
+            switch (i)
+            {
+            case LIST_BASE_STAT_HP:
+                ConvertIntToDecimalStringN(stringValue, gSpeciesInfo[gBattleMons[data->battlerId].species].baseHP, STR_CONV_MODE_LEFT_ALIGN, 3);
+                break;
+            case LIST_BASE_STAT_ATTACK:
+                ConvertIntToDecimalStringN(stringValue, gSpeciesInfo[gBattleMons[data->battlerId].species].baseAttack, STR_CONV_MODE_LEFT_ALIGN, 3);
+                break;
+            case LIST_BASE_STAT_DEFENSE:
+                ConvertIntToDecimalStringN(stringValue, gSpeciesInfo[gBattleMons[data->battlerId].species].baseDefense, STR_CONV_MODE_LEFT_ALIGN, 3);
+                break;
+            case LIST_BASE_STAT_SP_ATK:
+                ConvertIntToDecimalStringN(stringValue, gSpeciesInfo[gBattleMons[data->battlerId].species].baseSpAttack, STR_CONV_MODE_LEFT_ALIGN, 3);
+                break;
+            case LIST_BASE_STAT_SP_DEF:
+                ConvertIntToDecimalStringN(stringValue, gSpeciesInfo[gBattleMons[data->battlerId].species].baseSpDefense, STR_CONV_MODE_LEFT_ALIGN, 3);
+                break;
+            case LIST_BASE_STAT_SPEED:
+                ConvertIntToDecimalStringN(stringValue, gSpeciesInfo[gBattleMons[data->battlerId].species].baseSpeed, STR_CONV_MODE_LEFT_ALIGN, 3);
+                break;
+            }
+            StringAppend(text, stringValue);
+            PadString(text, text);
+
+            printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            AddTextPrinter(&printer, 0, NULL);
+        }
+        break;
+#endif
     case LIST_ITEM_STAT_STAGES:
         for (i = 0; i < NUM_BATTLE_STATS - 1; i++)
         {
