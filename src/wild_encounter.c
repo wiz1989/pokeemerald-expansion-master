@@ -643,6 +643,8 @@ static u8 GetValidEncountersforMap(const struct WildPokemonInfo *wildMonInfo, en
                 gUniqueEncounters[j] = 0;
         }
         u16 species = wildMonInfo->wildPokemon[i].species;
+        if (species == SPECIES_NONE)
+            continue;
         for (u8 j = 0; j < maxIndex; j++)
         {
             if (gUniqueEncounters[j] == 0)
@@ -655,7 +657,6 @@ static u8 GetValidEncountersforMap(const struct WildPokemonInfo *wildMonInfo, en
                 break;
         }
     }
-    DebugPrintf("---\n");
 
     // Count valid encounters left for the map
     for (u8 i = 0; i < uniqueEncountersOnMap; i++)
@@ -783,6 +784,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
         break;
     case WILD_AREA_ROCKS:
         wildMonIndex = ChooseWildMonIndex_Rocks();
+        gIsDupe = (CheckDupes(wildMonInfo->wildPokemon[wildMonIndex].species) == INVALID_ENCOUNTER_DUPE);
         break;
     default:
     case WILD_AREA_FISHING:
