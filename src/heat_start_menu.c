@@ -125,7 +125,9 @@ struct HeatStartMenu {
   u32 sStartClockWindowId;
   u32 sMenuNameWindowId;
   u32 sSafariBallsWindowId;
-  u32 flag; // some u32 holding values for controlling the sprite anims and lifetime
+  u32 flag:1; // some u32 holding values for controlling the sprite anims and lifetime
+  u32 unlockAndUnfreeze:1;
+  u32 padding:30;
   
   u32 spriteIdPoketch;
   u32 spriteIdPokedex;
@@ -618,6 +620,7 @@ void HeatStartMenu_Init(void) {
   sHeatStartMenu->loadState = 0;
   sHeatStartMenu->sStartClockWindowId = 0;
   sHeatStartMenu->flag = 0;
+  sHeatStartMenu->unlockAndUnfreeze = FALSE;
 
   if (GetSafariZoneFlag() == FALSE) { 
     if (FlagGet(FLAG_SYS_POKENAV_GET) == FALSE && menuSelected == 0) {
@@ -902,14 +905,18 @@ static void HeatStartMenu_ExitAndClearTilemap(void) {
   DestroySprite(&gSprites[sHeatStartMenu->spriteIdTrainerCard]);
   DestroySprite(&gSprites[sHeatStartMenu->spriteIdOptions]);
 
+  
+  if (sHeatStartMenu ->unlockAndUnfreeze)
+  {
+    ScriptUnfreezeObjectEvents();  
+    UnlockPlayerFieldControls();
+  }
+
   if (sHeatStartMenu != NULL) {
     FreeSpriteTilesByTag(TAG_ICON_GFX);  
     Free(sHeatStartMenu);
     sHeatStartMenu = NULL;
   }
-
-  ScriptUnfreezeObjectEvents();  
-  UnlockPlayerFieldControls();
 }
 
 static void DoCleanUpAndChangeCallback(MainCallback callback) {
@@ -1389,6 +1396,7 @@ static void Task_HeatStartMenu_HandleMainInput(u8 taskId) {
     }
   } else if (JOY_NEW(B_BUTTON) && sHeatStartMenu->loadState == 0) {
     PlaySE(SE_SELECT);
+    sHeatStartMenu->unlockAndUnfreeze = TRUE;
     HeatStartMenu_ExitAndClearTilemap();  
     DestroyTask(taskId);
   } else if (gMain.newKeys & DPAD_DOWN && sHeatStartMenu->loadState == 0) {
