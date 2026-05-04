@@ -66,5 +66,15 @@ Here is what I am using it for:
 - creating py scripts for I/O procedures (like downloading/writing list data, I/O data with Excel, etc.)
 
 In the context of this feature branch I also used it to crawl through https://problemkaputt.de/gbatek.htm and https://emulation.gametechwiki.com/index.php/GBA_Tests
-and help me setting up the actual hardware checks.
+and help me setting up the actual hardware checks.\
+<br/>
 
+## Examples
+**Vanilla screen:**
+https://github.com/user-attachments/assets/adc111ad-cc7a-4b41-ba37-5f529e07f4bc
+
+**Expansion screen:**
+https://github.com/user-attachments/assets/35af5a14-734d-45bb-a4fe-d6fc877ad10c
+
+**Continue with START if enabled:**
+https://github.com/user-attachments/assets/4ba714f7-127b-49b7-8a34-be6566c17949
