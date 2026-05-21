@@ -24,6 +24,7 @@
 #include "main.h"
 #include "trainer_hill.h"
 #include "test_runner.h"
+#include "emulator_check.h"
 #include "constants/rgb.h"
 
 static void VBlankIntr(void);
@@ -112,6 +113,9 @@ void AgbMain(void)
     ResetBgs();
     SetDefaultFontsPointer();
     InitHeap(gHeap, HEAP_SIZE);
+
+    if (IsInaccurateEmulator())
+        RunEmulatorCheckUI(CB2_InitCopyrightScreenAfterBootup);
 
     gSoftResetDisabled = FALSE;
 
