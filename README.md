@@ -24,6 +24,9 @@ To call the accuracy check simply add the following two lines to `AgbMain()` in 
 if (IsInaccurateEmulator())
     RunEmulatorCheckUI(CB2_InitCopyrightScreenAfterBootup);
 ```
+You will also need to add `#include "emulator_check.h"` to this file's includes at the top.\
+
+If you are using `pokeemerald-expansion` 1.13.0 or higher you will need to replace the `LZDecompressVram()` calls with `DecompressDataWithHeaderVram()`.\
 <br/>
 
 ## How does it work?
