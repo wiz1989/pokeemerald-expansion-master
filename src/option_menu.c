@@ -34,6 +34,7 @@
 #define tMetLocClause data[13]
 #define tRevealRule data[14]
 #define tLeadersUpgrade data[15]
+#define tConcurrentRules data[16]
 
 enum menuItems_pg1
 {
@@ -54,6 +55,7 @@ enum menuItems_pg2
     MENUITEM_REVEALRULE,
     MENUITEM_HARDERTRAINERS,
     MENUITEM_LEADERS_UPGRADE,
+    MENUITEM_CONCURRENT_RULES,
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
 };
@@ -85,6 +87,7 @@ enum
 #define YPOS_NOBAGINBATTLE   (MENUITEM_NOBAGINBATTLE * 16)
 #define YPOS_HARDERTRAINERS  (MENUITEM_HARDERTRAINERS * 16)
 #define YPOS_LEADERS_UPGRADE (MENUITEM_LEADERS_UPGRADE * 16)
+#define YPOS_CONCURRENT_RULES (MENUITEM_CONCURRENT_RULES * 16)
 #define YPOS_50DAMAGE        (MENUITEM_50DAMAGE * 16)
 #define YPOS_DUPECLAUSE      (MENUITEM_DUPECLAUSE * 16)
 #define YPOS_REVEALRULE      (MENUITEM_REVEALRULE * 16)
@@ -112,6 +115,8 @@ static u8 HarderTrainers_ProcessInput(u8 selection);
 static void HarderTrainers_DrawChoices(u8 selection);
 static u8 LeadersUpgrade_ProcessInput(u8 selection);
 static void LeadersUpgrade_DrawChoices(u8 selection);
+static u8 ConcurrentRules_ProcessInput(u8 selection);
+static void ConcurrentRules_DrawChoices(u8 selection);
 static u8 RevealRule_ProcessInput(u8 selection);
 static void RevealRule_DrawChoices(u8 selection);
 static u8 HalfDamage_ProcessInput(u8 selection);
@@ -156,12 +161,13 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
 
 static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
 {
-    [MENUITEM_BATTLE_SPEEDUP]  = gText_BattleSpeedup,
-    [MENUITEM_50DAMAGE]        = gText_50Damage,
-    [MENUITEM_REVEALRULE]      = gText_RevealRule,
-    [MENUITEM_HARDERTRAINERS]  = gText_HarderTrainers,
-    [MENUITEM_LEADERS_UPGRADE] = gText_LeadersE4Upgrade,
-    [MENUITEM_CANCEL_PG2]      = gText_OptionMenuCancel,
+    [MENUITEM_BATTLE_SPEEDUP]   = gText_BattleSpeedup,
+    [MENUITEM_50DAMAGE]         = gText_50Damage,
+    [MENUITEM_REVEALRULE]       = gText_RevealRule,
+    [MENUITEM_HARDERTRAINERS]   = gText_HarderTrainers,
+    [MENUITEM_LEADERS_UPGRADE]  = gText_LeadersE4Upgrade,
+    [MENUITEM_CONCURRENT_RULES] = gText_ConcurrentRules,
+    [MENUITEM_CANCEL_PG2]       = gText_OptionMenuCancel,
 };
 
 static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
@@ -253,6 +259,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tDupeClause = gSaveBlock2Ptr->dupeClause;
     gTasks[taskId].tMetLocClause = gSaveBlock2Ptr->metLocClause;
     gTasks[taskId].tRevealRule = gSaveBlock2Ptr->revealRule;
+    gTasks[taskId].tConcurrentRules = gSaveBlock2Ptr->concurrentRules;
 }
 
 static void DrawOptionsPg1(u8 taskId)
@@ -276,6 +283,7 @@ static void DrawOptionsPg2(u8 taskId)
     RevealRule_DrawChoices(gTasks[taskId].tRevealRule);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
     LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
+    ConcurrentRules_DrawChoices(gTasks[taskId].tConcurrentRules);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -620,6 +628,13 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tRevealRule)
                 RevealRule_DrawChoices(gTasks[taskId].tRevealRule);
             break;
+        case MENUITEM_CONCURRENT_RULES:
+            previousOption = gTasks[taskId].tConcurrentRules;
+            gTasks[taskId].tConcurrentRules = ConcurrentRules_ProcessInput(gTasks[taskId].tConcurrentRules);
+
+            if (previousOption != gTasks[taskId].tConcurrentRules)
+                ConcurrentRules_DrawChoices(gTasks[taskId].tConcurrentRules);
+            break;
         default:
             return;
         }
@@ -736,6 +751,7 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->dupeClause = gTasks[taskId].tDupeClause;
     gSaveBlock2Ptr->revealRule = gTasks[taskId].tRevealRule;
     gSaveBlock2Ptr->metLocClause = gTasks[taskId].tMetLocClause;
+    gSaveBlock2Ptr->concurrentRules = gTasks[taskId].tConcurrentRules;
 
     VarSet(VAR_BATTLE_SPEED, gTasks[taskId].tBattleSpeedUp);
 
@@ -1086,6 +1102,43 @@ static void LeadersUpgrade_DrawChoices(u8 selection)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_OptionOff, 104, YPOS_LEADERS_UPGRADE, styles[0]);
     DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_LEADERS_UPGRADE, styles[1]);
+}
+
+static u8 ConcurrentRules_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        if (selection < OPTIONS_CONCURRENT_RULES_3)
+            selection++;
+        else
+            selection = OPTIONS_CONCURRENT_RULES_1;
+
+        sArrowPressed = TRUE;
+    }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        if (selection != OPTIONS_CONCURRENT_RULES_1)
+            selection--;
+        else
+            selection = OPTIONS_CONCURRENT_RULES_3;
+
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void ConcurrentRules_DrawChoices(u8 selection)
+{
+    u8 styles[3];
+
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[2] = 0;
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(gText_ConcurrentRules1, 104, YPOS_CONCURRENT_RULES, styles[0]);
+    DrawOptionMenuChoice(gText_ConcurrentRules2, 145, YPOS_CONCURRENT_RULES, styles[1]);
+    DrawOptionMenuChoice(gText_ConcurrentRules3, GetStringRightAlignXOffset(FONT_NORMAL, gText_ConcurrentRules3, 198), YPOS_CONCURRENT_RULES, styles[2]);
 }
 
 static u8 HalfDamage_ProcessInput(u8 selection)

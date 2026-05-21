@@ -109,6 +109,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->revealRule = TRUE;
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->leadersUpgrade = FALSE;
+    gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_1;
 
     // nuzlocke
     gSaveBlock2Ptr->permadeath = TRUE;

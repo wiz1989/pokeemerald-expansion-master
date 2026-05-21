@@ -162,6 +162,10 @@
 #define OPTIONS_BATTLE_SCENE_DISABLED   4
 #define OPTIONS_BATTLE_SCENE_COUNT      5
 
+#define OPTIONS_CONCURRENT_RULES_1      0
+#define OPTIONS_CONCURRENT_RULES_2      1
+#define OPTIONS_CONCURRENT_RULES_3      2
+
 #define DIR_NONE        0
 #define DIR_SOUTH       1
 #define DIR_NORTH       2
