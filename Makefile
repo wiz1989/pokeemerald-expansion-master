@@ -31,6 +31,21 @@ endif
 ifeq (debug,$(MAKECMDGOALS))
   DEBUG := 1
 endif
+# Strips debug info and marks the ROM as a release build
+RELEASE ?= 0
+ifneq (,$(filter release,$(MAKECMDGOALS)))
+  RELEASE := 1
+endif
+# Uses Pat's graphics for the rival instead of Brendan/May
+PAT ?= 0
+ifneq (,$(filter pat,$(MAKECMDGOALS)))
+  PAT := 1
+endif
+
+# update file name for release builds
+ifeq ($(RELEASE),1)
+  FILE_NAME := pokemon_rule-ette
+endif
 
 # Default make rule
 all: rom
@@ -66,6 +81,7 @@ ROM_NAME := $(FILE_NAME).gba
 OBJ_DIR_NAME := $(BUILD_DIR)/modern
 OBJ_DIR_NAME_TEST := $(BUILD_DIR)/modern-test
 OBJ_DIR_NAME_DEBUG := $(BUILD_DIR)/modern-debug
+OBJ_DIR_NAME_RELEASE := $(BUILD_DIR)/modern-release
 
 ELF_NAME := $(ROM_NAME:.gba=.elf)
 MAP_NAME := $(ROM_NAME:.gba=.map)
@@ -84,6 +100,17 @@ else
 endif
 ifeq ($(DEBUG),1)
   OBJ_DIR := $(OBJ_DIR_NAME_DEBUG)
+endif
+ifeq ($(RELEASE),1)
+  GAME_VERSION_MAJOR := $(shell grep -oP '(?<=#define GAME_VERSION_MAJOR )\d+' include/config/general.h)
+  GAME_VERSION_MINOR := $(shell grep -oP '(?<=#define GAME_VERSION_MINOR )\d+' include/config/general.h)
+  GAME_VERSION_PATCH := $(shell grep -oP '(?<=#define GAME_VERSION_PATCH )\d+' include/config/general.h)
+  GAME_VERSION := v$(GAME_VERSION_MAJOR).$(GAME_VERSION_MINOR).$(GAME_VERSION_PATCH)
+  ROM := $(FILE_NAME)_$(GAME_VERSION).gba
+  OBJ_DIR := $(OBJ_DIR_NAME_RELEASE)
+endif
+ifeq ($(PAT),1)
+  OBJ_DIR := $(OBJ_DIR)-pat
 endif
 ELF := $(ROM:.gba=.elf)
 MAP := $(ROM:.gba=.map)
@@ -157,6 +184,14 @@ override CFLAGS := $(filter-out -O1 -Og -O2,$(CFLAGS))
 override CFLAGS += -O0
 endif
 
+ifeq ($(RELEASE),1)
+  override CPPFLAGS += -DRELEASE=$(RELEASE)
+  override ASFLAGS  += --defsym RELEASE=$(RELEASE)
+endif
+ifeq ($(PAT),1)
+  override CPPFLAGS += -DOW_RIVAL_GFX_USE_PAT=1
+endif
+
 # Variable filled out in other make files
 AUTO_GEN_TARGETS :=
 include make_tools.mk
@@ -213,7 +248,7 @@ MAKEFLAGS += --no-print-directory
 .DELETE_ON_ERROR:
 
 RULES_NO_SCAN += libagbsyscall clean clean-assets tidy tidymodern tidycheck generated clean-generated
-.PHONY: all rom agbcc modern compare check debug
+.PHONY: all rom agbcc modern compare check debug release pat
 .PHONY: $(RULES_NO_SCAN)
 
 infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
@@ -284,6 +319,8 @@ $(shell mkdir -p $(SUBDIRS))
 modern: all
 compare: all
 debug: all
+release: all
+pat: all
 # Uncomment the next line, and then comment the 4 lines after it to reenable agbcc.
 #agbcc: all
 agbcc:

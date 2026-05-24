@@ -2,7 +2,9 @@
 #define GUARD_CONFIG_OVERWORLD_H
 
 // Pat graphics
-#define OW_RIVAL_GFX_USE_PAT        FALSE       // If enabled, the rival uses the Pat graphics instead of Brendan/May.
+#ifndef OW_RIVAL_GFX_USE_PAT
+  #define OW_RIVAL_GFX_USE_PAT        FALSE       // If enabled, the rival uses the Pat graphics instead of Brendan/May.
+#endif
 
 // Movement config
 #define OW_RUNNING_INDOORS          GEN_LATEST  // In Gen4+, players are allowed to run indoors.

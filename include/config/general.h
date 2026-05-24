@@ -1,12 +1,28 @@
 #ifndef GUARD_CONFIG_GENERAL_H
 #define GUARD_CONFIG_GENERAL_H
 
+// Project version — update these three numbers to propagate everywhere:
+//   - the save screen (gText_SavingVersion)
+//   - the release ROM filename (pokeemerald_release_vX.Y.Z.gba)
+#define GAME_VERSION_MAJOR 1
+#define GAME_VERSION_MINOR 0
+#define GAME_VERSION_PATCH 1
+// Internal helpers for stringification
+#define GAME_VER_STR_(x) #x
+#define GAME_VER_STR(x)  GAME_VER_STR_(x)
+#define GAME_VERSION_STRING \
+    GAME_VER_STR(GAME_VERSION_MAJOR) "." \
+    GAME_VER_STR(GAME_VERSION_MINOR) "." \
+    GAME_VER_STR(GAME_VERSION_PATCH)
+
 // In the Generation 3 games, Asserts were used in various debug builds.
 // Ruby/Sapphire and Emerald do not have these asserts while Fire Red
 // still has them in the ROM. This is because the developers forgot
 // to define NDEBUG before release, however this has been changed as
 // Ruby's actual debug build does not use the AGBPrint features.
-#define NDEBUG
+#ifdef RELEASE
+  #define NDEBUG
+#endif
 
 // To enable printf debugging, comment out "#define NDEBUG". This allows
 // the various AGBPrint functions to be used. (See include/gba/isagbprint.h).
