@@ -567,7 +567,7 @@ void HandleAction_Switch(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
 
-    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING && IsOnPlayerSide(gBattlerAttacker))
+    if (IsActiveBattleRule(BATTLERULE_NOSWITCHING) && IsOnPlayerSide(gBattlerAttacker))
     {
         gBattleRuleBattler = gBattlerAttacker;
         if (gSaveBlock2Ptr->halfDamage)
@@ -2843,7 +2843,7 @@ bool32 TryChangeBattleWeather(u32 battler, u32 battleWeatherId, bool32 viaAbilit
     else
     {
         u32 rock = sBattleWeatherInfo[battleWeatherId].rock;
-        if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+        if (!(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(battler)))
             gBattleWeather = sBattleWeatherInfo[battleWeatherId].flag;
         if (gBattleWeather & B_WEATHER_PRIMAL_ANY)
             gWishFutureKnock.weatherDuration = 0;
@@ -2861,7 +2861,7 @@ static bool32 TryChangeBattleTerrain(u32 battler, u32 statusFlag, u16 *timer)
 {
     if ((!(gFieldStatuses & statusFlag) && (!gBattleStruct->isSkyBattle)))
     {
-        if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+        if (!(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(battler)))
         {
             gFieldStatuses &= ~STATUS_FIELD_TERRAIN_ANY;
             gFieldStatuses |= statusFlag;
@@ -5105,7 +5105,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             case ABILITY_OPPORTUNIST:
                 if (gProtectStructs[battler].activateOpportunist == 2)
                 {
-                    if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                    if (!(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(battler)))
                     {
                         gBattleScripting.battler = battler;
                         gProtectStructs[battler].activateOpportunist--;
@@ -5149,7 +5149,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
             case ABILITY_VITAL_SPIRIT:
                 if (gBattleMons[battler].status1 & STATUS1_SLEEP)
                 {
-                    if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                    if (!(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(battler)))
                     {
                         TryDeactivateSleepClause(GetBattlerSide(battler), gBattlerPartyIndexes[battler]);
                         gBattleMons[battler].volatiles.nightmare = FALSE;
@@ -5204,7 +5204,7 @@ u32 AbilityBattleEffects(u32 caseID, u32 battler, u32 ability, u32 special, u32 
                     break;
                 }
                 
-                if (!(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                if (!(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(battler)))
                 {
                     gBattleScripting.battler = gBattlerAbility = battler;
                     BtlController_EmitSetMonData(battler, B_COMM_TO_CONTROLLER, REQUEST_STATUS_BATTLE, 0, 4, &gBattleMons[battler].status1);

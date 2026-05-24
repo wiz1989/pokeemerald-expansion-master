@@ -574,7 +574,7 @@ static void CB2_InitBattleInternal(void)
             SetWildMonHeldItem();
             CalculateEnemyPartyCount();
         }
-        if (GetRandomBattleRuleSeeded() == BATTLERULE_1HP)
+        if (IsActiveBattleRule(BATTLERULE_1HP))
         {
             u8 hp = 1;
 
@@ -584,7 +584,7 @@ static void CB2_InitBattleInternal(void)
                     SetMonData(&gPlayerParty[i], MON_DATA_HP, &hp);
             }
         }
-        if (GetRandomBattleRuleSeeded() == BATTLERULE_1PP)
+        if (IsActiveBattleRule(BATTLERULE_1PP))
         {
             u8 pp = 1;
 
@@ -4463,7 +4463,7 @@ static void HandleTurnActionSelectionState(void)
                 case B_ACTION_SWITCH:
                     gBattleStruct->battlerPartyIndexes[battler] = gBattlerPartyIndexes[battler];
                 #if B_BATTLERULE_NOSWITCHING_NOPARTYMENU
-                    if (GetRandomBattleRuleSeeded() == BATTLERULE_NOSWITCHING && IsOnPlayerSide(battler))
+                    if (IsActiveBattleRule(BATTLERULE_NOSWITCHING) && IsOnPlayerSide(battler))
                     {
                         gBattleCommunication[battler] = STATE_WAIT_ACTION_CASE_CHOSEN;
                         return;
@@ -6345,23 +6345,31 @@ void BattleDebug_LostBattle(void)
 
 bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
 {
-    u8 rule = GetRandomBattleRuleSeeded();
     bool8 faint = FALSE;
+    u8 i;
 
-    if(!gBattleTurnCounter)
+    ComputeActiveBattleRules();
+
+    if (!gBattleTurnCounter)
         midBattle = FALSE;
 
-    if (rule == BATTLERULE_PERISHCOUNT)
+    for (i = 0; i < MAX_CONCURRENT_RULES && !faint; i++)
     {
-        BattleScriptExecute(BattleScript_BattleRule_Perish);
-        return TRUE;
-    }
+        u8 rule = gActiveBattleRules[i];
 
-    if (gBattleRules[rule].category == BATTLERULE_CATEGORY_SENDOUT)
-    {
-        if (IsOnPlayerSide(battler) && IsBattlerValidSpecies(battler))
+        if (rule == BATTLERULE_NONE)
+            continue;
+
+        if (rule == BATTLERULE_PERISHCOUNT)
         {
-            faint = FALSE;
+            gBattleRuleViolated = rule;
+            BattleScriptExecute(BattleScript_BattleRule_Perish);
+            return TRUE;
+        }
+
+        if (gBattleRules[rule].category == BATTLERULE_CATEGORY_SENDOUT
+          && IsOnPlayerSide(battler) && IsBattlerValidSpecies(battler))
+        {
             if (rule == BATTLERULE_NOSAMESEX && !IsDoubleBattle())
             {
                 u8 gender = GetBattlerGender(battler);
@@ -6372,100 +6380,117 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
             }
             else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[battler].species, GetRandomSpeciesTypeSeeded()))
                 faint = TRUE;
+        }
 
-            if (faint)
-            {
-                gBattleRuleBattler = battler;
+        if (faint)
+            gBattleRuleViolated = rule; // save the violated rule for battle scripts to use
+    }
 
-                if (gSaveBlock2Ptr->halfDamage)
-                    gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
-                else
-                    gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
+    if (faint)
+    {
+        gBattleRuleBattler = battler;
 
-                if (midBattle)
-                {
-                    // gBattleRuleBattler = gBattlerAttacker;
-                    BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
-                }
-                else
-                {
-                    BattleScriptExecute(BattleScript_BattleRule_FaintMon_NoStackReset);
-                }
-            }
+        if (gSaveBlock2Ptr->halfDamage)
+            gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
+        else
+            gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
+
+        if (midBattle)
+        {
+            // gBattleRuleBattler = gBattlerAttacker;
+            BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
+        }
+        else
+        {
+            BattleScriptExecute(BattleScript_BattleRule_FaintMon_NoStackReset);
         }
     }
+    
     return faint;
 }
 
 bool8 BattleRuleViolated_USEMOVE(u32 move)
 {
-    u8 rule = GetRandomBattleRuleSeeded();
     u8 moveType = GetRandomMoveTypeSeeded();
     bool8 faint = FALSE;
+    u8 i;
 
-    if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
+    ComputeActiveBattleRules();
+
+    for (i = 0; i < MAX_CONCURRENT_RULES && !faint; i++)
     {
-        if (IsOnPlayerSide(gBattlerAttacker) && IsBattlerValidSpecies(gBattlerAttacker))
-        {
-            faint = FALSE;
-            switch (rule)
-            {
-            case BATTLERULE_BANNEDMOVETYPE:
-                if (GetBattleMoveType(move) == moveType)
-                    faint = TRUE;
-                break;
-            case BATTLERULE_NOSTAB:
-                if (IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
-                    faint = TRUE;
-                break;
-            case BATTLERULE_ONLYSTAB:
-                if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
-                    faint = TRUE;
-                break;
-            case BATTLERULE_NOSUPEREFFECTIVE:
-                u16 effectiveness = CalcTypeEffectivenessMultiplierHelper(move, GetBattleMoveType(move), gBattlerAttacker, gBattlerTarget, gBattleMons[gBattlerAttacker].ability, gBattleMons[gBattlerTarget].ability, TRUE);
-                if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
-                    faint = TRUE;
-                break;
-            case BATTLERULE_SWITCHMOVES:
-                if (move == gLastResultingMoves[gBattlerAttacker] && gAlreadyChecked[gBattlerAttacker] == FALSE)
-                {
-                    if (gDisableStructs[gBattlerAttacker].lastTurnWasChargingTurn && !gProtectStructs[gBattlerAttacker].chargingTurn)
-                        break;
+        u8 rule = gActiveBattleRules[i];
 
-                    gChosenMove = MOVE_NONE;
-                    gLastMoves[gBattlerAttacker] = MOVE_NONE;
-                    gLastResultingMoves[gBattlerAttacker] = MOVE_NONE;
-                    faint = TRUE;
+        if (rule == BATTLERULE_NONE)
+            continue;
+
+        if (gBattleRules[rule].category == BATTLERULE_CATEGORY_USEMOVE)
+        {
+            if (IsOnPlayerSide(gBattlerAttacker) && IsBattlerValidSpecies(gBattlerAttacker))
+            {
+                switch (rule)
+                {
+                case BATTLERULE_BANNEDMOVETYPE:
+                    if (GetBattleMoveType(move) == moveType)
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_NOSTAB:
+                    if (IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_ONLYSTAB:
+                    if (!IS_BATTLER_OF_TYPE(gBattlerAttacker, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_NOSUPEREFFECTIVE:
+                    u16 effectiveness = CalcTypeEffectivenessMultiplierHelper(move, GetBattleMoveType(move), gBattlerAttacker, gBattlerTarget, gBattleMons[gBattlerAttacker].ability, gBattleMons[gBattlerTarget].ability, TRUE);
+                    if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_SWITCHMOVES:
+                    if (move == gLastResultingMoves[gBattlerAttacker] && gAlreadyChecked[gBattlerAttacker] == FALSE)
+                    {
+                        if (gDisableStructs[gBattlerAttacker].lastTurnWasChargingTurn && !gProtectStructs[gBattlerAttacker].chargingTurn)
+                            break;
+
+                        gChosenMove = MOVE_NONE;
+                        gLastMoves[gBattlerAttacker] = MOVE_NONE;
+                        gLastResultingMoves[gBattlerAttacker] = MOVE_NONE;
+                        faint = TRUE;
+                    }
+                    break;
+                case BATTLERULE_NOPRIO:
+                    if (gMovesInfo[move].priority > 0)
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_NOSETUP:
+                    if (IsSetupMove(move))
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
+                    if (gMovesInfo[move].category == DAMAGE_CATEGORY_PHYSICAL)
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_BANNEDMOVECAT_SPECIAL:
+                    if (gMovesInfo[move].category == DAMAGE_CATEGORY_SPECIAL)
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_BANNEDMOVECAT_STATUS:
+                    if (gMovesInfo[move].category == DAMAGE_CATEGORY_STATUS)
+                        faint = TRUE;
+                    break;
+                case BATTLERULE_FIRSTMOVEONLY:
+                    if (gBattleMons[gBattlerAttacker].moves[0] != move)
+                        faint = TRUE;
+                    break;
                 }
-                break;
-            case BATTLERULE_NOPRIO:
-                if (gMovesInfo[move].priority > 0)
-                    faint = TRUE;
-                break;
-            case BATTLERULE_NOSETUP:
-                if (IsSetupMove(move))
-                    faint = TRUE;
-                break;
-            case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
-                if (gMovesInfo[move].category == DAMAGE_CATEGORY_PHYSICAL)
-                    faint = TRUE;
-                break;
-            case BATTLERULE_BANNEDMOVECAT_SPECIAL:
-                if (gMovesInfo[move].category == DAMAGE_CATEGORY_SPECIAL)
-                    faint = TRUE;
-                break;
-            case BATTLERULE_BANNEDMOVECAT_STATUS:
-                if (gMovesInfo[move].category == DAMAGE_CATEGORY_STATUS)
-                    faint = TRUE;
-                break;
-            case BATTLERULE_FIRSTMOVEONLY:
-                if (gBattleMons[gBattlerAttacker].moves[0] != move)
-                    faint = TRUE;
-                break;
             }
         }
+
+        if (faint)
+            gBattleRuleViolated = rule; // save the violated rule for battle scripts to use
     }
+
     return faint;
 }
 

@@ -1101,10 +1101,11 @@ struct SaveBlock1
     /*0x560*/ struct Bag bag;
     /*0x848*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
 #if FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1 == FALSE
-    /*0x988*/ u8 filler1[0x34]; // Previously Dex Flags, feel free to remove.
+    /*0x988*/ u8 debugBattleRule[3];
+              u8 filler1[0x31]; // Previously Dex Flags, feel free to remove.
 #endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1
     /*0x9BC*/ u16 berryBlenderRecords[3];
-    /*0x9C2*/ u8 debugBattleRule;
+    /*0x9C2*/ u8 filler2;
               u16 battleRuleRerollCounter;
               u8 typeRerollCounter;
               u16 lastTrainerId;

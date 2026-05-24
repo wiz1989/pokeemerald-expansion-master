@@ -4,6 +4,7 @@
 #include "battle_anim.h"
 #include "battle_pyramid.h"
 #include "battle_pyramid_bag.h"
+#include "battle_rules.h"
 #include "berry.h"
 #include "berry_powder.h"
 #include "bike.h"
@@ -1316,7 +1317,7 @@ bool32 CannotUseItemsInBattle(u16 itemId, struct Pokemon *mon)
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_REVIVE:
-        if (hp != 0 || (GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING))
+        if (hp != 0 || (IsActiveBattleRule(BATTLERULE_NOHEALING)))
             cannotUse = TRUE;
         break;
     case EFFECT_ITEM_RESTORE_PP:

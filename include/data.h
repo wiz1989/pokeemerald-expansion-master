@@ -303,7 +303,7 @@ static inline const u8 GetTrainerBackPicFromId(u16 trainerId)
 
 static inline const u8 GetTrainerStartingStatusFromId(u16 trainerId)
 {
-    if (GetRandomBattleRuleSeeded() == BATTLERULE_TRICKROOM)
+    if (IsActiveBattleRule(BATTLERULE_TRICKROOM))
         return STARTING_STATUS_TRICK_ROOM;
     else
         return GetTrainerStructFromId(trainerId)->startingStatus;

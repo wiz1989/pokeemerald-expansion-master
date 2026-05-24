@@ -1619,7 +1619,7 @@ static void DebugAction_Util_Battlerule(u8 taskId)
     //Display initial ID
     // StringCopy(gStringVar2, gText_DigitIndicator[0]);
     ConvertIntToDecimalStringN(gStringVar3, 1, STR_CONV_MODE_LEADING_ZEROS, 2);
-    BufferCurrentBattleRule();
+    BufferCurrentBattleRule(BATTLERULE_NONE);
     StringCopyPadded(gStringVar1, gStringVar1, CHAR_SPACE, 30);
     StringCopy(gStringVar2, gText_DigitIndicator[0]);
     StringExpandPlaceholders(gStringVar4, sDebugText_Util_Battlerule_ID);
@@ -1642,8 +1642,10 @@ static void DebugAction_Util_Battlerule_SelectId(u8 taskId)
         ConvertIntToDecimalStringN(gStringVar3, gTasks[taskId].tInput, STR_CONV_MODE_LEADING_ZEROS, 2);
 
         FlagSet(FLAG_DEBUG_BATTLERULE);
-        gSaveBlock1Ptr->debugBattleRule = gTasks[taskId].tInput;
-        BufferCurrentBattleRule();
+        gSaveBlock1Ptr->debugBattleRule[0] = gTasks[taskId].tInput;
+        gSaveBlock1Ptr->debugBattleRule[1] = BATTLERULE_NONE;
+        gSaveBlock1Ptr->debugBattleRule[2] = BATTLERULE_NONE;
+        BufferCurrentBattleRule(gTasks[taskId].tInput);
         StringCopyPadded(gStringVar1, gStringVar1, CHAR_SPACE, 30);
 
         StringCopy(gStringVar2, gText_DigitIndicator[gTasks[taskId].tDigit]);
@@ -1653,10 +1655,15 @@ static void DebugAction_Util_Battlerule_SelectId(u8 taskId)
 
     if (JOY_NEW(A_BUTTON))
     {
-        if (gTasks[taskId].tInput <= 14 || gTasks[taskId].tInput >= 20)
-        {
-            gTasks[taskId].data[5] = gTasks[taskId].tInput;
-        }
+        PlaySE(SE_SELECT);
+        FlagSet(FLAG_DEBUG_BATTLERULE);
+        gSaveBlock1Ptr->debugBattleRule[0] = gTasks[taskId].tInput;
+        gSaveBlock1Ptr->debugBattleRule[1] = BATTLERULE_NONE;
+        gSaveBlock1Ptr->debugBattleRule[2] = BATTLERULE_NONE;
+        gActiveBattleRules[0] = gTasks[taskId].tInput;
+        gActiveBattleRules[1] = BATTLERULE_NONE;
+        gActiveBattleRules[2] = BATTLERULE_NONE;
+        DebugAction_DestroyExtraWindow(taskId);
     }
     else if (JOY_NEW(B_BUTTON))
     {
@@ -4324,125 +4331,59 @@ void CheckEWRAMCounters(struct ScriptContext *ctx)
     ConvertIntToDecimalStringN(gStringVar2, gChainFishingDexNavStreak, STR_CONV_MODE_LEFT_ALIGN, 5);
 }
 
-void BufferCurrentBattleRuleScript(struct ScriptContext *ctx)
-{
-    BufferCurrentBattleRule();
-}
-
 static const u8 sText_Delimiter[] = _(": ");
 
-void BufferCurrentBattleRule(void)
+const u8 *GetBattleRuleName(u8 rule)
 {
-    u8 *string = gStringVar1;
-    u8 *string2 = gStringVar2;
-    u8 rule = GetRandomBattleRuleSeeded();
-
-    string2 = StringCopy(string2, gText_Blank);
-
     switch (rule)
     {
-    case BATTLERULE_NONE:
-        string = StringCopy(string, gText_NoRule);
-        break;
-    case BATTLERULE_BANNEDTYPE:
-        string = StringCopy(string, gText_BannedType);
-        break;
-    case BATTLERULE_BANNEDMOVETYPE:
-        string = StringCopy(string, gText_BannedMoveType);
-        break;
-    case BATTLERULE_NOHEALING:
-        string = StringCopy(string, gText_NoHealing);
-        break;
-    case BATTLERULE_NOCRITS:
-        string = StringCopy(string, gText_NoCrits);
-        break;
-    case BATTLERULE_NORECOIL:
-        string = StringCopy(string, gText_NoRecoil);
-        break;
-    case BATTLERULE_NOSTAB:
-        string = StringCopy(string, gText_NoStab);
-        break;
-    case BATTLERULE_ONLYSTAB:
-        string = StringCopy(string, gText_OnlyStab);
-        break;
-    case BATTLERULE_NOSUPEREFFECTIVE:
-        string = StringCopy(string, gText_NoSuperEffective);
-        break;
-    case BATTLERULE_1HP:
-        string = StringCopy(string, gText_1HPOnly);
-        break;
-    case BATTLERULE_1PP:
-        string = StringCopy(string, gText_1PPOnly);
-        break;
-    case BATTLERULE_NOSAMESEX:
-        string = StringCopy(string, gText_DifferentGender);
-        break;
-    case BATTLERULE_NOSWITCHING:
-        string = StringCopy(string, gText_NoSwitching);
-        break;
-    case BATTLERULE_PERISHCOUNT:
-        string = StringCopy(string, gText_PerishCount);
-        break;
-    case BATTLERULE_SWITCHMOVES:
-        string = StringCopy(string, gText_SwitchMoves);
-        break;
-    case BATTLERULE_NOPRIO:
-        string = StringCopy(string, gText_NoPrioMoves);
-        break;
-    case BATTLERULE_NOHELDITEMS:
-        string = StringCopy(string, gText_NoHeldItems);
-        break;
-    case BATTLERULE_NOABILITY:
-        string = StringCopy(string, gText_NoAbilities);
-        break;
-    case BATTLERULE_NOSTATUS:
-        string = StringCopy(string, gText_NoStatus);
-        break;
-    // case BATTLERULE_SHAREDDAMAGE:
-    //     string = StringCopy(string, gText_SharedDamage);
-    //     break;
-    case BATTLERULE_NOSETUP:
-        string = StringCopy(string, gText_NoSetup);
-        break;
-    case BATTLERULE_TRICKROOM:
-        string = StringCopy(string, gText_TrickRoom);
-        break;
-    case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
-        string = StringCopy(string, gText_NoPhysicalMoves);
-        break;
-    case BATTLERULE_BANNEDMOVECAT_SPECIAL:
-        string = StringCopy(string, gText_NoSpecialMoves);
-        break;
-    case BATTLERULE_BANNEDMOVECAT_STATUS:
-        string = StringCopy(string, gText_NoStatusMoves);
-        break;
-    case BATTLERULE_INVERSE:
-        string = StringCopy(string, gText_InverseBattle);
-        break;
-    case BATTLERULE_FIRSTMOVEONLY:
-        string = StringCopy(string, gText_FirstSlot);
-        break;
-    case BATTLERULE_TRUANT:
-        string = StringCopy(string, gText_Truant);
-        break;
-    case BATTLERULE_NOMISSES:
-        string = StringCopy(string, gText_NoMisses);
-        break;
-    
-    default:
-        break;
+    case BATTLERULE_NONE:                  return gText_NoRule;
+    case BATTLERULE_BANNEDTYPE:            return gText_BannedType;
+    case BATTLERULE_BANNEDMOVETYPE:        return gText_BannedMoveType;
+    case BATTLERULE_NOHEALING:             return gText_NoHealing;
+    case BATTLERULE_NOCRITS:               return gText_NoCrits;
+    case BATTLERULE_NORECOIL:              return gText_NoRecoil;
+    case BATTLERULE_NOSTAB:                return gText_NoStab;
+    case BATTLERULE_ONLYSTAB:              return gText_OnlyStab;
+    case BATTLERULE_NOSUPEREFFECTIVE:      return gText_NoSuperEffective;
+    case BATTLERULE_1HP:                   return gText_1HPOnly;
+    case BATTLERULE_1PP:                   return gText_1PPOnly;
+    case BATTLERULE_NOSAMESEX:             return gText_DifferentGender;
+    case BATTLERULE_NOSWITCHING:           return gText_NoSwitching;
+    case BATTLERULE_PERISHCOUNT:           return gText_PerishCount;
+    case BATTLERULE_SWITCHMOVES:           return gText_SwitchMoves;
+    case BATTLERULE_NOPRIO:                return gText_NoPrioMoves;
+    case BATTLERULE_NOHELDITEMS:           return gText_NoHeldItems;
+    case BATTLERULE_NOABILITY:             return gText_NoAbilities;
+    case BATTLERULE_NOSTATUS:              return gText_NoStatus;
+    case BATTLERULE_NOSETUP:               return gText_NoSetup;
+    case BATTLERULE_TRICKROOM:             return gText_TrickRoom;
+    case BATTLERULE_BANNEDMOVECAT_PHYSICAL: return gText_NoPhysicalMoves;
+    case BATTLERULE_BANNEDMOVECAT_SPECIAL:  return gText_NoSpecialMoves;
+    case BATTLERULE_BANNEDMOVECAT_STATUS:   return gText_NoStatusMoves;
+    case BATTLERULE_INVERSE:               return gText_InverseBattle;
+    case BATTLERULE_FIRSTMOVEONLY:         return gText_FirstSlot;
+    case BATTLERULE_TRUANT:                return gText_Truant;
+    case BATTLERULE_NOMISSES:              return gText_NoMisses;
+    default:                               return gText_Blank;
     }
+}
+
+void BufferCurrentBattleRule(u8 rule)
+{
+    StringCopy(gStringVar1, GetBattleRuleName(rule));
+    StringCopy(gStringVar2, gText_Blank);
 
     if (rule == BATTLERULE_BANNEDTYPE)
     {
         u8 type = GetRandomSpeciesTypeSeeded();
-        string2 = StringAppend(string2, sText_Delimiter);
-        string2 = StringAppend(string2, gTypesInfo[type].name);
+        StringAppend(gStringVar2, sText_Delimiter);
+        StringAppend(gStringVar2, gTypesInfo[type].name);
     }
     if (rule == BATTLERULE_BANNEDMOVETYPE)
     {
         u8 type = GetRandomMoveTypeSeeded();
-        string2 = StringAppend(string2, sText_Delimiter);
-        string2 = StringAppend(string2, gTypesInfo[type].name);
+        StringAppend(gStringVar2, sText_Delimiter);
+        StringAppend(gStringVar2, gTypesInfo[type].name);
     }
 }

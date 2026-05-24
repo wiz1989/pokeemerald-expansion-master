@@ -10,6 +10,13 @@
 
 static bool8 IsInArray(u8 value, const u8 *array, u8 size);
 static bool8 IsBossRule(u8 battleRule);
+static bool8 IsRandomTypeRule(u8 rule);
+static bool8 IsBannedMoveCatRule(u8 rule);
+static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount);
+static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 excludedCount, u32 *outIncrement, bool8 excludeBossRules);
+
+u8 gActiveBattleRules[MAX_CONCURRENT_RULES];
+u8 gBattleRuleViolated = BATTLERULE_NONE;
 
 #define INVALID_TYPES_COUNT ARRAY_COUNT(sInvalidTypes)
 static const u8 sInvalidTypes[] = 
@@ -219,56 +226,197 @@ void IncrementTypeRerollCounter(void)
     }
 }
 
-u8 GetRandomBattleRuleSeeded(void)
+static bool8 IsRandomTypeRule(u8 rule)
 {
-    u16 value = 0;
-    u16 trainerId = (TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId);
-    u32 increment = 0;
+    return (rule == BATTLERULE_BANNEDTYPE || rule == BATTLERULE_BANNEDMOVETYPE);
+}
+
+static bool8 IsBannedMoveCatRule(u8 rule)
+{
+    return (rule == BATTLERULE_BANNEDMOVECAT_PHYSICAL
+         || rule == BATTLERULE_BANNEDMOVECAT_SPECIAL
+         || rule == BATTLERULE_BANNEDMOVECAT_STATUS);
+}
+
+// handles mutually-exclusive rule combinations
+static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount)
+{
+    // type dependant rules like BATTLERULE_BANNEDTYPE and BATTLERULE_BANNEDMOVETYPE cannot coexist
+    if (IsRandomTypeRule(value)
+     && (IsInArray(BATTLERULE_BANNEDTYPE, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVETYPE, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_NOSTAB and BATTLERULE_ONLYSTAB combination
+    if ((value == BATTLERULE_NOSTAB && IsInArray(BATTLERULE_ONLYSTAB, excluded, excludedCount))
+     || (value == BATTLERULE_ONLYSTAB && IsInArray(BATTLERULE_NOSTAB, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_SWITCHMOVES and BATTLERULE_FIRSTMOVEONLY combination
+    if ((value == BATTLERULE_SWITCHMOVES && IsInArray(BATTLERULE_FIRSTMOVEONLY, excluded, excludedCount))
+     || (value == BATTLERULE_FIRSTMOVEONLY && IsInArray(BATTLERULE_SWITCHMOVES, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_BANNEDMOVECAT_* rules cannot coexist with each other
+    if (IsBannedMoveCatRule(value)
+     && (IsInArray(BATTLERULE_BANNEDMOVECAT_PHYSICAL, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVECAT_SPECIAL, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVECAT_STATUS, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_NOSTAB + BATTLERULE_NOSUPEREFFECTIVE would remove any offensive multipliers
+    if ((value == BATTLERULE_NOSTAB && IsInArray(BATTLERULE_NOSUPEREFFECTIVE, excluded, excludedCount))
+     || (value == BATTLERULE_NOSUPEREFFECTIVE && IsInArray(BATTLERULE_NOSTAB, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_PERISHCOUNT + BATTLERULE_NOSWITCHING: guaranteed faint with no counterplay lol
+    if ((value == BATTLERULE_PERISHCOUNT && IsInArray(BATTLERULE_NOSWITCHING, excluded, excludedCount))
+     || (value == BATTLERULE_NOSWITCHING && IsInArray(BATTLERULE_PERISHCOUNT, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_INVERSE + BATTLERULE_NOSUPEREFFECTIVE: that's fucked up too... surprise, surprise!
+    if ((value == BATTLERULE_INVERSE && IsInArray(BATTLERULE_NOSUPEREFFECTIVE, excluded, excludedCount))
+     || (value == BATTLERULE_NOSUPEREFFECTIVE && IsInArray(BATTLERULE_INVERSE, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_TRUANT + BATTLERULE_NOSWITCHING: stuck with a half-speed attacker that can't be rotated out
+    if ((value == BATTLERULE_TRUANT && IsInArray(BATTLERULE_NOSWITCHING, excluded, excludedCount))
+     || (value == BATTLERULE_NOSWITCHING && IsInArray(BATTLERULE_TRUANT, excluded, excludedCount)))
+        return FALSE;
+
+    // BATTLERULE_1PP + BATTLERULE_FIRSTMOVEONLY: one use of the only available move, then Struggle for the rest of the battle
+    if ((value == BATTLERULE_1PP && IsInArray(BATTLERULE_FIRSTMOVEONLY, excluded, excludedCount))
+     || (value == BATTLERULE_FIRSTMOVEONLY && IsInArray(BATTLERULE_1PP, excluded, excludedCount)))
+        return FALSE;
+
+    return TRUE;
+}
+
+// calculate battle rules based on the given input, skipping certain cases:
+//  - already-included rules
+//  - special pairing exceptions
+//  - boss rule exceptions
+// updates *outIncrement at the end (for multiple calls in case of multiple concurrent rules)
+static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 excludedCount, u32 *outIncrement, bool8 excludeBossRules)
+{
+    u16 value;
+    u32 increment = startIncrement;
+    u32 currentAttempts = 0;
     u16 maxAttempts = 1000;
 
-    FlagClear(FLAG_INVERSE_BATTLE);
+    value = RandomSeededModulo2(baseSeed + increment, BATTLE_RULES_COUNT);
 
-    value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter, BATTLE_RULES_COUNT);
-
-    while ((!gBattleRules[value].enabled || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX)
-        || (B_BOSS_LIMITED_RULES && !IsBossRule(value) && IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))) && increment < maxAttempts)
+    while ((!gBattleRules[value].enabled // ignore disabled rules
+        || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX)
+        || (B_BOSS_LIMITED_RULES && !IsBossRule(value) && IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))
+        || (excludeBossRules && IsBossRule(value)) // one boss rule at max!
+        || IsInArray(value, excluded, excludedCount) // rule was already picked in previous iteration
+        || !IsValidPairing(value, excluded, excludedCount)) // handle special rule combination exceptions
+        && currentAttempts < maxAttempts)
     {
         increment++;
-        value = RandomSeededModulo2(trainerId + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId) + gSaveBlock1Ptr->battleRuleRerollCounter + increment, BATTLE_RULES_COUNT);
+        currentAttempts++;
+        value = RandomSeededModulo2(baseSeed + increment, BATTLE_RULES_COUNT);
         // DebugPrintf("--- new rule %d ---", value);
     }
 
     // Fallback: if we reached max attempts or the final value is still invalid, use a safe default rule (none).
-    if (increment >= maxAttempts)
+    if (currentAttempts >= maxAttempts)
     {
-        DebugPrintf("--- Battle rule reroll limit reached or invalid final rule, using fallback NONE ---");
+        DebugPrintf("--- Battle rule reroll limit reached, using fallback NONE ---");
         value = BATTLERULE_NONE;
     }
 
-    // value = BATTLERULE_BANNEDTYPE; // test line
+    *outIncrement = increment + 1;
+    return value;
+}
+
+// calculate current battle rules based on a Trainer ID seed
+void ComputeActiveBattleRules(void)
+{
+    u8 i;
+    u32 baseSeed = (u32)(TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId)
+                 + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId)
+                 + gSaveBlock1Ptr->battleRuleRerollCounter;
+    u8 count = gSaveBlock2Ptr->concurrentRules + 1;
+    u32 nextIncrement = 0;
+    bool8 bossRulePicked = FALSE;
+
+    // Boss trainers always get exactly one rule (from the harder boss pool)
+    if (IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))
+        count = 1;
+
+    FlagClear(FLAG_INVERSE_BATTLE);
+
+    // reset gActiveBattleRules before calculation
+    for (i = 0; i < MAX_CONCURRENT_RULES; i++)
+        gActiveBattleRules[i] = BATTLERULE_NONE;
+
+    // calculate gActiveBattleRules based on how many concurrent rules are currently set
+    for (i = 0; i < count; i++)
+    {
+        // PickNextRule() gets an increment value and updates this value for the next call, ensuring different results
+        // required for special handling of concurrent rules and boss rules
+        gActiveBattleRules[i] = PickNextRule(baseSeed, nextIncrement, gActiveBattleRules, i, &nextIncrement, bossRulePicked);
+        if (IsBossRule(gActiveBattleRules[i]))
+            bossRulePicked = TRUE;
+    }
+
+    // gActiveBattleRules[0] = BATTLERULE_BANNEDTYPE; // test line
+    // gActiveBattleRules[1] = BATTLERULE_NONE; // test line
+    // gActiveBattleRules[2] = BATTLERULE_NONE; // test line
+
+    
+    // ### post handling of calculated rules below ###
 
     // battle debug
     if (FlagGet(FLAG_DEBUG_BATTLERULE))
     {
-        value = gSaveBlock1Ptr->debugBattleRule;
+        for (i = 0; i < MAX_CONCURRENT_RULES; i++)
+            gActiveBattleRules[i] = gSaveBlock1Ptr->debugBattleRule[i];
     }
 
     // deactivate for Wild Battles and First Battle
     if ((!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE))
       && !FlagGet(FLAG_DEBUG_BATTLERULE))
-        value = BATTLERULE_NONE;
+    {
+        for (i = 0; i < MAX_CONCURRENT_RULES; i++)
+            gActiveBattleRules[i] = BATTLERULE_NONE;
+    }
 
     // set fixed rule for tutorial battle
     if ((gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE_RIVAL)
       && !FlagGet(FLAG_DEBUG_BATTLERULE))
-        value = BATTLERULE_NOCRITS;
+    {
+        gActiveBattleRules[0] = BATTLERULE_NOCRITS;
+        for (i = 1; i < MAX_CONCURRENT_RULES; i++)
+            gActiveBattleRules[i] = BATTLERULE_NONE;
+    }
+
+    // Set inverse battle flag if any active rule is BATTLERULE_INVERSE
+    for (i = 0; i < MAX_CONCURRENT_RULES; i++)
+    {
+        if (gActiveBattleRules[i] == BATTLERULE_INVERSE)
+        {
+            FlagSet(FLAG_INVERSE_BATTLE);
+            break;
+        }
+    }
+}
+
+bool8 IsActiveBattleRule(u8 rule)
+{
+    u8 i;
+
+    ComputeActiveBattleRules(); // recalc every time, no matter the current state. ToDo: check for performance!
     
-    // DebugPrintf("--- Random Battle Rule: %d ---", value);
-
-    if (value == BATTLERULE_INVERSE)
-        FlagSet(FLAG_INVERSE_BATTLE);
-
-    return value;
+    for (i = 0; i < MAX_CONCURRENT_RULES; i++)
+    {
+        if (gActiveBattleRules[i] == rule)
+            return TRUE;
+    }
+    
+    return FALSE;
 }
 
 u8 GetRandomSpeciesTypeSeeded(void)
@@ -374,7 +522,7 @@ u8 GetRandomMoveTypeSeeded(void)
 
 bool8 IsTruantBattleRule(u32 battler)
 {
-    if (GetRandomBattleRuleSeeded() == BATTLERULE_TRUANT && IsOnPlayerSide(battler)
+    if (IsActiveBattleRule(BATTLERULE_TRUANT) && IsOnPlayerSide(battler)
       && GetBattlerAbility(battler) != ABILITY_TRUANT)
         return TRUE;
     else

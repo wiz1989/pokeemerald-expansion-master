@@ -2481,7 +2481,7 @@ static void Cmd_datahpupdate(void)
             gBattleStruct->battlerState[gBattlerTarget].itemCanBeKnockedOff = TRUE;
     }
 
-    if (wasHealed && !wasAtFullHP && IsOnPlayerSide(battler) && GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
+    if (wasHealed && !wasAtFullHP && IsOnPlayerSide(battler) && IsActiveBattleRule(BATTLERULE_NOHEALING))
     {
         gBattleRuleBattler = battler;
         if (gSaveBlock2Ptr->halfDamage)
@@ -3392,7 +3392,7 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         }
         break;
     case MOVE_EFFECT_RECOIL_HP_25: // Struggle
-        if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gEffectBattler))
+        if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gEffectBattler))
             gSpecialStatuses[gEffectBattler].triggeredBattleRule = TRUE;
 
         gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
@@ -5848,7 +5848,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
          && (!IsBattlerTurnDamaged(gBattlerTarget) || gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_NO_EFFECT)
          && !gBattleStruct->noTargetPresent)
         {
-            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
+            if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gBattlerAttacker))
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
                 
             if (B_RECOIL_IF_MISS_DMG >= GEN_5 || (B_CRASH_IF_TARGET_IMMUNE == GEN_4 && gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_DOESNT_AFFECT_FOE))
@@ -5868,7 +5868,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_RECOIL:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
+            if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gBattlerAttacker))
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
                 
             gBattleStruct->moveDamage[gBattlerAttacker] = max(1, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
@@ -5897,7 +5897,7 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
     case EFFECT_CHLOROBLAST:
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
-            if (GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL && IsOnPlayerSide(gBattlerAttacker))
+            if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gBattlerAttacker))
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
 
             gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
@@ -6818,7 +6818,7 @@ static void Cmd_moveend(void)
                         gBattlerTarget = gBattlerAbility = battler;
                         // Battle scripting is super brittle so we shall do the item exchange now (if possible)
                         if (GetBattlerAbility(gBattlerAttacker) != ABILITY_STICKY_HOLD
-                          && !(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(gBattlerTarget)))
+                          && !(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(gBattlerTarget)))
                             StealTargetItem(gBattlerTarget, gBattlerAttacker);  // Target takes attacker's item
 
                         gEffectBattler = gBattlerAttacker;
@@ -6916,7 +6916,7 @@ static void Cmd_moveend(void)
             break;
         case MOVEEND_ENFORCE_BATTLERULE:
             if (gSpecialStatuses[gBattlerAttacker].triggeredBattleRule && IsOnPlayerSide(gBattlerAttacker)
-              && (GetRandomBattleRuleSeeded() == BATTLERULE_NOCRITS || GetRandomBattleRuleSeeded() == BATTLERULE_NORECOIL))
+              && (IsActiveBattleRule(BATTLERULE_NOCRITS) || IsActiveBattleRule(BATTLERULE_NORECOIL)))
             {
                 gBattleRuleBattler = gBattlerAttacker;
                 if (gSaveBlock2Ptr->halfDamage)
@@ -7019,7 +7019,7 @@ static void Cmd_moveend(void)
                 for (battler = 0; battler < gBattlersCount; battler++)
                 {
                     if (gSpecialStatuses[battler].dancerUsedMove
-                      && !(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                      && !(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(battler)))
                     {
                         // in case a battler fails to act on a Dancer-called move
                         hasDancerTriggered = TRUE;
@@ -7041,7 +7041,7 @@ static void Cmd_moveend(void)
                     for (battler = 0; battler < gBattlersCount; battler++)
                     {
                         if (GetBattlerAbility(battler) == ABILITY_DANCER && !gSpecialStatuses[battler].dancerUsedMove
-                          && !(GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY && IsOnPlayerSide(battler)))
+                          && !(IsActiveBattleRule(BATTLERULE_NOABILITY) && IsOnPlayerSide(battler)))
                         {
                             if (!nextDancer || (gBattleMons[battler].speed < gBattleMons[nextDancer & 0x3].speed))
                                 nextDancer = battler | 0x4;
@@ -15143,7 +15143,7 @@ void BS_ItemRestoreHP(void)
             battler = gBattlerAttacker;
         else if (IsDoubleBattle() && gBattleStruct->itemPartyIndex[gBattlerAttacker] == gBattlerPartyIndexes[BATTLE_PARTNER(gBattlerAttacker)])
             battler = BATTLE_PARTNER(gBattlerAttacker);
-        else if (GetRandomBattleRuleSeeded() == BATTLERULE_NOHEALING)
+        else if (IsActiveBattleRule(BATTLERULE_NOHEALING))
             faintMon = TRUE;
 
         // Get amount to heal.
@@ -18494,9 +18494,8 @@ void BS_JumpIfBattleRule(void)
 {
     NATIVE_ARGS(const u8 *jumpInstr, u8 rule);
     u32 battler = gBattleRuleBattler;
-    u8 currentRule = GetRandomBattleRuleSeeded();
 
-    if (currentRule == cmd->rule
+    if (IsActiveBattleRule(cmd->rule)
       && IsOnPlayerSide(battler)
       && IsBattlerAlive(battler))
     {
@@ -18565,7 +18564,7 @@ void BS_GoToIfNotMidTurn(void)
 
     // BATTLERULE_BANNEDTYPE always needs the end2 usage. Reason unknown to me.
     // Probably because it's running during DoSwitchInEffectsForBattler while the BS stack is not built up yet.
-    if (!IsMidTurn() && GetRandomBattleRuleSeeded() == BATTLERULE_NOABILITY)
+    if (!IsMidTurn() && IsActiveBattleRule(BATTLERULE_NOABILITY))
         gBattlescriptCurrInstr = cmd->instr;
     else
         gBattlescriptCurrInstr = cmd->nextInstr;
@@ -18612,16 +18611,13 @@ void BS_PrintBattlerule(void)
 
     if (gBattleControllerExecFlags == 0)
     {
-        u8 battleRule = GetRandomBattleRuleSeeded();
-        const u16 *ptr = gBattleRulesStringIds;
+        u8 rule = gBattleRuleViolated;
 
-        BufferCurrentBattleRule();
+        BufferCurrentBattleRule(rule);
 
-        gBattleCommunication[MULTISTRING_CHOOSER] = battleRule;
-        ptr += gBattleCommunication[MULTISTRING_CHOOSER];
-
+        gBattleCommunication[MULTISTRING_CHOOSER] = rule;
         gBattlescriptCurrInstr = cmd->nextInstr;
-        PrepareStringBattle(*ptr, gBattlerAttacker);
+        PrepareStringBattle(gBattleRulesStringIds[rule], gBattlerAttacker);
         gBattleCommunication[MSG_DISPLAY] = 1;
     }
 }

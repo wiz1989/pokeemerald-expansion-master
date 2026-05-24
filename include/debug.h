@@ -6,7 +6,8 @@ void Debug_ShowQoLHub(void);
 extern const u8 Debug_FlagsAndVarNotSetBattleConfigMessage[];
 const u8 *GetWeatherName(u32 weatherId);
 const struct Trainer* GetDebugAiTrainer(void);
-void BufferCurrentBattleRule(void);
+void BufferCurrentBattleRule(u8 rule);
+const u8 *GetBattleRuleName(u8 rule);
 
 extern EWRAM_DATA bool8 gIsDebugBattle;
 extern EWRAM_DATA u64 gDebugAIFlags;

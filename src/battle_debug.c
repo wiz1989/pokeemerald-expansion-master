@@ -14,6 +14,7 @@
 #include "sprite.h"
 #include "item.h"
 #include "task.h"
+#include "debug.h"
 #include "bg.h"
 #include "gpu_regs.h"
 #include "window.h"
@@ -159,12 +160,6 @@ enum
     LIST_SIDE_TOXIC_SPIKES,
     LIST_SIDE_STEALTH_ROCK,
     LIST_SIDE_STEELSURGE,
-};
-
-enum
-{
-    LIST_ITEM2_BATTLERULE,
-    LIST_ITEM2_RANDOMTYPE,
 };
 
 enum
@@ -1430,7 +1425,7 @@ static void CreateSecondaryListMenu(struct BattleDebugMenu *data)
         itemsCount = 3;
         break;
     case LIST_ITEM_BATTLERULES:
-        itemsCount = 2;
+        itemsCount = gSaveBlock2Ptr->concurrentRules + 2; // dynamic count based on gSaveBlock2Ptr->concurrentRules
         break;
     case LIST_ITEM_MOVES:
         itemsCount = 5;
@@ -1537,27 +1532,23 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
     switch (data->currentMainListItemId)
     {
     case LIST_ITEM_BATTLERULES:
-        BufferCurrentBattleRule();
-        PadString(gStringVar1, text);
-        printer.currentY = printer.y = (0 * yMultiplier) + sSecondaryListTemplate.upText_Y;
-        AddTextPrinter(&printer, 0, NULL);
+        {
+            u8 ruleCount = gSaveBlock2Ptr->concurrentRules + 1;
+            u8 slot;
 
-        if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDTYPE)
-        {
-            PadString(gTypesInfo[GetRandomSpeciesTypeSeeded()].name, text);
-            printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
-            AddTextPrinter(&printer, 0, NULL);
-        }
-        else if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDMOVETYPE)
-        {
-            PadString(gTypesInfo[GetRandomMoveTypeSeeded()].name, text);
-            printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
-            AddTextPrinter(&printer, 0, NULL);
-        }
-        else
-        {
-            PadString(gText_Blank, text);
-            printer.currentY = printer.y = (1 * yMultiplier) + sSecondaryListTemplate.upText_Y;
+            for (slot = 0; slot < ruleCount; slot++)
+            {
+                PadString(GetBattleRuleName(gActiveBattleRules[slot]), text);
+                printer.currentY = printer.y = (slot * yMultiplier) + sSecondaryListTemplate.upText_Y;
+                AddTextPrinter(&printer, 0, NULL);
+            }
+            if (IsActiveBattleRule(BATTLERULE_BANNEDTYPE))
+                PadString(gTypesInfo[GetRandomSpeciesTypeSeeded()].name, text);
+            else if (IsActiveBattleRule(BATTLERULE_BANNEDMOVETYPE))
+                PadString(gTypesInfo[GetRandomMoveTypeSeeded()].name, text);
+            else
+                PadString(gText_Blank, text);
+            printer.currentY = printer.y = (ruleCount * yMultiplier) + sSecondaryListTemplate.upText_Y;
             AddTextPrinter(&printer, 0, NULL);
         }
         break;
@@ -2065,25 +2056,25 @@ static u16 *GetSideStatusValue(struct BattleDebugMenu *data, bool32 changeStatus
 
 static void ChangeBattlerulesValue(struct BattleDebugMenu *data)
 {
-    switch (data->currentSecondaryListItemId)
+    u8 ruleCount = gSaveBlock2Ptr->concurrentRules + 1;
+    
+    if (data->currentSecondaryListItemId < ruleCount)
     {
-    case LIST_ITEM2_BATTLERULE:
+        u8 slot = data->currentSecondaryListItemId;
+
         FlagSet(FLAG_DEBUG_BATTLERULE);
-        gSaveBlock1Ptr->debugBattleRule = data->modifyArrows.currValue;
-        break;
-    case LIST_ITEM2_RANDOMTYPE:
-        if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDTYPE)
-        {
-            FlagSet(FLAG_DEBUG_RANDOMSPECIESTYPE);
-            gSaveBlock2Ptr->DebugRandomSpeciesType = data->modifyArrows.currValue;
-            break;
-        }
-        else if (GetRandomBattleRuleSeeded() == BATTLERULE_BANNEDMOVETYPE)
-        {
-            FlagSet(FLAG_DEBUG_RANDOMMOVETYPE);
-            gSaveBlock2Ptr->DebugRandomMoveType = data->modifyArrows.currValue;
-            break;
-        }
+        gSaveBlock1Ptr->debugBattleRule[slot] = data->modifyArrows.currValue;
+        gActiveBattleRules[slot] = data->modifyArrows.currValue;
+    }
+    else if (IsActiveBattleRule(BATTLERULE_BANNEDTYPE))
+    {
+        FlagSet(FLAG_DEBUG_RANDOMSPECIESTYPE);
+        gSaveBlock2Ptr->DebugRandomSpeciesType = data->modifyArrows.currValue;
+    }
+    else if (IsActiveBattleRule(BATTLERULE_BANNEDMOVETYPE))
+    {
+        FlagSet(FLAG_DEBUG_RANDOMMOVETYPE);
+        gSaveBlock2Ptr->DebugRandomMoveType = data->modifyArrows.currValue;
     }
 }
 
@@ -2105,25 +2096,26 @@ static void SetUpModifyArrows(struct BattleDebugMenu *data)
         data->modifyArrows.currValue = gBattleMons[data->battlerId].ability;
         break;
     case LIST_ITEM_BATTLERULES:
-        u8 currentRule = GetRandomBattleRuleSeeded();
-
-        data->modifyArrows.minValue = 0;
-        data->modifyArrows.maxDigits = 2;
-        if (data->currentSecondaryListItemId == LIST_ITEM2_BATTLERULE)
-        {  
-            data->modifyArrows.maxValue = GetBattleRuleCount() - 1;
-            data->modifyArrows.typeOfVal = VAL_BATTLERULES;
-            data->modifyArrows.currValue = currentRule;
-        }
-        else if (data->currentSecondaryListItemId == LIST_ITEM2_RANDOMTYPE)
         {
-            if (currentRule == BATTLERULE_BANNEDTYPE)
+            u8 ruleCount = gSaveBlock2Ptr->concurrentRules + 1;
+            
+            data->modifyArrows.minValue = 0;
+            data->modifyArrows.maxDigits = 2;
+            if (data->currentSecondaryListItemId < ruleCount)
+            {
+                u8 slot = data->currentSecondaryListItemId;
+
+                data->modifyArrows.maxValue = GetBattleRuleCount() - 1;
+                data->modifyArrows.typeOfVal = VAL_BATTLERULES;
+                data->modifyArrows.currValue = gActiveBattleRules[slot];
+            }
+            else if (IsActiveBattleRule(BATTLERULE_BANNEDTYPE))
             {
                 data->modifyArrows.maxValue = TYPE_FAIRY - 1;
                 data->modifyArrows.typeOfVal = VAL_BR_TYPES;
                 data->modifyArrows.currValue = GetRandomSpeciesTypeSeeded();
             }
-            else if (currentRule == BATTLERULE_BANNEDMOVETYPE)
+            else if (IsActiveBattleRule(BATTLERULE_BANNEDMOVETYPE))
             {
                 data->modifyArrows.maxValue = TYPE_FAIRY - 1;
                 data->modifyArrows.typeOfVal = VAL_BR_TYPES;
