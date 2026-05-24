@@ -44,7 +44,7 @@ endif
 
 # update file name for release builds
 ifeq ($(RELEASE),1)
-  FILE_NAME := pokemon_rule-ette
+  FILE_NAME := emerald_rule-ette
 endif
 
 # Default make rule
