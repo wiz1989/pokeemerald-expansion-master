@@ -289,6 +289,16 @@ static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount)
      || (value == BATTLERULE_FIRSTMOVEONLY && IsInArray(BATTLERULE_1PP, excluded, excludedCount)))
         return FALSE;
 
+    // BATTLERULE_ONLYSTAB + BATTLERULE_BANNEDMOVECAT_PHYSICAL/SPECIAL: could leave a mon with zero usable moves
+    // uses two conditions to check both directions of the pairing
+    if (value == BATTLERULE_ONLYSTAB
+     && (IsInArray(BATTLERULE_BANNEDMOVECAT_PHYSICAL, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVECAT_SPECIAL, excluded, excludedCount)))
+        return FALSE;
+    if ((value == BATTLERULE_BANNEDMOVECAT_PHYSICAL || value == BATTLERULE_BANNEDMOVECAT_SPECIAL)
+     && IsInArray(BATTLERULE_ONLYSTAB, excluded, excludedCount))
+        return FALSE;
+
     return TRUE;
 }
 
