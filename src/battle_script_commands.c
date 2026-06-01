@@ -2484,6 +2484,7 @@ static void Cmd_datahpupdate(void)
     if (wasHealed && !wasAtFullHP && IsOnPlayerSide(battler) && IsActiveBattleRule(BATTLERULE_NOHEALING))
     {
         gBattleRuleBattler = battler;
+        gBattleRuleViolated = BATTLERULE_NOHEALING;
         if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
@@ -6919,6 +6920,7 @@ static void Cmd_moveend(void)
               && (IsActiveBattleRule(BATTLERULE_NOCRITS) || IsActiveBattleRule(BATTLERULE_NORECOIL)))
             {
                 gBattleRuleBattler = gBattlerAttacker;
+                gBattleRuleViolated = IsActiveBattleRule(BATTLERULE_NOCRITS) ? BATTLERULE_NOCRITS : BATTLERULE_NORECOIL;
                 if (gSaveBlock2Ptr->halfDamage)
                     gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
                 else
@@ -18499,6 +18501,7 @@ void BS_JumpIfBattleRule(void)
       && IsOnPlayerSide(battler)
       && IsBattlerAlive(battler))
     {
+        gBattleRuleViolated = cmd->rule;
         if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
