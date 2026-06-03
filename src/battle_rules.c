@@ -299,6 +299,24 @@ static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount)
      && IsInArray(BATTLERULE_ONLYSTAB, excluded, excludedCount))
         return FALSE;
 
+    // BATTLERULE_1PP + BATTLERULE_BANNEDMOVECAT_*: the already extremely low move PP is reduced even further
+    if (value == BATTLERULE_1PP
+     && (IsInArray(BATTLERULE_BANNEDMOVECAT_PHYSICAL, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVECAT_SPECIAL, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVECAT_STATUS, excluded, excludedCount)))
+        return FALSE;
+    if (IsBannedMoveCatRule(value) && IsInArray(BATTLERULE_1PP, excluded, excludedCount))
+        return FALSE;
+
+    // BATTLERULE_FIRSTMOVEONLY + BATTLERULE_BANNEDMOVECAT_*: even worse than above, self explaining
+    if (value == BATTLERULE_FIRSTMOVEONLY
+     && (IsInArray(BATTLERULE_BANNEDMOVECAT_PHYSICAL, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVECAT_SPECIAL, excluded, excludedCount)
+      || IsInArray(BATTLERULE_BANNEDMOVECAT_STATUS, excluded, excludedCount)))
+        return FALSE;
+    if (IsBannedMoveCatRule(value) && IsInArray(BATTLERULE_FIRSTMOVEONLY, excluded, excludedCount))
+        return FALSE;
+
     return TRUE;
 }
 
