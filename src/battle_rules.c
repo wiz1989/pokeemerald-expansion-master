@@ -341,12 +341,13 @@ static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 exclud
     return value;
 }
 
+#define SEED_MULTIPLIER 2654435761u // Knuth's multiplicative hash constant
 // calculate current battle rules based on a Trainer ID seed
 void ComputeActiveBattleRules(void)
 {
     u8 i;
-    u32 baseSeed = (u32)(TRAINER_FLAGS_START + gSaveBlock1Ptr->lastTrainerId)
-                 + GetTrainerClassFromId(gSaveBlock1Ptr->lastTrainerId)
+    
+    u32 baseSeed = (u32)(gSaveBlock1Ptr->lastTrainerId) * SEED_MULTIPLIER
                  + gSaveBlock1Ptr->battleRuleRerollCounter;
     u8 count = gSaveBlock2Ptr->concurrentRules + 1;
     u32 nextIncrement = 0;
