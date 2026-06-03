@@ -2518,9 +2518,13 @@ static void Cmd_critmessage(void)
             TryInitializeTrainerSlidePlayerLandsFirstCriticalHit(gBattlerTarget);
 
             gBattleCommunication[MSG_DISPLAY] = 1;
-            gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+            if (IsActiveBattleRule(BATTLERULE_NOCRITS) && IsOnPlayerSide(gBattlerAttacker))
+            {
+                gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                gBattleRuleViolated = BATTLERULE_NOCRITS;
+            }
         }
-            gBattlescriptCurrInstr = cmd->nextInstr;
+        gBattlescriptCurrInstr = cmd->nextInstr;
     }
 }
 
@@ -3394,7 +3398,10 @@ void SetMoveEffect(u32 battler, u32 effectBattler, bool32 primary, bool32 certai
         break;
     case MOVE_EFFECT_RECOIL_HP_25: // Struggle
         if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gEffectBattler))
+        {
             gSpecialStatuses[gEffectBattler].triggeredBattleRule = TRUE;
+            gBattleRuleViolated = BATTLERULE_NORECOIL;
+        }
 
         gBattleStruct->moveDamage[gEffectBattler] = (gBattleMons[gEffectBattler].maxHP) / 4;
         if (gBattleStruct->moveDamage[gEffectBattler] == 0)
@@ -5850,7 +5857,10 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
          && !gBattleStruct->noTargetPresent)
         {
             if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gBattlerAttacker))
+            {
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                gBattleRuleViolated = BATTLERULE_NORECOIL;
+            }
                 
             if (B_RECOIL_IF_MISS_DMG >= GEN_5 || (B_CRASH_IF_TARGET_IMMUNE == GEN_4 && gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_DOESNT_AFFECT_FOE))
                 gBattleStruct->moveDamage[gBattlerAttacker] = GetNonDynamaxMaxHP(gBattlerAttacker) / 2;
@@ -5870,7 +5880,10 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
             if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gBattlerAttacker))
+            {
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                gBattleRuleViolated = BATTLERULE_NORECOIL;
+            }
                 
             gBattleStruct->moveDamage[gBattlerAttacker] = max(1, gBattleScripting.savedDmg * max(1, GetMoveRecoil(gCurrentMove)) / 100);
             BattleScriptCall(BattleScript_MoveEffectRecoil);
@@ -5890,6 +5903,11 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
          && !(gBattleStruct->moveResultFlags[gBattlerTarget] & MOVE_RESULT_FAILED)
          && GetBattlerAbility(gBattlerAttacker) != ABILITY_MAGIC_GUARD)
         {
+            if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gBattlerAttacker))
+            {
+                gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                gBattleRuleViolated = BATTLERULE_NORECOIL;
+            }
             gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
             BattleScriptCall(BattleScript_MaxHp50Recoil);
             effect = TRUE;
@@ -5899,7 +5917,10 @@ static bool32 HandleMoveEndMoveBlock(u32 moveEffect)
         if (IsBattlerTurnDamaged(gBattlerTarget) && IsBattlerAlive(gBattlerAttacker))
         {
             if (IsActiveBattleRule(BATTLERULE_NORECOIL) && IsOnPlayerSide(gBattlerAttacker))
+            {
                 gSpecialStatuses[gBattlerAttacker].triggeredBattleRule = TRUE;
+                gBattleRuleViolated = BATTLERULE_NORECOIL;
+            }
 
             gBattleStruct->moveDamage[gBattlerAttacker] = (GetNonDynamaxMaxHP(gBattlerAttacker) + 1) / 2; // Half of Max HP Rounded UP
             BattleScriptCall(BattleScript_MoveEffectRecoil);
@@ -6920,7 +6941,7 @@ static void Cmd_moveend(void)
               && (IsActiveBattleRule(BATTLERULE_NOCRITS) || IsActiveBattleRule(BATTLERULE_NORECOIL)))
             {
                 gBattleRuleBattler = gBattlerAttacker;
-                gBattleRuleViolated = IsActiveBattleRule(BATTLERULE_NOCRITS) ? BATTLERULE_NOCRITS : BATTLERULE_NORECOIL;
+                // gBattleRuleViolated is set at the trigger site
                 if (gSaveBlock2Ptr->halfDamage)
                     gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
                 else
