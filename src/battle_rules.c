@@ -284,9 +284,8 @@ static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount)
      || (value == BATTLERULE_NOSWITCHING && IsInArray(BATTLERULE_TRUANT, excluded, excludedCount)))
         return FALSE;
 
-    // BATTLERULE_1PP + BATTLERULE_FIRSTMOVEONLY: one use of the only available move, then Struggle for the rest of the battle
-    if ((value == BATTLERULE_1PP && IsInArray(BATTLERULE_FIRSTMOVEONLY, excluded, excludedCount))
-     || (value == BATTLERULE_FIRSTMOVEONLY && IsInArray(BATTLERULE_1PP, excluded, excludedCount)))
+    // BATTLERULE_1PP must never coexist with any other rule - it's too influential on its own
+    if (IsInArray(BATTLERULE_1PP, excluded, excludedCount))
         return FALSE;
 
     // BATTLERULE_ONLYSTAB + BATTLERULE_BANNEDMOVECAT_PHYSICAL/SPECIAL: could leave a mon with zero usable moves
@@ -299,16 +298,7 @@ static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount)
      && IsInArray(BATTLERULE_ONLYSTAB, excluded, excludedCount))
         return FALSE;
 
-    // BATTLERULE_1PP + BATTLERULE_BANNEDMOVECAT_*: the already extremely low move PP is reduced even further
-    if (value == BATTLERULE_1PP
-     && (IsInArray(BATTLERULE_BANNEDMOVECAT_PHYSICAL, excluded, excludedCount)
-      || IsInArray(BATTLERULE_BANNEDMOVECAT_SPECIAL, excluded, excludedCount)
-      || IsInArray(BATTLERULE_BANNEDMOVECAT_STATUS, excluded, excludedCount)))
-        return FALSE;
-    if (IsBannedMoveCatRule(value) && IsInArray(BATTLERULE_1PP, excluded, excludedCount))
-        return FALSE;
-
-    // BATTLERULE_FIRSTMOVEONLY + BATTLERULE_BANNEDMOVECAT_*: even worse than above, self explaining
+    // BATTLERULE_FIRSTMOVEONLY + BATTLERULE_BANNEDMOVECAT_*: super unfair, could leave you with no viable move at all
     if (value == BATTLERULE_FIRSTMOVEONLY
      && (IsInArray(BATTLERULE_BANNEDMOVECAT_PHYSICAL, excluded, excludedCount)
       || IsInArray(BATTLERULE_BANNEDMOVECAT_SPECIAL, excluded, excludedCount)
@@ -389,6 +379,10 @@ void ComputeActiveBattleRules(void)
         gActiveBattleRules[i] = PickNextRule(baseSeed, nextIncrement, gActiveBattleRules, i, &nextIncrement, bossRulePicked);
         if (IsBossRule(gActiveBattleRules[i]))
             bossRulePicked = TRUE;
+
+        // 1PP rule must not be combined, it's too influential on its own
+        if (gActiveBattleRules[0] == BATTLERULE_1PP)
+            break;
     }
 
     // gActiveBattleRules[0] = BATTLERULE_BANNEDTYPE; // test line
