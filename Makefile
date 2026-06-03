@@ -44,7 +44,7 @@ endif
 
 # update file name for release builds
 ifeq ($(RELEASE),1)
-  FILE_NAME := emerald_rule-ette
+  FILE_NAME := Emerald_Rule-ette
 endif
 
 # Default make rule
