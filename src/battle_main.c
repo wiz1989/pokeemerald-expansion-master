@@ -3945,6 +3945,25 @@ static void TryDoEventsBeforeFirstTurn(void)
         }
         gBattleStruct->eventsBeforeFirstTurnState++;
         break;
+    case FIRST_TURN_EVENTS_ANNOUNCE_RULES:
+        if (gSaveBlock2Ptr->announceRules)
+        {
+            while (gBattleStruct->switchInBattlerCounter < MAX_CONCURRENT_RULES)
+            {
+                u8 rule = gActiveBattleRules[gBattleStruct->switchInBattlerCounter];
+                
+                gBattleStruct->switchInBattlerCounter++;
+                if (rule != BATTLERULE_NONE)
+                {
+                    gBattleRuleViolated = rule;
+                    BattleScriptExecute(BattleScript_AnnounceRule);
+                    return;
+                }
+            }
+        }
+        gBattleStruct->switchInBattlerCounter = 0;
+        gBattleStruct->eventsBeforeFirstTurnState++;
+        break;
     case FIRST_TURN_EVENTS_OVERWORLD_WEATHER:
         if (!gBattleStruct->overworldWeatherDone
          && AbilityBattleEffects(ABILITYEFFECT_SWITCH_IN_WEATHER, 0, 0, ABILITYEFFECT_SWITCH_IN_WEATHER, 0) != 0)

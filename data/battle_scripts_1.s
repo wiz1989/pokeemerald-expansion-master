@@ -9834,6 +9834,13 @@ BattleScript_RuleWasViolated_Ret:
 	restorespeedup
 	return
 
+BattleScript_AnnounceRule::
+	deactivatespeedup
+	printbattlerule
+	waitmessage B_WAIT_TIME_LONG
+	restorespeedup
+	end3
+
 @ This variant is only used if the rule triggers outside of the
 @ sTurnActionsFuncsTable functions (e.g. before Action choice or
 @ after Action execution)

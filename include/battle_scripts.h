@@ -876,5 +876,6 @@ extern const u8 BattleScript_BattleRule_FaintMon_End[];
 extern const u8 BattleScript_BattleRule_FaintMon_Ret[];
 extern const u8 BattleScript_BattleRule_Perish[];
 extern const u8 BattleScript_BattleRule_Perish_End[];
+extern const u8 BattleScript_AnnounceRule[];
 
 #endif // GUARD_BATTLE_SCRIPTS_H
