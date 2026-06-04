@@ -299,6 +299,7 @@ extern const u8 gText_HarderTrainers[];
 extern const u8 gText_LeadersE4Upgrade[];
 extern const u8 gText_50Damage[];
 extern const u8 gText_RevealRule[];
+extern const u8 gText_AnnounceRules[];
 extern const u8 gText_ConcurrentRules[];
 extern const u8 gText_ConcurrentRules1[];
 extern const u8 gText_ConcurrentRules2[];

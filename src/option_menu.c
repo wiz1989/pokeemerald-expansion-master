@@ -35,6 +35,7 @@
 #define tRevealRule data[14]
 #define tLeadersUpgrade data[15]
 #define tConcurrentRules data[16]
+#define tAnnounceRules data[17]
 
 enum menuItems_pg1
 {
@@ -53,6 +54,7 @@ enum menuItems_pg2
     MENUITEM_BATTLE_SPEEDUP,
     MENUITEM_50DAMAGE,
     MENUITEM_REVEALRULE,
+    MENUITEM_ANNOUNCERULES,
     MENUITEM_HARDERTRAINERS,
     MENUITEM_LEADERS_UPGRADE,
     MENUITEM_CONCURRENT_RULES,
@@ -91,6 +93,7 @@ enum
 #define YPOS_50DAMAGE        (MENUITEM_50DAMAGE * 16)
 #define YPOS_DUPECLAUSE      (MENUITEM_DUPECLAUSE * 16)
 #define YPOS_REVEALRULE      (MENUITEM_REVEALRULE * 16)
+#define YPOS_ANNOUNCERULES   (MENUITEM_ANNOUNCERULES * 16)
 #define YPOS_METLOCCLAUSE    (MENUITEM_METLOCCLAUSE * 16)
 
 #define PAGE_COUNT  3
@@ -119,6 +122,8 @@ static u8 ConcurrentRules_ProcessInput(u8 selection);
 static void ConcurrentRules_DrawChoices(u8 selection);
 static u8 RevealRule_ProcessInput(u8 selection);
 static void RevealRule_DrawChoices(u8 selection);
+static u8 AnnounceRules_ProcessInput(u8 selection);
+static void AnnounceRules_DrawChoices(u8 selection);
 static u8 HalfDamage_ProcessInput(u8 selection);
 static void HalfDamage_DrawChoices(u8 selection);
 static u8 DupeClause_ProcessInput(u8 selection);
@@ -164,6 +169,7 @@ static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
     [MENUITEM_BATTLE_SPEEDUP]   = gText_BattleSpeedup,
     [MENUITEM_50DAMAGE]         = gText_50Damage,
     [MENUITEM_REVEALRULE]       = gText_RevealRule,
+    [MENUITEM_ANNOUNCERULES]    = gText_AnnounceRules,
     [MENUITEM_HARDERTRAINERS]   = gText_HarderTrainers,
     [MENUITEM_LEADERS_UPGRADE]  = gText_LeadersE4Upgrade,
     [MENUITEM_CONCURRENT_RULES] = gText_ConcurrentRules,
@@ -259,6 +265,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tDupeClause = gSaveBlock2Ptr->dupeClause;
     gTasks[taskId].tMetLocClause = gSaveBlock2Ptr->metLocClause;
     gTasks[taskId].tRevealRule = gSaveBlock2Ptr->revealRule;
+    gTasks[taskId].tAnnounceRules = gSaveBlock2Ptr->announceRules;
     gTasks[taskId].tConcurrentRules = gSaveBlock2Ptr->concurrentRules;
 }
 
@@ -281,6 +288,7 @@ static void DrawOptionsPg2(u8 taskId)
     BattleSpeedup_DrawChoices(gTasks[taskId].tBattleSpeedUp);
     HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
     RevealRule_DrawChoices(gTasks[taskId].tRevealRule);
+    AnnounceRules_DrawChoices(gTasks[taskId].tAnnounceRules);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
     LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
     ConcurrentRules_DrawChoices(gTasks[taskId].tConcurrentRules);
@@ -628,6 +636,13 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tRevealRule)
                 RevealRule_DrawChoices(gTasks[taskId].tRevealRule);
             break;
+        case MENUITEM_ANNOUNCERULES:
+            previousOption = gTasks[taskId].tAnnounceRules;
+            gTasks[taskId].tAnnounceRules = AnnounceRules_ProcessInput(gTasks[taskId].tAnnounceRules);
+
+            if (previousOption != gTasks[taskId].tAnnounceRules)
+                AnnounceRules_DrawChoices(gTasks[taskId].tAnnounceRules);
+            break;
         case MENUITEM_CONCURRENT_RULES:
             previousOption = gTasks[taskId].tConcurrentRules;
             gTasks[taskId].tConcurrentRules = ConcurrentRules_ProcessInput(gTasks[taskId].tConcurrentRules);
@@ -750,6 +765,7 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->halfDamage = gTasks[taskId].t50DamageOn;
     gSaveBlock2Ptr->dupeClause = gTasks[taskId].tDupeClause;
     gSaveBlock2Ptr->revealRule = gTasks[taskId].tRevealRule;
+    gSaveBlock2Ptr->announceRules = gTasks[taskId].tAnnounceRules;
     gSaveBlock2Ptr->metLocClause = gTasks[taskId].tMetLocClause;
     gSaveBlock2Ptr->concurrentRules = gTasks[taskId].tConcurrentRules;
 
@@ -1181,6 +1197,27 @@ static void RevealRule_DrawChoices(u8 selection)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_OptionOff, 104, YPOS_REVEALRULE, styles[0]);
     DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_REVEALRULE, styles[1]);
+}
+
+static u8 AnnounceRules_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void AnnounceRules_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+    DrawOptionMenuChoice(gText_OptionOff, 104, YPOS_ANNOUNCERULES, styles[0]);
+    DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_ANNOUNCERULES, styles[1]);
 }
 
 static u8 DupeClause_ProcessInput(u8 selection)
