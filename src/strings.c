@@ -1044,6 +1044,7 @@ const u8 gText_NoBagInBattleOff[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
 const u8 gText_NoBagInBattleOn[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
 const u8 gText_OptionOff[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
 const u8 gText_OptionOn[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
+const u8 gText_OptionAnnounce[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ANNOUNCE");
 const u8 gText_ViolationDamage100[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}100%");
 const u8 gText_ViolationDamage50[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}50%");
 const u8 gText_NumPlayerLink[] = _("{STR_VAR_1}P LINK");
