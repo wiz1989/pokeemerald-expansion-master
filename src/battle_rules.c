@@ -324,8 +324,11 @@ static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 exclud
 
     value = RandomSeededModulo2(baseSeed + increment, BATTLE_RULES_COUNT);
 
+    // handle all exceptions for rerolls
     while ((!gBattleRules[value].enabled // ignore disabled rules
         || (IsDoubleBattle() && value == BATTLERULE_NOSAMESEX)
+        || (value == BATTLERULE_1PP && startIncrement != 0) // 1PP rule can only be picked as the first rule, IsValidPairing() won't allow pairing later on
+        || (value == BATTLERULE_1PP && CalculateEnemyPartyCount() > 4) // don't use 1PP rule if opponent has more than 4 mons
         || (B_BOSS_LIMITED_RULES && !IsBossRule(value) && IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))
         || (excludeBossRules && IsBossRule(value)) // one boss rule at max!
         || IsInArray(value, excluded, excludedCount) // rule was already picked in previous iteration
