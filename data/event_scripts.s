@@ -598,6 +598,10 @@ gStdScripts_End::
 	.include "data/maps/Route119_WeatherInstitute_2F/scripts.inc"
 	.include "data/maps/Route119_House/scripts.inc"
 	.include "data/maps/Route124_DivingTreasureHuntersHouse/scripts.inc"
+	.include "data/maps/TARC3_base/scripts.inc"
+	.include "data/maps/TARC3_rainy/scripts.inc"
+	.include "data/maps/TARC3_sunny/scripts.inc"
+	.include "data/maps/TARC3_snowy/scripts.inc"
 
 .if IS_FRLG
 
