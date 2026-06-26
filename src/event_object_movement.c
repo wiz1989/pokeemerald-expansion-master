@@ -3015,6 +3015,7 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
 
     if (spriteTemplate.paletteTag == OBJ_EVENT_PAL_TAG_DYNAMIC)
     {
+        SetObjectEventDynamicGraphicsId(objectEvent); // resolve correct graphic data (esp. pals) from dynamic graphics id
         u32 paletteNum = LoadDynamicFollowerPalette(OW_SPECIES(objectEvent), OW_SHINY(objectEvent), OW_FEMALE(objectEvent));
         spriteTemplate.paletteTag = GetSpritePaletteTagByPaletteNum(paletteNum);
     }
