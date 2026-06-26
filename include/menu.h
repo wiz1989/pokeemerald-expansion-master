@@ -139,5 +139,6 @@ void HBlankCB_DoublePopupWindow(void);
 void RedrawDialogueFrame(void);
 void StartBlendTask(u8 eva_start, u8 evb_start, u8 eva_end, u8 evb_end, u8 ev_step, u8 priority);
 bool8 IsBlendTaskActive(void);
+u16 AddWindowParameterized(u8, u8, u8, u8, u8, u8, u16);
 
 #endif // GUARD_MENU_H
