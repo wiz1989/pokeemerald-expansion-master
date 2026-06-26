@@ -2591,6 +2591,8 @@ static void InitObjectEventsLocal(void)
     u16 x, y;
     struct InitialPlayerAvatarState *player;
 
+    DebugPrintf("InitObjectEventsLocal");
+
     gTotalCameraPixelOffsetX = 0;
     gTotalCameraPixelOffsetY = 0;
     ResetObjectEvents();

@@ -1,6 +1,8 @@
 #ifndef GUARD_FLDEFF_H
 #define GUARD_FLDEFF_H
 
+#define FLDEFF_CONST_PLAYER_IS_DITTO 9
+
 // cut
 bool32 SetUpFieldMove_Cut(void);
 bool8 FldEff_UseCutOnGrass(void);

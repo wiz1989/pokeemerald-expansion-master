@@ -52,6 +52,12 @@ void ItemUseOutOfBattle_TownMap(u8 taskId);
 bool8 ItemfinderCheckForHiddenItems(const struct MapEvents *, u8);
 enum Direction GetDirectionToHiddenItem(s16, s16);
 
+// transform functions
+void ItemUseOutOfBattle_TransformBase(u8 taskId);
+void ItemUseOutOfBattle_TransformRainy(u8 taskId);
+void ItemUseOutOfBattle_TransformSunny(u8 taskId);
+void ItemUseOutOfBattle_TransformSnowy(u8 taskId);
+
 enum {
     BALL_THROW_UNABLE_TWO_MONS,
     BALL_THROW_UNABLE_NO_ROOM,

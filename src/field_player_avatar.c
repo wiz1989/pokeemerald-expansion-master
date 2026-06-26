@@ -24,6 +24,7 @@
 #include "sprite.h"
 #include "strings.h"
 #include "task.h"
+#include "transform.h"
 #include "tv.h"
 #include "wild_encounter.h"
 #include "constants/abilities.h"
@@ -1566,30 +1567,27 @@ void StopPlayerAvatar(void)
 
 u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, enum Gender gender)
 {
-    if (IS_FRLG)
-        return GetPlayerAvatarGraphicsIdByStateIdAndGender(state, gender);
-    else
-        return sRivalAvatarGfxIds[state][gender];
+    return ReturnAvatarGraphicsId(gSaveBlock2Ptr->playerGfxType);
 }
 
 u16 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, enum Gender gender)
 {
-    return sPlayerAvatarGfxIds[state][gender];
+    return ReturnAvatarGraphicsId(gSaveBlock2Ptr->playerGfxType);
 }
 
 u16 GetFRLGAvatarGraphicsIdByGender(enum Gender gender)
 {
-    return sFRLGAvatarGfxIds[gender];
+    return ReturnAvatarGraphicsId(gSaveBlock2Ptr->playerGfxType);
 }
 
 u16 GetRSAvatarGraphicsIdByGender(enum Gender gender)
 {
-    return sRSAvatarGfxIds[gender];
+    return ReturnAvatarGraphicsId(gSaveBlock2Ptr->playerGfxType);
 }
 
 u16 GetPlayerAvatarGraphicsIdByStateId(u8 state)
 {
-    return GetPlayerAvatarGraphicsIdByStateIdAndGender(state, gPlayerAvatar.gender);
+    return ReturnAvatarGraphicsId(gSaveBlock2Ptr->playerGfxType);
 }
 
 enum Gender GetPlayerAvatarGenderByGraphicsId(u16 gfxId)

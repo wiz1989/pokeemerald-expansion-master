@@ -42,6 +42,7 @@
 #include "string_util.h"
 #include "task.h"
 #include "text.h"
+#include "transform.h"
 #include "vs_seeker.h"
 #include "constants/event_bg.h"
 #include "constants/event_objects.h"
@@ -1642,3 +1643,60 @@ void ItemUseOutOfBattle_TownMap(u8 taskId)
 }
 
 #undef tUsingRegisteredKeyItem
+
+// transform functions
+static void ItemUseOnFieldCB_TransformBase(u8 taskId)
+{
+    LockPlayerFieldControls();
+    SetPlayerAvatarTransformation(SPECIES_CASTFORM_NORMAL, TRUE);
+    ScriptUnfreezeObjectEvents();
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_TransformBase(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_TransformBase;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+void ItemUseOnFieldCB_TransformRainy(u8 taskId)
+{
+    LockPlayerFieldControls();
+    SetPlayerAvatarTransformation(SPECIES_CASTFORM_RAINY, TRUE);
+    ScriptUnfreezeObjectEvents();
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_TransformRainy(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_TransformRainy;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+void ItemUseOnFieldCB_TransformSunny(u8 taskId)
+{
+    LockPlayerFieldControls();
+    SetPlayerAvatarTransformation(SPECIES_CASTFORM_SUNNY, TRUE);
+    ScriptUnfreezeObjectEvents();
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_TransformSunny(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_TransformSunny;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
+void ItemUseOnFieldCB_TransformSnowy(u8 taskId)
+{
+    LockPlayerFieldControls();
+    SetPlayerAvatarTransformation(SPECIES_CASTFORM_SNOWY, TRUE);
+    ScriptUnfreezeObjectEvents();
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_TransformSnowy(u8 taskId)
+{
+    sItemUseOnFieldCB = ItemUseOnFieldCB_TransformSnowy;
+    SetUpItemUseOnFieldCallback(taskId);
+}

@@ -51,6 +51,10 @@
 #include "constants/items.h"
 #include "difficulty.h"
 #include "follower_npc.h"
+#include "script_pokemon_util.h"
+#include "constants/species.h"
+#include "constants/items.h"
+#include "transform.h"
 
 extern const u8 EventScript_ResetAllMapFlags[];
 extern const u8 EventScript_ResetAllMapFlagsFrlg[];
@@ -107,9 +111,18 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->regionMapZoom = FALSE;
 }
 
-static void SetDefaultFlags(void)
+static void SetDefaultFlagsAndSettings(void)
 {
+    ScriptGiveMon(SPECIES_CASTFORM, 25, ITEM_NONE);
+    // gSaveBlock2Ptr->optionsBattleSpeed = 1;
+    // VarSet(VAR_BATTLE_SPEED, 1); // Set battle speed to 2x by default, press L to slow down to 1x
+    gSaveBlock2Ptr->playerGfxType = AVATAR_POKEMON_CHOICE;
+    gSaveBlock2Ptr->pokemonAvatarSpecies = SPECIES_CASTFORM_NORMAL;
     FlagSet(FLAG_SYS_B_DASH);
+    // FlagClear(FLAG_RUNNING_SHOES_TOGGLE);
+    // FlagSet(FLAG_AUTORUN_MENU_TOGGLE);
+    FlagSet(FLAG_SYS_POKEMON_GET);
+    VarSet(VAR_TRANSFORM_MON, SPECIES_CASTFORM_NORMAL);
 }
 
 static void ClearPokedexFlags(void)
@@ -240,7 +253,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
-    SetDefaultFlags();
+    SetDefaultFlagsAndSettings();
 }
 
 static void ResetMiniGamesRecords(void)
