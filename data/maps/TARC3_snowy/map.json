@@ -3,7 +3,7 @@
   "name": "TARC3_snowy",
   "layout": "LAYOUT_TARC3_SNOWY",
   "music": "MUS_LITTLEROOT",
-  "region_map_section": "MAPSEC_DYNAMIC",
+  "region_map_section": "MAPSEC_TARC3_SNOWY",
   "requires_flash": false,
   "weather": "WEATHER_SNOW",
   "map_type": "MAP_TYPE_ROUTE",

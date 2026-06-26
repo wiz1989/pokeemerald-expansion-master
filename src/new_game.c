@@ -107,6 +107,11 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->regionMapZoom = FALSE;
 }
 
+static void SetDefaultFlags(void)
+{
+    FlagSet(FLAG_SYS_B_DASH);
+}
+
 static void ClearPokedexFlags(void)
 {
     gUnusedPokedexU8 = 0;
@@ -135,10 +140,7 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-    if (IS_FRLG)
-        SetWarpDestination(MAP_GROUP(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(MAP_PALLET_TOWN_PLAYERS_HOUSE_2F), WARP_ID_NONE, 6, 6);
-    else
-        SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
+    SetWarpDestination(MAP_GROUP(MAP_NEW_AREA_MAP1), MAP_NUM(MAP_NEW_AREA_MAP1), WARP_ID_NONE, 0, 0);
     WarpIntoMap();
 }
 
@@ -160,6 +162,7 @@ void ResetMenuAndMonGlobals(void)
 
 void NewGameInitData(void)
 {
+    const u8 playerName[PLAYER_NAME_LENGTH + 1] = _("STORMY");
 #if IS_FRLG
     u8 rivalName[PLAYER_NAME_LENGTH + 1];
 #endif
@@ -180,7 +183,10 @@ void NewGameInitData(void)
     ClearAllMail();
     gSaveBlock2Ptr->specialSaveWarpFlags = 0;
     gSaveBlock2Ptr->gcnLinkFlags = 0;
+    gSaveBlock2Ptr->playerGender = MALE;
     InitPlayerTrainerId();
+    StringCopyN(gSaveBlock2Ptr->playerName, playerName, PLAYER_NAME_LENGTH);
+    gSaveBlock2Ptr->playerName[PLAYER_NAME_LENGTH] = EOS;
     PlayTimeCounter_Reset();
     ClearPokedexFlags();
     InitEventData();
@@ -234,6 +240,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
+    SetDefaultFlags();
 }
 
 static void ResetMiniGamesRecords(void)

@@ -3,7 +3,7 @@
   "name": "TARC3_sunny",
   "layout": "LAYOUT_TARC3_SUNNY",
   "music": "MUS_LITTLEROOT",
-  "region_map_section": "MAPSEC_DYNAMIC",
+  "region_map_section": "MAPSEC_TARC3_SUNNY",
   "requires_flash": false,
   "weather": "WEATHER_DROUGHT",
   "map_type": "MAP_TYPE_ROUTE",

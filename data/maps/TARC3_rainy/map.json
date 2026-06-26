@@ -3,7 +3,7 @@
   "name": "TARC3_rainy",
   "layout": "LAYOUT_TARC3_RAINY",
   "music": "MUS_LITTLEROOT",
-  "region_map_section": "MAPSEC_DYNAMIC",
+  "region_map_section": "MAPSEC_TARC3_RAINY",
   "requires_flash": false,
   "weather": "WEATHER_DOWNPOUR",
   "map_type": "MAP_TYPE_ROUTE",
