@@ -57,12 +57,14 @@
 #include "graphics.h"
 #include "script.h"
 #include "egg_hatch.h"
+#include "field_effect.h"
 
 #include "bike.h"
 #include "data/transformations.h"
 
 const void *GetTransformationPic(u16 speciesId);
 const u16 *GetTransformationPalette(u16 speciesId);
+static u8 IsSpeciesValidTransformation(u16 speciesId);
 
 //
 // 	Player Avatar System Code
@@ -86,6 +88,59 @@ static const struct PitAvatarInfo sPitAvatars[] =
     },
 };
 
+// copied from LoadDynamicFollowerPalette
+static u8 LoadDynamicPlayerTransformPalette(u16 species, bool32 shiny)
+{
+    u32 paletteNum;
+
+#if OW_POKEMON_OBJECT_EVENTS == TRUE && OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    if ((shiny && gSpeciesInfo[species].overworldShinyPalette != NULL)
+     || (!shiny && gSpeciesInfo[species].overworldPalette != NULL))
+    {
+        struct SpritePalette spritePalette;
+        u16 palTag = GetGraphicsIdForMon(species, shiny, FALSE);
+
+        if ((paletteNum = IndexOfSpritePaletteTag(palTag)) < 16)
+            return paletteNum;
+
+        spritePalette.tag = palTag;
+        spritePalette.data = shiny ? gSpeciesInfo[species].overworldShinyPalette
+                                   : gSpeciesInfo[species].overworldPalette;
+        paletteNum = LoadSpritePalette(&spritePalette);
+    }
+    else
+#endif
+    {
+        const u16 *palette = GetMonSpritePalFromSpecies(species, shiny, FALSE);
+
+        if ((paletteNum = IndexOfSpritePaletteTag(species)) < 16)
+            return paletteNum;
+
+        LoadSpritePaletteWithTag(palette, species);
+        paletteNum = IndexOfSpritePaletteTag(species);
+    }
+
+    if (gWeatherPtr->currWeather != WEATHER_FOG_HORIZONTAL)
+        UpdateSpritePaletteWithWeather(paletteNum, FALSE);
+
+    return paletteNum;
+}
+
+static void RefreshPlayerTransformPalette(struct ObjectEvent *playerObjectEvent)
+{
+    const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(playerObjectEvent->graphicsId);
+    struct Sprite *sprite = &gSprites[playerObjectEvent->spriteId];
+
+    if (graphicsInfo->paletteTag != OBJ_EVENT_PAL_TAG_DYNAMIC)
+        return;
+
+    sprite->inUse = FALSE;
+    FieldEffectFreePaletteIfUnused(sprite->oam.paletteNum);
+    sprite->inUse = TRUE;
+    sprite->oam.paletteNum = LoadDynamicPlayerTransformPalette(gSaveBlock2Ptr->pokemonAvatarSpecies,
+                                                               IsMonShiny(&gParties[B_TRAINER_PLAYER][0]));
+}
+
 bool32 PlayerIsCastform(void)
 {
     return TRUE;
@@ -98,15 +153,19 @@ u16 ReturnAvatarMugshotId(u16 avatarId) // unused
 
 u16 ReturnAvatarGraphicsId(u16 avatarId)
 {
-    u16 graphicsId = OBJ_EVENT_GFX_VAR_D; // Directly assign the variable graphic ID
+    u16 graphicsId;
+    
     if (IsMonShiny(&gParties[B_TRAINER_PLAYER][0]) == TRUE)
     {
-        VarSet(VAR_OBJ_GFX_ID_D, gSaveBlock2Ptr->pokemonAvatarSpecies + OBJ_EVENT_MON + OBJ_EVENT_MON_SHINY);
+        graphicsId = gSaveBlock2Ptr->pokemonAvatarSpecies + OBJ_EVENT_MON + OBJ_EVENT_MON_SHINY;
     }
     else
     {
-        VarSet(VAR_OBJ_GFX_ID_D, gSaveBlock2Ptr->pokemonAvatarSpecies + OBJ_EVENT_MON);
+        graphicsId = gSaveBlock2Ptr->pokemonAvatarSpecies + OBJ_EVENT_MON;
     }
+
+    // Keep this variable synced for scripts or systems that still reference it.
+    VarSet(VAR_OBJ_GFX_ID_D, graphicsId);
     TryCreatePokemonAvatarSpriteBob();
     return graphicsId;
 }
@@ -149,6 +208,7 @@ void EndPlayerTransformAnimation(struct Sprite *sprite, u8 taskId)
 
     struct ObjectEvent *playerObjectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
     ObjectEventSetGraphicsId(playerObjectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
+    RefreshPlayerTransformPalette(playerObjectEvent);
     ObjectEventTurn(playerObjectEvent, playerObjectEvent->movementDirection);
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_ON_FOOT);
     ObjectEventSetHeldMovement(playerObjectEvent, GetFaceDirectionMovementAction(playerObjectEvent->facingDirection));
@@ -182,7 +242,10 @@ void UpdatePlayerTransformAnimation(u8 taskId)
     SetGpuReg(REG_OFFSET_MOSAIC, (stretch << 12) | (stretch << 8));
 
     if (frames == 8)
+    {
         ObjectEventSetGraphicsId(playerObjectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
+        RefreshPlayerTransformPalette(playerObjectEvent);
+    }
     
     sprite->data[0]++; // Increment frames
 }
@@ -195,16 +258,17 @@ static u8 IsSpeciesValidTransformation(u16 speciesId)
         case SPECIES_CASTFORM_RAINY:
         case SPECIES_CASTFORM_SUNNY:
         case SPECIES_CASTFORM_SNOWY:
-            DebugPrintfLevel(MGBA_LOG_WARN, "Got valid species %d", speciesId);
             return TRUE;
         default:
-            DebugPrintfLevel(MGBA_LOG_WARN, "No valid species");
             return FALSE;
     }
 }
 
 u16 GetValidTransformationSpeciesFromParty(u8 partyId)
 {
+    if (partyId >= gPartiesCount[B_TRAINER_PLAYER])
+        return SPECIES_NONE;
+
     u16 speciesId = GetMonData(&gParties[B_TRAINER_PLAYER][partyId], MON_DATA_SPECIES);
 
     if (IsSpeciesValidTransformation(speciesId))
@@ -259,8 +323,6 @@ void SetPlayerAvatarFromScript(struct ScriptContext *ctx)
     gSaveBlock2Ptr->pokemonAvatarSpecies = speciesId;
     VarSet(VAR_TRANSFORM_MON, speciesId); 
 
-    DebugPrintfLevel(MGBA_LOG_WARN, "Set VAR_TRANSFORM_MON to %d", VarGet(VAR_TRANSFORM_MON));
-
     if (PlayerIsCastform())
         TransformCastformBoxMon(speciesId);
 
@@ -275,8 +337,7 @@ void SetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControl
 
     gSaveBlock2Ptr->pokemonAvatarSpecies = speciesId;
     VarSet(VAR_TRANSFORM_MON, speciesId); 
-    
-    DebugPrintfLevel(MGBA_LOG_WARN, "Set VAR_TRANSFORM_MON to %d", VarGet(VAR_TRANSFORM_MON));
+
     if (PlayerIsCastform())
         TransformCastformBoxMon(speciesId);
         
@@ -403,7 +464,6 @@ void Task_PokemonAvatar_HandleBob(u8 taskId)
 
 u8 BlitTransformationIconToWindow(u16 speciesId, u8 windowId, u16 x, u16 y, void *paletteDest)
 {
-    DebugPrintfLevel(MGBA_LOG_WARN, "Attempting to Blit Species %d", speciesId);
     if (!AllocItemIconTemporaryBuffers())
         return 16;
 

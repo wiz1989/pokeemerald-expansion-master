@@ -2949,3 +2949,11 @@
 	getbraillestringwidth \text
 	call EventScript_BrailleCursorWaitButton
 	.endm
+
+	@ /// Castform macros ///
+
+	@ Transforms Castform into a specific form (=species)
+	.macro changeform species:req
+	callnative SetPlayerAvatarFromScript, requests_effects=1
+	.2byte \species
+	.endm

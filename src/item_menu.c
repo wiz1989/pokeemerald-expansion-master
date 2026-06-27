@@ -1870,7 +1870,7 @@ static void OpenContextMenu(u8 taskId)
                 gBagMenu->contextMenuItemsPtr = gBagMenu->contextMenuItemsBuffer;
                 gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_KeyItemsPocket);
                 memcpy(&gBagMenu->contextMenuItemsBuffer, &sContextMenuItems_KeyItemsPocket, sizeof(sContextMenuItems_KeyItemsPocket));
-                if (gSaveBlock1Ptr->registeredItemCompat == gSpecialVar_ItemId)
+                if (RegisteredItemIndex(gSpecialVar_ItemId) >= 0)
                     gBagMenu->contextMenuItemsBuffer[1] = ACTION_DESELECT;
                 if (gSpecialVar_ItemId == ITEM_MACH_BIKE || gSpecialVar_ItemId == ITEM_ACRO_BIKE || gSpecialVar_ItemId == ITEM_BICYCLE)
                 {
@@ -2139,9 +2139,13 @@ static u32 DpadInputToRegisteredItemIndex(bool32 check)
     // If `check`, verify that slot actually has an item registered
     if (i && check)
     {
-        if (PlayerIsCastform() && !GetValidTransformationSpeciesFromParty(i))
-            i = 0;
-        else if (!PlayerIsCastform() && gSaveBlock1Ptr->registeredItems[i-1] == ITEM_NONE)
+        if (PlayerIsCastform())
+        {
+            u16 speciesId = GetValidTransformationSpeciesFromParty(i);
+            if (!speciesId)
+                i = 0;
+        }
+        else if (gSaveBlock1Ptr->registeredItems[i-1] == ITEM_NONE)
             i = 0;
     }
     return i;
@@ -2434,7 +2438,7 @@ bool8 UseRegisteredKeyItemOnField(void)
 
     HideMapNamePopUpWindow();
     ChangeBgY_ScreenOff(0, 0, BG_COORD_SET);
-       i = CountRegisteredItems();
+    i = CountRegisteredItems();
     
     // Show key item wheel
     if (i > 1 || PlayerIsCastform()) {
@@ -2535,7 +2539,8 @@ static void Task_KeyItemWheel(u8 taskId) {
 
             if (PlayerIsCastform()) // Show Transformations
             {
-                DebugPrintfLevel(MGBA_LOG_WARN, "Attempting to show Transformations");
+                if (i + 1 >= gPartiesCount[B_TRAINER_PLAYER])
+                    continue;
                 speciesId = GetValidTransformationSpeciesFromParty(i + 1);
                 if (speciesId == SPECIES_NONE)
                     continue;
