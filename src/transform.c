@@ -205,6 +205,9 @@ static u8 IsSpeciesValidTransformation(u16 speciesId)
 
 u16 GetValidTransformationSpeciesFromParty(u8 partyId)
 {
+    if (partyId >= gPartiesCount[B_TRAINER_PLAYER])
+        return SPECIES_NONE;
+
     u16 speciesId = GetMonData(&gParties[B_TRAINER_PLAYER][partyId], MON_DATA_SPECIES);
 
     if (IsSpeciesValidTransformation(speciesId))
