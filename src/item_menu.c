@@ -559,8 +559,9 @@ static const struct SpriteTemplate sSpriteTemplate_KeyItemBox = {
     .callback = SpriteCallbackDummy,
 };
 
+#define WHEEL_Y_OFFSET 6
 static const u8 sKeyItemBoxXPos[MAX_REGISTERED_ITEMS] = {(DISPLAY_WIDTH / 2), (DISPLAY_WIDTH / 2) + 32, (DISPLAY_WIDTH / 2), (DISPLAY_WIDTH / 2) - 32};
-static const u8 sKeyItemBoxYPos[MAX_REGISTERED_ITEMS] = {(DISPLAY_HEIGHT / 2) - 32, (DISPLAY_HEIGHT / 2), (DISPLAY_HEIGHT / 2) + 32, (DISPLAY_HEIGHT / 2)};
+static const u8 sKeyItemBoxYPos[MAX_REGISTERED_ITEMS] = {(DISPLAY_HEIGHT / 2) - 32 - WHEEL_Y_OFFSET, (DISPLAY_HEIGHT / 2) - WHEEL_Y_OFFSET, (DISPLAY_HEIGHT / 2) + 32 - WHEEL_Y_OFFSET, (DISPLAY_HEIGHT / 2) - WHEEL_Y_OFFSET};
 
 static const struct SpriteTemplate sSpriteTemplate_KeyItemBoxWin = {
     .tileTag = PAL_TAG_KEY_ITEM_WHEEL,
