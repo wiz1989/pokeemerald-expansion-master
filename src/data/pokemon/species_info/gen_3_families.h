@@ -9264,7 +9264,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
-            sAnimTable_Following,
+            sAnimTable_Following_WalkRun,
             gOverworldPalette_CastformNormal,
             gShinyOverworldPalette_CastformNormal
         )
@@ -9345,7 +9345,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
-            sAnimTable_Following,
+            sAnimTable_Following_WalkRun,
             gOverworldPalette_CastformSunny,
             gShinyOverworldPalette_CastformSunny
         )
@@ -9424,7 +9424,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
-            sAnimTable_Following,
+            sAnimTable_Following_WalkRun,
             gOverworldPalette_CastformRainy,
             gShinyOverworldPalette_CastformRainy
         )
@@ -9504,7 +9504,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_NONE,
-            sAnimTable_Following,
+            sAnimTable_Following_WalkRun,
             gOverworldPalette_CastformSnowy,
             gShinyOverworldPalette_CastformSnowy
         )
