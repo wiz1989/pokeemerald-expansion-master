@@ -11,7 +11,6 @@ void Task_CreatePokemonAvatarBob(u8 taskId);
 void Task_PokemonAvatar_HandleBob(u8 taskId);
 void UpdatePlayerTransformAnimation(u8 taskId);
 
-u16 ReturnAvatarMugshotId(u16 avatarId);
 u16 ReturnAvatarGraphicsId(u16 avatarId);
 u16 ReturnAvatarTrainerFrontPicId(u16 avatarId);
 u16 ReturnAvatarTrainerBackPicId(u16 avatarId);
@@ -31,6 +30,22 @@ u16 GetCurrentTransformationSpecies(void);
 
 #define TRANSFORM_TYPE_PLAYER_SPECIES 1
 #define AVATAR_POKEMON_CHOICE 1
+
+// choose type of mosaic effect for transformation
+#define TRANSFORM_ANIM_SPRITE 0
+#define TRANSFORM_ANIM_SCREEN 1
+#define TRANSFORM_ANIM_TYPE   TRANSFORM_ANIM_SCREEN
+
+// transformation animation constants
+#if TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN
+  #define TRANSFORM_ANIM_TOTAL_FRAMES 48
+  #define TRANSFORM_ANIM_SWAP_FRAME 24
+  #define TRANSFORM_ANIM_MAX_STRETCH 12
+#else
+  #define TRANSFORM_ANIM_TOTAL_FRAMES 16
+  #define TRANSFORM_ANIM_SWAP_FRAME 8
+  #define TRANSFORM_ANIM_MAX_STRETCH 4
+#endif
 
 extern EWRAM_DATA u8 gPlayerTransformEffectActive;
 
