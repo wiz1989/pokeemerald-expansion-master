@@ -300,6 +300,11 @@ u16 GetTransformationBattleSpecies(u16 speciesId)
     return gTransformations[speciesId].battleSpecies;
 }
 
+u16 GetTransformationTargetMap(u16 speciesId)
+{
+    return gTransformations[speciesId].targetMap;
+}
+
 // void TransformCastformBoxMon(u16 targetSpecies)
 // {
 //     if (!IsSpeciesValidTransformation(targetSpecies))
