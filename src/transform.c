@@ -58,17 +58,21 @@
 #include "script.h"
 #include "egg_hatch.h"
 #include "field_effect.h"
-
 #include "bike.h"
 #include "data/transformations.h"
 
 const void *GetTransformationPic(u16 speciesId);
 const u16 *GetTransformationPalette(u16 speciesId);
 static u8 IsSpeciesValidTransformation(u16 speciesId);
+static void WarpToTransformationMap(u16 speciesId, bool8 useFade);
+static void SetObjectEventSpritesMosaic(bool8 enable);
+static void DestroyWeatherSpriteArray(struct Sprite **sprites, u16 count);
+static void ClearAllWeatherSprites(void);
+static void RestartWeatherImmediate(u8 weather);
 
-//
-// 	Player Avatar System Code
-//
+EWRAM_DATA u8 gPlayerTransformEffectActive = FALSE;
+static EWRAM_DATA u16 sPendingTransformWarpSpecies = SPECIES_NONE;
+static EWRAM_DATA bool8 sResumeMapWeatherAtMosaicEnd = FALSE;
 
 struct PitAvatarInfo {
     u16 mugshotId;
@@ -88,7 +92,8 @@ static const struct PitAvatarInfo sPitAvatars[] =
     },
 };
 
-// copied from LoadDynamicFollowerPalette
+// handle dynamic palettes; based on LoadDynamicFollowerPalette
+// loads the pal and returns the id
 static u8 LoadDynamicPlayerTransformPalette(u16 species, bool32 shiny)
 {
     u32 paletteNum;
@@ -126,6 +131,7 @@ static u8 LoadDynamicPlayerTransformPalette(u16 species, bool32 shiny)
     return paletteNum;
 }
 
+// free old player pal and load new one
 static void RefreshPlayerTransformPalette(struct ObjectEvent *playerObjectEvent)
 {
     const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(playerObjectEvent->graphicsId);
@@ -137,20 +143,16 @@ static void RefreshPlayerTransformPalette(struct ObjectEvent *playerObjectEvent)
     sprite->inUse = FALSE;
     FieldEffectFreePaletteIfUnused(sprite->oam.paletteNum);
     sprite->inUse = TRUE;
-    sprite->oam.paletteNum = LoadDynamicPlayerTransformPalette(gSaveBlock2Ptr->pokemonAvatarSpecies,
-                                                               IsMonShiny(&gParties[B_TRAINER_PLAYER][0]));
+    sprite->oam.paletteNum = LoadDynamicPlayerTransformPalette(gSaveBlock2Ptr->pokemonAvatarSpecies, IsMonShiny(&gParties[B_TRAINER_PLAYER][0]));
 }
 
+// leftover from Pokémon Transform; not actually required
 bool32 PlayerIsCastform(void)
 {
     return TRUE;
 }
 
-u16 ReturnAvatarMugshotId(u16 avatarId) // unused
-{
-    return sPitAvatars[avatarId].mugshotId;
-}
-
+// compute player's current graphics id, update var and start bob task
 u16 ReturnAvatarGraphicsId(u16 avatarId)
 {
     u16 graphicsId;
@@ -164,9 +166,9 @@ u16 ReturnAvatarGraphicsId(u16 avatarId)
         graphicsId = gSaveBlock2Ptr->pokemonAvatarSpecies + OBJ_EVENT_MON;
     }
 
-    // Keep this variable synced for scripts or systems that still reference it.
     VarSet(VAR_OBJ_GFX_ID_D, graphicsId);
     TryCreatePokemonAvatarSpriteBob();
+
     return graphicsId;
 }
 
@@ -180,76 +182,178 @@ u16 ReturnAvatarTrainerBackPicId(u16 avatarId)
     return sPitAvatars[avatarId].trainerBackPicId;
 }
 
-EWRAM_DATA u8 gPlayerTransformEffectActive = FALSE;
-#define unlockFieldControls data[0]
+
+// transform mosaic effect tasks
+#define tUnlockFieldControls data[0]
+#define tTransformFrame data[1]
+#define tTransformType data[2]
 
 void BeginPlayerTransformEffect(u8 type, bool8 unlockPlayerFieldControls)
 {
-    struct Sprite *sprite = &gSprites[gPlayerAvatar.spriteId];
-    if (sprite)
+    u8 taskId;
+
+    sResumeMapWeatherAtMosaicEnd = FALSE;
+
+    if (gPlayerAvatar.spriteId < MAX_SPRITES)
     {
-        sprite->data[0] = 0; 
-        sprite->data[1] = type; 
-        sprite->oam.priority = 2; 
-        gPlayerTransformEffectActive = TRUE; 
-        u8 taskId = CreateTask(UpdatePlayerTransformAnimation, 0xFF);
-        gTasks[taskId].unlockFieldControls = unlockPlayerFieldControls;
+        gSprites[gPlayerAvatar.spriteId].oam.priority = 2;
+        gPlayerTransformEffectActive = TRUE;
+        taskId = CreateTask(UpdatePlayerTransformAnimation, 0xFF);
+        gTasks[taskId].tUnlockFieldControls = unlockPlayerFieldControls;
+        gTasks[taskId].tTransformFrame = 0;
+        gTasks[taskId].tTransformType = type;
     }
 }
 
-void EndPlayerTransformAnimation(struct Sprite *sprite, u8 taskId)
+void EndPlayerTransformAnimation(u8 taskId)
 {
+    struct Sprite *sprite = NULL;
+    u16 pendingWarpSpecies;
+
+    // clear data
     gPlayerTransformEffectActive = FALSE;
     REG_MOSAIC = 0;
-    sprite->oam.mosaic = FALSE;
-    sprite->oam.priority = 2;
-    sprite->data[0] = 0;
-    sprite->data[1] = 0;
 
+    if (TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN)
+    {
+        ClearGpuRegBits(REG_OFFSET_BG0CNT, BGCNT_MOSAIC);
+        ClearGpuRegBits(REG_OFFSET_BG1CNT, BGCNT_MOSAIC);
+        ClearGpuRegBits(REG_OFFSET_BG2CNT, BGCNT_MOSAIC);
+        ClearGpuRegBits(REG_OFFSET_BG3CNT, BGCNT_MOSAIC);
+        SetObjectEventSpritesMosaic(FALSE);
+    }   
+
+    if (gPlayerAvatar.spriteId < MAX_SPRITES)
+    {
+        sprite = &gSprites[gPlayerAvatar.spriteId];
+        sprite->oam.mosaic = FALSE;
+        sprite->oam.priority = 2;
+    }
+
+    // reset weather
+    if (sResumeMapWeatherAtMosaicEnd && TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN)
+    {
+        RestartWeatherImmediate(GetSavedWeather());
+        sResumeMapWeatherAtMosaicEnd = FALSE;
+    }
+
+    // update player sprite
     struct ObjectEvent *playerObjectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
     ObjectEventSetGraphicsId(playerObjectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
     RefreshPlayerTransformPalette(playerObjectEvent);
     ObjectEventTurn(playerObjectEvent, playerObjectEvent->movementDirection);
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_ON_FOOT);
     ObjectEventSetHeldMovement(playerObjectEvent, GetFaceDirectionMovementAction(playerObjectEvent->facingDirection));
-    if (gTasks[taskId].unlockFieldControls)
+
+    // warp handling, when transform is finished
+    pendingWarpSpecies = sPendingTransformWarpSpecies;
+    sPendingTransformWarpSpecies = SPECIES_NONE;
+    if (pendingWarpSpecies != SPECIES_NONE)
+    {
+        WarpToTransformationMap(pendingWarpSpecies, TRUE);
+        DestroyTask(taskId);
+        return;
+    }
+
+    if (gTasks[taskId].tUnlockFieldControls)
     {
         gPlayerAvatar.preventStep = FALSE;
         UnlockPlayerFieldControls();
     }
-    return DestroyTask(taskId);
+    DestroyTask(taskId);
 }
 
-#undef unlockFieldControls
-
-// Main update logic for the player transform effect 
+// main update logic for the player transform effect 
 void UpdatePlayerTransformAnimation(u8 taskId)
 {
     struct ObjectEvent *playerObjectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-    struct Sprite *sprite = &gSprites[gPlayerAvatar.spriteId];
-    u8 frames = sprite->data[0];
+    u8 frames = gTasks[taskId].tTransformFrame;
     u8 stretch;
 
-    sprite->oam.mosaic = TRUE;
+    // exit and clean up if player sprite is invalid
+    if (gPlayerAvatar.spriteId >= MAX_SPRITES)
+    {
+        gPlayerTransformEffectActive = FALSE;
+        REG_MOSAIC = 0;
+        if (sResumeMapWeatherAtMosaicEnd)
+        {
+            RestartWeatherImmediate(GetSavedWeather());
+            sResumeMapWeatherAtMosaicEnd = FALSE;
+        }
+        DestroyTask(taskId);
+        return;
+    }
 
-    if (frames < 8)
-        stretch = frames >> 1;
-    else if (frames < 16)
-        stretch = (16 - frames) >> 1;
+    // set up mosaic effect
+    if (TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN)
+    {
+        SetObjectEventSpritesMosaic(TRUE);
+        SetGpuRegBits(REG_OFFSET_BG0CNT, BGCNT_MOSAIC);
+        SetGpuRegBits(REG_OFFSET_BG1CNT, BGCNT_MOSAIC);
+        SetGpuRegBits(REG_OFFSET_BG2CNT, BGCNT_MOSAIC);
+        SetGpuRegBits(REG_OFFSET_BG3CNT, BGCNT_MOSAIC);
+    }
+    else
+    {
+        gSprites[gPlayerAvatar.spriteId].oam.mosaic = TRUE;
+    }
+
+    if (frames < TRANSFORM_ANIM_SWAP_FRAME)
+        stretch = (frames * TRANSFORM_ANIM_MAX_STRETCH) / TRANSFORM_ANIM_SWAP_FRAME;
+    else if (frames < TRANSFORM_ANIM_TOTAL_FRAMES)
+        stretch = ((TRANSFORM_ANIM_TOTAL_FRAMES - frames) * TRANSFORM_ANIM_MAX_STRETCH)
+                 / (TRANSFORM_ANIM_TOTAL_FRAMES - TRANSFORM_ANIM_SWAP_FRAME);
     else // Animation finished
-        return EndPlayerTransformAnimation(sprite, taskId);
+        return EndPlayerTransformAnimation(taskId);
 
-    SetGpuReg(REG_OFFSET_MOSAIC, (stretch << 12) | (stretch << 8));
+    if (TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN)
+    {
+        // write to all mosaic sizes (BG and OBJ)
+        SetGpuReg(REG_OFFSET_MOSAIC, (stretch << 12) | (stretch << 8) | (stretch << 4) | stretch);
+    }
+    else
+    {
+        // write to only OBJ mosaic sizes
+        SetGpuReg(REG_OFFSET_MOSAIC, (stretch << 12) | (stretch << 8));
+    }
 
-    if (frames == 8)
+    if (frames == TRANSFORM_ANIM_SWAP_FRAME)
     {
         ObjectEventSetGraphicsId(playerObjectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
         RefreshPlayerTransformPalette(playerObjectEvent);
     }
+
+    if (TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN)
+    {
+        // in screen mode, warp at peak mosaic
+        u16 pendingWarpSpecies = sPendingTransformWarpSpecies;
+        sPendingTransformWarpSpecies = SPECIES_NONE;
+        if (pendingWarpSpecies != SPECIES_NONE)
+            WarpToTransformationMap(pendingWarpSpecies, FALSE);
+    }
     
-    sprite->data[0]++; // Increment frames
+    gTasks[taskId].tTransformFrame++; // increment frames
 }
 
+// handle mosaic effects for all object events on screen
+static void SetObjectEventSpritesMosaic(bool8 enable)
+{
+    u8 i;
+
+    for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+    {
+        struct ObjectEvent *obj = &gObjectEvents[i];
+
+        if (obj->active && obj->spriteId < MAX_SPRITES)
+            gSprites[obj->spriteId].oam.mosaic = enable;
+    }
+}
+
+#undef tUnlockFieldControls
+#undef tTransformFrame
+#undef tTransformType
+
+// helper functions
 static u8 IsSpeciesValidTransformation(u16 speciesId)
 {
     switch (speciesId)
@@ -270,6 +374,9 @@ u16 GetValidTransformationSpeciesFromParty(u8 partyId)
         return SPECIES_NONE;
 
     u16 speciesId = GetMonData(&gParties[B_TRAINER_PLAYER][partyId], MON_DATA_SPECIES);
+
+    if (speciesId == GetCurrentTransformationSpecies())
+        return SPECIES_NONE;
 
     if (IsSpeciesValidTransformation(speciesId))
         return speciesId;
@@ -297,20 +404,149 @@ u16 GetTransformationBattleSpecies(u16 speciesId)
     return gTransformations[speciesId].battleSpecies;
 }
 
-void TransformCastformBoxMon(u16 targetSpecies)
+u16 GetTransformationTargetMap(u16 speciesId)
 {
-    if (!IsSpeciesValidTransformation(targetSpecies))
+    return gTransformations[speciesId].targetMap;
+}
+
+// warp function
+static void WarpToTransformationMap(u16 speciesId, bool8 useFade)
+{
+    u16 targetMap;
+    u16 mapGroup;
+    u16 mapNum;
+
+    if (!IsSpeciesValidTransformation(speciesId))
         return;
 
-    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][0];
-    u16 castformForm = gTransformations[targetSpecies].battleSpecies;
+    targetMap = GetTransformationTargetMap(speciesId);
+    if (targetMap == MAP_UNDEFINED)
+        return;
 
-    SetMonData(mon, MON_DATA_SPECIES, &castformForm);
-    for (u32 i = 0; i < MAX_MON_MOVES; i++)
-        SetMonMoveSlot(mon, gTransformations[targetSpecies].moves[i], i);
-    u32 abilityNum = 0; // gave the mons only one ability
-    SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
-    CalculateXformStats(mon);
+    mapGroup = MAP_GROUP(targetMap);
+    mapNum = MAP_NUM(targetMap);
+
+    if (useFade)
+    {
+        SetWarpDestination(mapGroup, mapNum, WARP_ID_NONE, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y);
+        DoWarp();
+        // ResetInitialPlayerAvatarState();
+    }
+    else
+    {
+        // directly load target map at current coordinates
+        LoadMapFromCameraTransition(mapGroup, mapNum);
+        // remove old weather instantly while the mosaic still covers the map
+        RestartWeatherImmediate(WEATHER_NONE);
+        sResumeMapWeatherAtMosaicEnd = TRUE;
+    }
+}
+
+// weather related functions for a clean transition
+static void DestroyWeatherSpriteArray(struct Sprite **sprites, u16 count)
+{
+    u16 i;
+
+    for (i = 0; i < count; i++)
+    {
+        if (sprites[i] != NULL)
+        {
+            DestroySprite(sprites[i]);
+            sprites[i] = NULL;
+        }
+    }
+}
+
+static void ClearAllWeatherSprites(void)
+{
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s1.rainSprites, ARRAY_COUNT(gWeatherPtr->sprites.s1.rainSprites));
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s1.snowflakeSprites, ARRAY_COUNT(gWeatherPtr->sprites.s1.snowflakeSprites));
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s1.cloudSprites, ARRAY_COUNT(gWeatherPtr->sprites.s1.cloudSprites));
+
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s2.fogHSprites, ARRAY_COUNT(gWeatherPtr->sprites.s2.fogHSprites));
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s2.ashSprites, ARRAY_COUNT(gWeatherPtr->sprites.s2.ashSprites));
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s2.fogDSprites, ARRAY_COUNT(gWeatherPtr->sprites.s2.fogDSprites));
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s2.sandstormSprites1, ARRAY_COUNT(gWeatherPtr->sprites.s2.sandstormSprites1));
+    DestroyWeatherSpriteArray(gWeatherPtr->sprites.s2.sandstormSprites2, ARRAY_COUNT(gWeatherPtr->sprites.s2.sandstormSprites2));
+
+    gWeatherPtr->cloudSpritesCreated = FALSE;
+    gWeatherPtr->fogHSpritesCreated = FALSE;
+    gWeatherPtr->ashSpritesCreated = FALSE;
+    gWeatherPtr->fogDSpritesCreated = FALSE;
+    gWeatherPtr->sandstormSpritesCreated = FALSE;
+    gWeatherPtr->sandstormSwirlSpritesCreated = FALSE;
+    gWeatherPtr->bubblesSpritesCreated = FALSE;
+    gWeatherPtr->rainSpriteCount = 0;
+    gWeatherPtr->targetRainSpriteCount = 0;
+    gWeatherPtr->snowflakeSpriteCount = 0;
+    gWeatherPtr->targetSnowflakeSpriteCount = 0;
+    gWeatherPtr->weatherGfxLoaded = FALSE;
+
+    FreeSpriteTilesByTag(GFXTAG_CLOUD);
+    FreeSpriteTilesByTag(GFXTAG_FOG_H);
+    FreeSpriteTilesByTag(GFXTAG_ASH);
+    FreeSpriteTilesByTag(GFXTAG_FOG_D);
+    FreeSpriteTilesByTag(GFXTAG_SANDSTORM);
+    FreeSpriteTilesByTag(GFXTAG_BUBBLE);
+    FreeSpriteTilesByTag(GFXTAG_RAIN);
+    FreeSpritePaletteByTag(PALTAG_WEATHER);
+    FreeSpritePaletteByTag(PALTAG_WEATHER_2);
+}
+
+static void RestartWeatherImmediate(u8 weather)
+{
+    ClearAllWeatherSprites();
+
+    if (gWeatherPtr->taskId < NUM_TASKS && gTasks[gWeatherPtr->taskId].isActive)
+        DestroyTask(gWeatherPtr->taskId);
+
+    // clear blend registers to have no side effects from flashes or similar effects
+    SetGpuReg(REG_OFFSET_BLDCNT, 0);
+    SetGpuReg(REG_OFFSET_BLDY, 0);
+    SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+
+    // reset weather palette
+    gWeatherPtr->colorMapIndex = 0;
+    gWeatherPtr->targetColorMapIndex = 0;
+    gWeatherPtr->colorMapStepCounter = 0;
+    gWeatherPtr->palProcessingState = WEATHER_PAL_STATE_IDLE;
+    gWeatherPtr->fadeScreenCounter = 0;
+    gWeatherPtr->thunderEnqueued = FALSE;
+    gWeatherPtr->thunderTimer = 0;
+    gWeatherPtr->thunderSETimer = 0;
+
+    SetWeatherPalStateIdle();
+    ApplyWeatherColorMapToPals(0, NUM_PALS_TOTAL);
+
+    StartWeather();
+    SetWeatherPalStateIdle();
+    SetCurrentAndNextWeatherNoDelay(weather);
+}
+
+// void TransformCastformBoxMon(u16 targetSpecies)
+// {
+//     if (!IsSpeciesValidTransformation(targetSpecies))
+//         return;
+
+//     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][0];
+//     u16 castformForm = gTransformations[targetSpecies].battleSpecies;
+
+//     SetMonData(mon, MON_DATA_SPECIES, &castformForm);
+//     for (u32 i = 0; i < MAX_MON_MOVES; i++)
+//         SetMonMoveSlot(mon, gTransformations[targetSpecies].moves[i], i);
+//     u32 abilityNum = 0; // gave the mons only one ability
+//     SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
+//     CalculateXformStats(mon);
+// }
+
+u16 GetCurrentTransformationSpecies(void)
+{
+    u16 speciesId = VarGet(VAR_TRANSFORM_MON);
+
+    if (!IsSpeciesValidTransformation(speciesId))
+        return SPECIES_CASTFORM;
+
+    return speciesId;
 }
 
 void SetPlayerAvatarFromScript(struct ScriptContext *ctx)
@@ -323,9 +559,6 @@ void SetPlayerAvatarFromScript(struct ScriptContext *ctx)
     gSaveBlock2Ptr->pokemonAvatarSpecies = speciesId;
     VarSet(VAR_TRANSFORM_MON, speciesId); 
 
-    if (PlayerIsCastform())
-        TransformCastformBoxMon(speciesId);
-
     BeginPlayerTransformEffect(TRANSFORM_TYPE_PLAYER_SPECIES, TRUE);
     PlaySE(SE_M_TELEPORT);
 }
@@ -337,10 +570,8 @@ void SetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControl
 
     gSaveBlock2Ptr->pokemonAvatarSpecies = speciesId;
     VarSet(VAR_TRANSFORM_MON, speciesId); 
+    sPendingTransformWarpSpecies = speciesId;
 
-    if (PlayerIsCastform())
-        TransformCastformBoxMon(speciesId);
-        
     BeginPlayerTransformEffect(TRANSFORM_TYPE_PLAYER_SPECIES, UnlockPlayerFieldControls);
     PlaySE(SE_M_TELEPORT);
 }

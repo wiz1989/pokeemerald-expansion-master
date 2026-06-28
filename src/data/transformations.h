@@ -16,6 +16,7 @@ const struct Transformation gTransformations[] =
         .iconPic = gItemIcon_CastformBase,
         .iconPalette = gItemIconPalette_CastformBase,
         .battleSpecies = SPECIES_CASTFORM_NORMAL,
+        .targetMap = MAP_TARC3_BASE,
         .ability = ABILITY_NONE,
         .moves = {
             MOVE_WEATHER_BALL,
@@ -32,6 +33,7 @@ const struct Transformation gTransformations[] =
         .iconPic = gItemIcon_CastformRainy,
         .iconPalette = gItemIconPalette_CastformRainy,
         .battleSpecies = SPECIES_CASTFORM_RAINY,
+        .targetMap = MAP_TARC3_RAINY,
         // .ability = ABILITY_SWIFT_SWIM,
         .moves = {
             MOVE_WEATHER_BALL,
@@ -48,6 +50,7 @@ const struct Transformation gTransformations[] =
         .iconPic = gItemIcon_CastformSunny,
         .iconPalette = gItemIconPalette_CastformSunny,
         .battleSpecies = SPECIES_CASTFORM_SUNNY,
+        .targetMap = MAP_TARC3_SUNNY,
         // .ability = ABILITY_CHLOROPHYLL,
         .moves = {
             MOVE_WEATHER_BALL,
@@ -71,5 +74,6 @@ const struct Transformation gTransformations[] =
             MOVE_NONE,
             MOVE_NONE,
         },
+        .targetMap = MAP_TARC3_SNOWY,
     },
 };
