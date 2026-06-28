@@ -2141,7 +2141,8 @@ static u32 DpadInputToRegisteredItemIndex(bool32 check)
     {
         if (PlayerIsCastform())
         {
-            u16 speciesId = GetValidTransformationSpeciesFromParty(i);
+            // Wheel index [1..4] maps to party slots [0..3].
+            u16 speciesId = GetValidTransformationSpeciesFromParty(i - 1);
             if (!speciesId)
                 i = 0;
         }
@@ -2539,9 +2540,9 @@ static void Task_KeyItemWheel(u8 taskId) {
 
             if (PlayerIsCastform()) // Show Transformations
             {
-                if (i + 1 >= gPartiesCount[B_TRAINER_PLAYER])
+                if (i >= gPartiesCount[B_TRAINER_PLAYER])
                     continue;
-                speciesId = GetValidTransformationSpeciesFromParty(i + 1);
+                speciesId = GetValidTransformationSpeciesFromParty(i);
                 if (speciesId == SPECIES_NONE)
                     continue;
                 tIconWindow[i] = j = AddWindowParameterized(0, sKeyItemBoxXPos[i] / 8 - 2, sKeyItemBoxYPos[i] / 8 - 2, 4, 4, i == 3 ? 13 : 13 + i, 16*(i+9));
@@ -2549,7 +2550,7 @@ static void Task_KeyItemWheel(u8 taskId) {
                     continue;
                 PutWindowTilemap(j);
                 if (gSaveBlock2Ptr->pokemonAvatarSpecies == speciesId)
-                    speciesId = SPECIES_DITTO;
+                    speciesId = SPECIES_CASTFORM;
                 BlitTransformationIconToWindow(speciesId, j, 4, 4, i == 3 ? sKeyItemWheelExtraPalette : NULL);
                 CopyWindowToVram(j, COPYWIN_FULL);
             }
@@ -2585,9 +2586,9 @@ static void Task_KeyItemWheel(u8 taskId) {
         // use item as if it was registered
         if (PlayerIsCastform())
         {
-            speciesId = GetValidTransformationSpeciesFromParty(i);
+            speciesId = GetValidTransformationSpeciesFromParty(i - 1);
             if (gSaveBlock2Ptr->pokemonAvatarSpecies == speciesId)
-                speciesId = SPECIES_DITTO;
+                speciesId = SPECIES_CASTFORM;
             gSpecialVar_ItemId = gSaveBlock1Ptr->registeredItemCompat = speciesId;
         }
         else

@@ -271,6 +271,9 @@ u16 GetValidTransformationSpeciesFromParty(u8 partyId)
 
     u16 speciesId = GetMonData(&gParties[B_TRAINER_PLAYER][partyId], MON_DATA_SPECIES);
 
+    if (speciesId == GetCurrentTransformationSpecies())
+        return SPECIES_NONE;
+
     if (IsSpeciesValidTransformation(speciesId))
         return speciesId;
     
@@ -297,20 +300,30 @@ u16 GetTransformationBattleSpecies(u16 speciesId)
     return gTransformations[speciesId].battleSpecies;
 }
 
-void TransformCastformBoxMon(u16 targetSpecies)
+// void TransformCastformBoxMon(u16 targetSpecies)
+// {
+//     if (!IsSpeciesValidTransformation(targetSpecies))
+//         return;
+
+//     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][0];
+//     u16 castformForm = gTransformations[targetSpecies].battleSpecies;
+
+//     SetMonData(mon, MON_DATA_SPECIES, &castformForm);
+//     for (u32 i = 0; i < MAX_MON_MOVES; i++)
+//         SetMonMoveSlot(mon, gTransformations[targetSpecies].moves[i], i);
+//     u32 abilityNum = 0; // gave the mons only one ability
+//     SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
+//     CalculateXformStats(mon);
+// }
+
+u16 GetCurrentTransformationSpecies(void)
 {
-    if (!IsSpeciesValidTransformation(targetSpecies))
-        return;
+    u16 speciesId = VarGet(VAR_TRANSFORM_MON);
 
-    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][0];
-    u16 castformForm = gTransformations[targetSpecies].battleSpecies;
+    if (!IsSpeciesValidTransformation(speciesId))
+        return SPECIES_CASTFORM;
 
-    SetMonData(mon, MON_DATA_SPECIES, &castformForm);
-    for (u32 i = 0; i < MAX_MON_MOVES; i++)
-        SetMonMoveSlot(mon, gTransformations[targetSpecies].moves[i], i);
-    u32 abilityNum = 0; // gave the mons only one ability
-    SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
-    CalculateXformStats(mon);
+    return speciesId;
 }
 
 void SetPlayerAvatarFromScript(struct ScriptContext *ctx)
@@ -322,9 +335,6 @@ void SetPlayerAvatarFromScript(struct ScriptContext *ctx)
 
     gSaveBlock2Ptr->pokemonAvatarSpecies = speciesId;
     VarSet(VAR_TRANSFORM_MON, speciesId); 
-
-    if (PlayerIsCastform())
-        TransformCastformBoxMon(speciesId);
 
     BeginPlayerTransformEffect(TRANSFORM_TYPE_PLAYER_SPECIES, TRUE);
     PlaySE(SE_M_TELEPORT);
@@ -338,9 +348,6 @@ void SetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControl
     gSaveBlock2Ptr->pokemonAvatarSpecies = speciesId;
     VarSet(VAR_TRANSFORM_MON, speciesId); 
 
-    if (PlayerIsCastform())
-        TransformCastformBoxMon(speciesId);
-        
     BeginPlayerTransformEffect(TRANSFORM_TYPE_PLAYER_SPECIES, UnlockPlayerFieldControls);
     PlaySE(SE_M_TELEPORT);
 }

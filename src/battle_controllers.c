@@ -28,6 +28,7 @@
 #include "test_runner.h"
 #include "text.h"
 #include "trainer.h"
+#include "transform.h"
 #include "util.h"
 #include "wild_encounter.h"
 #include "constants/abilities.h"
@@ -1485,6 +1486,22 @@ static u32 GetBattlerMonData(enum BattlerId battler, struct Pokemon *party, u32 
         battleMon.metLevel = GetMonData(&party[monId], MON_DATA_MET_LEVEL);
         battleMon.isShiny = GetMonData(&party[monId], MON_DATA_IS_SHINY);
         battleMon.affectionHearts = GetMonAffectionHearts(&party[monId]);
+
+        // wiz1989: battle mon manip for battle init
+        if (IsOnPlayerSide(battler) && monId == gBattlerPartyIndexes[battler]
+         && PlayerIsCastform())
+        {
+            u16 sourceSpecies = GetCurrentTransformationSpecies();
+            u16 transformedSpecies = GetTransformationBattleSpecies(sourceSpecies);
+
+            DebugPrintf("Battle init - sourceSpecies: %d, transformedSpecies: %d", sourceSpecies, transformedSpecies);
+
+            battleMon.species = transformedSpecies;
+            battleMon.abilityNum = 0;
+            for (u32 i = 0; i < MAX_MON_MOVES; i++)
+                battleMon.moves[i] = GetTransformationMoves(sourceSpecies, i);
+        }
+
         GetMonData(&party[monId], MON_DATA_NICKNAME, nickname);
         StringCopy_Nickname(battleMon.nickname, nickname);
         GetMonData(&party[monId], MON_DATA_OT_NAME, battleMon.otName);

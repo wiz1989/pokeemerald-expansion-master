@@ -26,6 +26,7 @@ TransformFunc GetTransformationFunc(u16 speciesId);
 u16 GetTransformationMoves(u16 speciesId, u8 i);
 u16 GetTransformationAbility(u16 speciesId);
 u16 GetTransformationBattleSpecies(u16 speciesId);
+u16 GetCurrentTransformationSpecies(void);
 
 #define TRANSFORM_TYPE_PLAYER_SPECIES 1
 #define AVATAR_POKEMON_CHOICE 1
