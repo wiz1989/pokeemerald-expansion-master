@@ -11,6 +11,7 @@
 #define PALTAG_LINK_MON  5551
 #define PALTAG_GBA       5555
 #define PALTAG_POKEBALL  5558
+#define TRADE_SCREEN_PARTY_SLOTS ((PARTY_SIZE >= 6) ? PARTY_SIZE : 6)
 
 // Exists unused in RS as well
 static const u32 sUnusedStructSizes[] =
@@ -187,7 +188,7 @@ static const struct SpritePalette sSpritePalette_MenuText =
 // 1st array is the current positions
 // 2nd array is directions of input
 // 3rd array is the next positions to go to (unoccupied spaces are skipped over)
-static const u8 sCursorMoveDestinations[(PARTY_SIZE * 2) + 1][4][PARTY_SIZE] =
+static const u8 sCursorMoveDestinations[(TRADE_SCREEN_PARTY_SLOTS * 2) + 1][4][TRADE_SCREEN_PARTY_SLOTS] =
 {
     {
         {4,  2,  12, 12, 0,  0}, // UP
@@ -278,7 +279,7 @@ static const u8 sCursorMoveDestinations[(PARTY_SIZE * 2) + 1][4][PARTY_SIZE] =
 #define ROW2_Y 15
 #define ROW3_Y 18
 
-static const u8 sTradeMonSpriteCoords[(PARTY_SIZE * 2) + 1][2] =
+static const u8 sTradeMonSpriteCoords[(TRADE_SCREEN_PARTY_SLOTS * 2) + 1][2] =
 {
     // Player's party
     {COL0_X, ROW0_Y},
@@ -298,7 +299,7 @@ static const u8 sTradeMonSpriteCoords[(PARTY_SIZE * 2) + 1][2] =
     {COL3_X, ROW3_Y}
 };
 
-static const u8 sTradeMonLevelCoords[PARTY_SIZE * 2][2] = {
+static const u8 sTradeMonLevelCoords[TRADE_SCREEN_PARTY_SLOTS * 2][2] = {
     [TRADE_PLAYER] =
         { 5,  4},
         {12,  4},
@@ -306,7 +307,7 @@ static const u8 sTradeMonLevelCoords[PARTY_SIZE * 2][2] = {
         {12,  9},
         { 5, 14},
         {12, 14},
-    [TRADE_PARTNER * PARTY_SIZE] =
+    [TRADE_PARTNER * TRADE_SCREEN_PARTY_SLOTS] =
         {20,  4},
         {27,  4},
         {20,  9},
@@ -315,7 +316,7 @@ static const u8 sTradeMonLevelCoords[PARTY_SIZE * 2][2] = {
         {27, 14},
 };
 
-static const u8 sTradeMonBoxCoords[PARTY_SIZE * 2][2] = {
+static const u8 sTradeMonBoxCoords[TRADE_SCREEN_PARTY_SLOTS * 2][2] = {
     [TRADE_PLAYER] =
         { 1,  3},
         { 8,  3},
@@ -323,7 +324,7 @@ static const u8 sTradeMonBoxCoords[PARTY_SIZE * 2][2] = {
         { 8,  8},
         { 1, 13},
         { 8, 13},
-    [TRADE_PARTNER * PARTY_SIZE] =
+    [TRADE_PARTNER * TRADE_SCREEN_PARTY_SLOTS] =
         {16,  3},
         {23,  3},
         {16,  8},

@@ -162,7 +162,7 @@ enum {
 
 enum {
     // Window ids 0-5 are implicitly assigned to each party Pokémon in InitPartyMenuBoxes
-    WIN_MSG = PARTY_SIZE,
+    WIN_MSG = (PARTY_SIZE >= 6 ? PARTY_SIZE : 6),
 };
 
 struct PartyMenuBoxInfoRects
@@ -7605,14 +7605,19 @@ static void BufferBattlePartyOrder(u8 *partyBattleOrder, u8 flankId)
     if (IsMultiBattle() == TRUE && AreMultiPartiesFullTeams() == TRUE)
     {
         partyBattleOrder[0] = (0 << 4) | 1;
-        partyBattleOrder[1] = (2 << 4) | 3;
-        partyBattleOrder[2] = (4 << 4) | 5;
+        if (ARRAY_COUNT(gBattlePartyCurrentOrder) > 1)
+            partyBattleOrder[1] = (2 << 4) | 3;
+#if PARTY_SIZE > 4
+        if (ARRAY_COUNT(gBattlePartyCurrentOrder) > 2)
+            partyBattleOrder[2] = (4 << 4) | 5;
+#endif
         return;
     }
     else if (IsMultiBattle() == TRUE)
     {
         // Party ids are packed in 4 bits at a time
         // i.e. the party id order below would be 0, 3, 5, 4, 2, 1, and the two parties would be 0,5,4 and 3,2,1
+#if PARTY_SIZE > 4
         if (flankId != 0)
         {
             partyBattleOrder[0] = 0 | (3 << 4);
@@ -7625,6 +7630,18 @@ static void BufferBattlePartyOrder(u8 *partyBattleOrder, u8 flankId)
             partyBattleOrder[1] = 2 | (1 << 4);
             partyBattleOrder[2] = 5 | (4 << 4);
         }
+#else
+        if (flankId != 0)
+        {
+            partyBattleOrder[0] = 0 | (3 << 4);
+            partyBattleOrder[1] = 2 | (1 << 4);
+        }
+        else
+        {
+            partyBattleOrder[0] = 3 | (0 << 4);
+            partyBattleOrder[1] = 2 | (1 << 4);
+        }
+#endif
         return;
     }
     else if (IsDoubleBattle() == FALSE)
@@ -7678,12 +7695,17 @@ static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, enum 
     if (IsMultiBattle() == TRUE && AreMultiPartiesFullTeams() == TRUE)
     {
         partyBattleOrder[0] = (0 << 4) | 1;
-        partyBattleOrder[1] = (2 << 4) | 3;
-        partyBattleOrder[2] = (4 << 4) | 5;
+        if (ARRAY_COUNT(gBattlePartyCurrentOrder) > 1)
+            partyBattleOrder[1] = (2 << 4) | 3;
+#if PARTY_SIZE > 4
+        if (ARRAY_COUNT(gBattlePartyCurrentOrder) > 2)
+            partyBattleOrder[2] = (4 << 4) | 5;
+#endif
         return;
     }
     else if (IsMultiBattle() == TRUE)
     {
+#if PARTY_SIZE > 4
         if (flankId != 0)
         {
             partyBattleOrder[0] = 0 | (3 << 4);
@@ -7696,6 +7718,18 @@ static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, enum 
             partyBattleOrder[1] = 2 | (1 << 4);
             partyBattleOrder[2] = 5 | (4 << 4);
         }
+#else
+        if (flankId != 0)
+        {
+            partyBattleOrder[0] = 0 | (3 << 4);
+            partyBattleOrder[1] = 2 | (1 << 4);
+        }
+        else
+        {
+            partyBattleOrder[0] = 3 | (0 << 4);
+            partyBattleOrder[1] = 2 | (1 << 4);
+        }
+#endif
         return;
     }
     else if (IsDoubleBattle() == FALSE)
@@ -7732,7 +7766,7 @@ static void BufferBattlePartyOrderBySide(u8 *partyBattleOrder, u8 flankId, enum 
         }
     }
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < ARRAY_COUNT(gBattlePartyCurrentOrder); i++)
         partyBattleOrder[i] = (partyIndexes[0 + (i * 2)] << 4) | partyIndexes[1 + (i * 2)];
 }
 
@@ -7766,9 +7800,8 @@ void SwitchPartyOrderLinkMulti(enum BattlerId battler, u8 slot, u8 slot2)
         if (i != PARTY_SIZE)
         {
             partyIds[slot2] = tempSlot;
-            partyBattleOrder[0] = (partyIds[0] << 4) | partyIds[1];
-            partyBattleOrder[1] = (partyIds[2] << 4) | partyIds[3];
-            partyBattleOrder[2] = (partyIds[4] << 4) | partyIds[5];
+            for (i = 0; i < (int)ARRAY_COUNT(gBattlePartyCurrentOrder); i++)
+                partyBattleOrder[i] = (partyIds[i * 2] << 4) | partyIds[i * 2 + 1];
         }
     }
 }
@@ -7824,8 +7857,8 @@ u8 GetPartyIdFromBattlePartyId(u8 battlePartyId)
     return 0;
 }
 
-static const u8 sMultiBattlePartyIdToMenuId_Left[PARTY_SIZE] = { 0, 2, 3, 1, 4, 5};
-static const u8 sMultiBattlePartyIdToMenuId_Right[PARTY_SIZE] = { 1, 4, 5, 0, 2, 3};
+static const u8 sMultiBattlePartyIdToMenuId_Left[(PARTY_SIZE >= 6 ? PARTY_SIZE : 6)] = { 0, 2, 3, 1, 4, 5};
+static const u8 sMultiBattlePartyIdToMenuId_Right[(PARTY_SIZE >= 6 ? PARTY_SIZE : 6)] = { 1, 4, 5, 0, 2, 3};
 
 static void UpdatePartyToBattleOrder(void)
 {
@@ -8458,19 +8491,29 @@ static struct Pokemon *GetPartyMonFromPartyMenuId(s8 menuId)
 static void GetMultiPartyForSummaryScreen(void)
 {
     // Consolidate player and partner party into player party for summary screen
+#if PARTY_SIZE >= 6
     gParties[B_TRAINER_PLAYER][3] = gParties[B_TRAINER_PLAYER][2];
     gParties[B_TRAINER_PLAYER][2] = gParties[B_TRAINER_PLAYER][1];
     gParties[B_TRAINER_PLAYER][1] = gParties[B_TRAINER_PARTNER][0];
     gParties[B_TRAINER_PLAYER][4] = gParties[B_TRAINER_PARTNER][1];
     gParties[B_TRAINER_PLAYER][5] = gParties[B_TRAINER_PARTNER][2];
+#else // PARTY_SIZE == 4
+    gParties[B_TRAINER_PLAYER][3] = gParties[B_TRAINER_PARTNER][1];
+    gParties[B_TRAINER_PLAYER][2] = gParties[B_TRAINER_PLAYER][1];
+    gParties[B_TRAINER_PLAYER][1] = gParties[B_TRAINER_PARTNER][0];
+#endif
 }
 
 
 static void RestoreMultiPartyFromSummaryScreen(void)
 {
     // Restore player mons
+#if PARTY_SIZE >= 6
     gParties[B_TRAINER_PLAYER][1] = gParties[B_TRAINER_PLAYER][2];
     gParties[B_TRAINER_PLAYER][2] = gParties[B_TRAINER_PLAYER][3];
+#else
+    gParties[B_TRAINER_PLAYER][1] = gParties[B_TRAINER_PLAYER][2];
+#endif
 
     // Clear partner mons from back of player party
     for (u32 i = MULTI_PARTY_SIZE; i < PARTY_SIZE; i++)

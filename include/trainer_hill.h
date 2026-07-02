@@ -2,6 +2,7 @@
 #define GUARD_TRAINER_HILL_H
 
 #define DUMMY_HILL_MON { .nickname = __("$$$$$$$$$$$") }
+#define TRAINER_HILL_PARTY_SIZE ((PARTY_SIZE >= 6) ? PARTY_SIZE : 6)
 
 struct TrainerHillTrainer
 {
@@ -12,7 +13,7 @@ struct TrainerHillTrainer
     u16 speechWin[EASY_CHAT_BATTLE_WORDS_COUNT];
     u16 speechLose[EASY_CHAT_BATTLE_WORDS_COUNT];
     u16 speechAfter[EASY_CHAT_BATTLE_WORDS_COUNT];
-    struct BattleTowerPokemon mons[PARTY_SIZE];
+    struct BattleTowerPokemon mons[TRAINER_HILL_PARTY_SIZE];
 };
 
 struct TrainerHillFloorMap

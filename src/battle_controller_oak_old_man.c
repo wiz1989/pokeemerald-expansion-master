@@ -834,7 +834,7 @@ static void OakOldManHandleChooseItem(enum BattlerId battler)
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
     gBattlerControllerFuncs[battler] = OpenBagAndChooseItem;
     gBattlerInMenuId = battler;
-    for (i = 0; i < 3; ++i)
+    for (i = 0; i < ARRAY_COUNT(gBattlePartyCurrentOrder); ++i)
         gBattlePartyCurrentOrder[i] = gBattleResources->bufferA[battler][i + 1];
 }
 
@@ -847,7 +847,7 @@ static void OakOldManHandleChoosePokemon(enum BattlerId battler)
     *(&gBattleStruct->battlerPreventingSwitchout) = gBattleResources->bufferA[battler][8];
     *(&gBattleStruct->prevSelectedPartySlot) = gBattleResources->bufferA[battler][2];
     *(&gBattleStruct->abilityPreventingSwitchout) = (gBattleResources->bufferA[battler][3] & 0xFF) | (gBattleResources->bufferA[battler][7] << 8);
-    for (i = 0; i < 3; ++i)
+    for (i = 0; i < ARRAY_COUNT(gBattlePartyCurrentOrder); ++i)
         gBattlePartyCurrentOrder[i] = gBattleResources->bufferA[battler][4 + i];
     BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
     gBattlerControllerFuncs[battler] = OpenPartyMenuToChooseMon;

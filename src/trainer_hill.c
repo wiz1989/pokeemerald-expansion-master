@@ -277,10 +277,10 @@ static const u32 sNextFloorMapNum[NUM_TRAINER_HILL_FLOORS] =
     [TRAINER_HILL_3F - 1] = MAP_NUM(MAP_TRAINER_HILL_4F),
     [TRAINER_HILL_4F - 1] = MAP_NUM(MAP_TRAINER_HILL_ROOF)
 };
-static const u8 sTrainerPartySlots[HILL_TRAINERS_PER_FLOOR][PARTY_SIZE / 2] =
+static const u8 sTrainerPartySlots[HILL_TRAINERS_PER_FLOOR][MULTI_PARTY_SIZE] =
 {
-    {0, 1, 2},
-    {3, 4, 5}
+    {0, 1},
+    {3, 4}
 };
 
 void CallTrainerHillFunction(void)
