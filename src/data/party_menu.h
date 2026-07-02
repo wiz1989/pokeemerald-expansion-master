@@ -146,10 +146,10 @@ static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][4 * 2] =
 {
     [PARTY_LAYOUT_SINGLE] =
     {
-        { 16, 40,  20, 50,  50, 52,  16, 34},
-        {104, 18, 108, 28, 136, 27, 102, 25},
-        {104, 42, 108, 52, 136, 51, 102, 49},
-        {104, 66, 108, 76, 136, 75, 102, 73},
+        { 16, 40,  20,  50,  50,  52,  16,  34},
+        {104, 18, 108,  28, 136,  27, 102,  25},
+        {104, 58, 108,  68, 136,  76, 102,  65},
+        {104, 98, 108, 108, 136, 106, 102, 105},
     },
     [PARTY_LAYOUT_DOUBLE] =
     {
@@ -242,7 +242,7 @@ static const struct WindowTemplate sSinglePartyMenuWindowTemplate[] =
     { // Party mon 3
         .bg = 0,
         .tilemapLeft = 12,
-        .tilemapTop = 4,
+        .tilemapTop = 6,
         .width = 18,
         .height = 3,
         .paletteNum = 5,
@@ -251,7 +251,7 @@ static const struct WindowTemplate sSinglePartyMenuWindowTemplate[] =
     { // Party mon 4
         .bg = 0,
         .tilemapLeft = 12,
-        .tilemapTop = 7,
+        .tilemapTop = 11,
         .width = 18,
         .height = 3,
         .paletteNum = 6,
