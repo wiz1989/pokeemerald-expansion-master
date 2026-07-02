@@ -27,19 +27,47 @@ jobs:
             if (event === "push") {
               const branch = context.ref.replace("refs/heads/", "");
               const commits = payload.commits || [];
-              const commitList = commits
-                .slice(0, 10)
-                .map(c => `• ${c.message.split("\n")[0]} by ${c.author.name}`)
+
+              const displayedCommits = commits.slice(0, 10);
+
+              const commitList = displayedCommits
+                .map(c => {
+                  const shortSha = c.id.substring(0, 7);
+                  let title = c.message.split("\n")[0];
+
+                  if (title.length > 90) {
+                    title = title.substring(0, 87) + "...";
+                  }
+
+                  return `• [\`${shortSha}\`](${c.url}) ${title} (${c.author.name})`;
+                })
                 .join("\n");
 
+              const omitted =
+                commits.length > displayedCommits.length
+                  ? `\n\n...and ${commits.length - displayedCommits.length} more commit${commits.length - displayedCommits.length === 1 ? "" : "s"}`
+                  : "";
+
               embed = {
-                title: `Push to ${branch}`,
-                description: `${payload.pusher.name} pushed ${commits.length} commit${commits.length === 1 ? "" : "s"}\n\n${commitList || "No commit message found."}`,
-                url: payload.compare,
-                color: 3447003,
-                footer: {
-                  text: context.repo.owner + "/" + context.repo.repo
+                title: `🚀 Push to ${branch}`,
+                url: payload.head_commit.url,
+
+                author: {
+                  name: payload.pusher.name,
+                  icon_url: payload.sender.avatar_url
                 },
+
+                description:
+                  `${payload.pusher.name} pushed ${commits.length} commit${commits.length === 1 ? "" : "s"}\n\n` +
+                  (commitList || "No commit information available.") +
+                  omitted,
+
+                color: 3447003,
+
+                footer: {
+                  text: `${context.repo.owner}/${context.repo.repo}`
+                },
+
                 timestamp: new Date().toISOString()
               };
             }
@@ -49,14 +77,45 @@ jobs:
               const merged = pr.merged;
               const action = payload.action;
 
+              let title;
+              let color;
+
+              if (merged) {
+                title = "✅ Pull Request Merged";
+                color = 3066993;
+              } else if (action === "opened") {
+                title = "🔀 Pull Request Opened";
+                color = 15105570;
+              } else if (action === "synchronize") {
+                title = "🔄 Pull Request Updated";
+                color = 15844367;
+              } else if (action === "closed") {
+                title = "❌ Pull Request Closed";
+                color = 15158332;
+              } else {
+                title = `Pull Request ${action}`;
+                color = 15105570;
+              }
+
               embed = {
-                title: merged ? `Pull Request Merged #${pr.number}` : `Pull Request ${action} #${pr.number}`,
-                description: `"${pr.title}"\n\n${pr.head.ref} → ${pr.base.ref}\n\nAuthor: ${pr.user.login}`,
+                title: `${title} #${pr.number}`,
                 url: pr.html_url,
-                color: merged ? 3066993 : 15105570,
-                footer: {
-                  text: context.repo.owner + "/" + context.repo.repo
+
+                author: {
+                  name: pr.user.login,
+                  icon_url: pr.user.avatar_url
                 },
+
+                description:
+                  `**${pr.title}**\n\n` +
+                  `🌿 ${pr.head.ref} → ${pr.base.ref}`,
+
+                color,
+
+                footer: {
+                  text: `${context.repo.owner}/${context.repo.repo}`
+                },
+
                 timestamp: new Date().toISOString()
               };
             }
@@ -68,6 +127,7 @@ jobs:
               },
               body: JSON.stringify({
                 username: "GitHub Updates",
+                avatar_url: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
                 embeds: [embed]
               })
             });
