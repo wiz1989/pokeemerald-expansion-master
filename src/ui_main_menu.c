@@ -838,8 +838,9 @@ static void PrintToWindow(u8 windowId, u8 colorIdx)
     const u8 colors[3] = {0,  2,  3}; 
     u8 mapDisplayHeader[24];
     u8 *withoutPrefixPtr, *playTimePtr;
-    u16 dexCount = 0; u8 badgeCount = 0;
-    u32 i = 0;
+    u16 dexCount = 0;
+    // u8 badgeCount = 0;
+    // u32 i = 0;
 
     FillWindowPixelBuffer(WINDOW_HEADER, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
     FillWindowPixelBuffer(WINDOW_MIDDLE, PIXEL_FILL(TEXT_COLOR_TRANSPARENT));
