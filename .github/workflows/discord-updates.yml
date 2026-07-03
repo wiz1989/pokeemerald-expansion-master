@@ -1,0 +1,133 @@
+name: Discord updates
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    types: [opened, reopened, closed, synchronize]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Discord notification
+        uses: actions/github-script@v7
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          script: |
+            const webhook = process.env.DISCORD_WEBHOOK;
+            const event = context.eventName;
+            const payload = context.payload;
+
+            let embed = {};
+
+            if (event === "push") {
+              const branch = context.ref.replace("refs/heads/", "");
+              const commits = payload.commits || [];
+
+              const displayedCommits = commits.slice(0, 10);
+
+              const commitList = displayedCommits
+                .map(c => {
+                  const shortSha = c.id.substring(0, 7);
+                  let title = c.message.split("\n")[0];
+
+                  if (title.length > 90) {
+                    title = title.substring(0, 87) + "...";
+                  }
+
+                  return `• [\`${shortSha}\`](${c.url}) ${title} (${c.author.name})`;
+                })
+                .join("\n");
+
+              const omitted =
+                commits.length > displayedCommits.length
+                  ? `\n\n...and ${commits.length - displayedCommits.length} more commit${commits.length - displayedCommits.length === 1 ? "" : "s"}`
+                  : "";
+
+              embed = {
+                title: `🚀 Push to ${branch}`,
+                url: payload.head_commit.url,
+
+                author: {
+                  name: payload.pusher.name,
+                  icon_url: payload.sender.avatar_url
+                },
+
+                description:
+                  `${payload.pusher.name} pushed ${commits.length} commit${commits.length === 1 ? "" : "s"}\n\n` +
+                  (commitList || "No commit information available.") +
+                  omitted,
+
+                color: 3447003,
+
+                footer: {
+                  text: `${context.repo.owner}/${context.repo.repo}`
+                },
+
+                timestamp: new Date().toISOString()
+              };
+            }
+
+            if (event === "pull_request") {
+              const pr = payload.pull_request;
+              const merged = pr.merged;
+              const action = payload.action;
+
+              let title;
+              let color;
+
+              if (merged) {
+                title = "✅ Pull Request Merged";
+                color = 3066993;
+              } else if (action === "opened") {
+                title = "🔀 Pull Request Opened";
+                color = 15105570;
+              } else if (action === "synchronize") {
+                title = "🔄 Pull Request Updated";
+                color = 15844367;
+              } else if (action === "closed") {
+                title = "❌ Pull Request Closed";
+                color = 15158332;
+              } else {
+                title = `Pull Request ${action}`;
+                color = 15105570;
+              }
+
+              embed = {
+                title: `${title} #${pr.number}`,
+                url: pr.html_url,
+
+                author: {
+                  name: pr.user.login,
+                  icon_url: pr.user.avatar_url
+                },
+
+                description:
+                  `**${pr.title}**\n\n` +
+                  `🌿 ${pr.head.ref} → ${pr.base.ref}`,
+
+                color,
+
+                footer: {
+                  text: `${context.repo.owner}/${context.repo.repo}`
+                },
+
+                timestamp: new Date().toISOString()
+              };
+            }
+
+            await fetch(webhook, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                username: "GitHub Updates",
+                avatar_url: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                embeds: [embed]
+              })
+            });

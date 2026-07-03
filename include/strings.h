@@ -194,6 +194,38 @@ extern const u8 gText_SavingTime[];
 extern const u8 gText_BattlePyramidConfirmRest[];
 extern const u8 gText_BattlePyramidConfirmRetire[];
 
+// option menu texts
+extern const u8 gText_TextSpeedSlow[];
+extern const u8 gText_TextSpeedMid[];
+extern const u8 gText_TextSpeedFast[];
+extern const u8 gText_BattleSceneOn[];
+extern const u8 gText_BattleSceneOff[];
+extern const u8 gText_BattleStyleShift[];
+extern const u8 gText_BattleStyleSet[];
+extern const u8 gText_UnitSystemMetric[];   //tx_optionsPlus
+extern const u8 gText_UnitSystemImperial[]; //tx_optionsPlus
+extern const u8 gText_SoundMono[];
+extern const u8 gText_SoundStereo[];
+extern const u8 gText_FrameTypeNumber[];
+extern const u8 gText_FrameType[];
+extern const u8 gText_ButtonTypeNormal[];
+extern const u8 gText_ButtonTypeLR[];
+extern const u8 gText_ButtonTypeLEqualsA[];
+extern const u8 gText_Option[];
+extern const u8 gText_OptionMenu[];
+extern const u8 gText_TextSpeed[];
+extern const u8 gText_BattleScene[];
+extern const u8 gText_BattleStyle[];
+extern const u8 gText_Sound[];
+extern const u8 gText_Frame[];
+extern const u8 gText_OptionMenuCancel[];
+extern const u8 gText_Font[];               //tx_optionsPlus
+extern const u8 gText_OptionFontFireRed[];  //tx_optionsPlus
+extern const u8 gText_OptionFontEmerald[];  //tx_optionsPlus
+extern const u8 gText_OptionMatchCalls[];   //tx_optionsPlus
+extern const u8 gText_OptionMenuSave[];
+extern const u8 gText_ButtonMode[];
+
 extern const u8 gText_MaleSymbol[];
 extern const u8 gText_FemaleSymbol[];
 
@@ -210,6 +242,50 @@ extern const u8 gText_Birch_WhatsYourName[];
 extern const u8 gText_Birch_SoItsPlayer[];
 extern const u8 gText_Birch_YourePlayer[];
 extern const u8 gText_Birch_AreYouReady[];
+extern const u8 gText_AM[];
+extern const u8 gText_PM[];
+extern const u8 gText_BirchBoy[];
+extern const u8 gText_BirchGirl[];
+extern const u8 gText_DefaultNameStu[];
+extern const u8 gText_DefaultNameMilton[];
+extern const u8 gText_DefaultNameTom[];
+extern const u8 gText_DefaultNameKenny[];
+extern const u8 gText_DefaultNameReid[];
+extern const u8 gText_DefaultNameJude[];
+extern const u8 gText_DefaultNameJaxson[];
+extern const u8 gText_DefaultNameEaston[];
+extern const u8 gText_DefaultNameWalker[];
+extern const u8 gText_DefaultNameTeru[];
+extern const u8 gText_DefaultNameJohnny[];
+extern const u8 gText_DefaultNameBrett[];
+extern const u8 gText_DefaultNameSeth[];
+extern const u8 gText_DefaultNameTerry[];
+extern const u8 gText_DefaultNameCasey[];
+extern const u8 gText_DefaultNameDarren[];
+extern const u8 gText_DefaultNameLandon[];
+extern const u8 gText_DefaultNameCollin[];
+extern const u8 gText_DefaultNameStanley[];
+extern const u8 gText_DefaultNameQuincy[];
+extern const u8 gText_DefaultNameKimmy[];
+extern const u8 gText_DefaultNameTiara[];
+extern const u8 gText_DefaultNameBella[];
+extern const u8 gText_DefaultNameJayla[];
+extern const u8 gText_DefaultNameAllie[];
+extern const u8 gText_DefaultNameLianna[];
+extern const u8 gText_DefaultNameSara[];
+extern const u8 gText_DefaultNameMonica[];
+extern const u8 gText_DefaultNameCamila[];
+extern const u8 gText_DefaultNameAubree[];
+extern const u8 gText_DefaultNameRuthie[];
+extern const u8 gText_DefaultNameHazel[];
+extern const u8 gText_DefaultNameNadine[];
+extern const u8 gText_DefaultNameTanja[];
+extern const u8 gText_DefaultNameYasmin[];
+extern const u8 gText_DefaultNameNicola[];
+extern const u8 gText_DefaultNameLillie[];
+extern const u8 gText_DefaultNameTerra[];
+extern const u8 gText_DefaultNameLucy[];
+extern const u8 gText_DefaultNameHalie[];
 
 extern const u8 gText_BirchInTrouble[];
 extern const u8 gText_ConfirmStarterChoice[];
@@ -221,6 +297,20 @@ extern const u8 gText_PressAToLoadEvent[];
 extern const u8 gText_LoadingEvent[];
 extern const u8 gText_DontRemoveCableTurnOff[];
 extern const u8 gText_LinkStandby2[];
+
+// berry tag screen text
+extern const u8 gBerryFirmnessString_VerySoft[];
+extern const u8 gBerryFirmnessString_Soft[];
+extern const u8 gBerryFirmnessString_Hard[];
+extern const u8 gBerryFirmnessString_VeryHard[];
+extern const u8 gBerryFirmnessString_SuperHard[];
+extern const u8 gText_BerryTag[];
+extern const u8 gText_NumberVar1Var2[];
+extern const u8 gText_SizeSlash[];
+extern const u8 gText_Var1DotVar2[];
+extern const u8 gText_Var1DotVar2_Metric[];
+extern const u8 gText_ThreeMarks[];
+extern const u8 gText_FirmSlash[];
 
 // item menu screen text
 extern const u8 gText_CloseBag[];

@@ -3862,7 +3862,7 @@ static void Cmd_getexp(void)
     switch (gBattleScripting.getexpState)
     {
     case 0: // check if should receive exp at all
-        if (IsOnPlayerSide(gBattlerFainted)
+        if (TRUE || IsOnPlayerSide(gBattlerFainted) // wiz1989: never receive exp
             || IsAiVsAiBattle()
             || !BattleTypeAllowsExp())
         {

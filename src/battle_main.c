@@ -1183,12 +1183,17 @@ static void CB2_HandleStartMultiPartnerBattle(void)
         }
         break;
     case 5:
+#if MULTI_PARTY_SIZE <= 2
+        // with a 4-mon party skip the third mon
+        gBattleCommunication[MULTIUSE_STATE] = 7;
+#else
         if (IsLinkTaskFinished())
         {
             // Send Pokémon 3
             SendBlock(BitmaskAllOtherLinkPlayers(), &gParties[B_TRAINER_PLAYER][2], sizeof(struct Pokemon));
             gBattleCommunication[MULTIUSE_STATE]++;
         }
+#endif
         break;
     case 6:
         if ((GetBlockReceivedStatus() & 3) == 3)
@@ -1237,14 +1242,21 @@ static void CB2_HandleStartMultiPartnerBattle(void)
         }
         break;
     case 11:
+#if PARTY_SIZE <= 4
+        gBattleCommunication[MULTIUSE_STATE] = 13;
+#else
         if (IsLinkTaskFinished())
         {
             // Send opponent A Pokémon 5-6 to partner
             SendBlock(BitmaskAllOtherLinkPlayers(), &gParties[B_TRAINER_OPPONENT_A][4], sizeof(struct Pokemon) * 2);
             gBattleCommunication[MULTIUSE_STATE]++;
         }
+#endif
         break;
     case 12:
+#if PARTY_SIZE <= 4
+        gBattleCommunication[MULTIUSE_STATE] = 13;
+#else
         if ((GetBlockReceivedStatus() & 3) == 3)
         {
             // Recv opponent A Pokémon 5-6 (if not master)
@@ -1254,6 +1266,7 @@ static void CB2_HandleStartMultiPartnerBattle(void)
 
             gBattleCommunication[MULTIUSE_STATE]++;
         }
+#endif
         break;
     case 13:
         if (IsLinkTaskFinished())
@@ -1292,14 +1305,26 @@ static void CB2_HandleStartMultiPartnerBattle(void)
         }
         break;
     case 17:
+#if PARTY_SIZE <= 4
+        gBattleCommunication[MULTIUSE_STATE] = 19;
+#else
         if (IsLinkTaskFinished())
         {
             // Send opponent B Pokémon 5-6 to partner
             SendBlock(BitmaskAllOtherLinkPlayers(), &gParties[B_TRAINER_OPPONENT_B][4], sizeof(struct Pokemon) * 2);
             gBattleCommunication[MULTIUSE_STATE]++;
         }
+#endif
         break;
     case 18:
+#if PARTY_SIZE <= 4
+        for (enum BattleTrainer trainer = B_TRAINER_PLAYER; trainer < MAX_BATTLE_TRAINERS; trainer++)
+        {
+            for (u32 i = 0; i < PARTY_SIZE; i++)
+                TryCorrectShedinjaLanguage(&gParties[trainer][i]);
+        }
+        gBattleCommunication[MULTIUSE_STATE] = 19;
+#else
         if ((GetBlockReceivedStatus() & 3) == 3)
         {
             // Recv opponent B Pokémon 5-6 (if not master)
@@ -1314,6 +1339,7 @@ static void CB2_HandleStartMultiPartnerBattle(void)
             }
             gBattleCommunication[MULTIUSE_STATE]++;
         }
+#endif
         break;
     case 19:
     {

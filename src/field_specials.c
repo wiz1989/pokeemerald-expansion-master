@@ -5736,7 +5736,10 @@ void UpdateTrainerCardPhotoIcons(void)
     u8 i;
     u8 partyCount;
     for (i = 0; i < PARTY_SIZE; i++)
+    {
         species[i] = SPECIES_NONE;
+        personality[i] = 0;
+    }
     partyCount = CalculatePlayerPartyCount();
     for (i = 0; i < partyCount; i++)
     {
@@ -5747,8 +5750,13 @@ void UpdateTrainerCardPhotoIcons(void)
     VarSet(VAR_TRAINER_CARD_MON_ICON_2, SpeciesToMailSpecies(species[1], personality[1]));
     VarSet(VAR_TRAINER_CARD_MON_ICON_3, SpeciesToMailSpecies(species[2], personality[2]));
     VarSet(VAR_TRAINER_CARD_MON_ICON_4, SpeciesToMailSpecies(species[3], personality[3]));
+#if PARTY_SIZE > 4
     VarSet(VAR_TRAINER_CARD_MON_ICON_5, SpeciesToMailSpecies(species[4], personality[4]));
     VarSet(VAR_TRAINER_CARD_MON_ICON_6, SpeciesToMailSpecies(species[5], personality[5]));
+#else
+    VarSet(VAR_TRAINER_CARD_MON_ICON_5, SpeciesToMailSpecies(SPECIES_NONE, 0));
+    VarSet(VAR_TRAINER_CARD_MON_ICON_6, SpeciesToMailSpecies(SPECIES_NONE, 0));
+#endif
     VarSet(VAR_TRAINER_CARD_MON_ICON_TINT_IDX, gSpecialVar_0x8004);
 }
 

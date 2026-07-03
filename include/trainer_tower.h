@@ -3,6 +3,8 @@
 
 #include "constants/trainer_tower.h"
 
+#define TRAINER_TOWER_TEAM_SIZE 6 // keep it at 6, even if PARTY_SIZE is less
+
 struct TrainerTowerTrainer
 {
     /* 0x000 */ u8 name[11];
@@ -12,7 +14,7 @@ struct TrainerTowerTrainer
     /* 0x01A */ u16 speechWin[6];
     /* 0x026 */ u16 speechLose[6];
     /* 0x032 */ u16 speechAfter[6];
-    /* 0x040 */ struct BattleTowerPokemon mons[PARTY_SIZE];
+    /* 0x040 */ struct BattleTowerPokemon mons[TRAINER_TOWER_TEAM_SIZE];
 }; // size: 328
 
 struct TrainerTowerFloor

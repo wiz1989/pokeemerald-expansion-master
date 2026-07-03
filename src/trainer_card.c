@@ -40,6 +40,8 @@ enum {
     WIN_TRAINER_PIC,
 };
 
+#define TRAINER_CARD_MON_ICON_PAL_COUNT 6
+
 struct TrainerCardData
 {
     u8 mainState;
@@ -72,7 +74,7 @@ struct TrainerCardData
     u8 textNumLinkPokeblocks[70];
     u8 textNumLinkContests[70];
     u8 textBattleFacilityStat[70];
-    u16 monIconPal[16 * PARTY_SIZE];
+    u16 monIconPal[16 * TRAINER_CARD_MON_ICON_PAL_COUNT];
     s8 flipBlendY;
     bool8 timeColonNeedDraw;
     u8 cardType;
@@ -1344,8 +1346,8 @@ static void PrintBattleFacilityStringOnCard(void)
 static void PrintPokemonIconsOnCard(void)
 {
     u8 i;
-    u8 paletteSlots[PARTY_SIZE] = {5, 6, 7, 8, 9, 10};
-    u8 xOffsets[PARTY_SIZE] = {0, 4, 8, 12, 16, 20};
+    u8 paletteSlots[] = {5, 6, 7, 8, 9, 10};
+    u8 xOffsets[PARTY_SIZE] = {0, 4, 8, 12};
 
     if (sData->cardType == CARD_TYPE_FRLG)
     {

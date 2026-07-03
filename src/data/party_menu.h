@@ -65,7 +65,8 @@ static const struct PartyMenuBoxInfoRects sPartyBoxInfoRects[] =
 // Each layout array has an array for each of the 6 party slots
 // The array for each slot has the sprite coords of its various sprites in the following order
 // Pokémon icon (x, y), held item (x, y), status condition (x, y), menu Poké Ball (x, y)
-static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][4 * 2] =
+#if PARTY_SIZE == 6
+static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][(PARTY_SIZE)][4 * 2] =
 {
     [PARTY_LAYOUT_SINGLE] =
     {
@@ -140,6 +141,67 @@ static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][4 * 2] =
         {104, 114, 108, 124, 136, 123, 102, 121},
     },
 };
+#else // PARTY_SIZE == 4
+static const u8 sPartyMenuSpriteCoords[PARTY_LAYOUT_COUNT][PARTY_SIZE][4 * 2] =
+{
+    [PARTY_LAYOUT_SINGLE] =
+    {
+        { 16, 40,  20,  50,  50,  52,  16,  34},
+        {104, 18, 108,  28, 136,  27, 102,  25},
+        {104, 58, 108,  68, 136,  76, 102,  65},
+        {104, 98, 108, 108, 136, 106, 102, 105},
+    },
+    [PARTY_LAYOUT_DOUBLE] =
+    {
+        { 16, 24,  20, 34,  50, 36,  16, 18},
+        { 16, 80,  20, 90,  50, 92,  16, 74},
+        {104, 18, 108, 28, 136, 27, 102, 25},
+        {104, 50, 108, 60, 136, 59, 102, 57},
+    },
+    [PARTY_LAYOUT_MULTI] =
+    {
+        { 16, 24,  20, 34,  50, 36,  16, 18},
+        { 16, 80,  20, 90,  50, 92,  16, 74},
+        {104, 26, 106, 36, 136, 35, 102, 33},
+        {104, 50, 106, 60, 136, 59, 102, 57},
+    },
+    [PARTY_LAYOUT_MULTI_SHOWCASE] =
+    {
+        { 16,  32,  20,  42,  50,  44,  16, 26},
+        {104,  34, 106,  44, 136,  43, 102, 41},
+        {104,  58, 106,  68, 136,  67, 102, 65},
+        { 16, 104,  20, 114,  50, 116,  16, 98},
+    },
+    [PARTY_LAYOUT_MULTI_FULL] =
+    {
+        { 16, 40,  20, 50,  50, 52,  16, 34},
+        {104, 18, 108, 28, 136, 27, 102, 25},
+        {104, 42, 108, 52, 136, 51, 102, 49},
+        {104, 66, 108, 76, 136, 75, 102, 73},
+    },
+    [PARTY_LAYOUT_MULTI_FULL_PARTNER] =
+    {
+        { 16, 40,  20, 50,  50, 52,  16, 34},
+        {104, 18, 108, 28, 136, 27, 102, 25},
+        {104, 42, 108, 52, 136, 51, 102, 49},
+        {104, 66, 108, 76, 136, 75, 102, 73},
+    },
+    [PARTY_LAYOUT_MULTI_FULL_SHOWCASE] =
+    {
+        { 16, 40,  20, 50,  50, 52,  16, 34},
+        {104, 18, 108, 28, 136, 27, 102, 25},
+        {104, 42, 108, 52, 136, 51, 102, 49},
+        {104, 66, 108, 76, 136, 75, 102, 73},
+    },
+    [PARTY_LAYOUT_MULTI_FULL_SHOWCASE_PARTNER] =
+    {
+        { 16, 40,  20, 50,  50, 52,  16, 34},
+        {104, 18, 108, 28, 136, 27, 102, 25},
+        {104, 42, 108, 52, 136, 51, 102, 49},
+        {104, 66, 108, 76, 136, 75, 102, 73},
+    },
+};
+#endif
 
 // Used only when both Cancel and Confirm are present
 static const u32 sConfirmButton_Tilemap[] = INCBIN_U32("graphics/party_menu/confirm_button.bin");
@@ -180,7 +242,7 @@ static const struct WindowTemplate sSinglePartyMenuWindowTemplate[] =
     { // Party mon 3
         .bg = 0,
         .tilemapLeft = 12,
-        .tilemapTop = 4,
+        .tilemapTop = 6,
         .width = 18,
         .height = 3,
         .paletteNum = 5,
@@ -189,7 +251,7 @@ static const struct WindowTemplate sSinglePartyMenuWindowTemplate[] =
     { // Party mon 4
         .bg = 0,
         .tilemapLeft = 12,
-        .tilemapTop = 7,
+        .tilemapTop = 11,
         .width = 18,
         .height = 3,
         .paletteNum = 6,

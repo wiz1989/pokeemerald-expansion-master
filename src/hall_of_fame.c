@@ -152,16 +152,20 @@ static const s16 sHallOfFame_MonFullTeamPositions[PARTY_SIZE][4] =
     {120,   210,    120,    40},
     {326,   220,    56,     40},
     {-86,   220,    184,    40},
-    {120,   -62,    120,    88},
-    {-70,   -92,    200,    88},
+    {120,   -62,    120,    88}
+#if PARTY_SIZE > 4
+    ,{-70,   -92,    200,    88},
     {310,   -92,    40,     88}
+#endif
 };
 
 static const s16 sHallOfFame_MonHalfTeamPositions[PARTY_SIZE / 2][4] =
 {
     {120,   234,    120,    64},
-    {326,   244,    56,     64},
-    {-86,   244,    184,    64}
+    {326,   244,    56,     64}
+#if PARTY_SIZE > 4
+    ,{-86,   244,    184,    64}
+#endif
 };
 
 static const struct OamData sOamData_Confetti =

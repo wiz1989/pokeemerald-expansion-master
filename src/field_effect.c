@@ -679,9 +679,11 @@ static const struct Coords16 sPokeballCoordOffsets[PARTY_SIZE] =
     {.x = 0, .y = 0},
     {.x = 6, .y = 0},
     {.x = 0, .y = 4},
-    {.x = 6, .y = 4},
-    {.x = 0, .y = 8},
+    {.x = 6, .y = 4}
+#if PARTY_SIZE > 4
+    ,{.x = 0, .y = 8},
     {.x = 6, .y = 8}
+#endif
 };
 
 static const u8 sPokeballGlowReds[]   = {16, 12, 8, 0};

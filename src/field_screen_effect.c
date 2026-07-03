@@ -467,7 +467,7 @@ static void Task_ExitNonDoor(u8 taskId)
     }
 }
 
-static void Task_WaitForFadeShowStartMenu(u8 taskId)
+static void UNUSED Task_WaitForFadeShowStartMenu(u8 taskId)
 {
     if (WaitForWeatherFadeIn() == TRUE)
     {
@@ -479,7 +479,7 @@ static void Task_WaitForFadeShowStartMenu(u8 taskId)
 void ReturnToFieldOpenStartMenu(void)
 {
     FadeInFromBlack();
-    CreateTask(Task_WaitForFadeShowStartMenu, 0x50);
+    //CreateTask(Task_WaitForFadeShowStartMenu, 0x50);
     LockPlayerFieldControls();
 }
 

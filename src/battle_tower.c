@@ -666,7 +666,7 @@ static const u32 sWinStreakMasks[][2] =
 // The challenge number at which an Apprentice can appear, depending on how many of their questions were answered
 static const u8 sApprenticeChallengeThreshold[MAX_APPRENTICE_QUESTIONS] =
 {
-    1, 2, 3, 4, 5, 8, 9, 10, 11, 12
+    1, 2, 3, 4, 5, 8, 9, 10
 };
 
 // Unclear why this was duplicated
