@@ -50,9 +50,9 @@
 #include "test/battle.h"
 
 static void PlayerHandleLoadMonSprite(enum BattlerId battler);
-static void PlayerHandleDrawTrainerPic(enum BattlerId battler);
-static void PlayerHandleTrainerSlide(enum BattlerId battler);
-static void PlayerHandleTrainerSlideBack(enum BattlerId battler);
+static void UNUSED PlayerHandleDrawTrainerPic(enum BattlerId battler);
+static void UNUSED PlayerHandleTrainerSlide(enum BattlerId battler);
+static void UNUSED PlayerHandleTrainerSlideBack(enum BattlerId battler);
 static void PlayerHandlePaletteFade(enum BattlerId battler);
 static void PlayerHandlePause(enum BattlerId battler);
 static void PlayerHandleChooseAction(enum BattlerId battler);
@@ -68,7 +68,7 @@ static void PlayerHandleChosenMonReturnValue(enum BattlerId battler);
 static void PlayerHandleOneReturnValue(enum BattlerId battler);
 static void PlayerHandleOneReturnValue_Duplicate(enum BattlerId battler);
 static void PlayerHandleIntroTrainerBallThrow(enum BattlerId battler);
-static void PlayerHandleDrawPartyStatusSummary(enum BattlerId battler);
+static void UNUSED PlayerHandleDrawPartyStatusSummary(enum BattlerId battler);
 static void PlayerHandleEndBounceEffect(enum BattlerId battler);
 static void PlayerHandleLinkStandbyMsg(enum BattlerId battler);
 static void PlayerHandleResetActionMoveSelection(enum BattlerId battler);
@@ -105,9 +105,9 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(enum BattlerId
     [CONTROLLER_LOADMONSPRITE]            = PlayerHandleLoadMonSprite,
     [CONTROLLER_SWITCHINANIM]             = BtlController_HandleSwitchInAnim,
     [CONTROLLER_RETURNMONTOBALL]          = BtlController_HandleReturnMonToBall,
-    [CONTROLLER_DRAWTRAINERPIC]           = PlayerHandleDrawTrainerPic,
-    [CONTROLLER_TRAINERSLIDE]             = PlayerHandleTrainerSlide,
-    [CONTROLLER_TRAINERSLIDEBACK]         = PlayerHandleTrainerSlideBack,
+    [CONTROLLER_DRAWTRAINERPIC]           = BtlController_Empty,
+    [CONTROLLER_TRAINERSLIDE]             = BtlController_Empty,
+    [CONTROLLER_TRAINERSLIDEBACK]         = BtlController_Empty,
     [CONTROLLER_FAINTANIMATION]           = BtlController_HandleFaintAnimation,
     [CONTROLLER_PALETTEFADE]              = PlayerHandlePaletteFade,
     [CONTROLLER_BALLTHROWANIM]            = BtlController_HandleBallThrowAnim,
@@ -141,7 +141,7 @@ static void (*const sPlayerBufferCommands[CONTROLLER_CMDS_COUNT])(enum BattlerId
     [CONTROLLER_FAINTINGCRY]              = BtlController_HandleFaintingCry,
     [CONTROLLER_INTROSLIDE]               = BtlController_HandleIntroSlide,
     [CONTROLLER_INTROTRAINERBALLTHROW]    = PlayerHandleIntroTrainerBallThrow,
-    [CONTROLLER_DRAWPARTYSTATUSSUMMARY]   = PlayerHandleDrawPartyStatusSummary,
+    [CONTROLLER_DRAWPARTYSTATUSSUMMARY]   = BtlController_Empty,
     [CONTROLLER_HIDEPARTYSTATUSSUMMARY]   = BtlController_HandleHidePartyStatusSummary,
     [CONTROLLER_ENDBOUNCE]                = PlayerHandleEndBounceEffect,
     [CONTROLLER_SPRITEINVISIBILITY]       = BtlController_HandleSpriteInvisibility,
@@ -1904,7 +1904,7 @@ static enum TrainerPicID PlayerGetTrainerBackPicId(void)
 // In emerald it's possible to have a tag battle in the battle frontier facilities with AI
 // which use the front sprite for both the player and the partner as opposed to any other battles (including the one with Steven)
 // that use an animated back pic.
-static void PlayerHandleDrawTrainerPic(enum BattlerId battler)
+static void UNUSED PlayerHandleDrawTrainerPic(enum BattlerId battler)
 {
     bool32 isFrontPic;
     s16 xPos, yPos;
@@ -1961,13 +1961,13 @@ static void PlayerHandleDrawTrainerPic(enum BattlerId battler)
     BtlController_HandleDrawTrainerPic(battler, trainerPicId, isFrontPic, xPos, yPos, -1);
 }
 
-static void PlayerHandleTrainerSlide(enum BattlerId battler)
+static void UNUSED PlayerHandleTrainerSlide(enum BattlerId battler)
 {
     enum TrainerPicID trainerPicId = PlayerGetTrainerBackPicId();
     BtlController_HandleTrainerSlide(battler, trainerPicId);
 }
 
-static void PlayerHandleTrainerSlideBack(enum BattlerId battler)
+static void UNUSED PlayerHandleTrainerSlideBack(enum BattlerId battler)
 {
     BtlController_HandleTrainerSlideBack(battler, 50, TRUE);
 }
@@ -2302,7 +2302,7 @@ static void PlayerHandleIntroTrainerBallThrow(enum BattlerId battler)
     BtlController_HandleIntroTrainerBallThrow(battler, 0xD6F8, trainerPal, 31, Intro_TryShinyAnimShowHealthbox);
 }
 
-static void PlayerHandleDrawPartyStatusSummary(enum BattlerId battler)
+static void UNUSED PlayerHandleDrawPartyStatusSummary(enum BattlerId battler)
 {
     BtlController_HandleDrawPartyStatusSummary(battler, B_SIDE_PLAYER, TRUE);
 }

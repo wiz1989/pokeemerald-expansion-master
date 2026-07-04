@@ -59,6 +59,7 @@
 #include "test_runner.h"
 #include "text.h"
 #include "trainer_pools.h"
+#include "transform.h"
 #include "trig.h"
 #include "tv.h"
 #include "util.h"
@@ -3635,6 +3636,11 @@ static void DoBattleIntro(void)
         }
         break;
     case BATTLE_INTRO_STATE_PRINT_PLAYER_SEND_OUT_TEXT:
+        if (PlayerIsCastform())
+        {
+            gBattleStruct->eventState.battleIntro++;
+            return;
+        }
         if (!(gBattleTypeFlags & BATTLE_TYPE_SAFARI))
         {
             if (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK && !(gBattleTypeFlags & BATTLE_TYPE_RECORDED_IS_MASTER))
