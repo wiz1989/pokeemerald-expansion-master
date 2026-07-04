@@ -11008,6 +11008,11 @@ void SetValuesOnFaint(enum BattlerId battler)
     gHitMarker |= HITMARKER_FAINTED(battler);
     gBattleStruct->eventState.faintedAction = 0;
     gBattlerFainted = battler;
+
+    // end battle, when player's first mon faints (there is no switching in other castform forms)
+    if (battler == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT))
+        gBattleOutcome = B_OUTCOME_LOST;
+
     TryDeactivateSleepClause(GetBattlerSide(battler), gBattlerPartyIndexes[battler]);
 
     if (gBattleStruct->faintCounter[GetBattlerTrainer(battler)] < 255)
