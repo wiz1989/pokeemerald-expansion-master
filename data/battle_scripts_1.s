@@ -2733,7 +2733,7 @@ BattleScript_FaintBattler::
 	tryconfusionafterskydrop BS_FAINTED
 	cleareffectsonfaint BS_FAINTED
 	trytoclearprimalweather
-	call BattleScript_TryRevertWeatherform
+	@ call BattleScript_TryRevertWeatherform
 	flushtextbox
 	waitanimation
 	tryactivatereceiver BS_FAINTED

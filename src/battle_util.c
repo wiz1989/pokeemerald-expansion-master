@@ -27,6 +27,7 @@
 #include "string_util.h"
 #include "task.h"
 #include "test_runner.h"
+#include "transform.h"
 #include "trig.h"
 #include "trainer_slide.h"
 #include "window.h"
@@ -8603,7 +8604,11 @@ static bool32 CanBattlerFormChange(enum BattlerId battler, enum FormChanges meth
 
 bool32 TryRevertPartyMonFormChange(u32 partyIndex)
 {
-     bool32 changedForm = FALSE;
+    bool32 changedForm = FALSE;
+
+    // only revert first slot Castform (= base form)
+    if (PlayerIsCastform() && partyIndex != 0)
+        return FALSE;
 
     // Appeared in battle and didn't faint
     if (gBattleStruct->partyState[B_SIDE_PLAYER][partyIndex].sentOut && GetMonData(&gParties[B_TRAINER_PLAYER][partyIndex], MON_DATA_HP) != 0)

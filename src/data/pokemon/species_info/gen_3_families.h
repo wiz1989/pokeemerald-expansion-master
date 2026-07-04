@@ -9215,7 +9215,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY, EGG_GROUP_AMORPHOUS),
-        .abilities = { ABILITY_NONE, ABILITY_NONE, ABILITY_NONE },
+        .abilities = { ABILITY_PROTEAN, ABILITY_NONE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Castform"),
         .cryId = CRY_CASTFORM,
@@ -9251,7 +9251,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .backPic = gMonBackPic_CastformNormal,
         .backPicSize = MON_COORDS_SIZE(32, 64),
         .backPicYOffset = 0,
-        .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
+        .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_CastformNormal,
         .shinyPalette = gMonShinyPalette_CastformNormal,
         .iconSprite = gMonIcon_CastformNormal,
@@ -9332,7 +9332,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .backPic = gMonBackPic_CastformSunny,
         .backPicSize = MON_COORDS_SIZE(56, 64),
         .backPicYOffset = 0,
-        .backAnimId = P_GBA_STYLE_SPECIES_GFX ? BACK_ANIM_CONVEX_DOUBLE_ARC : BACK_ANIM_SHAKE_GLOW_RED,
+        .backAnimId = BACK_ANIM_SHAKE_GLOW_RED,
         .palette = gMonPalette_CastformSunny,
         .shinyPalette = gMonShinyPalette_CastformSunny,
         .iconSprite = gMonIcon_CastformSunny,
@@ -9349,7 +9349,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             gOverworldPalette_CastformSunny,
             gShinyOverworldPalette_CastformSunny
         )
-        .levelUpLearnset = sCastformLevelUpLearnset,
+        .levelUpLearnset = sCastformLevelUpLearnsetSunny,
         .teachableLearnset = sCastformTeachableLearnset,
         .eggMoveLearnset = sCastformEggMoveLearnset,
         .formSpeciesIdTable = sCastformFormSpeciesIdTable,
@@ -9411,7 +9411,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .backPic = gMonBackPic_CastformRainy,
         .backPicSize = MON_COORDS_SIZE(40, 64),
         .backPicYOffset = 0,
-        .backAnimId = P_GBA_STYLE_SPECIES_GFX ? BACK_ANIM_CONVEX_DOUBLE_ARC : BACK_ANIM_SHRINK_GROW_VIBRATE,
+        .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_CastformRainy,
         .shinyPalette = gMonShinyPalette_CastformRainy,
         .iconSprite = gMonIcon_CastformRainy,
@@ -9428,7 +9428,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             gOverworldPalette_CastformRainy,
             gShinyOverworldPalette_CastformRainy
         )
-        .levelUpLearnset = sCastformLevelUpLearnset,
+        .levelUpLearnset = sCastformLevelUpLearnsetRainy,
         .teachableLearnset = sCastformTeachableLearnset,
         .eggMoveLearnset = sCastformEggMoveLearnset,
         .formSpeciesIdTable = sCastformFormSpeciesIdTable,
@@ -9491,7 +9491,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .backPic = gMonBackPic_CastformSnowy,
         .backPicSize = MON_COORDS_SIZE(56, 64),
         .backPicYOffset = 0,
-        .backAnimId = P_GBA_STYLE_SPECIES_GFX ? BACK_ANIM_CONVEX_DOUBLE_ARC : BACK_ANIM_TRIANGLE_DOWN,
+        .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_CastformSnowy,
         .shinyPalette = gMonShinyPalette_CastformSnowy,
         .iconSprite = gMonIcon_CastformSnowy,
@@ -9508,7 +9508,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
             gOverworldPalette_CastformSnowy,
             gShinyOverworldPalette_CastformSnowy
         )
-        .levelUpLearnset = sCastformLevelUpLearnset,
+        .levelUpLearnset = sCastformLevelUpLearnsetSnowy,
         .teachableLearnset = sCastformTeachableLearnset,
         .eggMoveLearnset = sCastformEggMoveLearnset,
         .formSpeciesIdTable = sCastformFormSpeciesIdTable,

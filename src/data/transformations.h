@@ -20,9 +20,9 @@ const struct Transformation gTransformations[] =
         .ability = ABILITY_NONE,
         .moves = {
             MOVE_WEATHER_BALL,
-            MOVE_NONE,
-            MOVE_NONE,
-            MOVE_NONE,
+            MOVE_BUBBLE_BEAM,
+            MOVE_INCINERATE,
+            MOVE_AURORA_BEAM,
         },
     },
 
@@ -37,7 +37,7 @@ const struct Transformation gTransformations[] =
         // .ability = ABILITY_SWIFT_SWIM,
         .moves = {
             MOVE_WEATHER_BALL,
-            MOVE_NONE,
+            MOVE_SURF,
             MOVE_NONE,
             MOVE_NONE,
         },
@@ -54,7 +54,7 @@ const struct Transformation gTransformations[] =
         // .ability = ABILITY_CHLOROPHYLL,
         .moves = {
             MOVE_WEATHER_BALL,
-            MOVE_NONE,
+            MOVE_FLAMETHROWER,
             MOVE_NONE,
             MOVE_NONE,
         },
@@ -70,7 +70,7 @@ const struct Transformation gTransformations[] =
         // .ability = ABILITY_SNOW_CLOAK,
         .moves = {
             MOVE_WEATHER_BALL,
-            MOVE_NONE,
+            MOVE_ICE_BEAM,
             MOVE_NONE,
             MOVE_NONE,
         },
