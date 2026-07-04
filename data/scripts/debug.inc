@@ -201,13 +201,7 @@ Debug_EventScript_Text_DefensiveIVs:
 	.string "HP IVs: {STR_VAR_1}, DEF IVs: {STR_VAR_2}, SPDEF IVs: {STR_VAR_3}$"
 
 Debug_EventScript_Script_1::
-	setflag FLAG_TEMP_OBSERVER_BATTLE
-	setwildbattle SPECIES_ZIGZAGOON, 25
-	waitse
-	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	dowildbattle
+	ai_vs_ai_wild_battle SPECIES_PIKACHU, SPECIES_EEVEE, 30
 	release
 	end
 
