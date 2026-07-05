@@ -879,10 +879,10 @@ static void HeatStartMenu_ExitAndClearTilemap(void) {
   }
 
   FreeSpriteOamMatrix(&gSprites[sHeatStartMenu->spriteIdBag]);
-  FreeSpriteOamMatrix(&gSprites[sHeatStartMenu->spriteIdTrainerCard]);
+  // FreeSpriteOamMatrix(&gSprites[sHeatStartMenu->spriteIdTrainerCard]);
   FreeSpriteOamMatrix(&gSprites[sHeatStartMenu->spriteIdOptions]);
   DestroySprite(&gSprites[sHeatStartMenu->spriteIdBag]);
-  DestroySprite(&gSprites[sHeatStartMenu->spriteIdTrainerCard]);
+  // DestroySprite(&gSprites[sHeatStartMenu->spriteIdTrainerCard]);
   DestroySprite(&gSprites[sHeatStartMenu->spriteIdOptions]);
 
   
