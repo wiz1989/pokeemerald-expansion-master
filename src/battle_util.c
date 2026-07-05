@@ -4696,6 +4696,13 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         break;
     case ABILITYEFFECT_ON_WEATHER: // For ability effects that activate when the battle weather changes.
         gLastUsedAbility = GetBattlerAbility(battler);
+
+        // hard set Forecast if battler is Castform
+        if (PlayerIsCastform() && IsSpeciesValidTransformation(GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES)))
+        {
+            gLastUsedAbility = ABILITY_FORECAST;
+        }
+
         switch (gLastUsedAbility)
         {
         case ABILITY_FORECAST:
@@ -8633,6 +8640,9 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
     enum Species currentSpecies = GetMonData(mon, MON_DATA_SPECIES);
     enum Species targetSpecies = GetBattleFormChangeTargetSpecies(battler, method, ability);
 
+    if (IsOnPlayerSide(battler) && PlayerIsCastform())
+        currentSpecies = GetCurrentTransformationSpecies();
+
     struct PartyState *battlePartyState = GetBattlerPartyState(battler);
     // If the battle ends, and there's not a specified species to change back to,
     // use the species at the start of the battle.
@@ -8657,6 +8667,28 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
             GetBattlerPartyState(battler)->changedSpecies = gBattleMons[battler].species;
 
         TryToSetBattleFormChangeMoves(mon, method);
+
+        // update moves for Castform forms
+        DebugPrintf("Try Form Change species = %d", targetSpecies);
+        if (PlayerIsCastform() && IsSpeciesValidTransformation(targetSpecies))
+        {
+            // read from player party and copy moves based on target form
+            for (u32 partyIndex = 0; partyIndex < gPartiesCount[B_TRAINER_PLAYER]; partyIndex++)
+            {
+                struct Pokemon *partyMon = &gParties[B_TRAINER_PLAYER][partyIndex];
+
+                if (GetMonData(partyMon, MON_DATA_SPECIES) != targetSpecies)
+                    continue;
+
+                for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+                {
+                    gBattleMons[battler].moves[moveIndex] = GetMonData(partyMon, MON_DATA_MOVE1 + moveIndex);
+                    gBattleMons[battler].pp[moveIndex] = GetMonData(partyMon, MON_DATA_PP1 + moveIndex);
+                }
+                break;
+            }
+        }
+
         SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
         gBattleMons[battler].species = targetSpecies;
         RecalcBattlerStats(battler, mon, method == FORM_CHANGE_BATTLE_GIGANTAMAX);

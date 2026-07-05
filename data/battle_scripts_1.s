@@ -3989,7 +3989,7 @@ BattleScript_BattlerFormChangeDisguise::
 
 BattleScript_BattlerFormChangeWithString::
 	pause 5
-	call BattleScript_AbilityPopUpScripting
+	@ call BattleScript_AbilityPopUpScripting
 	flushtextbox
 	handleformchange BS_SCRIPTING, 0
 	playanimation BS_SCRIPTING, B_ANIM_FORM_CHANGE

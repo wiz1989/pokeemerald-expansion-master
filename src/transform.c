@@ -63,7 +63,6 @@
 
 const void *GetTransformationPic(u16 speciesId);
 const u16 *GetTransformationPalette(u16 speciesId);
-static u8 IsSpeciesValidTransformation(u16 speciesId);
 static void WarpToTransformationMap(u16 speciesId, bool8 useFade);
 static void SetObjectEventSpritesMosaic(bool8 enable);
 static void DestroyWeatherSpriteArray(struct Sprite **sprites, u16 count);
@@ -354,7 +353,7 @@ static void SetObjectEventSpritesMosaic(bool8 enable)
 #undef tTransformType
 
 // helper functions
-static u8 IsSpeciesValidTransformation(u16 speciesId)
+bool32 IsSpeciesValidTransformation(u16 speciesId)
 {
     switch (speciesId)
     {

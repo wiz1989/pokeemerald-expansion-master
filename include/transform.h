@@ -27,6 +27,7 @@ u16 GetTransformationAbility(u16 speciesId);
 u16 GetTransformationBattleSpecies(u16 speciesId);
 u16 GetTransformationWarpMap(u16 speciesId);
 u16 GetCurrentTransformationSpecies(void);
+bool32 IsSpeciesValidTransformation(u16 speciesId);
 bool32 IsSpeciesValidCharacter(u16 speciesId);
 u16 GetCharacterMoves(u16 speciesId, u8 i);
 u16 GetCharacterAbility(u16 speciesId);
