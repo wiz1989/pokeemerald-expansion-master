@@ -2283,9 +2283,11 @@
 	@ The AI-vs-AI flag is cleared automatically after the battle.
 	.macro ai_vs_ai_wild_battle species1:req, species2:req, level:req
 	setflag B_FLAG_AI_VS_AI_BATTLE
+	special SavePlayerParty
 	createmon B_SIDE_PLAYER, 0, \species1, \level
 	setwildbattle \species2, \level
 	dowildbattle
+	special LoadPlayerParty
 	clearflag B_FLAG_AI_VS_AI_BATTLE
 	.endm
 

@@ -11034,3 +11034,8 @@ void SetValuesOnFaint(enum BattlerId battler)
         gSideTimers[B_SIDE_OPPONENT].retaliateTimer = 2;
     }
 }
+
+bool32 IsObserverBattle(void)
+{
+    return (FlagGet(B_FLAG_AI_VS_AI_BATTLE));
+}

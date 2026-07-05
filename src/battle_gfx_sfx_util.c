@@ -30,6 +30,7 @@
 #include "constants/battle_palace.h"
 #include "constants/battle_move_effects.h"
 #include "constants/event_objects.h" // only for SHADOW_SIZE constants
+#include "transform.h"
 
 // this file's functions
 static u8 GetBattlePalaceMoveGroup(enum BattlerId battler, enum Move move);
@@ -624,12 +625,22 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
     if (illusionMon != NULL)
         mon = illusionMon;
 
-    if (GetMonData(mon, MON_DATA_IS_EGG) || GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE) // Don't load GFX of egg Pokémon.
-        return;
+    // read from battle mons
+    if (IsOnPlayerSide(battler) && PlayerIsCastform())
+    {
+        species = gBattleMons[battler].species;
+        personalityValue = gBattleMons[battler].personality;
+        isShiny = gBattleMons[battler].isShiny;
+    }
+    else
+    {
+        if (GetMonData(mon, MON_DATA_IS_EGG) || GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE) // Don't load GFX of egg Pokémon.
+            return;
 
-    isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
-    species = GetMonData(mon, MON_DATA_SPECIES);
-    personalityValue = GetMonData(mon, MON_DATA_PERSONALITY);
+        isShiny = GetMonData(mon, MON_DATA_IS_SHINY);
+        species = GetMonData(mon, MON_DATA_SPECIES);
+        personalityValue = GetMonData(mon, MON_DATA_PERSONALITY);
+    }
 
     if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies != SPECIES_NONE)
     {
@@ -653,7 +664,13 @@ void BattleLoadMonSpriteGfx(struct Pokemon *mon, enum BattlerId battler)
     paletteOffset = OBJ_PLTT_ID(battler);
 
     if (gBattleSpritesDataPtr->battlerData[battler].transformSpecies == SPECIES_NONE)
-        paletteData = GetMonFrontSpritePal(mon);
+    {
+        // load from the data directly
+        if (IsOnPlayerSide(battler) && PlayerIsCastform())
+            paletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personalityValue);
+        else
+            paletteData = GetMonFrontSpritePal(mon);
+    }
     else
         paletteData = GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personalityValue);
 

@@ -1,3 +1,5 @@
+#include "pokemon_animation.h"
+
 const u32 gItemIcon_CastformBase[] = INCBIN_U32("graphics/items/icons/castform_base.4bpp.lz");
 const u16 gItemIconPalette_CastformBase[] = INCBIN_U16("graphics/items/icon_palettes/castform.gbapal");
 const u32 gItemIcon_CastformRainy[] = INCBIN_U32("graphics/items/icons/castform_rainy.4bpp.lz");
@@ -75,5 +77,23 @@ const struct Transformation gTransformations[] =
             MOVE_NONE,
         },
         .targetMap = MAP_TARC3_SNOWY,
+    },
+};
+
+#define NUMBER_OF_CHARACTERS ARRAY_COUNT(gCharacters)
+const struct Character gCharacters[] =
+{
+    [SPECIES_PIKACHU] = // test species
+    {
+        .name = _("Pikachu"),
+        .battleSpecies = SPECIES_PIKACHU,
+        .ability = ABILITY_STATIC,
+        .item = ITEM_LEFTOVERS,
+        .moves = {
+            MOVE_THUNDERSHOCK,
+            MOVE_QUICK_ATTACK,
+            MOVE_IRON_TAIL,
+            MOVE_NONE,
+        },
     },
 };

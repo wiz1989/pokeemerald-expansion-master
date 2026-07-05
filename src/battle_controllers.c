@@ -1493,22 +1493,59 @@ static u32 GetBattlerMonData(enum BattlerId battler, struct Pokemon *party, u32 
         if (IsOnPlayerSide(battler) && monId == gBattlerPartyIndexes[battler]
          && PlayerIsCastform())
         {
-            u16 sourceSpecies = GetCurrentTransformationSpecies();
-            u16 transformedSpecies = GetTransformationBattleSpecies(sourceSpecies);
-            u8 transformedAbilityNum = 0;
-
-            DebugPrintf("Battle init - sourceSpecies: %d, transformedSpecies: %d", sourceSpecies, transformedSpecies);
-
-            battleMon.species = transformedSpecies;
-            battleMon.abilityNum = transformedAbilityNum;
-            SetMonData(&party[monId], MON_DATA_SPECIES, &transformedSpecies);
-            SetMonData(&party[monId], MON_DATA_ABILITY_NUM, &transformedAbilityNum);
-            for (u32 i = 0; i < MAX_MON_MOVES; i++)
+            if (IsObserverBattle())
             {
-                u16 move = GetTransformationMoves(sourceSpecies, i);
+                u16 species = GetMonData(&party[monId], MON_DATA_SPECIES);
+                u8 transformedAbilityNum = 0;
+                u16 item = 0;
 
-                battleMon.moves[i] = move;
-                SetMonData(&party[monId], MON_DATA_MOVE1 + i, &move);
+                DebugPrintf("Observer Battle init - species: %d", species);
+
+                if (IsSpeciesValidCharacter(species))
+                {
+                    item = GetCharacterItem(species);
+
+                    for (u32 i = 0; i < 3; i++)
+                    {
+                        if (GetCharacterAbility(species) == GetAbilityBySpecies(species, i))
+                        {
+                            transformedAbilityNum = i;
+                            break;
+                        }
+                    }
+                }
+
+                battleMon.species = species;
+                battleMon.abilityNum = transformedAbilityNum;
+                battleMon.item = item;
+
+                for (u32 i = 0; i < MAX_MON_MOVES; i++)
+                {
+                    u16 move = IsSpeciesValidCharacter(species) ? GetCharacterMoves(species, i) : MOVE_NONE;
+                    u16 pp = GetMovePP(move);
+
+                    battleMon.moves[i] = move;
+                    battleMon.pp[i] = pp;
+                }
+            }
+            else
+            {
+                u16 species = GetCurrentTransformationSpecies();
+                u8 transformedAbilityNum = 0;
+
+                DebugPrintf("Battle init - species: %d", species);
+
+                battleMon.species = species;
+                battleMon.abilityNum = transformedAbilityNum;
+
+                for (u32 i = 0; i < MAX_MON_MOVES; i++)
+                {
+                    u16 move = GetTransformationMoves(species, i);
+                    u16 pp = GetMovePP(move);
+
+                    battleMon.moves[i] = move;
+                    battleMon.pp[i] = pp;
+                }
             }
         }
 
@@ -2892,6 +2929,12 @@ static void SpriteCB_PlayerMonSlideInFromRight(struct Sprite *sprite)
     {
         sprite->data[0] = sprite->sBattlerId;
         sprite->sBackAnimStarted = TRUE;
+
+        DebugPrintf("slide in species: %d", sprite->sSpecies);
+
+        // overwrite sprite species in Observer battles to read correct back anim
+        if (IsObserverBattle())
+            sprite->sSpecies = gBattleMons[0].species;
 
         if (gSpeciesInfo[sprite->sSpecies].backAnimId != BACK_ANIM_NONE)
             LaunchAnimationTaskForBackSprite(sprite, GetSpeciesBackAnimSet(sprite->sSpecies));

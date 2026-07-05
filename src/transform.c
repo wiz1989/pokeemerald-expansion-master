@@ -409,6 +409,31 @@ u16 GetTransformationTargetMap(u16 speciesId)
     return gTransformations[speciesId].targetMap;
 }
 
+bool32 IsSpeciesValidCharacter(u16 speciesId)
+{
+    for (u16 i = 0; i < NUMBER_OF_CHARACTERS; i++)
+    {
+        if (gCharacters[i].battleSpecies == speciesId)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+u16 GetCharacterMoves(u16 speciesId, u8 i)
+{
+    return gCharacters[speciesId].moves[i];
+}
+
+u16 GetCharacterAbility(u16 speciesId)
+{
+    return gCharacters[speciesId].ability;
+}
+
+u16 GetCharacterItem(u16 speciesId)
+{
+    return gCharacters[speciesId].item;
+}
+
 // warp function
 static void WarpToTransformationMap(u16 speciesId, bool8 useFade)
 {

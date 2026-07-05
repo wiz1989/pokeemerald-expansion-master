@@ -27,6 +27,10 @@ u16 GetTransformationAbility(u16 speciesId);
 u16 GetTransformationBattleSpecies(u16 speciesId);
 u16 GetTransformationWarpMap(u16 speciesId);
 u16 GetCurrentTransformationSpecies(void);
+bool32 IsSpeciesValidCharacter(u16 speciesId);
+u16 GetCharacterMoves(u16 speciesId, u8 i);
+u16 GetCharacterAbility(u16 speciesId);
+u16 GetCharacterItem(u16 speciesId);
 
 #define TRANSFORM_TYPE_PLAYER_SPECIES 1
 #define AVATAR_POKEMON_CHOICE 1
@@ -59,6 +63,15 @@ struct Transformation
     u16 ability;
     u16 moves[4];
     u16 targetMap;
+};
+
+struct Character
+{
+    u8 name[ITEM_NAME_LENGTH];
+    u16 battleSpecies;
+    u16 ability;
+    u16 item;
+    u16 moves[4];
 };
 
 
