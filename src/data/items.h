@@ -174,6 +174,20 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_QuestionMark,
     },
 
+    [ITEM_CASTFORM_BASE_ICON] =
+    {
+        .name = ITEM_NAME("Castform Icon"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Dummy"),
+        .pocket = POCKET_KEY_ITEMS,
+        .sortType = ITEM_TYPE_UNCATEGORIZED,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_CastformBase,
+        .iconPalette = gItemIconPalette_CastformBase,
+    },
+
 // Poké Balls
 
     [ITEM_STRANGE_BALL] =

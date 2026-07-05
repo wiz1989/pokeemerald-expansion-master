@@ -92,6 +92,8 @@ extern const u32 gPokeblock_Gfx[];
 
 extern const u32 gItemIcon_QuestionMark[];
 extern const u16 gItemIconPalette_QuestionMark[];
+extern const u32 gItemIcon_CastformBase[];
+extern const u16 gItemIconPalette_CastformBase[];
 
 // Decorations
 extern const u32 gDecorIcon_HeavyDesk[];

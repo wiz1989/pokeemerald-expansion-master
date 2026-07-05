@@ -2026,6 +2026,7 @@ static void PlayerHandleChooseAction(enum BattlerId battler)
     for (i = 0; i < 4; i++)
         ActionSelectionDestroyCursorAt(i);
 
+    AddWeatherTriggerSprite();
     TryRestoreLastUsedBall();
     ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
     PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, battler, gBattlerPartyIndexes[battler]);

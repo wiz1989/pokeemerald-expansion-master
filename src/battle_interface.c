@@ -202,6 +202,8 @@ static void Task_FreeAbilityPopUpGfx(u8);
 
 static void SpriteCB_LastUsedBall(struct Sprite *);
 static void SpriteCB_LastUsedBallWin(struct Sprite *);
+static void SpriteCB_WeatherTrigger(struct Sprite *);
+static void SpriteCB_WeatherTriggerWin(struct Sprite *);
 static void SpriteCB_MoveInfoWin(struct Sprite *sprite);
 
 static const struct OamData sOamData_64x32 =
@@ -688,6 +690,8 @@ u8 CreateBattlerHealthboxSprites(enum BattlerId battler)
 
     gBattleStruct->ballSpriteIds[0] = MAX_SPRITES;
     gBattleStruct->ballSpriteIds[1] = MAX_SPRITES;
+    gBattleStruct->weatherSpriteIds[0] = MAX_SPRITES;
+    gBattleStruct->weatherSpriteIds[1] = MAX_SPRITES;
     gBattleStruct->moveInfoSpriteId = MAX_SPRITES;
 
     return healthboxLeftSpriteId;
@@ -2402,6 +2406,7 @@ enum
     TAG_ABILITY_POP_UP_PLAYER2,
     TAG_ABILITY_POP_UP_OPPONENT2,
     TAG_LAST_BALL_WINDOW,
+    TAG_WEATHER_TRIGGER_WINDOW,
 };
 
 static const u32 sAbilityPopUpGfx[] = INCGFX_U32("graphics/battle_interface/ability_pop_up.png", ".4bpp", "-mwidth 8 -mheight 4");
@@ -2765,6 +2770,32 @@ static const struct SpriteTemplate sSpriteTemplate_LastUsedBallWindow =
     .callback = SpriteCB_LastUsedBallWin
 };
 
+// weather change
+static const struct OamData sOamData_WeatherTrigger =
+{
+    .y = 0,
+    .affineMode = 0,
+    .objMode = 0,
+    .mosaic = 0,
+    .bpp = 0,
+    .shape = SPRITE_SHAPE(32x32),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(32x32),
+    .tileNum = 0,
+    .priority = 1,
+    .paletteNum = 0,
+    .affineParam = 0,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_WeatherTriggerWindow =
+{
+    .tileTag = TAG_WEATHER_TRIGGER_WINDOW,
+    .paletteTag = TAG_ABILITY_POP_UP,
+    .oam = &sOamData_WeatherTrigger,
+    .callback = SpriteCB_WeatherTriggerWin
+};
+
 #define MOVE_INFO_WINDOW_TAG 0xE722
 
 static const struct OamData sOamData_MoveInfoWindow =
@@ -2806,6 +2837,12 @@ static const struct SpriteSheet sSpriteSheet_LastUsedBallWindow =
     sLastUsedBallWindowGfx, sizeof(sLastUsedBallWindowGfx), TAG_LAST_BALL_WINDOW
 };
 
+static const u8 ALIGNED(4) sWeatherTriggerWindowGfx[] = INCGFX_U8("graphics/battle_interface/weather_trigger.png", ".4bpp");
+static const struct SpriteSheet sSpriteSheet_WeatherTriggerWindow =
+{
+    sWeatherTriggerWindowGfx, sizeof(sWeatherTriggerWindowGfx), TAG_WEATHER_TRIGGER_WINDOW
+};
+
 #if B_MOVE_DESCRIPTION_BUTTON == R_BUTTON
 static const u8 sMoveInfoWindowGfx[] = INCGFX_U8("graphics/battle_interface/move_info_window_r.png", ".4bpp");
 #else
@@ -2825,6 +2862,17 @@ static const struct SpriteSheet sSpriteSheet_MoveInfoWindow =
 #define LAST_BALL_WIN_X_F       (LAST_USED_BALL_X_F - 0)
 #define LAST_BALL_WIN_X_0       (LAST_USED_BALL_X_0 - 0)
 #define LAST_USED_WIN_Y         (LAST_USED_BALL_Y - 8)
+
+// weather change
+#define WEATHER_TRIGGER_X_F    14
+#define WEATHER_TRIGGER_X_0    -14
+#define WEATHER_TRIGGER_Y      ((IsDoubleBattle()) ? 78 : 68)
+#define WEATHER_TRIGGER_Y_BNC  ((IsDoubleBattle()) ? 76 : 66)
+#define WEATHER_SPRITE_Y       (WEATHER_TRIGGER_Y - 5)
+
+#define WEATHER_TRIGGER_WIN_X_F (WEATHER_TRIGGER_X_F - 0)
+#define WEATHER_TRIGGER_WIN_X_0 (WEATHER_TRIGGER_X_0 - 0)
+#define WEATHER_TRIGGER_WIN_Y   (WEATHER_TRIGGER_Y - 8)
 
 #define sHide  data[0]
 #define sTimer  data[1]
@@ -2915,6 +2963,54 @@ static void DestroyLastUsedBallGfx(struct Sprite *sprite)
     gBattleStruct->ballSpriteIds[0] = MAX_SPRITES;
 }
 
+// weather change
+
+void AddWeatherTriggerSprite(void)
+{
+    // sprite
+    if (gBattleStruct->weatherSpriteIds[0] == MAX_SPRITES)
+    {
+        gBattleStruct->weatherSpriteIds[0] = AddItemIconSprite(102, 102, ITEM_CASTFORM_BASE_ICON);
+        gSprites[gBattleStruct->weatherSpriteIds[0]].x = WEATHER_TRIGGER_X_0;
+        gSprites[gBattleStruct->weatherSpriteIds[0]].y = WEATHER_TRIGGER_Y;
+        gSprites[gBattleStruct->weatherSpriteIds[0]].sHide = FALSE;
+        // gLastUsedBallMenuPresent = TRUE;
+        gSprites[gBattleStruct->weatherSpriteIds[0]].callback = SpriteCB_WeatherTrigger;
+    }
+
+    // window
+    LoadSpritePalette(&sSpritePalette_AbilityPopUp);
+    if (GetSpriteTileStartByTag(TAG_WEATHER_TRIGGER_WINDOW) == 0xFFFF)
+        LoadSpriteSheet(&sSpriteSheet_WeatherTriggerWindow);
+
+    if (gBattleStruct->weatherSpriteIds[1] == MAX_SPRITES)
+    {
+        gBattleStruct->weatherSpriteIds[1] = CreateSprite(&sSpriteTemplate_WeatherTriggerWindow,
+                                                       WEATHER_TRIGGER_X_0,
+                                                       WEATHER_SPRITE_Y, 5);
+        gSprites[gBattleStruct->weatherSpriteIds[1]].sHide = FALSE;
+        gSprites[gBattleStruct->moveInfoSpriteId].sHide = TRUE;
+        gLastUsedBallMenuPresent = TRUE;
+    }
+}
+
+static void DestroyWeatherTriggerWinGfx(struct Sprite *sprite)
+{
+    FreeSpriteTilesByTag(TAG_WEATHER_TRIGGER_WINDOW);
+    if (GetSpriteTileStartByTag(MOVE_INFO_WINDOW_TAG) == 0xFFFF)
+        FreeSpritePaletteByTag(TAG_ABILITY_POP_UP);
+    DestroySprite(sprite);
+    gBattleStruct->weatherSpriteIds[1] = MAX_SPRITES;
+}
+
+static void DestroyWeatherTriggerGfx(struct Sprite *sprite)
+{
+    FreeSpriteTilesByTag(102);
+    FreeSpritePaletteByTag(102);
+    DestroySprite(sprite);
+    gBattleStruct->weatherSpriteIds[0] = MAX_SPRITES;
+}
+
 void TryToAddMoveInfoWindow(void)
 {
     if (!B_SHOW_MOVE_DESCRIPTION)
@@ -2981,6 +3077,44 @@ static void SpriteCB_LastUsedBall(struct Sprite *sprite)
     else
     {
         if (sprite->x != LAST_USED_BALL_X_F)
+            sprite->x++;
+    }
+}
+
+// weather change
+static void SpriteCB_WeatherTriggerWin(struct Sprite *sprite)
+{
+    if (sprite->sHide)
+    {
+        if (sprite->x != WEATHER_TRIGGER_WIN_X_0)
+            sprite->x--;
+
+        if (sprite->x == WEATHER_TRIGGER_WIN_X_0)
+            DestroyWeatherTriggerWinGfx(sprite);
+    }
+    else
+    {
+        if (sprite->x != WEATHER_TRIGGER_WIN_X_F)
+            sprite->x++;
+    }
+}
+
+static void SpriteCB_WeatherTrigger(struct Sprite *sprite)
+{
+    if (sprite->sHide)
+    {
+        if (sprite->y < WEATHER_TRIGGER_Y) // Used to recover from an incomplete bounce before hiding the window
+            sprite->y++;
+
+        if (sprite->x != WEATHER_TRIGGER_X_0)
+            sprite->x--;
+
+        if (sprite->x == WEATHER_TRIGGER_X_0)
+            DestroyWeatherTriggerGfx(sprite);
+    }
+    else
+    {
+        if (sprite->x != WEATHER_TRIGGER_X_F)
             sprite->x++;
     }
 }
