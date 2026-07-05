@@ -60,7 +60,6 @@ static void SpriteCB_IconPoketch(struct Sprite* sprite);
 static void SpriteCB_IconPokedex(struct Sprite* sprite);
 static void SpriteCB_IconParty(struct Sprite* sprite);
 static void SpriteCB_IconBag(struct Sprite* sprite);
-static void SpriteCB_IconTrainerCard(struct Sprite* sprite);
 static void SpriteCB_IconSave(struct Sprite* sprite);
 static void SpriteCB_IconOptions(struct Sprite* sprite);
 static void SpriteCB_IconFlag(struct Sprite* sprite);
@@ -100,7 +99,6 @@ enum MENU {
   MENU_PARTY,
   MENU_BAG,
   MENU_POKETCH,
-  MENU_TRAINER_CARD,
   MENU_SAVE,
   MENU_OPTIONS,
   MENU_FLAG,
@@ -419,16 +417,6 @@ static const struct SpriteTemplate gSpriteIconBag = {
     .callback = SpriteCB_IconBag,
 };
 
-static const struct SpriteTemplate gSpriteIconTrainerCard = {
-    .tileTag = TAG_ICON_GFX,
-    .paletteTag = TAG_ICON_PAL,
-    .oam = &gOamIcon,
-    .anims = gIconTrainerCardAnim,
-    .images = NULL,
-    .affineAnims = sAffineAnimsIcon,
-    .callback = SpriteCB_IconTrainerCard,
-};
-
 static const struct SpriteTemplate gSpriteIconSave = {
     .tileTag = TAG_ICON_GFX,
     .paletteTag = TAG_ICON_PAL,
@@ -498,17 +486,6 @@ static void SpriteCB_IconBag(struct Sprite* sprite) {
     StartSpriteAnim(sprite, 1);
     StartSpriteAffineAnim(sprite, 1);
   } else if (menuSelected != MENU_BAG) {
-    StartSpriteAnim(sprite, 0);
-    StartSpriteAffineAnim(sprite, 0);
-  } 
-}
-
-static void SpriteCB_IconTrainerCard(struct Sprite* sprite) {
-  if (menuSelected == MENU_TRAINER_CARD && sHeatStartMenu->flag == FLAG_VALUE_NOT_SET) {
-    sHeatStartMenu->flag = FLAG_VALUE_SET;
-    StartSpriteAnim(sprite, 1);
-    StartSpriteAffineAnim(sprite, 1);
-  } else if (menuSelected != MENU_TRAINER_CARD) {
     StartSpriteAnim(sprite, 0);
     StartSpriteAffineAnim(sprite, 0);
   } 
@@ -676,8 +653,8 @@ static void HeatStartMenu_CreateSprites(void) {
   u32 x = 224;
   u32 y1 = 14;
   u32 y2 = 38;
-  u32 y3 = 60;
-  u32 y4 = 84;
+  u32 y3 = 64;
+  u32 y4 = 89;
   u32 y5 = 109;
   u32 y6 = 130;
   u32 y7 = 150;
@@ -687,7 +664,7 @@ static void HeatStartMenu_CreateSprites(void) {
     sHeatStartMenu->spriteIdParty   = CreateSprite(&gSpriteIconParty, x, y2-3, 0);
     sHeatStartMenu->spriteIdBag     = CreateSprite(&gSpriteIconBag, x, y3-2, 0);
     sHeatStartMenu->spriteIdPoketch = CreateSprite(&gSpriteIconPoketch, x, y4+1, 0);
-    sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y5, 0);
+    // sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y5, 0);
     sHeatStartMenu->spriteIdSave    = CreateSprite(&gSpriteIconSave, x, y6, 0);
     sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y7, 0);
     return;
@@ -695,22 +672,22 @@ static void HeatStartMenu_CreateSprites(void) {
     sHeatStartMenu->spriteIdPokedex = CreateSprite(&gSpriteIconPokedex, x-1, y1, 0);
     sHeatStartMenu->spriteIdParty = CreateSprite(&gSpriteIconParty, x, y2-1, 0);
     sHeatStartMenu->spriteIdBag     = CreateSprite(&gSpriteIconBag, x, y3+1, 0);
-    sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y4 + 2, 0);
-    sHeatStartMenu->spriteIdSave    = CreateSprite(&gSpriteIconSave, x, y5 - 1, 0);
-    sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y6-2, 0);
+    // sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y4 + 2, 0);
+    sHeatStartMenu->spriteIdSave    = CreateSprite(&gSpriteIconSave, x, y4 - 1, 0);
+    sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y5-2, 0);
     return;
   } else if (FlagGet(FLAG_SYS_POKEMON_GET) == TRUE) {
     sHeatStartMenu->spriteIdParty = CreateSprite(&gSpriteIconParty, x, y1, 0);
     sHeatStartMenu->spriteIdBag     = CreateSprite(&gSpriteIconBag, x, y2 + 1, 0);
-    sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y3 + 3, 0);
-    sHeatStartMenu->spriteIdSave    = CreateSprite(&gSpriteIconSave, x, y4 + 1, 0);
-    sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y5 - 4, 0);
+    // sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y3 + 3, 0);
+    sHeatStartMenu->spriteIdSave    = CreateSprite(&gSpriteIconSave, x, y3 + 1, 0);
+    sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y4 - 4, 0);
     return;
   } else {
     sHeatStartMenu->spriteIdBag     = CreateSprite(&gSpriteIconBag, x, y1, 0);
-    sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y2 + 1, 0);
-    sHeatStartMenu->spriteIdSave    = CreateSprite(&gSpriteIconSave, x, y3 + 3, 0);
-    sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y4 + 1, 0);
+    // sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y2 + 1, 0);
+    sHeatStartMenu->spriteIdSave    = CreateSprite(&gSpriteIconSave, x, y2 + 3, 0);
+    sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y3 + 1, 0);
   }
 }
 
@@ -720,14 +697,14 @@ static void HeatStartMenu_SafariZone_CreateSprites(void) {
   u32 y2 = 38;
   u32 y3 = 60;
   u32 y4 = 84;
-  u32 y5 = 109;
+  u32 UNUSED y5 = 109;
   u32 y6 = 130;
 
   sHeatStartMenu->spriteIdFlag = CreateSprite(&gSpriteIconFlag, x, y1, 0);
   sHeatStartMenu->spriteIdPokedex = CreateSprite(&gSpriteIconPokedex, x-1, y2, 0);
   sHeatStartMenu->spriteIdParty   = CreateSprite(&gSpriteIconParty, x, y3, 0);
   sHeatStartMenu->spriteIdBag     = CreateSprite(&gSpriteIconBag, x, y4, 0);
-  sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y5, 0);
+  // sHeatStartMenu->spriteIdTrainerCard = CreateSprite(&gSpriteIconTrainerCard, x, y5, 0);
   sHeatStartMenu->spriteIdOptions = CreateSprite(&gSpriteIconOptions, x, y6, 0);
 }
 
@@ -816,7 +793,7 @@ static const u8 gText_Poketch[] = _("  PokeNav");
 static const u8 gText_Pokedex[] = _("  Pokédex");
 static const u8 gText_Party[]   = _("    Party ");
 static const u8 gText_Bag[]     = _("      Bag  ");
-static const u8 gText_Trainer[] = _("   Trainer");
+// static const u8 gText_Trainer[] = _("   Trainer");
 static const u8 gText_Save[]    = _("     Save  ");
 static const u8 gText_Options[] = _("   Options");
 static const u8 gText_Flag[]    = _("   Retire");
@@ -838,9 +815,6 @@ static void HeatStartMenu_UpdateMenuName(void) {
       break;
     case MENU_BAG:
       AddTextPrinterParameterized(sHeatStartMenu->sMenuNameWindowId, 1, gText_Bag, 1, 0, 0xFF, NULL);
-      break;
-    case MENU_TRAINER_CARD:
-      AddTextPrinterParameterized(sHeatStartMenu->sMenuNameWindowId, 1, gText_Trainer, 1, 0, 0xFF, NULL);
       break;
     case MENU_SAVE:
       AddTextPrinterParameterized(sHeatStartMenu->sMenuNameWindowId, 1, gText_Save, 1, 0, 0xFF, NULL);
@@ -936,7 +910,7 @@ static void DoCleanUpAndChangeCallback(MainCallback callback) {
   }
 }
 
-static void DoCleanUpAndOpenTrainerCard(void) {
+static void UNUSED DoCleanUpAndOpenTrainerCard(void) {
   if (!gPaletteFade.active) {
     PlayRainStoppingSoundEffect();
     HeatStartMenu_ExitAndClearTilemap();
@@ -1323,9 +1297,6 @@ static void HeatStartMenu_OpenMenu(void) {
     case MENU_BAG: 
       DoCleanUpAndChangeCallback(CB2_BagMenuFromStartMenu);
       break;
-    case MENU_TRAINER_CARD:
-      DoCleanUpAndOpenTrainerCard();
-      break;
     case MENU_OPTIONS:
       DoCleanUpAndChangeCallback(CB2_InitOptionMenu);
       break;
@@ -1370,11 +1341,12 @@ static void HeatStartMenu_HandleInput_DPADUP(void) {
     case MENU_POKEDEX:
       menuSelected = MENU_OPTIONS;
       break;
+    case MENU_SAVE:
+      menuSelected = MENU_BAG;
+      break;
     default:
       PlaySE(SE_SELECT);
-      if (FlagGet(FLAG_SYS_POKENAV_GET) == FALSE && menuSelected == MENU_TRAINER_CARD) {
-        menuSelected -= 2;
-      } else if ((FlagGet(FLAG_SYS_POKEMON_GET) == FALSE && menuSelected == MENU_BAG) || (FlagGet(FLAG_SYS_POKEDEX_GET) == FALSE && menuSelected == MENU_PARTY)) {
+      if ((FlagGet(FLAG_SYS_POKEMON_GET) == FALSE && menuSelected == MENU_BAG) || (FlagGet(FLAG_SYS_POKEDEX_GET) == FALSE && menuSelected == MENU_PARTY)) {
         menuSelected = MENU_OPTIONS;
         break;
       } else {
@@ -1430,8 +1402,6 @@ static void HeatStartMenu_SafariZone_HandleInput_DPADDOWN(void) {
       if (menuSelected == MENU_FLAG) {
         menuSelected = MENU_POKEDEX;
       } else if (menuSelected == MENU_BAG) {
-        menuSelected = MENU_TRAINER_CARD;
-      } else if (menuSelected == MENU_TRAINER_CARD) {
         menuSelected = MENU_OPTIONS;
       } else {
         menuSelected++;
@@ -1453,8 +1423,6 @@ static void HeatStartMenu_SafariZone_HandleInput_DPADUP(void) {
       if (menuSelected == MENU_POKEDEX) {
         menuSelected = MENU_FLAG;
       } else if (menuSelected == MENU_OPTIONS) {
-        menuSelected = MENU_TRAINER_CARD;
-      } else if (menuSelected == MENU_TRAINER_CARD) {
         menuSelected = MENU_BAG;
       } else {
         menuSelected--;
