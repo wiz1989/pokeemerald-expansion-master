@@ -243,6 +243,19 @@ static void HandleInputChooseAction(enum BattlerId battler)
     else
         gPlayerDpadHoldFrames = 0;
 
+    // weather trigger window handling
+    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && gWeatherChangeMenuPresent)
+    {
+        gWeatherChangeMenuSlidingSpeed = 2;
+
+        if (gWeatherChangeMenuOpened)
+            gWeatherChangeMenuOpened = FALSE;
+        else
+            gWeatherChangeMenuOpened = TRUE;
+        PlaySE(SE_SELECT);
+        SlideOutWeatherTriggerWin(TRUE);
+    }
+
     if (B_LAST_USED_BALL == TRUE && B_LAST_USED_BALL_CYCLE == TRUE
     && !(B_LAST_USED_BALL_BUTTON == L_BUTTON && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A))
     {

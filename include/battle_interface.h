@@ -134,6 +134,7 @@ void TryRestoreLastUsedBall(void);
 void TryAddLastUsedBallItemSprites(void);
 void TryHideWeatherTrigger(void);
 void TryRestoreWeatherTrigger(void);
+void SlideOutWeatherTriggerWin(bool8 slideIn);
 void AddWeatherTriggerSprite(void);
 void SwapBallToDisplay(bool32 sameBall);
 void ArrowsChangeColorLastBallCycle(bool32 showArrows);

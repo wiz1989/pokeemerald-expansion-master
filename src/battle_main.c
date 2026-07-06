@@ -241,6 +241,9 @@ EWRAM_DATA u16 gLastUsedBall = 0;
 EWRAM_DATA u16 gLastThrownBall = 0;
 EWRAM_DATA u16 gBallToDisplay = 0;
 EWRAM_DATA bool8 gLastUsedBallMenuPresent = FALSE;
+EWRAM_DATA bool8 gWeatherChangeMenuPresent = FALSE;
+EWRAM_DATA bool8 gWeatherChangeMenuOpened = FALSE;
+EWRAM_DATA u8 gWeatherChangeMenuSlidingSpeed = 0;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 

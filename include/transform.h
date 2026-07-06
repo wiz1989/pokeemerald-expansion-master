@@ -33,6 +33,11 @@ u16 GetCharacterMoves(u16 speciesId, u8 i);
 u16 GetCharacterAbility(u16 speciesId);
 u16 GetCharacterItem(u16 speciesId);
 
+#define PHASE_BASE  0
+#define PHASE_SUNNY 1
+#define PHASE_RAINY 2
+#define PHASE_SNOWY 3
+
 #define TRANSFORM_TYPE_PLAYER_SPECIES 1
 #define AVATAR_POKEMON_CHOICE 1
 

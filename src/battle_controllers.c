@@ -1533,8 +1533,6 @@ static u32 GetBattlerMonData(enum BattlerId battler, struct Pokemon *party, u32 
                 u16 species = GetCurrentTransformationSpecies();
                 u8 transformedAbilityNum = 0;
 
-                DebugPrintf("Battle init - species: %d", species);
-
                 battleMon.species = species;
                 battleMon.abilityNum = transformedAbilityNum;
 
@@ -2930,8 +2928,6 @@ static void SpriteCB_PlayerMonSlideInFromRight(struct Sprite *sprite)
         sprite->data[0] = sprite->sBattlerId;
         sprite->sBackAnimStarted = TRUE;
 
-        DebugPrintf("slide in species: %d", sprite->sSpecies);
-
         // overwrite sprite species in Observer battles to read correct back anim
         if (IsObserverBattle())
             sprite->sSpecies = gBattleMons[0].species;
@@ -2964,8 +2960,7 @@ void BtlController_HandleIntroTrainerBallThrow(enum BattlerId battler, u16 tagTr
     if (side == B_SIDE_PLAYER && PlayerIsCastform())
     {
         enum Species species = GetCurrentTransformationSpecies();
-        DebugPrintf("intro species: %d", species);
-
+        
         // create battler sprite and slide in
         BattleLoadMonSpriteGfx(GetBattlerMon(battler), battler);
         SetMultiuseSpriteTemplateToPokemon(species, GetBattlerPosition(battler));
