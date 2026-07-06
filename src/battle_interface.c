@@ -2965,6 +2965,45 @@ static void DestroyLastUsedBallGfx(struct Sprite *sprite)
 
 // weather change
 
+static void TryHideOrRestoreWeatherTrigger(u8 caseId)
+{
+    if (gBattleStruct->weatherSpriteIds[0] == MAX_SPRITES)
+        return;
+
+    switch (caseId)
+    {
+    case 0: // hide
+        if (gBattleStruct->weatherSpriteIds[0] != MAX_SPRITES)
+            gSprites[gBattleStruct->weatherSpriteIds[0]].sHide = TRUE;
+        if (gBattleStruct->weatherSpriteIds[1] != MAX_SPRITES)
+            gSprites[gBattleStruct->weatherSpriteIds[1]].sHide = TRUE;
+        gLastUsedBallMenuPresent = FALSE;
+        break;
+    case 1: // restore
+        if (gBattleStruct->weatherSpriteIds[0] != MAX_SPRITES)
+            gSprites[gBattleStruct->weatherSpriteIds[0]].sHide = FALSE;
+        if (gBattleStruct->weatherSpriteIds[1] != MAX_SPRITES)
+            gSprites[gBattleStruct->weatherSpriteIds[1]].sHide = FALSE;
+        gLastUsedBallMenuPresent = TRUE;
+        break;
+    }
+    if (B_LAST_USED_BALL_CYCLE == TRUE)
+        ArrowsChangeColorLastBallCycle(0); //Default the arrows to be invisible
+}
+
+void TryHideWeatherTrigger(void)
+{
+    TryHideOrRestoreWeatherTrigger(0);
+}
+
+void TryRestoreWeatherTrigger(void)
+{
+    if (gBattleStruct->weatherSpriteIds[0] != MAX_SPRITES)
+        TryHideOrRestoreWeatherTrigger(1);
+    else
+        AddWeatherTriggerSprite();
+}
+
 void AddWeatherTriggerSprite(void)
 {
     // sprite

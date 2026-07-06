@@ -295,6 +295,7 @@ static void HandleInputChooseAction(enum BattlerId battler)
                 PlaySE(SE_SELECT);
                 ArrowsChangeColorLastBallCycle(FALSE);
                 TryHideLastUsedBall();
+                TryHideWeatherTrigger();
                 BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_THROW_BALL, 0);
                 BtlController_Complete(battler);
             }
@@ -306,6 +307,7 @@ static void HandleInputChooseAction(enum BattlerId battler)
     {
         PlaySE(SE_SELECT);
         TryHideLastUsedBall();
+        TryHideWeatherTrigger();
 
         switch (gActionSelectionCursor[battler])
         {
@@ -405,6 +407,7 @@ static void HandleInputChooseAction(enum BattlerId battler)
     {
         PlaySE(SE_SELECT);
         TryHideLastUsedBall();
+        TryHideWeatherTrigger();
         BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_THROW_BALL, 0);
         BtlController_Complete(battler);
     }
@@ -445,6 +448,7 @@ void HandleInputChooseTarget(enum BattlerId battler)
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
         EndBounceEffect(gMultiUsePlayerCursor, BOUNCE_HEALTHBOX);
         TryHideLastUsedBall();
+        TryHideWeatherTrigger();
         HideGimmickTriggerSprite();
         BtlController_Complete(battler);
     }
@@ -647,6 +651,7 @@ void HandleInputShowTargets(enum BattlerId battler)
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
         HideGimmickTriggerSprite();
         TryHideLastUsedBall();
+        TryHideWeatherTrigger();
         BtlController_Complete(battler);
     }
     else if (JOY_NEW(B_BUTTON) || gPlayerDpadHoldFrames > 59)
@@ -773,6 +778,7 @@ void HandleInputChooseMove(enum BattlerId battler)
                 BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_EXEC_SCRIPT, gMoveSelectionCursor[battler] | (gMultiUsePlayerCursor << 8));
             HideGimmickTriggerSprite();
             TryHideLastUsedBall();
+            TryHideWeatherTrigger();
             BtlController_Complete(battler);
             break;
         case 1:
@@ -2026,7 +2032,7 @@ static void PlayerHandleChooseAction(enum BattlerId battler)
     for (i = 0; i < 4; i++)
         ActionSelectionDestroyCursorAt(i);
 
-    AddWeatherTriggerSprite();
+    TryRestoreWeatherTrigger();
     TryRestoreLastUsedBall();
     ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
     PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, battler, gBattlerPartyIndexes[battler]);
