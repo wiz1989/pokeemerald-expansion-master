@@ -2893,7 +2893,7 @@ static const struct SpriteSheet sSpriteSheet_MoveInfoWindow =
 #define WEATHER_TRIGGER_ICON_X_POS2     14 + WEATHER_TRIGGER_ICON_WIDTH
 #define WEATHER_TRIGGER_ICON_X_POS3     14 + 2 * WEATHER_TRIGGER_ICON_WIDTH
 #define WEATHER_TRIGGER_ICON_X_POS4     14 + 3 * WEATHER_TRIGGER_ICON_WIDTH
-#define WEATHER_TRIGGER_ICON_X_HIDDEN   -10
+#define WEATHER_TRIGGER_ICON_X_HIDDEN   (WEATHER_TRIGGER_ICON_X_POS1 - WEATHER_TRIGGER_ICON_WIDTH)
 #define WEATHER_TRIGGER_ICON_X_HIDDEN_0 WEATHER_TRIGGER_ICON_X_HIDDEN
 #define WEATHER_TRIGGER_ICON_X_HIDDEN_1 WEATHER_TRIGGER_ICON_X_HIDDEN_0
 #define WEATHER_TRIGGER_ICON_X_HIDDEN_2 (WEATHER_TRIGGER_ICON_X_HIDDEN_0 - WEATHER_TRIGGER_ICON_WIDTH)
@@ -2976,7 +2976,8 @@ void TryAddLastUsedBallItemSprites(void)
                                                        LAST_BALL_WIN_X_0,
                                                        LAST_USED_WIN_Y, 5);
         gSprites[gBattleStruct->ballSpriteIds[1]].sHide = FALSE;
-        gSprites[gBattleStruct->moveInfoSpriteId].sHide = TRUE;
+        if (gBattleStruct->moveInfoSpriteId != MAX_SPRITES)
+            gSprites[gBattleStruct->moveInfoSpriteId].sHide = TRUE;
         gLastUsedBallMenuPresent = TRUE;
     }
     if (B_LAST_USED_BALL_CYCLE == TRUE)
@@ -2986,7 +2987,9 @@ void TryAddLastUsedBallItemSprites(void)
 static void DestroyLastUsedBallWinGfx(struct Sprite *sprite)
 {
     FreeSpriteTilesByTag(TAG_LAST_BALL_WINDOW);
-    if (GetSpriteTileStartByTag(MOVE_INFO_WINDOW_TAG) == 0xFFFF)
+    if (GetSpriteTileStartByTag(MOVE_INFO_WINDOW_TAG) == 0xFFFF
+     && GetSpriteTileStartByTag(TAG_WEATHER_TRIGGER_WINDOW_LEFT) == 0xFFFF
+     && GetSpriteTileStartByTag(TAG_WEATHER_TRIGGER_WINDOW_RIGHT) == 0xFFFF)
         FreeSpritePaletteByTag(TAG_ABILITY_POP_UP);
     DestroySprite(sprite);
     gBattleStruct->ballSpriteIds[1] = MAX_SPRITES;
@@ -3136,7 +3139,8 @@ void AddWeatherTriggerSprite(void)
                                                        WEATHER_SPRITE_Y, 5);
         gSprites[gBattleStruct->weatherSpriteIds[4]].sStichOffsetX = 0;
         gSprites[gBattleStruct->weatherSpriteIds[4]].sHide = FALSE;
-        gSprites[gBattleStruct->moveInfoSpriteId].sHide = TRUE;
+        if (gBattleStruct->moveInfoSpriteId != MAX_SPRITES)
+            gSprites[gBattleStruct->moveInfoSpriteId].sHide = TRUE;
         gWeatherChangeMenuPresent = TRUE;
     }
 
@@ -3159,7 +3163,8 @@ static void DestroyWeatherTriggerWinGfx(struct Sprite *sprite)
 
     FreeSpriteTilesByTag(TAG_WEATHER_TRIGGER_WINDOW_LEFT);
     FreeSpriteTilesByTag(TAG_WEATHER_TRIGGER_WINDOW_RIGHT);
-    if (GetSpriteTileStartByTag(MOVE_INFO_WINDOW_TAG) == 0xFFFF)
+    if (GetSpriteTileStartByTag(MOVE_INFO_WINDOW_TAG) == 0xFFFF
+     && GetSpriteTileStartByTag(TAG_LAST_BALL_WINDOW) == 0xFFFF)
         FreeSpritePaletteByTag(TAG_ABILITY_POP_UP);
 
     (void)sprite; // unused parameter
@@ -3169,11 +3174,17 @@ static void DestroyWeatherTriggerWinGfx(struct Sprite *sprite)
 
 static void FreeWeatherTriggerGfx(void)
 {
-    FreeSpriteTilesByTag(102);
-    FreeSpriteTilesByTag(103);
-    FreeSpriteTilesByTag(104);
-    FreeSpriteTilesByTag(105);
-    FreeSpritePaletteByTag(102);
+    if (gBattleStruct->weatherSpriteIds[0] == MAX_SPRITES)
+        FreeSpriteTilesByTag(102);
+    if (gBattleStruct->weatherSpriteIds[1] == MAX_SPRITES)
+        FreeSpriteTilesByTag(103);
+    if (gBattleStruct->weatherSpriteIds[2] == MAX_SPRITES)
+        FreeSpriteTilesByTag(104);
+    if (gBattleStruct->weatherSpriteIds[3] == MAX_SPRITES)
+        FreeSpriteTilesByTag(105);
+    // pal is shared by all icons; free only when icon 0 (the last to leave) is gone.
+    if (gBattleStruct->weatherSpriteIds[0] == MAX_SPRITES)
+        FreeSpritePaletteByTag(102);
 }
 
 void TryToAddMoveInfoWindow(void)
@@ -3193,17 +3204,24 @@ void TryToAddMoveInfoWindow(void)
         gBattleStruct->moveInfoSpriteId = CreateSprite(&sSpriteTemplate_MoveInfoWindow, LAST_BALL_WIN_X_0, LAST_USED_WIN_Y + 32 + 5, 6);
         gSprites[gBattleStruct->moveInfoSpriteId].sHide = FALSE;
     }
+    else
+    {
+        gSprites[gBattleStruct->moveInfoSpriteId].sHide = FALSE;
+    }
 }
 
 void TryToHideMoveInfoWindow(void)
 {
-    gSprites[gBattleStruct->moveInfoSpriteId].sHide = TRUE;
+    if (gBattleStruct->moveInfoSpriteId != MAX_SPRITES)
+        gSprites[gBattleStruct->moveInfoSpriteId].sHide = TRUE;
 }
 
 static void DestroyMoveInfoWinGfx(struct Sprite *sprite)
 {
     FreeSpriteTilesByTag(MOVE_INFO_WINDOW_TAG);
-    if (GetSpriteTileStartByTag(TAG_LAST_BALL_WINDOW) == 0xFFFF)
+    if (GetSpriteTileStartByTag(TAG_LAST_BALL_WINDOW) == 0xFFFF
+     && GetSpriteTileStartByTag(TAG_WEATHER_TRIGGER_WINDOW_LEFT) == 0xFFFF
+     && GetSpriteTileStartByTag(TAG_WEATHER_TRIGGER_WINDOW_RIGHT) == 0xFFFF)
         FreeSpritePaletteByTag(TAG_ABILITY_POP_UP);
     DestroySprite(sprite);
     gBattleStruct->moveInfoSpriteId = MAX_SPRITES;
@@ -3337,8 +3355,6 @@ static void SpriteCB_WeatherTriggerIcon_0(struct Sprite *sprite)
         break;
     }
 
-    DebugPrintf("target Base = %d", targetX);
-
     // set to base position of menu wasn't opened yet
     if (!gWeatherChangeMenuOpened)
         targetX = WEATHER_TRIGGER_ICON_X_POS1;
@@ -3392,8 +3408,6 @@ static void SpriteCB_WeatherTriggerIcon_1(struct Sprite *sprite)
         break;
     }
 
-    DebugPrintf("target Sunny = %d", targetX);
-
     // set to hidden position if menu wasn't opened yet
     if (!gWeatherChangeMenuOpened)
         targetX = WEATHER_TRIGGER_ICON_X_HIDDEN_1;
@@ -3444,8 +3458,6 @@ static void SpriteCB_WeatherTriggerIcon_2(struct Sprite *sprite)
         targetX = WEATHER_TRIGGER_ICON_X_HIDDEN_2;
         break;
     }
-
-    DebugPrintf("target Rainy = %d", targetX);
 
     // set to hidden position if menu wasn't opened yet
     if (!gWeatherChangeMenuOpened)
