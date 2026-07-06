@@ -174,20 +174,6 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_QuestionMark,
     },
 
-    [ITEM_CASTFORM_BASE_ICON] =
-    {
-        .name = ITEM_NAME("Castform Icon"),
-        .price = 0,
-        .description = COMPOUND_STRING(
-            "Dummy"),
-        .pocket = POCKET_KEY_ITEMS,
-        .sortType = ITEM_TYPE_UNCATEGORIZED,
-        .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
-        .iconPic = gItemIcon_CastformBase,
-        .iconPalette = gItemIconPalette_CastformBase,
-    },
-
 // Poké Balls
 
     [ITEM_STRANGE_BALL] =
@@ -15845,6 +15831,64 @@ const struct ItemInfo gItemsInfo[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
+    },
+
+    // Castform icon - dummy items
+
+    [ITEM_CASTFORM_BASE_ICON] =
+    {
+        .name = ITEM_NAME("Castform Icon"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Dummy"),
+        .pocket = POCKET_KEY_ITEMS,
+        .sortType = ITEM_TYPE_UNCATEGORIZED,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_CastformBase,
+        .iconPalette = gItemIconPalette_CastformBase,
+    },
+
+    [ITEM_CASTFORM_SUNNY_ICON] =
+    {
+        .name = ITEM_NAME("Castform Icon"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Dummy"),
+        .pocket = POCKET_KEY_ITEMS,
+        .sortType = ITEM_TYPE_UNCATEGORIZED,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_CastformSunny,
+        .iconPalette = gItemIconPalette_CastformBase,
+    },
+
+    [ITEM_CASTFORM_RAINY_ICON] =
+    {
+        .name = ITEM_NAME("Castform Icon"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Dummy"),
+        .pocket = POCKET_KEY_ITEMS,
+        .sortType = ITEM_TYPE_UNCATEGORIZED,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_CastformRainy,
+        .iconPalette = gItemIconPalette_CastformBase,
+    },
+
+    [ITEM_CASTFORM_SNOWY_ICON] =
+    {
+        .name = ITEM_NAME("Castform Icon"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Dummy"),
+        .pocket = POCKET_KEY_ITEMS,
+        .sortType = ITEM_TYPE_UNCATEGORIZED,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_CastformSnowy,
+        .iconPalette = gItemIconPalette_CastformBase,
     },
 };
 
