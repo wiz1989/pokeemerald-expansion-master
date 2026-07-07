@@ -400,7 +400,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_SANDSTORMBREWED]                      = COMPOUND_STRING("A sandstorm kicked up!"),
     [STRINGID_SANDSTORMRAGES]                       = COMPOUND_STRING("The sandstorm is raging."),
     [STRINGID_SANDSTORMSUBSIDED]                    = COMPOUND_STRING("The sandstorm subsided."),
-    [STRINGID_SUNLIGHTGOTBRIGHT]                    = COMPOUND_STRING("The sunlight turned harsh!"),
+    [STRINGID_SUNLIGHTGOTBRIGHT]                    = COMPOUND_STRING("The sunlight got bright!"),
     [STRINGID_SUNLIGHTSTRONG]                       = COMPOUND_STRING("The sunlight is strong."), //not in gen 5+
     [STRINGID_SUNLIGHTFADED]                        = COMPOUND_STRING("The sunlight faded."),
     [STRINGID_STARTEDHAIL]                          = COMPOUND_STRING("It started to hail!"),
@@ -428,6 +428,7 @@ const u8 *const gBattleStringsTable[STRINGID_COUNT] =
     [STRINGID_GIVENICKNAMECAPTURED]                 = COMPOUND_STRING("Would you like to give {B_DEF_NAME} a nickname?"),
     [STRINGID_PKMNDATAADDEDTODEX]                   = COMPOUND_STRING("{B_DEF_NAME}'s data has been added to the Pokédex!\p"),
     [STRINGID_ITISRAINING]                          = COMPOUND_STRING("It's raining!"),
+    [STRINGID_SUNISSHINING]                         = COMPOUND_STRING("The sunlight is strong!"),
     [STRINGID_SANDSTORMISRAGING]                    = COMPOUND_STRING("The sandstorm is raging!"),
     [STRINGID_CANTESCAPE2]                          = COMPOUND_STRING("You couldn't get away!\p"),
     [STRINGID_PKMNIGNORESASLEEP]                    = COMPOUND_STRING("{B_ATK_NAME_WITH_PREFIX} ignored orders and kept sleeping!"),
@@ -1270,8 +1271,8 @@ const u16 gBallEscapeStringIds[] =
 const u16 gWeatherStartsStringIds[] =
 {
     [WEATHER_NONE]               = STRINGID_ITISRAINING,
-    [WEATHER_SUNNY_CLOUDS]       = STRINGID_ITISRAINING,
-    [WEATHER_SUNNY]              = STRINGID_ITISRAINING,
+    [WEATHER_SUNNY_CLOUDS]       = STRINGID_SUNISSHINING,
+    [WEATHER_SUNNY]              = STRINGID_SUNISSHINING,
     [WEATHER_RAIN]               = STRINGID_ITISRAINING,
     [WEATHER_SNOW]               = (B_OVERWORLD_SNOW >= GEN_9 ? STRINGID_ITISSNOWING : STRINGID_ITISHAILING),
     [WEATHER_RAIN_THUNDERSTORM]  = STRINGID_ITISRAINING,

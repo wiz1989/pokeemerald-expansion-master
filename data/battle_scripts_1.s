@@ -2304,6 +2304,13 @@ BattleScript_MoveWeatherChangeRet::
 	call BattleScript_ActivateWeatherAbilities
 	return
 
+BattleScript_BattleWeatherStarts::
+	printfromtable gMoveWeatherChangeStringIds
+	waitmessage B_WAIT_TIME_LONG
+	playanimation_var BS_BATTLER_0, sB_ANIM_ARG1
+	call BattleScript_ActivateWeatherAbilities
+	end3
+
 BattleScript_FailOnPrimalWeather::
 	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, B_WEATHER_SUN_PRIMAL, BattleScript_ExtremelyHarshSunlightWasNotLessened
 	jumpifhalfword CMP_COMMON_BITS, gBattleWeather, B_WEATHER_RAIN_PRIMAL, BattleScript_NoReliefFromHeavyRain
@@ -3166,6 +3173,12 @@ BattleScript_WeatherFaded::
 	waitmessage B_WAIT_TIME_LONG
 	call BattleScript_ActivateWeatherAbilities
 	return
+
+BattleScript_TurnStartWeatherFaded::
+	printfromtable gWeatherEndsStringIds
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_ActivateWeatherAbilities
+	end3
 
 BattleScript_DamagingWeather::
 	printfromtable gSandStormHailDmgStringIds

@@ -244,6 +244,9 @@ EWRAM_DATA bool8 gLastUsedBallMenuPresent = FALSE;
 EWRAM_DATA bool8 gWeatherChangeMenuPresent = FALSE;
 EWRAM_DATA bool8 gWeatherChangeMenuOpened = FALSE;
 EWRAM_DATA u8 gWeatherChangeMenuSlidingSpeed = 0;
+EWRAM_DATA u32 gWeatherChangeMenuChosenWeather = 0;
+EWRAM_DATA bool8 gWeatherChangeMenuNewWeatherSelected = FALSE;
+EWRAM_DATA bool8 gWeatherChangingScriptIsRunning = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 
@@ -5310,6 +5313,81 @@ static void CheckChangingTurnOrderEffects(void)
     gBattleCommunication[3] = 0;
     gBattleCommunication[4] = 0;
     gBattleResources->battleScriptsStack->size = 0;
+}
+
+void HandleWeatherChange(void)
+{
+    // check if script has finished (new weather no longer selected)
+    if (!gWeatherChangeMenuNewWeatherSelected)
+    {
+        // step 3: restore action selection state
+        gWeatherChangingScriptIsRunning = FALSE;
+        // reset controller state just in case
+        SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        gBattleCommunication[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = STATE_BEFORE_ACTION_CHOSEN;
+        gBattleMainFunc = HandleTurnActionSelectionState;
+        return;
+    }
+
+    // step 1: gBattleControllerExecFlags holds battler data when triggered first
+    // returns early without script execution
+    if (gBattleControllerExecFlags != 0)
+    {
+        // reset weatherAbilityDone to allow consecutive form changes
+        for (enum BattlerId i = 0; i < gBattlersCount; i++)
+            gBattleMons[i].volatiles.weatherAbilityDone = FALSE;
+
+        // change battle weather and set all script data
+        switch (gWeatherChangeMenuChosenWeather)
+        {
+        case NEXT_WEATHER_NONE:
+        {
+            u32 currWeather = GetCurrentBattleWeather();
+            if (currWeather != 0xFF)
+            {
+                // weather currently active: set end message for the weather change script
+                gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeatherEndMessage();
+                gBattleWeather = B_WEATHER_NONE;
+            }
+            else
+            {
+                // nothing to do
+                gWeatherChangeMenuNewWeatherSelected = FALSE;
+            }
+            break;
+        }
+        case NEXT_WEATHER_SUN:
+            gBattleWeather = B_WEATHER_SUN;
+            gBattleScripting.animArg1 = B_ANIM_SUN_CONTINUES;
+            break;
+        case NEXT_WEATHER_RAIN:
+            gBattleWeather = B_WEATHER_RAIN;
+            gBattleScripting.animArg1 = B_ANIM_RAIN_CONTINUES;
+            break;
+        case NEXT_WEATHER_SNOW:
+            gBattleWeather = B_WEATHER_SNOW;
+            gBattleScripting.animArg1 = B_ANIM_SNOW_CONTINUES;
+            break;
+        }
+        return;
+    }
+
+    // step 2: run script!
+    // gBattleControllerExecFlags is now 0
+    // HandleWeatherChange() is set as gBattleMainFunc
+
+    // restore player controller to PlayerBufferRunCommand
+    // (to stop HandleInputChooseAction from taking over, stopping script execution)
+    SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+
+    gWeatherChangeMenuNewWeatherSelected = FALSE; // guard for step 3
+    if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_NONE)
+        BattleScriptExecute(BattleScript_TurnStartWeatherFaded);
+    else
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeatherStartMessage();
+        BattleScriptExecute(BattleScript_BattleWeatherStarts);
+    }
 }
 
 static void RunTurnActionsFunctions(void)

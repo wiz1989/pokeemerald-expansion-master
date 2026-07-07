@@ -3062,20 +3062,20 @@ void TryRestoreWeatherTrigger(void)
 }
 
 // Trigger the slide animation for weather trigger sprites
-void SlideOutWeatherTriggerWin(bool8 slideOut)
+void SlideWeatherTriggerWindow(void)
 {
     if (gBattleStruct->weatherSpriteIds[0] != MAX_SPRITES)
-        gSprites[gBattleStruct->weatherSpriteIds[0]].data[0] = !slideOut;
+        gSprites[gBattleStruct->weatherSpriteIds[0]].data[0] = FALSE;
     if (gBattleStruct->weatherSpriteIds[1] != MAX_SPRITES)
-        gSprites[gBattleStruct->weatherSpriteIds[1]].data[0] = !slideOut;
+        gSprites[gBattleStruct->weatherSpriteIds[1]].data[0] = FALSE;
     if (gBattleStruct->weatherSpriteIds[2] != MAX_SPRITES)
-        gSprites[gBattleStruct->weatherSpriteIds[2]].data[0] = !slideOut;
+        gSprites[gBattleStruct->weatherSpriteIds[2]].data[0] = FALSE;
     if (gBattleStruct->weatherSpriteIds[3] != MAX_SPRITES)
-        gSprites[gBattleStruct->weatherSpriteIds[3]].data[0] = !slideOut;
+        gSprites[gBattleStruct->weatherSpriteIds[3]].data[0] = FALSE;
     if (gBattleStruct->weatherSpriteIds[4] != MAX_SPRITES)
-        gSprites[gBattleStruct->weatherSpriteIds[4]].data[0] = !slideOut;
+        gSprites[gBattleStruct->weatherSpriteIds[4]].data[0] = FALSE;
     if (gBattleStruct->weatherSpriteIds[5] != MAX_SPRITES)
-        gSprites[gBattleStruct->weatherSpriteIds[5]].data[0] = !slideOut;
+        gSprites[gBattleStruct->weatherSpriteIds[5]].data[0] = FALSE;
 }
 
 void AddWeatherTriggerSprite(void)

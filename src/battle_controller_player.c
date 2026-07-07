@@ -30,6 +30,7 @@
 #include "test_runner.h"
 #include "text.h"
 #include "trainer.h"
+#include "transform.h"
 #include "util.h"
 #include "window.h"
 #include "line_break.h"
@@ -235,6 +236,10 @@ static void HandleInputChooseAction(enum BattlerId battler)
 {
     enum Item itemId = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
 
+    // block all input while the weather change battle script is running
+    if (gWeatherChangingScriptIsRunning)
+        return;
+
     DoBounceEffect(battler, BOUNCE_HEALTHBOX, 7, 1);
     DoBounceEffect(battler, BOUNCE_MON, 7, 1);
 
@@ -243,186 +248,281 @@ static void HandleInputChooseAction(enum BattlerId battler)
     else
         gPlayerDpadHoldFrames = 0;
 
-    // weather trigger window handling
-    if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && gWeatherChangeMenuPresent)
+    // weather trigger window handling when slid out
+    if (gWeatherChangeMenuOpened && gWeatherChangeMenuPresent)
     {
-        gWeatherChangeMenuSlidingSpeed = 2;
+        // confirm choice and trigger immediate weather change
+        if (JOY_NEW(A_BUTTON))
+        {
+            if (gWeatherChangeMenuChosenWeather == GetNextBattleWeatherId())
+            {
+                PlaySE(SE_PC_OFF);
+                gWeatherChangeMenuOpened = FALSE;
+                gWeatherChangeMenuNewWeatherSelected = FALSE;
+                SlideWeatherTriggerWindow();
+                return;
+            }
 
-        if (gWeatherChangeMenuOpened)
+            PlaySE(SE_SELECT);
+            
+            // wiz1989 ToDo: visualize the selected weather
+            switch (gWeatherChangeMenuChosenWeather)
+            {
+            case NEXT_WEATHER_NONE:
+                /* code */
+                break;
+            case NEXT_WEATHER_SUN:
+                /* code */
+                break;
+            case NEXT_WEATHER_RAIN:
+                /* code */
+                break;
+            case NEXT_WEATHER_SNOW:
+                /* code */
+                break;
+            default:
+                break;
+            }
+            gWeatherChangeMenuNewWeatherSelected = TRUE;
+            // set battle weather and all script data, then return
+            HandleWeatherChange();
+
+            // slide out weather trigger window
+            gWeatherChangeMenuSlidingSpeed = 2;
             gWeatherChangeMenuOpened = FALSE;
-        else
-            gWeatherChangeMenuOpened = TRUE;
-        PlaySE(SE_SELECT);
-        SlideOutWeatherTriggerWin(TRUE);
+            SlideWeatherTriggerWindow();
+
+            // if gWeatherChangeMenuNewWeatherSelected still TRUE (= relevant for script execution),
+            // set HandleWeatherChange as gBattleMainFunc to take away control from player and execute script
+            if (gWeatherChangeMenuNewWeatherSelected)
+            {
+                gWeatherChangingScriptIsRunning = TRUE;
+                MarkBattleControllerIdleOnLocal(battler);
+                gBattleMainFunc = HandleWeatherChange;
+            }
+        } // cancel choice
+        else if (JOY_NEW(B_BUTTON))
+        {
+            PlaySE(SE_PC_OFF);
+            gWeatherChangeMenuOpened = FALSE;
+            gWeatherChangeMenuNewWeatherSelected = FALSE;
+            SlideWeatherTriggerWindow();
+        } // return
+        else if (JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            gWeatherChangeMenuSlidingSpeed = 2;
+            gWeatherChangeMenuOpened = FALSE;
+            SlideWeatherTriggerWindow();
+        } // change selection
+        else if (JOY_NEW(DPAD_LEFT))
+        {
+            if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_NONE)
+                gWeatherChangeMenuChosenWeather = NEXT_WEATHER_SNOW;
+            else
+                gWeatherChangeMenuChosenWeather--;
+            
+            // DebugPrintf("next chosen weather: %d", gWeatherChangeMenuChosenWeather);
+            PlaySE(SE_SELECT);
+        } // change selection
+        else if (JOY_NEW(DPAD_RIGHT))
+        {
+            if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_SNOW)
+                gWeatherChangeMenuChosenWeather = NEXT_WEATHER_NONE;
+            else
+                gWeatherChangeMenuChosenWeather++;
+            
+            // DebugPrintf("next chosen weather: %d", gWeatherChangeMenuChosenWeather);
+            PlaySE(SE_SELECT);
+        }
     }
-
-    if (B_LAST_USED_BALL == TRUE && B_LAST_USED_BALL_CYCLE == TRUE
-    && !(B_LAST_USED_BALL_BUTTON == L_BUTTON && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A))
+    else
     {
-        if (!gLastUsedBallMenuPresent)
+        if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && gWeatherChangeMenuPresent)
         {
-            gBattleStruct->ackBallUseBtn = FALSE;
-        }
-        else if (JOY_NEW(B_LAST_USED_BALL_BUTTON))
-        {
-            gBattleStruct->ackBallUseBtn = TRUE;
-            gBattleStruct->ballSwapped = FALSE;
-            ArrowsChangeColorLastBallCycle(TRUE);
+            gWeatherChangeMenuSlidingSpeed = 2;
+
+            if (gWeatherChangeMenuOpened)
+                gWeatherChangeMenuOpened = FALSE;
+            else
+                gWeatherChangeMenuOpened = TRUE;
+            PlaySE(SE_SELECT);
+            SlideWeatherTriggerWindow();
+
+            if (gWeatherChangeMenuOpened)
+            {
+                gWeatherChangeMenuChosenWeather = GetNextBattleWeatherId();
+            }
         }
 
-        if (gBattleStruct->ackBallUseBtn)
+        if (B_LAST_USED_BALL == TRUE && B_LAST_USED_BALL_CYCLE == TRUE
+        && !(B_LAST_USED_BALL_BUTTON == L_BUTTON && gSaveBlock2Ptr->optionsButtonMode == OPTIONS_BUTTON_MODE_L_EQUALS_A))
         {
-            if (JOY_HELD(B_LAST_USED_BALL_BUTTON) && (JOY_NEW(DPAD_DOWN) || JOY_NEW(DPAD_RIGHT)))
-            {
-                bool32 sameBall = FALSE;
-                u32 nextBall = GetNextBall(gBallToDisplay);
-                gBattleStruct->ballSwapped = TRUE;
-                if (gBallToDisplay == nextBall)
-                    sameBall = TRUE;
-                else
-                    gBallToDisplay = nextBall;
-                SwapBallToDisplay(sameBall);
-                PlaySE(SE_SELECT);
-            }
-            else if (JOY_HELD(B_LAST_USED_BALL_BUTTON) && (JOY_NEW(DPAD_UP) || JOY_NEW(DPAD_LEFT)))
-            {
-                bool32 sameBall = FALSE;
-                u32 prevBall = GetPrevBall(gBallToDisplay);
-                gBattleStruct->ballSwapped = TRUE;
-                if (gBallToDisplay == prevBall)
-                    sameBall = TRUE;
-                else
-                    gBallToDisplay = prevBall;
-                SwapBallToDisplay(sameBall);
-                PlaySE(SE_SELECT);
-            }
-            else if (JOY_NEW(B_BUTTON) || (!JOY_HELD(B_LAST_USED_BALL_BUTTON) && gBattleStruct->ballSwapped))
+            if (!gLastUsedBallMenuPresent)
             {
                 gBattleStruct->ackBallUseBtn = FALSE;
+            }
+            else if (JOY_NEW(B_LAST_USED_BALL_BUTTON))
+            {
+                gBattleStruct->ackBallUseBtn = TRUE;
                 gBattleStruct->ballSwapped = FALSE;
-                ArrowsChangeColorLastBallCycle(FALSE);
+                ArrowsChangeColorLastBallCycle(TRUE);
             }
-            else if (!JOY_HELD(B_LAST_USED_BALL_BUTTON) && CanThrowLastUsedBall())
-            {
-                gBattleStruct->ackBallUseBtn = FALSE;
-                PlaySE(SE_SELECT);
-                ArrowsChangeColorLastBallCycle(FALSE);
-                TryHideLastUsedBall();
-                TryHideWeatherTrigger();
-                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_THROW_BALL, 0);
-                BtlController_Complete(battler);
-            }
-            return;
-        }
-    }
 
-    if (JOY_NEW(A_BUTTON))
-    {
-        PlaySE(SE_SELECT);
-        TryHideLastUsedBall();
-        TryHideWeatherTrigger();
-
-        switch (gActionSelectionCursor[battler])
-        {
-        case 0: // Top left
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_MOVE, 0);
-            break;
-        case 1: // Top right
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_ITEM, 0);
-            break;
-        case 2: // Bottom left
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_SWITCH, 0);
-            break;
-        case 3: // Bottom right
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_RUN, 0);
-            break;
-        }
-        BtlController_Complete(battler);
-    }
-    else if (JOY_NEW(DPAD_LEFT))
-    {
-        if (gActionSelectionCursor[battler] & 1) // if is B_ACTION_USE_ITEM or B_ACTION_RUN
-        {
-            PlaySE(SE_SELECT);
-            ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
-            gActionSelectionCursor[battler] ^= 1;
-            ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
-        }
-    }
-    else if (JOY_NEW(DPAD_RIGHT))
-    {
-        if (!(gActionSelectionCursor[battler] & 1)) // if is B_ACTION_USE_MOVE or B_ACTION_SWITCH
-        {
-            PlaySE(SE_SELECT);
-            ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
-            gActionSelectionCursor[battler] ^= 1;
-            ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
-        }
-    }
-    else if (JOY_NEW(DPAD_UP))
-    {
-        if (gActionSelectionCursor[battler] & 2) // if is B_ACTION_SWITCH or B_ACTION_RUN
-        {
-            PlaySE(SE_SELECT);
-            ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
-            gActionSelectionCursor[battler] ^= 2;
-            ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
-        }
-    }
-    else if (JOY_NEW(DPAD_DOWN))
-    {
-        if (!(gActionSelectionCursor[battler] & 2)) // if is B_ACTION_USE_MOVE or B_ACTION_USE_ITEM
-        {
-            PlaySE(SE_SELECT);
-            ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
-            gActionSelectionCursor[battler] ^= 2;
-            ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
-        }
-    }
-    else if (JOY_NEW(B_BUTTON) || gPlayerDpadHoldFrames > 59)
-    {
-        if (IsDoubleBattle()
-         && GetBattlerPosition(battler) == B_POSITION_PLAYER_RIGHT
-         && !(gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
-         && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
-        {
-            // Return item to bag if partner had selected one (if consumable).
-            if (gBattleResources->bufferA[battler][1] == B_ACTION_USE_ITEM && GetItemConsumability(itemId))
+            if (gBattleStruct->ackBallUseBtn)
             {
-                AddBagItem(itemId, 1);
+                if (JOY_HELD(B_LAST_USED_BALL_BUTTON) && (JOY_NEW(DPAD_DOWN) || JOY_NEW(DPAD_RIGHT)))
+                {
+                    bool32 sameBall = FALSE;
+                    u32 nextBall = GetNextBall(gBallToDisplay);
+                    gBattleStruct->ballSwapped = TRUE;
+                    if (gBallToDisplay == nextBall)
+                        sameBall = TRUE;
+                    else
+                        gBallToDisplay = nextBall;
+                    SwapBallToDisplay(sameBall);
+                    PlaySE(SE_SELECT);
+                }
+                else if (JOY_HELD(B_LAST_USED_BALL_BUTTON) && (JOY_NEW(DPAD_UP) || JOY_NEW(DPAD_LEFT)))
+                {
+                    bool32 sameBall = FALSE;
+                    u32 prevBall = GetPrevBall(gBallToDisplay);
+                    gBattleStruct->ballSwapped = TRUE;
+                    if (gBallToDisplay == prevBall)
+                        sameBall = TRUE;
+                    else
+                        gBallToDisplay = prevBall;
+                    SwapBallToDisplay(sameBall);
+                    PlaySE(SE_SELECT);
+                }
+                else if (JOY_NEW(B_BUTTON) || (!JOY_HELD(B_LAST_USED_BALL_BUTTON) && gBattleStruct->ballSwapped))
+                {
+                    gBattleStruct->ackBallUseBtn = FALSE;
+                    gBattleStruct->ballSwapped = FALSE;
+                    ArrowsChangeColorLastBallCycle(FALSE);
+                }
+                else if (!JOY_HELD(B_LAST_USED_BALL_BUTTON) && CanThrowLastUsedBall())
+                {
+                    gBattleStruct->ackBallUseBtn = FALSE;
+                    PlaySE(SE_SELECT);
+                    ArrowsChangeColorLastBallCycle(FALSE);
+                    TryHideLastUsedBall();
+                    TryHideWeatherTrigger();
+                    BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_THROW_BALL, 0);
+                    BtlController_Complete(battler);
+                }
+                return;
             }
+        }
+
+        if (JOY_NEW(A_BUTTON))
+        {
             PlaySE(SE_SELECT);
-            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_CANCEL_PARTNER, 0);
+            TryHideLastUsedBall();
+            TryHideWeatherTrigger();
+
+            switch (gActionSelectionCursor[battler])
+            {
+            case 0: // Top left
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_MOVE, 0);
+                break;
+            case 1: // Top right
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_ITEM, 0);
+                break;
+            case 2: // Bottom left
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_SWITCH, 0);
+                break;
+            case 3: // Bottom right
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_RUN, 0);
+                break;
+            }
             BtlController_Complete(battler);
         }
-        else if (B_QUICK_MOVE_CURSOR_TO_RUN)
+        else if (JOY_NEW(DPAD_LEFT))
         {
-            if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER)) // If wild battle, pressing B moves cursor to "Run".
+            if (gActionSelectionCursor[battler] & 1) // if is B_ACTION_USE_ITEM or B_ACTION_RUN
             {
                 PlaySE(SE_SELECT);
                 ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
-                gActionSelectionCursor[battler] = 3;
+                gActionSelectionCursor[battler] ^= 1;
                 ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
             }
         }
-    }
-    else if (JOY_NEW(START_BUTTON))
-    {
-        SwapHpBarsWithHpText();
-    }
-    else if (DEBUG_BATTLE_MENU == TRUE && JOY_NEW(SELECT_BUTTON))
-    {
-        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_DEBUG, 0);
-        BtlController_Complete(battler);
-    }
-    else if (B_LAST_USED_BALL == TRUE && B_LAST_USED_BALL_CYCLE == FALSE
-             && JOY_NEW(B_LAST_USED_BALL_BUTTON) && CanThrowLastUsedBall())
-    {
-        PlaySE(SE_SELECT);
-        TryHideLastUsedBall();
-        TryHideWeatherTrigger();
-        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_THROW_BALL, 0);
-        BtlController_Complete(battler);
+        else if (JOY_NEW(DPAD_RIGHT))
+        {
+            if (!(gActionSelectionCursor[battler] & 1)) // if is B_ACTION_USE_MOVE or B_ACTION_SWITCH
+            {
+                PlaySE(SE_SELECT);
+                ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
+                gActionSelectionCursor[battler] ^= 1;
+                ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
+            }
+        }
+        else if (JOY_NEW(DPAD_UP))
+        {
+            if (gActionSelectionCursor[battler] & 2) // if is B_ACTION_SWITCH or B_ACTION_RUN
+            {
+                PlaySE(SE_SELECT);
+                ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
+                gActionSelectionCursor[battler] ^= 2;
+                ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
+            }
+        }
+        else if (JOY_NEW(DPAD_DOWN))
+        {
+            if (!(gActionSelectionCursor[battler] & 2)) // if is B_ACTION_USE_MOVE or B_ACTION_USE_ITEM
+            {
+                PlaySE(SE_SELECT);
+                ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
+                gActionSelectionCursor[battler] ^= 2;
+                ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
+            }
+        }
+        else if (JOY_NEW(B_BUTTON) || gPlayerDpadHoldFrames > 59)
+        {
+            if (IsDoubleBattle()
+            && GetBattlerPosition(battler) == B_POSITION_PLAYER_RIGHT
+            && !(gAbsentBattlerFlags & (1u << GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+            && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
+            {
+                // Return item to bag if partner had selected one (if consumable).
+                if (gBattleResources->bufferA[battler][1] == B_ACTION_USE_ITEM && GetItemConsumability(itemId))
+                {
+                    AddBagItem(itemId, 1);
+                }
+                PlaySE(SE_SELECT);
+                BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_CANCEL_PARTNER, 0);
+                BtlController_Complete(battler);
+            }
+            else if (B_QUICK_MOVE_CURSOR_TO_RUN)
+            {
+                if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER)) // If wild battle, pressing B moves cursor to "Run".
+                {
+                    PlaySE(SE_SELECT);
+                    ActionSelectionDestroyCursorAt(gActionSelectionCursor[battler]);
+                    gActionSelectionCursor[battler] = 3;
+                    ActionSelectionCreateCursorAt(gActionSelectionCursor[battler], 0);
+                }
+            }
+        }
+        else if (JOY_NEW(START_BUTTON))
+        {
+            SwapHpBarsWithHpText();
+        }
+        else if (DEBUG_BATTLE_MENU == TRUE && JOY_NEW(SELECT_BUTTON))
+        {
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_DEBUG, 0);
+            BtlController_Complete(battler);
+        }
+        else if (B_LAST_USED_BALL == TRUE && B_LAST_USED_BALL_CYCLE == FALSE
+                && JOY_NEW(B_LAST_USED_BALL_BUTTON) && CanThrowLastUsedBall())
+        {
+            PlaySE(SE_SELECT);
+            TryHideLastUsedBall();
+            TryHideWeatherTrigger();
+            BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_THROW_BALL, 0);
+            BtlController_Complete(battler);
+        }
     }
 }
 

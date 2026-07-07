@@ -38,6 +38,11 @@ u16 GetCharacterItem(u16 speciesId);
 #define PHASE_RAINY 2
 #define PHASE_SNOWY 3
 
+#define NEXT_WEATHER_NONE 0
+#define NEXT_WEATHER_SUN  1
+#define NEXT_WEATHER_RAIN 2
+#define NEXT_WEATHER_SNOW 3
+
 #define TRANSFORM_TYPE_PLAYER_SPECIES 1
 #define AVATAR_POKEMON_CHOICE 1
 
