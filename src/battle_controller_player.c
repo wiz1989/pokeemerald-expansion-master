@@ -12,6 +12,7 @@
 #include "battle_gimmick.h"
 #include "bg.h"
 #include "data.h"
+#include "event_data.h"
 #include "item.h"
 #include "item_menu.h"
 #include "link.h"
@@ -232,6 +233,46 @@ static enum Item GetNextBall(enum Item ballId)
     return ballId;
 }
 
+static void SetUpWeatherChangeData()
+{
+    // reset weatherAbilityDone to allow consecutive form changes
+    for (enum BattlerId i = 0; i < gBattlersCount; i++)
+        gBattleMons[i].volatiles.weatherAbilityDone = FALSE;
+
+    // change battle weather and set all script data
+    switch (gWeatherChangeMenuChosenWeather)
+    {
+    case NEXT_WEATHER_NONE:
+    {
+        u32 currWeather = GetCurrentBattleWeather();
+        if (currWeather != 0xFF)
+        {
+            // weather currently active: set end message for the weather change script
+            gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeatherEndMessage();
+            gBattleWeather = B_WEATHER_NONE;
+        }
+        else
+        {
+            // nothing to do
+            gWeatherChangeMenuNewWeatherSelected = FALSE;
+        }
+        break;
+    }
+    case NEXT_WEATHER_SUN:
+        gBattleWeather = B_WEATHER_SUN;
+        gBattleScripting.animArg1 = B_ANIM_SUN_CONTINUES;
+        break;
+    case NEXT_WEATHER_RAIN:
+        gBattleWeather = B_WEATHER_RAIN;
+        gBattleScripting.animArg1 = B_ANIM_RAIN_CONTINUES;
+        break;
+    case NEXT_WEATHER_SNOW:
+        gBattleWeather = B_WEATHER_SNOW;
+        gBattleScripting.animArg1 = B_ANIM_SNOW_CONTINUES;
+        break;
+    }
+}
+
 static void HandleInputChooseAction(enum BattlerId battler)
 {
     enum Item itemId = gBattleResources->bufferA[battler][2] | (gBattleResources->bufferA[battler][3] << 8);
@@ -284,8 +325,10 @@ static void HandleInputChooseAction(enum BattlerId battler)
                 break;
             }
             gWeatherChangeMenuNewWeatherSelected = TRUE;
-            // set battle weather and all script data, then return
-            HandleWeatherChange();
+
+            // set battle weather and all script data for gBattleMainFunc = HandleWeatherChange below
+            if (gBattleControllerExecFlags != 0) // only executes once
+                SetUpWeatherChangeData();
 
             // slide out weather trigger window
             gWeatherChangeMenuSlidingSpeed = 2;
@@ -315,20 +358,20 @@ static void HandleInputChooseAction(enum BattlerId battler)
             gWeatherChangeMenuOpened = FALSE;
             SlideWeatherTriggerWindow();
         } // change selection
-        else if (JOY_NEW(DPAD_LEFT))
+        else if (JOY_NEW(DPAD_RIGHT))
         {
             if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_NONE)
-                gWeatherChangeMenuChosenWeather = NEXT_WEATHER_SNOW;
+                gWeatherChangeMenuChosenWeather = VarGet(VAR_CASTFORM_PHASE);
             else
                 gWeatherChangeMenuChosenWeather--;
             
             // DebugPrintf("next chosen weather: %d", gWeatherChangeMenuChosenWeather);
             PlaySE(SE_SELECT);
         } // change selection
-        else if (JOY_NEW(DPAD_RIGHT))
+        else if (JOY_NEW(DPAD_LEFT))
         {
-            if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_SNOW)
-                gWeatherChangeMenuChosenWeather = NEXT_WEATHER_NONE;
+            if (gWeatherChangeMenuChosenWeather == VarGet(VAR_CASTFORM_PHASE))
+                gWeatherChangeMenuChosenWeather = VarGet(NEXT_WEATHER_NONE);
             else
                 gWeatherChangeMenuChosenWeather++;
             

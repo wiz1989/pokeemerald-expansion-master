@@ -5329,49 +5329,6 @@ void HandleWeatherChange(void)
         return;
     }
 
-    // step 1: gBattleControllerExecFlags holds battler data when triggered first
-    // returns early without script execution
-    if (gBattleControllerExecFlags != 0)
-    {
-        // reset weatherAbilityDone to allow consecutive form changes
-        for (enum BattlerId i = 0; i < gBattlersCount; i++)
-            gBattleMons[i].volatiles.weatherAbilityDone = FALSE;
-
-        // change battle weather and set all script data
-        switch (gWeatherChangeMenuChosenWeather)
-        {
-        case NEXT_WEATHER_NONE:
-        {
-            u32 currWeather = GetCurrentBattleWeather();
-            if (currWeather != 0xFF)
-            {
-                // weather currently active: set end message for the weather change script
-                gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeatherEndMessage();
-                gBattleWeather = B_WEATHER_NONE;
-            }
-            else
-            {
-                // nothing to do
-                gWeatherChangeMenuNewWeatherSelected = FALSE;
-            }
-            break;
-        }
-        case NEXT_WEATHER_SUN:
-            gBattleWeather = B_WEATHER_SUN;
-            gBattleScripting.animArg1 = B_ANIM_SUN_CONTINUES;
-            break;
-        case NEXT_WEATHER_RAIN:
-            gBattleWeather = B_WEATHER_RAIN;
-            gBattleScripting.animArg1 = B_ANIM_RAIN_CONTINUES;
-            break;
-        case NEXT_WEATHER_SNOW:
-            gBattleWeather = B_WEATHER_SNOW;
-            gBattleScripting.animArg1 = B_ANIM_SNOW_CONTINUES;
-            break;
-        }
-        return;
-    }
-
     // step 2: run script!
     // gBattleControllerExecFlags is now 0
     // HandleWeatherChange() is set as gBattleMainFunc

@@ -3096,7 +3096,7 @@ void AddWeatherTriggerSprite(void)
         {
             gBattleStruct->weatherSpriteIds[1] = AddItemIconSprite(103, 102, ITEM_CASTFORM_SUNNY_ICON);
             gSprites[gBattleStruct->weatherSpriteIds[1]].x = WEATHER_TRIGGER_ICON_X_HIDDEN_1;
-            gSprites[gBattleStruct->weatherSpriteIds[1]].y = WEATHER_TRIGGER_ICON_Y;
+            gSprites[gBattleStruct->weatherSpriteIds[1]].y = WEATHER_TRIGGER_ICON_Y + 1;
             gSprites[gBattleStruct->weatherSpriteIds[1]].sHide = FALSE;
             gSprites[gBattleStruct->weatherSpriteIds[1]].callback = SpriteCB_WeatherTriggerIcon_1;
         }
@@ -3382,6 +3382,25 @@ static void SpriteCB_WeatherTriggerIcon_0(struct Sprite *sprite)
         // Reset speed
         if (sprite->x == targetX && !gWeatherChangeMenuOpened)
             gWeatherChangeMenuSlidingSpeed = 1;
+
+        // sprite bobbing if selected
+        if (gWeatherChangeMenuOpened && gWeatherChangeMenuChosenWeather == PHASE_BASE)
+        {
+            s8 frames = 28;
+            sprite->sTimer = (sprite->sTimer + 1) % frames;
+            if ((sprite->sTimer & 1) == 0)
+            {
+                if (sprite->sTimer < (frames / 2))
+                    sprite->y++;
+                else
+                    sprite->y--;
+            }
+        }
+        else // base position
+        {
+            sprite->sTimer = 0;
+            sprite->y = WEATHER_TRIGGER_ICON_Y;
+        }
     }
 }
 
@@ -3435,6 +3454,25 @@ static void SpriteCB_WeatherTriggerIcon_1(struct Sprite *sprite)
         // Reset speed
         if (sprite->x == targetX && !gWeatherChangeMenuOpened)
             gWeatherChangeMenuSlidingSpeed = 1;
+
+        // sprite bobbing if selected
+        if (gWeatherChangeMenuOpened && gWeatherChangeMenuChosenWeather == PHASE_SUNNY)
+        {
+            s8 frames = 28;
+            sprite->sTimer = (sprite->sTimer + 1) % frames;
+            if ((sprite->sTimer & 1) == 0)
+            {
+                if (sprite->sTimer < (frames / 2))
+                    sprite->y++;
+                else
+                    sprite->y--;
+            }
+        }
+        else // base position
+        {
+            sprite->sTimer = 0;
+            sprite->y = WEATHER_TRIGGER_ICON_Y + 1;
+        }
     }
 }
 
@@ -3486,6 +3524,25 @@ static void SpriteCB_WeatherTriggerIcon_2(struct Sprite *sprite)
         // Reset speed
         if (sprite->x == targetX && !gWeatherChangeMenuOpened)
             gWeatherChangeMenuSlidingSpeed = 1;
+
+        // sprite bobbing if selected
+        if (gWeatherChangeMenuOpened && gWeatherChangeMenuChosenWeather == PHASE_RAINY)
+        {
+            s8 frames = 28;
+            sprite->sTimer = (sprite->sTimer + 1) % frames;
+            if ((sprite->sTimer & 1) == 0)
+            {
+                if (sprite->sTimer < (frames / 2))
+                    sprite->y++;
+                else
+                    sprite->y--;
+            }
+        }
+        else // base position
+        {
+            sprite->sTimer = 0;
+            sprite->y = WEATHER_TRIGGER_ICON_Y;
+        }
     }
 }
 
@@ -3535,6 +3592,25 @@ static void SpriteCB_WeatherTriggerIcon_3(struct Sprite *sprite)
         // Reset speed
         if (sprite->x == targetX && !gWeatherChangeMenuOpened)
             gWeatherChangeMenuSlidingSpeed = 1;
+
+        // sprite bobbing if selected
+        if (gWeatherChangeMenuOpened && gWeatherChangeMenuChosenWeather == PHASE_SNOWY)
+        {
+            s8 frames = 28;
+            sprite->sTimer = (sprite->sTimer + 1) % frames;
+            if ((sprite->sTimer & 1) == 0)
+            {
+                if (sprite->sTimer < (frames / 2))
+                    sprite->y++;
+                else
+                    sprite->y--;
+            }
+        }
+        else // base position
+        {
+            sprite->sTimer = 0;
+            sprite->y = WEATHER_TRIGGER_ICON_Y;
+        }
     }
 }
 
