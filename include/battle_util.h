@@ -158,6 +158,9 @@ enum SubCheck
 
 void HandleAction_ThrowBall(void);
 u32 GetCurrentBattleWeather(void);
+u32 GetNextBattleWeatherId(void);
+u32 GetCurrentWeatherEndMessage(void);
+u32 GetCurrentWeatherStartMessage(void);
 bool32 EndOrContinueWeather(void);
 enum DamageCategory GetReflectDamageMoveDamageCategory(enum BattlerId battler, enum Move move);
 bool32 ShouldTeraShellDistortTypeMatchups(struct DamageContext *ctx);
@@ -420,5 +423,6 @@ bool32 BattlerJustSwitchedIn(enum BattlerId battler);
 bool32 IsBattlersFirstTurn(enum BattlerId battler);
 struct PartyState *GetBattlerPartyState(enum BattlerId battler);
 void SetValuesOnFaint(enum BattlerId battler);
+bool32 IsObserverBattle(void);
 
 #endif // GUARD_BATTLE_UTIL_H

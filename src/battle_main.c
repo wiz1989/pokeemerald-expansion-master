@@ -59,6 +59,7 @@
 #include "test_runner.h"
 #include "text.h"
 #include "trainer_pools.h"
+#include "transform.h"
 #include "trig.h"
 #include "tv.h"
 #include "util.h"
@@ -240,6 +241,12 @@ EWRAM_DATA u16 gLastUsedBall = 0;
 EWRAM_DATA u16 gLastThrownBall = 0;
 EWRAM_DATA u16 gBallToDisplay = 0;
 EWRAM_DATA bool8 gLastUsedBallMenuPresent = FALSE;
+EWRAM_DATA bool8 gWeatherChangeMenuPresent = FALSE;
+EWRAM_DATA bool8 gWeatherChangeMenuOpened = FALSE;
+EWRAM_DATA u8 gWeatherChangeMenuSlidingSpeed = 0;
+EWRAM_DATA u32 gWeatherChangeMenuChosenWeather = 0;
+EWRAM_DATA bool8 gWeatherChangeMenuNewWeatherSelected = FALSE;
+EWRAM_DATA bool8 gWeatherChangingScriptIsRunning = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 
@@ -3635,6 +3642,11 @@ static void DoBattleIntro(void)
         }
         break;
     case BATTLE_INTRO_STATE_PRINT_PLAYER_SEND_OUT_TEXT:
+        if (PlayerIsCastform())
+        {
+            gBattleStruct->eventState.battleIntro++;
+            return;
+        }
         if (!(gBattleTypeFlags & BATTLE_TYPE_SAFARI))
         {
             if (gBattleTypeFlags & BATTLE_TYPE_RECORDED_LINK && !(gBattleTypeFlags & BATTLE_TYPE_RECORDED_IS_MASTER))
@@ -4109,7 +4121,8 @@ static void HandleTurnActionSelectionState(void)
         case STATE_TURN_START_RECORD: // Recorded battle related action on start of every turn.
             RecordedBattle_CopyBattlerMoves(battler);
             gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
-            bool32 isAiBattler = (gBattleTypeFlags & BATTLE_TYPE_HAS_AI || IsWildMonSmart()) && (BattlerHasAi(battler) && !(gBattleTypeFlags & BATTLE_TYPE_PALACE));
+            bool32 isAiBattler = (gBattleTypeFlags & BATTLE_TYPE_HAS_AI || IsWildMonSmart() || IsAiVsAiBattle())
+                && (BattlerHasAi(battler) && !(gBattleTypeFlags & BATTLE_TYPE_PALACE));
             if (isAiBattler)
             {
                 ComputeAiBattlerDecisions(battler); // Do AI score computations here so we can use them in AI_TrySwitchOrUseItem
@@ -5300,6 +5313,34 @@ static void CheckChangingTurnOrderEffects(void)
     gBattleCommunication[3] = 0;
     gBattleCommunication[4] = 0;
     gBattleResources->battleScriptsStack->size = 0;
+}
+
+void HandleWeatherChange(void)
+{
+    // check if script has finished
+    if (!gWeatherChangeMenuNewWeatherSelected)
+    {
+        gWeatherChangingScriptIsRunning = FALSE;
+        // reset controller state just in case
+        SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        // restore action selection state
+        gBattleCommunication[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = STATE_BEFORE_ACTION_CHOSEN;
+        gBattleMainFunc = HandleTurnActionSelectionState;
+        return;
+    }
+
+    // restore player controller to PlayerBufferRunCommand
+    // (to stop HandleInputChooseAction from taking over, stopping script execution)
+    SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+
+    gWeatherChangeMenuNewWeatherSelected = FALSE; // guard for step 3
+    if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_NONE)
+        BattleScriptExecute(BattleScript_TurnStartWeatherFaded);
+    else
+    {
+        gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeatherStartMessage();
+        BattleScriptExecute(BattleScript_BattleWeatherStarts);
+    }
 }
 
 static void RunTurnActionsFunctions(void)

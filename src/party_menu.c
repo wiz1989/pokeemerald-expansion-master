@@ -67,6 +67,7 @@
 #include "text.h"
 #include "text_window.h"
 #include "trade.h"
+#include "transform.h"
 #include "union_room.h"
 #include "window.h"
 #include "constants/battle.h"
@@ -2972,7 +2973,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
 
     if (!InBattlePike())
     {
-        if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
+        if (!PlayerIsCastform() && GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
             AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_SWITCH);
         if (ItemIsMail(GetMonData(&mons[slotId], MON_DATA_HELD_ITEM)))
             AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_MAIL);
@@ -7517,6 +7518,8 @@ static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon)
     {
         if (gPartyMenu.action == PARTY_ACTION_SEND_OUT)
             return ACTIONS_SEND_OUT;
+        if (PlayerIsCastform())
+            return ACTIONS_SUMMARY_ONLY;
         if (!(gBattleTypeFlags & BATTLE_TYPE_ARENA))
             return ACTIONS_SHIFT;
     }

@@ -670,6 +670,7 @@ struct BattleStruct
     u8 ballSwapped:1; // Used for the last used ball feature
     u8 throwingPokeBall:1;
     u8 ballSpriteIds[2];    // item gfx, window gfx
+    u8 weatherSpriteIds[6]; // 0 - 3 item gfx, 4 - 5 window gfx left/right
     u8 moveInfoSpriteId; // move info, window gfx
     // When using a move which hits multiple opponents which is then bounced by a target, we need to make sure, the move hits both opponents, the one with bounce, and the one without.
     enum Species beatUpSpecies[PARTY_SIZE]; // Species for Gen5+ Beat Up, otherwise party indexes
@@ -1070,6 +1071,12 @@ extern u16 gLastUsedBall;
 extern u16 gLastThrownBall;
 extern u16 gBallToDisplay;
 extern bool8 gLastUsedBallMenuPresent;
+extern bool8 gWeatherChangeMenuPresent;
+extern bool8 gWeatherChangeMenuOpened;
+extern u8 gWeatherChangeMenuSlidingSpeed;
+extern u32 gWeatherChangeMenuChosenWeather;
+extern bool8 gWeatherChangeMenuNewWeatherSelected;
+extern bool8 gWeatherChangingScriptIsRunning;
 extern u8 gPartyCriticalHits[PARTY_SIZE];
 extern u8 gCategoryIconSpriteId;
 struct Pokemon *GetBattlerParty(enum BattlerId battler);

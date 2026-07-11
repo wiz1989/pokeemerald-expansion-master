@@ -128,6 +128,7 @@ static void SetDefaultFlagsAndSettings(void)
     // FlagSet(FLAG_AUTORUN_MENU_TOGGLE);
     FlagSet(FLAG_SYS_POKEMON_GET);
     VarSet(VAR_TRANSFORM_MON, SPECIES_CASTFORM_NORMAL);
+    FlagSet(FLAG_SMART_WILD_MONS);
 }
 
 static void ClearPokedexFlags(void)

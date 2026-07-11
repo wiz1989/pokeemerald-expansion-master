@@ -2279,6 +2279,18 @@
 	trainerbattle_no_intro \trainer2, NULL
 	.endm
 
+	@ Starts an AI-vs-AI wild battle by creating one player-side mon and one wild opponent mon.
+	@ The AI-vs-AI flag is cleared automatically after the battle.
+	.macro ai_vs_ai_wild_battle species1:req, species2:req, level:req
+	setflag B_FLAG_AI_VS_AI_BATTLE
+	special SavePlayerParty
+	createmon B_SIDE_PLAYER, 0, \species1, \level
+	setwildbattle \species2, \level
+	dowildbattle
+	special LoadPlayerParty
+	clearflag B_FLAG_AI_VS_AI_BATTLE
+	.endm
+
 	@ Sets VAR_RESULT to TRUE if stat can be hyper trained, or to
 	@ FALSE otherwise.
 	.macro canhypertrain stat:req, slot:req

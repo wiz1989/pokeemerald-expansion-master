@@ -63,7 +63,6 @@
 
 const void *GetTransformationPic(u16 speciesId);
 const u16 *GetTransformationPalette(u16 speciesId);
-static u8 IsSpeciesValidTransformation(u16 speciesId);
 static void WarpToTransformationMap(u16 speciesId, bool8 useFade);
 static void SetObjectEventSpritesMosaic(bool8 enable);
 static void DestroyWeatherSpriteArray(struct Sprite **sprites, u16 count);
@@ -354,7 +353,7 @@ static void SetObjectEventSpritesMosaic(bool8 enable)
 #undef tTransformType
 
 // helper functions
-static u8 IsSpeciesValidTransformation(u16 speciesId)
+bool32 IsSpeciesValidTransformation(u16 speciesId)
 {
     switch (speciesId)
     {
@@ -407,6 +406,31 @@ u16 GetTransformationBattleSpecies(u16 speciesId)
 u16 GetTransformationTargetMap(u16 speciesId)
 {
     return gTransformations[speciesId].targetMap;
+}
+
+bool32 IsSpeciesValidCharacter(u16 speciesId)
+{
+    for (u16 i = 0; i < NUMBER_OF_CHARACTERS; i++)
+    {
+        if (gCharacters[i].battleSpecies == speciesId)
+            return TRUE;
+    }
+    return FALSE;
+}
+
+u16 GetCharacterMoves(u16 speciesId, u8 i)
+{
+    return gCharacters[speciesId].moves[i];
+}
+
+u16 GetCharacterAbility(u16 speciesId)
+{
+    return gCharacters[speciesId].ability;
+}
+
+u16 GetCharacterItem(u16 speciesId)
+{
+    return gCharacters[speciesId].item;
 }
 
 // warp function

@@ -11,6 +11,7 @@
 #include "battle_setup.h"
 #include "battle_tv.h"
 #include "cable_club.h"
+#include "decompress.h"
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "item.h"
@@ -51,6 +52,7 @@ static void SetBattlePartyIds(void);
 static void Task_HandleSendLinkBuffersData(u8 taskId);
 static void Task_HandleCopyReceivedLinkBuffersData(u8 taskId);
 static void Task_StartSendOutAnim(u8 taskId);
+static void Task_ShowCastformHealthboxAfterIntroAnim(u8 taskId);
 static void SpriteCB_FreePlayerSpriteLoadMonSprite(struct Sprite *sprite);
 static void SpriteCB_FreeOpponentSprite(struct Sprite *sprite);
 static u32 ReturnAnimIdForBattler(bool32 isPlayerSide, u32 specificBattler);
@@ -1491,15 +1493,58 @@ static u32 GetBattlerMonData(enum BattlerId battler, struct Pokemon *party, u32 
         if (IsOnPlayerSide(battler) && monId == gBattlerPartyIndexes[battler]
          && PlayerIsCastform())
         {
-            u16 sourceSpecies = GetCurrentTransformationSpecies();
-            u16 transformedSpecies = GetTransformationBattleSpecies(sourceSpecies);
+            if (IsObserverBattle())
+            {
+                u16 species = GetMonData(&party[monId], MON_DATA_SPECIES);
+                u8 transformedAbilityNum = 0;
+                u16 item = 0;
 
-            DebugPrintf("Battle init - sourceSpecies: %d, transformedSpecies: %d", sourceSpecies, transformedSpecies);
+                DebugPrintf("Observer Battle init - species: %d", species);
 
-            battleMon.species = transformedSpecies;
-            battleMon.abilityNum = 0;
-            for (u32 i = 0; i < MAX_MON_MOVES; i++)
-                battleMon.moves[i] = GetTransformationMoves(sourceSpecies, i);
+                if (IsSpeciesValidCharacter(species))
+                {
+                    item = GetCharacterItem(species);
+
+                    for (u32 i = 0; i < 3; i++)
+                    {
+                        if (GetCharacterAbility(species) == GetAbilityBySpecies(species, i))
+                        {
+                            transformedAbilityNum = i;
+                            break;
+                        }
+                    }
+                }
+
+                battleMon.species = species;
+                battleMon.abilityNum = transformedAbilityNum;
+                battleMon.item = item;
+
+                for (u32 i = 0; i < MAX_MON_MOVES; i++)
+                {
+                    u16 move = IsSpeciesValidCharacter(species) ? GetCharacterMoves(species, i) : MOVE_NONE;
+                    u16 pp = GetMovePP(move);
+
+                    battleMon.moves[i] = move;
+                    battleMon.pp[i] = pp;
+                }
+            }
+            else
+            {
+                u16 species = GetCurrentTransformationSpecies();
+                u8 transformedAbilityNum = 0;
+
+                battleMon.species = species;
+                battleMon.abilityNum = transformedAbilityNum;
+
+                for (u32 i = 0; i < MAX_MON_MOVES; i++)
+                {
+                    u16 move = GetTransformationMoves(species, i);
+                    u16 pp = GetMovePP(move);
+
+                    battleMon.moves[i] = move;
+                    battleMon.pp[i] = pp;
+                }
+            }
         }
 
         GetMonData(&party[monId], MON_DATA_NICKNAME, nickname);
@@ -2868,12 +2913,88 @@ bool32 TwoOpponentIntroMons(enum BattlerId battler) // Double battle with both o
 #define tControllerFunc_2   4
 
 // Sprite data for SpriteCB_FreePlayerSpriteLoadMonSprite
+#define sSlideSpeed data[0]
+#define sSpecies data[2]
 #define sBattlerId data[5]
+#define sBackAnimStarted data[6]
+
+static void SpriteCB_PlayerMonSlideInFromRight(struct Sprite *sprite)
+{
+    SpriteCB_TrainerSlideIn(sprite);
+
+    // SpriteCB_TrainerSlideIn uses data[0] as speed, so need to restore battler id at the end
+    if (sprite->callback == SpriteCallbackDummy && !sprite->sBackAnimStarted)
+    {
+        sprite->data[0] = sprite->sBattlerId;
+        sprite->sBackAnimStarted = TRUE;
+
+        // overwrite sprite species in Observer battles to read correct back anim
+        if (IsObserverBattle())
+            sprite->sSpecies = gBattleMons[0].species;
+
+        if (gSpeciesInfo[sprite->sSpecies].backAnimId != BACK_ANIM_NONE)
+            LaunchAnimationTaskForBackSprite(sprite, GetSpeciesBackAnimSet(sprite->sSpecies));
+    }
+}
+
+static void Task_ShowCastformHealthboxAfterIntroAnim(u8 taskId)
+{
+    enum BattlerId battler = gTasks[taskId].data[0];
+    u8 spriteId = gBattlerSpriteIds[battler];
+
+    if ((gSprites[spriteId].callback == SpriteCallbackDummy || gSprites[spriteId].callback == SpriteCallbackDummy_2)
+     && !gDoingBattleAnim)
+    {
+        gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive = FALSE;
+        gBattleSpritesDataPtr->healthBoxesData[battler].waitForCry = FALSE;
+        DestroyTask(taskId);
+    }
+}
 
 void BtlController_HandleIntroTrainerBallThrow(enum BattlerId battler, u16 tagTrainerPal, const u16 *trainerPal, s16 framesToWait, void (*controllerCallback)(enum BattlerId battler))
 {
     u8 taskId;
     enum BattleSide side = GetBattlerSide(battler);
+
+    // skip the ball throw and send out anims entirely, replace with a slide in anim
+    if (side == B_SIDE_PLAYER && PlayerIsCastform())
+    {
+        enum Species species = GetCurrentTransformationSpecies();
+        
+        // create battler sprite and slide in
+        BattleLoadMonSpriteGfx(GetBattlerMon(battler), battler);
+        SetMultiuseSpriteTemplateToPokemon(species, GetBattlerPosition(battler));
+        gBattlerSpriteIds[battler] = CreateSprite(&gMultiuseSpriteTemplate,
+                                                  GetBattlerSpriteCoord(battler, BATTLER_COORD_X_2),
+                                                  GetBattlerSpriteDefault_Y(battler),
+                                                  GetBattlerSpriteSubpriority(battler));
+        gSprites[gBattlerSpriteIds[battler]].sSlideSpeed = -2;
+        gSprites[gBattlerSpriteIds[battler]].sSpecies = species;
+        gSprites[gBattlerSpriteIds[battler]].sBattlerId = battler;
+        gSprites[gBattlerSpriteIds[battler]].sBackAnimStarted = FALSE;
+        gSprites[gBattlerSpriteIds[battler]].oam.paletteNum = battler;
+        gSprites[gBattlerSpriteIds[battler]].invisible = FALSE;
+        gSprites[gBattlerSpriteIds[battler]].x2 = 96;
+        gSprites[gBattlerSpriteIds[battler]].callback = SpriteCB_PlayerMonSlideInFromRight;
+
+        // gBattleControllerData requires data further down the line, so using dummy data
+        gBattleControllerData[battler] = CreateInvisibleSpriteWithCallback(SpriteCallbackDummy);
+
+        // hide healthbox sprite until after slide anim
+        SetHealthboxSpriteInvisible(gHealthboxSpriteIds[battler]);
+
+        // create wait-task for the healthbox
+        taskId = CreateTask(Task_ShowCastformHealthboxAfterIntroAnim, 5);
+        gTasks[taskId].data[0] = battler;
+        gBattleSpritesDataPtr->healthBoxesData[battler].healthboxSlideInStarted = FALSE;
+        gBattleSpritesDataPtr->healthBoxesData[battler].ballAnimActive = TRUE;
+        gBattleSpritesDataPtr->healthBoxesData[battler].waitForCry = FALSE;
+
+        // set relevant controller data for continuation
+        gBattleSpritesDataPtr->animationData->introAnimActive = TRUE;
+        gBattlerControllerFuncs[battler] = controllerCallback;
+        return;
+    }
 
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]]);
     if (side == B_SIDE_PLAYER)
@@ -2894,7 +3015,8 @@ void BtlController_HandleIntroTrainerBallThrow(enum BattlerId battler, u16 tagTr
     if (side == B_SIDE_PLAYER)
     {
         StoreSpriteCallbackInData6(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]], SpriteCB_FreePlayerSpriteLoadMonSprite);
-        StartSpriteAnim(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]], ShouldDoSlideInAnim(battler) ? 2 : 1);
+        if (!PlayerIsCastform())
+            StartSpriteAnim(&gSprites[gBattleStruct->trainerSlideSpriteIds[battler]], ShouldDoSlideInAnim(battler) ? 2 : 1);
     }
     else
     {
@@ -2994,6 +3116,9 @@ static void SpriteCB_FreeOpponentSprite(struct Sprite *sprite)
 }
 
 #undef sBattlerId
+#undef sSpecies
+#undef sSlideSpeed
+#undef sBackAnimStarted
 
 void BtlController_HandleDrawPartyStatusSummary(enum BattlerId battler, enum BattleSide side, bool32 considerDelay)
 {

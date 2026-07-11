@@ -27,6 +27,7 @@
 #include "string_util.h"
 #include "task.h"
 #include "test_runner.h"
+#include "transform.h"
 #include "trig.h"
 #include "trainer_slide.h"
 #include "window.h"
@@ -105,7 +106,9 @@ static const u8 sGoNearCounterToEscapeFactor[] = {4, 4, 4, 4};
 struct BattleWeatherInfo
 {
     u16 flag;
+    u16 nextWeather;
     u8 rock;
+    u8 startMessage;
     u8 abilityStartMessage;
     u8 moveStartMessage;
     u8 endMessage;
@@ -117,7 +120,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_RAIN] =
     {
         .flag = B_WEATHER_RAIN_NORMAL,
+        .nextWeather = NEXT_WEATHER_RAIN,
         .rock = HOLD_EFFECT_DAMP_ROCK,
+        .startMessage = B_MSG_STARTED_RAIN,
         .abilityStartMessage = B_MSG_STARTED_DRIZZLE,
         .moveStartMessage = B_MSG_STARTED_RAIN,
         .endMessage = B_MSG_WEATHER_END_RAIN,
@@ -128,7 +133,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_RAIN_PRIMAL] =
     {
         .flag = B_WEATHER_RAIN_PRIMAL,
+        .nextWeather = NEXT_WEATHER_RAIN,
         .rock = HOLD_EFFECT_DAMP_ROCK,
+        .startMessage = B_MSG_STARTED_RAIN,
         .abilityStartMessage = B_MSG_STARTED_PRIMORDIAL_SEA,
         .moveStartMessage = B_MSG_STARTED_RAIN, // Placeholder
         .endMessage = B_MSG_WEATHER_END_RAIN,
@@ -139,7 +146,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_RAIN_DOWNPOUR] =
     {
         .flag = B_WEATHER_RAIN_NORMAL,
+        .nextWeather = NEXT_WEATHER_RAIN,
         .rock = HOLD_EFFECT_DAMP_ROCK,
+        .startMessage = B_MSG_STARTED_RAIN,
         .abilityStartMessage = B_MSG_STARTED_DRIZZLE,
         .moveStartMessage = B_MSG_STARTED_RAIN,
         .endMessage = B_MSG_WEATHER_END_RAIN,
@@ -150,7 +159,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_SUN] =
     {
         .flag = B_WEATHER_SUN_NORMAL,
+        .nextWeather = NEXT_WEATHER_SUN,
         .rock = HOLD_EFFECT_HEAT_ROCK,
+        .startMessage = B_MSG_STARTED_SUNLIGHT,
         .abilityStartMessage = B_MSG_STARTED_DROUGHT,
         .moveStartMessage = B_MSG_STARTED_SUNLIGHT,
         .endMessage = B_MSG_WEATHER_END_SUN,
@@ -161,7 +172,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_SUN_PRIMAL] =
     {
         .flag = B_WEATHER_SUN_PRIMAL,
+        .nextWeather = NEXT_WEATHER_SUN,
         .rock = HOLD_EFFECT_HEAT_ROCK,
+        .startMessage = B_MSG_STARTED_SUNLIGHT,
         .abilityStartMessage = B_MSG_STARTED_DESOLATE_LAND,
         .moveStartMessage = B_MSG_STARTED_SUNLIGHT, // Placeholder
         .endMessage = B_MSG_WEATHER_END_SUN,
@@ -172,7 +185,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_SANDSTORM] =
     {
         .flag = B_WEATHER_SANDSTORM,
+        .nextWeather = NEXT_WEATHER_NONE,
         .rock = HOLD_EFFECT_SMOOTH_ROCK,
+        .startMessage = B_MSG_STARTED_SANDSTORM,
         .abilityStartMessage = B_MSG_STARTED_SAND_STREAM,
         .moveStartMessage = B_MSG_STARTED_SANDSTORM,
         .endMessage = B_MSG_WEATHER_END_SANDSTORM,
@@ -183,7 +198,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_HAIL] =
     {
         .flag = B_WEATHER_HAIL,
+        .nextWeather = NEXT_WEATHER_SNOW,
         .rock = HOLD_EFFECT_ICY_ROCK,
+        .startMessage = B_MSG_STARTED_HAIL,
         .abilityStartMessage = B_MSG_STARTED_HAIL_WARNING,
         .moveStartMessage = B_MSG_STARTED_HAIL,
         .endMessage = B_MSG_WEATHER_END_HAIL,
@@ -194,7 +211,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_SNOW] =
     {
         .flag = B_WEATHER_SNOW,
+        .nextWeather = NEXT_WEATHER_SNOW,
         .rock = HOLD_EFFECT_ICY_ROCK,
+        .startMessage = B_MSG_STARTED_SNOW,
         .abilityStartMessage = B_MSG_STARTED_SNOW_WARNING,
         .moveStartMessage = B_MSG_STARTED_SNOW,
         .endMessage = B_MSG_WEATHER_END_SNOW,
@@ -205,7 +224,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_FOG] =
     {
         .flag = B_WEATHER_FOG,
+        .nextWeather = NEXT_WEATHER_NONE,
         .rock = HOLD_EFFECT_NONE,
+        .startMessage = B_MSG_STARTED_FOG,
         .abilityStartMessage = B_MSG_STARTED_DRIZZLE, // Placeholder
         .moveStartMessage = B_MSG_STARTED_RAIN, // Placeholder
         .endMessage = B_MSG_WEATHER_END_FOG,
@@ -216,7 +237,9 @@ static const struct BattleWeatherInfo sBattleWeatherInfo[BATTLE_WEATHER_COUNT] =
     [BATTLE_WEATHER_STRONG_WINDS] =
     {
         .flag = B_WEATHER_STRONG_WINDS,
+        .nextWeather = NEXT_WEATHER_NONE,
         .rock = HOLD_EFFECT_NONE,
+        .startMessage = B_MSG_STARTED_RAIN,
         .abilityStartMessage = B_MSG_STARTED_STRONG_WINDS,
         .moveStartMessage = B_MSG_STARTED_RAIN, // Placeholder
         .endMessage = B_MSG_WEATHER_END_STRONG_WINDS,
@@ -239,6 +262,39 @@ u32 GetCurrentBattleWeather(void)
     }
 
     return currBattleWeather;
+}
+
+u32 GetNextBattleWeatherId(void)
+{
+    u32 nextBattleWeather = 0;
+
+    for (u32 weather = 0; weather < ARRAY_COUNT(sBattleWeatherInfo); weather++)
+    {
+        if (gBattleWeather & sBattleWeatherInfo[weather].flag)
+        {
+            nextBattleWeather = sBattleWeatherInfo[weather].nextWeather;
+            break;
+        }
+    }
+
+    return nextBattleWeather;
+}
+
+u32 GetCurrentWeatherEndMessage(void)
+{
+    u32 currBattleWeather = GetCurrentBattleWeather();
+    if (currBattleWeather == 0xFF)
+        return 0;
+    return sBattleWeatherInfo[currBattleWeather].endMessage;
+}
+
+u32 GetCurrentWeatherStartMessage(void)
+{
+    u32 currBattleWeather = GetCurrentBattleWeather();
+    if (currBattleWeather == 0xFF)
+        return 0;
+
+    return sBattleWeatherInfo[currBattleWeather].startMessage;
 }
 
 bool32 EndOrContinueWeather(void)
@@ -4695,6 +4751,13 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
         break;
     case ABILITYEFFECT_ON_WEATHER: // For ability effects that activate when the battle weather changes.
         gLastUsedAbility = GetBattlerAbility(battler);
+
+        // hard set Forecast if battler is Castform
+        if (PlayerIsCastform() && IsSpeciesValidTransformation(GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES)))
+        {
+            gLastUsedAbility = ABILITY_FORECAST;
+        }
+
         switch (gLastUsedAbility)
         {
         case ABILITY_FORECAST:
@@ -4709,11 +4772,18 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 gBattleMons[battler].volatiles.weatherAbilityDone = TRUE;
             }
 
-            if (((!gBattleMons[battler].volatiles.weatherAbilityDone && battlerWeatherAffected) || weather == B_WEATHER_NONE)
+            if (!gBattleMons[battler].volatiles.weatherAbilityDone
+             && (battlerWeatherAffected || weather == B_WEATHER_NONE)
              && TryBattleFormChange(battler, FORM_CHANGE_BATTLE_WEATHER, gLastUsedAbility))
             {
                 gBattleScripting.battler = battler;
                 gBattleMons[battler].volatiles.weatherAbilityDone = TRUE;
+                
+                // special check to suppress pre first turn form change
+                if (IsOnPlayerSide(battler) && PlayerIsCastform()
+                    && gBattleStruct->battlerState[battler].isFirstTurn == 2
+                    && gBattleMons[battler].species == GetCurrentTransformationSpecies())
+                    break;
                 BattleScriptCall(BattleScript_BattlerFormChangeWithString);
                 effect++;
             }
@@ -8603,7 +8673,11 @@ static bool32 CanBattlerFormChange(enum BattlerId battler, enum FormChanges meth
 
 bool32 TryRevertPartyMonFormChange(u32 partyIndex)
 {
-     bool32 changedForm = FALSE;
+    bool32 changedForm = FALSE;
+
+    // only revert first slot Castform (= base form)
+    if (PlayerIsCastform() && partyIndex != 0)
+        return FALSE;
 
     // Appeared in battle and didn't faint
     if (gBattleStruct->partyState[B_SIDE_PLAYER][partyIndex].sentOut && GetMonData(&gParties[B_TRAINER_PLAYER][partyIndex], MON_DATA_HP) != 0)
@@ -8652,6 +8726,42 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
             GetBattlerPartyState(battler)->changedSpecies = gBattleMons[battler].species;
 
         TryToSetBattleFormChangeMoves(mon, method);
+
+        // update moves for Castform forms
+        if (PlayerIsCastform() && IsSpeciesValidTransformation(targetSpecies))
+        {
+            // read from player party and copy moves based on target form
+            for (u32 partyIndex = 0; partyIndex < gPartiesCount[B_TRAINER_PLAYER]; partyIndex++)
+            {
+                struct Pokemon *partyMon = &gParties[B_TRAINER_PLAYER][partyIndex];
+                
+                // wiz1989 ToDo: This will always restore PP for Base form... not ideal!
+                // special move logic for Base form, because party slot 0 is permanently altered in battle
+                if (targetSpecies == SPECIES_CASTFORM)
+                {
+                    for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+                    {
+                        u16 move = GetTransformationMoves(targetSpecies, moveIndex);
+                        u16 pp = GetMovePP(move);
+
+                        gBattleMons[battler].moves[moveIndex] = move;
+                        gBattleMons[battler].pp[moveIndex] = pp;
+                    }
+                    break;
+                }
+
+                if (GetMonData(partyMon, MON_DATA_SPECIES) != targetSpecies)
+                    continue;
+
+                for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+                {
+                    gBattleMons[battler].moves[moveIndex] = GetMonData(partyMon, MON_DATA_MOVE1 + moveIndex);
+                    gBattleMons[battler].pp[moveIndex] = GetMonData(partyMon, MON_DATA_PP1 + moveIndex);
+                }
+                break;
+            }
+        }
+
         SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
         gBattleMons[battler].species = targetSpecies;
         RecalcBattlerStats(battler, mon, method == FORM_CHANGE_BATTLE_GIGANTAMAX);
@@ -11003,6 +11113,11 @@ void SetValuesOnFaint(enum BattlerId battler)
     gHitMarker |= HITMARKER_FAINTED(battler);
     gBattleStruct->eventState.faintedAction = 0;
     gBattlerFainted = battler;
+
+    // end battle, when player's first mon faints (there is no switching in other castform forms)
+    if (battler == GetBattlerAtPosition(B_POSITION_PLAYER_LEFT))
+        gBattleOutcome = B_OUTCOME_LOST;
+
     TryDeactivateSleepClause(GetBattlerSide(battler), gBattlerPartyIndexes[battler]);
 
     if (gBattleStruct->faintCounter[GetBattlerTrainer(battler)] < 255)
@@ -11023,4 +11138,9 @@ void SetValuesOnFaint(enum BattlerId battler)
         gBattleResults.lastOpponentSpecies = GetMonData(GetBattlerMon(battler), MON_DATA_SPECIES);
         gSideTimers[B_SIDE_OPPONENT].retaliateTimer = 2;
     }
+}
+
+bool32 IsObserverBattle(void)
+{
+    return (FlagGet(B_FLAG_AI_VS_AI_BATTLE));
 }

@@ -27,6 +27,21 @@ u16 GetTransformationAbility(u16 speciesId);
 u16 GetTransformationBattleSpecies(u16 speciesId);
 u16 GetTransformationWarpMap(u16 speciesId);
 u16 GetCurrentTransformationSpecies(void);
+bool32 IsSpeciesValidTransformation(u16 speciesId);
+bool32 IsSpeciesValidCharacter(u16 speciesId);
+u16 GetCharacterMoves(u16 speciesId, u8 i);
+u16 GetCharacterAbility(u16 speciesId);
+u16 GetCharacterItem(u16 speciesId);
+
+#define PHASE_BASE  0
+#define PHASE_SUNNY 1
+#define PHASE_RAINY 2
+#define PHASE_SNOWY 3
+
+#define NEXT_WEATHER_NONE 0
+#define NEXT_WEATHER_SUN  1
+#define NEXT_WEATHER_RAIN 2
+#define NEXT_WEATHER_SNOW 3
 
 #define TRANSFORM_TYPE_PLAYER_SPECIES 1
 #define AVATAR_POKEMON_CHOICE 1
@@ -59,6 +74,15 @@ struct Transformation
     u16 ability;
     u16 moves[4];
     u16 targetMap;
+};
+
+struct Character
+{
+    u8 name[ITEM_NAME_LENGTH];
+    u16 battleSpecies;
+    u16 ability;
+    u16 item;
+    u16 moves[4];
 };
 
 

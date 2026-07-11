@@ -35,9 +35,9 @@
 #include "constants/trainers.h"
 #include "test/battle.h"
 
-static void PlayerPartnerHandleDrawTrainerPic(enum BattlerId battler);
-static void PlayerPartnerHandleTrainerSlide(enum BattlerId battler);
-static void PlayerPartnerHandleTrainerSlideBack(enum BattlerId battler);
+static void UNUSED PlayerPartnerHandleDrawTrainerPic(enum BattlerId battler);
+static void UNUSED PlayerPartnerHandleTrainerSlide(enum BattlerId battler);
+static void UNUSED PlayerPartnerHandleTrainerSlideBack(enum BattlerId battler);
 static void PlayerPartnerHandleChooseAction(enum BattlerId battler);
 static void PlayerPartnerHandleChooseMove(enum BattlerId battler);
 static void PlayerPartnerHandleChoosePokemon(enum BattlerId battler);
@@ -56,9 +56,9 @@ static void (*const sPlayerPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(enum Ba
     [CONTROLLER_LOADMONSPRITE]            = BtlController_HandleLoadMonSprite,
     [CONTROLLER_SWITCHINANIM]             = BtlController_HandleSwitchInAnim,
     [CONTROLLER_RETURNMONTOBALL]          = BtlController_HandleReturnMonToBall,
-    [CONTROLLER_DRAWTRAINERPIC]           = PlayerPartnerHandleDrawTrainerPic,
-    [CONTROLLER_TRAINERSLIDE]             = PlayerPartnerHandleTrainerSlide,
-    [CONTROLLER_TRAINERSLIDEBACK]         = PlayerPartnerHandleTrainerSlideBack,
+    [CONTROLLER_DRAWTRAINERPIC]           = BtlController_Empty,
+    [CONTROLLER_TRAINERSLIDE]             = BtlController_Empty,
+    [CONTROLLER_TRAINERSLIDEBACK]         = BtlController_Empty,
     [CONTROLLER_FAINTANIMATION]           = BtlController_HandleFaintAnimation,
     [CONTROLLER_PALETTEFADE]              = BtlController_Empty,
     [CONTROLLER_BALLTHROWANIM]            = BtlController_Empty,
@@ -212,7 +212,7 @@ static enum TrainerPicID PlayerPartnerGetTrainerBackPicId(enum DifficultyLevel d
 // some explanation here
 // in emerald it's possible to have a tag battle in the battle frontier facilities with AI
 // which use the front sprite for both the player and the partner as opposed to any other battles (including the one with Steven) that use the back pic as well as animate it
-static void PlayerPartnerHandleDrawTrainerPic(enum BattlerId battler)
+static void UNUSED PlayerPartnerHandleDrawTrainerPic(enum BattlerId battler)
 {
     bool32 isFrontPic;
     s16 xPos, yPos;
@@ -254,14 +254,14 @@ static void PlayerPartnerHandleDrawTrainerPic(enum BattlerId battler)
     BtlController_HandleDrawTrainerPic(battler, trainerPicId, isFrontPic, xPos, yPos, -1);
 }
 
-static void PlayerPartnerHandleTrainerSlide(enum BattlerId battler)
+static void UNUSED PlayerPartnerHandleTrainerSlide(enum BattlerId battler)
 {
     enum DifficultyLevel difficulty = GetBattlePartnerDifficultyLevel(gPartnerTrainerId);
     enum TrainerPicID trainerPicId = PlayerPartnerGetTrainerBackPicId(difficulty);
     BtlController_HandleTrainerSlide(battler, trainerPicId);
 }
 
-static void PlayerPartnerHandleTrainerSlideBack(enum BattlerId battler)
+static void UNUSED PlayerPartnerHandleTrainerSlideBack(enum BattlerId battler)
 {
     BtlController_HandleTrainerSlideBack(battler, 35, FALSE);
 }
