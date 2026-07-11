@@ -9327,8 +9327,8 @@
     {
       "id": "LAYOUT_TARC3_BASE",
       "name": "TARC3_base_Layout",
-      "width": 50,
-      "height": 50,
+      "width": 86,
+      "height": 86,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/TARC3_base/border.bin",
