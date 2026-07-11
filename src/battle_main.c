@@ -5317,21 +5317,17 @@ static void CheckChangingTurnOrderEffects(void)
 
 void HandleWeatherChange(void)
 {
-    // check if script has finished (new weather no longer selected)
+    // check if script has finished
     if (!gWeatherChangeMenuNewWeatherSelected)
     {
-        // step 3: restore action selection state
         gWeatherChangingScriptIsRunning = FALSE;
         // reset controller state just in case
         SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        // restore action selection state
         gBattleCommunication[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = STATE_BEFORE_ACTION_CHOSEN;
         gBattleMainFunc = HandleTurnActionSelectionState;
         return;
     }
-
-    // step 2: run script!
-    // gBattleControllerExecFlags is now 0
-    // HandleWeatherChange() is set as gBattleMainFunc
 
     // restore player controller to PlayerBufferRunCommand
     // (to stop HandleInputChooseAction from taking over, stopping script execution)
