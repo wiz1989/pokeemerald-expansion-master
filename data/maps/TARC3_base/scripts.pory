@@ -1,0 +1,15 @@
+mapscripts  TARC3_base_MapScripts {
+
+}
+
+script TARC3_Base_Sunkern {
+    lock
+	faceplayer
+	setwildbattle(SPECIES_SUNKERN, 25)
+	playmoncry(SPECIES_SUNKERN, CRY_MODE_ENCOUNTER)
+	delay(40)
+	waitmoncry
+	dowildbattle
+	release
+    end
+}
