@@ -7895,6 +7895,8 @@ s32 CalcCritChanceStage(struct DamageContext *ctx)
 {
     s32 critChance = 0;
 
+    return CRITICAL_HIT_BLOCKED; // remove crits
+
     if (gSideStatuses[GetBattlerSide(ctx->battlerDef)] & SIDE_STATUS_LUCKY_CHANT)
     {
         critChance = CRITICAL_HIT_BLOCKED;
@@ -7947,6 +7949,8 @@ s32 CalcCritChanceStageGen1(struct DamageContext *ctx)
     s32 bonusCritStage = gBattleMons[ctx->battlerAtk].volatiles.bonusCritStages; // G-Max Chi Strike
     u32 holdEffectCritStage = GetHoldEffectCritChanceIncrease(ctx->battlerAtk, ctx->holdEffects[ctx->battlerAtk]);
     u16 baseSpeed = GetSpeciesBaseSpeed(gBattleMons[ctx->battlerAtk].species);
+
+    return CRITICAL_HIT_BLOCKED; // remove crits
 
     critChance = baseSpeed / 2;
 

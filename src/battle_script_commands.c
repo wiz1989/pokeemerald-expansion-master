@@ -1151,7 +1151,7 @@ static void Cmd_damagecalc(void)
     ctx.moveType = GetBattleMoveType(gCurrentMove);
     ctx.weather = GetWeather();
     ctx.fieldStatuses = gFieldStatuses;
-    ctx.randomFactor = TRUE;
+    ctx.randomFactor = FALSE; // deactivate damage rolls
     ctx.updateFlags = TRUE;
 
     for (enum BattlerId battler = B_BATTLER_0; battler < gBattlersCount; battler++)
