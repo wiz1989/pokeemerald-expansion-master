@@ -3296,6 +3296,7 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             break;
         case ABILITY_ORICHALCUM_PULSE:
         case ABILITY_DROUGHT:
+        case ABILITY_SUNRISE:
             if (!shouldAbilityTrigger)
                 break;
             if (TryChangeBattleWeather(battler, BATTLE_WEATHER_SUN, gLastUsedAbility))

@@ -2480,4 +2480,11 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Spicy Spray"),
         .description = COMPOUND_STRING("Burns the foe when damaged."),
     },
+
+    [ABILITY_SUNRISE] =
+    {
+        .name = _("Sunrise"),
+        .description = COMPOUND_STRING("Summons sunlight in battle."),
+        .aiRating = 9,
+    },
 };

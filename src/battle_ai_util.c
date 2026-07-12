@@ -1891,6 +1891,7 @@ u32 AI_GetSwitchinWeather(enum BattlerId battler)
     case ABILITY_DRIZZLE:
         return B_WEATHER_RAIN_NORMAL;
     case ABILITY_DROUGHT:
+    case ABILITY_SUNRISE:
     case ABILITY_ORICHALCUM_PULSE:
         return B_WEATHER_SUN_NORMAL;
     case ABILITY_SAND_STREAM:

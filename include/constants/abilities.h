@@ -340,6 +340,9 @@ enum __attribute__((packed)) Ability
     ABILITY_FIRE_MANE = 316,
     ABILITY_317 = 317,
     ABILITY_SPICY_SPRAY = 318,
+
+    // Castform additions
+    ABILITY_SUNRISE = 319,
     ABILITIES_COUNT_GEN9,
     ABILITIES_COUNT = ABILITIES_COUNT_GEN9,
 };
