@@ -52,8 +52,8 @@
 #else
 
 #define FLAG_SMART_WILD_MONS 0x20 // Unused Flag
-#define FLAG_BASE_SUNKERN    0x21 // Unused Flag
-#define FLAG_BASE_WOOPER     0x22 // Unused Flag
+#define FLAG_BASE_SUNKERN_BEATEN    0x21 // Unused Flag
+#define FLAG_BASE_WOOPER_BEATEN     0x22 // Unused Flag
 #define FLAG_UNUSED_0x023    0x23 // Unused Flag
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag

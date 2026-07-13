@@ -3,25 +3,53 @@ mapscripts  TARC3_base_MapScripts {
 }
 
 script TARC3_Base_Sunkern {
+	cant_see_if_set(FLAG_BASE_SUNKERN_BEATEN)
     lock
 	faceplayer
-	setwildbattle(SPECIES_SUNKERN, 25)
-	playmoncry(SPECIES_SUNKERN, CRY_MODE_ENCOUNTER)
-	delay(40)
-	waitmoncry
-	dowildbattle
+	if (flag(FLAG_BASE_SUNKERN_BEATEN))
+	{
+		msgbox("I still like you!")
+	}
+	else
+	{
+		msgbox("Hi, I'm SUNKERN.\nLet's battle!")
+		setwildbattle(SPECIES_SUNKERN, 25)
+		playmoncry(SPECIES_SUNKERN, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		dowildbattle
+		callnative(WasBattleWon)
+		if (var(VAR_RESULT) == TRUE)
+		{
+			setflag(FLAG_BASE_SUNKERN_BEATEN)
+		}
+	}
 	release
     end
 }
 
 script TARC3_Base_Wooper {
+	cant_see_if_set(FLAG_BASE_WOOPER_BEATEN)
     lock
 	faceplayer
-	setwildbattle(SPECIES_WOOPER, 25)
-	playmoncry(SPECIES_WOOPER, CRY_MODE_ENCOUNTER)
-	delay(40)
-	waitmoncry
-	dowildbattle
+	if (flag(FLAG_BASE_WOOPER_BEATEN))
+	{
+		msgbox("Hey, my berry!")
+	}
+	else
+	{
+		msgbox("Hi, I'm WOOPER.\nLet's battle!")
+		setwildbattle(SPECIES_WOOPER, 25)
+		playmoncry(SPECIES_WOOPER, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		dowildbattle
+		callnative(WasBattleWon)
+		if (var(VAR_RESULT) == TRUE)
+		{
+			setflag(FLAG_BASE_WOOPER_BEATEN)
+		}
+	}
 	release
     end
 }

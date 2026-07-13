@@ -11149,3 +11149,11 @@ bool32 IsObserverBattle(void)
 {
     return (FlagGet(B_FLAG_AI_VS_AI_BATTLE));
 }
+
+void WasBattleWon(void)
+{
+    if (gBattleOutcome == B_OUTCOME_WON)
+        VarSet(VAR_RESULT, TRUE);
+    else
+        VarSet(VAR_RESULT, FALSE);
+}
