@@ -9367,6 +9367,28 @@
       "border_filepath": "data/layouts/TARC3_snowy/border.bin",
       "blockdata_filepath": "data/layouts/TARC3_snowy/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_TARC3_WEATHER_INSTITUTE_2F",
+      "name": "TARC3_WeatherInstitute_2F_Layout",
+      "width": 20,
+      "height": 11,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Lab",
+      "border_filepath": "data/layouts/TARC3_WeatherInstitute_2F/border.bin",
+      "blockdata_filepath": "data/layouts/TARC3_WeatherInstitute_2F/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_TARC3_WEATHER_INSTITUTE_1F",
+      "name": "TARC3_WeatherInstitute_1F_Layout",
+      "width": 20,
+      "height": 13,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_Lab",
+      "border_filepath": "data/layouts/TARC3_WeatherInstitute_1F/border.bin",
+      "blockdata_filepath": "data/layouts/TARC3_WeatherInstitute_1F/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

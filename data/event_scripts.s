@@ -1741,3 +1741,5 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/scripts/battle_frontier.inc"
 	.include "data/scripts/apricorn_tree.inc"
 	.include "data/scripts/wild_encounter.inc"
+	.include "data/maps/TARC3_WeatherInstitute_2F/scripts.inc"
+	.include "data/maps/TARC3_WeatherInstitute_1F/scripts.inc"

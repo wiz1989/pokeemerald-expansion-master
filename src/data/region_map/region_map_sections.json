@@ -274,7 +274,7 @@
     },
     {
       "id": "MAPSEC_ROUTE_119",
-      "name": "ROUTE 119",
+      "name": "WEATHER INSTITUTE",
       "x": 11,
       "y": 0,
       "width": 1,
@@ -1654,6 +1654,14 @@
     {
       "id": "MAPSEC_TARC3_SUNNY",
       "name": "SUNNY MAP",
+      "x": 0,
+      "y": 0,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_TARC3_WEATHER_INSTITUTE",
+      "name": "WEATHER INSTITUTE",
       "x": 0,
       "y": 0,
       "width": 1,
