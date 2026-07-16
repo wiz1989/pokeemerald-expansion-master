@@ -83,7 +83,8 @@
     "TARC3_sunny",
     "TARC3_snowy",
     "TARC3_WeatherInstitute_1F",
-    "TARC3_WeatherInstitute_2F"
+    "TARC3_WeatherInstitute_2F",
+    "TARC3_base_leobtemp"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",
