@@ -1077,6 +1077,7 @@ extern u8 gWeatherChangeMenuSlidingSpeed;
 extern u32 gWeatherChangeMenuChosenWeather;
 extern bool8 gWeatherChangeMenuNewWeatherSelected;
 extern bool8 gWeatherChangingScriptIsRunning;
+extern bool8 gContinueObserverBattleAfterWeatherChange;
 extern u8 gPartyCriticalHits[PARTY_SIZE];
 extern u8 gCategoryIconSpriteId;
 struct Pokemon *GetBattlerParty(enum BattlerId battler);

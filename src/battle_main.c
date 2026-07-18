@@ -247,6 +247,7 @@ EWRAM_DATA u8 gWeatherChangeMenuSlidingSpeed = 0;
 EWRAM_DATA u32 gWeatherChangeMenuChosenWeather = 0;
 EWRAM_DATA bool8 gWeatherChangeMenuNewWeatherSelected = FALSE;
 EWRAM_DATA bool8 gWeatherChangingScriptIsRunning = FALSE;
+EWRAM_DATA bool8 gContinueObserverBattleAfterWeatherChange = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 
@@ -5321,6 +5322,7 @@ void HandleWeatherChange(void)
     if (!gWeatherChangeMenuNewWeatherSelected)
     {
         gWeatherChangingScriptIsRunning = FALSE;
+        gContinueObserverBattleAfterWeatherChange = TRUE; // continue auto battle after weather change
         // reset controller state just in case
         if (IsObserverBattle() && IsOnPlayerSide(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
             SetControllerToPlayerPartner(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));

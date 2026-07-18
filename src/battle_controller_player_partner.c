@@ -428,6 +428,7 @@ static void PlayerPartnerHandleChooseAction(enum BattlerId battler)
     }
     else
     {
+        gContinueObserverBattleAfterWeatherChange = FALSE;
         AI_TrySwitchOrUseItem(battler);
         BtlController_Complete(battler);
     }
