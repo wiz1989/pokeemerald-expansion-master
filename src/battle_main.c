@@ -5322,18 +5322,28 @@ void HandleWeatherChange(void)
     {
         gWeatherChangingScriptIsRunning = FALSE;
         // reset controller state just in case
-        SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        if (IsObserverBattle() && IsOnPlayerSide(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+            SetControllerToPlayerPartner(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        else
+            SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
         // restore action selection state
         gBattleCommunication[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = STATE_BEFORE_ACTION_CHOSEN;
+        {
+            gBattleCommunication[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = STATE_BEFORE_ACTION_CHOSEN;
+        }
+
         gBattleMainFunc = HandleTurnActionSelectionState;
         return;
     }
 
-    // restore player controller to PlayerBufferRunCommand
+    // restore player controller to BufferRunCommand
     // (to stop HandleInputChooseAction from taking over, stopping script execution)
-    SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+     if (IsObserverBattle() && IsOnPlayerSide(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+        SetControllerToPlayerPartner(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+    else
+        SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
 
-    gWeatherChangeMenuNewWeatherSelected = FALSE; // guard for step 3
+    gWeatherChangeMenuNewWeatherSelected = FALSE;
     if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_NONE)
         BattleScriptExecute(BattleScript_TurnStartWeatherFaded);
     else
