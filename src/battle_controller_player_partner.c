@@ -422,7 +422,7 @@ static void HandleChooseActionAfterDma3(enum BattlerId battler)
 
 static void PlayerPartnerHandleChooseAction(enum BattlerId battler)
 {
-    if (IsObserverBattle() && IsOnPlayerSide(battler) && !gWeatherChangeMenuNewWeatherSelected)
+    if (IsObserverBattle() && IsOnPlayerSide(battler) && !gWeatherChangeMenuNewWeatherSelected && !gContinueObserverBattleAfterWeatherChange)
     {
         gBattlerControllerFuncs[battler] = HandleChooseActionAfterDma3;
     }
