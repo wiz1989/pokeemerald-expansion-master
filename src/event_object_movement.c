@@ -3176,11 +3176,18 @@ void PlayerObjectTurn(struct PlayerAvatar *playerAvatar, enum Direction directio
     ObjectEventTurn(&gObjectEvents[playerAvatar->objectEventId], direction);
 }
 
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BerryTreeLateStagesTall;
+
 static void SetBerryTreeGraphicsById(struct ObjectEvent *objectEvent, u8 berryId, u8 berryStage)
 {
-    const u16 graphicsId = gBerryTreeObjectEventGraphicsIdTable[berryStage];
+    u16 graphicsId = gBerryTreeObjectEventGraphicsIdTable[berryStage];
     const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(graphicsId);
     struct Sprite *sprite = &gSprites[objectEvent->spriteId];
+
+    // replace default table with new tall graphics
+    if (berryId == BERRY_ID_WEPEAR && berryStage >= BERRY_STAGE_TALLER - 1)
+        graphicsInfo = &gObjectEventGraphicsInfo_BerryTreeLateStagesTall;
+
     UpdateSpritePalette(&sObjectEventSpritePalettes[gBerries[berryId].berryTreePaletteSlotTable[berryStage] - 2], sprite);
     sprite->oam.shape = graphicsInfo->oam->shape;
     sprite->oam.size = graphicsInfo->oam->size;
