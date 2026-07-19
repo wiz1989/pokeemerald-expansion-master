@@ -1,5 +1,6 @@
 #include "global.h"
 #include "main.h"
+#include "berry.h"
 #include "bike.h"
 #include "event_data.h"
 #include "event_object_movement.h"
@@ -838,13 +839,25 @@ bool32 CanTriggerSpinEvolution()
 
 static void PlayerNotOnBikeTurningInPlace(enum Direction direction, u16 heldKeys)
 {
+    enum Collision collision = CheckForPlayerAvatarCollision(direction);
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    // prevent turning when on a vine and collision in direction
+    if (IsClimbableVine(playerObjEvent->currentCoords.x, playerObjEvent->currentCoords.y, direction)
+      && collision)
+        return;
+    else if (direction == DIR_SOUTH) // force a down movement when on a vine and pressing down
+        ForcedMovement_WalkSouth();
+    else
+        PlayerTurnInPlace(direction);
+
     WindUpSpinTimer(direction);
-    PlayerTurnInPlace(direction);
 }
 
 static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
 {
     enum Collision collision = CheckForPlayerAvatarCollision(direction);
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     if (collision)
     {
@@ -864,6 +877,14 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
         }
         else
         {
+            // prevent turning when moving on a vine
+            if (IsClimbableVine(playerObjEvent->currentCoords.x, playerObjEvent->currentCoords.y, direction)
+                && (direction == DIR_WEST || direction == DIR_EAST))
+            {
+                PlayerFaceDirection(DIR_NORTH);
+                return;
+            }
+
             // Player collided with something. Certain collisions have special handling that precludes the normal collision effect.
             // COLLISION_STOP_SURFING and COLLISION_PUSHED_BOULDER's effects are started by CheckForObjectEventCollision.
             // COLLISION_LEDGE_JUMP's effect is handled further up in this function, so it will never reach this point.
@@ -1042,6 +1063,39 @@ static bool8 TryPushBoulder(s16 x, s16 y, enum Direction direction)
             }
         }
     }
+    return FALSE;
+}
+
+static u8 GetEventIdAtCoordsWithOffsetSouth(s16 x, s16 y, s16 maxOffset) 
+{
+    u8 objectEventId = GetObjectEventIdByXYExcludePlayer(x, y);
+    
+    if (objectEventId != OBJECT_EVENTS_COUNT)
+        return objectEventId;
+
+    for (s16 offset = 1; offset <= maxOffset; offset++)
+    {
+        objectEventId = GetObjectEventIdByXYExcludePlayer(x, y + offset);
+        if (objectEventId != OBJECT_EVENTS_COUNT)
+            return objectEventId;
+    }
+
+    return OBJECT_EVENTS_COUNT;
+}
+
+bool8 IsClimbableVine(s16 x, s16 y, enum Direction direction)
+{
+    u8 objectEventId = GetEventIdAtCoordsWithOffsetSouth(x, y, 2);
+    
+    if (objectEventId != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventId].graphicsId == OBJ_EVENT_GFX_BERRY_TREE_LATE_STAGES)
+    {
+        u8 berryStage = GetStageByBerryTreeId(gObjectEvents[objectEventId].trainerRange_berryTreeId);
+        enum BerryId berryId = GetBerryTypeByBerryTreeId(gObjectEvents[objectEventId].trainerRange_berryTreeId);
+
+        if (berryId == BERRY_ID_WEPEAR && berryStage >= BERRY_STAGE_TALLER - 1)
+            return TRUE;
+    }
+
     return FALSE;
 }
 

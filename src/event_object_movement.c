@@ -12,6 +12,7 @@
 #include "event_object_movement.h"
 #include "event_scripts.h"
 #include "faraway_island.h"
+#include "fieldmap.h"
 #include "field_camera.h"
 #include "field_effect.h"
 #include "field_effect_helpers.h"
@@ -126,6 +127,7 @@ static u8 setup##_callback(struct ObjectEvent *objectEvent, struct Sprite *sprit
 static EWRAM_DATA u8 sCurrentReflectionType = 0;
 static EWRAM_DATA u16 sCurrentSpecialObjectPaletteTag = 0;
 static EWRAM_DATA struct LockedAnimObjectEvents *sLockedAnimObjectEvents = {0};
+static EWRAM_DATA bool32 sWasClimbingVines = FALSE;
 
 static void MoveCoordsInDirection(u32, s16 *, s16 *, s16, s16);
 static bool8 ObjectEventExecSingleMovementAction(struct ObjectEvent *, struct Sprite *);
@@ -1449,6 +1451,20 @@ u8 GetObjectEventIdByXY(s16 x, s16 y)
     u8 i;
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {
+        if (gObjectEvents[i].active && gObjectEvents[i].currentCoords.x == x && gObjectEvents[i].currentCoords.y == y)
+            break;
+    }
+
+    return i;
+}
+
+u8 GetObjectEventIdByXYExcludePlayer(s16 x, s16 y)
+{
+    u8 i;
+    for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+    {
+        if (gObjectEvents[i].isPlayer)
+            continue;
         if (gObjectEvents[i].active && gObjectEvents[i].currentCoords.x == x && gObjectEvents[i].currentCoords.y == y)
             break;
     }
@@ -6470,6 +6486,11 @@ static enum Collision GetVanillaCollision(struct ObjectEvent *objectEvent, s16 x
 {
     if (IsCoordOutsideObjectEventMovementRange(objectEvent, x, y))
         return COLLISION_OUTSIDE_RANGE;
+    else if (IsClimbableVine(x, y, direction))// && (direction == DIR_NORTH || direction == DIR_SOUTH))
+    {
+        sWasClimbingVines = TRUE;
+        return COLLISION_VINES;
+    }
     else if (MapGridGetCollisionAt(x, y) || GetMapBorderIdAt(x, y) == CONNECTION_INVALID || IsMetatileDirectionallyImpassable(objectEvent, x, y, direction))
         return COLLISION_IMPASSABLE;
     else if (objectEvent->trackedByCamera && !CanCameraMoveInDirection(direction))
@@ -6478,6 +6499,14 @@ static enum Collision GetVanillaCollision(struct ObjectEvent *objectEvent, s16 x
         return COLLISION_ELEVATION_MISMATCH;
     else if (DoesObjectCollideWithObjectAt(objectEvent, x, y))
         return COLLISION_OBJECT_EVENT;
+
+    // reset shadow after leaving vines
+    if (sWasClimbingVines)
+    {
+        sWasClimbingVines = FALSE;
+        objectEvent->facingDirectionLocked = FALSE;
+        objectEvent->noShadow = FALSE;
+    }
 
     return COLLISION_NONE;
 }
@@ -6560,6 +6589,11 @@ enum Collision GetCollisionAtCoords(struct ObjectEvent *objectEvent, s16 x, s16 
         if (ObjectEventOnRightSideStair(objectEvent, x, y, dir))
             return COLLISION_OBJECT_EVENT;
         objectEvent->directionOverwrite = GetRightSideStairsDirection(dir);
+        return COLLISION_NONE;
+    case COLLISION_VINES: // force north facing sprite on vines
+        objectEvent->facingDirection = DIR_NORTH;
+        objectEvent->facingDirectionLocked = TRUE;
+        objectEvent->noShadow = TRUE;
         return COLLISION_NONE;
     default:
         return collision;
@@ -10103,6 +10137,14 @@ void SetObjectSubpriorityByElevation(u8 elevation, struct Sprite *sprite, u8 sub
 
 static void ObjectEventUpdateSubpriority(struct ObjectEvent *objEvent, struct Sprite *sprite)
 {
+    // put player sprite on foreground when on vines
+    if (objEvent->isPlayer && IsClimbableVine(objEvent->currentCoords.x, objEvent->currentCoords.y, objEvent->movementDirection))
+    {
+        sprite->oam.priority = 0;
+        sprite->subpriority = 0;
+        return;
+    }
+
     if (objEvent->fixedPriority)
         return;
 

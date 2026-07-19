@@ -135,6 +135,7 @@ u8 GetMoveDirectionAnimNum(enum Direction direction);
 u8 GetObjectEventIdByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroupId);
 bool8 TryGetObjectEventIdByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroupId, u8 *objectEventId);
 u8 GetObjectEventIdByXY(s16 x, s16 y);
+u8 GetObjectEventIdByXYExcludePlayer(s16 x, s16 y);
 void SetObjectEventDirection(struct ObjectEvent *objectEvent, enum Direction direction);
 u8 GetFirstInactiveObjectEventId(void);
 u8 GetObjectEventIdByLocalId(u8);

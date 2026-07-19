@@ -73,5 +73,6 @@ enum Direction GetLeftSideStairsDirection(enum Direction direction);
 void UpdateSpinData(void);
 void ResetSpinTimer(void);
 bool32 CanTriggerSpinEvolution();
+bool8 IsClimbableVine(s16, s16, enum Direction);
 
 #endif // GUARD_FIELD_PLAYER_AVATAR_H
