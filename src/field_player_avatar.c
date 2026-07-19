@@ -1092,7 +1092,7 @@ bool8 IsClimbableVine(s16 x, s16 y, enum Direction direction)
         u8 berryStage = GetStageByBerryTreeId(gObjectEvents[objectEventId].trainerRange_berryTreeId);
         enum BerryId berryId = GetBerryTypeByBerryTreeId(gObjectEvents[objectEventId].trainerRange_berryTreeId);
 
-        if (berryId == BERRY_ID_WEPEAR && berryStage >= BERRY_STAGE_TALLER - 1)
+        if (berryId == BERRY_ID_WEPEAR && berryStage == BERRY_STAGE_BERRIES)
             return TRUE;
     }
 
