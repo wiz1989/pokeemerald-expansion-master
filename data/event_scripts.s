@@ -1743,3 +1743,5 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/scripts/wild_encounter.inc"
 	.include "data/maps/TARC3_WeatherInstitute_2F/scripts.inc"
 	.include "data/maps/TARC3_WeatherInstitute_1F/scripts.inc"
+
+	.include "data/maps/TARC3_base_leobtemp/scripts.inc"
