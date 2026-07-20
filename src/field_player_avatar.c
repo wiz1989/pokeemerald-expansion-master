@@ -843,11 +843,15 @@ static void PlayerNotOnBikeTurningInPlace(enum Direction direction, u16 heldKeys
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
     // prevent turning when on a vine and collision in direction
-    if (IsClimbableVine(playerObjEvent->currentCoords.x, playerObjEvent->currentCoords.y, direction)
-      && collision)
-        return;
-    else if (direction == DIR_SOUTH) // force a down movement when on a vine and pressing down
-        ForcedMovement_WalkSouth();
+    if (IsClimbableVine(playerObjEvent->currentCoords.x, playerObjEvent->currentCoords.y, direction))
+    {
+        if (collision)
+            return;
+        else if (direction == DIR_SOUTH) // force a down movement when on a vine and pressing down
+            ForcedMovement_WalkSouth();
+        else
+            PlayerTurnInPlace(direction);
+    }
     else
         PlayerTurnInPlace(direction);
 
