@@ -58,6 +58,7 @@
 #include "script.h"
 #include "egg_hatch.h"
 #include "field_effect.h"
+#include "berry.h"
 #include "bike.h"
 #include "data/transformations.h"
 
@@ -68,6 +69,11 @@ static void SetObjectEventSpritesMosaic(bool8 enable);
 static void DestroyWeatherSpriteArray(struct Sprite **sprites, u16 count);
 static void ClearAllWeatherSprites(void);
 static void RestartWeatherImmediate(u8 weather);
+static void BerryTreeGrowToStage(u8 stage);
+static void BerryTreeGrowFinalStage(void);
+static void BerryTreeResetToSeed(void);
+static void BerryTreeResetToWithered(void);
+static void RunWeatherChangeOverworldEffects(void);
 
 EWRAM_DATA u8 gPlayerTransformEffectActive = FALSE;
 static EWRAM_DATA u16 sPendingTransformWarpSpecies = SPECIES_NONE;
@@ -463,6 +469,7 @@ static void WarpToTransformationMap(u16 speciesId, bool8 useFade)
         // remove old weather instantly while the mosaic still covers the map
         RestartWeatherImmediate(WEATHER_NONE);
         sResumeMapWeatherAtMosaicEnd = TRUE;
+        RunWeatherChangeOverworldEffects();
     }
 }
 
@@ -875,4 +882,61 @@ bool8 Script_GiveFirstMonLevel(void)
     CalculateMonStats(mon);
 
     return FALSE;
+}
+
+// berry tree functions
+static void BerryTreeGrowToStage(u8 stage)
+{
+    u8 i;
+    struct BerryTree *tree;
+
+    for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+    {
+        if (gObjectEvents[i].movementType == MOVEMENT_TYPE_BERRY_TREE_GROWTH)
+        {
+            tree = &gSaveBlock1Ptr->berryTrees[GetObjectEventBerryTreeId(i)];
+            if (tree->stage != BERRY_STAGE_NO_BERRY
+             && !(tree->stage == BERRY_STAGE_PLANTED && stage == BERRY_STAGE_TALLER)) // don't grow into withered from a freshly planted seed
+            {
+                tree->stage = stage;
+                BerryTreeGrow(tree);
+            }
+        }
+    }
+}
+
+static void BerryTreeGrowFinalStage(void)
+{
+    BerryTreeGrowToStage(BERRY_STAGE_BERRIES);
+}
+
+static void BerryTreeResetToSeed(void)
+{
+    BerryTreeGrowToStage(BERRY_STAGE_PLANTED);
+}
+
+static void BerryTreeResetToWithered(void)
+{
+    BerryTreeGrowToStage(BERRY_STAGE_TALLER);
+}
+
+static void RunWeatherChangeOverworldEffects(void)
+{
+    u16 transformationSpecies = GetCurrentTransformationSpecies();
+
+    // vines
+    switch (transformationSpecies)
+    {
+    case SPECIES_CASTFORM_RAINY:
+        BerryTreeGrowFinalStage();
+        break;
+    case SPECIES_CASTFORM_SUNNY:
+        BerryTreeResetToWithered();
+        break;
+    case SPECIES_CASTFORM_SNOWY:
+        BerryTreeResetToSeed();
+        break;
+    default: // base form doesn't change the vines
+        break;
+    }
 }

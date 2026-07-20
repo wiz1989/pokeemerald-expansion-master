@@ -20,6 +20,7 @@ void PlayerOnBikeCollide(enum Direction direction);
 void PlayerFaceDirection(enum Direction direction);
 void PlayerTurnInPlace(enum Direction direction);
 void PlayerJumpLedge(enum Direction direction);
+void PlayerJumpFourTiles(enum Direction direction);
 void PlayerIdleWheelie(enum Direction direction);
 void PlayerStartWheelie(enum Direction direction);
 void PlayerEndWheelie(enum Direction direction);
@@ -73,5 +74,6 @@ enum Direction GetLeftSideStairsDirection(enum Direction direction);
 void UpdateSpinData(void);
 void ResetSpinTimer(void);
 bool32 CanTriggerSpinEvolution();
+bool8 IsClimbableVine(s16, s16, enum Direction);
 
 #endif // GUARD_FIELD_PLAYER_AVATAR_H

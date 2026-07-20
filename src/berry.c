@@ -666,14 +666,14 @@ const struct Berry gBerries[NUM_BERRIES + 1] =
     [BERRY_ID_WEPEAR] =
     {
         .info = {
-            .name = _("Wepear"),
+            .name = _("Seed"),
             .firmness = BERRY_FIRMNESS_SUPER_HARD,
             .color = BERRY_COLOR_GREEN,
             .size = 74,
             .maxYield = YIELD_RATE(6, 10, 15, 20),
             .minYield = YIELD_RATE(3, 2, 3, 4),
-            .description1 = COMPOUND_STRING("The flower is small and white. It has a"),
-            .description2 = COMPOUND_STRING("delicate balance of bitter and sour."),
+            .description1 = COMPOUND_STRING("A mysterious seed that grows into a"),
+            .description2 = COMPOUND_STRING("large vine."),
             .growthDuration = GROWTH_DURATION(4, 8, 12, 24, 16, 24),
             .spicy = 0,
             .dry = 0,
@@ -2454,7 +2454,7 @@ bool32 BerryTreeGrow(struct BerryTree *tree)
     case BERRY_STAGE_PLANTED:
     case BERRY_STAGE_SPROUTED:
     case BERRY_STAGE_TRUNK:
-        tree->stage++;
+        // tree->stage++; // stopped tree growth. It's now set directly by BerryTreeGrowToStage().
         break;
     case BERRY_STAGE_TALLER:
         if (OW_BERRY_SIX_STAGES)
@@ -2471,7 +2471,7 @@ bool32 BerryTreeGrow(struct BerryTree *tree)
             break;
         tree->watered = 0;
         tree->berryYield = 0;
-        tree->stage = BERRY_STAGE_SPROUTED;
+        // tree->stage = BERRY_STAGE_SPROUTED;
         tree->moistureLevel = 100;
         if (++tree->regrowthCount == ((tree->mulch == ITEM_TO_MULCH(ITEM_GOOEY_MULCH)) ? 15 : 10))
             *tree = gBlankBerryTree;
@@ -2848,6 +2848,15 @@ void ObjectEventInteractionPickBerryTree(void)
         AddBagItem(BerryTypeToItemId(berry), GetBerryCountByBerryTreeId(id));
         AddBagItem(BerryTypeToItemId(mutation), 1);
     }
+}
+
+void ObjectEventInteractionReturnBerry(void)
+{
+    u8 id = GetObjectEventBerryTreeId(gSelectedObjectEvent);
+    u8 berry = GetBerryTypeByBerryTreeId(id);
+
+    gSpecialVar_0x8004 = AddBagItem(BerryTypeToItemId(berry), GetBerryCountByBerryTreeId(id));
+    return;
 }
 
 void ObjectEventInteractionRemoveBerryTree(void)

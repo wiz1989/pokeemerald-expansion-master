@@ -247,6 +247,7 @@ EWRAM_DATA u8 gWeatherChangeMenuSlidingSpeed = 0;
 EWRAM_DATA u32 gWeatherChangeMenuChosenWeather = 0;
 EWRAM_DATA bool8 gWeatherChangeMenuNewWeatherSelected = FALSE;
 EWRAM_DATA bool8 gWeatherChangingScriptIsRunning = FALSE;
+EWRAM_DATA bool8 gContinueObserverBattleAfterWeatherChange = FALSE;
 EWRAM_DATA u8 gPartyCriticalHits[PARTY_SIZE] = {0};
 EWRAM_DATA u8 gCategoryIconSpriteId = 0;
 
@@ -5321,19 +5322,30 @@ void HandleWeatherChange(void)
     if (!gWeatherChangeMenuNewWeatherSelected)
     {
         gWeatherChangingScriptIsRunning = FALSE;
+        gContinueObserverBattleAfterWeatherChange = TRUE; // continue auto battle after weather change
         // reset controller state just in case
-        SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        if (IsObserverBattle() && IsOnPlayerSide(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+            SetControllerToPlayerPartner(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+        else
+            SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
         // restore action selection state
         gBattleCommunication[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = STATE_BEFORE_ACTION_CHOSEN;
+        {
+            gBattleCommunication[GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)] = STATE_BEFORE_ACTION_CHOSEN;
+        }
+
         gBattleMainFunc = HandleTurnActionSelectionState;
         return;
     }
 
-    // restore player controller to PlayerBufferRunCommand
+    // restore player controller to BufferRunCommand
     // (to stop HandleInputChooseAction from taking over, stopping script execution)
-    SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+     if (IsObserverBattle() && IsOnPlayerSide(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
+        SetControllerToPlayerPartner(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
+    else
+        SetControllerToPlayer(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
 
-    gWeatherChangeMenuNewWeatherSelected = FALSE; // guard for step 3
+    gWeatherChangeMenuNewWeatherSelected = FALSE;
     if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_NONE)
         BattleScriptExecute(BattleScript_TurnStartWeatherFaded);
     else

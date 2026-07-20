@@ -409,6 +409,7 @@ bool8 (*const gCopyPlayerMovementFuncs[])(struct ObjectEvent *, struct Sprite *,
     [COPY_MOVE_JUMP2]               = CopyablePlayerMovement_Jump2,
     [COPY_MOVE_WALK_COLLIDE]        = CopyablePlayerMovement_WalkNormal,
     [COPY_MOVE_WALK_COLLIDE_SLOW]   = CopyablePlayerMovement_WalkSlow,
+    [COPY_MOVE_JUMP4]               = CopyablePlayerMovement_Jump4
 };
 
 u8 (*const gMovementTypeFuncs_FollowPlayer[])(struct ObjectEvent *, struct Sprite *) = {
@@ -429,6 +430,7 @@ bool8 (*const gFollowPlayerMovementFuncs[])(struct ObjectEvent *, struct Sprite 
     [COPY_MOVE_JUMP2] = FollowablePlayerMovement_Step,
     [COPY_MOVE_WALK_COLLIDE] = FollowablePlayerMovement_Idle,
     [COPY_MOVE_WALK_COLLIDE_SLOW] = FollowablePlayerMovement_Idle,
+    [COPY_MOVE_JUMP4] = FollowablePlayerMovement_Step,
 };
 
 u8 (*const gMovementTypeFuncs_CopyPlayerInGrass[])(struct ObjectEvent *, struct Sprite *) = {

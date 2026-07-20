@@ -11,6 +11,7 @@
 #include "battle_z_move.h"
 #include "bg.h"
 #include "data.h"
+#include "event_data.h"
 #include "frontier_util.h"
 #include "item_use.h"
 #include "link.h"
@@ -26,6 +27,7 @@
 #include "task.h"
 #include "text.h"
 #include "trainer.h"
+#include "transform.h"
 #include "util.h"
 #include "window.h"
 #include "constants/battle_anim.h"
@@ -266,10 +268,170 @@ static void UNUSED PlayerPartnerHandleTrainerSlideBack(enum BattlerId battler)
     BtlController_HandleTrainerSlideBack(battler, 35, FALSE);
 }
 
+static void SetUpWeatherChangeData(void)
+{
+    // Reset weatherAbilityDone to allow consecutive form changes.
+    for (enum BattlerId i = 0; i < gBattlersCount; i++)
+        gBattleMons[i].volatiles.weatherAbilityDone = FALSE;
+
+    switch (gWeatherChangeMenuChosenWeather)
+    {
+    case NEXT_WEATHER_NONE:
+    {
+        u32 currWeather = GetCurrentBattleWeather();
+        if (currWeather != 0xFF)
+        {
+            gBattleCommunication[MULTISTRING_CHOOSER] = GetCurrentWeatherEndMessage();
+            gBattleWeather = B_WEATHER_NONE;
+        }
+        else
+        {
+            gWeatherChangeMenuNewWeatherSelected = FALSE;
+        }
+        break;
+    }
+    case NEXT_WEATHER_SUN:
+        gBattleWeather = B_WEATHER_SUN;
+        gBattleScripting.animArg1 = B_ANIM_SUN_CONTINUES;
+        break;
+    case NEXT_WEATHER_RAIN:
+        gBattleWeather = B_WEATHER_RAIN;
+        gBattleScripting.animArg1 = B_ANIM_RAIN_CONTINUES;
+        break;
+    case NEXT_WEATHER_SNOW:
+        gBattleWeather = B_WEATHER_SNOW;
+        gBattleScripting.animArg1 = B_ANIM_SNOW_CONTINUES;
+        break;
+    }
+}
+
+static void HandleInputChooseAction(enum BattlerId battler)
+{
+    if (gWeatherChangingScriptIsRunning)
+        return;
+
+    if (gWeatherChangeMenuOpened && gWeatherChangeMenuPresent)
+    {
+        if (JOY_NEW(A_BUTTON))
+        {
+            if (gWeatherChangeMenuChosenWeather == GetNextBattleWeatherId())
+            {
+                PlaySE(SE_PC_OFF);
+                gWeatherChangeMenuOpened = FALSE;
+                gWeatherChangeMenuNewWeatherSelected = FALSE;
+                SlideWeatherTriggerWindow();
+                return;
+            }
+
+            PlaySE(SE_SELECT);
+            gWeatherChangeMenuNewWeatherSelected = TRUE;
+            SetUpWeatherChangeData();
+
+            gWeatherChangeMenuSlidingSpeed = 2;
+            gWeatherChangeMenuOpened = FALSE;
+            SlideWeatherTriggerWindow();
+
+            if (gWeatherChangeMenuNewWeatherSelected)
+            {
+                gWeatherChangingScriptIsRunning = TRUE;
+                MarkBattleControllerIdleOnLocal(battler);
+                gBattleMainFunc = HandleWeatherChange;
+            }
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            PlaySE(SE_PC_OFF);
+            gWeatherChangeMenuOpened = FALSE;
+            gWeatherChangeMenuNewWeatherSelected = FALSE;
+            SlideWeatherTriggerWindow();
+        }
+        else if (JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON))
+        {
+            PlaySE(SE_SELECT);
+            gWeatherChangeMenuSlidingSpeed = 2;
+            gWeatherChangeMenuOpened = FALSE;
+            SlideWeatherTriggerWindow();
+        }
+        else if (JOY_NEW(DPAD_RIGHT))
+        {
+            if (gWeatherChangeMenuChosenWeather == NEXT_WEATHER_NONE)
+                gWeatherChangeMenuChosenWeather = VarGet(VAR_CASTFORM_PHASE);
+            else
+                gWeatherChangeMenuChosenWeather--;
+            PlaySE(SE_SELECT);
+        }
+        else if (JOY_NEW(DPAD_LEFT))
+        {
+            if (gWeatherChangeMenuChosenWeather == VarGet(VAR_CASTFORM_PHASE))
+                gWeatherChangeMenuChosenWeather = VarGet(NEXT_WEATHER_NONE);
+            else
+                gWeatherChangeMenuChosenWeather++;
+            PlaySE(SE_SELECT);
+        }
+    }
+    else if ((JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON)) && gWeatherChangeMenuPresent)
+    {
+        gWeatherChangeMenuSlidingSpeed = 2;
+        gWeatherChangeMenuOpened ^= TRUE;
+        PlaySE(SE_SELECT);
+        SlideWeatherTriggerWindow();
+
+        if (gWeatherChangeMenuOpened)
+            gWeatherChangeMenuChosenWeather = GetNextBattleWeatherId();
+    }
+    else if (JOY_NEW(A_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        gWeatherChangeMenuNewWeatherSelected = TRUE;
+        // gBattleCommunication[battler] = STATE_BEFORE_ACTION_CHOSEN;
+    }
+}
+
+static void PlayerPartnerHandleChooseActionIdle(enum BattlerId battler)
+{
+    if (!IsObserverBattle() || !IsOnPlayerSide(battler))
+    {
+        AI_TrySwitchOrUseItem(battler);
+        BtlController_Complete(battler);
+    }
+    else if (gWeatherChangeMenuNewWeatherSelected)
+    {
+        gWeatherChangeMenuNewWeatherSelected = FALSE;
+        TryHideWeatherTrigger();
+        AI_TrySwitchOrUseItem(battler);
+        BtlController_Complete(battler);
+    }
+    else
+    {
+        if (GetBattlerPosition(battler) == B_POSITION_PLAYER_LEFT)
+            HandleInputChooseAction(battler);
+    }
+}
+
+static void HandleChooseActionAfterDma3(enum BattlerId battler)
+{
+    if (!IsDma3ManagerBusyWithBgCopy())
+    {
+        gBattle_BG0_X = 0;
+        gBattle_BG0_Y = 0; // 160 to show the action menu frame
+        BattlePutTextOnWindow(gText_ChooseWeather, B_WIN_MSG); // B_WIN_ACTION_PROMPT for right side
+        TryRestoreWeatherTrigger();
+        gBattlerControllerFuncs[battler] = PlayerPartnerHandleChooseActionIdle;
+    }
+}
+
 static void PlayerPartnerHandleChooseAction(enum BattlerId battler)
 {
-    AI_TrySwitchOrUseItem(battler);
-    BtlController_Complete(battler);
+    if (IsObserverBattle() && IsOnPlayerSide(battler) && !gWeatherChangeMenuNewWeatherSelected && !gContinueObserverBattleAfterWeatherChange)
+    {
+        gBattlerControllerFuncs[battler] = HandleChooseActionAfterDma3;
+    }
+    else
+    {
+        gContinueObserverBattleAfterWeatherChange = FALSE;
+        AI_TrySwitchOrUseItem(battler);
+        BtlController_Complete(battler);
+    }
 }
 
 static void PlayerPartnerHandleChooseMove(enum BattlerId battler)

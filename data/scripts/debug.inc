@@ -201,7 +201,7 @@ Debug_EventScript_Text_DefensiveIVs:
 	.string "HP IVs: {STR_VAR_1}, DEF IVs: {STR_VAR_2}, SPDEF IVs: {STR_VAR_3}$"
 
 Debug_EventScript_Script_1::
-	ai_vs_ai_wild_battle SPECIES_PIKACHU, SPECIES_EEVEE, 30
+	ai_vs_ai_wild_battle SPECIES_SQUIRTLE, SPECIES_EEVEE, 30
 	release
 	end
 

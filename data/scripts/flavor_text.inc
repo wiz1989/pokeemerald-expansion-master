@@ -112,6 +112,14 @@ EventScript_Indigo_HighestAuthority::
 	msgbox Text_Indigo_HighestAuthority, MSGBOX_SIGN
 	end
 
+EventScript_MossTileJump::
+	msgbox Text_MossTileJump, MSGBOX_SIGN
+	end
+
+EventScript_MossTileDry::
+	msgbox Text_MossTileDry, MSGBOX_SIGN
+	end
+
 @ Flavor text for interacting with various background objects
 
 Text_Bookshelf::
@@ -234,3 +242,10 @@ Text_Burglary::
 Text_PlayerFacingTVScreen::
 	.string "There's a POKéMON on TV!\n"
 	.string "It looks like it's having fun.$"
+
+Text_MossTileJump::
+	.string "The moss is thick and soft.\n"
+	.string "You can jump across it.$"
+
+Text_MossTileDry::
+	.string "The moss is dry and brittle.$"

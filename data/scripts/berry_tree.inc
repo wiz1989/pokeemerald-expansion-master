@@ -88,7 +88,18 @@ BerryTree_EventScript_CheckBerryStage1::
 	message BerryTree_Text_BerryGrowthStage1
 	waitmessage
 	waitbuttonpress
-	goto BerryTree_EventScript_WantToWater
+	msgbox BerryTree_Text_PutBackInBag, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, BerryTree_EventScript_ReturnBerryToBag
+	goto BerryTree_EventScript_CancelPlanting
+
+BerryTree_EventScript_ReturnBerryToBag::
+	special ObjectEventInteractionReturnBerry
+	special ObjectEventInteractionRemoveBerryTree
+	message BerryTree_Text_TookBerryBack
+	waitmessage
+	waitbuttonpress
+	releaseall
+	end
 
 BerryTree_EventScript_CheckBerryStage2::
 	lockall
@@ -149,16 +160,11 @@ BerryTree_EventScript_SetAdverbPoor::
 
 @ VAR_0x8006 here is the number of berries
 BerryTree_EventScript_CheckBerryFullyGrown::
-	buffernumberstring STR_VAR_2, VAR_0x8006
 	lock
 	faceplayer
-	special ObjectEventInteractionGetBerryCountString
-.if OW_BERRY_MUTATIONS == TRUE
-	goto_if_eq VAR_RESULT, TRUE, BerryTree_EventScript_CheckBerryFullyGrown_Mutation
-.endif
-	msgbox BerryTree_Text_WantToPick, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, YES, BerryTree_EventScript_PickBerry
-	goto_if_eq VAR_RESULT, NO, BerryTree_EventScript_CancelPickingBerry
+	msgbox BerryTree_Text_WantToPick, MSGBOX_DEFAULT
+	release
+	end
 
 .set BERRY_NORMAL_BAG_FULL, 0
 .set BERRY_NORMAL_SPACE_IN_BAG, 1
@@ -259,7 +265,7 @@ BerryTree_Text_ItsSoftLoamySoil:
 
 BerryTree_Text_WantToPlant:
 	.string "It's soft, loamy soil.\n"
-	.string "Want to plant a BERRY?$"
+	.string "Want to plant a SEED?$"
 
 BerryTree_Text_PlantedOneBerry:
 	.string "{PLAYER} planted one {STR_VAR_1} in\n"
@@ -271,6 +277,14 @@ BerryTree_Text_BerryGrowthStage1:
 .else
 	.string "One {STR_VAR_1} was planted here.$"
 .endif
+
+BerryTree_Text_PutBackInBag:
+	.string "Do you want to put it back\n"
+	.string "in the BAG?$"
+
+BerryTree_Text_TookBerryBack:
+	.string "{PLAYER} took the {STR_VAR_1}\n"
+	.string "back from the soil.$"
 
 BerryTree_Text_BerryGrowthStage2:
 .if OW_BERRY_SIX_STAGES == TRUE
@@ -296,8 +310,7 @@ BerryTree_Text_BerryGrowthStage4:
 .if OW_BERRY_SIX_STAGES == TRUE
 	.string "The {STR_VAR_1} tree is in bloom!$"
 .else
-	.string "These {STR_VAR_1} flowers are blooming\n"
-	.string "{STR_VAR_2}.$"
+	.string "These vines are all withered.$"
 .endif
 
 BerryTree_Text_CareAdverbGreat:
@@ -310,9 +323,7 @@ BerryTree_Text_CareAdverbGood:
 	.string "prettily$"
 
 BerryTree_Text_WantToPick:
-	.string "You found {STR_VAR_2} {STR_VAR_1}!\p"
-	.string "Do you want to pick the\n"
-	.string "{STR_VAR_1}?$"
+	.string "These vines look climbable!$"
 
 BerryTree_Text_PickedTheBerry:
 	.string "{PLAYER} picked the {STR_VAR_2} {STR_VAR_1}.$"

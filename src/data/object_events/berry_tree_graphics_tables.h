@@ -226,12 +226,12 @@ const struct SpriteFrameImage gPicTable_WepearBerryTree[] = {
     overworld_frame(gObjectEventPic_BerryTreeDirtPile, 2, 2, 0),
     overworld_frame(gObjectEventPic_BerryTreeSprout, 2, 2, 0),
     overworld_frame(gObjectEventPic_BerryTreeSprout, 2, 2, 1),
-    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 4, 0),
-    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 4, 1),
-    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 4, 2),
-    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 4, 3),
-    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 4, 4),
-    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 4, 5),
+    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 8, 0),
+    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 8, 1),
+    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 8, 2),
+    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 8, 3),
+    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 8, 4),
+    overworld_frame(gObjectEventPic_WepearBerryTree, 2, 8, 5),
 };
 
 const u8 gBerryTreePaletteSlotTable_Wepear[] = {3, 4, 2, 2, 2, 2, 2};

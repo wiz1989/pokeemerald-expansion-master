@@ -308,6 +308,7 @@ extern const u8 gText_BattleWallyName[];
 extern const u8 gText_Win[];
 extern const u8 gText_Loss[];
 extern const u8 gText_Draw[];
+extern const u8 gText_ChooseWeather[];
 extern const u8 gText_StatSharply[];
 extern const u8 gText_StatRose[];
 extern const u8 gText_StatFell[];
