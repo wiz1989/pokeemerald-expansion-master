@@ -340,6 +340,7 @@ void MovementType_WalkSlowlyInPlace(struct Sprite *sprite);
 void MovementType_FollowPlayer(struct Sprite *sprite);
 u8 GetSlideMovementAction(u32);
 u8 GetJump2MovementAction(u32);
+u8 GetJump4MovementAction(u32);
 u8 CopySprite(struct Sprite *sprite, s16 x, s16 y, u8 subpriority);
 u8 CreateCopySpriteAt(struct Sprite *sprite, s16 x, s16 y, u8 subpriority);
 bool8 IsElevationMismatchAt(u8, s16, s16);
@@ -504,6 +505,7 @@ bool8 FollowablePlayerMovement_JumpInPlace(struct ObjectEvent *objectEvent, stru
 bool8 FollowablePlayerMovement_GoSpeed4(struct ObjectEvent *objectEvent, struct Sprite *sprite, enum Direction, bool8 tileCallback(u8));
 bool8 FollowablePlayerMovement_Jump(struct ObjectEvent *objectEvent, struct Sprite *sprite, enum Direction, bool8 tileCallback(u8));
 bool8 CopyablePlayerMovement_Jump2(struct ObjectEvent *objectEvent, struct Sprite *sprite, enum Direction, bool8 tileCallback(u8));
+bool8 CopyablePlayerMovement_Jump4(struct ObjectEvent *objectEvent, struct Sprite *sprite, enum Direction, bool8 tileCallback(u8));
 u8 MovementType_CopyPlayerInGrass_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 u8 MovementType_Buried_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);
 u8 MovementType_WalkInPlace_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite);

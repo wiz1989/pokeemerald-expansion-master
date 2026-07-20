@@ -103,6 +103,7 @@ static void PlayerNotOnBikeNotMoving(enum Direction, u16);
 static void PlayerNotOnBikeTurningInPlace(enum Direction, u16);
 static void PlayerNotOnBikeMoving(enum Direction, u16);
 static enum Collision CheckForPlayerAvatarCollision(enum Direction);
+static enum Collision CheckForPlayerAvatarCollisionAtRange(enum Direction, u8 range);
 static enum Collision CheckForPlayerAvatarStaticCollision(enum Direction);
 static enum Collision CheckForObjectEventStaticCollision(struct ObjectEvent *, s16, s16, enum Direction, u8);
 static bool8 CanStopSurfing(s16, s16, enum Direction);
@@ -863,6 +864,17 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
     enum Collision collision = CheckForPlayerAvatarCollision(direction);
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
 
+    // MOSS jump check
+    u8 currentBehavior = MapGridGetMetatileBehaviorAt(playerObjEvent->currentCoords.x, playerObjEvent->currentCoords.y);
+    if (MetatileBehavior_IsMossTileJump(currentBehavior))
+    {
+        collision = CheckForPlayerAvatarCollisionAtRange(direction, 4);
+        if (collision == COLLISION_NONE) // destination tile can be jumped to
+            PlayerJumpFourTiles(direction);
+        return;
+    }
+
+    // regular checks
     if (collision)
     {
         if (collision == COLLISION_LEDGE_JUMP)
@@ -971,6 +983,20 @@ static enum Collision CheckForPlayerAvatarCollision(enum Direction direction)
         return COLLISION_STAIR_WARP;
 
     MoveCoords(direction, &x, &y);
+    return CheckForObjectEventCollision(playerObjEvent, x, y, direction, MapGridGetMetatileBehaviorAt(x, y));
+}
+
+static enum Collision CheckForPlayerAvatarCollisionAtRange(enum Direction direction, u8 range)
+{
+    s16 x, y;
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    x = playerObjEvent->currentCoords.x;
+    y = playerObjEvent->currentCoords.y;
+
+    for (u8 i = 0; i < range; i++)
+        MoveCoords(direction, &x, &y);
+
     return CheckForObjectEventCollision(playerObjEvent, x, y, direction, MapGridGetMetatileBehaviorAt(x, y));
 }
 
@@ -1405,6 +1431,12 @@ void PlayerJumpLedge(enum Direction direction)
 {
     PlaySE(SE_LEDGE);
     PlayerSetAnimId(GetJump2MovementAction(direction), COPY_MOVE_JUMP2);
+}
+
+void PlayerJumpFourTiles(enum Direction direction)
+{
+    PlaySE(SE_LEDGE);
+    PlayerSetAnimId(GetJump4MovementAction(direction), COPY_MOVE_JUMP4);
 }
 
 // Stop player on current facing direction once they're done moving and if they're not currently Acro Biking on bumpy slope

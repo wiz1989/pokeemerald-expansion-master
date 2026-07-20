@@ -1825,3 +1825,18 @@ bool8 MetatileBehavior_IsTrainerTowerMonitor(u8 metatileBehavior)
         return FALSE;
 }
 
+bool8 MetatileBehavior_IsMossTileJump(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_MOSS_TILE_JUMP)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 MetatileBehavior_IsMossTileDry(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_MOSS_TILE_DRY)
+        return TRUE;
+    else
+        return FALSE;
+}

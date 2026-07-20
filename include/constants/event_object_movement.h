@@ -276,6 +276,10 @@
 #define MOVEMENT_ACTION_SPIN_UP                         0xB3
 #define MOVEMENT_ACTION_SPIN_LEFT                       0xB4
 #define MOVEMENT_ACTION_SPIN_RIGHT                      0xB5
+#define MOVEMENT_ACTION_JUMP_4_DOWN                     0xB6
+#define MOVEMENT_ACTION_JUMP_4_UP                       0xB7
+#define MOVEMENT_ACTION_JUMP_4_LEFT                     0xB8
+#define MOVEMENT_ACTION_JUMP_4_RIGHT                    0xB9
 
 #define MOVEMENT_ACTION_STEP_END 0xFE
 #define MOVEMENT_ACTION_NONE     0xFF
@@ -383,6 +387,7 @@ enum CopyMovement
 	COPY_MOVE_JUMP2,
 	COPY_MOVE_WALK_COLLIDE,
 	COPY_MOVE_WALK_COLLIDE_SLOW,
+	COPY_MOVE_JUMP4
 };
 
 #endif // GUARD_CONSTANTS_EVENT_OBJECT_MOVEMENT_H

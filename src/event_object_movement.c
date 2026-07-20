@@ -86,6 +86,7 @@ enum {
     JUMP_DISTANCE_IN_PLACE,
     JUMP_DISTANCE_NORMAL,
     JUMP_DISTANCE_FAR,
+    JUMP_DISTANCE_FOUR_TILES,
 };
 
 // Used for storing conditional emotes
@@ -1077,6 +1078,13 @@ const u8 gJump2MovementActions[] = {
     MOVEMENT_ACTION_JUMP_2_UP,
     MOVEMENT_ACTION_JUMP_2_LEFT,
     MOVEMENT_ACTION_JUMP_2_RIGHT,
+};
+const u8 gJump4MovementActions[] = {
+    MOVEMENT_ACTION_JUMP_4_DOWN,
+    MOVEMENT_ACTION_JUMP_4_DOWN,
+    MOVEMENT_ACTION_JUMP_4_UP,
+    MOVEMENT_ACTION_JUMP_4_LEFT,
+    MOVEMENT_ACTION_JUMP_4_RIGHT,
 };
 const u8 gJumpInPlaceMovementActions[] = {
     MOVEMENT_ACTION_JUMP_IN_PLACE_DOWN,
@@ -5685,6 +5693,27 @@ bool8 CopyablePlayerMovement_Jump2(struct ObjectEvent *objectEvent, struct Sprit
     return TRUE;
 }
 
+bool8 CopyablePlayerMovement_Jump4(struct ObjectEvent *objectEvent, struct Sprite *sprite, enum Direction playerDirection, bool8 tileCallback(u8))
+{
+    enum Direction direction;
+    s16 x;
+    s16 y;
+
+    direction = playerDirection;
+    direction = GetCopyDirection(gInitialMovementTypeFacingDirections[objectEvent->movementType], objectEvent->directionSequenceIndex, direction);
+    x = objectEvent->currentCoords.x;
+    y = objectEvent->currentCoords.y;
+    MoveCoordsInDirection(direction, &x, &y, 4, 4);
+    ObjectEventSetSingleMovement(objectEvent, sprite, GetJump4MovementAction(direction));
+
+    if (GetCollisionAtCoords(objectEvent, x, y, direction) || (tileCallback != NULL && !tileCallback(MapGridGetMetatileBehaviorAt(x, y))))
+        ObjectEventSetSingleMovement(objectEvent, sprite, GetFaceDirectionMovementAction(direction));
+
+    objectEvent->singleMovementActive = TRUE;
+    sprite->sTypeFuncId = 2;
+    return TRUE;
+}
+
 static bool32 EndFollowerTransformEffect(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     if (!sprite)
@@ -6977,6 +7006,7 @@ dirn_to_anim(GetWalkFasterMovementAction, gWalkFasterMovementActions);
 dirn_to_anim(GetSlideMovementAction, gSlideMovementActions);
 dirn_to_anim(GetPlayerRunMovementAction, gPlayerRunMovementActions);
 dirn_to_anim(GetJump2MovementAction, gJump2MovementActions);
+dirn_to_anim(GetJump4MovementAction, gJump4MovementActions);
 dirn_to_anim(GetJumpInPlaceMovementAction, gJumpInPlaceMovementActions);
 dirn_to_anim(GetJumpInPlaceTurnAroundMovementAction, gJumpInPlaceTurnAroundMovementActions);
 dirn_to_anim(GetJumpMovementAction, gJumpMovementActions);
@@ -7492,7 +7522,7 @@ static void InitJumpRegular(struct ObjectEvent *objectEvent, struct Sprite *spri
     // For follower only, match the anim duration of the player's movement, whether dashing, walking or jumping
     if (objectEvent->localId == OBJ_EVENT_ID_FOLLOWER
       && type == JUMP_TYPE_HIGH
-      && distance == JUMP_DISTANCE_FAR
+            && distance >= JUMP_DISTANCE_FAR
       // In some areas (i.e Meteor Falls), the player can jump as the follower jumps, so preserve type in this case
       && PlayerGetCopyableMovement() != COPY_MOVE_JUMP2)
         type = TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_DASH) ? JUMP_TYPE_FASTER : JUMP_TYPE_FAST;
@@ -7635,6 +7665,74 @@ bool8 MovementAction_Jump2Right_Step0(struct ObjectEvent *objectEvent, struct Sp
 }
 
 bool8 MovementAction_Jump2Right_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (DoJumpAnim(objectEvent, sprite))
+    {
+        objectEvent->noShadow = FALSE;
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+bool8 MovementAction_Jump4Down_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitJumpRegular(objectEvent, sprite, DIR_SOUTH, JUMP_DISTANCE_FOUR_TILES, JUMP_TYPE_HIGH);
+    return MovementAction_Jump4Down_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_Jump4Down_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (DoJumpAnim(objectEvent, sprite))
+    {
+        objectEvent->noShadow = FALSE;
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+bool8 MovementAction_Jump4Up_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitJumpRegular(objectEvent, sprite, DIR_NORTH, JUMP_DISTANCE_FOUR_TILES, JUMP_TYPE_HIGH);
+    return MovementAction_Jump4Up_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_Jump4Up_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (DoJumpAnim(objectEvent, sprite))
+    {
+        objectEvent->noShadow = FALSE;
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
+
+bool8 MovementAction_Jump4Left_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitJumpRegular(objectEvent, sprite, DIR_WEST, JUMP_DISTANCE_FOUR_TILES, JUMP_TYPE_HIGH);
+    return MovementAction_Jump4Left_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_Jump4Left_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    if (DoJumpAnim(objectEvent, sprite))
+    {
+        objectEvent->noShadow = FALSE;
+        sprite->sActionFuncId = 2;
+        return TRUE;
+    }
+    return FALSE;
+}
+// wiz1989
+bool8 MovementAction_Jump4Right_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
+{
+    InitJumpRegular(objectEvent, sprite, DIR_EAST, JUMP_DISTANCE_FOUR_TILES, JUMP_TYPE_HIGH);
+    return MovementAction_Jump4Right_Step1(objectEvent, sprite);
+}
+
+bool8 MovementAction_Jump4Right_Step1(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
     if (DoJumpAnim(objectEvent, sprite))
     {
@@ -10963,17 +11061,21 @@ static void SetJumpSpriteData(struct Sprite *sprite, enum Direction direction, u
 
 static u8 DoJumpSpriteMovement(struct Sprite *sprite)
 {
+    // number of frames per jump tier
     s16 distanceToTime[] =
     {
         [JUMP_DISTANCE_IN_PLACE] = 16,
         [JUMP_DISTANCE_NORMAL] = 16,
         [JUMP_DISTANCE_FAR] = 32,
+        [JUMP_DISTANCE_FOUR_TILES] = 64,
     };
+    // impacting arc height of the jump
     u8 distanceToShift[] =
     {
         [JUMP_DISTANCE_IN_PLACE] = 0,
         [JUMP_DISTANCE_NORMAL] = 0,
         [JUMP_DISTANCE_FAR] = 1,
+        [JUMP_DISTANCE_FOUR_TILES] = 2,
     };
     u8 result = 0;
 
@@ -11017,11 +11119,13 @@ static u8 DoJumpSpecialSpriteMovement(struct Sprite *sprite)
         [JUMP_DISTANCE_IN_PLACE] = 32,
         [JUMP_DISTANCE_NORMAL] = 32,
         [JUMP_DISTANCE_FAR] = 64,
+        [JUMP_DISTANCE_FOUR_TILES] = 128,
     };
     u8 distanceToShift[] = {
         [JUMP_DISTANCE_IN_PLACE] = 1,
         [JUMP_DISTANCE_NORMAL] = 1,
         [JUMP_DISTANCE_FAR] = 2,
+        [JUMP_DISTANCE_FOUR_TILES] = 3,
     };
     u8 result = 0;
 
