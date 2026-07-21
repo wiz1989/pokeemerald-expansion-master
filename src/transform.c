@@ -19,6 +19,7 @@
 #include "start_menu.h"
 #include "constants/metatile_labels.h"
 #include "fieldmap.h"
+#include "field_camera.h"
 #include "field_screen_effect.h"
 #include "overworld.h"
 #include "event_scripts.h"
@@ -466,6 +467,9 @@ static void WarpToTransformationMap(u16 speciesId, bool8 useFade)
     {
         // directly load target map at current coordinates
         LoadMapFromCameraTransition(mapGroup, mapNum);
+        DrawWholeMapView();
+        // wiz1989 ToDo: reload object events?
+        
         // remove old weather instantly while the mosaic still covers the map
         RestartWeatherImmediate(WEATHER_NONE);
         sResumeMapWeatherAtMosaicEnd = TRUE;

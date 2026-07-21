@@ -9338,8 +9338,8 @@
     {
       "id": "LAYOUT_TARC3_RAINY",
       "name": "TARC3_rainy_Layout",
-      "width": 50,
-      "height": 50,
+      "width": 86,
+      "height": 86,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/TARC3_rainy/border.bin",
@@ -9349,8 +9349,8 @@
     {
       "id": "LAYOUT_TARC3_SUNNY",
       "name": "TARC3_sunny_Layout",
-      "width": 50,
-      "height": 50,
+      "width": 86,
+      "height": 86,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/TARC3_sunny/border.bin",
@@ -9360,8 +9360,8 @@
     {
       "id": "LAYOUT_TARC3_SNOWY",
       "name": "TARC3_snowy_Layout",
-      "width": 50,
-      "height": 50,
+      "width": 86,
+      "height": 86,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Mauville",
       "border_filepath": "data/layouts/TARC3_snowy/border.bin",
