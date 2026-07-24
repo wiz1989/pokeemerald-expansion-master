@@ -216,7 +216,7 @@ void BeginPlayerTransformEffect(u8 type, bool8 unlockPlayerFieldControls)
 void EndPlayerTransformAnimation(u8 taskId)
 {
     struct Sprite *sprite = NULL;
-    u16 pendingWarpSpecies;
+    // u16 pendingWarpSpecies;
 
     // clear data
     gPlayerTransformEffectActive = FALSE;
@@ -252,16 +252,25 @@ void EndPlayerTransformAnimation(u8 taskId)
     ObjectEventTurn(playerObjectEvent, playerObjectEvent->movementDirection);
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_ON_FOOT);
     ObjectEventSetHeldMovement(playerObjectEvent, GetFaceDirectionMovementAction(playerObjectEvent->facingDirection));
+    
+    // faint if on water and not in rainy form
+    {
+        u8 metatileBehavior = MapGridGetMetatileBehaviorAt(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
+
+        // wiz1989 ToDo: improve faint handling
+        if (MetatileBehavior_IsSurfableAndNotWaterfall(metatileBehavior))
+            SetMainCallback2(CB2_WhiteOut); // DoWhiteFadeWarp();
+    }
 
     // warp handling, when transform is finished
-    pendingWarpSpecies = sPendingTransformWarpSpecies;
-    sPendingTransformWarpSpecies = SPECIES_NONE;
-    if (pendingWarpSpecies != SPECIES_NONE)
-    {
-        WarpToTransformationMap(pendingWarpSpecies, TRUE);
-        DestroyTask(taskId);
-        return;
-    }
+    // pendingWarpSpecies = sPendingTransformWarpSpecies;
+    // sPendingTransformWarpSpecies = SPECIES_NONE;
+    // if (pendingWarpSpecies != SPECIES_NONE)
+    // {
+    //     WarpToTransformationMap(pendingWarpSpecies, TRUE);
+    //     DestroyTask(taskId);
+    //     return;
+    // }
 
     if (gTasks[taskId].tUnlockFieldControls)
     {
@@ -331,7 +340,7 @@ void UpdatePlayerTransformAnimation(u8 taskId)
         RefreshPlayerTransformPalette(playerObjectEvent);
     }
 
-    if (TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN)
+    if (TRANSFORM_ANIM_TYPE == TRANSFORM_ANIM_SCREEN && frames == TRANSFORM_ANIM_SWAP_FRAME)
     {
         // in screen mode, warp at peak mosaic
         u16 pendingWarpSpecies = sPendingTransformWarpSpecies;
