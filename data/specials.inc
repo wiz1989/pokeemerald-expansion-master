@@ -640,3 +640,4 @@ gSpecials::
 	def_special StickerManGetBragFlags
 	def_special CheckAddCoins
 	def_special ObjectEventInteractionReturnBerry
+	def_special StartCastformSurf

@@ -18,9 +18,9 @@ u16 ReturnAvatarTrainerBackPicId(u16 avatarId);
 typedef void (*TransformFunc)(u8);
 
 void SetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
-void TrySetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
-void SetPlayerAvatarSurfTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
-void SetPlayerAvatarStopSurfTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
+// void TrySetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
+// void SetPlayerAvatarSurfTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
+// void SetPlayerAvatarStopSurfTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
 TransformFunc GetTransformationFunc(u16 speciesId);
 u16 GetTransformationMoves(u16 speciesId, u8 i);
 u16 GetTransformationAbility(u16 speciesId);
@@ -32,6 +32,8 @@ bool32 IsSpeciesValidCharacter(u16 speciesId);
 u16 GetCharacterMoves(u16 speciesId, u8 i);
 u16 GetCharacterAbility(u16 speciesId);
 u16 GetCharacterItem(u16 speciesId);
+bool8 CanTransform(void);
+bool8 IsTransformMap(void);
 
 #define PHASE_BASE  0
 #define PHASE_SUNNY 1

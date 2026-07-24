@@ -106,6 +106,8 @@ static enum Collision CheckForPlayerAvatarCollision(enum Direction);
 static enum Collision CheckForPlayerAvatarCollisionAtRange(enum Direction, u8 range);
 static enum Collision CheckForPlayerAvatarStaticCollision(enum Direction);
 static enum Collision CheckForObjectEventStaticCollision(struct ObjectEvent *, s16, s16, enum Direction, u8);
+static bool8 CanStartSwimming(s16, s16, enum Direction, u8 metatileBehavior);
+static bool8 CanStopSwimming(s16, s16, enum Direction);
 static bool8 CanStopSurfing(s16, s16, enum Direction);
 static bool8 ShouldJumpLedge(s16, s16, enum Direction);
 static bool8 TryPushBoulder(s16, s16, enum Direction);
@@ -874,6 +876,26 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
         return;
     }
 
+    // water jump checks
+    if (GetCurrentTransformationSpecies() == SPECIES_CASTFORM_RAINY)
+    {
+        if (collision == COLLISION_START_SWIMMING)
+        {
+            LockPlayerFieldControls();
+            PlayerJump(direction);
+            PlaySE(SE_M_DIVE);
+            UnlockPlayerFieldControls();
+            return;
+        }
+        else if (collision == COLLISION_STOP_SWIMMING)
+        {
+            LockPlayerFieldControls();
+            PlayerJump(direction);
+            UnlockPlayerFieldControls();
+            return;
+        }
+    }
+
     // regular checks
     if (collision)
     {
@@ -1015,6 +1037,11 @@ enum Collision CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16
 {
     enum Collision collision = GetCollisionAtCoords(objectEvent, x, y, direction);
 
+    if (collision == COLLISION_ELEVATION_MISMATCH && CanStartSwimming(x, y, direction, metatileBehavior))
+        return COLLISION_START_SWIMMING;
+    if (collision == COLLISION_ELEVATION_MISMATCH && CanStopSwimming(x, y, direction))
+        return COLLISION_STOP_SWIMMING;
+
     if (collision == COLLISION_ELEVATION_MISMATCH && CanStopSurfing(x, y, direction))
         return COLLISION_STOP_SURFING;
 
@@ -1047,6 +1074,35 @@ static enum Collision CheckForObjectEventStaticCollision(struct ObjectEvent *obj
         CheckAcroBikeCollision(x, y, metatileBehavior, &collision);
     }
     return collision;
+}
+
+static bool8 CanStartSwimming(s16 x, s16 y, enum Direction direction, u8 metatileBehavior)
+{   
+    // Check player's current elevation
+    if (MapGridGetElevationAt(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y) != 3)
+    {
+        return FALSE;
+    }
+    
+    // Original checks
+    if (GetCurrentTransformationSpecies() == SPECIES_CASTFORM_RAINY
+        && MetatileBehavior_IsSurfableAndNotWaterfall(metatileBehavior)
+        && GetObjectEventIdByPosition(x, y, 3) == OBJECT_EVENTS_COUNT)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
+static bool8 CanStopSwimming(s16 x, s16 y, enum Direction direction)
+{
+    if (GetCurrentTransformationSpecies() == SPECIES_CASTFORM_RAINY
+        && MapGridGetElevationAt(x, y) == 3 
+        && GetObjectEventIdByPosition(x, y, 3) == OBJECT_EVENTS_COUNT)
+    {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static bool8 CanStopSurfing(s16 x, s16 y, enum Direction direction)
@@ -1431,6 +1487,12 @@ void PlayerJumpLedge(enum Direction direction)
 {
     PlaySE(SE_LEDGE);
     PlayerSetAnimId(GetJump2MovementAction(direction), COPY_MOVE_JUMP2);
+}
+
+void PlayerJump(enum Direction direction)
+{
+    PlaySE(SE_LEDGE);
+    PlayerSetAnimId(GetJumpMovementAction(direction), COPY_MOVE_JUMP);
 }
 
 void PlayerJumpFourTiles(enum Direction direction)

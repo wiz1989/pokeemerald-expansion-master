@@ -1,66 +1,68 @@
 #include "global.h"
-#include "transform.h"
-#include "event_data.h"
-#include "mystery_gift.h"
-#include "util.h"
-#include "constants/event_objects.h"
-#include "constants/map_scripts.h"
-#include "main_menu.h"
-#include "main.h"
-#include "random.h"
-#include "battle_setup.h"
-#include "string_util.h"
-#include "strings.h"
-#include "pokemon_storage_system.h"
-#include "task.h"
-#include "field_weather.h"
-#include "fldeff.h"
-#include "new_game.h"
-#include "start_menu.h"
-#include "constants/metatile_labels.h"
-#include "fieldmap.h"
-#include "field_camera.h"
-#include "field_screen_effect.h"
-#include "overworld.h"
-#include "event_scripts.h"
-#include "sound.h"
-#include "constants/songs.h"
-#include "constants/trainers.h"
-#include "data.h"
-#include "constants/battle.h"
-#include "event_object_movement.h"
-#include "script_pokemon_util.h"
-#include "palette.h"
-#include "decompress.h"
-#include "window.h"
-#include "text.h"
-#include "menu.h"
-#include "gpu_regs.h"
-#include "constants/weather.h"
 #include "global.fieldmap.h"
-#include "tilesets.h"
-#include "constants/decorations.h"
-#include "decoration_inventory.h"
-#include "decoration.h"
-#include "pokemon.h"
-#include "pokedex.h"
-#include "pokedex_plus_hgss.h"
-#include "field_player_avatar.h"
-#include "naming_screen.h"
-#include "config/general.h"
-#include "item.h"
-#include "item_use.h"
-#include "item_icon.h"
-#include "constants/abilities.h"
-#include "constants/vars.h"
-#include "event_object_lock.h"
-#include "constants/species.h"
-#include "graphics.h"
-#include "script.h"
-#include "egg_hatch.h"
-#include "field_effect.h"
+#include "battle_setup.h"
 #include "berry.h"
 #include "bike.h"
+#include "data.h"
+#include "decoration.h"
+#include "decoration_inventory.h"
+#include "decompress.h"
+#include "egg_hatch.h"
+#include "event_data.h"
+#include "event_object_lock.h"
+#include "event_object_movement.h"
+#include "event_scripts.h"
+#include "field_camera.h"
+#include "field_effect.h"
+#include "field_player_avatar.h"
+#include "field_screen_effect.h"
+#include "field_weather.h"
+#include "fieldmap.h"
+#include "fldeff.h"
+#include "gpu_regs.h"
+#include "graphics.h"
+#include "item.h"
+#include "item_icon.h"
+#include "item_use.h"
+#include "main.h"
+#include "main_menu.h"
+#include "menu.h"
+#include "metatile_behavior.h"
+#include "mystery_gift.h"
+#include "naming_screen.h"
+#include "new_game.h"
+#include "overworld.h"
+#include "palette.h"
+#include "pokedex.h"
+#include "pokedex_plus_hgss.h"
+#include "pokemon.h"
+#include "pokemon_storage_system.h"
+#include "random.h"
+#include "script.h"
+#include "script_pokemon_util.h"
+#include "sound.h"
+#include "start_menu.h"
+#include "string_util.h"
+#include "strings.h"
+#include "task.h"
+#include "text.h"
+#include "tilesets.h"
+#include "transform.h"
+#include "util.h"
+#include "window.h"
+#include "config/general.h"
+#include "constants/abilities.h"
+#include "constants/battle.h"
+#include "constants/decorations.h"
+#include "constants/event_objects.h"
+#include "constants/layouts.h"
+#include "constants/map_scripts.h"
+#include "constants/metatile_labels.h"
+#include "constants/songs.h"
+#include "constants/species.h"
+#include "constants/trainers.h"
+#include "constants/vars.h"
+#include "constants/weather.h"
 #include "data/transformations.h"
 
 const void *GetTransformationPic(u16 speciesId);
@@ -441,6 +443,29 @@ u16 GetCharacterItem(u16 speciesId)
 }
 
 // warp function
+bool8 IsTransformMap(void)
+{
+    u16 mapId = gMapHeader.mapLayoutId;
+
+    if (mapId == LAYOUT_TARC3_BASE
+     || mapId == LAYOUT_TARC3_RAINY
+     || mapId == LAYOUT_TARC3_SUNNY
+     || mapId == LAYOUT_TARC3_SNOWY)
+        return TRUE;
+
+    return FALSE;
+}
+
+bool8 CanTransform(void)
+{
+    // u8 metatileBehavior = MapGridGetMetatileBehaviorAt(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
+
+    if (IsTransformMap())// && !MetatileBehavior_IsSurfableAndNotWaterfall(metatileBehavior))
+        return TRUE;
+    
+    return FALSE;
+}
+
 static void WarpToTransformationMap(u16 speciesId, bool8 useFade)
 {
     u16 targetMap;
@@ -661,13 +686,13 @@ void SetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControl
 
 // }
 
-void TrySetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls)
-{
-    if (gSaveBlock2Ptr->pokemonAvatarSpecies == speciesId)
-        return;
+// void TrySetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls)
+// {
+//     if (gSaveBlock2Ptr->pokemonAvatarSpecies == speciesId)
+//         return;
     
-    SetPlayerAvatarTransformation(speciesId, UnlockPlayerFieldControls);
-}
+//     SetPlayerAvatarTransformation(speciesId, UnlockPlayerFieldControls);
+// }
 
 void TryCreatePokemonAvatarSpriteBob(void)
 {   
@@ -778,76 +803,28 @@ void IsCastformFieldMoveUser(struct ScriptContext *ctx)
         gSpecialVar_Result = var; // Mantains the state of the previous var
 }
 
-// void Task_MarillSurfSequence2(u8 taskId)
-// {
-//     if (gTasks[taskId].data[0] < 15)
-//     {
-//         gTasks[taskId].data[0]++;
-//     }
-//     else
-//     {
-//         if (VarGet(VAR_TRANSFORM_MON)==SPECIES_MARILL)
-//             SetPlayerAvatarSurfTransformation(SPECIES_GUMSHOOS, TRUE);
-//         else if (VarGet(VAR_TRANSFORM_MON)==SPECIES_DRAGONAIR)
-//             SetPlayerAvatarSurfTransformation(SPECIES_VOLBEAT, TRUE);
-//         else if (VarGet(VAR_TRANSFORM_MON)==SPECIES_CHINCHOU)
-//             SetPlayerAvatarSurfTransformation(SPECIES_YUNGOOS, TRUE);   
-//         PlaySE(SE_M_DIVE);
-//         UnfreezeObjectEvents();
-//         DestroyTask(taskId);
-//     }
-// }
+void Task_StartJump(u8 taskId)
+{
+    struct ObjectEvent *playerObject = &gObjectEvents[gPlayerAvatar.objectEventId];
+    enum Direction direction = gObjectEvents[gPlayerAvatar.objectEventId].movementDirection;
 
-// void Task_StartJump(u8 taskId)
-// {
-//     if (gPlayerTransformEffectActive == FALSE)
-//     {
-//         struct ObjectEvent *objectEvent;
-//         objectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
-//         u8 direction = gObjectEvents[gPlayerAvatar.objectEventId].movementDirection;
-//         ObjectEventClearHeldMovement(objectEvent);
-//         PlayerJump(direction);
-//         gTasks[taskId].func = Task_MarillSurfSequence2;
-//     }
-// }
+    if (ObjectEventIsMovementOverridden(playerObject))
+        return;
 
-// extern struct Pokemon gParties[B_TRAINER_PLAYER][PARTY_SIZE];
-// extern u8 CalculatePlayerPartyCount(void);
+    LockPlayerFieldControls();
+    PlayerJump(direction);
+    PlaySE(SE_M_DIVE);
+    UnlockPlayerFieldControls();
+    DestroyTask(taskId);
+}
 
-// static bool8 IsMonInParty(u16 species)
-// {
-//     u8 i;
-//     u8 partyCount = CalculatePlayerPartyCount();
-//     for (i = 0; i < partyCount; i++)
-//     {
-//         if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES, NULL) == species)
-//             return TRUE;
-//     }
-//     return FALSE;
-// }
-
-// void StartMarillSurf(void)
-// {
-//     if (IsMonInParty(SPECIES_MARILL))
-//     {
-//     TrySetPlayerAvatarTransformation(SPECIES_MARILL, FALSE);
-//     }
-//     else
-//     {
-//         if (IsMonInParty(SPECIES_DRAGONAIR))
-//         {
-//             TrySetPlayerAvatarTransformation(SPECIES_DRAGONAIR, FALSE);
-//         }
-//         else
-//         {
-//             if (IsMonInParty(SPECIES_CHINCHOU))
-//             {
-//                 TrySetPlayerAvatarTransformation(SPECIES_CHINCHOU, FALSE);
-//             }
-//         }
-//     }
-//     CreateTask(Task_StartJump, 0xFF);
-// }
+void StartCastformSurf(void)
+{
+    if (GetCurrentTransformationSpecies() == SPECIES_CASTFORM_RAINY)
+    {
+        CreateTask(Task_StartJump, 0xFF);
+    }
+}
 
 // void GetWhiteoutCount(void)
 // {

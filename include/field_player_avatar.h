@@ -20,6 +20,7 @@ void PlayerOnBikeCollide(enum Direction direction);
 void PlayerFaceDirection(enum Direction direction);
 void PlayerTurnInPlace(enum Direction direction);
 void PlayerJumpLedge(enum Direction direction);
+void PlayerJump(enum Direction direction);
 void PlayerJumpFourTiles(enum Direction direction);
 void PlayerIdleWheelie(enum Direction direction);
 void PlayerStartWheelie(enum Direction direction);
