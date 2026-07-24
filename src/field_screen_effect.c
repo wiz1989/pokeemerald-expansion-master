@@ -35,6 +35,7 @@
 #include "string_util.h"
 #include "task.h"
 #include "text.h"
+#include "transform.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/heal_locations.h"
@@ -717,6 +718,7 @@ void Task_WarpAndLoadMap(u8 taskId)
         break;
     case 2:
         WarpIntoMap();
+        ResetCastformAvatar();
         SetMainCallback2(CB2_LoadMap);
         DestroyTask(taskId);
         break;

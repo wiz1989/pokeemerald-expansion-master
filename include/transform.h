@@ -17,6 +17,7 @@ u16 ReturnAvatarTrainerBackPicId(u16 avatarId);
 
 typedef void (*TransformFunc)(u8);
 
+void ResetCastformAvatar(void);
 void SetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
 // void TrySetPlayerAvatarTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);
 // void SetPlayerAvatarSurfTransformation(u16 speciesId, bool8 UnlockPlayerFieldControls);

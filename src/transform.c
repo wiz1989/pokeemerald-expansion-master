@@ -190,6 +190,16 @@ u16 ReturnAvatarTrainerBackPicId(u16 avatarId)
     return sPitAvatars[avatarId].trainerBackPicId;
 }
 
+void ResetCastformAvatar(void)
+{
+    struct ObjectEvent *playerObjectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+    u16 speciesId = SPECIES_CASTFORM;
+
+    gSaveBlock2Ptr->pokemonAvatarSpecies = speciesId;
+    VarSet(VAR_TRANSFORM_MON, speciesId); 
+	ObjectEventSetGraphicsId(playerObjectEvent, GetPlayerAvatarGraphicsIdByStateId(PLAYER_AVATAR_STATE_NORMAL));
+	RefreshPlayerTransformPalette(playerObjectEvent);
+}
 
 // transform mosaic effect tasks
 #define tUnlockFieldControls data[0]
