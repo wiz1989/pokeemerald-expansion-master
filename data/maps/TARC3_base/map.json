@@ -203,7 +203,7 @@
       "y": 17,
       "elevation": 0,
       "dest_map": "MAP_TARC3_WEATHER_INSTITUTE_1F",
-      "dest_warp_id": "0"
+      "dest_warp_id": "4"
     },
     {
       "x": 33,
@@ -225,6 +225,13 @@
       "elevation": 0,
       "dest_map": "MAP_TARC3_BASE",
       "dest_warp_id": "1"
+    },
+    {
+      "x": 56,
+      "y": 5,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_WEATHER_INSTITUTE_1F",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],

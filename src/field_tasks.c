@@ -55,6 +55,7 @@ static void PacifidlogBridgePerStepCallback(u8);
 static void SootopolisGymIcePerStepCallback(u8);
 static void CrackedFloorPerStepCallback(u8);
 static void IcefallCaveIcePerStepCallback(u8);
+static void ClayTilesPerStepCallback(u8);
 static void Task_MuddySlope(u8);
 
 static const TaskFunc sPerStepCallbacks[] =
@@ -67,7 +68,8 @@ static const TaskFunc sPerStepCallbacks[] =
     [STEP_CB_TRUCK]             = EndTruckSequence,
     [STEP_CB_SECRET_BASE]       = SecretBasePerStepCallback,
     [STEP_CB_CRACKED_FLOOR]     = CrackedFloorPerStepCallback,
-    [STEP_CB_ICEFALL_CAVE]      = IcefallCaveIcePerStepCallback
+    [STEP_CB_ICEFALL_CAVE]      = IcefallCaveIcePerStepCallback,
+    [STEP_CB_CLAY_TILES]        = ClayTilesPerStepCallback
 };
 
 // The positions of each map space with crackable ice in Icefall Cave.
@@ -865,6 +867,42 @@ static void CrackedFloorPerStepCallback(u8 taskId)
 #undef tFloor2Delay
 #undef tFloor2X
 #undef tFloor2Y
+
+// clay tiles require METATILE definitions from gTileset_Mauville
+static void SetBrokenClayMetatile(s16 x, s16 y)
+{
+    MapGridSetMetatileIdAt(x, y, METATILE_Mauville_ClayTileBroken);
+    CurrentMapDrawMetatileAt(x, y);
+    MapGridSetMetatileImpassabilityAt(x, y, TRUE);
+}
+
+#define tState data[1]
+#define tPrevX data[2]
+#define tPrevY data[3]
+
+static void ClayTilesPerStepCallback(u8 taskId)
+{
+    s16 x, y;
+    s16 *data = gTasks[taskId].data;
+    PlayerGetDestCoords(&x, &y);
+
+    // End if player hasn't moved
+    if (x == tPrevX && y == tPrevY)
+        return;
+
+    if (MetatileBehavior_IsClayTileClimb(MapGridGetMetatileBehaviorAt(tPrevX, tPrevY)))
+    {
+        SetBrokenClayMetatile(tPrevX, tPrevY);
+        PlaySE(SE_PC_OFF);
+    }
+
+    tPrevX = x;
+    tPrevY = y;
+}
+
+#undef tState
+#undef tPrevX
+#undef tPrevY
 
 #define tMapId data[0]
 #define tState data[1]

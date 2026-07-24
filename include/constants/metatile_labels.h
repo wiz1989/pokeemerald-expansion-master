@@ -361,6 +361,8 @@
 #define METATILE_Mart_CounterMid_Top     0x2BF
 
 // gTileset_Mauville
+#define METATILE_Mauville_ClayTileBroken      0x3F4
+#define METATILE_Mauville_ClayTileClimb       0x3F3
 #define METATILE_Mauville_DeepSand_BottomMid  0x259
 #define METATILE_Mauville_DeepSand_Center     0x251
 #define METATILE_Mauville_Door                0x2AC

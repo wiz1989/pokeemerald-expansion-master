@@ -1,6 +1,13 @@
 mapscripts  TARC3_base_MapScripts {
-
+	MAP_SCRIPT_ON_RESUME: TARC3_Base_OnResume
 }
+
+script TARC3_Base_OnResume {
+	setstepcallback(STEP_CB_CLAY_TILES)
+	end
+}
+
+// object scripts
 
 script TARC3_Base_Sunkern {
 	cant_see_if_set(FLAG_BASE_SUNKERN_BEATEN)
