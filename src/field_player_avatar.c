@@ -873,7 +873,12 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
         collision = CheckForPlayerAvatarCollisionAtRange(direction, 4);
         if (collision == COLLISION_NONE) // destination tile can be jumped to
             PlayerJumpFourTiles(direction);
-        return;
+        
+        // check if walking off the tile is possible instead
+        collision = CheckForPlayerAvatarCollision(direction);
+        if (collision != COLLISION_NONE)
+            return;
+        // if destination tile can be walked to, continue regular flow
     }
 
     // water jump checks
