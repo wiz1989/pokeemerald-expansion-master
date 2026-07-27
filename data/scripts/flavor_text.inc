@@ -120,6 +120,14 @@ EventScript_MossTileDry::
 	msgbox Text_MossTileDry, MSGBOX_SIGN
 	end
 
+EventScript_MuddySlope::
+	msgbox Text_MuddySlope, MSGBOX_SIGN
+	end
+
+EventScript_ClayTileClimb::
+	msgbox Text_ClayTileClimb, MSGBOX_SIGN
+	end
+
 @ Flavor text for interacting with various background objects
 
 Text_Bookshelf::
@@ -249,3 +257,10 @@ Text_MossTileJump::
 
 Text_MossTileDry::
 	.string "The moss is dry and brittle.$"
+
+Text_MuddySlope::
+	.string "The slope is muddy and slippery.$"
+
+Text_ClayTileClimb::
+	.string "The clay looks crumbly\n"
+	.string "but climbable.$"
