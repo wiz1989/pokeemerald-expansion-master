@@ -128,6 +128,10 @@ EventScript_ClayTileClimb::
 	msgbox Text_ClayTileClimb, MSGBOX_SIGN
 	end
 
+EventScript_LongGrass::
+	msgbox Text_LongGrass, MSGBOX_SIGN
+	end
+
 @ Flavor text for interacting with various background objects
 
 Text_Bookshelf::
@@ -264,3 +268,7 @@ Text_MuddySlope::
 Text_ClayTileClimb::
 	.string "The clay looks crumbly\n"
 	.string "but climbable.$"
+
+Text_LongGrass::
+	.string "This grass is very thick.\n"
+	.string "You can't cross it.$"

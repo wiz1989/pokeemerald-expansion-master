@@ -593,6 +593,7 @@ extern const u8 EventScript_MossTileJump[];
 extern const u8 EventScript_MossTileDry[];
 extern const u8 EventScript_MuddySlope[];
 extern const u8 EventScript_ClayTileClimb[];
+extern const u8 EventScript_LongGrass[];
 
 // Secret Base
 extern const u8 SecretBase_EventScript_PC[];

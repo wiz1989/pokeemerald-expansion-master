@@ -534,6 +534,8 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_MuddySlope;
     if (MetatileBehavior_IsClayTileClimb(metatileBehavior) == TRUE)
         return EventScript_ClayTileClimb;
+    if (MetatileBehavior_IsLongGrass(metatileBehavior) == TRUE)
+        return EventScript_LongGrass;
 
     if (IS_FRLG)
     {
