@@ -43,6 +43,7 @@ static void TilesetAnim_MauvilleGym(u16);
 static void TilesetAnim_BikeShop(u16);
 static void TilesetAnim_BattlePyramid(u16);
 static void TilesetAnim_BattleDome(u16);
+static void TilesetAnim_Tarc3(u16);
 static void QueueAnimTiles_General_Flower(u16);
 static void QueueAnimTiles_General_Water(u16);
 static void QueueAnimTiles_General_SandWaterEdge(u16);
@@ -73,6 +74,8 @@ static void QueueAnimTiles_MauvilleGym_ElectricGates(u16);
 static void QueueAnimTiles_SootopolisGym_Waterfalls(u16);
 static void QueueAnimTiles_EliteFour_GroundLights(u16);
 static void QueueAnimTiles_EliteFour_WallLights(u16);
+static void QueueAnimTiles_Tarc3_WaterCurrents(u8);
+static void QueueAnimTiles_Tarc3_Flowers(u16, u8);
 
 const u16 gTilesetAnims_General_Flower_Frame1[] = INCGFX_U16("data/tilesets/primary/general/anim/flower/1.png", ".4bpp");
 const u16 gTilesetAnims_General_Flower_Frame0[] = INCGFX_U16("data/tilesets/primary/general/anim/flower/0.png", ".4bpp");
@@ -544,6 +547,103 @@ static const u16 *const sTilesetAnims_BattleDomeFloorLightPals[] = {
     gTilesetAnims_BattleDomePals0_3,
 };
 
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame0[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/0.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame1[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/1.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame2[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/2.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame3[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/3.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame4[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/4.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame5[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/5.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame6[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/6.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_WaterCurrents_Frame7[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/water_currents/7.png", ".4bpp");
+
+const u16 *const gTilesetAnims_Tarc3_WaterCurrents[] = {
+    gTilesetAnims_Tarc3_WaterCurrents_Frame0,
+    gTilesetAnims_Tarc3_WaterCurrents_Frame1,
+    gTilesetAnims_Tarc3_WaterCurrents_Frame2,
+    gTilesetAnims_Tarc3_WaterCurrents_Frame3,
+    gTilesetAnims_Tarc3_WaterCurrents_Frame4,
+    gTilesetAnims_Tarc3_WaterCurrents_Frame5,
+    gTilesetAnims_Tarc3_WaterCurrents_Frame6,
+    gTilesetAnims_Tarc3_WaterCurrents_Frame7
+};
+
+const u16 gTilesetAnims_Tarc3_Flower1_Frame0[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_1/0.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower1_Frame1[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_1/1.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower1_Frame2[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_1/2.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower1_Frame3[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_1/3.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower1_Frame4[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_1/4.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower2_Frame0[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_2/0.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower2_Frame1[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_2/1.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower2_Frame2[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_2/2.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower2_Frame3[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_2/3.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Flower2_Frame4[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_2/4.png", ".4bpp");
+
+u16 *const gTilesetAnims_Tarc3_Flower1_VDests[] = {
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 96)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 100)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 104)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 108)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 112)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 116)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 120)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 124))
+};
+
+u16 *const gTilesetAnims_Tarc3_Flower2_VDests[] = {
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 128)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 132)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 136)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 140)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 144)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 148)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 152)),
+    (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + 156))
+};
+
+const u16 *const gTilesetAnims_Tarc3_Flower1[] = {
+    gTilesetAnims_Tarc3_Flower1_Frame0,
+    gTilesetAnims_Tarc3_Flower1_Frame0,
+    gTilesetAnims_Tarc3_Flower1_Frame1,
+    gTilesetAnims_Tarc3_Flower1_Frame2,
+    gTilesetAnims_Tarc3_Flower1_Frame3,
+    gTilesetAnims_Tarc3_Flower1_Frame3,
+    gTilesetAnims_Tarc3_Flower1_Frame3,
+    gTilesetAnims_Tarc3_Flower1_Frame3,
+    gTilesetAnims_Tarc3_Flower1_Frame3,
+    gTilesetAnims_Tarc3_Flower1_Frame3,
+    gTilesetAnims_Tarc3_Flower1_Frame2,
+    gTilesetAnims_Tarc3_Flower1_Frame1
+};
+
+const u16 *const gTilesetAnims_Tarc3_Flower2[] = {
+    gTilesetAnims_Tarc3_Flower2_Frame0,
+    gTilesetAnims_Tarc3_Flower2_Frame0,
+    gTilesetAnims_Tarc3_Flower2_Frame1,
+    gTilesetAnims_Tarc3_Flower2_Frame2,
+    gTilesetAnims_Tarc3_Flower2_Frame3,
+    gTilesetAnims_Tarc3_Flower2_Frame3,
+    gTilesetAnims_Tarc3_Flower2_Frame3,
+    gTilesetAnims_Tarc3_Flower2_Frame3,
+    gTilesetAnims_Tarc3_Flower2_Frame3,
+    gTilesetAnims_Tarc3_Flower2_Frame3,
+    gTilesetAnims_Tarc3_Flower2_Frame2,
+    gTilesetAnims_Tarc3_Flower2_Frame1
+};
+
+const u16 *const gTilesetAnims_Tarc3_Flower1_B[] = {
+    gTilesetAnims_Tarc3_Flower1_Frame0,
+    gTilesetAnims_Tarc3_Flower1_Frame0,
+    gTilesetAnims_Tarc3_Flower1_Frame4,
+    gTilesetAnims_Tarc3_Flower1_Frame4
+};
+
+const u16 *const gTilesetAnims_Tarc3_Flower2_B[] = {
+    gTilesetAnims_Tarc3_Flower2_Frame0,
+    gTilesetAnims_Tarc3_Flower2_Frame0,
+    gTilesetAnims_Tarc3_Flower2_Frame4,
+    gTilesetAnims_Tarc3_Flower2_Frame4
+};
+
 static void ResetTilesetAnimBuffer(void)
 {
     sTilesetDMA3TransferBufferSize = 0;
@@ -834,6 +934,13 @@ void InitTilesetAnim_BattleDome(void)
     sSecondaryTilesetAnimCallback = TilesetAnim_BattleDome;
 }
 
+void InitTilesetAnim_Tarc3(void)
+{
+    sSecondaryTilesetAnimCounter = sPrimaryTilesetAnimCounter;
+    sSecondaryTilesetAnimCounterMax = sPrimaryTilesetAnimCounterMax;
+    sSecondaryTilesetAnimCallback = TilesetAnim_Tarc3;
+}
+
 static void TilesetAnim_Rustboro(u16 timer)
 {
     if (timer % 8 == 0)
@@ -953,6 +1060,28 @@ static void TilesetAnim_BattleFrontierOutsideEast(u16 timer)
 {
     if (timer % 8 == 0)
         QueueAnimTiles_BattleFrontierOutsideEast_Flag(timer / 8);
+}
+
+static void TilesetAnim_Tarc3(u16 timer)
+{
+    if (timer % 8 == 0)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 0);
+    if (timer % 8 == 1)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 1);
+    if (timer % 8 == 2)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 2);
+    if (timer % 8 == 3)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 3);
+    if (timer % 8 == 4)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 4);
+    if (timer % 8 == 5)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 5);
+    if (timer % 8 == 6)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 6);
+    if (timer % 8 == 7)
+        QueueAnimTiles_Tarc3_Flowers(timer / 8, 7);
+    if (timer % 16 == 1)
+        QueueAnimTiles_Tarc3_WaterCurrents(timer / 16);
 }
 
 static void QueueAnimTiles_General_LandWaterEdge(u16 timer)
@@ -1432,3 +1561,25 @@ void InitTilesetAnim_CeladonGym(void)
     sSecondaryTilesetAnimCallback = TilesetAnim_CeladonGym;
 }
 
+static void QueueAnimTiles_Tarc3_WaterCurrents(u8 timer)
+{
+    u8 i = timer % ARRAY_COUNT(gTilesetAnims_Tarc3_WaterCurrents);
+    AppendTilesetAnimToBuffer(gTilesetAnims_Tarc3_WaterCurrents[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(0x3F8)), 8 * TILE_SIZE_4BPP);
+}
+
+static void QueueAnimTiles_Tarc3_Flowers(u16 timer_div, u8 timer_mod)
+{
+    timer_div -= timer_mod;
+    if (timer_div < min(ARRAY_COUNT(gTilesetAnims_Tarc3_Flower1), ARRAY_COUNT(gTilesetAnims_Tarc3_Flower2)))
+    {
+        timer_div %= min(ARRAY_COUNT(gTilesetAnims_Tarc3_Flower1), ARRAY_COUNT(gTilesetAnims_Tarc3_Flower2));
+        AppendTilesetAnimToBuffer(gTilesetAnims_Tarc3_Flower1[timer_div], gTilesetAnims_Tarc3_Flower1_VDests[timer_mod], 4 * TILE_SIZE_4BPP);
+        AppendTilesetAnimToBuffer(gTilesetAnims_Tarc3_Flower2[timer_div], gTilesetAnims_Tarc3_Flower2_VDests[timer_mod], 4 * TILE_SIZE_4BPP);
+    }
+    else
+    {
+        timer_div %= min(ARRAY_COUNT(gTilesetAnims_Tarc3_Flower1_B), ARRAY_COUNT(gTilesetAnims_Tarc3_Flower2_B));
+        AppendTilesetAnimToBuffer(gTilesetAnims_Tarc3_Flower1_B[timer_div], gTilesetAnims_Tarc3_Flower1_VDests[timer_mod], 4 * TILE_SIZE_4BPP);
+        AppendTilesetAnimToBuffer(gTilesetAnims_Tarc3_Flower2_B[timer_div], gTilesetAnims_Tarc3_Flower2_VDests[timer_mod], 4 * TILE_SIZE_4BPP);
+    }
+}

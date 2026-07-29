@@ -833,6 +833,17 @@ const struct Tileset gTileset_UnionRoom =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_Tarc3 =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Tarc3,
+    .palettes = gTilesetPalettes_Tarc3,
+    .metatiles = gMetatiles_Tarc3,
+    .metatileAttributes = gMetatileAttributes_Tarc3,
+    .callback = InitTilesetAnim_Tarc3,
+};
+
 #else
 
 // FRLG tilesets
