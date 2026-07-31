@@ -72,6 +72,7 @@ static void SetObjectEventSpritesMosaic(bool8 enable);
 static void DestroyWeatherSpriteArray(struct Sprite **sprites, u16 count);
 static void ClearAllWeatherSprites(void);
 static void RestartWeatherImmediate(u8 weather);
+static void ResetPlayerAvatarTileData(void);
 static void BerryTreeGrowToStage(u8 stage);
 static void BerryTreeGrowFinalStage(void);
 static void BerryTreeResetToSeed(void);
@@ -261,6 +262,7 @@ void EndPlayerTransformAnimation(u8 taskId)
     RefreshPlayerTransformPalette(playerObjectEvent);
     ObjectEventTurn(playerObjectEvent, playerObjectEvent->movementDirection);
     SetPlayerAvatarStateMask(PLAYER_AVATAR_FLAG_ON_FOOT);
+    ResetPlayerAvatarTileData();
     ObjectEventSetHeldMovement(playerObjectEvent, GetFaceDirectionMovementAction(playerObjectEvent->facingDirection));
     
     // faint if on water and not in rainy form
@@ -268,8 +270,12 @@ void EndPlayerTransformAnimation(u8 taskId)
         u8 metatileBehavior = MapGridGetMetatileBehaviorAt(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
 
         // wiz1989 ToDo: improve faint handling
-        if (MetatileBehavior_IsSurfableAndNotWaterfall(metatileBehavior))
+        if (MetatileBehavior_IsSurfableAndNotWaterfall(metatileBehavior) && GetCurrentTransformationSpecies() != SPECIES_CASTFORM_RAINY)
+        {
+            gSaveBlock2Ptr->pokemonAvatarSpecies = SPECIES_CASTFORM;
+            VarSet(VAR_TRANSFORM_MON, SPECIES_CASTFORM); 
             SetMainCallback2(CB2_WhiteOut); // DoWhiteFadeWarp();
+        }
     }
 
     // warp handling, when transform is finished
@@ -288,6 +294,28 @@ void EndPlayerTransformAnimation(u8 taskId)
         UnlockPlayerFieldControls();
     }
     DestroyTask(taskId);
+}
+
+static void ResetPlayerAvatarTileData(void)
+{
+    struct ObjectEvent *playerObjectEvent;
+    struct Sprite *playerSprite;
+
+    if (gPlayerAvatar.spriteId >= MAX_SPRITES)
+        return;
+
+    playerObjectEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+    playerSprite = &gSprites[gPlayerAvatar.spriteId];
+
+    // reset coords to the current position, just in case
+    playerObjectEvent->previousCoords = playerObjectEvent->currentCoords;
+    ObjectEventUpdateMetatileBehaviors(playerObjectEvent);
+    ObjectEventUpdateElevation(playerObjectEvent, playerSprite);
+
+    // various playerObjectEvent values that are probably important lol
+    playerObjectEvent->triggerGroundEffectsOnMove = TRUE;
+    SetObjectSubpriorityByElevation(playerObjectEvent->previousElevation, playerSprite, 1);
+    playerSprite->oam.priority = ElevationToPriority(playerObjectEvent->previousElevation);
 }
 
 // main update logic for the player transform effect 
