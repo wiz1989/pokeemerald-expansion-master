@@ -543,6 +543,27 @@ static bool8 DoForcedMovement(enum Direction direction, void (*moveFunc)(enum Di
 
     collision = CheckForPlayerAvatarCollision(direction);
 
+    // water jump checks
+    if (GetCurrentTransformationSpecies() == SPECIES_CASTFORM_RAINY)
+    {
+        if (collision == COLLISION_START_SWIMMING)
+        {
+            LockPlayerFieldControls();
+            PlayerJump(direction);
+            PlaySE(SE_M_DIVE);
+            UnlockPlayerFieldControls();
+            return TRUE;
+        }
+        else if (collision == COLLISION_STOP_SWIMMING)
+        {
+            LockPlayerFieldControls();
+            PlayerJump(direction);
+            UnlockPlayerFieldControls();
+            return TRUE;
+        }
+    }
+
+    // regular checks
     playerAvatar->flags |= PLAYER_AVATAR_FLAG_FORCED_MOVE;
     if (collision)
     {
