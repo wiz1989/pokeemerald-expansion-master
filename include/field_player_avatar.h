@@ -76,5 +76,6 @@ void UpdateSpinData(void);
 void ResetSpinTimer(void);
 bool32 CanTriggerSpinEvolution();
 bool8 IsClimbableVine(s16, s16, enum Direction);
+bool8 ShouldIgnoreForcedCurrent(void);
 
 #endif // GUARD_FIELD_PLAYER_AVATAR_H

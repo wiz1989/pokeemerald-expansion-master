@@ -108,6 +108,9 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     u8 runningState = gPlayerAvatar.runningState;
     bool8 forcedMove = MetatileBehavior_IsForcedMovementTile(GetPlayerCurMetatileBehavior(runningState));
 
+    if (ShouldIgnoreForcedCurrent())
+        forcedMove = FALSE;
+
     if ((tileTransitionState == T_TILE_CENTER && forcedMove == FALSE) || tileTransitionState == T_NOT_MOVING)
     {
         if (GetPlayerSpeed() != PLAYER_SPEED_FASTEST)

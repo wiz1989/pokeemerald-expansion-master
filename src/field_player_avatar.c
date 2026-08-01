@@ -36,6 +36,7 @@
 #include "constants/metatile_behaviors.h"
 #include "constants/moves.h"
 #include "constants/songs.h"
+#include "constants/species.h"
 #include "constants/trainer_types.h"
 
 #define NUM_FORCED_MOVEMENTS 22
@@ -495,6 +496,9 @@ static u8 GetForcedMovementByMetatileBehavior(void)
     {
         u8 metatileBehavior = gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior;
 
+        if (ShouldIgnoreForcedCurrent())
+            return 0;
+
         for (i = 0; i < NUM_FORCED_MOVEMENTS; i++)
         {
             if (sForcedMovementTestFuncs[i](metatileBehavior))
@@ -891,15 +895,13 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
     u8 currentBehavior = MapGridGetMetatileBehaviorAt(playerObjEvent->currentCoords.x, playerObjEvent->currentCoords.y);
     if (MetatileBehavior_IsMossTileJump(currentBehavior))
     {
-        collision = CheckForPlayerAvatarCollisionAtRange(direction, 4);
-        if (collision == COLLISION_NONE) // destination tile can be jumped to
+        enum Collision targetCollision = CheckForPlayerAvatarCollisionAtRange(direction, 4);
+        if (targetCollision == COLLISION_NONE) // destination tile can be jumped to
             PlayerJumpFourTiles(direction);
         
         // check if walking off the tile is possible instead
-        collision = CheckForPlayerAvatarCollision(direction);
         if (collision != COLLISION_NONE)
             return;
-        // if destination tile can be walked to, continue regular flow
     }
 
     // water jump checks
@@ -920,6 +922,18 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
             UnlockPlayerFieldControls();
             return;
         }
+    }
+
+    // LAPRAS jump checks
+    {
+        enum Collision targetCollision = CheckForPlayerAvatarCollisionAtRange(direction, 2);
+        
+        if (targetCollision == COLLISION_LAPRAS) // destination tile can be jumped to
+            PlayerJumpLedge(direction);
+        
+        // check if walking off the tile is possible instead
+        if (collision != COLLISION_NONE)
+            return;
     }
 
     // regular checks
@@ -1078,6 +1092,20 @@ enum Collision CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16
     }
     if (collision == COLLISION_OBJECT_EVENT && TryPushBoulder(x, y, direction))
         return COLLISION_PUSHED_BOULDER;
+    
+    if (collision == COLLISION_ELEVATION_MISMATCH || collision == COLLISION_OBJECT_EVENT)
+    {
+        // check for Lapras being the destination
+        u8 objectEventId = GetObjectEventIdByXY(x, y);
+        if (objectEventId != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventId].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS))
+            return COLLISION_LAPRAS;
+
+        // check for Lapras being the source
+        objectEventId = GetObjectEventIdByXYExcludePlayer(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
+        if (objectEventId != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventId].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS)
+          && MapGridGetCollisionAt(x, y) == COLLISION_NONE)
+            return COLLISION_LAPRAS;
+    }
 
     if (collision == COLLISION_NONE)
     {
@@ -2430,4 +2458,20 @@ bool8 ObjectMovingOnRockStairs(struct ObjectEvent *objectEvent, enum Direction d
     #else
         return FALSE;
     #endif
+}
+
+bool8 ShouldIgnoreForcedCurrent(void)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+    u8 metatileBehavior = playerObjEvent->currentMetatileBehavior;
+
+    // return if not on a current tile
+    if (!MetatileBehavior_IsEastwardCurrent(metatileBehavior)
+     && !MetatileBehavior_IsWestwardCurrent(metatileBehavior)
+     && !MetatileBehavior_IsNorthwardCurrent(metatileBehavior)
+     && !MetatileBehavior_IsSouthwardCurrent(metatileBehavior))
+        return FALSE;
+
+    // no forced movement if on top of another object event (e.g. Lapras)
+    return GetObjectEventIdByXYExcludePlayer(playerObjEvent->currentCoords.x, playerObjEvent->currentCoords.y) != OBJECT_EVENTS_COUNT;
 }
