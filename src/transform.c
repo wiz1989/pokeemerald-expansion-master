@@ -78,6 +78,7 @@ static void BerryTreeGrowFinalStage(void);
 static void BerryTreeResetToSeed(void);
 static void BerryTreeResetToWithered(void);
 static void RunWeatherChangeOverworldEffects(void);
+static void ReloadMapObjectEvents(void);
 
 EWRAM_DATA u8 gPlayerTransformEffectActive = FALSE;
 static EWRAM_DATA u16 sPendingTransformWarpSpecies = SPECIES_NONE;
@@ -540,7 +541,7 @@ static void WarpToTransformationMap(u16 speciesId, bool8 useFade)
         // directly load target map at current coordinates
         LoadMapFromCameraTransition(mapGroup, mapNum);
         DrawWholeMapView();
-        // wiz1989 ToDo: reload object events?
+        ReloadMapObjectEvents();
         
         // remove old weather instantly while the mosaic still covers the map
         RestartWeatherImmediate(WEATHER_NONE);
@@ -967,4 +968,18 @@ static void RunWeatherChangeOverworldEffects(void)
     default: // base form doesn't change the vines
         break;
     }
+}
+
+static void ReloadMapObjectEvents(void)
+{
+    u8 i;
+
+    // remove all but the player
+    for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
+    {
+        if (gObjectEvents[i].active && !gObjectEvents[i].isPlayer)
+            RemoveObjectEvent(&gObjectEvents[i]);
+    }
+
+    TrySpawnObjectEvents(0, 0);
 }
