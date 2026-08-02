@@ -930,10 +930,6 @@ static void PlayerNotOnBikeMoving(enum Direction direction, u16 heldKeys)
         
         if (targetCollision == COLLISION_LAPRAS) // destination tile can be jumped to
             PlayerJumpLedge(direction);
-        
-        // check if walking off the tile is possible instead
-        if (collision != COLLISION_NONE)
-            return;
     }
 
     // regular checks
@@ -1092,19 +1088,33 @@ enum Collision CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16
     }
     if (collision == COLLISION_OBJECT_EVENT && TryPushBoulder(x, y, direction))
         return COLLISION_PUSHED_BOULDER;
-    
-    if (collision == COLLISION_ELEVATION_MISMATCH || collision == COLLISION_OBJECT_EVENT)
+
+    // Lapras checks
     {
         // check for Lapras being the destination
-        u8 objectEventId = GetObjectEventIdByXY(x, y);
-        if (objectEventId != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventId].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS))
-            return COLLISION_LAPRAS;
+        u8 objectEventIdSource = GetObjectEventIdByXYExcludePlayer(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
+        u8 objectEventIdTarget = GetObjectEventIdByXY(x, y);
+        if (collision == COLLISION_ELEVATION_MISMATCH)
+        {
+            if (objectEventIdTarget != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventIdTarget].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS))
+                return COLLISION_LAPRAS;
+        }
+        // check for Lapras jump to another Lapras
+        if (collision == COLLISION_OBJECT_EVENT)
+        {
+            if (objectEventIdTarget != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventIdTarget].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS)
+                && objectEventIdSource != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventIdSource].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS))
+                return COLLISION_LAPRAS;
+        }
 
         // check for Lapras being the source
-        objectEventId = GetObjectEventIdByXYExcludePlayer(gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.x, gObjectEvents[gPlayerAvatar.objectEventId].currentCoords.y);
-        if (objectEventId != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventId].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS)
-          && MapGridGetCollisionAt(x, y) == COLLISION_NONE)
-            return COLLISION_LAPRAS;
+        if (objectEventIdSource != OBJECT_EVENTS_COUNT && gObjectEvents[objectEventIdSource].graphicsId == OBJ_EVENT_GFX_SPECIES(LAPRAS))
+        {
+            if (MapGridGetCollisionAt(x, y) == COLLISION_NONE && !MetatileBehavior_IsSurfableAndNotWaterfall(metatileBehavior))
+                return COLLISION_LAPRAS;
+            else
+                return COLLISION_IMPASSABLE;
+        }
     }
 
     if (collision == COLLISION_NONE)
