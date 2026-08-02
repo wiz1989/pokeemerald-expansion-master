@@ -9400,6 +9400,17 @@
       "border_filepath": "data/layouts/TARC3_base_leobtemp/border.bin",
       "blockdata_filepath": "data/layouts/TARC3_base_leobtemp/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_TARC3_VOLCANO_CAVE",
+      "name": "TARC3_VolcanoCave_Layout",
+      "width": 15,
+      "height": 14,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/TARC3_VolcanoCave/border.bin",
+      "blockdata_filepath": "data/layouts/TARC3_VolcanoCave/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

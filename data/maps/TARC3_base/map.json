@@ -440,6 +440,13 @@
       "elevation": 0,
       "dest_map": "MAP_TARC3_WEATHER_INSTITUTE_1F",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 75,
+      "y": 6,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_VOLCANO_CAVE",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],
