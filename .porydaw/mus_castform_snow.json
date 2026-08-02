@@ -1,0 +1,27 @@
+{
+    "view": {
+        "editCursorTick": 37920,
+        "emptyLanes": [
+            {
+                "cc": 7,
+                "track": 2
+            },
+            {
+                "cc": 7,
+                "track": 1
+            }
+        ],
+        "gridMinDenom": 0,
+        "gridTriplet": false,
+        "keyHeight": 11,
+        "laneHeight": 48,
+        "pxPerBeat": 19.415836661199307,
+        "scrollPx": 0,
+        "scrollY": 387,
+        "selectedTrack": 5,
+        "splitter": [
+            501,
+            150
+        ]
+    }
+}
