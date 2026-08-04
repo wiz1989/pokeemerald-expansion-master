@@ -369,6 +369,20 @@
       "elevation": 0,
       "dest_map": "MAP_TARC3_VOLCANO_CAVE",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 47,
+      "y": 71,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
+      "dest_warp_id": "6"
+    },
+    {
+      "x": 49,
+      "y": 53,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_SUNNY",
+      "dest_warp_id": "6"
     }
   ],
   "coord_events": [],
