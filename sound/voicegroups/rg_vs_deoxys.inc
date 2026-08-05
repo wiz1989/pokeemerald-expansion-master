@@ -1,8 +1,8 @@
 voice_group rg_vs_deoxys
 	voice_keysplit_all voicegroup_frlg_drumset
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
-	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
-	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
+	voice_keysplit voicegroup_piano_keysplit, keysplit_piano
+	voice_directsound 60, 0, DirectSoundWaveData_sc88pro_flute, 255, 127, 231, 127
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
@@ -28,7 +28,7 @@ voice_group rg_vs_deoxys
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0
-	voice_directsound 60, 0, DirectSoundWaveData_sd90_classical_overdrive_guitar, 128, 0, 255, 214
+	voice_directsound 60, 0, DirectSoundWaveData_sc88pro_nylon_str_guitar, 128, 0, 255, 214
 	voice_directsound 60, 0, DirectSoundWaveData_sd90_classical_distortion_guitar_high, 128, 0, 255, 206
 	voice_directsound 60, 0, DirectSoundWaveData_sd90_special_scream_drive, 255, 0, 255, 165
 	voice_square_1 60, 0, 0, 2, 0, 0, 15, 0

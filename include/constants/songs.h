@@ -555,5 +555,6 @@
 #define MUS_CASTFORM_NORMAL         610
 #define MUS_CASTFORM_SNOW           611
 #define MUS_CASTFORM_RAINY          612
+#define MUS_CASTFORM_DROUGHT        613
 
 #endif  // GUARD_CONSTANTS_SONGS_H
