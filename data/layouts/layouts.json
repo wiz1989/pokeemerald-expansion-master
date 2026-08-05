@@ -9363,7 +9363,7 @@
       "width": 86,
       "height": 86,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Tarc3",
+      "secondary_tileset": "gTileset_Tarc3Snowy",
       "border_filepath": "data/layouts/TARC3_snowy/border.bin",
       "blockdata_filepath": "data/layouts/TARC3_snowy/map.bin",
       "layout_version": "emerald"
