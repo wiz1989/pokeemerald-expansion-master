@@ -1,0 +1,50 @@
+{
+  "id": "MAP_TARC3_UNDERGROUND_PATH",
+  "name": "TARC3_UndergroundPath",
+  "layout": "LAYOUT_TARC3_UNDERGROUND_PATH",
+  "music": "MUS_PETALBURG_WOODS",
+  "region_map_section": "MAPSEC_TERRA_CAVE",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_UNDERGROUND",
+  "allow_cycling": true,
+  "allow_escaping": true,
+  "allow_running": true,
+  "show_map_name": true,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 7,
+      "y": 4,
+      "elevation": 3,
+      "dest_map": "MAP_TARC3_UNDERGROUND_PATH",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 9,
+      "y": 24,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_SUNNY",
+      "dest_warp_id": "6"
+    },
+    {
+      "x": 22,
+      "y": 11,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_UNDERGROUND_PATH",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 22,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
+      "dest_warp_id": "6"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [],
+  "region": "REGION_HOENN"
+}

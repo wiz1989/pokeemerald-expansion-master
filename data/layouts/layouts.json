@@ -9411,6 +9411,17 @@
       "border_filepath": "data/layouts/TARC3_VolcanoCave/border.bin",
       "blockdata_filepath": "data/layouts/TARC3_VolcanoCave/map.bin",
       "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_TARC3_UNDERGROUND_PATH",
+      "name": "TARC3_UndergroundPath_Layout",
+      "width": 25,
+      "height": 30,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/TARC3_UndergroundPath/border.bin",
+      "blockdata_filepath": "data/layouts/TARC3_UndergroundPath/map.bin",
+      "layout_version": "emerald"
     }
   ]
 }

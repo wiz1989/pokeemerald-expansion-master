@@ -478,8 +478,8 @@
       "x": 49,
       "y": 53,
       "elevation": 0,
-      "dest_map": "MAP_TARC3_SUNNY",
-      "dest_warp_id": "6"
+      "dest_map": "MAP_TARC3_UNDERGROUND_PATH",
+      "dest_warp_id": "3"
     }
   ],
   "coord_events": [],

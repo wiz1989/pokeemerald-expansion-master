@@ -387,8 +387,8 @@
       "x": 47,
       "y": 71,
       "elevation": 0,
-      "dest_map": "MAP_TARC3_BASE",
-      "dest_warp_id": "6"
+      "dest_map": "MAP_TARC3_UNDERGROUND_PATH",
+      "dest_warp_id": "1"
     },
     {
       "x": 49,

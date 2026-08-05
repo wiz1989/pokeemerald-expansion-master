@@ -1748,3 +1748,5 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/TARC3_base_leobtemp/scripts.inc"
 
 	.include "data/maps/TARC3_VolcanoCave/scripts.inc"
+
+	.include "data/maps/TARC3_UndergroundPath/scripts.inc"

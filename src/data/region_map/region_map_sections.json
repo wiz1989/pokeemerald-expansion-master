@@ -1573,7 +1573,7 @@
     },
     {
       "id": "MAPSEC_TERRA_CAVE",
-      "name": "VOLCANO CAVE"
+      "name": "UNDERGROUND PATH"
     },
     {
       "id": "MAPSEC_UNDERWATER_105",
@@ -1670,6 +1670,14 @@
     {
       "id": "MAPSEC_TARC3_VOLCANO_CAVE",
       "name": "VOLCANO CAVE",
+      "x": 0,
+      "y": 0,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "MAPSEC_TARC3_UNDERGROUND_PATH",
+      "name": "UNDERGROUND PATH",
       "x": 0,
       "y": 0,
       "width": 1,
