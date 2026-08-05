@@ -941,6 +941,13 @@ void InitTilesetAnim_Tarc3(void)
     sSecondaryTilesetAnimCallback = TilesetAnim_Tarc3;
 }
 
+void InitTilesetAnim_Tarc3Snowy(void) // currently using the same anim callback as Tarc3
+{
+    sSecondaryTilesetAnimCounter = sPrimaryTilesetAnimCounter;
+    sSecondaryTilesetAnimCounterMax = sPrimaryTilesetAnimCounterMax;
+    sSecondaryTilesetAnimCallback = TilesetAnim_Tarc3;
+}
+
 static void TilesetAnim_Rustboro(u16 timer)
 {
     if (timer % 8 == 0)
