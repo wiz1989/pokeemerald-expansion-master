@@ -3665,9 +3665,42 @@ static void SpriteCB_LinkPlayer(struct Sprite *sprite)
 #define ITEM_ICON_Y     24
 #define ITEM_TAG        0x2722 //same as money label
 
+#define ITEM_ACQUIRE_CENTER_X 112
+#define ITEM_ACQUIRE_CENTER_Y 64
+
+static const union AffineAnimCmd sAffineAnim_ObtainKeyItem[] =
+{
+    AFFINEANIMCMD_FRAME(0, 0, 128, 1),
+    AFFINEANIMCMD_FRAME(16, 16, -8, 16),
+    AFFINEANIMCMD_FRAME(0, 0, -3, 8),
+    AFFINEANIMCMD_FRAME(0, 0, 3, 16),
+    AFFINEANIMCMD_FRAME(0, 0, -3, 16),
+    AFFINEANIMCMD_FRAME(0, 0, 3, 16),
+    AFFINEANIMCMD_FRAME(0, 0, -3, 8),
+    AFFINEANIMCMD_END,
+};
+
+static const union AffineAnimCmd *const sAffineAnims_ObtainKeyItem[] =
+{
+    sAffineAnim_ObtainKeyItem,
+};
+
+static void StartObtainItemAffineAnim(struct Sprite *sprite)
+{
+    u8 matrixNum = AllocOamMatrix();
+
+    if (matrixNum == 0xFF)
+        return;
+
+    sprite->oam.affineMode = ST_OAM_AFFINE_DOUBLE;
+    sprite->oam.matrixNum = matrixNum;
+    sprite->affineAnims = sAffineAnims_ObtainKeyItem;
+    StartSpriteAffineAnim(sprite, 0);
+}
+
 bool8 GetSetItemObtained(enum Item item, enum ItemObtainFlags caseId)
 {
-#if OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_FIRST_TIME
+#if ITEM_PICTURE_ACQUIRE || OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_FIRST_TIME
     u8 index = item / 8;
     u8 bit = item % 8;
     u8 mask = 1 << bit;
@@ -3686,8 +3719,10 @@ bool8 GetSetItemObtained(enum Item item, enum ItemObtainFlags caseId)
 EWRAM_DATA static u8 sHeaderBoxWindowId = 0;
 EWRAM_DATA u8 sItemIconSpriteId = 0;
 EWRAM_DATA u8 sItemIconSpriteId2 = 0;
+EWRAM_DATA static bool8 sItemPictureShown = FALSE;
+EWRAM_DATA static bool8 sItemDescriptionShown = FALSE;
 
-static void ShowItemIconSprite(enum Item item, bool8 firstTime, bool8 flash);
+static void ShowItemIconSprite(enum Item item, bool8 flash);
 static void DestroyItemIconSprite(void);
 
 static u8 ReformatItemDescription(enum Item item, u8 *dest)
@@ -3734,13 +3769,13 @@ static u8 ReformatItemDescription(enum Item item, u8 *dest)
 
 void ScriptShowItemDescription(struct ScriptContext *ctx)
 {
-    if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF)
+    u8 headerType = ScriptReadByte(ctx);
+
+    if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF && !ITEM_PICTURE_ACQUIRE)
     {
-        (void) ScriptReadByte(ctx);
+
         return;
     }
-
-    u8 headerType = ScriptReadByte(ctx);
 
     Script_RequestEffects(SCREFF_V1 | SCREFF_HARDWARE);
 
@@ -3749,6 +3784,10 @@ void ScriptShowItemDescription(struct ScriptContext *ctx)
     u8 textY;
     u8 *dst;
     bool8 handleFlash = FALSE;
+    bool8 itemObtained = GetSetItemObtained(item, FLAG_GET_ITEM_OBTAINED);
+
+    sItemPictureShown = FALSE;
+    sItemDescriptionShown = FALSE;
 
     if (GetFlashLevel() > 0 || InBattlePyramid_())
         handleFlash = TRUE;
@@ -3758,11 +3797,17 @@ void ScriptShowItemDescription(struct ScriptContext *ctx)
     else
         dst = gStringVar1;
 
-    if (GetSetItemObtained(item, FLAG_GET_ITEM_OBTAINED))
+    if (ITEM_PICTURE_ACQUIRE && !itemObtained)
     {
-        ShowItemIconSprite(item, FALSE, handleFlash);
-        return; //no box if item obtained previously
+        ShowItemIconSprite(item, handleFlash);
+        sItemPictureShown = TRUE;
     }
+
+    if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF)
+        return;
+
+    if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_FIRST_TIME && itemObtained)
+        return;
 
     SetWindowTemplateFields(&template, 0, 1, 1, 28, 3, 15, 8);
     sHeaderBoxWindowId = AddWindow(&template);
@@ -3771,38 +3816,45 @@ void ScriptShowItemDescription(struct ScriptContext *ctx)
     CopyWindowToVram(sHeaderBoxWindowId, 3);
     SetStandardWindowBorderStyle(sHeaderBoxWindowId, FALSE);
     DrawStdFrameWithCustomTileAndPalette(sHeaderBoxWindowId, FALSE, 0x214, 14);
+    sItemDescriptionShown = TRUE;
 
     if (ReformatItemDescription(item, dst) == 1)
         textY = 4;
     else
         textY = 0;
 
-    ShowItemIconSprite(item, TRUE, handleFlash);
-    AddTextPrinterParameterized(sHeaderBoxWindowId, 0, dst, ITEM_ICON_X + 2, textY, 0, NULL);
+    AddTextPrinterParameterized(sHeaderBoxWindowId, 0, dst, 2, textY, 0, NULL);
 }
 
 void ScriptHideItemDescription(struct ScriptContext *ctx)
 {
-    if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF)
+    if (OW_SHOW_ITEM_DESCRIPTIONS == OW_ITEM_DESCRIPTIONS_OFF && !ITEM_PICTURE_ACQUIRE)
         return;
 
     Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE | SCREFF_HARDWARE);
 
-    DestroyItemIconSprite();
-
-    if (!GetSetItemObtained(gSpecialVar_0x8006, FLAG_GET_ITEM_OBTAINED))
+    if (sItemPictureShown)
     {
-        //header box only exists if haven't seen item before
-        GetSetItemObtained(gSpecialVar_0x8006, FLAG_SET_ITEM_OBTAINED);
+        DestroyItemIconSprite();
+        sItemPictureShown = FALSE;
+    }
+
+    if (sItemDescriptionShown)
+    {
         ClearStdWindowAndFrameToTransparent(sHeaderBoxWindowId, FALSE);
         CopyWindowToVram(sHeaderBoxWindowId, 3);
         RemoveWindow(sHeaderBoxWindowId);
+        sItemDescriptionShown = FALSE;
     }
+
+    if (!GetSetItemObtained(gSpecialVar_0x8006, FLAG_GET_ITEM_OBTAINED))
+        GetSetItemObtained(gSpecialVar_0x8006, FLAG_SET_ITEM_OBTAINED);
 }
 
-static void ShowItemIconSprite(enum Item item, bool8 firstTime, bool8 flash)
+static void ShowItemIconSprite(enum Item item, bool8 flash)
 {
-    s16 x = 0, y = 0;
+    s16 x = ITEM_ACQUIRE_CENTER_X;
+    s16 y = ITEM_ACQUIRE_CENTER_Y;
     u8 iconSpriteId;
     u8 spriteId2 = MAX_SPRITES;
 
@@ -3817,19 +3869,7 @@ static void ShowItemIconSprite(enum Item item, bool8 firstTime, bool8 flash)
         spriteId2 = AddItemIconSprite(ITEM_TAG, ITEM_TAG, item);
     if (iconSpriteId != MAX_SPRITES)
     {
-        if (!firstTime)
-        {
-            //show in message box
-            x = 213;
-            y = 140;
-        }
-        else
-        {
-            // show in header box
-            x = ITEM_ICON_X;
-            y = ITEM_ICON_Y;
-        }
-
+        StartObtainItemAffineAnim(&gSprites[iconSpriteId]);
         gSprites[iconSpriteId].x2 = x;
         gSprites[iconSpriteId].y2 = y;
         gSprites[iconSpriteId].oam.priority = 0;
@@ -3837,6 +3877,7 @@ static void ShowItemIconSprite(enum Item item, bool8 firstTime, bool8 flash)
 
     if (spriteId2 != MAX_SPRITES)
     {
+        StartObtainItemAffineAnim(&gSprites[spriteId2]);
         gSprites[spriteId2].x2 = x;
         gSprites[spriteId2].y2 = y;
         gSprites[spriteId2].oam.priority = 0;
@@ -3845,19 +3886,25 @@ static void ShowItemIconSprite(enum Item item, bool8 firstTime, bool8 flash)
     }
 
     sItemIconSpriteId = iconSpriteId;
+    sItemIconSpriteId2 = spriteId2;
 }
 
 static void DestroyItemIconSprite(void)
 {
     FreeSpriteTilesByTag(ITEM_TAG);
     FreeSpritePaletteByTag(ITEM_TAG);
-    FreeSpriteOamMatrix(&gSprites[sItemIconSpriteId]);
-    DestroySprite(&gSprites[sItemIconSpriteId]);
+    if (sItemIconSpriteId != MAX_SPRITES)
+    {
+        FreeSpriteOamMatrix(&gSprites[sItemIconSpriteId]);
+        DestroySprite(&gSprites[sItemIconSpriteId]);
+        sItemIconSpriteId = MAX_SPRITES;
+    }
 
-    if ((GetFlashLevel() > 0 || InBattlePyramid_()) && sItemIconSpriteId2 != MAX_SPRITES)
+    if (sItemIconSpriteId2 != MAX_SPRITES)
     {
         FreeSpriteOamMatrix(&gSprites[sItemIconSpriteId2]);
         DestroySprite(&gSprites[sItemIconSpriteId2]);
+        sItemIconSpriteId2 = MAX_SPRITES;
     }
 }
 
