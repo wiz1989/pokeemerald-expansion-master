@@ -236,6 +236,10 @@ void Task_HandleExpansionIntro(u8 taskId)
     switch (tState)
     {
     case 0:
+        // clean up sprite data from copyright screen
+        ResetSpriteData();
+        FreeAllSpritePalettes();
+
         SetVBlankCallback(VBlankCB_ExpansionIntro);
         ExpansionIntro_InitBgs();
         ExpansionIntro_LoadGraphics();
