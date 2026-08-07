@@ -13,6 +13,8 @@ script TARC3_Base_Sunkern {
 	cant_see_if_set(FLAG_BASE_SUNKERN_BEATEN)
     lock
 	faceplayer
+	createfieldmugshot(MUGSHOT_SUNKERN, EMOTE_NORMAL)
+	setspeaker("Sunkern")
 	if (flag(FLAG_BASE_SUNKERN_BEATEN))
 	{
 		msgbox("I still like you!")
@@ -39,6 +41,8 @@ script TARC3_Base_Wooper {
 	cant_see_if_set(FLAG_BASE_WOOPER_BEATEN)
     lock
 	faceplayer
+	createfieldmugshot(MUGSHOT_WOOPER, EMOTE_NORMAL)
+	setspeaker("Wooper")
 	if (flag(FLAG_BASE_WOOPER_BEATEN))
 	{
 		msgbox("Hey, my berry!")
@@ -65,6 +69,8 @@ script TARC3_Base_Torkoal {
 	cant_see_if_set(FLAG_BASE_TORKOAL_BEATEN)
     lock
 	faceplayer
+	setspeaker("Torkoal")
+	createfieldmugshot(MUGSHOT_TORKOAL, EMOTE_ALT)
 	if (flag(FLAG_BASE_TORKOAL_BEATEN))
 	{
 		msgbox("I still like you!")
