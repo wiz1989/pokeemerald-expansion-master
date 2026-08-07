@@ -2756,6 +2756,9 @@ BattleScript_MoveMissed::
 	effectivenesssound
 	resultmessage
 	waitmessage B_WAIT_TIME_LONG
+	jumpifrealmiss BattleScript_MoveMissed_CheckNoMisses
+	goto BattleScript_MoveEnd
+BattleScript_MoveMissed_CheckNoMisses:
 	copybyte gBattleRuleBattler, gBattlerAttacker
 	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOMISSES
 	goto BattleScript_MoveEnd
@@ -3211,6 +3214,7 @@ BattleScript_KOFail::
 	pause B_WAIT_TIME_LONG
 	printfromtable gKOFailedStringIds
 	waitmessage B_WAIT_TIME_LONG
+	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, B_MSG_KO_MISS, BattleScript_MoveEnd
 	copybyte gBattleRuleBattler, gBattlerAttacker
 	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOMISSES
 	goto BattleScript_MoveEnd

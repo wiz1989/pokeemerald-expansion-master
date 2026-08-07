@@ -187,8 +187,9 @@
 	.4byte \jumpInstr
 	.endm
 
-	.macro unused_0x21
+	.macro jumpifrealmiss jumpInstr:req
 	.byte 0x21
+	.4byte \jumpInstr
 	.endm
 
 	.macro jumpbasedontype battler:req, type:req, jumpIfType:req, jumpInstr:req

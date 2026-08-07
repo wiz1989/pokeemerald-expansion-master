@@ -388,7 +388,7 @@ void ComputeActiveBattleRules(void)
             break;
     }
 
-    // gActiveBattleRules[0] = BATTLERULE_BANNEDTYPE; // test line
+    // gActiveBattleRules[0] = BATTLERULE_NOMISSES; // test line
     // gActiveBattleRules[1] = BATTLERULE_NONE; // test line
     // gActiveBattleRules[2] = BATTLERULE_NONE; // test line
 
