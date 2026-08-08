@@ -1256,6 +1256,8 @@ void BagDestroyPocketScrollArrowPair(void)
 
 static void CreatePocketSwitchArrowPair(void)
 {
+    return; // remove sprites
+
     if (gBagMenu->pocketSwitchDisabled != TRUE && gBagMenu->pocketSwitchArrowsTask == TASK_NONE)
         gBagMenu->pocketSwitchArrowsTask = AddScrollIndicatorArrowPair(&sBagScrollArrowsTemplate, &gBagPosition.pocketSwitchArrowPos);
 }
@@ -1442,10 +1444,10 @@ static void Task_BagMenu_HandleInput(u8 taskId)
         switch (GetSwitchBagPocketDirection())
         {
         case SWITCH_POCKET_LEFT:
-            SwitchBagPocket(taskId, MENU_CURSOR_DELTA_LEFT, FALSE);
+            // SwitchBagPocket(taskId, MENU_CURSOR_DELTA_LEFT, FALSE);
             return;
         case SWITCH_POCKET_RIGHT:
-            SwitchBagPocket(taskId, MENU_CURSOR_DELTA_RIGHT, FALSE);
+            // SwitchBagPocket(taskId, MENU_CURSOR_DELTA_RIGHT, FALSE);
             return;
         default:
             if (JOY_NEW(SELECT_BUTTON))
@@ -1543,12 +1545,12 @@ static u8 GetSwitchBagPocketDirection(void)
     LRKeys = GetLRKeysPressed();
     if (JOY_NEW(DPAD_LEFT) || LRKeys == MENU_L_PRESSED)
     {
-        PlaySE(SE_SELECT);
+        // PlaySE(SE_SELECT);
         return SWITCH_POCKET_LEFT;
     }
     if (JOY_NEW(DPAD_RIGHT) || LRKeys == MENU_R_PRESSED)
     {
-        PlaySE(SE_SELECT);
+        // PlaySE(SE_SELECT);
         return SWITCH_POCKET_RIGHT;
     }
     return SWITCH_POCKET_NONE;
@@ -1660,6 +1662,8 @@ static void DrawItemListBgRow(u8 y)
 
 static void DrawPocketIndicatorSquare(u8 x, bool8 isCurrentPocket)
 {
+    return; // remove the active pocket indicator
+
     if (!isCurrentPocket)
         FillBgTilemapBufferRect_Palette0(2, 0x1017, x + 5, 3, 1, 1);
     else
