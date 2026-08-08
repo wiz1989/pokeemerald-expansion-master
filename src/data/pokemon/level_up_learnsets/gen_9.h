@@ -9025,32 +9025,32 @@ static const struct LevelUpMove sMiloticLevelUpLearnset[] = {
 #if P_FAMILY_CASTFORM
 static const struct LevelUpMove sCastformLevelUpLearnset[] = {
     LEVEL_UP_MOVE(1, MOVE_WEATHER_BALL),
-    LEVEL_UP_MOVE(1, MOVE_BUBBLE_BEAM),
-    LEVEL_UP_MOVE(1, MOVE_INCINERATE),
-    LEVEL_UP_MOVE(1, MOVE_AURORA_BEAM),
+    LEVEL_UP_MOVE(1, MOVE_PROTECT),
+    LEVEL_UP_MOVE(1, MOVE_DISABLE),
+    LEVEL_UP_MOVE(1, MOVE_NONE),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sCastformLevelUpLearnsetRainy[] = {
-    LEVEL_UP_MOVE(1, MOVE_WEATHER_BALL),
     LEVEL_UP_MOVE(1, MOVE_SURF),
+    LEVEL_UP_MOVE(1, MOVE_AQUA_RING),
     LEVEL_UP_MOVE(1, MOVE_NONE),
     LEVEL_UP_MOVE(1, MOVE_NONE),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sCastformLevelUpLearnsetSunny[] = {
-    LEVEL_UP_MOVE(1, MOVE_WEATHER_BALL),
-    LEVEL_UP_MOVE(1, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE(1, MOVE_INCINERATE),
+    LEVEL_UP_MOVE(1, MOVE_TORMENT),
     LEVEL_UP_MOVE(1, MOVE_NONE),
     LEVEL_UP_MOVE(1, MOVE_NONE),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sCastformLevelUpLearnsetSnowy[] = {
-    LEVEL_UP_MOVE(1, MOVE_WEATHER_BALL),
-    LEVEL_UP_MOVE(1, MOVE_ICE_BEAM),
-    LEVEL_UP_MOVE(1, MOVE_NONE),
+    LEVEL_UP_MOVE(1, MOVE_AVALANCHE),
+    LEVEL_UP_MOVE(1, MOVE_ICY_WIND),
+    LEVEL_UP_MOVE(1, MOVE_AURORA_VEIL),
     LEVEL_UP_MOVE(1, MOVE_NONE),
     LEVEL_UP_END
 };
