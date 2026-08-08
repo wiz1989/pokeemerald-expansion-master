@@ -12167,16 +12167,16 @@ const struct ItemInfo gItemsInfo[] =
 
 // TMs/HMs. They don't have a set flingPower, as that's handled by GetFlingPowerFromItemId.
 
-    [ITEM_TM_FOCUS_PUNCH] =
+    [ITEM_TM_ROCK_CLIMB] =
     {
-        .name = ITEM_NAME("TM01"),
+        .name = ITEM_NAME("TM Ice Climb"),
         .price = 3000,
         .description = COMPOUND_STRING(
-            "Powerful, but makes\n"
-            "the user flinch if\n"
-            "hit by the foe."),
+            "A move that allows to\n"
+            "scale a frozen\n"
+            "waterfall."),
         .importance = I_REUSABLE_TMS,
-        .pocket = POCKET_TM_HM,
+        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
     },

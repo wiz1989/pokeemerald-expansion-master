@@ -11586,23 +11586,23 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_ROCK_CLIMB] =
     {
-        .name = COMPOUND_STRING("Rock Climb"),
+        .name = COMPOUND_STRING("Ice Climb"),
         .description = COMPOUND_STRING(
-            "A charging attack that may\n"
-            "confuse the foe."),
+            "A charging attack to hit\n"
+            "the foe."),
         .effect = EFFECT_HIT,
-        .power = 90,
+        .power = 50,
         .type = TYPE_NORMAL,
-        .accuracy = 85,
+        .accuracy = 100,
         .pp = 20,
         .target = TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_CONFUSION,
-            .chance = 20,
-        }),
+        // .additionalEffects = ADDITIONAL_EFFECTS({
+        //     .moveEffect = MOVE_EFFECT_CONFUSION,
+        //     .chance = 20,
+        // }),
         .contestEffect = CONTEST_EFFECT_SHIFT_JUDGE_ATTENTION,
         .contestCategory = CONTEST_CATEGORY_COOL,
         .contestComboStarterId = 0,
