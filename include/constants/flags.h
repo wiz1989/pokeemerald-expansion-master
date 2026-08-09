@@ -52,7 +52,7 @@
 #else
 
 #define FLAG_SMART_WILD_MONS          0x20
-#define FLAG_BASE_SUNKERN_BEATEN      0x21
+#define FLAG_BASE_VULPIX_BEATEN       0x21
 #define FLAG_BASE_WOOPER_BEATEN       0x22
 #define FLAG_NO_TRAINER_SEE           0x23
 #define FLAG_NO_COLLISION             0x24
@@ -74,7 +74,7 @@
 #define FLAG_ITEM_COLLECTIBLE_9       0x34
 #define FLAG_ITEM_COLLECTIBLE_10      0x35
 #define FLAG_ITEM_ICE_CLIMB           0x36
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
+#define FLAG_BASE_PARAS_BEATEN        0x37 // Unused Flag
 #define FLAG_UNUSED_0x038    0x38 // Unused Flag
 #define FLAG_UNUSED_0x039    0x39 // Unused Flag
 #define FLAG_UNUSED_0x03A    0x3A // Unused Flag
