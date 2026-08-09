@@ -871,7 +871,7 @@ static void CrackedFloorPerStepCallback(u8 taskId)
 // clay tiles require METATILE definitions from gTileset_Mauville
 static void SetBrokenClayMetatile(s16 x, s16 y)
 {
-    MapGridSetMetatileIdAt(x, y, 0x3F4);
+    MapGridSetMetatileIdAt(x, y, METATILE_Mauville_ClayTileBroken);
     CurrentMapDrawMetatileAt(x, y);
     MapGridSetMetatileImpassabilityAt(x, y, TRUE);
 }
