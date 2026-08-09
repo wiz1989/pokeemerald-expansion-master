@@ -5226,10 +5226,10 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
     [SPECIES_VULPIX] =
     {
         .baseHP        = 38,
-        .baseAttack    = 41,
+        .baseAttack    = 50,
         .baseDefense   = 40,
         .baseSpeed     = 65,
-        .baseSpAttack  = P_UPDATED_STATS >= GEN_2 ? 50 : 65,
+        .baseSpAttack  = P_UPDATED_STATS >= GEN_2 ? 65 : 65,
         .baseSpDefense = 65,
         .types = MON_TYPES(TYPE_FIRE),
         .catchRate = 190,

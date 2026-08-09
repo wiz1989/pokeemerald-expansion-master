@@ -842,8 +842,8 @@ static const struct LevelUpMove sClefableLevelUpLearnset[] = {
 
 #if P_FAMILY_VULPIX
 static const struct LevelUpMove sVulpixLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 8, MOVE_QUICK_ATTACK),
-    LEVEL_UP_MOVE(32, MOVE_FLAMETHROWER),
+    LEVEL_UP_MOVE( 1, MOVE_QUICK_ATTACK),
+    LEVEL_UP_MOVE( 1, MOVE_FLAMETHROWER),
     LEVEL_UP_END
 };
 

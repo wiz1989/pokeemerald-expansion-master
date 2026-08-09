@@ -254,6 +254,10 @@ static u64 GetAiFlags(u16 trainerId, enum BattlerId battler)
 {
     u64 flags = 0;
 
+    // hard code all AI flags to the following set
+    flags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_CHECK_VIABILITY | AI_FLAG_TRY_TO_FAINT;
+    return flags;
+
     if (!IsSmartBattle())
     {
         return 0;
