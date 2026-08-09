@@ -520,6 +520,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_MovingBox,             OBJ_EVENT_PAL_TAG_MOVING_BOX},
     {gObjectEventPal_CableCar,              OBJ_EVENT_PAL_TAG_CABLE_CAR},
     {gObjectEventPal_SSTidal,               OBJ_EVENT_PAL_TAG_SSTIDAL},
+    {gObjectEventPal_Vines,                 OBJ_EVENT_PAL_TAG_VINES},
     {gObjectEventPal_Kyogre,                OBJ_EVENT_PAL_TAG_KYOGRE},
     {gObjectEventPal_KyogreReflection,      OBJ_EVENT_PAL_TAG_KYOGRE_REFLECTION},
     {gObjectEventPal_Groudon,               OBJ_EVENT_PAL_TAG_GROUDON},
@@ -533,6 +534,8 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_Lugia,                 OBJ_EVENT_PAL_TAG_LUGIA},
     {gObjectEventPal_RubySapphireBrendan,   OBJ_EVENT_PAL_TAG_RS_BRENDAN},
     {gObjectEventPal_RubySapphireMay,       OBJ_EVENT_PAL_TAG_RS_MAY},
+    {gObjectEventPal_Starlight,             OBJ_EVENT_PAL_TAG_STARLIGHT},
+    {gObjectEventPal_Leob,                  OBJ_EVENT_PAL_TAG_LEOB},
 #if IS_FRLG
     {gObjectEventPal_PlayerFrlg,            OBJ_EVENT_PAL_TAG_PLAYER_RED},
     {gObjectEventPal_PlayerReflectionFrlg,  OBJ_EVENT_PAL_TAG_PLAYER_RED_REFLECTION},
@@ -3204,6 +3207,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_BerryTreeLa
 static void SetBerryTreeGraphicsById(struct ObjectEvent *objectEvent, u8 berryId, u8 berryStage)
 {
     u16 graphicsId = gBerryTreeObjectEventGraphicsIdTable[berryStage];
+    u8 paletteIndex;
     const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(graphicsId);
     struct Sprite *sprite = &gSprites[objectEvent->spriteId];
 
@@ -3211,7 +3215,11 @@ static void SetBerryTreeGraphicsById(struct ObjectEvent *objectEvent, u8 berryId
     if (berryId == BERRY_ID_WEPEAR && berryStage >= BERRY_STAGE_TALLER - 1)
         graphicsInfo = &gObjectEventGraphicsInfo_BerryTreeLateStagesTall;
 
-    UpdateSpritePalette(&sObjectEventSpritePalettes[gBerries[berryId].berryTreePaletteSlotTable[berryStage] - 2], sprite);
+    if (berryStage == BERRY_STAGE_PLANTED - 1) // keep the dirt pile pal
+        paletteIndex = gBerries[berryId].berryTreePaletteSlotTable[berryStage] - 2;
+    else // hard code pal with vines.pal
+        paletteIndex = FindObjectEventPaletteIndexByTag(OBJ_EVENT_PAL_TAG_VINES);
+    UpdateSpritePalette(&sObjectEventSpritePalettes[paletteIndex], sprite);
     sprite->oam.shape = graphicsInfo->oam->shape;
     sprite->oam.size = graphicsInfo->oam->size;
     sprite->images = gBerries[berryId].berryTreePicTable;

@@ -237,6 +237,7 @@ const u32 gObjectEventPic_CableCar[] = INCGFX_U32("graphics/object_events/pics/m
 const u16 gObjectEventPal_CableCar[] = INCGFX_U16("graphics/object_events/palettes/cable_car.pal", ".gbapal");
 const u32 gObjectEventPic_SSTidal[] = INCGFX_U32("graphics/object_events/pics/misc/ss_tidal.png", ".4bpp");
 const u16 gObjectEventPal_SSTidal[] = INCGFX_U16("graphics/object_events/palettes/ss_tidal.pal", ".gbapal");
+const u16 gObjectEventPal_Vines[] = INCGFX_U16("graphics/object_events/palettes/vines.pal", ".gbapal");
 const u32 gFieldEffectObjectPic_Sparkle[] = INCGFX_U32("graphics/field_effects/pics/sparkle.png", ".4bpp", "-mwidth 2 -mheight 2");
 const u32 gObjectEventPic_BerryTreeDirtPile[] = INCGFX_U32("graphics/object_events/pics/berry_trees/dirt_pile.png", ".4bpp");
 const u32 gObjectEventPic_BerryTreeSprout[] = INCGFX_U32("graphics/object_events/pics/berry_trees/sprout.png", ".4bpp", "-mwidth 2 -mheight 2");
@@ -465,6 +466,11 @@ const u16 gFieldEffectObjectPalette_CaveDust[] = INCGFX_U16("graphics/field_effe
 const u32 gObjectEventPic_ApricornTree[] = INCGFX_U32("graphics/object_events/pics/misc/apricorn_tree.png", ".4bpp", "-mwidth 2 -mheight 2");
 
 const u32 gFieldEffectObjectPic_ShinySparkle[] = INCGFX_U32("graphics/field_effects/pics/shiny_sparkle.png", ".4bpp", "-mwidth 2 -mheight 4");
+
+const u32 gObjectEventPic_Starlight[] = INCGFX_U32("graphics/object_events/pics/people/starlight.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Starlight[] = INCGFX_U16("graphics/object_events/palettes/starlight.pal", ".gbapal");
+const u32 gObjectEventPic_Leob[] = INCGFX_U32("graphics/object_events/pics/people/leob.png", ".4bpp", "-mwidth 2 -mheight 4");
+const u16 gObjectEventPal_Leob[] = INCGFX_U16("graphics/object_events/palettes/leob.pal", ".gbapal");
 
 #if IS_FRLG
 

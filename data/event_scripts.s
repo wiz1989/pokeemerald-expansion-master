@@ -74,6 +74,7 @@
 #include "constants/vars.h"
 #include "constants/weather.h"
 #include "constants/speaker_names.h"
+#include "constants/field_mugshots.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.include "constants/constants.inc"
@@ -1748,3 +1749,5 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/TARC3_base_leobtemp/scripts.inc"
 
 	.include "data/maps/TARC3_VolcanoCave/scripts.inc"
+
+	.include "data/maps/TARC3_UndergroundPath/scripts.inc"

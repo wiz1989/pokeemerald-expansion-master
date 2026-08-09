@@ -7,28 +7,64 @@ script TARC3_Base_OnResume {
 	end
 }
 
-// object scripts
+// migration scripts
 
 script TARC3_Base_Sunkern {
-	cant_see_if_set(FLAG_BASE_SUNKERN_BEATEN)
+	goto(TARC3_Base_Paras)
+}
+
+// object scripts
+
+script TARC3_Base_Paras {
+	cant_see_if_set(FLAG_BASE_PARAS_BEATEN)
     lock
 	faceplayer
-	if (flag(FLAG_BASE_SUNKERN_BEATEN))
+	createfieldmugshot(MUGSHOT_TEST, EMOTE_NORMAL) // wiz1989: change mugshot!
+	setspeaker("Paras")
+	if (flag(FLAG_BASE_PARAS_BEATEN))
 	{
 		msgbox("I still like you!")
 	}
 	else
 	{
-		msgbox("Hi, I'm SUNKERN.\nLet's battle!")
-		setwildbattle(SPECIES_SUNKERN, 25)
-		playmoncry(SPECIES_SUNKERN, CRY_MODE_ENCOUNTER)
+		msgbox("Hi, I'm PARAS.\nLet's battle!")
+		setwildbattle(SPECIES_PARAS, 25)
+		playmoncry(SPECIES_PARAS, CRY_MODE_ENCOUNTER)
 		delay(40)
 		waitmoncry
 		dowildbattle
 		callnative(WasBattleWon)
 		if (var(VAR_RESULT) == TRUE)
 		{
-			setflag(FLAG_BASE_SUNKERN_BEATEN)
+			setflag(FLAG_BASE_PARAS_BEATEN)
+		}
+	}
+	release
+    end
+}
+
+script TARC3_Base_Vulpix {
+	cant_see_if_set(FLAG_BASE_VULPIX_BEATEN)
+    lock
+	faceplayer
+	createfieldmugshot(MUGSHOT_TEST, EMOTE_NORMAL) // wiz1989: change mugshot!
+	setspeaker("Vulpix")
+	if (flag(FLAG_BASE_VULPIX_BEATEN))
+	{
+		msgbox("I still like you!")
+	}
+	else
+	{
+		msgbox("Hi, I'm VULPIX.\nLet's battle!")
+		setwildbattle(SPECIES_VULPIX, 25)
+		playmoncry(SPECIES_VULPIX, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		dowildbattle
+		callnative(WasBattleWon)
+		if (var(VAR_RESULT) == TRUE)
+		{
+			setflag(FLAG_BASE_VULPIX_BEATEN)
 		}
 	}
 	release
@@ -39,6 +75,8 @@ script TARC3_Base_Wooper {
 	cant_see_if_set(FLAG_BASE_WOOPER_BEATEN)
     lock
 	faceplayer
+	createfieldmugshot(MUGSHOT_WOOPER, EMOTE_NORMAL)
+	setspeaker("Wooper")
 	if (flag(FLAG_BASE_WOOPER_BEATEN))
 	{
 		msgbox("Hey, my berry!")
@@ -65,6 +103,8 @@ script TARC3_Base_Torkoal {
 	cant_see_if_set(FLAG_BASE_TORKOAL_BEATEN)
     lock
 	faceplayer
+	setspeaker("Torkoal")
+	createfieldmugshot(MUGSHOT_TORKOAL, EMOTE_ALT)
 	if (flag(FLAG_BASE_TORKOAL_BEATEN))
 	{
 		msgbox("I still like you!")

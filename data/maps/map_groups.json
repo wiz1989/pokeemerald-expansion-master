@@ -85,7 +85,8 @@
     "TARC3_WeatherInstitute_1F",
     "TARC3_WeatherInstitute_2F",
     "TARC3_base_leobtemp",
-    "TARC3_VolcanoCave"
+    "TARC3_VolcanoCave",
+    "TARC3_UndergroundPath"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PetalburgCity",

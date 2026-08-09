@@ -93,7 +93,8 @@ BerryTree_EventScript_CheckBerryStage1::
 	goto BerryTree_EventScript_CancelPlanting
 
 BerryTree_EventScript_ReturnBerryToBag::
-	special ObjectEventInteractionReturnBerry
+	@ special ObjectEventInteractionReturnBerry
+	additem ITEM_WEPEAR_BERRY, 1
 	special ObjectEventInteractionRemoveBerryTree
 	message BerryTree_Text_TookBerryBack
 	waitmessage

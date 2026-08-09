@@ -26,7 +26,7 @@
 #define FLAG_TEMP_D      (TEMP_FLAGS_START + 0xD)  // Unused Flag
 #define FLAG_TEMP_E      (TEMP_FLAGS_START + 0xE)  // When set, follower Pokémon won't be spawned
 #define FLAG_TEMP_F      (TEMP_FLAGS_START + 0xF)  // Unused Flag
-#define FLAG_TEMP_OBSERVER_BATTLE     (TEMP_FLAGS_START + 0x10) // Unused Flag
+#define FLAG_TEMP_OBSERVER_BATTLE     (TEMP_FLAGS_START + 0x10)
 #define FLAG_TEMP_11     (TEMP_FLAGS_START + 0x11)
 #define FLAG_TEMP_12     (TEMP_FLAGS_START + 0x12)
 #define FLAG_TEMP_13     (TEMP_FLAGS_START + 0x13)
@@ -51,30 +51,30 @@
 
 #else
 
-#define FLAG_SMART_WILD_MONS 0x20 // Unused Flag
-#define FLAG_BASE_SUNKERN_BEATEN    0x21 // Unused Flag
-#define FLAG_BASE_WOOPER_BEATEN     0x22 // Unused Flag
-#define FLAG_NO_TRAINER_SEE    0x23 // Unused Flag
-#define FLAG_NO_COLLISION    0x24 // Unused Flag
-#define FLAG_BASE_TORKOAL_BEATEN    0x25 // Unused Flag
-#define FLAG_LAPRAS1_SOURCE_INVISIBLE    0x26 // Unused Flag
-#define FLAG_LAPRAS2_SOURCE_INVISIBLE    0x27 // Unused Flag
-#define FLAG_LAPRAS1_DEST_INVISIBLE    0x28 // Unused Flag
-#define FLAG_LAPRAS2_DEST_INVISIBLE    0x29 // Unused Flag
-#define FLAG_UNUSED_0x02A    0x2A // Unused Flag
-#define FLAG_UNUSED_0x02B    0x2B // Unused Flag
-#define FLAG_UNUSED_0x02C    0x2C // Unused Flag
-#define FLAG_UNUSED_0x02D    0x2D // Unused Flag
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
-#define FLAG_UNUSED_0x033    0x33 // Unused Flag
-#define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
+#define FLAG_SMART_WILD_MONS          0x20
+#define FLAG_BASE_VULPIX_BEATEN       0x21
+#define FLAG_BASE_WOOPER_BEATEN       0x22
+#define FLAG_NO_TRAINER_SEE           0x23
+#define FLAG_NO_COLLISION             0x24
+#define FLAG_BASE_TORKOAL_BEATEN      0x25
+#define FLAG_LAPRAS1_SOURCE_INVISIBLE 0x26
+#define FLAG_LAPRAS2_SOURCE_INVISIBLE 0x27
+#define FLAG_LAPRAS1_DEST_INVISIBLE   0x28
+#define FLAG_LAPRAS2_DEST_INVISIBLE   0x29
+#define FLAG_ITEM_SEED_1              0x2A
+#define FLAG_ITEM_SEED_2              0x2B
+#define FLAG_ITEM_COLLECTIBLE_1       0x2C
+#define FLAG_ITEM_COLLECTIBLE_2       0x2D
+#define FLAG_ITEM_COLLECTIBLE_3       0x2E
+#define FLAG_ITEM_COLLECTIBLE_4       0x2F
+#define FLAG_ITEM_COLLECTIBLE_5       0x30
+#define FLAG_ITEM_COLLECTIBLE_6       0x31
+#define FLAG_ITEM_COLLECTIBLE_7       0x32
+#define FLAG_ITEM_COLLECTIBLE_8       0x33
+#define FLAG_ITEM_COLLECTIBLE_9       0x34
+#define FLAG_ITEM_COLLECTIBLE_10      0x35
+#define FLAG_ITEM_ICE_CLIMB           0x36
+#define FLAG_BASE_PARAS_BEATEN        0x37 // Unused Flag
 #define FLAG_UNUSED_0x038    0x38 // Unused Flag
 #define FLAG_UNUSED_0x039    0x39 // Unused Flag
 #define FLAG_UNUSED_0x03A    0x3A // Unused Flag

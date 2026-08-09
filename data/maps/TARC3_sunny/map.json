@@ -2,7 +2,7 @@
   "id": "MAP_TARC3_SUNNY",
   "name": "TARC3_sunny",
   "layout": "LAYOUT_TARC3_SUNNY",
-  "music": "MUS_CASTFORM_SNOW",
+  "music": "MUS_CASTFORM_DROUGHT",
   "region_map_section": "MAPSEC_TARC3_SUNNY",
   "requires_flash": false,
   "weather": "WEATHER_DROUGHT",
@@ -325,6 +325,19 @@
       "trainer_sight_or_berry_tree_id": "BERRY_TREE_ROUTE_118_SOIL",
       "script": "BerryTreeScript",
       "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_BERRY_TREE",
+      "x": 13,
+      "y": 66,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_BERRY_TREE_GROWTH",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "BERRY_TREE_ROUTE_104_SOIL_1",
+      "script": "BerryTreeScript",
+      "flag": "0"
     }
   ],
   "warp_events": [
@@ -374,8 +387,8 @@
       "x": 47,
       "y": 71,
       "elevation": 0,
-      "dest_map": "MAP_TARC3_BASE",
-      "dest_warp_id": "6"
+      "dest_map": "MAP_TARC3_UNDERGROUND_PATH",
+      "dest_warp_id": "1"
     },
     {
       "x": 49,

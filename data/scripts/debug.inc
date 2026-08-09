@@ -206,17 +206,11 @@ Debug_EventScript_Script_1::
 	end
 
 Debug_EventScript_Script_2::
-	setwildbattle SPECIES_ZIGZAGOON, 25
-	waitse
-	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_ENCOUNTER
-	delay 40
-	waitmoncry
-	dowildbattle
-	release
+	goto TARC3_Base_Paras
 	end
 
 Debug_EventScript_Script_3::
-	release
+	goto TARC3_Base_Vulpix
 	end
 
 Debug_EventScript_Script_4::

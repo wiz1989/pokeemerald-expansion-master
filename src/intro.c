@@ -15,6 +15,7 @@
 #include "m4a.h"
 #include "random.h"
 #include "decompress.h"
+#include "constants/event_objects.h"
 #include "constants/songs.h"
 #include "intro_credits_graphics.h"
 #include "trig.h"
@@ -26,6 +27,7 @@
 #include "expansion_intro.h"
 #include "battle_anim.h"
 #include "intro_frlg.h"
+#include "event_object_movement.h"
 #include "constants/rgb.h"
 #include "constants/battle_anim.h"
 #include "pokemon.h"
@@ -1025,7 +1027,8 @@ void MainCB2_Intro(void)
     AnimateSprites();
     BuildOamBuffer();
     UpdatePaletteFade();
-    if (gMain.newKeys != 0 && !gPaletteFade.active)
+    //if (gMain.newKeys != 0 && !gPaletteFade.active) //skip intro
+    if (!gPaletteFade.active)
         SetMainCallback2(MainCB2_EndIntro);
     else if (gIntroFrameCounter != -1)
         gIntroFrameCounter++;
@@ -1047,6 +1050,17 @@ static void LoadCopyrightGraphics(u16 tilesetAddress, u16 tilemapAddress, u16 pa
 static void SerialCB_CopyrightScreen(void)
 {
     GameCubeMultiBoot_HandleSerialInterrupt(&gMultibootProgramStruct);
+}
+
+#define X_COORD_WIZ1989   78
+#define Y_COORD_WIZ1989   40
+#define Y_COORD_LEOB0505  Y_COORD_WIZ1989 + 32
+#define Y_COORD_STARLIGHT Y_COORD_LEOB0505 + 32
+
+static void CreateCopyrightAvatarSprite(u16 graphicsId, s16 x, s16 y)
+{
+    u8 spriteId = CreateObjectGraphicsSprite(graphicsId, SpriteCallbackDummy, x, y, 0);
+    gSprites[spriteId].oam.priority = 0;
 }
 
 static u8 SetUpCopyrightScreen(void)
@@ -1074,6 +1088,10 @@ static u8 SetUpCopyrightScreen(void)
         ResetTasks();
         ResetSpriteData();
         FreeAllSpritePalettes();
+        InitObjectEventPalettes(0);
+        CreateCopyrightAvatarSprite(OBJ_EVENT_GFX_GENTLEMAN, X_COORD_WIZ1989, Y_COORD_WIZ1989);
+        CreateCopyrightAvatarSprite(OBJ_EVENT_GFX_ARTIST, X_COORD_WIZ1989, Y_COORD_LEOB0505);
+        CreateCopyrightAvatarSprite(OBJ_EVENT_GFX_STARLIGHT, X_COORD_WIZ1989, Y_COORD_STARLIGHT);
         BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_WHITEALPHA);
         SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(0)
                                    | BGCNT_CHARBASE(0)
@@ -1082,19 +1100,23 @@ static u8 SetUpCopyrightScreen(void)
                                    | BGCNT_TXT256x256);
         EnableInterrupts(INTR_FLAG_VBLANK);
         SetVBlankCallback(VBlankCB_Intro);
-        REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON;
+        REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON | DISPCNT_BG0_ON;
         SetSerialCallback(SerialCB_CopyrightScreen);
         GameCubeMultiBoot_Init(&gMultibootProgramStruct);
     // REG_DISPCNT needs to be overwritten the second time, because otherwise the intro won't show up on VBA 1.7.2 and John GBA Lite emulators.
     // The REG_DISPCNT overwrite is NOT needed in m-GBA, No$GBA, VBA 1.8.0, My Boy and Pizza Boy GBA emulators.
     case COPYRIGHT_EMULATOR_BLEND:
-        REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG0_ON;
+        REG_DISPCNT = DISPCNT_MODE_0 | DISPCNT_OBJ_1D_MAP | DISPCNT_OBJ_ON | DISPCNT_BG0_ON;
     default:
+        AnimateSprites();
+        BuildOamBuffer();
         UpdatePaletteFade();
         gMain.state++;
         GameCubeMultiBoot_Main(&gMultibootProgramStruct);
         break;
     case COPYRIGHT_START_FADE:
+        AnimateSprites();
+        BuildOamBuffer();
         GameCubeMultiBoot_Main(&gMultibootProgramStruct);
         if (gMultibootProgramStruct.gcmb_field_2 != 1)
         {

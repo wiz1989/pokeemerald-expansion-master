@@ -8735,15 +8735,15 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
         // update moves for Castform forms
         if (PlayerIsCastform() && IsSpeciesValidTransformation(targetSpecies))
         {
-            // read from player party and copy moves based on target form
-            for (u32 partyIndex = 0; partyIndex < gPartiesCount[B_TRAINER_PLAYER]; partyIndex++)
-            {
-                struct Pokemon *partyMon = &gParties[B_TRAINER_PLAYER][partyIndex];
+            // // read from player party and copy moves based on target form
+            // for (u32 partyIndex = 0; partyIndex < gPartiesCount[B_TRAINER_PLAYER]; partyIndex++)
+            // {
+            //     struct Pokemon *partyMon = &gParties[B_TRAINER_PLAYER][partyIndex];
                 
-                // wiz1989 ToDo: This will always restore PP for Base form... not ideal!
-                // special move logic for Base form, because party slot 0 is permanently altered in battle
-                if (targetSpecies == SPECIES_CASTFORM)
-                {
+            //     // wiz1989 ToDo: This will always restore PP for Base form... not ideal!
+            //     // special move logic for Base form, because party slot 0 is permanently altered in battle
+            //     if (targetSpecies == SPECIES_CASTFORM)
+            //     {
                     for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
                     {
                         u16 move = GetTransformationMoves(targetSpecies, moveIndex);
@@ -8752,19 +8752,19 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
                         gBattleMons[battler].moves[moveIndex] = move;
                         gBattleMons[battler].pp[moveIndex] = pp;
                     }
-                    break;
-                }
+                //     break;
+                // }
 
-                if (GetMonData(partyMon, MON_DATA_SPECIES) != targetSpecies)
-                    continue;
+                // if (GetMonData(partyMon, MON_DATA_SPECIES) != targetSpecies)
+                //     continue;
 
-                for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
-                {
-                    gBattleMons[battler].moves[moveIndex] = GetMonData(partyMon, MON_DATA_MOVE1 + moveIndex);
-                    gBattleMons[battler].pp[moveIndex] = GetMonData(partyMon, MON_DATA_PP1 + moveIndex);
-                }
-                break;
-            }
+                // for (u32 moveIndex = 0; moveIndex < MAX_MON_MOVES; moveIndex++)
+                // {
+                //     gBattleMons[battler].moves[moveIndex] = GetMonData(partyMon, MON_DATA_MOVE1 + moveIndex);
+                //     gBattleMons[battler].pp[moveIndex] = GetMonData(partyMon, MON_DATA_PP1 + moveIndex);
+                // }
+                // break;
+            // }
         }
 
         SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);

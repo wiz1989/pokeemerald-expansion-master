@@ -9363,7 +9363,7 @@
       "width": 86,
       "height": 86,
       "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Tarc3",
+      "secondary_tileset": "gTileset_Tarc3Snowy",
       "border_filepath": "data/layouts/TARC3_snowy/border.bin",
       "blockdata_filepath": "data/layouts/TARC3_snowy/map.bin",
       "layout_version": "emerald"
@@ -9410,6 +9410,17 @@
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/TARC3_VolcanoCave/border.bin",
       "blockdata_filepath": "data/layouts/TARC3_VolcanoCave/map.bin",
+      "layout_version": "emerald"
+    },
+    {
+      "id": "LAYOUT_TARC3_UNDERGROUND_PATH",
+      "name": "TARC3_UndergroundPath_Layout",
+      "width": 25,
+      "height": 30,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Cave",
+      "border_filepath": "data/layouts/TARC3_UndergroundPath/border.bin",
+      "blockdata_filepath": "data/layouts/TARC3_UndergroundPath/map.bin",
       "layout_version": "emerald"
     }
   ]

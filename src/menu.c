@@ -25,6 +25,7 @@
 #include "task.h"
 #include "text_window.h"
 #include "window.h"
+#include "field_mugshot.h"
 #include "constants/songs.h"
 
 struct MenuInfoIcon
@@ -145,6 +146,7 @@ void InitStandardTextBoxWindows(void)
     sMapNamePopupWindowId = WINDOW_NONE;
     if (OW_POPUP_GENERATION == GEN_5)
         sSecondaryPopupWindowId = WINDOW_NONE;
+    SetFieldMugshotSpriteId(WINDOW_NONE); // its the same as SPRITE_NONE
 }
 
 void FreeAllOverworldWindowBuffers(void)

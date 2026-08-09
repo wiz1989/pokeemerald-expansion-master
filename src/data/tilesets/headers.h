@@ -844,6 +844,17 @@ const struct Tileset gTileset_Tarc3 =
     .callback = InitTilesetAnim_Tarc3,
 };
 
+const struct Tileset gTileset_Tarc3Snowy =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Tarc3Snowy,
+    .palettes = gTilesetPalettes_Tarc3Snowy,
+    .metatiles = gMetatiles_Tarc3Snowy,
+    .metatileAttributes = gMetatileAttributes_Tarc3Snowy,
+    .callback = InitTilesetAnim_Tarc3Snowy,
+};
+
 #else
 
 // FRLG tilesets

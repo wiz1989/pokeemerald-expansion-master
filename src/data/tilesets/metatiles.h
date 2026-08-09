@@ -213,6 +213,9 @@ const u16 gMetatileAttributes_UnionRoom[] = INCBIN_U16("data/tilesets/secondary/
 const u16 gMetatiles_Tarc3[] = INCBIN_U16("data/tilesets/secondary/tarc3/metatiles.bin");
 const u16 gMetatileAttributes_Tarc3[] = INCBIN_U16("data/tilesets/secondary/tarc3/metatile_attributes.bin");
 
+const u16 gMetatiles_Tarc3Snowy[] = INCBIN_U16("data/tilesets/secondary/tarc3_snowy/metatiles.bin");
+const u16 gMetatileAttributes_Tarc3Snowy[] = INCBIN_U16("data/tilesets/secondary/tarc3_snowy/metatile_attributes.bin");
+
 #else
 
 const u16 gMetatiles_Building_Frlg[] = INCBIN_U16("data/tilesets/primary/building_frlg/metatiles.bin");
