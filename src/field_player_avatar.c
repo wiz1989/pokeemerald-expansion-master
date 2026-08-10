@@ -1048,6 +1048,9 @@ static enum Collision CheckForPlayerAvatarCollisionAtRange(enum Direction direct
 {
     s16 x, y;
     struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+    // save directionOverwrite for stairs, because CheckForObjectEventCollision() will reset it
+    enum Direction savedDirectionOverwrite = playerObjEvent->directionOverwrite;
+    enum Collision collision;
 
     x = playerObjEvent->currentCoords.x;
     y = playerObjEvent->currentCoords.y;
@@ -1055,7 +1058,9 @@ static enum Collision CheckForPlayerAvatarCollisionAtRange(enum Direction direct
     for (u8 i = 0; i < range; i++)
         MoveCoords(direction, &x, &y);
 
-    return CheckForObjectEventCollision(playerObjEvent, x, y, direction, MapGridGetMetatileBehaviorAt(x, y));
+    collision = CheckForObjectEventCollision(playerObjEvent, x, y, direction, MapGridGetMetatileBehaviorAt(x, y));
+    playerObjEvent->directionOverwrite = savedDirectionOverwrite;
+    return collision;
 }
 
 static enum Collision CheckForPlayerAvatarStaticCollision(enum Direction direction)
