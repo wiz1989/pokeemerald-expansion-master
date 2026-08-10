@@ -2832,10 +2832,10 @@ const struct SpeciesInfo gSpeciesInfoGen7[] =
     [SPECIES_DEWPIDER] =
     {
         .baseHP        = 40,
-        .baseAttack    = 100,
+        .baseAttack    = 105,
         .baseDefense   = 52,
         .baseSpeed     = 27,
-        .baseSpAttack  = 40,
+        .baseSpAttack  = 86,
         .baseSpDefense = 80,
         .types = MON_TYPES(TYPE_WATER, TYPE_BUG),
         .catchRate = 200,
