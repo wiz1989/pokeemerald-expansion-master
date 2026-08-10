@@ -5414,8 +5414,10 @@ u16 GetBattleBGM(void)
                 return MUS_VS_TRAINER;
         }
     }
-    else
+    else // wild battle
     {
+        return MUS_RG_ENCOUNTER_GYM_LEADER;
+
         if (GetCurrentRegion() == REGION_KANTO)
             return MUS_RG_VS_WILD;
         else
