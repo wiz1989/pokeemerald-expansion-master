@@ -50,6 +50,7 @@
 #include "safari_zone.h"
 #include "scanline_effect.h"
 #include "script.h"
+#include "script_pokemon_util.h"
 #include "sound.h"
 #include "sprite.h"
 #include "string_util.h"
@@ -5637,6 +5638,9 @@ static void HandleEndTurn_FinishBattle(void)
         {
             gBattlerBattleController[i] = BATTLE_CONTROLLER_NONE;
         }
+
+        // always heal full party after battle
+        HealPlayerParty();
 
         gBattleMainFunc = FreeResetData_ReturnToOvOrDoEvolutions;
         gCB2_AfterEvolution = BattleMainCB2;

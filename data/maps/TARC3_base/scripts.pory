@@ -13,8 +13,13 @@ script TARC3_Base_Sunkern {
 	goto(TARC3_Base_Paras)
 }
 
-// object scripts
+script TARC3_Base_Wooper {
+	goto(TARC3_Base_Dewpider)
+}
 
+// ### object scripts ###
+
+// Base phase
 script TARC3_Base_Paras {
 	cant_see_if_set(FLAG_BASE_PARAS_BEATEN)
     lock
@@ -71,7 +76,35 @@ script TARC3_Base_Vulpix {
     end
 }
 
-script TARC3_Base_Wooper {
+script TARC3_Base_Dewpider {
+	cant_see_if_set(FLAG_BASE_DEWPIDER_BEATEN)
+    lock
+	faceplayer
+	createfieldmugshot(MUGSHOT_TEST, EMOTE_NORMAL) // wiz1989: change mugshot!
+	setspeaker("Dewpider")
+	if (flag(FLAG_BASE_DEWPIDER_BEATEN))
+	{
+		msgbox("I still like you!")
+	}
+	else
+	{
+		msgbox("Hi, I'm DEWPIDER.\nLet's battle!")
+		setwildbattle(SPECIES_DEWPIDER, 25)
+		playmoncry(SPECIES_DEWPIDER, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		dowildbattle
+		callnative(WasBattleWon)
+		if (var(VAR_RESULT) == TRUE)
+		{
+			setflag(FLAG_BASE_DEWPIDER_BEATEN)
+		}
+	}
+	release
+    end
+}
+
+script TARC3_Base_Wooper_backup {
 	cant_see_if_set(FLAG_BASE_WOOPER_BEATEN)
     lock
 	faceplayer
