@@ -560,7 +560,7 @@ gSongTable::
 	song mus_rg_vs_deoxys, MUSIC_PLAYER_BGM, 0
 	song mus_rg_vs_mewtwo, MUSIC_PLAYER_BGM, 0
 	song mus_rg_vs_legend, MUSIC_PLAYER_BGM, 0
-	song mus_rg_encounter_gym_leader, MUSIC_PLAYER_BGM, 0
+	song mus_vs_trainer_castform, MUSIC_PLAYER_BGM, 0
 	song mus_castform_drought, MUSIC_PLAYER_BGM, 0
 	song mus_castform_rainy, MUSIC_PLAYER_BGM, 0
 	song mus_castform_snow, MUSIC_PLAYER_BGM, 0
@@ -620,6 +620,7 @@ gSongTable::
 	song mus_castform_snow, MUSIC_PLAYER_BGM, 0
 	song mus_castform_rainy, MUSIC_PLAYER_BGM, 0
 	song mus_castform_drought, MUSIC_PLAYER_BGM, 0
+	song mus_vs_trainer_castform, MUSIC_PLAYER_BGM, 0
 
 	.align 2
 dummy_song_header:
