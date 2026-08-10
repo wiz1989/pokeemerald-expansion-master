@@ -231,7 +231,7 @@ Debug_EventScript_Script_7::
 	end
 
 Debug_EventScript_Script_8::
-	release
+	goto TARC3_Amber_Torkoal
 	end
 
 Debug_CheckSaveBlock::

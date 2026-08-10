@@ -4091,6 +4091,18 @@ static void AI_CompareDamagingMoves(enum BattlerId battlerAtk, enum BattlerId ba
                     case MOVE_NEUTRAL_COMPARISON:
                         break;
                     }
+                    // tie breaker for same scores, use higher expected damage
+                    if (tempMoveScores[currId] == tempMoveScores[compareId])
+                    {
+                        u32 currentDamage = AI_GetDamage(battlerAtk, battlerDef, currId, AI_ATTACKING, gAiLogicData);
+                        u32 comparedDamage = AI_GetDamage(battlerAtk, battlerDef, compareId, AI_ATTACKING, gAiLogicData);
+                        // DebugPrintf("current dmg of slot %d: %d, compared dmg of slot %d: %d\n", currId, currentDamage, compareId, comparedDamage);
+
+                        if (currentDamage > comparedDamage)
+                            tempMoveScores[currId] += 1;
+                        else if (comparedDamage > currentDamage)
+                            tempMoveScores[compareId] += 1;
+                    }
                 }
             }
             // Turns out the current move deals the most dmg compared to the other 3.

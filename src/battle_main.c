@@ -5324,6 +5324,11 @@ void HandleWeatherChange(void)
     {
         gWeatherChangingScriptIsRunning = FALSE;
         gContinueObserverBattleAfterWeatherChange = TRUE; // continue auto battle after weather change
+
+        // reset opponent's controller so it recalcs AI scores (don't care about doubles)
+        SetAiLogicDataForTurn(gAiLogicData);
+        gBattleCommunication[B_POSITION_OPPONENT_LEFT] = STATE_TURN_START_RECORD;
+
         // reset controller state just in case
         if (IsObserverBattle() && IsOnPlayerSide(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT)))
             SetControllerToPlayerPartner(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT));
