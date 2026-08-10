@@ -1018,7 +1018,7 @@ void CreateBoxMon(struct BoxPokemon *boxMon, enum Species species, u8 level, u32
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
 
     // special additions for certain species
-    if (species == SPECIES_WOOPER)
+    if (species == SPECIES_MUNCHLAX)
     {
         value = ITEM_SITRUS_BERRY;
         SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);

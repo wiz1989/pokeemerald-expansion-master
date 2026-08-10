@@ -921,7 +921,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .effect = EFFECT_HIT,
         .power = 85,
         .type = TYPE_NORMAL,
-        .accuracy = 100,
+        .accuracy = 0,
         .pp = 15,
         .target = TARGET_SELECTED,
         .priority = 0,
@@ -929,10 +929,10 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .makesContact = TRUE,
         .minimizeDoubleDamage = B_UPDATED_MOVE_FLAGS >= GEN_6,
         .skyBattleBanned = TRUE,
-        .additionalEffects = ADDITIONAL_EFFECTS({
-            .moveEffect = MOVE_EFFECT_PARALYSIS,
-            .chance = 30,
-        }),
+        // .additionalEffects = ADDITIONAL_EFFECTS({
+        //     .moveEffect = MOVE_EFFECT_PARALYSIS,
+        //     .chance = 30,
+        // }),
         .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
         .contestCategory = CONTEST_CATEGORY_TOUGH,
         .contestComboStarterId = 0,
