@@ -1,9 +1,15 @@
 gText_Birch_Welcome::
-	.string "Hi! Sorry to keep you waiting!\p"
-	.string "Welcome to the world of POKéMON!\p"
-	.string "My name is BIRCH.\p"
-	.string "But everyone calls me the POKéMON\n"
-	.string "PROFESSOR.\p"
+	.string "Hi! Please take a moment to listen!\p"
+	.string "This game is a challenge hack of\n"
+	.string "Pokémon Emerald that adds random\l"
+	.string "Battle Rules to every trainer battle.\p"
+	.string "If you violate a rule, your Pokémon\n"
+	.string "will lose HP immediately.\p"
+	.string "There is a whole documentation to this\n"
+	.string "game which I recommend checking out!\p"
+	.string "But my initial advice is:\p"
+	.string "- Check the different Options pages!\p"
+	.string "- Look into the QoL Hub (shortcut R)!\p"
 	.string "$"
 
 gText_Birch_Pokemon::
