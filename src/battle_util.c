@@ -8733,7 +8733,7 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
         return FALSE;
     }
 
-    DebugPrintf("targetSpecies: %d, currentSpecies: %d, method: %d", targetSpecies, currentSpecies, method);
+    // DebugPrintf("targetSpecies: %d, currentSpecies: %d, method: %d", targetSpecies, currentSpecies, method);
 
     if (targetSpecies != currentSpecies)
     {

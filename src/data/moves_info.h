@@ -1444,7 +1444,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .effect = EFFECT_HIT,
         .power = B_UPDATED_MOVE_DATA >= GEN_6 ? 90 : 95,
         .type = TYPE_FIRE,
-        .accuracy = 100,
+        .accuracy = 0,
         .pp = 15,
         .target = TARGET_SELECTED,
         .priority = 0,

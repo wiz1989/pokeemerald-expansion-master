@@ -284,7 +284,7 @@ TARC3_Amber_Combusken::
 # 189 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Amber_Combusken_Text_1
 # 190 "data/maps/TARC3_base/scripts.pory"
-	setwildbattle SPECIES_COMBUSKEN, 30
+	setwildbattle SPECIES_COMBUSKEN, 25
 # 191 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_COMBUSKEN, CRY_MODE_ENCOUNTER
 # 192 "data/maps/TARC3_base/scripts.pory"
