@@ -74,6 +74,7 @@
 #include "test/battle.h"
 #include "follower_npc.h"
 #include "load_save.h"
+#include "transform.h"
 
 // Helper for accessing command arguments and advancing gBattlescriptCurrInstr.
 //
@@ -1151,7 +1152,7 @@ static void Cmd_damagecalc(void)
     ctx.moveType = GetBattleMoveType(gCurrentMove);
     ctx.weather = GetWeather();
     ctx.fieldStatuses = gFieldStatuses;
-    ctx.randomFactor = FALSE; // deactivate damage rolls
+    ctx.randomFactor = TRUE;
     ctx.updateFlags = TRUE;
 
     for (enum BattlerId battler = B_BATTLER_0; battler < gBattlersCount; battler++)
@@ -13582,9 +13583,12 @@ void BS_TryToClearPrimalWeather(void)
     for (enum BattlerId i = 0; i < gBattlersCount; i++)
     {
         enum Ability ability = GetBattlerAbility(i);
+        u16 species = gBattleMons[i].species;
+        
         if (((ability == ABILITY_DESOLATE_LAND && gBattleWeather & B_WEATHER_SUN_PRIMAL)
              || (ability == ABILITY_PRIMORDIAL_SEA && gBattleWeather & B_WEATHER_RAIN_PRIMAL)
-             || (ability == ABILITY_DELTA_STREAM && gBattleWeather & B_WEATHER_STRONG_WINDS))
+             || (ability == ABILITY_DELTA_STREAM && gBattleWeather & B_WEATHER_STRONG_WINDS)
+             || IsSpeciesValidTransformation(species))
             && IsBattlerAlive(i))
             shouldNotClear = TRUE;
     }

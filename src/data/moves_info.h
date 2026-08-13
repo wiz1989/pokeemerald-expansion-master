@@ -8605,7 +8605,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "Allows a full-power attack,\n"
             "but sharply lowers Sp. Atk."),
         .effect = EFFECT_HIT,
-        .power = B_UPDATED_MOVE_DATA >= GEN_6 ? 130 : 140,
+        .power = 120,
         .type = TYPE_FIRE,
         .accuracy = 0,
         .pp = 8,

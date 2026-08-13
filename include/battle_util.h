@@ -79,7 +79,7 @@ enum ItemEffect
 #define IS_ALIVE_AND_PRESENT(battler)   (IsBattlerAlive(battler) && IsBattlerSpritePresent(battler))
 
 // Lowest and highest percentages used for damage roll calculations
-#define DMG_ROLL_PERCENT_LO 85
+#define DMG_ROLL_PERCENT_LO 100
 #define DMG_ROLL_PERCENT_HI 100
 
 // Crit chance exceptions

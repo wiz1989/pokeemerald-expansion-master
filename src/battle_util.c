@@ -7685,6 +7685,8 @@ static inline s32 DoMoveDamageCalcVars(struct DamageContext *ctx)
 
     if (dmg == 0)
         dmg = 1;
+
+    // DebugPrintf("final damage = %d", dmg); // wiz1989
     return dmg;
 }
 
@@ -8623,6 +8625,13 @@ enum Species GetBattleFormChangeTargetSpecies(enum BattlerId battler, enum FormC
     if (formChanges == NULL)
         return species;
 
+    // hard set Forecast if battler is Castform
+    if (method == FORM_CHANGE_BATTLE_WEATHER && PlayerIsCastform()
+        && IsSpeciesValidTransformation(gBattleMons[battler].species))
+    {
+        ability = ABILITY_FORECAST;
+    }
+
     struct FormChangeContext ctx =
     {
         .method = method,
@@ -8723,6 +8732,8 @@ bool32 TryBattleFormChange(enum BattlerId battler, enum FormChanges method, enum
     {
         return FALSE;
     }
+
+    DebugPrintf("targetSpecies: %d, currentSpecies: %d, method: %d", targetSpecies, currentSpecies, method);
 
     if (targetSpecies != currentSpecies)
     {
