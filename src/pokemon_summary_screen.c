@@ -3501,13 +3501,17 @@ static void BufferMonTrainerMemo(void)
             GetMapNameHandleAquaHideout(metLocationString, sum->metLocation);
             DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, metLocationString);
         }
+        else if (sum->metLocation == METLOC_SPECIAL_STARTER)
+        {
+            DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, gText_StarterPkmn);
+        }
 
         if (DoesMonOTMatchOwner() == TRUE)
         {
             if (sum->metLevel == 0)
                 text = (sum->metLocation >= MAPSEC_NONE) ? gText_XNatureHatchedSomewhereAt : gText_XNatureHatchedAtYZ;
             else
-                text = (sum->metLocation >= MAPSEC_NONE) ? gText_XNatureMetSomewhereAt : gText_XNatureMetAtYZ;
+                text = (sum->metLocation >= MAPSEC_NONE && sum->metLocation != METLOC_SPECIAL_STARTER) ? gText_XNatureMetSomewhereAt : gText_XNatureMetAtYZ;
         }
         else if (sum->metLocation == METLOC_FATEFUL_ENCOUNTER)
         {

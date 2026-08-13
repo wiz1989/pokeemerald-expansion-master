@@ -1,6 +1,7 @@
 #include "global.h"
 #include "battle.h"
 #include "battle_gfx_sfx_util.h"
+#include "battle_setup.h"
 #include "berry.h"
 #include "data.h"
 #include "daycare.h"
@@ -431,7 +432,14 @@ static u32 ScriptGiveMonParameterized(u8 side, u8 slot, u16 species, u8 level, u
     SetMonData(&mon, MON_DATA_OT_GENDER, &gSaveBlock2Ptr->playerGender);
 
     // met location
-    u8 metLocation = GetCurrentRegionMapSectionId();
+    u8 metLocation;
+    if (isStarter)
+    {
+        metLocation = METLOC_SPECIAL_STARTER;
+        isStarter = FALSE;
+    }
+    else
+        metLocation = GetCurrentRegionMapSectionId();
     SetMonData(&mon, MON_DATA_MET_LOCATION, &metLocation);
     if (FlagGet(FLAG_SYS_POKEDEX_GET))
         gSaveBlock3Ptr->metLocations[metLocation >> 3] |= (1 << (metLocation & 7));
