@@ -6989,7 +6989,12 @@ BattleScript_UpdateEffectStatusIconRet::
 	waitstate
 	trytriggerstatusform
 	flushtextbox
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STATUSED_BY_ABILITY, BattleScript_UpdateEffectStatusIconRet_AbilityRuleBattler
 	setbattlerulebattler BS_ATTACKER
+	goto BattleScript_UpdateEffectStatusIconRet_CheckBattleRule
+BattleScript_UpdateEffectStatusIconRet_AbilityRuleBattler:
+	setbattlerulebattler BS_ABILITY_BATTLER
+BattleScript_UpdateEffectStatusIconRet_CheckBattleRule:
 	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret BATTLERULE_NOSTATUS
 	return
 
