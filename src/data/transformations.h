@@ -56,7 +56,7 @@ const struct Transformation gTransformations[] =
         .ability = ABILITY_CHLOROPHYLL,
         .moves = {
             MOVE_INCINERATE,
-            MOVE_TORMENT,
+            MOVE_SIMPLE_BEAM,
             MOVE_NONE,
             MOVE_NONE,
         },

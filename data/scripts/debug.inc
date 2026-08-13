@@ -227,7 +227,7 @@ Debug_EventScript_Script_6::
 	end
 
 Debug_EventScript_Script_7::
-	release
+	goto TARC3_Amber_Combusken
 	end
 
 Debug_EventScript_Script_8::
