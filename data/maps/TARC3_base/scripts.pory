@@ -202,6 +202,33 @@ script TARC3_Amber_Combusken {
     end
 }
 
+script TARC3_Amber_Observer {
+	cant_see_if_set(FLAG_BASE_HELIOPTILE_BEATEN)
+    lock
+	faceplayer
+	setspeaker("Helioptile")
+	createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
+	if (flag(FLAG_BASE_HELIOPTILE_BEATEN))
+	{
+		msgbox("We're cool again!")
+	}
+	else
+	{
+		msgbox("Hi, I'm HELIOPTILE.\nLet's battle!")
+		playmoncry(SPECIES_HELIOPTILE, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		ai_vs_ai_wild_battle(SPECIES_FOMANTIS, SPECIES_HELIOPTILE, 25)
+		callnative(WasBattleWon)
+		if (var(VAR_RESULT) == TRUE)
+		{
+			setflag(FLAG_BASE_HELIOPTILE_BEATEN)
+		}
+	}
+	release
+    end
+}
+
 script TARC3_Amber_Torkoal {
 	cant_see_if_set(FLAG_BASE_TORKOAL_BEATEN)
     lock

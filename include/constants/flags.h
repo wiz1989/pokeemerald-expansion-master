@@ -76,9 +76,9 @@
 #define FLAG_ITEM_ICE_CLIMB           0x36
 #define FLAG_BASE_PARAS_BEATEN        0x37
 #define FLAG_BASE_DEWPIDER_BEATEN     0x38
-#define FLAG_BASE_MUNCHLAX_BEATEN     0x39 // Unused Flag
-#define FLAG_BASE_COMBUSKEN_BEATEN    0x3A // Unused Flag
-#define FLAG_UNUSED_0x03B    0x3B // Unused Flag
+#define FLAG_BASE_MUNCHLAX_BEATEN     0x39
+#define FLAG_BASE_COMBUSKEN_BEATEN    0x3A
+#define FLAG_BASE_HELIOPTILE_BEATEN   0x3B
 #define FLAG_UNUSED_0x03C    0x3C // Unused Flag
 #define FLAG_UNUSED_0x03D    0x3D // Unused Flag
 #define FLAG_UNUSED_0x03E    0x3E // Unused Flag

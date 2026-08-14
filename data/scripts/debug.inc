@@ -223,7 +223,7 @@ Debug_EventScript_Script_5::
 	end
 
 Debug_EventScript_Script_6::
-	release
+	goto TARC3_Amber_Observer
 	end
 
 Debug_EventScript_Script_7::

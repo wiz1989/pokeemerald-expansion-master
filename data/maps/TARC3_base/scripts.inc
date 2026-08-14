@@ -314,48 +314,92 @@ TARC3_Amber_Combusken_5:
 	goto TARC3_Amber_Combusken_1
 
 
-TARC3_Amber_Torkoal::
+TARC3_Amber_Observer::
 # 206 "data/maps/TARC3_base/scripts.pory"
-	cant_see_if_set FLAG_BASE_TORKOAL_BEATEN
+	cant_see_if_set FLAG_BASE_HELIOPTILE_BEATEN
 # 207 "data/maps/TARC3_base/scripts.pory"
 	lock
 # 208 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
 # 209 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Amber_Torkoal_Text_0
+	setspeaker TARC3_Amber_Observer_Text_0
 # 210 "data/maps/TARC3_base/scripts.pory"
-	createfieldmugshot MUGSHOT_TORKOAL, EMOTE_ALT
+	createfieldmugshot MUGSHOT_TEST, EMOTE_ALT
 # 211 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_BASE_TORKOAL_BEATEN, TARC3_Amber_Torkoal_2
+	goto_if_set FLAG_BASE_HELIOPTILE_BEATEN, TARC3_Amber_Observer_2
 # 217 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Amber_Torkoal_Text_1
+	msgbox TARC3_Amber_Observer_Text_2
 # 218 "data/maps/TARC3_base/scripts.pory"
-	setwildbattle SPECIES_TORKOAL, 25
+	playmoncry SPECIES_HELIOPTILE, CRY_MODE_ENCOUNTER
 # 219 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_TORKOAL, CRY_MODE_ENCOUNTER
-# 220 "data/maps/TARC3_base/scripts.pory"
 	delay 40
-# 221 "data/maps/TARC3_base/scripts.pory"
+# 220 "data/maps/TARC3_base/scripts.pory"
 	waitmoncry
+# 221 "data/maps/TARC3_base/scripts.pory"
+	ai_vs_ai_wild_battle SPECIES_FOMANTIS, SPECIES_HELIOPTILE, 25
 # 222 "data/maps/TARC3_base/scripts.pory"
-	dowildbattle
-# 223 "data/maps/TARC3_base/scripts.pory"
 	callnative WasBattleWon
-# 224 "data/maps/TARC3_base/scripts.pory"
+# 223 "data/maps/TARC3_base/scripts.pory"
+	compare VAR_RESULT, TRUE
+	goto_if_eq TARC3_Amber_Observer_5
+TARC3_Amber_Observer_1:
+# 228 "data/maps/TARC3_base/scripts.pory"
+	release
+	end
+
+TARC3_Amber_Observer_2:
+# 213 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Amber_Observer_Text_1
+	goto TARC3_Amber_Observer_1
+
+TARC3_Amber_Observer_5:
+# 225 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_BASE_HELIOPTILE_BEATEN
+	goto TARC3_Amber_Observer_1
+
+
+TARC3_Amber_Torkoal::
+# 233 "data/maps/TARC3_base/scripts.pory"
+	cant_see_if_set FLAG_BASE_TORKOAL_BEATEN
+# 234 "data/maps/TARC3_base/scripts.pory"
+	lock
+# 235 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 236 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Amber_Torkoal_Text_0
+# 237 "data/maps/TARC3_base/scripts.pory"
+	createfieldmugshot MUGSHOT_TORKOAL, EMOTE_ALT
+# 238 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_BASE_TORKOAL_BEATEN, TARC3_Amber_Torkoal_2
+# 244 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Amber_Torkoal_Text_1
+# 245 "data/maps/TARC3_base/scripts.pory"
+	setwildbattle SPECIES_TORKOAL, 25
+# 246 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_TORKOAL, CRY_MODE_ENCOUNTER
+# 247 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 248 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 249 "data/maps/TARC3_base/scripts.pory"
+	dowildbattle
+# 250 "data/maps/TARC3_base/scripts.pory"
+	callnative WasBattleWon
+# 251 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Amber_Torkoal_5
 TARC3_Amber_Torkoal_1:
-# 229 "data/maps/TARC3_base/scripts.pory"
+# 256 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Amber_Torkoal_2:
-# 213 "data/maps/TARC3_base/scripts.pory"
+# 240 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Base_Paras_Text_1
 	goto TARC3_Amber_Torkoal_1
 
 TARC3_Amber_Torkoal_5:
-# 226 "data/maps/TARC3_base/scripts.pory"
+# 253 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_BASE_TORKOAL_BEATEN
 	goto TARC3_Amber_Torkoal_1
 
@@ -420,10 +464,22 @@ TARC3_Amber_Combusken_Text_1:
 # 189 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm COMBUSKEN.\nLet's battle!$"
 
-TARC3_Amber_Torkoal_Text_0:
+TARC3_Amber_Observer_Text_0:
 # 209 "data/maps/TARC3_base/scripts.pory"
+	.string "Helioptile$"
+
+TARC3_Amber_Observer_Text_1:
+# 213 "data/maps/TARC3_base/scripts.pory"
+	.string "We're cool again!$"
+
+TARC3_Amber_Observer_Text_2:
+# 217 "data/maps/TARC3_base/scripts.pory"
+	.string "Hi, I'm HELIOPTILE.\nLet's battle!$"
+
+TARC3_Amber_Torkoal_Text_0:
+# 236 "data/maps/TARC3_base/scripts.pory"
 	.string "Torkoal$"
 
 TARC3_Amber_Torkoal_Text_1:
-# 217 "data/maps/TARC3_base/scripts.pory"
+# 244 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm TORKOAL.\nLet's battle!$"

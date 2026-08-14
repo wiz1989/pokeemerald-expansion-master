@@ -83,16 +83,16 @@ const struct Transformation gTransformations[] =
 #define NUMBER_OF_CHARACTERS ARRAY_COUNT(gCharacters)
 const struct Character gCharacters[] =
 {
-    [SPECIES_SQUIRTLE] = // test species
+    [SPECIES_FOMANTIS] =
     {
-        .name = _("Squirtle"),
-        .battleSpecies = SPECIES_SQUIRTLE,
-        .ability = ABILITY_TORRENT,
+        .name = _("Fomantis"),
+        .battleSpecies = SPECIES_FOMANTIS,
+        .ability = ABILITY_LEAF_GUARD,
         .item = ITEM_NONE,
         .moves = {
-            MOVE_BUBBLE_BEAM,
-            MOVE_TAIL_WHIP,
-            MOVE_BITE,
+            MOVE_GROWTH,
+            MOVE_RAZOR_LEAF,
+            MOVE_NONE,
             MOVE_NONE,
         },
     },
