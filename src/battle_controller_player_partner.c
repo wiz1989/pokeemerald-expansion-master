@@ -46,7 +46,7 @@ static void PlayerPartnerHandleChoosePokemon(enum BattlerId battler);
 static void PlayerPartnerHandleIntroTrainerBallThrow(enum BattlerId battler);
 static void PlayerPartnerHandleDrawPartyStatusSummary(enum BattlerId battler);
 static void PlayerPartnerHandleEndLinkBattle(enum BattlerId battler);
-
+static void PlayerPartnerHandleBattleDebug(enum BattlerId battler);
 static void PlayerPartnerBufferRunCommand(enum BattlerId battler);
 
 static void (*const sPlayerPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(enum BattlerId battler) =
@@ -102,7 +102,7 @@ static void (*const sPlayerPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(enum Ba
     [CONTROLLER_LINKSTANDBYMSG]           = BtlController_Empty,
     [CONTROLLER_RESETACTIONMOVESELECTION] = BtlController_Empty,
     [CONTROLLER_ENDLINKBATTLE]            = PlayerPartnerHandleEndLinkBattle,
-    [CONTROLLER_DEBUGMENU]                = BtlController_Empty,
+    [CONTROLLER_DEBUGMENU]                = PlayerPartnerHandleBattleDebug,
     [CONTROLLER_TERMINATOR_NOP]           = BtlController_TerminatorNop
 };
 
@@ -379,6 +379,11 @@ static void HandleInputChooseAction(enum BattlerId battler)
         if (gWeatherChangeMenuOpened)
             gWeatherChangeMenuChosenWeather = GetNextBattleWeatherId();
     }
+    else if (DEBUG_BATTLE_MENU == TRUE && JOY_NEW(SELECT_BUTTON))
+    {
+        BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_DEBUG, 0);
+        BtlController_Complete(battler);
+    }
     else if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
@@ -509,4 +514,17 @@ static void PlayerPartnerHandleEndLinkBattle(enum BattlerId battler)
     BeginFastPaletteFade(3);
     BtlController_Complete(battler);
     gBattlerControllerFuncs[battler] = SetBattleEndCallbacks;
+}
+
+static void Controller_WaitForDebug(enum BattlerId battler)
+{
+    if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
+        BtlController_Complete(battler);
+}
+
+static void PlayerPartnerHandleBattleDebug(enum BattlerId battler)
+{
+    BeginNormalPaletteFade(-1, 0, 0, 0x10, 0);
+    SetMainCallback2(CB2_BattleDebugMenu);
+    gBattlerControllerFuncs[battler] = Controller_WaitForDebug;
 }
