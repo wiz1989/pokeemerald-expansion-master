@@ -442,9 +442,29 @@ TARC3_Whimsicott_2:
 
 TARC3_Find_IceClimb::
 # 284 "data/maps/TARC3_base/scripts.pory"
-	callnative GetItemBallIdAndAmountFromTemplate
-# 285 "data/maps/TARC3_base/scripts.pory"
-	finditem VAR_RESULT, VAR_0x8009
+	finditem ITEM_TM01, 1
+	end
+
+
+TARC3_Dummy_Start_Amber::
+# 289 "data/maps/TARC3_base/scripts.pory"
+	lockall
+# 290 "data/maps/TARC3_base/scripts.pory"
+	setvar VAR_CASTFORM_PHASE, 1
+# 291 "data/maps/TARC3_base/scripts.pory"
+	finditem ITEM_RED_SHARD, 1
+# 292 "data/maps/TARC3_base/scripts.pory"
+	givemon SPECIES_CASTFORM_SUNNY, 25
+# 293 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Dummy_Start_Amber_Text_0
+# 294 "data/maps/TARC3_base/scripts.pory"
+	waitmessage
+# 295 "data/maps/TARC3_base/scripts.pory"
+	warp MAP_TARC3_BASE, 0
+# 296 "data/maps/TARC3_base/scripts.pory"
+	waitstate
+# 297 "data/maps/TARC3_base/scripts.pory"
+	releaseall
 	end
 
 
@@ -539,3 +559,7 @@ TARC3_Whimsicott_Text_1:
 TARC3_Whimsicott_Text_2:
 # 271 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm WHIMSICOTT.\nTake this seed!$"
+
+TARC3_Dummy_Start_Amber_Text_0:
+# 293 "data/maps/TARC3_base/scripts.pory"
+	.string "Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.$"

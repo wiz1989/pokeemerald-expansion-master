@@ -281,7 +281,19 @@ script TARC3_Whimsicott {
 }
 
 script TARC3_Find_IceClimb {
-	callnative(GetItemBallIdAndAmountFromTemplate)
-	finditem(VAR_RESULT, VAR_0x8009)
+	finditem(ITEM_TM01, 1)
+	end
+}
+
+script TARC3_Dummy_Start_Amber {
+	lockall
+	setvar(VAR_CASTFORM_PHASE, 1)
+	finditem(ITEM_RED_SHARD, 1)
+	givemon(SPECIES_CASTFORM_SUNNY, 25)
+	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
+	waitmessage
+	warp(MAP_TARC3_BASE, 0)
+	waitstate
+	releaseall
 	end
 }
