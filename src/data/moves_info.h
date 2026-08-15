@@ -5622,9 +5622,9 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "An attack lasting 5 turns\n"
             "with rising intensity."),
         .effect = EFFECT_ROLLOUT,
-        .power = 30,
+        .power = 40,
         .type = TYPE_ROCK,
-        .accuracy = 90,
+        .accuracy = 0,
         .pp = 20,
         .target = TARGET_SELECTED,
         .priority = 0,

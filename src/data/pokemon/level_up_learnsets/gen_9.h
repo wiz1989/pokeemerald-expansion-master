@@ -8434,7 +8434,7 @@ static const struct LevelUpMove sCameruptLevelUpLearnset[] = {
 static const struct LevelUpMove sTorkoalLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_EMBER),
     LEVEL_UP_MOVE( 1, MOVE_FLAME_WHEEL),
-    LEVEL_UP_MOVE( 1, MOVE_EARTHQUAKE),
+    LEVEL_UP_MOVE( 1, MOVE_ROLLOUT),
     // LEVEL_UP_MOVE( 8, MOVE_RAPID_SPIN),
     // LEVEL_UP_MOVE(12, MOVE_SMOKESCREEN),
     // LEVEL_UP_MOVE(16, MOVE_CLEAR_SMOG),
