@@ -404,6 +404,50 @@ TARC3_Amber_Torkoal_5:
 	goto TARC3_Amber_Torkoal_1
 
 
+TARC3_Whimsicott::
+# 261 "data/maps/TARC3_base/scripts.pory"
+	lock
+# 262 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 263 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Whimsicott_Text_0
+# 264 "data/maps/TARC3_base/scripts.pory"
+	createfieldmugshot MUGSHOT_WHIMSICOTT, EMOTE_NORMAL
+# 265 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_WHIMSICOTT_GAVE_SEED, TARC3_Whimsicott_2
+# 271 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Whimsicott_Text_2
+# 272 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_WHIMSICOTT, CRY_MODE_NORMAL
+# 273 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 274 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 275 "data/maps/TARC3_base/scripts.pory"
+	giveitem ITEM_WEPEAR_BERRY, 1
+# 276 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_WHIMSICOTT_GAVE_SEED
+# 277 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Whimsicott_Text_1
+TARC3_Whimsicott_1:
+# 279 "data/maps/TARC3_base/scripts.pory"
+	release
+	end
+
+TARC3_Whimsicott_2:
+# 267 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Whimsicott_Text_1
+	goto TARC3_Whimsicott_1
+
+
+TARC3_Find_IceClimb::
+# 284 "data/maps/TARC3_base/scripts.pory"
+	callnative GetItemBallIdAndAmountFromTemplate
+# 285 "data/maps/TARC3_base/scripts.pory"
+	finditem VAR_RESULT, VAR_0x8009
+	end
+
+
 TARC3_Base_Paras_Text_0:
 # 32 "data/maps/TARC3_base/scripts.pory"
 	.string "Paras$"
@@ -483,3 +527,15 @@ TARC3_Amber_Torkoal_Text_0:
 TARC3_Amber_Torkoal_Text_1:
 # 244 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm TORKOAL.\nLet's battle!$"
+
+TARC3_Whimsicott_Text_0:
+# 263 "data/maps/TARC3_base/scripts.pory"
+	.string "Whimsicott$"
+
+TARC3_Whimsicott_Text_1:
+# 267 "data/maps/TARC3_base/scripts.pory"
+	.string "You'll be a great gardener!$"
+
+TARC3_Whimsicott_Text_2:
+# 271 "data/maps/TARC3_base/scripts.pory"
+	.string "Hi, I'm WHIMSICOTT.\nTake this seed!$"

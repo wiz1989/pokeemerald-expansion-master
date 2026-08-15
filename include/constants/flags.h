@@ -79,11 +79,11 @@
 #define FLAG_BASE_MUNCHLAX_BEATEN     0x39
 #define FLAG_BASE_COMBUSKEN_BEATEN    0x3A
 #define FLAG_BASE_HELIOPTILE_BEATEN   0x3B
-#define FLAG_UNUSED_0x03C    0x3C // Unused Flag
-#define FLAG_UNUSED_0x03D    0x3D // Unused Flag
-#define FLAG_UNUSED_0x03E    0x3E // Unused Flag
-#define FLAG_UNUSED_0x03F    0x3F // Unused Flag
-#define FLAG_UNUSED_0x040    0x40 // Unused Flag
+#define FLAG_WHIMSICOTT_GAVE_SEED     0x3C
+#define FLAG_SLIGGOO_EVOLVED          0x3D
+#define FLAG_GOODRA_GAVE_ITEM         0x3E
+#define FLAG_HIDE_GOODRA              0x3F
+#define FLAG_HIDE_ITEM_UNDERWATER     0x40
 #define FLAG_UNUSED_0x041    0x41 // Unused Flag
 #define FLAG_UNUSED_0x042    0x42 // Unused Flag
 #define FLAG_UNUSED_0x043    0x43 // Unused Flag

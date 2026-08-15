@@ -256,3 +256,32 @@ script TARC3_Amber_Torkoal {
 	release
     end
 }
+
+script TARC3_Whimsicott {
+    lock
+	faceplayer
+	setspeaker("Whimsicott")
+	createfieldmugshot(MUGSHOT_WHIMSICOTT, EMOTE_NORMAL)
+	if (flag(FLAG_WHIMSICOTT_GAVE_SEED))
+	{
+		msgbox("You'll be a great gardener!")
+	}
+	else
+	{
+		msgbox("Hi, I'm WHIMSICOTT.\nTake this seed!")
+		playmoncry(SPECIES_WHIMSICOTT, CRY_MODE_NORMAL)
+		delay(40)
+		waitmoncry
+		giveitem(ITEM_WEPEAR_BERRY, 1)
+		setflag(FLAG_WHIMSICOTT_GAVE_SEED)
+		msgbox("You'll be a great gardener!")
+	}
+	release
+    end
+}
+
+script TARC3_Find_IceClimb {
+	callnative(GetItemBallIdAndAmountFromTemplate)
+	finditem(VAR_RESULT, VAR_0x8009)
+	end
+}
