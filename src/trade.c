@@ -4533,20 +4533,38 @@ static void CreateInGameTradePokemonInternal(u8 whichPlayerMon, u8 whichInGameTr
 {
     const struct InGameTrade *inGameTrade = &sIngameTrades[whichInGameTrade];
     u8 level = GetMonData(&gPlayerParty[whichPlayerMon], MON_DATA_LEVEL);
+    u8 ivs[NUM_STATS];
+    u8 availableIVs[NUM_STATS];
+    u8 i;
 
     struct Mail mail;
     u8 metLocation = METLOC_IN_GAME_TRADE;
     u8 mailNum;
     struct Pokemon *pokemon = &gEnemyParty[0];
 
+    // set three random IVs to 31
+    for (i = 0; i < NUM_STATS; i++)
+        availableIVs[i] = i;
+
+    for (i = 0; i < NUM_STATS; i++)
+        ivs[i] = Random() % (MAX_PER_STAT_IVS + 1);
+
+    for (i = 0; i < 3; i++)
+    {
+        u8 index = Random() % (NUM_STATS - i);
+        u8 perfectIvIndex = availableIVs[index];
+        ivs[perfectIvIndex] = MAX_PER_STAT_IVS;
+        availableIVs[index] = availableIVs[NUM_STATS - i - 1];
+    }
+
     CreateMon(pokemon, inGameTrade->species, level, USE_RANDOM_IVS, TRUE, inGameTrade->personality, OT_ID_PRESET, inGameTrade->otId);
 
-    SetMonData(pokemon, MON_DATA_HP_IV, &inGameTrade->ivs[0]);
-    SetMonData(pokemon, MON_DATA_ATK_IV, &inGameTrade->ivs[1]);
-    SetMonData(pokemon, MON_DATA_DEF_IV, &inGameTrade->ivs[2]);
-    SetMonData(pokemon, MON_DATA_SPEED_IV, &inGameTrade->ivs[3]);
-    SetMonData(pokemon, MON_DATA_SPATK_IV, &inGameTrade->ivs[4]);
-    SetMonData(pokemon, MON_DATA_SPDEF_IV, &inGameTrade->ivs[5]);
+    SetMonData(pokemon, MON_DATA_HP_IV, &ivs[0]);
+    SetMonData(pokemon, MON_DATA_ATK_IV, &ivs[1]);
+    SetMonData(pokemon, MON_DATA_DEF_IV, &ivs[2]);
+    SetMonData(pokemon, MON_DATA_SPEED_IV, &ivs[3]);
+    SetMonData(pokemon, MON_DATA_SPATK_IV, &ivs[4]);
+    SetMonData(pokemon, MON_DATA_SPDEF_IV, &ivs[5]);
     SetMonData(pokemon, MON_DATA_NICKNAME, inGameTrade->nickname);
     SetMonData(pokemon, MON_DATA_OT_NAME, inGameTrade->otName);
     SetMonData(pokemon, MON_DATA_OT_GENDER, &inGameTrade->otGender);
@@ -4574,6 +4592,15 @@ static void CreateInGameTradePokemonInternal(u8 whichPlayerMon, u8 whichInGameTr
             SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
         }
     }
+
+    if (inGameTrade->species == SPECIES_DROWZEE)
+    {
+        SetMonMoveSlot(pokemon, MOVE_NIGHT_SHADE, 0);
+        SetMonMoveSlot(pokemon, MOVE_HYPNOSIS, 1);
+        SetMonMoveSlot(pokemon, MOVE_DISABLE, 2);
+        SetMonMoveSlot(pokemon, MOVE_SKILL_SWAP, 3);
+    }
+
     CalculateMonStats(&gEnemyParty[0]);
 }
 
