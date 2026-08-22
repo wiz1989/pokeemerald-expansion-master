@@ -8,6 +8,7 @@
 #include "menu.h"
 #include "overworld.h"
 #include "palette.h"
+#include "pokemon.h"
 #include "pokenav.h"
 #include "region_map.h"
 #include "sound.h"
@@ -16,6 +17,7 @@
 #include "task.h"
 #include "text_window.h"
 #include "window.h"
+#include "constants/battle.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/region_map_sections.h"
@@ -62,6 +64,9 @@ static bool32 IsDecompressCityMapsActive(void);
 static void LoadPokenavRegionMapGfx(struct Pokenav_RegionMapGfx *);
 static bool32 TryFreeTempTileDataBuffers(void);
 static void UpdateMapSecInfoWindow(struct Pokenav_RegionMapGfx *);
+static bool32 ShouldDrawMetLocMarker(const struct RegionMap *);
+static bool32 GetMapSecIdFromName(const u8 *, u16 *);
+static void PrintNameWithMetLocMarker(struct Pokenav_RegionMapGfx *, const u8 *, bool32, s32);
 static bool32 IsDma3ManagerBusyWithBgCopy_(struct Pokenav_RegionMapGfx *);
 static void ChangeBgYForZoom(bool32);
 static bool32 IsChangeBgYForZoomActive(void);
@@ -563,12 +568,14 @@ static bool32 TryFreeTempTileDataBuffers(void)
 static void UpdateMapSecInfoWindow(struct Pokenav_RegionMapGfx *state)
 {
     struct RegionMap *regionMap = GetSubstructPtr(POKENAV_SUBSTRUCT_REGION_MAP);
+    bool32 drawMetLocMarker = ShouldDrawMetLocMarker(regionMap);
+
     switch (regionMap->mapSecType)
     {
     case MAPSECTYPE_CITY_CANFLY:
         FillWindowPixelBuffer(state->infoWindowId, PIXEL_FILL(1));
         PutWindowRectTilemap(state->infoWindowId, 0, 0, 12, 2);
-        AddTextPrinterParameterized(state->infoWindowId, FONT_NARROW, regionMap->mapSecName, 0, 1, TEXT_SKIP_DRAW, NULL);
+        PrintNameWithMetLocMarker(state, regionMap->mapSecName, drawMetLocMarker, 1);
         DrawCityMap(state, regionMap->mapSecId, regionMap->posWithinMapSec);
         CopyWindowToVram(state->infoWindowId, COPYWIN_FULL);
         SetCityZoomTextInvisibility(FALSE);
@@ -576,7 +583,7 @@ static void UpdateMapSecInfoWindow(struct Pokenav_RegionMapGfx *state)
     case MAPSECTYPE_CITY_CANTFLY:
         FillWindowPixelBuffer(state->infoWindowId, PIXEL_FILL(1));
         PutWindowRectTilemap(state->infoWindowId, 0, 0, 12, 2);
-        AddTextPrinterParameterized(state->infoWindowId, FONT_NARROW, regionMap->mapSecName, 0, 1, TEXT_SKIP_DRAW, NULL);
+        PrintNameWithMetLocMarker(state, regionMap->mapSecName, drawMetLocMarker, 1);
         FillBgTilemapBufferRect(1, 0x1041, 17, 6, 12, 11, 17);
         CopyWindowToVram(state->infoWindowId, COPYWIN_FULL);
         SetCityZoomTextInvisibility(TRUE);
@@ -585,7 +592,7 @@ static void UpdateMapSecInfoWindow(struct Pokenav_RegionMapGfx *state)
     case MAPSECTYPE_BATTLE_FRONTIER:
         FillWindowPixelBuffer(state->infoWindowId, PIXEL_FILL(1));
         PutWindowTilemap(state->infoWindowId);
-        AddTextPrinterParameterized(state->infoWindowId, FONT_NARROW, regionMap->mapSecName, 0, 1, TEXT_SKIP_DRAW, NULL);
+        PrintNameWithMetLocMarker(state, regionMap->mapSecName, drawMetLocMarker, 1);
         PrintLandmarkNames(state, regionMap->mapSecId, regionMap->posWithinMapSec);
         CopyWindowToVram(state->infoWindowId, COPYWIN_FULL);
         SetCityZoomTextInvisibility(TRUE);
@@ -596,6 +603,58 @@ static void UpdateMapSecInfoWindow(struct Pokenav_RegionMapGfx *state)
         SetCityZoomTextInvisibility(TRUE);
         break;
     }
+}
+
+static bool32 ShouldDrawMetLocMarker(const struct RegionMap *regionMap)
+{
+    if (!gSaveBlock2Ptr->metLocClause)
+        return FALSE;
+
+    if (regionMap->mapSecType == MAPSECTYPE_NONE || regionMap->mapSecId >= MAPSEC_NONE)
+        return FALSE;
+
+    return CheckMetLocation(regionMap->mapSecId) == INVALID_ENCOUNTER_METLOC;
+}
+
+static const u8 sTextColors_RedOverlay[3] = {TEXT_COLOR_TRANSPARENT, TEXT_COLOR_RED, TEXT_COLOR_LIGHT_RED};
+static const u8 sText_RedXOverlay[] = _(" X");
+
+static bool32 GetMapSecIdFromName(const u8 *mapSecName, u16 *mapSecId)
+{
+    u16 i;
+    u8 mapName[MAP_NAME_LENGTH + 1];
+
+    for (i = 0; i < MAPSEC_NONE; i++)
+    {
+        GetMapName(mapName, i, 0);
+        if (!StringCompare(mapSecName, mapName))
+        {
+            *mapSecId = i;
+            return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+static void PrintNameWithMetLocMarker(struct Pokenav_RegionMapGfx *state, const u8 *name, bool32 drawMetLocMarker, s32 y)
+{
+    s32 markerX;
+    u8 mapName[MAP_NAME_LENGTH + 1];
+    s32 i;
+
+    StringCopyN(mapName, name, MAP_NAME_LENGTH);
+    mapName[MAP_NAME_LENGTH] = EOS;
+    for (i = MAP_NAME_LENGTH - 1; i >= 0 && mapName[i] == CHAR_SPACE; i--)
+        mapName[i] = EOS;
+
+    AddTextPrinterParameterized(state->infoWindowId, FONT_NARROW, mapName, 0, y, TEXT_SKIP_DRAW, NULL);
+    if (!drawMetLocMarker)
+        return;
+
+    markerX = GetStringWidth(FONT_NARROW, mapName, 0) + 1;
+    if (markerX < (12 * 8))
+        AddTextPrinterParameterized4(state->infoWindowId, FONT_NARROW, markerX, y, 0, 0, sTextColors_RedOverlay, TEXT_SKIP_DRAW, sText_RedXOverlay);
 }
 
 static bool32 IsDma3ManagerBusyWithBgCopy_(struct Pokenav_RegionMapGfx *state)
@@ -682,12 +741,21 @@ static void PrintLandmarkNames(struct Pokenav_RegionMapGfx *state, int mapSecId,
     int i = 0;
     while (1)
     {
+        bool32 drawMetLocMarker = FALSE;
+        u16 landmarkMapSecId;
+        
         const u8 *landmarkName = GetLandmarkName(mapSecId, pos, i);
         if (!landmarkName)
             break;
 
-        StringCopyPadded(gStringVar1, landmarkName, CHAR_SPACE, 12);
-        AddTextPrinterParameterized(state->infoWindowId, FONT_NARROW, gStringVar1, 0, i * 16 + 17, TEXT_SKIP_DRAW, NULL);
+        if (gSaveBlock2Ptr->metLocClause
+         && GetMapSecIdFromName(landmarkName, &landmarkMapSecId)
+         && CheckMetLocation(landmarkMapSecId) == INVALID_ENCOUNTER_METLOC)
+        {
+            drawMetLocMarker = TRUE;
+        }
+
+        PrintNameWithMetLocMarker(state, landmarkName, drawMetLocMarker, i * 16 + 17);
         i++;
     }
 }
