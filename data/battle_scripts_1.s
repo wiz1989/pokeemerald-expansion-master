@@ -9838,7 +9838,7 @@ BattleScript_RuleWasViolated::
 	waitmessage B_WAIT_TIME_LONG
 	jump_if_unset FLAG_REVEAL_RULE, BattleScript_RuleWasViolated_Ret
 	printbattlerule
-	waitmessage B_WAIT_TIME_LONG
+	@ waitmessage B_WAIT_TIME_LONG
 BattleScript_RuleWasViolated_Ret:
 	restorespeedup
 	return
@@ -9846,7 +9846,7 @@ BattleScript_RuleWasViolated_Ret:
 BattleScript_AnnounceRule::
 	deactivatespeedup
 	printbattlerule
-	waitmessage B_WAIT_TIME_LONG
+	@ waitmessage B_WAIT_TIME_LONG
 	restorespeedup
 	end3
 
