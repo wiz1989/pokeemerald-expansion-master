@@ -995,6 +995,7 @@ const u8 gText_ABtnTitleScreen[] = _("A Button: Title Screen");
 const u8 gText_Option[] = _("OPTION");
 const u8 gText_OptionVanilla[] = _("VANILLA OPTIONS");
 const u8 gText_OptionHack[] = _("HACK OPTIONS");
+const u8 gText_OptionHack2[] = _("HACK OPTIONS 2");
 const u8 gText_OptionNuzlocke[] = _("NUZLOCKE OPTIONS");
 const u8 gText_SmallDot[] = _("·");
 const u8 gText_LargeDot[] = _("{EMOJI_CIRCLE}");

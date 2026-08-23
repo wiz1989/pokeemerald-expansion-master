@@ -53,8 +53,6 @@ enum menuItems_pg2
     MENUITEM_BATTLE_SPEEDUP,
     MENUITEM_50DAMAGE,
     MENUITEM_REVEALRULE,
-    MENUITEM_HARDERTRAINERS,
-    MENUITEM_LEADERS_UPGRADE,
     MENUITEM_CONCURRENT_RULES,
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
@@ -62,12 +60,20 @@ enum menuItems_pg2
 
 enum menuItems_pg3
 {
+    MENUITEM_HARDERTRAINERS,
+    MENUITEM_LEADERS_UPGRADE,
+    MENUITEM_CANCEL_PG3,
+    MENUITEM_COUNT_PG3,
+};
+
+enum menuItems_pg4
+{
     MENUITEM_PERMADEATH,
     MENUITEM_NOBAGINBATTLE,
     MENUITEM_DUPECLAUSE,
     MENUITEM_METLOCCLAUSE,
-    MENUITEM_CANCEL_PG3,
-    MENUITEM_COUNT_PG3,
+    MENUITEM_CANCEL_PG4,
+    MENUITEM_COUNT_PG4,
 };
 
 enum
@@ -93,7 +99,7 @@ enum
 #define YPOS_REVEALRULE      (MENUITEM_REVEALRULE * 16)
 #define YPOS_METLOCCLAUSE    (MENUITEM_METLOCCLAUSE * 16)
 
-#define PAGE_COUNT  3
+#define PAGE_COUNT  4
 
 static void Task_OptionMenuFadeIn(u8 taskId);
 static void Task_OptionMenuProcessInput(u8 taskId);
@@ -101,6 +107,8 @@ static void Task_OptionMenuFadeIn_Pg2(u8 taskId);
 static void Task_OptionMenuProcessInput_Pg2(u8 taskId);
 static void Task_OptionMenuFadeIn_Pg3(u8 taskId);
 static void Task_OptionMenuProcessInput_Pg3(u8 taskId);
+static void Task_OptionMenuFadeIn_Pg4(u8 taskId);
+static void Task_OptionMenuProcessInput_Pg4(u8 taskId);
 static void SaveOptions(u8 taskId);
 static void Task_OptionMenuSave(u8 taskId);
 static void Task_OptionMenuFadeOut(u8 taskId);
@@ -164,19 +172,24 @@ static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
     [MENUITEM_BATTLE_SPEEDUP]   = gText_BattleSpeedup,
     [MENUITEM_50DAMAGE]         = gText_50Damage,
     [MENUITEM_REVEALRULE]       = gText_RevealRule,
-    [MENUITEM_HARDERTRAINERS]   = gText_HarderTrainers,
-    [MENUITEM_LEADERS_UPGRADE]  = gText_LeadersE4Upgrade,
     [MENUITEM_CONCURRENT_RULES] = gText_ConcurrentRules,
     [MENUITEM_CANCEL_PG2]       = gText_OptionMenuCancel,
 };
 
 static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
 {
+    [MENUITEM_HARDERTRAINERS]   = gText_HarderTrainers,
+    [MENUITEM_LEADERS_UPGRADE]  = gText_LeadersE4Upgrade,
+    [MENUITEM_CANCEL_PG3]       = gText_OptionMenuCancel,
+};
+
+static const u8 *const sOptionMenuItemsNames_Pg4[MENUITEM_COUNT_PG4] =
+{
     [MENUITEM_PERMADEATH]     = gText_PermaDeath,
     [MENUITEM_NOBAGINBATTLE]  = gText_NoBagInBattle,
     [MENUITEM_DUPECLAUSE]     = gText_DupeClause,
     [MENUITEM_METLOCCLAUSE]   = gText_MetLocClause,
-    [MENUITEM_CANCEL_PG3]     = gText_OptionMenuCancel,
+    [MENUITEM_CANCEL_PG4]     = gText_OptionMenuCancel,
 };
 
 static const struct WindowTemplate sOptionMenuWinTemplates[] =
@@ -281,14 +294,21 @@ static void DrawOptionsPg2(u8 taskId)
     BattleSpeedup_DrawChoices(gTasks[taskId].tBattleSpeedUp);
     HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
     RevealRule_DrawChoices(gTasks[taskId].tRevealRule);
-    HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
-    LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
     ConcurrentRules_DrawChoices(gTasks[taskId].tConcurrentRules);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
 
 static void DrawOptionsPg3(u8 taskId)
+{
+    ReadAllCurrentSettings(taskId);
+    HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
+    LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
+    HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
+}
+
+static void DrawOptionsPg4(u8 taskId)
 {
     ReadAllCurrentSettings(taskId);
     PermaDeath_DrawChoices(gTasks[taskId].tPermaDeathOn);
@@ -386,10 +406,14 @@ void CB2_InitOptionMenu(void)
         case 1:
             taskId = CreateTask(Task_OptionMenuFadeIn_Pg2, 0);
             DrawOptionsPg2(taskId);
-            break;            
+            break;
         case 2:
             taskId = CreateTask(Task_OptionMenuFadeIn_Pg3, 0);
             DrawOptionsPg3(taskId);
+            break;
+        case 3:
+            taskId = CreateTask(Task_OptionMenuFadeIn_Pg4, 0);
+            DrawOptionsPg4(taskId);
             break;
         }
         gMain.state++;
@@ -441,6 +465,10 @@ static void Task_ChangePage(u8 taskId)
     case 2:
         DrawOptionsPg3(taskId);
         gTasks[taskId].func = Task_OptionMenuFadeIn_Pg3;
+        break;
+    case 3:
+        DrawOptionsPg4(taskId);
+        gTasks[taskId].func = Task_OptionMenuFadeIn_Pg4;
         break;
     }
 }
@@ -600,20 +628,6 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tBattleSpeedUp)
                 BattleSpeedup_DrawChoices(gTasks[taskId].tBattleSpeedUp);
             break;
-        case MENUITEM_HARDERTRAINERS:
-            previousOption = gTasks[taskId].tHarderTrainersOn;
-            gTasks[taskId].tHarderTrainersOn = HarderTrainers_ProcessInput(gTasks[taskId].tHarderTrainersOn);
-
-            if (previousOption != gTasks[taskId].tHarderTrainersOn)
-                HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
-            break;
-        case MENUITEM_LEADERS_UPGRADE:
-            previousOption = gTasks[taskId].tLeadersUpgrade;
-            gTasks[taskId].tLeadersUpgrade = LeadersUpgrade_ProcessInput(gTasks[taskId].tLeadersUpgrade);
-
-            if (previousOption != gTasks[taskId].tLeadersUpgrade)
-                LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
-            break;
         case MENUITEM_50DAMAGE:
             previousOption = gTasks[taskId].t50DamageOn;
             gTasks[taskId].t50DamageOn = HalfDamage_ProcessInput(gTasks[taskId].t50DamageOn);
@@ -683,6 +697,79 @@ static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
     else if (JOY_NEW(DPAD_DOWN))
     {
         if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL_PG3)
+            gTasks[taskId].tMenuSelection++;
+        else
+            gTasks[taskId].tMenuSelection = 0;
+        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    }
+    else
+    {
+        u8 previousOption;
+
+        switch (gTasks[taskId].tMenuSelection)
+        {
+        case MENUITEM_HARDERTRAINERS:
+            previousOption = gTasks[taskId].tHarderTrainersOn;
+            gTasks[taskId].tHarderTrainersOn = HarderTrainers_ProcessInput(gTasks[taskId].tHarderTrainersOn);
+
+            if (previousOption != gTasks[taskId].tHarderTrainersOn)
+                HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
+            break;
+        case MENUITEM_LEADERS_UPGRADE:
+            previousOption = gTasks[taskId].tLeadersUpgrade;
+            gTasks[taskId].tLeadersUpgrade = LeadersUpgrade_ProcessInput(gTasks[taskId].tLeadersUpgrade);
+
+            if (previousOption != gTasks[taskId].tLeadersUpgrade)
+                LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
+            break;
+        default:
+            return;
+        }
+
+        if (sArrowPressed)
+        {
+            sArrowPressed = FALSE;
+            CopyWindowToVram(WIN_OPTIONS, COPYWIN_GFX);
+        }
+    }
+}
+
+static void Task_OptionMenuFadeIn_Pg4(u8 taskId)
+{
+    if (!gPaletteFade.active)
+        gTasks[taskId].func = Task_OptionMenuProcessInput_Pg4;
+}
+
+static void Task_OptionMenuProcessInput_Pg4(u8 taskId)
+{
+    if (JOY_NEW(L_BUTTON) || JOY_NEW(R_BUTTON))
+    {
+        FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
+        ClearStdWindowAndFrame(WIN_OPTIONS, FALSE);
+        sCurrPage = Process_ChangePage(sCurrPage);
+        SaveOptions(taskId);
+        gTasks[taskId].func = Task_ChangePage;
+    }
+    else if (JOY_NEW(A_BUTTON))
+    {
+        if (gTasks[taskId].tMenuSelection == MENUITEM_CANCEL_PG4)
+            gTasks[taskId].func = Task_OptionMenuSave;
+    }
+    else if (JOY_NEW(B_BUTTON))
+    {
+        gTasks[taskId].func = Task_OptionMenuSave;
+    }
+    else if (JOY_NEW(DPAD_UP))
+    {
+        if (gTasks[taskId].tMenuSelection > 0)
+            gTasks[taskId].tMenuSelection--;
+        else
+            gTasks[taskId].tMenuSelection = MENUITEM_CANCEL_PG4;
+        HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
+    }
+    else if (JOY_NEW(DPAD_DOWN))
+    {
+        if (gTasks[taskId].tMenuSelection < MENUITEM_CANCEL_PG4)
             gTasks[taskId].tMenuSelection++;
         else
             gTasks[taskId].tMenuSelection = 0;
@@ -1314,6 +1401,9 @@ static void DrawHeaderText(void)
         AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_OptionHack, 8, 1, TEXT_SKIP_DRAW, NULL);
         break;
     case 2:
+        AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_OptionHack, 8, 1, TEXT_SKIP_DRAW, NULL);
+        break;
+    case 3:
         AddTextPrinterParameterized(WIN_HEADER, FONT_NORMAL, gText_OptionNuzlocke, 8, 1, TEXT_SKIP_DRAW, NULL);
         break;
     }

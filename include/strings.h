@@ -281,6 +281,7 @@ extern const u8 gText_ViolationDamage50[];
 extern const u8 gText_Option[];
 extern const u8 gText_OptionVanilla[];
 extern const u8 gText_OptionHack[];
+extern const u8 gText_OptionHack2[];
 extern const u8 gText_OptionNuzlocke[];
 extern const u8 gText_OptionMenu[];
 extern const u8 gText_TextSpeed[];
