@@ -6,6 +6,12 @@ extern bool8 gDifferentSaveFile;
 // in contest.c.
 extern bool8 gEnableContestDebugging;
 
+enum
+{
+	NEW_GAME_MODE_MYSTERY,
+	NEW_GAME_MODE_MASTERY,
+};
+
 void SetTrainerId(u32 trainerId, u8 *dst);
 u32 GetTrainerId(u8 *trainerId);
 void CopyTrainerId(u8 *dst, u8 *src);
@@ -13,5 +19,6 @@ void NewGameInitData(void);
 void ResetMenuAndMonGlobals(void);
 void Sav2_ClearSetDefault(void);
 void IsFirstRun(void);
+void SetNewGameMode(u8 mode);
 
 #endif // GUARD_NEW_GAME_H

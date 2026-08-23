@@ -59,6 +59,7 @@ static void ResetDexNav(void);
 
 EWRAM_DATA bool8 gDifferentSaveFile = FALSE;
 EWRAM_DATA bool8 gEnableContestDebugging = FALSE;
+static u8 sNewGameMode = NEW_GAME_MODE_MYSTERY;
 
 static const struct ContestWinner sContestWinnerPicDummy =
 {
@@ -157,6 +158,14 @@ static void SetDefaultOptions_FlygonHG(void)
     gSaveBlock3Ptr->metLocsInitialized = 1;
 }
 
+void SetNewGameMode(u8 mode)
+{
+    if (mode <= NEW_GAME_MODE_MASTERY)
+        sNewGameMode = mode;
+    else
+        sNewGameMode = NEW_GAME_MODE_MYSTERY;
+}
+
 static void ClearPokedexFlags(void)
 {
     gUnusedPokedexU8 = 0;
@@ -192,7 +201,10 @@ static void WarpToTruck(void)
 void Sav2_ClearSetDefault(void)
 {
     ClearSav2();
-    SetDefaultOptions();
+    if (sNewGameMode == NEW_GAME_MODE_MASTERY)
+        SetDefaultOptions_FlygonHG();
+    else
+        SetDefaultOptions();
 }
 
 void ResetMenuAndMonGlobals(void)
@@ -211,6 +223,10 @@ void NewGameInitData(void)
         RtcReset();
 
     gDifferentSaveFile = TRUE;
+    if (sNewGameMode == NEW_GAME_MODE_MASTERY)
+        SetDefaultOptions_FlygonHG();
+    else
+        SetDefaultOptions();
     gSaveBlock2Ptr->encryptionKey = 0;
     ZeroPlayerPartyMons();
     ZeroEnemyPartyMons();
