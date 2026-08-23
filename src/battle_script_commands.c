@@ -7866,7 +7866,9 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
     u32 i = 0;
     u32 side = GetBattlerSide(battler);
     // Check battle rules first!
-    if (BattleRuleViolated_SENDOUT(battler, TRUE))
+
+    if (gBattleStruct->eventsBeforeFirstTurnState != FIRST_TURN_EVENTS_BATTLERULE_FAINT
+      && BattleRuleViolated_SENDOUT(battler, TRUE))
     {
         // do nothing. Skip all other switch-in effects
     }

@@ -9869,8 +9869,8 @@ BattleScript_BattleRule_FaintMon_End2::
 	gotoifnotmidturn BattleScript_FaintedMon_End3 @ outside of the turn action execution an end3 is required
 	end2
 
-@ This variant is only used for case FIRST_TURN_EVENTS_BATTLERULE_FAINT
-@ when a rule triggers during send out of your first mon
+@ Used for SENDOUT rule violations.
+@ Does not run resetbsstack
 BattleScript_BattleRule_FaintMon_NoStackReset::
 	restoreallattackers
 	restorealltargets

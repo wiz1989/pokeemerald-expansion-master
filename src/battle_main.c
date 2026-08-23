@@ -4052,8 +4052,9 @@ static void TryDoEventsBeforeFirstTurn(void)
     case FIRST_TURN_EVENTS_BATTLERULE_FAINT:
         while (gBattleStruct->switchInBattlerCounter < gBattlersCount) // From fastest to slowest
         {
-            if (BattleRuleViolated_SENDOUT(gBattlerByTurnOrder[gBattleStruct->switchInBattlerCounter++], FALSE))
+            if (BattleRuleViolated_SENDOUT(gBattlerByTurnOrder[gBattleStruct->switchInBattlerCounter], FALSE))
                 return;
+            gBattleStruct->switchInBattlerCounter++;
         }
         gBattleStruct->switchInBattlerCounter = 0;
         gBattleStruct->eventsBeforeFirstTurnState++;
@@ -6413,21 +6414,22 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
     if (faint)
     {
         gBattleRuleBattler = battler;
+        gBattlerFainted = battler; // required for correct BS_FAINTED battler in HandleFaintedMon
 
         if (gSaveBlock2Ptr->halfDamage)
             gBattleStruct->moveDamage[battler] = max(1, ((gBattleMons[battler].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
             gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
 
-        if (midBattle)
-        {
-            // gBattleRuleBattler = gBattlerAttacker;
-            BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
-        }
-        else
-        {
+        // if (midBattle)
+        // {
+        //     // gBattleRuleBattler = gBattlerAttacker;
+        //     BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
+        // }
+        // else
+        // {
             BattleScriptExecute(BattleScript_BattleRule_FaintMon_NoStackReset);
-        }
+        // }
     }
     
     return faint;
