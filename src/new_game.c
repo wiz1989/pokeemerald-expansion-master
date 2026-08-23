@@ -96,7 +96,7 @@ static void InitPlayerTrainerId(void)
 static void SetDefaultOptions(void)
 {
     // vanilla
-    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_SLOW;
+    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
     gSaveBlock2Ptr->optionsWindowFrameType = 0;
     gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
     gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
@@ -108,9 +108,44 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->halfDamage = TRUE;
     gSaveBlock2Ptr->revealRule = TRUE;
     gSaveBlock2Ptr->announceRules = FALSE;
+    gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_1;
+    gSaveBlock2Ptr->instaRuleTrigger = TRUE;
+    gSaveBlock2Ptr->activateNoCritRule = TRUE;
+    // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->leadersUpgrade = FALSE;
-    gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_1;
+
+    // nuzlocke
+    gSaveBlock2Ptr->permadeath = TRUE;
+    gSaveBlock2Ptr->noBagInBattle = TRUE;
+    gSaveBlock2Ptr->dupeClause = TRUE;
+    gSaveBlock2Ptr->metLocClause = TRUE;
+
+    memset(gSaveBlock3Ptr->metLocations, 0, 32);
+    gSaveBlock3Ptr->metLocsInitialized = 1;
+}
+
+static void SetDefaultOptions_FlygonHG(void)
+{
+    // vanilla
+    gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
+    gSaveBlock2Ptr->optionsWindowFrameType = 0;
+    gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
+    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
+    gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
+    gSaveBlock2Ptr->regionMapZoom = FALSE;
+
+    // hack
+    gSaveBlock2Ptr->battleSpeed = OPTIONS_BATTLE_SCENE_1X;
+    gSaveBlock2Ptr->halfDamage = FALSE;
+    gSaveBlock2Ptr->revealRule = TRUE;
+    gSaveBlock2Ptr->announceRules = TRUE;
+    gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_3;
+    gSaveBlock2Ptr->instaRuleTrigger = FALSE;
+    gSaveBlock2Ptr->activateNoCritRule = TRUE;
+    // hack 2
+    gSaveBlock2Ptr->harderTrainers = TRUE;
+    gSaveBlock2Ptr->leadersUpgrade = TRUE;
 
     // nuzlocke
     gSaveBlock2Ptr->permadeath = TRUE;

@@ -587,7 +587,10 @@ struct SaveBlock2
              //u16 padding1:4;
              //u16 padding2;
     /*0x18*/ struct Pokedex pokedex;
-    /*0x90*/ u8 filler_90[0x3];
+    /*0x90*/ u8 filler_90[0x2];
+             u8 filler_91:6;
+             u8 instaRuleTrigger:1;
+             u8 activateNoCritRule:1;
     /*0x93*/ u8 firstRun:1;
              u8 concurrentRules:2;
              u8 announceRules:1;

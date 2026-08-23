@@ -278,6 +278,8 @@ extern const u8 gText_OptionOn[];
 extern const u8 gText_OptionAnnounce[];
 extern const u8 gText_ViolationDamage100[];
 extern const u8 gText_ViolationDamage50[];
+extern const u8 gText_OptionActive[];
+extern const u8 gText_OptionInactive[];
 extern const u8 gText_Option[];
 extern const u8 gText_OptionVanilla[];
 extern const u8 gText_OptionHack[];
@@ -306,6 +308,8 @@ extern const u8 gText_ConcurrentRules[];
 extern const u8 gText_ConcurrentRules1[];
 extern const u8 gText_ConcurrentRules2[];
 extern const u8 gText_ConcurrentRules3[];
+extern const u8 gText_InstaTrigger[];
+extern const u8 gText_ActivateNoCrits[];
 extern const u8 gText_DupeClause[];
 extern const u8 gText_MetLocClause[];
 

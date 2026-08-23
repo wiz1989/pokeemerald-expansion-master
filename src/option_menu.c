@@ -35,6 +35,8 @@
 #define tRevealRule data[14]
 #define tLeadersUpgrade data[15]
 #define tConcurrentRules data[16]
+#define tInstaRuleTrigger data[17]
+#define tActivateNoCrits data[18]
 
 enum menuItems_pg1
 {
@@ -54,6 +56,8 @@ enum menuItems_pg2
     MENUITEM_50DAMAGE,
     MENUITEM_REVEALRULE,
     MENUITEM_CONCURRENT_RULES,
+    MENUITEM_INSTA_TRIGGER,
+    MENUITEM_ACTIVATE_NOCRITS,
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
 };
@@ -82,23 +86,29 @@ enum
     WIN_OPTIONS
 };
 
-#define YPOS_TEXTSPEED       (MENUITEM_TEXTSPEED * 16)
-#define YPOS_BATTLESCENE     (MENUITEM_BATTLESCENE * 16)
-#define YPOS_BATTLESTYLE     (MENUITEM_BATTLESTYLE * 16)
-#define YPOS_SOUND           (MENUITEM_SOUND * 16)
-#define YPOS_BUTTONMODE      (MENUITEM_BUTTONMODE * 16)
-#define YPOS_FRAMETYPE       (MENUITEM_FRAMETYPE * 16)
-#define YPOS_BATTLESPEEDUP   (MENUITEM_BATTLE_SPEEDUP * 16)
-#define YPOS_PERMADEATH      (MENUITEM_PERMADEATH * 16)
-#define YPOS_NOBAGINBATTLE   (MENUITEM_NOBAGINBATTLE * 16)
-#define YPOS_HARDERTRAINERS  (MENUITEM_HARDERTRAINERS * 16)
-#define YPOS_LEADERS_UPGRADE (MENUITEM_LEADERS_UPGRADE * 16)
+// page 1
+#define YPOS_TEXTSPEED        (MENUITEM_TEXTSPEED * 16)
+#define YPOS_BATTLESCENE      (MENUITEM_BATTLESCENE * 16)
+#define YPOS_BATTLESTYLE      (MENUITEM_BATTLESTYLE * 16)
+#define YPOS_SOUND            (MENUITEM_SOUND * 16)
+#define YPOS_BUTTONMODE       (MENUITEM_BUTTONMODE * 16)
+#define YPOS_FRAMETYPE        (MENUITEM_FRAMETYPE * 16)
+// page 2
+#define YPOS_BATTLESPEEDUP    (MENUITEM_BATTLE_SPEEDUP * 16)
+#define YPOS_50DAMAGE         (MENUITEM_50DAMAGE * 16)
+#define YPOS_REVEALRULE       (MENUITEM_REVEALRULE * 16)
 #define YPOS_CONCURRENT_RULES (MENUITEM_CONCURRENT_RULES * 16)
-#define YPOS_50DAMAGE        (MENUITEM_50DAMAGE * 16)
-#define YPOS_DUPECLAUSE      (MENUITEM_DUPECLAUSE * 16)
-#define YPOS_REVEALRULE      (MENUITEM_REVEALRULE * 16)
-#define YPOS_METLOCCLAUSE    (MENUITEM_METLOCCLAUSE * 16)
-
+#define YPOS_INSTA_TRIGGER    (MENUITEM_INSTA_TRIGGER * 16)
+#define YPOS_ACTIVATE_NOCRITS (MENUITEM_ACTIVATE_NOCRITS * 16)
+// page 3
+#define YPOS_HARDERTRAINERS   (MENUITEM_HARDERTRAINERS * 16)
+#define YPOS_LEADERS_UPGRADE  (MENUITEM_LEADERS_UPGRADE * 16)
+// page 4
+#define YPOS_PERMADEATH       (MENUITEM_PERMADEATH * 16)
+#define YPOS_NOBAGINBATTLE    (MENUITEM_NOBAGINBATTLE * 16)
+#define YPOS_DUPECLAUSE       (MENUITEM_DUPECLAUSE * 16)
+#define YPOS_METLOCCLAUSE     (MENUITEM_METLOCCLAUSE * 16)
+ 
 #define PAGE_COUNT  4
 
 static void Task_OptionMenuFadeIn(u8 taskId);
@@ -125,6 +135,10 @@ static u8 LeadersUpgrade_ProcessInput(u8 selection);
 static void LeadersUpgrade_DrawChoices(u8 selection);
 static u8 ConcurrentRules_ProcessInput(u8 selection);
 static void ConcurrentRules_DrawChoices(u8 selection);
+static u8 InstaTrigger_ProcessInput(u8 selection);
+static void InstaTrigger_DrawChoices(u8 selection);
+static u8 ActivateNoCrits_ProcessInput(u8 selection);
+static void ActivateNoCrits_DrawChoices(u8 selection);
 static u8 RevealRule_ProcessInput(u8 selection);
 static void RevealRule_DrawChoices(u8 selection);
 static u8 HalfDamage_ProcessInput(u8 selection);
@@ -169,11 +183,13 @@ static const u8 *const sOptionMenuItemsNames[MENUITEM_COUNT] =
 
 static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
 {
-    [MENUITEM_BATTLE_SPEEDUP]   = gText_BattleSpeedup,
-    [MENUITEM_50DAMAGE]         = gText_50Damage,
-    [MENUITEM_REVEALRULE]       = gText_RevealRule,
-    [MENUITEM_CONCURRENT_RULES] = gText_ConcurrentRules,
-    [MENUITEM_CANCEL_PG2]       = gText_OptionMenuCancel,
+    [MENUITEM_BATTLE_SPEEDUP]     = gText_BattleSpeedup,
+    [MENUITEM_50DAMAGE]           = gText_50Damage,
+    [MENUITEM_REVEALRULE]         = gText_RevealRule,
+    [MENUITEM_CONCURRENT_RULES]   = gText_ConcurrentRules,
+    [MENUITEM_INSTA_TRIGGER]      = gText_InstaTrigger,
+    [MENUITEM_ACTIVATE_NOCRITS]   = gText_ActivateNoCrits,
+    [MENUITEM_CANCEL_PG2]         = gText_OptionMenuCancel,
 };
 
 static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
@@ -273,6 +289,8 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tMetLocClause = gSaveBlock2Ptr->metLocClause;
     gTasks[taskId].tRevealRule = gSaveBlock2Ptr->announceRules ? 2 : gSaveBlock2Ptr->revealRule; // announceRules will also activate revealRule by default
     gTasks[taskId].tConcurrentRules = gSaveBlock2Ptr->concurrentRules;
+    gTasks[taskId].tInstaRuleTrigger = gSaveBlock2Ptr->instaRuleTrigger;
+    gTasks[taskId].tActivateNoCrits = gSaveBlock2Ptr->activateNoCritRule;
 }
 
 static void DrawOptionsPg1(u8 taskId)
@@ -295,6 +313,8 @@ static void DrawOptionsPg2(u8 taskId)
     HalfDamage_DrawChoices(gTasks[taskId].t50DamageOn);
     RevealRule_DrawChoices(gTasks[taskId].tRevealRule);
     ConcurrentRules_DrawChoices(gTasks[taskId].tConcurrentRules);
+    InstaTrigger_DrawChoices(gTasks[taskId].tInstaRuleTrigger);
+    ActivateNoCrits_DrawChoices(gTasks[taskId].tActivateNoCrits);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -649,6 +669,20 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tConcurrentRules)
                 ConcurrentRules_DrawChoices(gTasks[taskId].tConcurrentRules);
             break;
+        case MENUITEM_INSTA_TRIGGER:
+            previousOption = gTasks[taskId].tInstaRuleTrigger;
+            gTasks[taskId].tInstaRuleTrigger = InstaTrigger_ProcessInput(gTasks[taskId].tInstaRuleTrigger);
+
+            if (previousOption != gTasks[taskId].tInstaRuleTrigger)
+                InstaTrigger_DrawChoices(gTasks[taskId].tInstaRuleTrigger);
+            break;
+        case MENUITEM_ACTIVATE_NOCRITS:
+            previousOption = gTasks[taskId].tActivateNoCrits;
+            gTasks[taskId].tActivateNoCrits = ActivateNoCrits_ProcessInput(gTasks[taskId].tActivateNoCrits);
+
+            if (previousOption != gTasks[taskId].tActivateNoCrits)
+                ActivateNoCrits_DrawChoices(gTasks[taskId].tActivateNoCrits);
+            break;
         default:
             return;
         }
@@ -840,6 +874,8 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->announceRules = (gTasks[taskId].tRevealRule == 2);
     gSaveBlock2Ptr->metLocClause = gTasks[taskId].tMetLocClause;
     gSaveBlock2Ptr->concurrentRules = gTasks[taskId].tConcurrentRules;
+    gSaveBlock2Ptr->instaRuleTrigger = gTasks[taskId].tInstaRuleTrigger;
+    gSaveBlock2Ptr->activateNoCritRule = gTasks[taskId].tActivateNoCrits;
 
     VarSet(VAR_BATTLE_SPEED, gTasks[taskId].tBattleSpeedUp);
 
@@ -1248,6 +1284,50 @@ static void HalfDamage_DrawChoices(u8 selection)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_ViolationDamage100, 104, YPOS_50DAMAGE, styles[0]);
     DrawOptionMenuChoice(gText_ViolationDamage50, GetStringRightAlignXOffset(FONT_NORMAL, gText_ViolationDamage50, 198), YPOS_50DAMAGE, styles[1]);
+}
+
+static u8 InstaTrigger_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void InstaTrigger_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(gText_OptionOff, 104, MENUITEM_INSTA_TRIGGER * 16, styles[0]);
+    DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), MENUITEM_INSTA_TRIGGER * 16, styles[1]);
+}
+
+static u8 ActivateNoCrits_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void ActivateNoCrits_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+
+    DrawOptionMenuChoice(gText_OptionInactive, 104, MENUITEM_ACTIVATE_NOCRITS * 16, styles[0]);
+    DrawOptionMenuChoice(gText_OptionActive, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionActive, 198), MENUITEM_ACTIVATE_NOCRITS * 16, styles[1]);
 }
 
 static u8 RevealRule_ProcessInput(u8 selection)
