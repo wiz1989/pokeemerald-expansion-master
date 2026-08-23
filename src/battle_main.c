@@ -6369,8 +6369,9 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
 
     ComputeActiveBattleRules();
 
-    if (!gBattleTurnCounter)
-        midBattle = FALSE;
+    // handle first turn switches
+    if (!midBattle && gBattleMainFunc != TryDoEventsBeforeFirstTurn)
+        midBattle = TRUE;
 
     for (i = 0; i < MAX_CONCURRENT_RULES && !faint; i++)
     {
@@ -6399,6 +6400,10 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
             }
             else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[battler].species, GetRandomSpeciesTypeSeeded()))
                 faint = TRUE;
+
+            // do not enforce the rule violation if instaRuleTrigger is OFF and it's the setup turn of the battle 
+            if (!midBattle && gSaveBlock2Ptr->instaRuleTrigger == FALSE)
+                faint = FALSE;
         }
 
         if (faint)
