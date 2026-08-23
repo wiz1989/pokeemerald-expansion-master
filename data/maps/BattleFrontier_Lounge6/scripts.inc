@@ -78,7 +78,7 @@ BattleFrontier_Lounge6_Text_SkittySoMuchCuterThanImagined:
 
 @ adding the Drowzee trade below as it doesn't matter where it's written
 EventScript_Drowzee_Trade::
-	lock
+	lockall
 	faceplayer
 	goto_if_set FLAG_DROWZEE_TRADED, Drowzee_TradeCompleted
 	setvar VAR_0x8008, INGAME_TRADE_DROWZEE
@@ -93,10 +93,11 @@ EventScript_Drowzee_Trade::
 	copyvar VAR_0x8005, VAR_0x800A
 	special CreateInGameTradePokemon
 	special DoInGameTradeScene
+	hideobjectat 37, MAP_SLATEPORT_CITY @ hide the Drowzee object
+	setflag FLAG_DROWZEE_TRADED @ set flag while overworld is hidden, so the Drowzee object is gone when returning
 	waitstate
 	msgbox Drowzee_SoMuchMoreAwake, MSGBOX_DEFAULT
-	setflag FLAG_DROWZEE_TRADED
-	release
+	releaseall
 	end
 
 Drowzee_DeclineTrade::
@@ -125,3 +126,8 @@ Drowzee_WellThatsFineToo:
 	.string "Oh, you won't?\p"
 	.string "Well, I can understand that.\p"
 	.string "Maybe another time.$"
+
+EventScript_Drowzee_Cry::
+	playmoncry SPECIES_DROWZEE, CRY_MODE_NORMAL
+	waitmoncry
+	end
