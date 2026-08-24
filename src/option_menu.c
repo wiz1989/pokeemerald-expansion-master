@@ -1511,6 +1511,10 @@ static void DrawOptionMenuTexts(void)
         items = MENUITEM_COUNT_PG3;
         menu = sOptionMenuItemsNames_Pg3;
         break;
+    case 3:
+        items = MENUITEM_COUNT_PG4;
+        menu = sOptionMenuItemsNames_Pg4;
+        break;
     }
 
     FillWindowPixelBuffer(WIN_OPTIONS, PIXEL_FILL(1));
