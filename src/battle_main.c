@@ -4053,7 +4053,12 @@ static void TryDoEventsBeforeFirstTurn(void)
         while (gBattleStruct->switchInBattlerCounter < gBattlersCount) // From fastest to slowest
         {
             if (BattleRuleViolated_SENDOUT(gBattlerByTurnOrder[gBattleStruct->switchInBattlerCounter], FALSE))
+            {
+                // PERISHCOUNT handles all battlers in one script; skip the per-battler loop
+                if (gBattleRuleViolated == BATTLERULE_PERISHCOUNT)
+                    gBattleStruct->switchInBattlerCounter = gBattlersCount;
                 return;
+            }
             gBattleStruct->switchInBattlerCounter++;
         }
         gBattleStruct->switchInBattlerCounter = 0;
