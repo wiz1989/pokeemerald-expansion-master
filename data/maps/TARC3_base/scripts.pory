@@ -285,6 +285,34 @@ script TARC3_Azure_Toxicroak {
     end
 }
 
+script TARC3_Azure_Gastrodon {
+	cant_see_if_set(FLAG_BASE_GASTRODON_BEATEN)
+    lock
+	faceplayer
+	setspeaker("Gastrodon")
+	createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
+	if (flag(FLAG_BASE_GASTRODON_BEATEN))
+	{
+		msgbox("I still like you!")
+	}
+	else
+	{
+		msgbox("Hi, I'm GASTRODON.\nLet's battle!")
+		setwildbattle(SPECIES_GASTRODON, 25)
+		playmoncry(SPECIES_GASTRODON, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		dowildbattle
+		callnative(WasBattleWon)
+		if (var(VAR_RESULT) == TRUE)
+		{
+			setflag(FLAG_BASE_GASTRODON_BEATEN)
+		}
+	}
+	release
+    end
+}
+
 // end battle scripts
 
 script TARC3_Whimsicott {

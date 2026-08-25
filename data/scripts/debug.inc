@@ -201,7 +201,7 @@ Debug_EventScript_Text_DefensiveIVs:
 	.string "HP IVs: {STR_VAR_1}, DEF IVs: {STR_VAR_2}, SPDEF IVs: {STR_VAR_3}$"
 
 Debug_EventScript_Script_1::
-	goto TARC3_Azure_Toxicroak
+	goto TARC3_Azure_Gastrodon
 	end
 
 Debug_EventScript_Script_2::
