@@ -257,6 +257,36 @@ script TARC3_Amber_Torkoal {
     end
 }
 
+script TARC3_Azure_Toxicroak {
+	cant_see_if_set(FLAG_BASE_TOXICROAK_BEATEN)
+    lock
+	faceplayer
+	setspeaker("Toxicroak")
+	createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
+	if (flag(FLAG_BASE_TOXICROAK_BEATEN))
+	{
+		msgbox("I still like you!")
+	}
+	else
+	{
+		msgbox("Hi, I'm TOXICROAK.\nLet's battle!")
+		setwildbattle(SPECIES_TOXICROAK, 25)
+		playmoncry(SPECIES_TOXICROAK, CRY_MODE_ENCOUNTER)
+		delay(40)
+		waitmoncry
+		dowildbattle
+		callnative(WasBattleWon)
+		if (var(VAR_RESULT) == TRUE)
+		{
+			setflag(FLAG_BASE_TOXICROAK_BEATEN)
+		}
+	}
+	release
+    end
+}
+
+// end battle scripts
+
 script TARC3_Whimsicott {
     lock
 	faceplayer
