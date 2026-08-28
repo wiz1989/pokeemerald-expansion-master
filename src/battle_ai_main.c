@@ -912,6 +912,34 @@ static u32 ChooseMoveOrAction_Singles(enum BattlerId battler)
         }
     }
 
+    // tie-breaker if status moves (e.g. Nasty Plot) are at a tie with attacking moves
+    // in that case remove all non-status-moves from the consideredMoveArray
+    if (numOfBestMoves > 1)
+    {
+        u8 statusMoveArray[MAX_MON_MOVES];
+        u32 numOfBestMoves_Status = 0;
+
+        // build new array of status moves
+        for (u32 moveIndex = 0; moveIndex < numOfBestMoves; moveIndex++)
+        {
+            enum Move move = gBattleMons[battler].moves[consideredMoveArray[moveIndex]];
+            if (IsBattleMoveStatus(move))
+                statusMoveArray[numOfBestMoves_Status++] = consideredMoveArray[moveIndex];
+        }
+
+        // clear consideredMoveArray if there are any status moves and build new
+        if (numOfBestMoves_Status > 0)
+        {
+            for (u32 moveIndex = 0; moveIndex < numOfBestMoves; moveIndex++)
+                consideredMoveArray[moveIndex] = 0;
+
+            for (u32 moveIndex = 0; moveIndex < numOfBestMoves_Status; moveIndex++)
+                consideredMoveArray[moveIndex] = statusMoveArray[moveIndex];
+
+            numOfBestMoves = numOfBestMoves_Status;
+        }
+    }
+
 #if TESTING
     gBattleTestRunnerState->data.trial.scoreTieCount = numOfBestMoves;
 #endif

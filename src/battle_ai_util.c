@@ -4678,7 +4678,7 @@ static enum AIScore IncreaseStatUpScoreInternal(enum BattlerId battlerAtk, enum 
     case STAT_ATK:
         if (HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_PHYSICAL) && shouldSetUp)
         {
-            if (stages == 1)
+            if (stages <= 2)
                 tempScore += DECENT_EFFECT;
             else if (stages == 6)
                 tempScore += BEST_EFFECT;
@@ -4714,10 +4714,14 @@ static enum AIScore IncreaseStatUpScoreInternal(enum BattlerId battlerAtk, enum 
     case STAT_SPATK:
         if (HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_SPECIAL) && shouldSetUp)
         {
-            if (stages == 1)
+            if (stages <= 2)
                 tempScore += DECENT_EFFECT;
+            else if (stages == 6)
+                tempScore += BEST_EFFECT;
             else
                 tempScore += GOOD_EFFECT;
+
+            DebugPrintf("stages = %d, tempScore = %d\n", stages, tempScore);
         }
         break;
     case STAT_SPDEF:
@@ -4754,6 +4758,8 @@ static enum AIScore IncreaseStatUpScoreInternal(enum BattlerId battlerAtk, enum 
     // if already inclined to boost, be slightly more likely to if boost levels matter
     if (tempScore > 0 && HasMoveWithEffect(battlerAtk, EFFECT_STORED_POWER))
         tempScore += WEAK_EFFECT;
+
+    DebugPrintf("tempScore = %d\n", tempScore);
 
     return tempScore;
 }
