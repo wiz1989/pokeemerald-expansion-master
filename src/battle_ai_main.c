@@ -2471,7 +2471,7 @@ static s32 AI_CheckBadMove(enum BattlerId battlerAtk, enum BattlerId battlerDef,
     case EFFECT_TAUNT:
         if (gBattleMons[battlerDef].volatiles.tauntTimer > 0
           || DoesPartnerHaveSameMoveEffect(BATTLE_PARTNER(battlerAtk), battlerDef, move, aiData->partnerMove))
-            ADJUST_SCORE(-10);
+            ADJUST_SCORE(-20);
         break;
     case EFFECT_BESTOW:
         if (aiData->holdEffects[battlerAtk] == HOLD_EFFECT_NONE
@@ -3045,9 +3045,9 @@ static s32 AI_TryToFaint(enum BattlerId battlerAtk, enum BattlerId battlerDef, e
         && (!IsSelfSacrificeEffect(move) || ShouldConsiderSelfSacrificeDamageEffect(battlerAtk, battlerDef, move, aiIsFaster)))
     {
         if (aiIsFaster)
-            ADJUST_SCORE(FAST_KILL);
+            ADJUST_SCORE(8);
         else
-            ADJUST_SCORE(SLOW_KILL);
+            ADJUST_SCORE(6);
     }
     else if (CanTargetFaintAi(battlerDef, battlerAtk)
             && AI_GetWhichBattlerFasterOrTies(battlerAtk, battlerDef, TRUE) != AI_IS_FASTER
@@ -4925,6 +4925,8 @@ static s32 AI_CalcMoveEffectScore(enum BattlerId battlerAtk, enum BattlerId batt
         }
         break;
     case EFFECT_TAUNT:
+        if (gBattleMons[battlerDef].species == SPECIES_CASTFORM && gBattleResults.battleTurnCounter < 2)
+            ADJUST_SCORE(5);
         if (IsBattleMoveStatus(incomingMove))
             ADJUST_SCORE(GOOD_EFFECT);
         else if (HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_STATUS))

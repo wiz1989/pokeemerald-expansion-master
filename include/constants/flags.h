@@ -86,7 +86,7 @@
 #define FLAG_HIDE_ITEM_UNDERWATER     0x40
 #define FLAG_BASE_TOXICROAK_BEATEN    0x41
 #define FLAG_BASE_GASTRODON_BEATEN    0x42
-#define FLAG_UNUSED_0x043    0x43 // Unused Flag
+#define FLAG_BASE_FLYGON_BEATEN       0x43
 #define FLAG_UNUSED_0x044    0x44 // Unused Flag
 #define FLAG_UNUSED_0x045    0x45 // Unused Flag
 #define FLAG_UNUSED_0x046    0x46 // Unused Flag
