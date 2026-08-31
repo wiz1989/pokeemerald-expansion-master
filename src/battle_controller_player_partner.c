@@ -329,6 +329,7 @@ static void HandleInputChooseAction(enum BattlerId battler)
                 gWeatherChangeMenuOpened = FALSE;
                 gWeatherChangeMenuNewWeatherSelected = FALSE;
                 SlideWeatherTriggerWindow();
+                TryToHideMonInfoWindow();
                 return;
             }
 
@@ -339,6 +340,7 @@ static void HandleInputChooseAction(enum BattlerId battler)
             gWeatherChangeMenuSlidingSpeed = 2;
             gWeatherChangeMenuOpened = FALSE;
             SlideWeatherTriggerWindow();
+            TryToHideMonInfoWindow();
 
             if (gWeatherChangeMenuNewWeatherSelected)
             {
@@ -417,6 +419,7 @@ static void PlayerPartnerHandleChooseActionIdle(enum BattlerId battler)
     {
         gWeatherChangeMenuNewWeatherSelected = FALSE;
         TryHideWeatherTrigger();
+        TryToHideMonInfoWindow();
         AI_TrySwitchOrUseItem(battler);
         BtlController_Complete(battler);
     }
@@ -435,6 +438,7 @@ static void HandleChooseActionAfterDma3(enum BattlerId battler)
         gBattle_BG0_Y = 0; // 160 to show the action menu frame
         BattlePutTextOnWindow(gText_ChooseWeather, B_WIN_MSG); // B_WIN_ACTION_PROMPT for right side
         TryRestoreWeatherTrigger();
+        TryToAddMonInfoWindow();
         gBattlerControllerFuncs[battler] = PlayerPartnerHandleChooseActionIdle;
     }
 }
