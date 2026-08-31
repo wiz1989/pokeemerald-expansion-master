@@ -3830,10 +3830,11 @@ static inline bool32 RecoveryEnablesWinning1v1(enum BattlerId battlerAtk, enum B
     else
     {
         if (!CanTargetFaintAi(battlerDef, battlerAtk)
-          && GetBestDmgFromBattler(battlerDef, battlerAtk, AI_DEFENDING) < healAmount
+          && (GetBestDmgFromBattler(battlerDef, battlerAtk, AI_DEFENDING) < healAmount
+            || ((gBattleMons[battlerAtk].hp - GetBestDmgFromBattler(battlerDef, battlerAtk, AI_DEFENDING)) < gBattleMons[battlerAtk].maxHP/2))
           && NoOfHitsForTargetToFaintBattler(battlerDef, battlerAtk, AI_DEFENDING, CONSIDER_ENDURE) < NoOfHitsForTargetToFaintBattlerWithMod(battlerDef, battlerAtk, healAmount))
             return TRUE;    // target can't faint attacker and is dealing less damage than we're healing
-        else if (!CanTargetFaintAi(battlerDef, battlerAtk) && gAiLogicData->hpPercents[battlerAtk] < ENABLE_RECOVERY_THRESHOLD && RandomPercentage(RNG_AI_SHOULD_RECOVER, SHOULD_RECOVER_CHANCE))
+        else if (!CanTargetFaintAi(battlerDef, battlerAtk) && gAiLogicData->hpPercents[battlerAtk] < ENABLE_RECOVERY_THRESHOLD /*&& RandomPercentage(RNG_AI_SHOULD_RECOVER, SHOULD_RECOVER_CHANCE)*/)
             return TRUE;    // target can't faint attacker at all, generally safe
     }
     return FALSE;

@@ -291,11 +291,11 @@ static void SetUpWeatherChangeData(void)
         break;
     }
     case NEXT_WEATHER_SUN:
-        gBattleWeather = B_WEATHER_SUN;
+        gBattleWeather = B_WEATHER_SUN_NORMAL;
         gBattleScripting.animArg1 = B_ANIM_SUN_CONTINUES;
         break;
     case NEXT_WEATHER_RAIN:
-        gBattleWeather = B_WEATHER_RAIN;
+        gBattleWeather = B_WEATHER_RAIN_NORMAL;
         gBattleScripting.animArg1 = B_ANIM_RAIN_CONTINUES;
         break;
     case NEXT_WEATHER_SNOW:
