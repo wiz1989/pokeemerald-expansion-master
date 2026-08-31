@@ -2417,6 +2417,7 @@ enum
     TAG_LAST_BALL_WINDOW,
     TAG_WEATHER_TRIGGER_WINDOW_LEFT,
     TAG_WEATHER_TRIGGER_WINDOW_RIGHT,
+    TAG_WEATHER_TRIGGER_WINDOW_PAL,
 };
 
 static const u32 sAbilityPopUpGfx[] = INCGFX_U32("graphics/battle_interface/ability_pop_up.png", ".4bpp", "-mwidth 8 -mheight 4");
@@ -2430,6 +2431,11 @@ static const struct SpriteSheet sSpriteSheet_AbilityPopUp =
 static const struct SpritePalette sSpritePalette_AbilityPopUp =
 {
     sAbilityPopUpPalette, TAG_ABILITY_POP_UP
+};
+
+static const struct SpritePalette sSpritePalette_WeatherTriggerWindow =
+{
+    sAbilityPopUpPalette, TAG_WEATHER_TRIGGER_WINDOW_PAL
 };
 
 static const struct OamData sOamData_AbilityPopUp =
@@ -2801,7 +2807,7 @@ static const struct OamData sOamData_WeatherTrigger =
 static const struct SpriteTemplate sSpriteTemplate_WeatherTriggerWindowLeft =
 {
     .tileTag = TAG_WEATHER_TRIGGER_WINDOW_LEFT,
-    .paletteTag = TAG_ABILITY_POP_UP,
+    .paletteTag = TAG_WEATHER_TRIGGER_WINDOW_PAL,
     .oam = &sOamData_WeatherTrigger,
     .callback = SpriteCB_WeatherTriggerWin
 };
@@ -2809,7 +2815,7 @@ static const struct SpriteTemplate sSpriteTemplate_WeatherTriggerWindowLeft =
 static const struct SpriteTemplate sSpriteTemplate_WeatherTriggerWindowRight =
 {
     .tileTag = TAG_WEATHER_TRIGGER_WINDOW_RIGHT,
-    .paletteTag = TAG_ABILITY_POP_UP,
+    .paletteTag = TAG_WEATHER_TRIGGER_WINDOW_PAL,
     .oam = &sOamData_WeatherTrigger,
     .callback = SpriteCB_WeatherTriggerWin
 };
@@ -3126,7 +3132,7 @@ void AddWeatherTriggerSprite(void)
     }
 
     // window
-    LoadSpritePalette(&sSpritePalette_AbilityPopUp);
+    LoadSpritePalette(&sSpritePalette_WeatherTriggerWindow);
     if (GetSpriteTileStartByTag(TAG_WEATHER_TRIGGER_WINDOW_LEFT) == 0xFFFF)
         LoadSpriteSheet(&sSpriteSheet_WeatherTriggerWindowLeft);
     if (GetSpriteTileStartByTag(TAG_WEATHER_TRIGGER_WINDOW_RIGHT) == 0xFFFF)
@@ -3163,9 +3169,7 @@ static void DestroyWeatherTriggerWinGfx(struct Sprite *sprite)
 
     FreeSpriteTilesByTag(TAG_WEATHER_TRIGGER_WINDOW_LEFT);
     FreeSpriteTilesByTag(TAG_WEATHER_TRIGGER_WINDOW_RIGHT);
-    if (GetSpriteTileStartByTag(MOVE_INFO_WINDOW_TAG) == 0xFFFF
-     && GetSpriteTileStartByTag(TAG_LAST_BALL_WINDOW) == 0xFFFF)
-        FreeSpritePaletteByTag(TAG_ABILITY_POP_UP);
+    FreeSpritePaletteByTag(TAG_WEATHER_TRIGGER_WINDOW_PAL);
 
     (void)sprite; // unused parameter
     gBattleStruct->weatherSpriteIds[4] = MAX_SPRITES;

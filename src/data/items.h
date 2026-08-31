@@ -1154,12 +1154,12 @@ const struct ItemInfo gItemsInfo[] =
     {
         .name = ITEM_NAME("Berry Juice"),
         .price = 100,
-        .holdEffect = HOLD_EFFECT_RESTORE_HP,
-        .holdEffectParam = 20,
+        .holdEffect = HOLD_EFFECT_RESTORE_PCT_HP,
+        .holdEffectParam = 50,
         .description = COMPOUND_STRING(
             "A 100% pure juice\n"
             "that restores HP\n"
-            "by 20 points."),
+            "by 50% of its max HP."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HEALTH_RECOVERY,
         .type = ITEM_USE_PARTY_MENU,

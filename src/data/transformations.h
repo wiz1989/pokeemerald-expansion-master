@@ -96,4 +96,17 @@ const struct Character gCharacters[] =
             MOVE_NONE,
         },
     },
+    [SPECIES_DRAMPA] =
+    {
+        .name = _("Drampa"),
+        .battleSpecies = SPECIES_DRAMPA,
+        .ability = ABILITY_BERSERK,
+        .item = ITEM_ORAN_BERRY,
+        .moves = {
+            // MOVE_DRAGON_BREATH,
+            MOVE_TWISTER,
+            MOVE_NONE,
+            MOVE_NONE,
+        },
+    },
 };

@@ -1023,6 +1023,11 @@ void CreateBoxMon(struct BoxPokemon *boxMon, enum Species species, u8 level, u32
         value = ITEM_SITRUS_BERRY;
         SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
     }
+    if (species == SPECIES_SLOWKING)
+    {
+        value = ITEM_BERRY_JUICE;
+        SetBoxMonData(boxMon, MON_DATA_HELD_ITEM, &value);
+    }
 }
 
 static bool32 IsValidGender(u32 gender)
