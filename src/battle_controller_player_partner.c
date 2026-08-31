@@ -8,6 +8,7 @@
 #include "battle_interface.h"
 #include "battle_setup.h"
 #include "battle_tower.h"
+#include "battle_util2.h"
 #include "battle_z_move.h"
 #include "bg.h"
 #include "data.h"
@@ -21,6 +22,7 @@
 #include "party_menu.h"
 #include "pokeball.h"
 #include "pokemon.h"
+#include "pokemon_summary_screen.h"
 #include "reshow_battle_screen.h"
 #include "sound.h"
 #include "string_util.h"
@@ -48,6 +50,13 @@ static void PlayerPartnerHandleDrawPartyStatusSummary(enum BattlerId battler);
 static void PlayerPartnerHandleEndLinkBattle(enum BattlerId battler);
 static void PlayerPartnerHandleBattleDebug(enum BattlerId battler);
 static void PlayerPartnerBufferRunCommand(enum BattlerId battler);
+static void CB2_ReturnFromBattleSummaryScreen(void);
+static void CB2_ShowBattleSummaryScreen(void);
+static u8 BuildObserverSummaryMonsStruct(struct Pokemon *mons);
+static void PlayerPartnerShowSummaryScreen_WaitForFade(enum BattlerId battler);
+static void PlayerPartnerShowSummaryScreen_WaitForReturn(enum BattlerId battler);
+
+static struct Pokemon sObserverSummaryMons[MAX_BATTLERS_COUNT];
 
 static void (*const sPlayerPartnerBufferCommands[CONTROLLER_CMDS_COUNT])(enum BattlerId battler) =
 {
@@ -384,6 +393,11 @@ static void HandleInputChooseAction(enum BattlerId battler)
         BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_DEBUG, 0);
         BtlController_Complete(battler);
     }
+    else if (JOY_NEW(START_BUTTON))
+    {
+        PlaySE(SE_SELECT);
+        gBattlerControllerFuncs[battler] = PlayerPartnerShowSummaryScreen_WaitForFade;
+    }
     else if (JOY_NEW(A_BUTTON))
     {
         PlaySE(SE_SELECT);
@@ -527,4 +541,61 @@ static void PlayerPartnerHandleBattleDebug(enum BattlerId battler)
     BeginNormalPaletteFade(-1, 0, 0, 0x10, 0);
     SetMainCallback2(CB2_BattleDebugMenu);
     gBattlerControllerFuncs[battler] = Controller_WaitForDebug;
+}
+
+// create a temporary Pokemon struct for the active battleMons to show them in the summary screen
+static u8 BuildObserverSummaryMonsStruct(struct Pokemon *mons)
+{
+    u8 i;
+    u8 summaryCount = 0;
+    u16 heldItem;
+
+    for (i = 0; i < gBattlersCount; i++)
+    {
+        if (!IsBattlerPresent(i))
+            continue;
+
+        mons[summaryCount] = *GetBattlerMon(i);
+
+        // the player side gBattleMons is built during runtime from transformations.c
+        // so we need to set the held item to have it shown in the summary screen
+        heldItem = gBattleMons[i].item;
+        SetMonData(&mons[summaryCount], MON_DATA_HELD_ITEM, &heldItem);
+        summaryCount++;
+    }
+
+    return summaryCount;
+}
+
+static void CB2_ReturnFromBattleSummaryScreen(void)
+{
+    gMain.inBattle = TRUE;
+    SetMainCallback2(ReshowBattleScreenAfterMenu);
+}
+
+static void CB2_ShowBattleSummaryScreen(void)
+{
+    u8 battlerCount;
+
+    battlerCount = BuildObserverSummaryMonsStruct(sObserverSummaryMons);
+    gMain.inBattle = FALSE;
+
+    ShowPokemonSummaryScreen(SUMMARY_MODE_LOCK_MOVES, sObserverSummaryMons, 0, battlerCount - 1, CB2_ReturnFromBattleSummaryScreen);
+}
+
+static void PlayerPartnerShowSummaryScreen_WaitForFade(enum BattlerId battler)
+{
+    if (!gPaletteFade.active)
+    {
+        gBattlerControllerFuncs[battler] = PlayerPartnerShowSummaryScreen_WaitForReturn;
+        ReshowBattleScreenDummy();
+        CloseMainBattleScreen();
+        SetMainCallback2(CB2_ShowBattleSummaryScreen);
+    }
+}
+
+static void PlayerPartnerShowSummaryScreen_WaitForReturn(enum BattlerId battler)
+{
+    if (gMain.callback2 == BattleMainCB2 && !gPaletteFade.active)
+        gBattlerControllerFuncs[battler] = HandleChooseActionAfterDma3;
 }

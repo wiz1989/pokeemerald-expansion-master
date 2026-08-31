@@ -17620,7 +17620,6 @@ static const struct LevelUpMove sBruxishLevelUpLearnset[] = {
 #if P_FAMILY_DRAMPA
 static const struct LevelUpMove sDrampaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TWISTER),
-    LEVEL_UP_MOVE( 1, MOVE_SURF),
     // LEVEL_UP_MOVE( 1, MOVE_ECHOED_VOICE),
     // LEVEL_UP_MOVE( 5, MOVE_TWISTER),
     // LEVEL_UP_MOVE(10, MOVE_PROTECT),
