@@ -533,6 +533,8 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_MossTileJump;
     if (MetatileBehavior_IsMossTileDry(metatileBehavior) == TRUE)
         return EventScript_MossTileDry;
+    if (MetatileBehavior_IsMossTileWet(metatileBehavior) == TRUE)
+        return EventScript_MossTileWet;
     if (MetatileBehavior_IsMuddySlope(metatileBehavior) == TRUE)
         return EventScript_MuddySlope;
     if (MetatileBehavior_IsClayTileClimb(metatileBehavior) == TRUE)

@@ -1841,6 +1841,14 @@ bool8 MetatileBehavior_IsMossTileDry(u8 metatileBehavior)
         return FALSE;
 }
 
+bool8 MetatileBehavior_IsMossTileWet(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_MOSS_TILE_WET)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 bool8 MetatileBehavior_IsClayTileClimb(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_CLAY_TILE_CLIMB)

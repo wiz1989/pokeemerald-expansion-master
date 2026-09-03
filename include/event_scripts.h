@@ -591,6 +591,7 @@ extern const u8 SSTidalCorridor_EventScript_ReachedStepCount[];
 extern const u8 EventScript_FallDownHoleMtPyre[];
 extern const u8 EventScript_MossTileJump[];
 extern const u8 EventScript_MossTileDry[];
+extern const u8 EventScript_MossTileWet[];
 extern const u8 EventScript_MuddySlope[];
 extern const u8 EventScript_ClayTileClimb[];
 extern const u8 EventScript_LongGrass[];

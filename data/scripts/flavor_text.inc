@@ -120,6 +120,10 @@ EventScript_MossTileDry::
 	msgbox Text_MossTileDry, MSGBOX_SIGN
 	end
 
+EventScript_MossTileWet::
+	msgbox Text_MossTileWet, MSGBOX_SIGN
+	end
+
 EventScript_MuddySlope::
 	msgbox Text_MuddySlope, MSGBOX_SIGN
 	end
@@ -261,6 +265,9 @@ Text_MossTileJump::
 
 Text_MossTileDry::
 	.string "The moss is dry and brittle.$"
+
+Text_MossTileWet::
+	.string "The moss is wet and muddy.$"
 
 Text_MuddySlope::
 	.string "The slope is muddy and slippery.$"
