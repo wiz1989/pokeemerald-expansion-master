@@ -27,7 +27,7 @@
       "y": 24,
       "elevation": 0,
       "dest_map": "MAP_TARC3_SUNNY",
-      "dest_warp_id": "6"
+      "dest_warp_id": "2"
     },
     {
       "x": 22,
@@ -41,7 +41,7 @@
       "y": 14,
       "elevation": 0,
       "dest_map": "MAP_TARC3_BASE",
-      "dest_warp_id": "6"
+      "dest_warp_id": "2"
     }
   ],
   "coord_events": [],

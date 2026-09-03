@@ -30,11 +30,11 @@
   ],
   "warp_events": [
     {
-      "x": 7,
-      "y": 3,
+      "x": 9,
+      "y": 11,
       "elevation": 3,
       "dest_map": "MAP_TARC3_BASE",
-      "dest_warp_id": "5"
+      "dest_warp_id": "1"
     }
   ],
   "coord_events": [],
