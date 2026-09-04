@@ -1,6 +1,7 @@
 #include "global.h"
 #include "item_ball.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "constants/event_objects.h"
 #include "constants/items.h"
 
@@ -29,4 +30,15 @@ void GetItemBallIdAndAmountFromTemplate(void)
     u32 itemBallId = (gSpecialVar_LastTalked - 1);
     gSpecialVar_Result = GetItemBallIdFromTemplate(itemBallId);
     gSpecialVar_0x8009 = GetItemBallAmountFromTemplate(itemBallId);
+}
+
+void GetObjectEventSpecies(void)
+{
+    u8 objectEventId = GetObjectEventIdByLocalId(gSpecialVar_LastTalked);
+
+    // reset VAR_SPECIAL in case the object does not return a species
+    gSpecialVar_Result = SPECIES_NONE;
+
+    if (gObjectEvents[objectEventId].active && IS_OW_MON_OBJ(&gObjectEvents[objectEventId]))
+        gSpecialVar_Result = OW_SPECIES(&gObjectEvents[objectEventId]);
 }
