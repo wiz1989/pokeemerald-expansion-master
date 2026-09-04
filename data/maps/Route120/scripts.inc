@@ -45,8 +45,8 @@ Route120_EventScript_CloseAncientTomb::
 Route120_EventScript_SetBridgeClearMetatiles::
 	setmetatile 13, 15, METATILE_Fortree_WoodBridge1_Top, FALSE
 	setmetatile 12, 16, METATILE_Fortree_WoodBridge1_Bottom, FALSE
-	setmetatile 12, 17, METATILE_General_ReflectiveWater, FALSE
-	setmetatile 13, 17, METATILE_General_ReflectiveWater, FALSE
+	// setmetatile 12, 17, METATILE_General_ReflectiveWater, FALSE
+	// setmetatile 13, 17, METATILE_General_ReflectiveWater, FALSE
 	return
 
 Route120_EventScript_SetBridgeKecleonMovement::
@@ -229,8 +229,8 @@ Route120_EventScript_StevenGiveDeconScope::
 	waitfieldeffect FLDEFF_NPCFLY_OUT
 	setmetatile 13, 15, METATILE_Fortree_WoodBridge1_Top, FALSE
 	setmetatile 12, 16, METATILE_Fortree_WoodBridge1_Bottom, FALSE
-	setmetatile 12, 17, METATILE_General_ReflectiveWater, FALSE
-	setmetatile 13, 17, METATILE_General_ReflectiveWater, FALSE
+	// setmetatile 12, 17, METATILE_General_ReflectiveWater, FALSE
+	// setmetatile 13, 17, METATILE_General_ReflectiveWater, FALSE
 	special DrawWholeMapView
 	release
 	end

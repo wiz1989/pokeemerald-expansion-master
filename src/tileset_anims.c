@@ -76,6 +76,7 @@ static void QueueAnimTiles_EliteFour_GroundLights(u16);
 static void QueueAnimTiles_EliteFour_WallLights(u16);
 static void QueueAnimTiles_Tarc3_WaterCurrents(u8);
 static void QueueAnimTiles_Tarc3_Flowers(u16, u8);
+static void QueueAnimTiles_Tarc3_Lava(u16);
 
 const u16 gTilesetAnims_General_Flower_Frame1[] = INCGFX_U16("data/tilesets/primary/general/anim/flower/1.png", ".4bpp");
 const u16 gTilesetAnims_General_Flower_Frame0[] = INCGFX_U16("data/tilesets/primary/general/anim/flower/0.png", ".4bpp");
@@ -565,6 +566,18 @@ const u16 *const gTilesetAnims_Tarc3_WaterCurrents[] = {
     gTilesetAnims_Tarc3_WaterCurrents_Frame5,
     gTilesetAnims_Tarc3_WaterCurrents_Frame6,
     gTilesetAnims_Tarc3_WaterCurrents_Frame7
+};
+
+const u16 gTilesetAnims_Tarc3_Lava_Frame0[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/lava/0.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Lava_Frame1[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/lava/1.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Lava_Frame2[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/lava/2.png", ".4bpp");
+const u16 gTilesetAnims_Tarc3_Lava_Frame3[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/lava/3.png", ".4bpp");
+
+const u16 *const gTilesetAnims_Tarc3_Lava[] = {
+    gTilesetAnims_Tarc3_Lava_Frame0,
+    gTilesetAnims_Tarc3_Lava_Frame1,
+    gTilesetAnims_Tarc3_Lava_Frame2,
+    gTilesetAnims_Tarc3_Lava_Frame3
 };
 
 const u16 gTilesetAnims_Tarc3_Flower1_Frame0[] = INCGFX_U16("data/tilesets/secondary/tarc3/anim/flower_1/0.png", ".4bpp");
@@ -1088,7 +1101,10 @@ static void TilesetAnim_Tarc3(u16 timer)
     if (timer % 8 == 7)
         QueueAnimTiles_Tarc3_Flowers(timer / 8, 7);
     if (timer % 16 == 1)
+    {
         QueueAnimTiles_Tarc3_WaterCurrents(timer / 16);
+        QueueAnimTiles_Tarc3_Lava(timer / 16);
+    }
 }
 
 static void QueueAnimTiles_General_LandWaterEdge(u16 timer)
@@ -1572,6 +1588,12 @@ static void QueueAnimTiles_Tarc3_WaterCurrents(u8 timer)
 {
     u8 i = timer % ARRAY_COUNT(gTilesetAnims_Tarc3_WaterCurrents);
     AppendTilesetAnimToBuffer(gTilesetAnims_Tarc3_WaterCurrents[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(0x3F8)), 8 * TILE_SIZE_4BPP);
+}
+
+static void QueueAnimTiles_Tarc3_Lava(u16 timer)
+{
+    u16 i = timer % ARRAY_COUNT(gTilesetAnims_Tarc3_Lava);
+    AppendTilesetAnimToBuffer(gTilesetAnims_Tarc3_Lava[i], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(0x3AC)), 4 * TILE_SIZE_4BPP);
 }
 
 static void QueueAnimTiles_Tarc3_Flowers(u16 timer_div, u8 timer_mod)
