@@ -349,6 +349,72 @@
       "y": 12,
       "respawn_map": "MAP_SIX_ISLAND_POKEMON_CENTER_1F",
       "respawn_npc": "LOCALID_SIX_ISLAND_NURSE"
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_COMBUSKEN",
+      "map": "MAP_TARC3_BASE",
+      "x": 64,
+      "y": 35
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_DEWPIDER",
+      "map": "MAP_TARC3_BASE",
+      "x": 11,
+      "y": 46
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_FLYGON",
+      "map": "MAP_TARC3_BASE",
+      "x": 47,
+      "y": 53
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_GASTRODON",
+      "map": "MAP_TARC3_BASE",
+      "x": 23,
+      "y": 70
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_HELIOLISK",
+      "map": "MAP_TARC3_BASE",
+      "x": 11,
+      "y": 29
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_MUNCHLAX",
+      "map": "MAP_TARC3_BASE",
+      "x": 47,
+      "y": 31
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_SLOWKING",
+      "map": "MAP_TARC3_BASE",
+      "x": 66,
+      "y": 54
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_START",
+      "map": "MAP_TARC3_BASE",
+      "x": 10,
+      "y": 18
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_TORKOAL",
+      "map": "MAP_TARC3_BASE",
+      "x": 70,
+      "y": 18
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_TOXICROAK",
+      "map": "MAP_TARC3_BASE",
+      "x": 48,
+      "y": 66
+    },
+    {
+      "id": "HEAL_LOCATION_TARC3_VULPIX",
+      "map": "MAP_TARC3_BASE",
+      "x": 2,
+      "y": 30
     }
   ]
 }
