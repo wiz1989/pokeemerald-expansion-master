@@ -391,7 +391,7 @@ static void (*const sMovementStatusHandler[])(struct LinkPlayerObjectEvent *, st
 // code
 void DoWhiteOut(void)
 {
-    RunScriptImmediately(EventScript_WhiteOut);
+    // RunScriptImmediately(EventScript_WhiteOut);
     HealPlayerParty();
     Overworld_ResetStateAfterWhiteOut();
     SetWarpDestinationToLastHealLocation();
@@ -742,6 +742,8 @@ void SetWarpDestinationToHealLocation(u8 healLocationId)
 
 static bool32 IsWhiteoutCutscene(void)
 {
+    return FALSE;
+
     if (OW_WHITEOUT_CUTSCENE < GEN_4)
         return FALSE;
     return GetHealNpcLocalId(GetHealLocationIndexByWarpData(&gSaveBlock1Ptr->lastHealLocation)) != LOCALID_NONE;
@@ -1931,7 +1933,7 @@ void CB2_WhiteOut(void)
 {
     u8 state;
 
-    if (++gMain.state >= 120)
+    if (++gMain.state >= 60)
     {
         FieldClearVBlankHBlankCallbacks();
         StopMapMusic();

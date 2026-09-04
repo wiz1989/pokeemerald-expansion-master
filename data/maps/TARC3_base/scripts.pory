@@ -28,6 +28,7 @@ script TARC3_Base_Paras {
 	cant_see_if_set(FLAG_BASE_PARAS_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setrespawn(HEAL_LOCATION_TARC3_START)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_NORMAL) // wiz1989: change mugshot!
 	setspeaker("Paras")
@@ -58,6 +59,7 @@ script TARC3_Base_Vulpix {
 	cant_see_if_set(FLAG_BASE_VULPIX_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setrespawn(HEAL_LOCATION_TARC3_VULPIX)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_NORMAL) // wiz1989: change mugshot!
 	setspeaker("Vulpix")
@@ -89,6 +91,7 @@ script TARC3_Base_Dewpider {
     lock
 	setrespawn(HEAL_LOCATION_TARC3_DEWPIDER)
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_NORMAL) // wiz1989: change mugshot!
 	setspeaker("Dewpider")
 	if (flag(FLAG_BASE_DEWPIDER_BEATEN))
@@ -118,6 +121,7 @@ script TARC3_Base_Wooper_backup {
 	cant_see_if_set(FLAG_BASE_WOOPER_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	// createfieldmugshot(MUGSHOT_WOOPER, EMOTE_NORMAL)
 	setspeaker("Wooper")
 	if (flag(FLAG_BASE_WOOPER_BEATEN))
@@ -148,6 +152,7 @@ script TARC3_Amber_Munchlax {
 	cant_see_if_set(FLAG_BASE_MUNCHLAX_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setrespawn(HEAL_LOCATION_TARC3_MUNCHLAX)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_NORMAL) // wiz1989: change mugshot!
 	setspeaker("Munchlax")
@@ -187,6 +192,7 @@ script TARC3_Amber_Combusken {
 	cant_see_if_set(FLAG_BASE_COMBUSKEN_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setrespawn(HEAL_LOCATION_TARC3_COMBUSKEN)
 	setspeaker("Combusken")
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
@@ -217,6 +223,7 @@ script TARC3_Amber_Observer {
 	cant_see_if_set(FLAG_BASE_HELIOPTILE_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setrespawn(HEAL_LOCATION_TARC3_HELIOPTILE)
 	setspeaker("Helioptile")
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
@@ -246,6 +253,7 @@ script TARC3_Amber_Torkoal {
 	cant_see_if_set(FLAG_BASE_TORKOAL_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setrespawn(HEAL_LOCATION_TARC3_TORKOAL)
 	setspeaker("Torkoal")
 	// createfieldmugshot(MUGSHOT_TORKOAL, EMOTE_ALT)
@@ -276,6 +284,7 @@ script TARC3_Azure_Toxicroak {
 	cant_see_if_set(FLAG_BASE_TOXICROAK_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setspeaker("Toxicroak")
 	setrespawn(HEAL_LOCATION_TARC3_TOXICROAK)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
@@ -306,6 +315,7 @@ script TARC3_Azure_Gastrodon {
 	cant_see_if_set(FLAG_BASE_GASTRODON_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setspeaker("Gastrodon")
 	setrespawn(HEAL_LOCATION_TARC3_GASTRODON)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
@@ -336,6 +346,7 @@ script TARC3_Azure_Observer {
 	cant_see_if_set(FLAG_BASE_SLOWKING_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setspeaker("Drampa")
 	setrespawn(HEAL_LOCATION_TARC3_SLOWKING)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
@@ -365,6 +376,7 @@ script TARC3_Azure_Flygon {
 	cant_see_if_set(FLAG_BASE_FLYGON_BEATEN)
     lock
 	faceplayer
+	call(Common_EventScript_PlaySpeciesCry_Return)
 	setspeaker("Flygon")
 	setrespawn(HEAL_LOCATION_TARC3_FLYGON)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
