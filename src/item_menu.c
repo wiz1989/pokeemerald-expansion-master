@@ -320,8 +320,8 @@ static const struct MenuAction sItemMenuActions[] = {
 // these are all 2D arrays with a width of 2 but are represented as 1D arrays
 // ACTION_DUMMY is used to represent blank spaces
 static const u8 sContextMenuItems_ItemsPocket[] = {
-    ACTION_USE,         ACTION_GIVE,
-    ACTION_TOSS,        ACTION_CANCEL
+    ACTION_CANCEL,      ACTION_DUMMY,
+    ACTION_DUMMY,       ACTION_DUMMY
 };
 
 static const u8 sContextMenuItems_KeyItemsPocket[] = {

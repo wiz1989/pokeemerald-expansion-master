@@ -1,0 +1,53 @@
+mapscripts  TARC3_WeatherInstitute_2F_MapScripts {
+}
+
+// ### object scripts ###
+
+script TARC3_Lab_F2_Psyduck {
+    lock
+	faceplayer
+	playmoncry(SPECIES_PSYDUCK, CRY_MODE_NORMAL)
+	setspeaker("Psyduck")
+	msgbox("Oh no oh no oh no...")
+	release
+    end
+}
+
+script TARC3_Lab_F2_Porygon {
+    lock
+	faceplayer
+	playmoncry(SPECIES_PORYGON, CRY_MODE_NORMAL)
+	setspeaker("Porygon Z")
+	msgbox("The professor is acting dubious.\pI don't understand the issue.\pLife is a simulation anyways.")
+	release
+    end
+}
+
+script TARC3_Lab_F2_Xatu {
+    lock
+	faceplayer
+	playmoncry(SPECIES_XATU, CRY_MODE_NORMAL)
+	setspeaker("Prof. Xatu")
+	msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+	release
+    end
+}
+
+
+// script TARC3_Find_IceClimb {
+// 	finditem(ITEM_TM01, 1)
+// 	end
+// }
+
+// script TARC3_Dummy_Start_Amber {
+// 	lockall
+// 	setvar(VAR_CASTFORM_PHASE, 1)
+// 	finditem(ITEM_RED_SHARD, 1)
+// 	givemon(SPECIES_CASTFORM_SUNNY, 25)
+// 	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
+// 	waitmessage
+// 	warp(MAP_TARC3_BASE, 0)
+// 	waitstate
+// 	releaseall
+// 	end
+// }

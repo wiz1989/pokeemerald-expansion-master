@@ -3098,7 +3098,7 @@ void TryRestoreWeatherTrigger(void)
 {
     if (gBattleStruct->weatherSpriteIds[0] != MAX_SPRITES)
         TryHideOrRestoreWeatherTrigger(1);
-    else
+    else if (VarGet(VAR_CASTFORM_PHASE) > PHASE_BASE)
         AddWeatherTriggerSprite();
 }
 

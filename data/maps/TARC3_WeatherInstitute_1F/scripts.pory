@@ -1,0 +1,63 @@
+mapscripts  TARC3_WeatherInstitute_1F_MapScripts {
+}
+
+// ### object scripts ###
+
+script TARC3_Lab_F1_Rotom {
+    lock
+	faceplayer
+	playmoncry(SPECIES_ROTOM, CRY_MODE_NORMAL)
+	setspeaker("Rotom")
+	msgbox("Bzzz... Bzzz...\pWe are charging the reactor!")
+	release
+    end
+}
+
+script TARC3_Lab_F1_Pansage {
+    lock
+	faceplayer
+	playmoncry(SPECIES_PANSAGE, CRY_MODE_NORMAL)
+	setspeaker("Pansage")
+	msgbox("I am the most skilled employee\nof this facility.\pDon't disturb me!")
+	release
+    end
+}
+
+script TARC3_Lab_F1_Magnemite {
+    lock
+	faceplayer
+	playmoncry(SPECIES_MAGNEMITE, CRY_MODE_NORMAL)
+	setspeaker("Magnemite")
+	msgbox("I am watching the facility's\nsecurity system.\pDo not tamper with the equipment!")
+	release
+    end
+}
+
+script TARC3_Lab_F1_Metagross {
+    lock
+	faceplayer
+	playmoncry(SPECIES_METAGROSS, CRY_MODE_NORMAL)
+	setspeaker("Metagross")
+	msgbox("I will give some helpful advice!")
+	release
+    end
+}
+
+
+// script TARC3_Find_IceClimb {
+// 	finditem(ITEM_TM01, 1)
+// 	end
+// }
+
+// script TARC3_Dummy_Start_Amber {
+// 	lockall
+// 	setvar(VAR_CASTFORM_PHASE, 1)
+// 	finditem(ITEM_RED_SHARD, 1)
+// 	givemon(SPECIES_CASTFORM_SUNNY, 25)
+// 	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
+// 	waitmessage
+// 	warp(MAP_TARC3_BASE, 0)
+// 	waitstate
+// 	releaseall
+// 	end
+// }

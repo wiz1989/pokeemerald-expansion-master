@@ -654,6 +654,7 @@ u16 GetCurrentTransformationSpecies(void)
     if (!IsSpeciesValidTransformation(speciesId))
         return SPECIES_CASTFORM;
 
+    gSpecialVar_Result = speciesId;
     return speciesId;
 }
 

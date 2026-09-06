@@ -51,6 +51,19 @@ static bool8 JumpInPlaceBuriedTrainer(u8 taskId, struct Task *task, struct Objec
 static bool8 WaitRevealBuriedTrainer(u8 taskId, struct Task *task, struct ObjectEvent *trainerObj);
 
 static void SpriteCB_TrainerIcons(struct Sprite *sprite);
+static void SpriteCB_WantToBattleIcon(struct Sprite *sprite);
+
+#define sLocalId    data[0]
+#define sMapNum     data[1]
+#define sMapGroup   data[2]
+#define sYVelocity  data[3]
+#define sYOffset    data[4]
+#define sFldEffId   data[7]
+
+#define TRAINER_ICON_ANIM_EXCLAMATION       0
+#define TRAINER_ICON_ANIM_QUESTION_MARK     1
+#define TRAINER_ICON_ANIM_DOUBLE_EXCL       2
+#define TRAINER_ICON_ANIM_X                 3
 
 // IWRAM common
 COMMON_DATA u16 gWhichTrainerToFaceAfterBattle = 0;
@@ -411,6 +424,16 @@ static const struct SpriteTemplate sSpriteTemplate_ExclamationQuestionMark =
     .callback = SpriteCB_TrainerIcons
 };
 
+static const struct SpriteTemplate sSpriteTemplate_WantToBattleIcon =
+{
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_MAY,
+    .oam = &sOamData_Icons,
+    .anims = sSpriteAnimTable_Icons,
+    .images = sSpriteImageTable_ExclamationQuestionMark,
+    .callback = SpriteCB_WantToBattleIcon
+};
+
 static const struct SpriteTemplate sSpriteTemplate_HeartIcon =
 {
     .tileTag = TAG_NONE,
@@ -555,8 +578,49 @@ static u8 CheckTrainer(u8 objectEventId)
     u8 numTrainers = 1;
 
     u8 approachDistance = GetTrainerApproachDistance(&gObjectEvents[objectEventId]);
-    if (approachDistance == 0)
-        return 0;
+
+    if (approachDistance == 0) // doesn't see player
+    { // add persistent icon above the NPC to show battle readiness
+        if (gObjectEvents[objectEventId].battleIconShown)
+            return FALSE;
+        
+        // only create icon if script starts with cant_see_if_set macro
+        const u8 *scriptPtr = GetObjectEventScriptPointerByObjectEventId(objectEventId);
+
+        if (scriptPtr && *scriptPtr == SCR_OP_CHECKFLAG)
+        {
+            struct ScriptContext tempCtx;
+
+            // read flag from the script ptr
+            tempCtx.scriptPtr = scriptPtr + 1;
+            u16 cantSeeFlag = ScriptReadHalfword(&tempCtx);
+            
+            // only show icon if trainer hasn't been beaten yet
+            if (!FlagGet(cantSeeFlag))
+            {
+                u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_WantToBattleIcon, 0, 0, 0x53);
+
+                if (spriteId != MAX_SPRITES)
+                {
+                    struct Sprite *sprite = &gSprites[spriteId];
+                    
+                    sprite->sLocalId = gObjectEvents[objectEventId].localId;
+                    sprite->sMapNum = gSaveBlock1Ptr->location.mapNum;
+                    sprite->sMapGroup = gSaveBlock1Ptr->location.mapGroup;
+                    sprite->sYVelocity = -5;
+                    sprite->sYOffset = 0;
+                    sprite->sFldEffId = FLDEFF_DOUBLE_EXCL_MARK_ICON;
+                    sprite->oam.priority = 1;
+                    sprite->coordOffsetEnabled = 1;
+                    UpdateSpritePaletteByTemplate(&sSpriteTemplate_WantToBattleIcon, sprite);
+                    StartSpriteAnim(sprite, TRAINER_ICON_ANIM_DOUBLE_EXCL);
+                }
+                gObjectEvents[objectEventId].battleIconShown = TRUE;
+            }
+        }
+
+        return FALSE;
+    }
 
     if (InTrainerHill() == TRUE)
     {
@@ -1027,20 +1091,13 @@ void TryPrepareSecondApproachingTrainer(void)
     }
 }
 
-#define sLocalId    data[0]
-#define sMapNum     data[1]
-#define sMapGroup   data[2]
-#define sYVelocity  data[3]
-#define sYOffset    data[4]
-#define sFldEffId   data[7]
-
 u8 FldEff_ExclamationMarkIcon(void)
 {
     u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_ExclamationQuestionMark, 0, 0, 0x53);
 
     if (spriteId != MAX_SPRITES)
     {
-        SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, 0);
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_EXCLAMATION_MARK_ICON, TRAINER_ICON_ANIM_EXCLAMATION);
         UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, &gSprites[spriteId]);
     }
 
@@ -1065,7 +1122,7 @@ u8 FldEff_QuestionMarkIcon(void)
 
     if (spriteId != MAX_SPRITES)
     {
-        SetIconSpriteData(&gSprites[spriteId], FLDEFF_QUESTION_MARK_ICON, 1);
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_QUESTION_MARK_ICON, TRAINER_ICON_ANIM_QUESTION_MARK);
         UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, &gSprites[spriteId]);
     }
 
@@ -1080,7 +1137,7 @@ u8 FldEff_HeartIcon(void)
     {
         struct Sprite *sprite = &gSprites[spriteId];
 
-        SetIconSpriteData(sprite, FLDEFF_HEART_ICON, 0);
+        SetIconSpriteData(sprite, FLDEFF_HEART_ICON, TRAINER_ICON_ANIM_EXCLAMATION);
         UpdateSpritePaletteByTemplate(&sSpriteTemplate_HeartIcon, sprite);
     }
 
@@ -1095,7 +1152,7 @@ u8 FldEff_DoubleExclMarkIcon(void)
     {
         struct Sprite *sprite = &gSprites[spriteId];
 
-        SetIconSpriteData(sprite, FLDEFF_DOUBLE_EXCL_MARK_ICON, 2);
+        SetIconSpriteData(sprite, FLDEFF_DOUBLE_EXCL_MARK_ICON, TRAINER_ICON_ANIM_DOUBLE_EXCL);
         UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, sprite);
     }
 
@@ -1110,7 +1167,7 @@ u8 FldEff_XIcon(void)
     {
         struct Sprite *sprite = &gSprites[spriteId];
 
-        SetIconSpriteData(sprite, FLDEFF_X_ICON, 3);
+        SetIconSpriteData(sprite, FLDEFF_X_ICON, TRAINER_ICON_ANIM_X);
         UpdateSpritePaletteByTemplate(&sSpriteTemplate_ExclamationQuestionMark, sprite);
     }
 
@@ -1122,7 +1179,7 @@ u8 FldEff_SmileyFaceIcon(void)
     u8 spriteId = CreateSpriteAtEnd(&sSpriteTemplate_Emoticons, 0, 0, 0x53);
 
     if (spriteId != MAX_SPRITES)
-        SetIconSpriteData(&gSprites[spriteId], FLDEFF_SMILEY_FACE_ICON, 3);
+        SetIconSpriteData(&gSprites[spriteId], FLDEFF_SMILEY_FACE_ICON, TRAINER_ICON_ANIM_X);
 
     return 0;
 }
@@ -1148,6 +1205,35 @@ static void SpriteCB_TrainerIcons(struct Sprite *sprite)
     if (TryGetObjectEventIdByLocalIdAndMap(sprite->sLocalId, sprite->sMapNum, sprite->sMapGroup, &objEventId)
      || sprite->animEnded)
     {
+        FieldEffectStop(sprite, sprite->sFldEffId);
+    }
+    else
+    {
+        struct Sprite *objEventSprite = &gSprites[gObjectEvents[objEventId].spriteId];
+        sprite->sYOffset += sprite->sYVelocity;
+        sprite->x = objEventSprite->x;
+        sprite->y = objEventSprite->y - 16;
+        sprite->x2 = objEventSprite->x2;
+        sprite->y2 = objEventSprite->y2 + sprite->sYOffset;
+        if (sprite->sYOffset)
+            sprite->sYVelocity++;
+        else
+            sprite->sYVelocity = 0;
+    }
+}
+
+static void SpriteCB_WantToBattleIcon(struct Sprite *sprite)
+{
+    u8 objEventId;
+
+    if (TryGetObjectEventIdByLocalIdAndMap(sprite->sLocalId, sprite->sMapNum, sprite->sMapGroup, &objEventId))
+    {
+        FieldEffectStop(sprite, sprite->sFldEffId);
+    }
+    else if (GetTrainerApproachDistance(&gObjectEvents[objEventId]) > 0)
+    {
+        // destroy when regular trainer icon (!) pops up
+        gObjectEvents[objEventId].battleIconShown = FALSE;
         FieldEffectStop(sprite, sprite->sFldEffId);
     }
     else

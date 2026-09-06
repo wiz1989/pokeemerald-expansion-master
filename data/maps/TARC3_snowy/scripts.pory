@@ -1,0 +1,3 @@
+mapscripts  TARC3_snowy_MapScripts {
+	MAP_SCRIPT_ON_RESUME: TARC3_Base_OnResume
+}
