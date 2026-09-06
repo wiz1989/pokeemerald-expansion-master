@@ -4,6 +4,18 @@ mapscripts  TARC3_base_MapScripts {
 
 script TARC3_Base_OnResume {
 	setstepcallback(STEP_CB_CLAY_TILES)
+	
+	callnative(GetCurrentTransformationSpecies) // = get current weather/map
+	switch (var(VAR_RESULT))
+	{
+		case SPECIES_CASTFORM_RAINY:
+			clearflag(FLAG_HIDE_ITEM_UNDERWATER)
+		case SPECIES_CASTFORM_SNOWY:
+		case SPECIES_CASTFORM_SUNNY:
+		case SPECIES_CASTFORM:
+		default:
+			setflag(FLAG_HIDE_ITEM_UNDERWATER)
+	}
 	end
 }
 
@@ -34,7 +46,7 @@ script TARC3_Base_Paras {
 	setspeaker("Paras")
 	if (flag(FLAG_BASE_PARAS_BEATEN))
 	{
-		goto(TARC3_Base_Paras_Post)
+		goto(TARC3_Paras_Post)
 	}
 	else
 	{
@@ -65,11 +77,11 @@ script TARC3_Base_Vulpix {
 	setspeaker("Vulpix")
 	if (flag(FLAG_BASE_VULPIX_BEATEN))
 	{
-		msgbox("I still like you!")
+		goto(TARC3_Vulpix_Post)
 	}
 	else
 	{
-		msgbox("Hi, I'm VULPIX.\nLet's battle!")
+		msgbox("I don't care about the weather.\pFor me the sun is always shining!")
 		setwildbattle(SPECIES_VULPIX, 25)
 		playmoncry(SPECIES_VULPIX, CRY_MODE_ENCOUNTER)
 		delay(40)
@@ -96,11 +108,11 @@ script TARC3_Base_Dewpider {
 	setspeaker("Dewpider")
 	if (flag(FLAG_BASE_DEWPIDER_BEATEN))
 	{
-		msgbox("I still like you!")
+		goto(TARC3_Dewpider_Post)
 	}
 	else
 	{
-		msgbox("Hi, I'm DEWPIDER.\nLet's battle!")
+		msgbox("There is a strange rock at the\nTree of Life.\pIt feels dangerous to the life\nat the pond\pYou must not touch it!")
 		setwildbattle(SPECIES_DEWPIDER, 25)
 		playmoncry(SPECIES_DEWPIDER, CRY_MODE_ENCOUNTER)
 		delay(40)
@@ -405,7 +417,7 @@ script TARC3_Azure_Flygon {
 
 // end battle scripts
 
-script TARC3_Base_Paras_Post {
+script TARC3_Paras_Post {
 	playmoncry(SPECIES_SURSKIT, CRY_MODE_NORMAL)
 
 	callnative(GetCurrentTransformationSpecies)
@@ -424,12 +436,51 @@ script TARC3_Base_Paras_Post {
     end
 }
 
-script TARC3_Base_Surskit {
+script TARC3_Surskit {
     lock
 	faceplayer
 	playmoncry(SPECIES_SURSKIT, CRY_MODE_NORMAL)
 	setspeaker("Surskit")
-	msgbox("The weather has been crazy lately!\pI hope it calms down soon.")
+	callnative(GetCurrentTransformationSpecies)
+	switch (var(VAR_RESULT))
+	{
+		case SPECIES_CASTFORM_SUNNY:
+			msgbox("My pond!\nWhere did it go???")
+		case SPECIES_CASTFORM_RAINY:
+			msgbox("You made this rain?\pI LOVE IT!\nPlease never make it stop.")
+		case SPECIES_CASTFORM_SNOWY:
+		case SPECIES_CASTFORM:
+		default:
+			msgbox("The weather has been crazy lately!\pI hope it calms down soon.")
+	}
+	release
+    end
+}
+
+script TARC3_Vulpix_Post {
+	playmoncry(SPECIES_VULPIX, CRY_MODE_NORMAL)
+
+	callnative(GetCurrentTransformationSpecies)
+	switch (var(VAR_RESULT))
+	{
+		default:
+			msgbox("You transformed and even\nchanged your moveset?\pThat is so cool!\nHow did you do that?")
+	}
+	release
+    end
+}
+
+script TARC3_Dewpider_Post {
+	playmoncry(SPECIES_DEWPIDER, CRY_MODE_NORMAL)
+
+	callnative(GetCurrentTransformationSpecies)
+	switch (var(VAR_RESULT))
+	{
+		case SPECIES_CASTFORM_SUNNY:
+			msgbox("What did you do???\pWhere did my home go???")
+		default:
+			msgbox("Please be careful!")
+	}
 	release
     end
 }
@@ -457,6 +508,11 @@ script TARC3_Whimsicott {
     end
 }
 
+script TARC3_Sign_TreeOfLife {
+	msgbox("Tree of Life\pOnly Arceus may enter.")
+	end
+}
+
 script TARC3_Find_IceClimb {
 	finditem(ITEM_TM01, 1)
 	end
@@ -465,7 +521,7 @@ script TARC3_Find_IceClimb {
 script TARC3_Dummy_Start_Amber {
 	lockall
 	setvar(VAR_CASTFORM_PHASE, 1)
-	finditem(ITEM_RED_SHARD, 1)
+	finditem(ITEM_HEAT_ROCK, 1)
 	givemon(SPECIES_CASTFORM_SUNNY, 25)
 	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
 	waitmessage

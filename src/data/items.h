@@ -9335,7 +9335,7 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_DAMP_ROCK] =
     {
-        .name = ITEM_NAME("Damp Rock"),
+        .name = ITEM_NAME("Azure Shard"),
     #if I_PRICE >= GEN_9
         .price = 8000,
     #elif I_PRICE >= GEN_7
@@ -9343,11 +9343,10 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 200,
     #endif
-        .holdEffect = HOLD_EFFECT_DAMP_ROCK,
         .description = COMPOUND_STRING(
-            "Extends the length\n"
-            "of Rain Dance if\n"
-            "used by the holder."),
+            "A mysterious shard\n"
+            "that's dripping wet.\n"
+            "WTF?"),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -9359,7 +9358,7 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_HEAT_ROCK] =
     {
-        .name = ITEM_NAME("Heat Rock"),
+        .name = ITEM_NAME("Amber Shard"),
     #if I_PRICE >= GEN_9
         .price = 8000,
     #elif I_PRICE >= GEN_7
@@ -9367,11 +9366,9 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 200,
     #endif
-        .holdEffect = HOLD_EFFECT_HEAT_ROCK,
         .description = COMPOUND_STRING(
-            "Extends the length\n"
-            "of Sunny Day if\n"
-            "used by the holder."),
+            "A mysterious shard\n"
+            "that radiates heat."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,
@@ -9391,7 +9388,6 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 200,
     #endif
-        .holdEffect = HOLD_EFFECT_SMOOTH_ROCK,
         .description = COMPOUND_STRING(
             "Extends the length\n"
             "of Sandstorm if\n"
@@ -9407,7 +9403,7 @@ const struct ItemInfo gItemsInfo[] =
 
     [ITEM_ICY_ROCK] =
     {
-        .name = ITEM_NAME("Icy Rock"),
+        .name = ITEM_NAME("Glacial Shard"),
     #if I_PRICE >= GEN_9
         .price = 8000,
     #elif I_PRICE >= GEN_7
@@ -9415,23 +9411,9 @@ const struct ItemInfo gItemsInfo[] =
     #else
         .price = 200,
     #endif
-        .holdEffect = HOLD_EFFECT_ICY_ROCK,
-    #if B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_HAIL
         .description = COMPOUND_STRING(
-            "Extends the length\n"
-            "of the move Hail\n"
-            "used by the holder."),
-    #elif B_PREFERRED_ICE_WEATHER == B_ICE_WEATHER_SNOW
-        .description = COMPOUND_STRING(
-            "Extends the length\n"
-            "of Snowscape if\n"
-            "used by the holder."),
-    #else
-        .description = COMPOUND_STRING(
-            "Extends the length\n"
-            "of cold weathers\n"
-            "used by the holder."),
-    #endif
+            "A mysterious shard\n"
+            "that radiates cold."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_HELD_ITEM,
         .type = ITEM_USE_BAG_MENU,

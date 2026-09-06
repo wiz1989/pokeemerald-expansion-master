@@ -38,7 +38,7 @@ script TARC3_Lab_F1_Metagross {
 	faceplayer
 	playmoncry(SPECIES_METAGROSS, CRY_MODE_NORMAL)
 	setspeaker("Metagross")
-	msgbox("I will give some advice!")
+	msgbox("I will give some helpful advice!")
 	release
     end
 }
