@@ -34,11 +34,11 @@ script TARC3_Base_Paras {
 	setspeaker("Paras")
 	if (flag(FLAG_BASE_PARAS_BEATEN))
 	{
-		msgbox("I still like you!")
+		goto(TARC3_Base_Paras_Post)
 	}
 	else
 	{
-		msgbox("Hi, I'm PARAS.\nLet's battle!")
+		msgbox("Weather Shards?\nI only heard of fungal spores.\pDoes that help?")
 		setwildbattle(SPECIES_PARAS, 25)
 		playmoncry(SPECIES_PARAS, CRY_MODE_ENCOUNTER)
 		delay(40)
@@ -404,6 +404,35 @@ script TARC3_Azure_Flygon {
 }
 
 // end battle scripts
+
+script TARC3_Base_Paras_Post {
+	playmoncry(SPECIES_SURSKIT, CRY_MODE_NORMAL)
+
+	callnative(GetCurrentTransformationSpecies)
+	switch (var(VAR_RESULT))
+	{
+		case SPECIES_CASTFORM_SUNNY:
+			msgbox("I am enjoying the warmth!\pJust keep any Fire Types away!")
+		case SPECIES_CASTFORM_RAINY:
+		case SPECIES_CASTFORM_SNOWY:
+			msgbox("What's this weather?\pThis is miserable, I can't stand it!")
+		case SPECIES_CASTFORM:
+		default:
+			msgbox("You can make it sunny?\pI am rooting for you!")
+	}
+	release
+    end
+}
+
+script TARC3_Base_Surskit {
+    lock
+	faceplayer
+	playmoncry(SPECIES_SURSKIT, CRY_MODE_NORMAL)
+	setspeaker("Surskit")
+	msgbox("The weather has been crazy lately!\pI hope it calms down soon.")
+	release
+    end
+}
 
 script TARC3_Whimsicott {
     lock

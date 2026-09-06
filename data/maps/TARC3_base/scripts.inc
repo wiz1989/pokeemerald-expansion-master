@@ -42,7 +42,7 @@ TARC3_Base_Paras::
 # 35 "data/maps/TARC3_base/scripts.pory"
 	goto_if_set FLAG_BASE_PARAS_BEATEN, TARC3_Base_Paras_2
 # 41 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_2
+	msgbox TARC3_Base_Paras_Text_1
 # 42 "data/maps/TARC3_base/scripts.pory"
 	setwildbattle SPECIES_PARAS, 25
 # 43 "data/maps/TARC3_base/scripts.pory"
@@ -65,7 +65,7 @@ TARC3_Base_Paras_1:
 
 TARC3_Base_Paras_2:
 # 37 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	goto TARC3_Base_Paras_Post
 	goto TARC3_Base_Paras_1
 
 TARC3_Base_Paras_5:
@@ -90,7 +90,7 @@ TARC3_Base_Vulpix::
 # 66 "data/maps/TARC3_base/scripts.pory"
 	goto_if_set FLAG_BASE_VULPIX_BEATEN, TARC3_Base_Vulpix_2
 # 72 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Vulpix_Text_1
+	msgbox TARC3_Base_Vulpix_Text_2
 # 73 "data/maps/TARC3_base/scripts.pory"
 	setwildbattle SPECIES_VULPIX, 25
 # 74 "data/maps/TARC3_base/scripts.pory"
@@ -113,7 +113,7 @@ TARC3_Base_Vulpix_1:
 
 TARC3_Base_Vulpix_2:
 # 68 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Base_Vulpix_1
 
 TARC3_Base_Vulpix_5:
@@ -161,7 +161,7 @@ TARC3_Base_Dewpider_1:
 
 TARC3_Base_Dewpider_2:
 # 99 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Base_Dewpider_1
 
 TARC3_Base_Dewpider_5:
@@ -258,7 +258,7 @@ TARC3_Amber_Munchlax_1:
 
 TARC3_Amber_Munchlax_2:
 # 161 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Amber_Munchlax_1
 
 TARC3_Amber_Munchlax_5:
@@ -313,7 +313,7 @@ TARC3_Amber_Combusken_1:
 
 TARC3_Amber_Combusken_2:
 # 201 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Amber_Combusken_1
 
 TARC3_Amber_Combusken_5:
@@ -407,7 +407,7 @@ TARC3_Amber_Torkoal_1:
 
 TARC3_Amber_Torkoal_2:
 # 262 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Amber_Torkoal_1
 
 TARC3_Amber_Torkoal_5:
@@ -455,7 +455,7 @@ TARC3_Azure_Toxicroak_1:
 
 TARC3_Azure_Toxicroak_2:
 # 293 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Azure_Toxicroak_1
 
 TARC3_Azure_Toxicroak_5:
@@ -503,7 +503,7 @@ TARC3_Azure_Gastrodon_1:
 
 TARC3_Azure_Gastrodon_2:
 # 324 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Azure_Gastrodon_1
 
 TARC3_Azure_Gastrodon_5:
@@ -597,7 +597,7 @@ TARC3_Azure_Flygon_1:
 
 TARC3_Azure_Flygon_2:
 # 385 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Base_Paras_Text_1
+	msgbox TARC3_Base_Vulpix_Text_1
 	goto TARC3_Azure_Flygon_1
 
 TARC3_Azure_Flygon_5:
@@ -608,64 +608,114 @@ TARC3_Azure_Flygon_5:
 	goto TARC3_Azure_Flygon_1
 
 
-TARC3_Whimsicott::
+TARC3_Base_Paras_Post::
 # 409 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 410 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
+	playmoncry SPECIES_SURSKIT, CRY_MODE_NORMAL
 # 411 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Whimsicott_Text_0
-# 413 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_WHIMSICOTT_GAVE_SEED, TARC3_Whimsicott_2
+	callnative GetCurrentTransformationSpecies
+# 412 "data/maps/TARC3_base/scripts.pory"
+	switch VAR_RESULT
+# 414 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM_SUNNY, TARC3_Base_Paras_Post_3
+# 416 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM_RAINY, TARC3_Base_Paras_Post_4
+# 417 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM_SNOWY, TARC3_Base_Paras_Post_4
 # 419 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Whimsicott_Text_2
-# 420 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_WHIMSICOTT, CRY_MODE_NORMAL
+	case SPECIES_CASTFORM, TARC3_Base_Paras_Post_5
+TARC3_Base_Paras_Post_5:
 # 421 "data/maps/TARC3_base/scripts.pory"
-	delay 40
-# 422 "data/maps/TARC3_base/scripts.pory"
-	waitmoncry
+	msgbox TARC3_Base_Paras_Post_Text_2
+TARC3_Base_Paras_Post_1:
 # 423 "data/maps/TARC3_base/scripts.pory"
+	release
+	end
+
+TARC3_Base_Paras_Post_3:
+# 415 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Base_Paras_Post_Text_0
+	goto TARC3_Base_Paras_Post_1
+
+TARC3_Base_Paras_Post_4:
+# 418 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Base_Paras_Post_Text_1
+	goto TARC3_Base_Paras_Post_1
+
+
+TARC3_Base_Surskit::
+# 428 "data/maps/TARC3_base/scripts.pory"
+	lock
+# 429 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 430 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_SURSKIT, CRY_MODE_NORMAL
+# 431 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Base_Surskit_Text_0
+# 432 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Base_Surskit_Text_1
+# 433 "data/maps/TARC3_base/scripts.pory"
+	release
+	end
+
+
+TARC3_Whimsicott::
+# 438 "data/maps/TARC3_base/scripts.pory"
+	lock
+# 439 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 440 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Whimsicott_Text_0
+# 442 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_WHIMSICOTT_GAVE_SEED, TARC3_Whimsicott_2
+# 448 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Whimsicott_Text_2
+# 449 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_WHIMSICOTT, CRY_MODE_NORMAL
+# 450 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 451 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 452 "data/maps/TARC3_base/scripts.pory"
 	giveitem ITEM_WEPEAR_BERRY, 1
-# 424 "data/maps/TARC3_base/scripts.pory"
+# 453 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_WHIMSICOTT_GAVE_SEED
-# 425 "data/maps/TARC3_base/scripts.pory"
+# 454 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Whimsicott_Text_1
 TARC3_Whimsicott_1:
-# 427 "data/maps/TARC3_base/scripts.pory"
+# 456 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Whimsicott_2:
-# 415 "data/maps/TARC3_base/scripts.pory"
+# 444 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Whimsicott_Text_1
 	goto TARC3_Whimsicott_1
 
 
 TARC3_Find_IceClimb::
-# 432 "data/maps/TARC3_base/scripts.pory"
+# 461 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_TM01, 1
 	end
 
 
 TARC3_Dummy_Start_Amber::
-# 437 "data/maps/TARC3_base/scripts.pory"
+# 466 "data/maps/TARC3_base/scripts.pory"
 	lockall
-# 438 "data/maps/TARC3_base/scripts.pory"
+# 467 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_CASTFORM_PHASE, 1
-# 439 "data/maps/TARC3_base/scripts.pory"
+# 468 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_RED_SHARD, 1
-# 440 "data/maps/TARC3_base/scripts.pory"
+# 469 "data/maps/TARC3_base/scripts.pory"
 	givemon SPECIES_CASTFORM_SUNNY, 25
-# 441 "data/maps/TARC3_base/scripts.pory"
+# 470 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Dummy_Start_Amber_Text_0
-# 442 "data/maps/TARC3_base/scripts.pory"
+# 471 "data/maps/TARC3_base/scripts.pory"
 	waitmessage
-# 443 "data/maps/TARC3_base/scripts.pory"
+# 472 "data/maps/TARC3_base/scripts.pory"
 	warp MAP_TARC3_BASE, 0
-# 444 "data/maps/TARC3_base/scripts.pory"
+# 473 "data/maps/TARC3_base/scripts.pory"
 	waitstate
-# 445 "data/maps/TARC3_base/scripts.pory"
+# 474 "data/maps/TARC3_base/scripts.pory"
 	releaseall
 	end
 
@@ -675,18 +725,18 @@ TARC3_Base_Paras_Text_0:
 	.string "Paras$"
 
 TARC3_Base_Paras_Text_1:
-# 37 "data/maps/TARC3_base/scripts.pory"
-	.string "I still like you!$"
-
-TARC3_Base_Paras_Text_2:
 # 41 "data/maps/TARC3_base/scripts.pory"
-	.string "Hi, I'm PARAS.\nLet's battle!$"
+	.string "Weather Shards?\nI only heard of fungal spores.\pDoes that help?$"
 
 TARC3_Base_Vulpix_Text_0:
 # 65 "data/maps/TARC3_base/scripts.pory"
 	.string "Vulpix$"
 
 TARC3_Base_Vulpix_Text_1:
+# 68 "data/maps/TARC3_base/scripts.pory"
+	.string "I still like you!$"
+
+TARC3_Base_Vulpix_Text_2:
 # 72 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm VULPIX.\nLet's battle!$"
 
@@ -782,18 +832,38 @@ TARC3_Azure_Flygon_Text_1:
 # 389 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm FLYGON.\nLet's battle!$"
 
+TARC3_Base_Paras_Post_Text_0:
+# 415 "data/maps/TARC3_base/scripts.pory"
+	.string "I am enjoying the warmth!\pJust keep any Fire Types away!$"
+
+TARC3_Base_Paras_Post_Text_1:
+# 418 "data/maps/TARC3_base/scripts.pory"
+	.string "What's this weather?\pThis is miserable, I can't stand it!$"
+
+TARC3_Base_Paras_Post_Text_2:
+# 421 "data/maps/TARC3_base/scripts.pory"
+	.string "You can make it sunny?\pI am rooting for you!$"
+
+TARC3_Base_Surskit_Text_0:
+# 431 "data/maps/TARC3_base/scripts.pory"
+	.string "Surskit$"
+
+TARC3_Base_Surskit_Text_1:
+# 432 "data/maps/TARC3_base/scripts.pory"
+	.string "The weather has been crazy lately!\pI hope it calms down soon.$"
+
 TARC3_Whimsicott_Text_0:
-# 411 "data/maps/TARC3_base/scripts.pory"
+# 440 "data/maps/TARC3_base/scripts.pory"
 	.string "Whimsicott$"
 
 TARC3_Whimsicott_Text_1:
-# 415 "data/maps/TARC3_base/scripts.pory"
+# 444 "data/maps/TARC3_base/scripts.pory"
 	.string "You'll be a great gardener!$"
 
 TARC3_Whimsicott_Text_2:
-# 419 "data/maps/TARC3_base/scripts.pory"
+# 448 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm WHIMSICOTT.\nTake this seed!$"
 
 TARC3_Dummy_Start_Amber_Text_0:
-# 441 "data/maps/TARC3_base/scripts.pory"
+# 470 "data/maps/TARC3_base/scripts.pory"
 	.string "Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.$"

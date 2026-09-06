@@ -159,7 +159,7 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-    SetWarpDestination(MAP_GROUP(MAP_TARC3_BASE), MAP_NUM(MAP_TARC3_BASE), 0, 0, 0);
+    SetWarpDestination(MAP_GROUP(MAP_TARC3_WEATHER_INSTITUTE_2F), MAP_NUM(MAP_TARC3_WEATHER_INSTITUTE_2F), WARP_ID_NONE, 9, 8);
     WarpIntoMap();
 }
 
