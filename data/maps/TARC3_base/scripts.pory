@@ -9,12 +9,30 @@ script TARC3_Base_OnResume {
 	switch (var(VAR_RESULT))
 	{
 		case SPECIES_CASTFORM_RAINY:
-			clearflag(FLAG_HIDE_ITEM_UNDERWATER)
+			setflag(FLAG_HIDE_ITEM_UNDERWATER)
+			clearflag(FLAG_LAPRAS1_SOURCE_INVISIBLE)
+			clearflag(FLAG_LAPRAS2_SOURCE_INVISIBLE)
+			clearflag(FLAG_LAPRAS1_DEST_INVISIBLE)
+			clearflag(FLAG_LAPRAS2_DEST_INVISIBLE)
 		case SPECIES_CASTFORM_SNOWY:
+			setflag(FLAG_HIDE_ITEM_UNDERWATER)
+			clearflag(FLAG_LAPRAS1_SOURCE_INVISIBLE)
+			clearflag(FLAG_LAPRAS2_SOURCE_INVISIBLE)
+			clearflag(FLAG_LAPRAS1_DEST_INVISIBLE)
+			clearflag(FLAG_LAPRAS2_DEST_INVISIBLE)
 		case SPECIES_CASTFORM_SUNNY:
+			clearflag(FLAG_HIDE_ITEM_UNDERWATER)
+			setflag(FLAG_LAPRAS1_SOURCE_INVISIBLE)
+			setflag(FLAG_LAPRAS2_SOURCE_INVISIBLE)
+			setflag(FLAG_LAPRAS1_DEST_INVISIBLE)
+			setflag(FLAG_LAPRAS2_DEST_INVISIBLE)
 		case SPECIES_CASTFORM:
 		default:
 			setflag(FLAG_HIDE_ITEM_UNDERWATER)
+			clearflag(FLAG_LAPRAS1_SOURCE_INVISIBLE)
+			clearflag(FLAG_LAPRAS2_SOURCE_INVISIBLE)
+			clearflag(FLAG_LAPRAS1_DEST_INVISIBLE)
+			clearflag(FLAG_LAPRAS2_DEST_INVISIBLE)
 	}
 	end
 }
@@ -530,7 +548,7 @@ script TARC3_Dummy_Start_Amber {
 	givemon(SPECIES_CASTFORM_SUNNY, 25)
 	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
 	waitmessage
-	warp(MAP_TARC3_BASE, 0)
+	warp(MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8)
 	setflag(FLAG_ITEM_AMBER_SHARD)
 	waitstate
 	releaseall
