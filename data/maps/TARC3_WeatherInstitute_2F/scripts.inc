@@ -1,75 +1,228 @@
 TARC3_WeatherInstitute_2F_MapScripts::
+# 2 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, TARC3_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
+TARC3_WeatherInstitute_2F_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+# 3 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	map_script_2 VAR_TRIGGER_XATU_EVENT, 1, TARC3_WeatherInstitute_2F_AutoWalkToXatu
+	.2byte 0
+
+
+TARC3_WeatherInstitute_2F_AutoWalkToXatu::
+# 9 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	setvar VAR_TRIGGER_XATU_EVENT, 0
+# 10 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	compare VAR_CASTFORM_PHASE, 1
+	goto_if_eq TARC3_WeatherInstitute_2F_AutoWalkToXatu_3
+TARC3_WeatherInstitute_2F_AutoWalkToXatu_1:
+	end
+
+TARC3_WeatherInstitute_2F_AutoWalkToXatu_2:
+# 12 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	clearflag FLAG_RUN_XATU_AMBER
+# 13 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	applymovement LOCALID_PLAYER, Movement_ToXatu
+# 14 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	waitmovement 0
+# 15 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	setvar VAR_LAST_TALKED, LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU
+# 16 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	lock
+# 17 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	turnobject LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU, DIR_WEST
+# 18 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	goto TARC3_Lab_F2_Xatu
+	goto TARC3_WeatherInstitute_2F_AutoWalkToXatu_1
+
+TARC3_WeatherInstitute_2F_AutoWalkToXatu_3:
+# 10 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	goto_if_set FLAG_RUN_XATU_AMBER, TARC3_WeatherInstitute_2F_AutoWalkToXatu_2
+	goto TARC3_WeatherInstitute_2F_AutoWalkToXatu_1
+
+
+# 23 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+Movement_ToXatu:
+# 24 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	walk_right
+# 24 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	walk_right
+# 25 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	walk_up
+# 25 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	walk_up
+# 25 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	walk_up
+# 25 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	walk_up
+# 26 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	walk_right
+	step_end
 
 TARC3_Lab_F2_Psyduck::
-# 7 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 32 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	lock
-# 8 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 33 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	faceplayer
-# 9 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 34 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	playmoncry SPECIES_PSYDUCK, CRY_MODE_NORMAL
-# 10 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 35 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	setspeaker TARC3_Lab_F2_Psyduck_Text_0
-# 11 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 36 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	msgbox TARC3_Lab_F2_Psyduck_Text_1
-# 12 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 37 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	release
 	end
 
 
 TARC3_Lab_F2_Porygon::
-# 17 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 42 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	lock
-# 18 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 43 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	faceplayer
-# 19 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 44 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	playmoncry SPECIES_PORYGON, CRY_MODE_NORMAL
-# 20 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 45 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	setspeaker TARC3_Lab_F2_Porygon_Text_0
-# 21 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 46 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	msgbox TARC3_Lab_F2_Porygon_Text_1
-# 22 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 47 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	release
 	end
+
+
+TARC3_Lab_F2_Xatu_Manual::
+# 52 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	lock
+# 53 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	faceplayer
+# 54 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	playmoncry SPECIES_XATU, CRY_MODE_NORMAL
+# 55 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	setspeaker TARC3_Lab_F2_Xatu_Manual_Text_0
+# 57 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	switch VAR_CASTFORM_PHASE
+# 59 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 0, TARC3_Lab_F2_Xatu_Manual_3
+# 61 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 1, TARC3_Lab_F2_Xatu_Manual_4
+# 63 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 2, TARC3_Lab_F2_Xatu_Manual_5
+# 65 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 3, TARC3_Lab_F2_Xatu_Manual_6
+# 68 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+TARC3_Lab_F2_Xatu_Manual_1:
+# 71 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	release
+	end
+
+TARC3_Lab_F2_Xatu_Manual_3:
+# 60 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+	goto TARC3_Lab_F2_Xatu_Manual_1
+
+TARC3_Lab_F2_Xatu_Manual_4:
+# 62 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_2
+	goto TARC3_Lab_F2_Xatu_Manual_1
+
+TARC3_Lab_F2_Xatu_Manual_5:
+# 64 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+	goto TARC3_Lab_F2_Xatu_Manual_1
+
+TARC3_Lab_F2_Xatu_Manual_6:
+# 66 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+	goto TARC3_Lab_F2_Xatu_Manual_1
 
 
 TARC3_Lab_F2_Xatu::
-# 27 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	lock
-# 28 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	faceplayer
-# 29 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 76 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	playmoncry SPECIES_XATU, CRY_MODE_NORMAL
-# 30 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	setspeaker TARC3_Lab_F2_Xatu_Text_0
-# 31 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	msgbox TARC3_Lab_F2_Xatu_Text_1
-# 32 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 77 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	setspeaker TARC3_Lab_F2_Xatu_Manual_Text_0
+# 79 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	switch VAR_CASTFORM_PHASE
+# 81 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 0, TARC3_Lab_F2_Xatu_3
+# 83 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 1, TARC3_Lab_F2_Xatu_4
+# 90 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 2, TARC3_Lab_F2_Xatu_5
+# 92 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	case 3, TARC3_Lab_F2_Xatu_6
+# 95 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+TARC3_Lab_F2_Xatu_1:
+# 98 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	release
 	end
 
+TARC3_Lab_F2_Xatu_3:
+# 82 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+	goto TARC3_Lab_F2_Xatu_1
+
+TARC3_Lab_F2_Xatu_4:
+# 84 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Text_0
+# 85 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	fadescreen FADE_TO_WHITE
+# 86 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	special HealPlayerParty
+# 87 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	delay 60
+# 88 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	fadescreen FADE_FROM_WHITE
+# 89 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Text_1
+	goto TARC3_Lab_F2_Xatu_1
+
+TARC3_Lab_F2_Xatu_5:
+# 91 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+	goto TARC3_Lab_F2_Xatu_1
+
+TARC3_Lab_F2_Xatu_6:
+# 93 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+	goto TARC3_Lab_F2_Xatu_1
+
 
 TARC3_Lab_F2_Psyduck_Text_0:
-# 10 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 35 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	.string "Psyduck$"
 
 TARC3_Lab_F2_Psyduck_Text_1:
-# 11 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 36 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	.string "Oh no oh no oh no...$"
 
 TARC3_Lab_F2_Porygon_Text_0:
-# 20 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 45 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	.string "Porygon Z$"
 
 TARC3_Lab_F2_Porygon_Text_1:
-# 21 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+# 46 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	.string "The professor is acting dubious.\pI don't understand the issue.\pLife is a simulation anyways.$"
 
-TARC3_Lab_F2_Xatu_Text_0:
-# 30 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+TARC3_Lab_F2_Xatu_Manual_Text_0:
+# 55 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	.string "Prof. Xatu$"
 
-TARC3_Lab_F2_Xatu_Text_1:
-# 31 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+TARC3_Lab_F2_Xatu_Manual_Text_1:
+# 60 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	.string "Please help us find the missing\nweather shards!\pYou are our only help!$"
+
+TARC3_Lab_F2_Xatu_Manual_Text_2:
+# 62 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	.string "That's the Amber Shard!\nFantastic!\pYou can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.$"
+
+TARC3_Lab_F2_Xatu_Text_0:
+# 84 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	.string "That's the Amber Shard!\nFantastic!\pLet me help you unleash its power!$"
+
+TARC3_Lab_F2_Xatu_Text_1:
+# 89 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	.string "You can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.$"

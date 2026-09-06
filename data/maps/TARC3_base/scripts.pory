@@ -510,7 +510,7 @@ script TARC3_Whimsicott {
 	// createfieldmugshot(MUGSHOT_WHIMSICOTT, EMOTE_NORMAL)
 	if (flag(FLAG_WHIMSICOTT_GAVE_SEED))
 	{
-		msgbox("You'll be a great gardener!")
+		msgbox("When you plant and water it,\nit will grow!")
 	}
 	else
 	{
@@ -520,7 +520,7 @@ script TARC3_Whimsicott {
 		waitmoncry
 		giveitem(ITEM_WEPEAR_BERRY, 1)
 		setflag(FLAG_WHIMSICOTT_GAVE_SEED)
-		msgbox("You'll be a great gardener!")
+		msgbox("When you plant and water it,\nit will grow!")
 	}
 	release
     end
@@ -544,13 +544,13 @@ script TARC3_Find_IceClimb {
 script TARC3_Dummy_Start_Amber {
 	lockall
 	setvar(VAR_CASTFORM_PHASE, 1)
+	setvar(VAR_TRIGGER_XATU_EVENT, 1)
 	finditem(ITEM_HEAT_ROCK, 1)
 	givemon(SPECIES_CASTFORM_SUNNY, 25)
-	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
-	waitmessage
-	warp(MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8)
 	setflag(FLAG_ITEM_AMBER_SHARD)
-	waitstate
+	setflag(FLAG_RUN_XATU_AMBER)
 	releaseall
-	end
+	warp(MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8)
+	waitstate
+    end
 }

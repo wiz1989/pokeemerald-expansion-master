@@ -1,4 +1,29 @@
 mapscripts  TARC3_WeatherInstitute_2F_MapScripts {
+	MAP_SCRIPT_ON_FRAME_TABLE [
+		VAR_TRIGGER_XATU_EVENT, 1: TARC3_WeatherInstitute_2F_AutoWalkToXatu
+	]
+}
+
+
+script TARC3_WeatherInstitute_2F_AutoWalkToXatu {
+	setvar(VAR_TRIGGER_XATU_EVENT, 0)
+	if (var(VAR_CASTFORM_PHASE) == 1 && flag(FLAG_RUN_XATU_AMBER))
+	{
+		clearflag(FLAG_RUN_XATU_AMBER)
+		applymovement(LOCALID_PLAYER, Movement_ToXatu)
+		waitmovement(0)
+		setvar(VAR_LAST_TALKED, LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU)
+		lock
+		turnobject(LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU, DIR_WEST)
+		goto(TARC3_Lab_F2_Xatu)
+	}
+	end
+}
+
+movement Movement_ToXatu {
+	walk_right * 2
+    walk_up * 4
+    walk_right
 }
 
 // ### object scripts ###
@@ -23,31 +48,53 @@ script TARC3_Lab_F2_Porygon {
     end
 }
 
-script TARC3_Lab_F2_Xatu {
-    lock
+script TARC3_Lab_F2_Xatu_Manual {
+	lock
 	faceplayer
 	playmoncry(SPECIES_XATU, CRY_MODE_NORMAL)
 	setspeaker("Prof. Xatu")
-	msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+
+	switch (var(VAR_CASTFORM_PHASE))
+	{
+		case 0: // base
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+		case 1: // amber
+			msgbox("That's the Amber Shard!\nFantastic!\pYou can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.")
+		case 2: // azure
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+		case 3: // glacial
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+		default:
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+	}
+	
 	release
     end
 }
 
+script TARC3_Lab_F2_Xatu {
+	playmoncry(SPECIES_XATU, CRY_MODE_NORMAL)
+	setspeaker("Prof. Xatu")
 
-// script TARC3_Find_IceClimb {
-// 	finditem(ITEM_TM01, 1)
-// 	end
-// }
-
-// script TARC3_Dummy_Start_Amber {
-// 	lockall
-// 	setvar(VAR_CASTFORM_PHASE, 1)
-// 	finditem(ITEM_RED_SHARD, 1)
-// 	givemon(SPECIES_CASTFORM_SUNNY, 25)
-// 	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
-// 	waitmessage
-// 	warp(MAP_TARC3_BASE, 0)
-// 	waitstate
-// 	releaseall
-// 	end
-// }
+	switch (var(VAR_CASTFORM_PHASE))
+	{
+		case 0: // base
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+		case 1: // amber
+			msgbox("That's the Amber Shard!\nFantastic!\pLet me help you unleash its power!")
+			fadescreen(FADE_TO_WHITE)
+			special(HealPlayerParty)
+			delay(60)
+			fadescreen(FADE_FROM_WHITE)
+			msgbox("You can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.")
+		case 2: // azure
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+		case 3: // glacial
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+		default:
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+	}
+	
+	release
+    end
+}

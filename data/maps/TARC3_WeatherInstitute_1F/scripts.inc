@@ -96,4 +96,4 @@ TARC3_Lab_F1_Metagross_Text_0:
 
 TARC3_Lab_F1_Metagross_Text_1:
 # 41 "data/maps/TARC3_WeatherInstitute_1F/scripts.pory"
-	.string "I will give some helpful advice!$"
+	.string "I will give some helpful advice\nas the hint guy!$"

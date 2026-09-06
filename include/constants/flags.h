@@ -91,9 +91,9 @@
 #define FLAG_ITEM_AMBER_SHARD         0x45 // Unused Flag
 #define FLAG_ITEM_AZURE_SHARD         0x46 // Unused Flag
 #define FLAG_ITEM_GLACIAL_SHARD       0x47 // Unused Flag
-#define FLAG_UNUSED_0x048    0x48 // Unused Flag
-#define FLAG_UNUSED_0x049    0x49 // Unused Flag
-#define FLAG_UNUSED_0x04A    0x4A // Unused Flag
+#define FLAG_RUN_XATU_AMBER           0x48 // Unused Flag
+#define FLAG_RUN_XATU_AZURE           0x49 // Unused Flag
+#define FLAG_RUN_XATU_GLACIAL         0x4A // Unused Flag
 #define FLAG_UNUSED_0x04B    0x4B // Unused Flag
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
 #define FLAG_UNUSED_0x04D    0x4D // Unused Flag

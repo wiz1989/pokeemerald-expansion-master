@@ -839,21 +839,21 @@ TARC3_Dummy_Start_Amber::
 # 546 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_CASTFORM_PHASE, 1
 # 547 "data/maps/TARC3_base/scripts.pory"
-	finditem ITEM_HEAT_ROCK, 1
+	setvar VAR_TRIGGER_XATU_EVENT, 1
 # 548 "data/maps/TARC3_base/scripts.pory"
-	givemon SPECIES_CASTFORM_SUNNY, 25
+	finditem ITEM_HEAT_ROCK, 1
 # 549 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Dummy_Start_Amber_Text_0
+	givemon SPECIES_CASTFORM_SUNNY, 25
 # 550 "data/maps/TARC3_base/scripts.pory"
-	waitmessage
-# 551 "data/maps/TARC3_base/scripts.pory"
-	warp MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8
-# 552 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_ITEM_AMBER_SHARD
-# 553 "data/maps/TARC3_base/scripts.pory"
-	waitstate
-# 554 "data/maps/TARC3_base/scripts.pory"
+# 551 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_RUN_XATU_AMBER
+# 552 "data/maps/TARC3_base/scripts.pory"
 	releaseall
+# 553 "data/maps/TARC3_base/scripts.pory"
+	warp MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8
+# 554 "data/maps/TARC3_base/scripts.pory"
+	waitstate
 	end
 
 
@@ -1015,7 +1015,7 @@ TARC3_Whimsicott_Text_0:
 
 TARC3_Whimsicott_Text_1:
 # 513 "data/maps/TARC3_base/scripts.pory"
-	.string "You'll be a great gardener!$"
+	.string "When you plant and water it,\nit will grow!$"
 
 TARC3_Whimsicott_Text_2:
 # 517 "data/maps/TARC3_base/scripts.pory"
@@ -1028,7 +1028,3 @@ TARC3_Sign_TreeOfLife_Text_0:
 TARC3_Sign_ApricornTree_Text_0:
 # 535 "data/maps/TARC3_base/scripts.pory"
 	.string "An Apricorn Tree blocks\nthe entrance.\pPost game area.$"
-
-TARC3_Dummy_Start_Amber_Text_0:
-# 549 "data/maps/TARC3_base/scripts.pory"
-	.string "Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.$"
