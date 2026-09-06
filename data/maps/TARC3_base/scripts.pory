@@ -509,7 +509,12 @@ script TARC3_Whimsicott {
 }
 
 script TARC3_Sign_TreeOfLife {
-	msgbox("Tree of Life\pOnly Arceus may enter.")
+	msgbox("Tree of Life\pOnly Arceus may enter.", MSGBOX_SIGN)
+	end
+}
+
+script TARC3_Sign_ApricornTree {
+	msgbox("An Apricorn Tree blocks\nthe entrance.\pPost game area.", MSGBOX_SIGN)
 	end
 }
 
@@ -526,6 +531,7 @@ script TARC3_Dummy_Start_Amber {
 	msgbox("Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.")
 	waitmessage
 	warp(MAP_TARC3_BASE, 0)
+	setflag(FLAG_ITEM_AMBER_SHARD)
 	waitstate
 	releaseall
 	end

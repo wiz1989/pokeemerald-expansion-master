@@ -775,34 +775,42 @@ TARC3_Whimsicott_2:
 
 TARC3_Sign_TreeOfLife::
 # 512 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Sign_TreeOfLife_Text_0
+	msgbox TARC3_Sign_TreeOfLife_Text_0, MSGBOX_SIGN
+	end
+
+
+TARC3_Sign_ApricornTree::
+# 517 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Sign_ApricornTree_Text_0, MSGBOX_SIGN
 	end
 
 
 TARC3_Find_IceClimb::
-# 517 "data/maps/TARC3_base/scripts.pory"
+# 522 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_TM01, 1
 	end
 
 
 TARC3_Dummy_Start_Amber::
-# 522 "data/maps/TARC3_base/scripts.pory"
-	lockall
-# 523 "data/maps/TARC3_base/scripts.pory"
-	setvar VAR_CASTFORM_PHASE, 1
-# 524 "data/maps/TARC3_base/scripts.pory"
-	finditem ITEM_HEAT_ROCK, 1
-# 525 "data/maps/TARC3_base/scripts.pory"
-	givemon SPECIES_CASTFORM_SUNNY, 25
-# 526 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Dummy_Start_Amber_Text_0
 # 527 "data/maps/TARC3_base/scripts.pory"
-	waitmessage
+	lockall
 # 528 "data/maps/TARC3_base/scripts.pory"
-	warp MAP_TARC3_BASE, 0
+	setvar VAR_CASTFORM_PHASE, 1
 # 529 "data/maps/TARC3_base/scripts.pory"
-	waitstate
+	finditem ITEM_HEAT_ROCK, 1
 # 530 "data/maps/TARC3_base/scripts.pory"
+	givemon SPECIES_CASTFORM_SUNNY, 25
+# 531 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Dummy_Start_Amber_Text_0
+# 532 "data/maps/TARC3_base/scripts.pory"
+	waitmessage
+# 533 "data/maps/TARC3_base/scripts.pory"
+	warp MAP_TARC3_BASE, 0
+# 534 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_ITEM_AMBER_SHARD
+# 535 "data/maps/TARC3_base/scripts.pory"
+	waitstate
+# 536 "data/maps/TARC3_base/scripts.pory"
 	releaseall
 	end
 
@@ -975,6 +983,10 @@ TARC3_Sign_TreeOfLife_Text_0:
 # 512 "data/maps/TARC3_base/scripts.pory"
 	.string "Tree of Life\pOnly Arceus may enter.$"
 
+TARC3_Sign_ApricornTree_Text_0:
+# 517 "data/maps/TARC3_base/scripts.pory"
+	.string "An Apricorn Tree blocks\nthe entrance.\pPost game area.$"
+
 TARC3_Dummy_Start_Amber_Text_0:
-# 526 "data/maps/TARC3_base/scripts.pory"
+# 531 "data/maps/TARC3_base/scripts.pory"
 	.string "Base phase completed!\pAmber shard unlocked!\pPress SELECT to change weather.$"
