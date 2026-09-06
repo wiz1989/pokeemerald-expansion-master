@@ -35,8 +35,6 @@ TARC3_Base_Paras::
 	lock
 # 30 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 31 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 32 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_START
 # 34 "data/maps/TARC3_base/scripts.pory"
@@ -85,8 +83,6 @@ TARC3_Base_Vulpix::
 	lock
 # 61 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 62 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 63 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_VULPIX
 # 65 "data/maps/TARC3_base/scripts.pory"
@@ -137,8 +133,6 @@ TARC3_Base_Dewpider::
 	setrespawn HEAL_LOCATION_TARC3_DEWPIDER
 # 93 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 94 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 96 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Base_Dewpider_Text_0
 # 97 "data/maps/TARC3_base/scripts.pory"
@@ -185,8 +179,6 @@ TARC3_Base_Wooper_backup::
 	lock
 # 123 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 124 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 126 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Base_Wooper_backup_Text_0
 # 127 "data/maps/TARC3_base/scripts.pory"
@@ -233,8 +225,6 @@ TARC3_Amber_Munchlax::
 	lock
 # 154 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 155 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 156 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_MUNCHLAX
 # 158 "data/maps/TARC3_base/scripts.pory"
@@ -293,8 +283,6 @@ TARC3_Amber_Combusken::
 	lock
 # 194 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 195 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 196 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_COMBUSKEN
 # 197 "data/maps/TARC3_base/scripts.pory"
@@ -343,8 +331,6 @@ TARC3_Amber_Observer::
 	lock
 # 225 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 226 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 227 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_HELIOPTILE
 # 228 "data/maps/TARC3_base/scripts.pory"
@@ -391,8 +377,6 @@ TARC3_Amber_Torkoal::
 	lock
 # 255 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 256 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 257 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_TORKOAL
 # 258 "data/maps/TARC3_base/scripts.pory"
@@ -441,8 +425,6 @@ TARC3_Azure_Toxicroak::
 	lock
 # 286 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 287 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 288 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Azure_Toxicroak_Text_0
 # 289 "data/maps/TARC3_base/scripts.pory"
@@ -491,8 +473,6 @@ TARC3_Azure_Gastrodon::
 	lock
 # 317 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 318 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 319 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Azure_Gastrodon_Text_0
 # 320 "data/maps/TARC3_base/scripts.pory"
@@ -541,8 +521,6 @@ TARC3_Azure_Observer::
 	lock
 # 348 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 349 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 350 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Azure_Observer_Text_0
 # 351 "data/maps/TARC3_base/scripts.pory"
@@ -589,8 +567,6 @@ TARC3_Azure_Flygon::
 	lock
 # 378 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 379 "data/maps/TARC3_base/scripts.pory"
-	call Common_EventScript_PlaySpeciesCry_Return
 # 380 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Azure_Flygon_Text_0
 # 381 "data/maps/TARC3_base/scripts.pory"
