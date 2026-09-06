@@ -3,6 +3,12 @@ Common_EventScript_FindItem::
 	finditem VAR_RESULT VAR_0x8009
 	end
 
+Common_EventScript_FindUnderwater_ItemBall::
+	callnative GetItemBallIdAndAmountFromTemplate
+	finditem VAR_RESULT VAR_0x8009
+	setflag(FLAG_ITEM_COLLECTIBLE_2)
+	end
+
 Common_EventScript_PlaySpeciesCry::
 	callnative GetObjectEventSpecies
 	copyvar VAR_0x8005, VAR_RESULT

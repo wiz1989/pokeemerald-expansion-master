@@ -17,6 +17,16 @@ script TARC3_WeatherInstitute_2F_AutoWalkToXatu {
 		turnobject(LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU, DIR_WEST)
 		goto(TARC3_Lab_F2_Xatu)
 	}
+	if (var(VAR_CASTFORM_PHASE) == 2 && flag(FLAG_RUN_XATU_AZURE))
+	{
+		clearflag(FLAG_RUN_XATU_AZURE)
+		applymovement(LOCALID_PLAYER, Movement_ToXatu)
+		waitmovement(0)
+		setvar(VAR_LAST_TALKED, LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU)
+		lock
+		turnobject(LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU, DIR_WEST)
+		goto(TARC3_Lab_F2_Xatu)
+	}
 	end
 }
 
@@ -61,7 +71,7 @@ script TARC3_Lab_F2_Xatu_Manual {
 		case 1: // amber
 			msgbox("That's the Amber Shard!\nFantastic!\pYou can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.")
 		case 2: // azure
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("That's the Azure Shard!\pNow you can also summon the rain.")
 		case 3: // glacial
 			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
 		default:
@@ -88,7 +98,12 @@ script TARC3_Lab_F2_Xatu {
 			fadescreen(FADE_FROM_WHITE)
 			msgbox("You can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.")
 		case 2: // azure
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("Wow!\nThat's the Azure Shard!\pWith it you can also summon the rain.\pLet me activate it's power.")
+			fadescreen(FADE_TO_WHITE)
+			special(HealPlayerParty)
+			delay(60)
+			fadescreen(FADE_FROM_WHITE)
+			msgbox("You are making great progress!\pI believe you can also find\nthe last missing piece!")
 		case 3: // glacial
 			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
 		default:

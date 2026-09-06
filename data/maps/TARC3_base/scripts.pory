@@ -21,7 +21,9 @@ script TARC3_Base_OnResume {
 			clearflag(FLAG_LAPRAS1_DEST_INVISIBLE)
 			clearflag(FLAG_LAPRAS2_DEST_INVISIBLE)
 		case SPECIES_CASTFORM_SUNNY:
-			clearflag(FLAG_HIDE_ITEM_UNDERWATER)
+			if (!flag(FLAG_ITEM_COLLECTIBLE_2)) {
+				clearflag(FLAG_HIDE_ITEM_UNDERWATER)
+			}
 			setflag(FLAG_LAPRAS1_SOURCE_INVISIBLE)
 			setflag(FLAG_LAPRAS2_SOURCE_INVISIBLE)
 			setflag(FLAG_LAPRAS1_DEST_INVISIBLE)
@@ -178,6 +180,14 @@ script TARC3_Base_Wooper_backup {
 }
 
 // Amber phase
+script TARC3_Amber_Munchlax_Left {
+	end
+}
+
+script TARC3_Amber_Munchlax_Right {
+	end
+}
+
 script TARC3_Amber_Munchlax {
 	cant_see_if_set(FLAG_BASE_MUNCHLAX_BEATEN)
     lock
@@ -195,6 +205,11 @@ script TARC3_Amber_Munchlax {
 		if (var(VAR_TRANSFORM_MON) == SPECIES_CASTFORM_SUNNY)
 		{
 			msgbox("It's too hot to battle!")
+			applymovement(LOCALID_PLAYER, moves(
+				walk_up * 2
+				face_down
+			))
+			waitmovement(0)
 			release
 			end
 		}
@@ -255,7 +270,7 @@ script TARC3_Amber_Observer {
 	faceplayer
 	// call(Common_EventScript_PlaySpeciesCry_Return)
 	setrespawn(HEAL_LOCATION_TARC3_HELIOPTILE)
-	setspeaker("Helioptile")
+	setspeaker("Fomantis")
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
 	if (flag(FLAG_BASE_HELIOPTILE_BEATEN))
 	{
@@ -263,7 +278,7 @@ script TARC3_Amber_Observer {
 	}
 	else
 	{
-		msgbox("Hi, I'm HELIOPTILE.\nLet's battle!")
+		msgbox("This HELIOPTILE is so mean!\pCan you help me scaring it away?")
 		playmoncry(SPECIES_HELIOPTILE, CRY_MODE_ENCOUNTER)
 		delay(40)
 		waitmoncry
@@ -273,6 +288,14 @@ script TARC3_Amber_Observer {
 		{
 			setflag(FLAG_BASE_HELIOPTILE_BEATEN)
 			setrespawn(HEAL_LOCATION_TARC3_START)
+			msgbox("Thank you for helping me!")
+			fadescreen(FADE_TO_BLACK)
+			special(HealPlayerParty)
+			removeobject(34)
+			removeobject(35)
+			delay(60)
+			fadescreen(FADE_FROM_BLACK)
+
 		}
 	}
 	release
@@ -302,8 +325,20 @@ script TARC3_Amber_Torkoal {
 		callnative(WasBattleWon)
 		if (var(VAR_RESULT) == TRUE)
 		{
+			lock
+			faceplayer
 			setflag(FLAG_BASE_TORKOAL_BEATEN)
 			setrespawn(HEAL_LOCATION_TARC3_START)
+			msgbox("Here, take this!\pI found it behind the lava pool!")
+			setvar(VAR_CASTFORM_PHASE, 2)
+			setvar(VAR_TRIGGER_XATU_EVENT, 1)
+			finditem(ITEM_DAMP_ROCK, 1)
+			givemon(SPECIES_CASTFORM_RAINY, 25)
+			setflag(FLAG_ITEM_AZURE_SHARD)
+			setflag(FLAG_RUN_XATU_AZURE)
+			releaseall
+			warp(MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8)
+			waitstate
 		}
 	}
 	release
@@ -522,6 +557,17 @@ script TARC3_Whimsicott {
 		setflag(FLAG_WHIMSICOTT_GAVE_SEED)
 		msgbox("When you plant and water it,\nit will grow!")
 	}
+	release
+    end
+}
+
+script TARC3_Feebas {
+    lock
+	faceplayer
+	setspeaker("Feebas")
+	// createfieldmugshot(MUGSHOT_FEEBAS, EMOTE_NORMAL)
+	playmoncry(SPECIES_FEEBAS, CRY_MODE_NORMAL)
+	msgbox("If you ever get stuck,\nwalk to the dry riverbed\land flood it with your Base form.\pThis will respawn you in front\nof the institute.")
 	release
     end
 }
