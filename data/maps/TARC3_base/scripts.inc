@@ -1334,7 +1334,7 @@ TARC3_Audino_Text_1:
 
 TARC3_Audino_Post_Text_0:
 # 658 "data/maps/TARC3_base/scripts.pory"
-	.string "You can use this on grown vines$"
+	.string "You can use this on grown vines.$"
 
 TARC3_Minccino_Text_0:
 # 666 "data/maps/TARC3_base/scripts.pory"

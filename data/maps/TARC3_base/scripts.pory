@@ -655,7 +655,7 @@ script TARC3_Audino {
 }
 
 script TARC3_Audino_Post {
-	msgbox("You can use this on grown vines")
+	msgbox("You can use this on grown vines.")
 	release
     end
 }

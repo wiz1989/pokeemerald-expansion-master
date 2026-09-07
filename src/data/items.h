@@ -11234,7 +11234,7 @@ const struct ItemInfo gItemsInfo[] =
             "A mysterious seed\n"
             "that grows into a\n"
             "large vine."),
-        .pocket = POCKET_BERRIES,
+        .pocket = POCKET_ITEMS,
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .flingPower = 10,

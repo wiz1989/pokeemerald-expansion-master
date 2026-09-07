@@ -6,6 +6,7 @@ bool32 IsEnigmaBerryValid(void);
 const struct BerryInfo *GetBerryInfo(enum BerryId berry);
 struct BerryTree *GetBerryTreeInfo(u8 id);
 bool32 ObjectEventInteractionWaterBerryTree(void);
+void ObjectEventInteractionResetBerryTree(void);
 bool8 IsPlayerFacingEmptyBerryTreePatch(void);
 bool8 TryToWaterBerryTree(void);
 void ClearBerryTrees(void);

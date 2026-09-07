@@ -108,7 +108,7 @@ BerryTree_EventScript_CheckBerryStage2::
 	message BerryTree_Text_BerryGrowthStage2
 	waitmessage
 	waitbuttonpress
-	goto BerryTree_EventScript_WantToWater
+	goto BerryTree_EventScript_WantToUseHerbicide
 
 BerryTree_EventScript_CheckBerryStage3::
 	lockall
@@ -116,7 +116,7 @@ BerryTree_EventScript_CheckBerryStage3::
 	message BerryTree_Text_BerryGrowthStage3
 	waitmessage
 	waitbuttonpress
-	goto BerryTree_EventScript_WantToWater
+	goto BerryTree_EventScript_WantToUseHerbicide
 
 BerryTree_EventScript_CheckBerryStageTrunk::
 	lockall
@@ -124,7 +124,7 @@ BerryTree_EventScript_CheckBerryStageTrunk::
 	message BerryTree_Text_BerryGrowthStageTrunk
 	waitmessage
 	waitbuttonpress
-	goto BerryTree_EventScript_WantToWater
+	goto BerryTree_EventScript_WantToUseHerbicide
 
 BerryTree_EventScript_CheckBerryStageBudding::
 	lockall
@@ -132,7 +132,7 @@ BerryTree_EventScript_CheckBerryStageBudding::
 	message BerryTree_Text_BerryGrowthStageBudding
 	waitmessage
 	waitbuttonpress
-	goto BerryTree_EventScript_WantToWater
+	goto BerryTree_EventScript_WantToUseHerbicide
 
 BerryTree_EventScript_CheckBerryStage4::
 	call BerryTree_EventScript_GetCareAdverb
@@ -141,7 +141,7 @@ BerryTree_EventScript_CheckBerryStage4::
 	message BerryTree_Text_BerryGrowthStage4
 	waitmessage
 	waitbuttonpress
-	goto BerryTree_EventScript_WantToWater
+	goto BerryTree_EventScript_WantToUseHerbicide
 
 @ VAR_0x8005 here is the number of times watered
 @ Buffered by ObjectEventInteractionGetBerryTreeData
@@ -216,6 +216,13 @@ BerryTree_EventScript_ItemUsePlantBerry::
 	releaseall
 	end
 
+BerryTree_EventScript_WantToUseHerbicide::
+	checkitem ITEM_HYPER_POTION
+	goto_if_eq VAR_RESULT, FALSE, BerryTree_EventScript_DontWater
+	msgbox BerryTree_Text_WantToHerbicide, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, BerryTree_EventScript_UseHerbicide
+	goto_if_eq VAR_RESULT, NO, BerryTree_EventScript_DontWater
+
 BerryTree_EventScript_WantToWater::
 .if OW_BERRY_PESTS == TRUE
 	call BerryTree_EventScript_CheckForPests
@@ -246,6 +253,17 @@ BerryTree_EventScript_WaterBerry::
 	special ObjectEventInteractionWaterBerryTree
 	special DoWateringBerryTreeAnim
 	message BerryTree_Text_PlantIsDelighted
+	waitmessage
+	waitbuttonpress
+	releaseall
+	end
+
+BerryTree_EventScript_UseHerbicide::
+	message BerryTree_Text_UsedHerbicide
+	waitmessage
+	special ObjectEventInteractionResetBerryTree
+	special DoWateringBerryTreeAnim
+	message BerryTree_Text_PlantTurnedIntoSeed
 	waitmessage
 	waitbuttonpress
 	releaseall
@@ -347,11 +365,20 @@ BerryTree_Text_WantToWater:
 	.string "Want to water the {STR_VAR_1} with the\n"
 	.string "WAILMER PAIL?$"
 
+BerryTree_Text_WantToHerbicide:
+	.string "Want to use the HERBICIDE on the vine?$"
+
 BerryTree_Text_WateredTheBerry:
 	.string "{PLAYER} watered the {STR_VAR_1}.$"
 
+BerryTree_Text_UsedHerbicide:
+	.string "{PLAYER} used the HERBICIDE.$"
+
 BerryTree_Text_PlantIsDelighted:
 	.string "The plant seems to be delighted.$"
+	
+BerryTree_Text_PlantTurnedIntoSeed:
+	.string "The plant turned back into a seed.$"
 
 BerryTree_Text_ExclamationPoint:
 	.string "!$"

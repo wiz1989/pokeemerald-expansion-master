@@ -2414,6 +2414,13 @@ bool32 ObjectEventInteractionWaterBerryTree(void)
     }
     return TRUE;
 }
+void ObjectEventInteractionResetBerryTree(void)
+{
+    struct BerryTree *tree = GetBerryTreeInfo(GetObjectEventBerryTreeId(gSelectedObjectEvent));
+
+    tree->stage = BERRY_STAGE_PLANTED;
+    BerryTreeGrow(tree);
+}
 
 bool8 IsPlayerFacingEmptyBerryTreePatch(void)
 {
