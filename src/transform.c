@@ -78,7 +78,7 @@ static void BerryTreeGrowToStage(u8 stage);
 static void BerryTreeGrowFinalStage(void);
 static void BerryTreeResetToSeed(void);
 static void BerryTreeResetToWithered(void);
-static void UpdateTarc3RainySliggooOnRainChange(void);
+static void EvolveSligooDuringRain(void);
 static void RunWeatherChangeOverworldEffects(void);
 static void ReloadMapObjectEvents(void);
 
@@ -952,7 +952,7 @@ static void BerryTreeResetToWithered(void)
     BerryTreeGrowToStage(BERRY_STAGE_TALLER);
 }
 
-static void UpdateTarc3RainySliggooOnRainChange(void)
+static void EvolveSligooDuringRain(void)
 {
     u8 mapNum = gSaveBlock1Ptr->location.mapNum;
     u8 mapGroup = gSaveBlock1Ptr->location.mapGroup;
@@ -961,7 +961,7 @@ static void UpdateTarc3RainySliggooOnRainChange(void)
     if (mapGroup != MAP_GROUP(MAP_TARC3_RAINY) || mapNum != MAP_NUM(MAP_TARC3_RAINY))
         return;
 
-    // Only force the swap when Sliggoo is currently spawned/visible.
+    // only run the visibility changes if Sliggoo is currently visible
     if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_TARC3_RAINY_SLIGGOO, mapNum, mapGroup, &objectEventId))
         return;
 
@@ -979,7 +979,7 @@ static void RunWeatherChangeOverworldEffects(void)
     switch (transformationSpecies)
     {
     case SPECIES_CASTFORM_RAINY:
-        UpdateTarc3RainySliggooOnRainChange();
+        EvolveSligooDuringRain();
         BerryTreeGrowFinalStage();
         break;
     case SPECIES_CASTFORM_SUNNY:
