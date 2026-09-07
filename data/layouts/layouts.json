@@ -9415,8 +9415,8 @@
     {
       "id": "LAYOUT_TARC3_UNDERGROUND_PATH",
       "name": "TARC3_UndergroundPath_Layout",
-      "width": 25,
-      "height": 30,
+      "width": 46,
+      "height": 47,
       "primary_tileset": "gTileset_General",
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/TARC3_UndergroundPath/border.bin",
