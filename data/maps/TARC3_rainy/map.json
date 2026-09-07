@@ -799,6 +799,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_RAINY_DRAMPA",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(DRAMPA)",
       "x": 62,
       "y": 53,
@@ -812,6 +813,7 @@
       "flag": "FLAG_BASE_SLOWKING_BEATEN"
     },
     {
+      "local_id": "LOCALID_RAINY_SLOWKING",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(SLOWKING)",
       "x": 59,
       "y": 53,

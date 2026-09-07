@@ -54,6 +54,7 @@ script TARC3_Base_Paras {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_START)
+		setspeaker("Paras")
 		msgbox("Weather Shards?\nI only heard of fungal spores.\pDoes that help?")
 		setwildbattle(SPECIES_PARAS, 25)
 		playmoncry(SPECIES_PARAS, CRY_MODE_ENCOUNTER)
@@ -85,6 +86,7 @@ script TARC3_Base_Vulpix {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_VULPIX)
+		setspeaker("Vulpix")
 		msgbox("I don't care about the weather.\pFor me the sun is always shining!")
 		setwildbattle(SPECIES_VULPIX, 25)
 		playmoncry(SPECIES_VULPIX, CRY_MODE_ENCOUNTER)
@@ -116,6 +118,7 @@ script TARC3_Base_Dewpider {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_DEWPIDER)
+		setspeaker("Dewpider")
 		msgbox("There is a strange rock at the\nTree of Life.\pIt feels dangerous to the life\nat the pond\pYou must not touch it!")
 		setwildbattle(SPECIES_DEWPIDER, 25)
 		playmoncry(SPECIES_DEWPIDER, CRY_MODE_ENCOUNTER)
@@ -134,32 +137,6 @@ script TARC3_Base_Dewpider {
 }
 
 script TARC3_Base_Wooper_backup {
-	cant_see_if_set(FLAG_BASE_WOOPER_BEATEN)
-    lock
-	faceplayer
-	// call(Common_EventScript_PlaySpeciesCry_Return)
-	// createfieldmugshot(MUGSHOT_WOOPER, EMOTE_NORMAL)
-	setspeaker("Wooper")
-	if (flag(FLAG_BASE_WOOPER_BEATEN))
-	{
-		msgbox("Hey, my berry!")
-	}
-	else
-	{
-		msgbox("Hi, I'm WOOPER.\nLet's battle!")
-		setwildbattle(SPECIES_WOOPER, 25)
-		playmoncry(SPECIES_WOOPER, CRY_MODE_ENCOUNTER)
-		delay(40)
-		waitmoncry
-		dowildbattle
-		callnative(WasBattleWon)
-		if (var(VAR_RESULT) == TRUE)
-		{
-			setflag(FLAG_BASE_WOOPER_BEATEN)
-			setrespawn(HEAL_LOCATION_TARC3_START)
-		}
-	}
-	release
     end
 }
 
@@ -199,6 +176,7 @@ script TARC3_Amber_Munchlax {
 		else
 		{
 			setrespawn(HEAL_LOCATION_TARC3_MUNCHLAX)
+			setspeaker("Munchlax")
 			msgbox("Do you have some berries for me?\nI am hungry!")
 			setwildbattle(SPECIES_MUNCHLAX, 25)
 			playmoncry(SPECIES_MUNCHLAX, CRY_MODE_ENCOUNTER)
@@ -231,6 +209,7 @@ script TARC3_Amber_Combusken {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_COMBUSKEN)
+		setspeaker("Combusken")
 		msgbox("What are you doing here\nin my territory?\pYou think you can handle me?\nThe sun is on my side, too!")
 		setwildbattle(SPECIES_COMBUSKEN, 25)
 		playmoncry(SPECIES_COMBUSKEN, CRY_MODE_ENCOUNTER)
@@ -272,6 +251,7 @@ script TARC3_Amber_Observer {
 		{
 			setflag(FLAG_BASE_HELIOPTILE_BEATEN)
 			setrespawn(HEAL_LOCATION_TARC3_START)
+			setspeaker("Fomantis")
 			msgbox("Thank you for helping me!")
 			fadescreen(FADE_TO_BLACK)
 			special(HealPlayerParty)
@@ -314,6 +294,7 @@ script TARC3_Amber_Torkoal {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_TORKOAL)
+		setspeaker("Torkoal")
 		msgbox("Who dares to bother me during my nap?\p...\pAre you after that stone?\pYou cannot have it, it's dangerous!\nIt will turn the world into endless rain!")
 		setwildbattle(SPECIES_TORKOAL, 25)
 		playmoncry(SPECIES_TORKOAL, CRY_MODE_ENCOUNTER)
@@ -330,7 +311,7 @@ script TARC3_Amber_Torkoal {
 			msgbox("Defeated. Like it was nothing.\pMaybe you are able to save us\nfrom the chaos!\pHere, I found it behind the lava pool!")
 			setvar(VAR_CASTFORM_PHASE, 2)
 			setvar(VAR_TRIGGER_XATU_EVENT, 1)
-			finditem(ITEM_DAMP_ROCK, 1)
+			giveitem(ITEM_DAMP_ROCK, 1)
 			givemon(SPECIES_CASTFORM_RAINY, 25)
 			setflag(FLAG_ITEM_AZURE_SHARD)
 			setflag(FLAG_RUN_XATU_AZURE)
@@ -357,6 +338,7 @@ script TARC3_Azure_Toxicroak {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_TOXICROAK)
+		setspeaker("Toxicroak")
 		callnative(GetCurrentTransformationSpecies)
 		switch (var(VAR_RESULT))
 		{
@@ -397,6 +379,7 @@ script TARC3_Azure_Gastrodon {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_GASTRODON)
+		setspeaker("Gastrodon")
 		callnative(GetCurrentTransformationSpecies)
 		switch (var(VAR_RESULT))
 		{
@@ -429,7 +412,6 @@ script TARC3_Azure_Observer {
 	faceplayer
 	// call(Common_EventScript_PlaySpeciesCry_Return)
 	setspeaker("Drampa")
-	setrespawn(HEAL_LOCATION_TARC3_SLOWKING)
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
 	if (flag(FLAG_BASE_SLOWKING_BEATEN))
 	{
@@ -437,7 +419,8 @@ script TARC3_Azure_Observer {
 	}
 	else
 	{
-		msgbox("Hi, I'm DRAMPA.\nPlease help me!")
+		setrespawn(HEAL_LOCATION_TARC3_SLOWKING)
+		msgbox("This SLOWKING is so toxic!\pIt behaves like a king that\nguards its treasure.\pI wonder what's up there.")
 		playmoncry(SPECIES_SLOWKING, CRY_MODE_ENCOUNTER)
 		delay(40)
 		waitmoncry
@@ -447,6 +430,29 @@ script TARC3_Azure_Observer {
 		{
 			setflag(FLAG_BASE_SLOWKING_BEATEN)
 			setrespawn(HEAL_LOCATION_TARC3_START)
+			setspeaker("Drampa")
+			msgbox("Thanks for having my back!\pI need to go now, find the\nbully's house and burn it\lto the ground.")
+			fadescreen(FADE_TO_BLACK)
+			special(HealPlayerParty)
+
+			callnative(GetCurrentTransformationSpecies)
+			switch (var(VAR_RESULT))
+			{
+				case SPECIES_CASTFORM:
+					removeobject(LOCALID_BASE_DRAMPA)
+					removeobject(LOCALID_BASE_SLOWKING)
+				case SPECIES_CASTFORM_RAINY:
+					removeobject(LOCALID_RAINY_DRAMPA)
+					removeobject(LOCALID_RAINY_SLOWKING)
+				case SPECIES_CASTFORM_SUNNY:
+					removeobject(LOCALID_SUNNY_DRAMPA)
+					removeobject(LOCALID_SUNNY_SLOWKING)
+				case SPECIES_CASTFORM_SNOWY:
+					removeobject(LOCALID_SNOWY_DRAMPA)
+					removeobject(LOCALID_SNOWY_SLOWKING)
+			}
+			delay(60)
+			fadescreen(FADE_FROM_BLACK)
 		}
 	}
 	release
@@ -467,7 +473,7 @@ script TARC3_Azure_Flygon {
 	else
 	{
 		setrespawn(HEAL_LOCATION_TARC3_FLYGON)
-		msgbox("Hi, I'm FLYGON.\nLet's battle!")
+		msgbox("The worst in the world is\nsnow and ice.\pI will keep you from\ncontrolling it!")
 		setwildbattle(SPECIES_FLYGON, 25)
 		playmoncry(SPECIES_FLYGON, CRY_MODE_ENCOUNTER)
 		delay(40)
@@ -476,8 +482,29 @@ script TARC3_Azure_Flygon {
 		callnative(WasBattleWon)
 		if (var(VAR_RESULT) == TRUE)
 		{
+			lock
+			faceplayer
 			setflag(FLAG_BASE_FLYGON_BEATEN)
 			setrespawn(HEAL_LOCATION_TARC3_START)
+			setspeaker("Flygon")
+			msgbox("You are trying to restore the\nbalance of the weather again?\pWell that sounds like an\nhonorable path.\pI guess you can have this then.")
+			// setvar(VAR_CASTFORM_PHASE, 2)
+			// setvar(VAR_TRIGGER_XATU_EVENT, 1)
+			giveitem(ITEM_ICY_ROCK, 1)
+			// givemon(SPECIES_CASTFORM_RAINY, 25)
+			setflag(FLAG_ITEM_GLACIAL_SHARD)
+			// setflag(FLAG_RUN_XATU_AZURE)
+			msgbox("...\p...\pThis is the end of this beta.\pThe final release will feature another\nsegment with snowy weather,\lnew puzzles and a final boss fight.")
+			checkitem(ITEM_MIRACLE_SEED, 8)
+			if (var(VAR_RESULT) == TRUE) {
+				msgbox("You have found all eight\nMIRACLE SEEDS already!\pGreat job!\nThis is all for now.")
+			}
+			else {
+				msgbox("There is eight MIRACLE SEEDS\nto be found.\lKeep looking!")
+			}
+			releaseall
+			// warp(MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8)
+			// waitstate
 		}
 	}
 	release
@@ -629,10 +656,15 @@ script TARC3_Flygon_Post {
 	callnative(GetCurrentTransformationSpecies)
 	switch (var(VAR_RESULT))
 	{
-		case SPECIES_CASTFORM_RAINY:
-			msgbox("Woah! I didn't know you could\nturn the lava into stone!")
 		default:
-			msgbox("Please help us bring back normality!")
+			msgbox("...\p...\pThis is the end of this beta.\pThe final release will feature\nanother segment with snowy weather,\lnew puzzles and a final boss fight.")
+			checkitem(ITEM_MIRACLE_SEED, 8)
+			if (var(VAR_RESULT) == TRUE) {
+				msgbox("You have found all eight\nMIRACLE SEEDS already!\pGreat job!\nThis is all for now.")
+			}
+			else {
+				msgbox("There is eight MIRACLE SEEDS\nto be found.\lKeep looking!")
+			}
 	}
 	release
     end
