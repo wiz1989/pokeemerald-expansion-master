@@ -472,13 +472,15 @@ bool8 CheckForTrainersWantingBattle(void)
     {
         if (!gObjectEvents[i].active)
             continue;
+        if (gObjectEvents[i].isPlayer)
+            continue;
         if (gObjectEvents[i].trainerType != TRAINER_TYPE_NORMAL && gObjectEvents[i].trainerType != TRAINER_TYPE_SEE_ALL_DIRECTIONS && gObjectEvents[i].trainerType != TRAINER_TYPE_BURIED)
             continue;
         trainerObjects[trainerObjectsCount++] = i;
     }
 
     // Sorts array by localId
-    for (i = 1; i <= trainerObjectsCount; i++)
+    for (i = 1; i < trainerObjectsCount; i++)
     {
         u8 x = trainerObjects[i];
         u8 j = i;
@@ -490,7 +492,7 @@ bool8 CheckForTrainersWantingBattle(void)
         trainerObjects[j] = x;
     }
 
-    for (i = 0; i <= trainerObjectsCount; i++)
+    for (i = 0; i < trainerObjectsCount; i++)
     {
         u8 numTrainers;
         numTrainers = CheckTrainer(trainerObjects[i]);
@@ -576,6 +578,10 @@ static u8 CheckTrainer(u8 objectEventId)
 {
     const u8 *trainerBattlePtr;
     u8 numTrainers = 1;
+
+    // handle edge case where the player suddenly gets the icon
+    if (gObjectEvents[objectEventId].isPlayer)
+        return FALSE;
 
     u8 approachDistance = GetTrainerApproachDistance(&gObjectEvents[objectEventId]);
 
@@ -1228,6 +1234,11 @@ static void SpriteCB_WantToBattleIcon(struct Sprite *sprite)
 
     if (TryGetObjectEventIdByLocalIdAndMap(sprite->sLocalId, sprite->sMapNum, sprite->sMapGroup, &objEventId))
     {
+        FieldEffectStop(sprite, sprite->sFldEffId);
+    }
+    else if (gObjectEvents[objEventId].isPlayer)
+    {
+        // safety net for the player bug
         FieldEffectStop(sprite, sprite->sFldEffId);
     }
     else if (GetTrainerApproachDistance(&gObjectEvents[objEventId]) > 0)
