@@ -887,44 +887,76 @@ TARC3_Feebas::
 	end
 
 
-TARC3_Sign_TreeOfLife::
+TARC3_Chatot1::
 # 576 "data/maps/TARC3_base/scripts.pory"
+	lock
+# 577 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 578 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Chatot1_Text_0
+# 580 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_CHATOT, CRY_MODE_NORMAL
+# 581 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Chatot1_Text_1
+# 582 "data/maps/TARC3_base/scripts.pory"
+	release
+	end
+
+
+TARC3_Chatot2::
+# 587 "data/maps/TARC3_base/scripts.pory"
+	lock
+# 588 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 589 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Chatot1_Text_0
+# 591 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_CHATOT, CRY_MODE_NORMAL
+# 592 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Chatot2_Text_0
+# 593 "data/maps/TARC3_base/scripts.pory"
+	release
+	end
+
+
+TARC3_Sign_TreeOfLife::
+# 598 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Sign_TreeOfLife_Text_0, MSGBOX_SIGN
 	end
 
 
 TARC3_Sign_ApricornTree::
-# 581 "data/maps/TARC3_base/scripts.pory"
+# 603 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Sign_ApricornTree_Text_0, MSGBOX_SIGN
 	end
 
 
 TARC3_Find_IceClimb::
-# 586 "data/maps/TARC3_base/scripts.pory"
+# 608 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_TM01, 1
 	end
 
 
 TARC3_Dummy_Start_Amber::
-# 591 "data/maps/TARC3_base/scripts.pory"
+# 613 "data/maps/TARC3_base/scripts.pory"
 	lockall
-# 592 "data/maps/TARC3_base/scripts.pory"
+# 614 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_CASTFORM_PHASE, 1
-# 593 "data/maps/TARC3_base/scripts.pory"
+# 615 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_TRIGGER_XATU_EVENT, 1
-# 594 "data/maps/TARC3_base/scripts.pory"
+# 616 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_HEAT_ROCK, 1
-# 595 "data/maps/TARC3_base/scripts.pory"
+# 617 "data/maps/TARC3_base/scripts.pory"
 	givemon SPECIES_CASTFORM_SUNNY, 25
-# 596 "data/maps/TARC3_base/scripts.pory"
+# 618 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_ITEM_AMBER_SHARD
-# 597 "data/maps/TARC3_base/scripts.pory"
+# 619 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_RUN_XATU_AMBER
-# 598 "data/maps/TARC3_base/scripts.pory"
+# 620 "data/maps/TARC3_base/scripts.pory"
 	releaseall
-# 599 "data/maps/TARC3_base/scripts.pory"
+# 621 "data/maps/TARC3_base/scripts.pory"
 	warp MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8
-# 600 "data/maps/TARC3_base/scripts.pory"
+# 622 "data/maps/TARC3_base/scripts.pory"
 	waitstate
 	end
 
@@ -1117,12 +1149,24 @@ TARC3_Feebas_Text_0:
 
 TARC3_Feebas_Text_1:
 # 570 "data/maps/TARC3_base/scripts.pory"
-	.string "If you ever get stuck,\nwalk to the dry riverbed\land flood it with your Base form.\pThis will respawn you in front\nof the institute.$"
+	.string "If you ever get stuck,\nswim on the river and\lswitch to your Base form.\pThis will respawn you in front\nof the institute.$"
+
+TARC3_Chatot1_Text_0:
+# 578 "data/maps/TARC3_base/scripts.pory"
+	.string "Chatot$"
+
+TARC3_Chatot1_Text_1:
+# 581 "data/maps/TARC3_base/scripts.pory"
+	.string "Have you met Whimsicott, yet?\pShe is really friendly and\nprovides the town with crops.$"
+
+TARC3_Chatot2_Text_0:
+# 592 "data/maps/TARC3_base/scripts.pory"
+	.string "Remember, if you get stuck,\nswim on the river and\lswitch to your Base form.$"
 
 TARC3_Sign_TreeOfLife_Text_0:
-# 576 "data/maps/TARC3_base/scripts.pory"
+# 598 "data/maps/TARC3_base/scripts.pory"
 	.string "Tree of Life\pOnly Arceus may enter.$"
 
 TARC3_Sign_ApricornTree_Text_0:
-# 581 "data/maps/TARC3_base/scripts.pory"
+# 603 "data/maps/TARC3_base/scripts.pory"
 	.string "An Apricorn Tree blocks\nthe entrance.\pPost game area.$"

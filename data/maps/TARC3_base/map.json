@@ -102,7 +102,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "4",
-      "script": "0",
+      "script": "TARC3_Chatot1",
       "flag": "0"
     },
     {
@@ -777,7 +777,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "BERRY_TREE_ROUTE_121_SOIL_1",
+      "trainer_sight_or_berry_tree_id": "BERRY_TREE_ROUTE_120_PINAP",
       "script": "BerryTreeScript",
       "flag": "0"
     },
@@ -858,6 +858,19 @@
       "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_COLLECTIBLE_8"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(CHATOT)",
+      "x": 66,
+      "y": 69,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "4",
+      "script": "TARC3_Chatot2",
+      "flag": "0"
     }
   ],
   "warp_events": [
@@ -881,6 +894,27 @@
       "elevation": 0,
       "dest_map": "MAP_TARC3_UNDERGROUND_PATH",
       "dest_warp_id": "3"
+    },
+    {
+      "x": 33,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
+      "dest_warp_id": "3"
+    },
+    {
+      "x": 41,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 42,
+      "y": 22,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
+      "dest_warp_id": "5"
     }
   ],
   "coord_events": [

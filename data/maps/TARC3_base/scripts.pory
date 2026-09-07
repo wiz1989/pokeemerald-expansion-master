@@ -567,7 +567,29 @@ script TARC3_Feebas {
 	setspeaker("Feebas")
 	// createfieldmugshot(MUGSHOT_FEEBAS, EMOTE_NORMAL)
 	playmoncry(SPECIES_FEEBAS, CRY_MODE_NORMAL)
-	msgbox("If you ever get stuck,\nwalk to the dry riverbed\land flood it with your Base form.\pThis will respawn you in front\nof the institute.")
+	msgbox("If you ever get stuck,\nswim on the river and\lswitch to your Base form.\pThis will respawn you in front\nof the institute.")
+	release
+    end
+}
+
+script TARC3_Chatot1 {
+    lock
+	faceplayer
+	setspeaker("Chatot")
+	// createfieldmugshot(MUGSHOT_CHATOT, EMOTE_NORMAL)
+	playmoncry(SPECIES_CHATOT, CRY_MODE_NORMAL)
+	msgbox("Have you met Whimsicott, yet?\pShe is really friendly and\nprovides the town with crops.")
+	release
+    end
+}
+
+script TARC3_Chatot2 {
+    lock
+	faceplayer
+	setspeaker("Chatot")
+	// createfieldmugshot(MUGSHOT_CHATOT, EMOTE_NORMAL)
+	playmoncry(SPECIES_CHATOT, CRY_MODE_NORMAL)
+	msgbox("Remember, if you get stuck,\nswim on the river and\lswitch to your Base form.")
 	release
     end
 }

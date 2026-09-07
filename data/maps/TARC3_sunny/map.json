@@ -102,7 +102,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "4",
-      "script": "0",
+      "script": "TARC3_Chatot1",
       "flag": "0"
     },
     {
@@ -705,6 +705,27 @@
       "y": 53,
       "elevation": 0,
       "dest_map": "MAP_TARC3_SUNNY",
+      "dest_warp_id": "6"
+    },
+    {
+      "x": 33,
+      "y": 18,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 41,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
+      "dest_warp_id": "5"
+    },
+    {
+      "x": 42,
+      "y": 22,
+      "elevation": 0,
+      "dest_map": "MAP_TARC3_BASE",
       "dest_warp_id": "6"
     }
   ],
