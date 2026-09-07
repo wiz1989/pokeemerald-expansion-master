@@ -263,20 +263,20 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(LAPRAS)",
-      "x": 20,
+      "x": 21,
       "y": 6,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_WALK_LEFT_AND_RIGHT",
-      "movement_range_x": 3,
+      "movement_range_x": 2,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "TARC3_Lapras1_Source",
       "flag": "FLAG_LAPRAS1_SOURCE_INVISIBLE"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(LAPRAS)",
-      "x": 53,
+      "x": 54,
       "y": 84,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_WALK_LEFT_AND_RIGHT",
@@ -284,7 +284,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "TARC3_Lapras2_Source",
       "flag": "FLAG_LAPRAS2_SOURCE_INVISIBLE"
     },
     {
@@ -563,13 +563,13 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(FEEBAS)",
       "x": 21,
-      "y": 25,
+      "y": 22,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_WALK_UP_AND_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 4,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "4",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "TARC3_Feebas",
       "flag": "0"
     },

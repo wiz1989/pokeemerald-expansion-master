@@ -129,6 +129,10 @@ static void SetDefaultFlagsAndSettings(void)
     FlagSet(FLAG_SYS_POKEMON_GET);
     VarSet(VAR_TRANSFORM_MON, SPECIES_CASTFORM_NORMAL);
     FlagSet(FLAG_SMART_WILD_MONS);
+
+    // object visibility flags
+    FlagSet(FLAG_LAPRAS1_DEST_INVISIBLE);
+    FlagSet(FLAG_LAPRAS2_DEST_INVISIBLE);
 }
 
 static void ClearPokedexFlags(void)
