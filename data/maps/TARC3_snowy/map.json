@@ -392,32 +392,6 @@
       "flag": "FLAG_BASE_HELIOPTILE_BEATEN"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(SLIGGOO)",
-      "x": 7,
-      "y": 84,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_SLIGGOO_EVOLVED"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(GOODRA)",
-      "x": 6,
-      "y": 84,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_HIDE_GOODRA"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 10,
       "y": 58,
@@ -428,7 +402,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "TARC3_Dummy_Start_Amber",
-      "flag": "0"
+      "flag": "FLAG_ITEM_AMBER_SHARD"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_BERRY_TREE",

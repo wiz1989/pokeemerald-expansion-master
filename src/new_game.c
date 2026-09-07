@@ -133,6 +133,7 @@ static void SetDefaultFlagsAndSettings(void)
     // object visibility flags
     FlagSet(FLAG_LAPRAS1_DEST_INVISIBLE);
     FlagSet(FLAG_LAPRAS2_DEST_INVISIBLE);
+    FlagSet(FLAG_HIDE_GOODRA);
 }
 
 static void ClearPokedexFlags(void)

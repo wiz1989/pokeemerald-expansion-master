@@ -677,6 +677,36 @@ script TARC3_Nosepass {
     end
 }
 
+script TARC3_Sliggoo {
+	lock
+	faceplayer
+	setspeaker("Sliggoo")
+	// createfieldmugshot(MUGSHOT_SLIGGOO, EMOTE_NORMAL)
+	playmoncry(SPECIES_SLIGGOO, CRY_MODE_NORMAL)
+	msgbox("Heya, guess what level I am now!\pIt's already 69, but I just don't\nevolve.\pSo sad...")
+	release
+	end
+}
+
+script TARC3_Goodra {
+	lock
+	faceplayer
+	setspeaker("Goodra")
+	// createfieldmugshot(MUGSHOT_GOODRA, EMOTE_NORMAL)
+	playmoncry(SPECIES_GOODRA, CRY_MODE_NORMAL)
+	if (flag(FLAG_GOODRA_GAVE_ITEM)) {
+		msgbox("I tried evolving for so long,\nbut I had no idea how...")
+	}
+	else {
+		msgbox("You made it rain.\nThat was it!\pThank you so much for the help!\pHere, takes this.")
+		giveitem(ITEM_MIRACLE_SEED)
+		setflag(FLAG_GOODRA_GAVE_ITEM)
+		msgbox("I tried evolving for so long,\nbut I had no idea how...")
+	}
+	release
+	end
+}
+
 script TARC3_Lapras1_Source {
 	lock
 	faceplayer
