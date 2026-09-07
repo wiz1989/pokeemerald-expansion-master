@@ -94,7 +94,7 @@
 #define FLAG_RUN_XATU_AMBER           0x48 // Unused Flag
 #define FLAG_RUN_XATU_AZURE           0x49 // Unused Flag
 #define FLAG_RUN_XATU_GLACIAL         0x4A // Unused Flag
-#define FLAG_UNUSED_0x04B    0x4B // Unused Flag
+#define FLAG_AUDINO_GAVE_HERBICIDE    0x4B // Unused Flag
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
 #define FLAG_UNUSED_0x04D    0x4D // Unused Flag
 #define FLAG_UNUSED_0x04E    0x4E // Unused Flag

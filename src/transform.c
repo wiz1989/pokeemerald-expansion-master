@@ -275,7 +275,7 @@ void EndPlayerTransformAnimation(u8 taskId)
         {
             gSaveBlock2Ptr->pokemonAvatarSpecies = SPECIES_CASTFORM;
             VarSet(VAR_TRANSFORM_MON, SPECIES_CASTFORM); 
-            SetMainCallback2(CB2_WhiteOut); // DoWhiteFadeWarp();
+            SetMainCallback2(CB2_WhiteOut);
         }
     }
 

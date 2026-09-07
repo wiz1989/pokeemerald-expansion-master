@@ -237,6 +237,7 @@ void NewGameInitData(void)
     ResetFanClub();
     ResetLotteryCorner();
     UpdateDailySeed();
+    SetLastHealLocationWarp(50); // = HEAL_LOCATION_TARC3_START
     WarpToTruck();
     if (IS_FRLG)
         RunScriptImmediately(EventScript_ResetAllMapFlagsFrlg);

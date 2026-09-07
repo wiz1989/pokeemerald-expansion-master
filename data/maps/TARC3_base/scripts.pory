@@ -198,7 +198,7 @@ script TARC3_Amber_Munchlax {
 	setspeaker("Munchlax")
 	if (flag(FLAG_BASE_MUNCHLAX_BEATEN))
 	{
-		msgbox("I still like you!")
+		goto(TARC3_Munchlax_Post)
 	}
 	else
 	{
@@ -215,7 +215,7 @@ script TARC3_Amber_Munchlax {
 		}
 		else
 		{
-			msgbox("Hi, I'm MUNCHLAX.\nLet's battle!")
+			msgbox("Do you have some berries for me?\nI am hungry!")
 			setwildbattle(SPECIES_MUNCHLAX, 25)
 			playmoncry(SPECIES_MUNCHLAX, CRY_MODE_ENCOUNTER)
 			delay(40)
@@ -243,11 +243,11 @@ script TARC3_Amber_Combusken {
 	// createfieldmugshot(MUGSHOT_TEST, EMOTE_ALT)
 	if (flag(FLAG_BASE_COMBUSKEN_BEATEN))
 	{
-		msgbox("I still like you!")
+		goto(TARC3_Combusken_Post)
 	}
 	else
 	{
-		msgbox("Hi, I'm COMBUSKEN.\nLet's battle!")
+		msgbox("What are you doing here\nin my territory?\pYou think you can handle me?\nThe sun is on my side, too!")
 		setwildbattle(SPECIES_COMBUSKEN, 25)
 		playmoncry(SPECIES_COMBUSKEN, CRY_MODE_ENCOUNTER)
 		delay(40)
@@ -312,11 +312,11 @@ script TARC3_Amber_Torkoal {
 	// createfieldmugshot(MUGSHOT_TORKOAL, EMOTE_ALT)
 	if (flag(FLAG_BASE_TORKOAL_BEATEN))
 	{
-		msgbox("I still like you!")
+		goto(TARC3_Torkoal_Post)
 	}
 	else
 	{
-		msgbox("Hi, I'm TORKOAL.\nLet's battle!")
+		msgbox("Who dares to bother me during my nap?\p...\pAre you after that stone?\pYou cannot have it, it's dangerous!\nIt will turn the world into endless rain!")
 		setwildbattle(SPECIES_TORKOAL, 25)
 		playmoncry(SPECIES_TORKOAL, CRY_MODE_ENCOUNTER)
 		delay(40)
@@ -329,7 +329,7 @@ script TARC3_Amber_Torkoal {
 			faceplayer
 			setflag(FLAG_BASE_TORKOAL_BEATEN)
 			setrespawn(HEAL_LOCATION_TARC3_START)
-			msgbox("Here, take this!\pI found it behind the lava pool!")
+			msgbox("Defeated. Like it was nothing.\pMaybe you are able to save us\nfrom the chaos!\pHere, I found it behind the lava pool!")
 			setvar(VAR_CASTFORM_PHASE, 2)
 			setvar(VAR_TRIGGER_XATU_EVENT, 1)
 			finditem(ITEM_DAMP_ROCK, 1)
@@ -538,6 +538,49 @@ script TARC3_Dewpider_Post {
     end
 }
 
+script TARC3_Munchlax_Post {
+	playmoncry(SPECIES_MUNCHLAX, CRY_MODE_NORMAL)
+
+	callnative(GetCurrentTransformationSpecies)
+	switch (var(VAR_RESULT))
+	{
+		default:
+			msgbox("I heard there is a mysterious\nobject on top of the mountain.\pThey say it can make it rain.\pAnd rain makes berries grow\nYummy!")
+	}
+	release
+    end
+}
+
+script TARC3_Combusken_Post {
+	playmoncry(SPECIES_COMBUSKEN, CRY_MODE_NORMAL)
+
+	callnative(GetCurrentTransformationSpecies)
+	switch (var(VAR_RESULT))
+	{
+		case SPECIES_CASTFORM_RAINY:
+			msgbox("Now this is unfair!")
+		default:
+			msgbox("I clearly should have won!")
+	}
+	release
+    end
+}
+
+script TARC3_Torkoal_Post {
+	playmoncry(SPECIES_TORKOAL, CRY_MODE_NORMAL)
+
+	callnative(GetCurrentTransformationSpecies)
+	switch (var(VAR_RESULT))
+	{
+		case SPECIES_CASTFORM_RAINY:
+			msgbox("Woah! I didn't know you could\nturn the lava into stone!")
+		default:
+			msgbox("Please help us bring back normality!")
+	}
+	release
+    end
+}
+
 script TARC3_Whimsicott {
     lock
 	faceplayer
@@ -545,17 +588,17 @@ script TARC3_Whimsicott {
 	// createfieldmugshot(MUGSHOT_WHIMSICOTT, EMOTE_NORMAL)
 	if (flag(FLAG_WHIMSICOTT_GAVE_SEED))
 	{
-		msgbox("When you plant and water it,\nit will grow!")
+		msgbox("When you plant and water it,\nit will grow!\pBut don't expect much from these\nApricorn trees.\lThey haven't changed in ages.")
 	}
 	else
 	{
-		msgbox("Hi, I'm WHIMSICOTT.\nTake this seed!")
+		msgbox("Hi there, glad you found me!\pMy name is Whimsicott and\nI am the gardener of this town.\pHere, you can have a seed, too.")
 		playmoncry(SPECIES_WHIMSICOTT, CRY_MODE_NORMAL)
 		delay(40)
 		waitmoncry
 		giveitem(ITEM_WEPEAR_BERRY, 1)
 		setflag(FLAG_WHIMSICOTT_GAVE_SEED)
-		msgbox("When you plant and water it,\nit will grow!")
+		msgbox("When you plant and water it,\nit will grow!\pBut don't expect much from these\nApricorn trees.\lThey haven't changed in ages.")
 	}
 	release
     end
@@ -589,7 +632,63 @@ script TARC3_Chatot2 {
 	setspeaker("Chatot")
 	// createfieldmugshot(MUGSHOT_CHATOT, EMOTE_NORMAL)
 	playmoncry(SPECIES_CHATOT, CRY_MODE_NORMAL)
-	msgbox("Remember, if you get stuck,\nswim on the river and\lswitch to your Base form.")
+	msgbox("Remember, if you get stuck,\nswim on the river and\lswitch to your Base form.\pRIP")
+	release
+    end
+}
+
+script TARC3_Audino {
+    lock
+	faceplayer
+	setspeaker("Audino")
+	// createfieldmugshot(MUGSHOT_AUDINO, EMOTE_NORMAL)
+	playmoncry(SPECIES_AUDINO, CRY_MODE_NORMAL)
+	if (flag(FLAG_AUDINO_GAVE_HERBICIDE)) {
+		goto(TARC3_Audino_Post)
+	}
+	else {
+		msgbox("Whimsicott taught me how to\nreverse-grow plants.\pBut I am no gardener myself.\nYou can have this.")
+		giveitem(ITEM_HERBICIDE)
+		setflag(FLAG_AUDINO_GAVE_HERBICIDE)
+		goto(TARC3_Audino_Post)
+	}
+}
+
+script TARC3_Audino_Post {
+	msgbox("You can use this on grown vines")
+	release
+    end
+}
+
+script TARC3_Minccino {
+    lock
+	faceplayer
+	setspeaker("Minccino")
+	// createfieldmugshot(MUGSHOT_MINCCINO, EMOTE_NORMAL)
+	playmoncry(SPECIES_MINCCINO, CRY_MODE_NORMAL)
+	msgbox("The top of the volcano is hard\nto reach.\pI tried it before, but it was\ntoo steep and slippery.")
+	release
+    end
+}
+
+script TARC3_Smeargle {
+	lock
+	faceplayer
+	setspeaker("Smeargle")
+	// createfieldmugshot(MUGSHOT_SMEARGLE, EMOTE_NORMAL)
+	playmoncry(SPECIES_SMEARGLE, CRY_MODE_NORMAL)
+	msgbox("Did you notice the palette changes\nduring sunny weather?\pThat's me recoloring everything\nin an instant!")
+	release
+    end
+}
+
+script TARC3_Nosepass {
+	lock
+	faceplayer
+	setspeaker("Nosepass")
+	// createfieldmugshot(MUGSHOT_NOSEPASS, EMOTE_NORMAL)
+	playmoncry(SPECIES_NOSEPASS, CRY_MODE_NORMAL)
+	msgbox("I tried this shortcut, but it didn't work out.")
 	release
     end
 }
