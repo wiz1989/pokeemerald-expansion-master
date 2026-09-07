@@ -7,6 +7,16 @@ mapscripts  TARC3_WeatherInstitute_2F_MapScripts {
 
 script TARC3_WeatherInstitute_2F_AutoWalkToXatu {
 	setvar(VAR_TRIGGER_XATU_EVENT, 0)
+	if (var(VAR_CASTFORM_PHASE) == 0 && flag(FLAG_RUN_XATU_BASE))
+	{
+		clearflag(FLAG_RUN_XATU_BASE)
+		applymovement(LOCALID_PLAYER, Movement_ToXatu)
+		waitmovement(0)
+		setvar(VAR_LAST_TALKED, LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU)
+		lock
+		turnobject(LOCALID_TARC3_WEATHER_INSTITUTE_2F_XATU, DIR_WEST)
+		goto(TARC3_Lab_F2_Xatu)
+	}
 	if (var(VAR_CASTFORM_PHASE) == 1 && flag(FLAG_RUN_XATU_AMBER))
 	{
 		clearflag(FLAG_RUN_XATU_AMBER)
@@ -67,7 +77,7 @@ script TARC3_Lab_F2_Xatu_Manual {
 	switch (var(VAR_CASTFORM_PHASE))
 	{
 		case 0: // base
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("Please help us find the\nweather shards!\pYou are our only help!")
 		case 1: // amber
 			msgbox("That's the Amber Shard!\nFantastic!\pYou can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.")
 		case 2: // azure
@@ -89,7 +99,7 @@ script TARC3_Lab_F2_Xatu {
 	switch (var(VAR_CASTFORM_PHASE))
 	{
 		case 0: // base
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("Hi Stormy,\nas you've probably heard,\lthere was an incident in the lab.\pThe weather crystal shattered\nand its pieces were scattered\lall over the world.\pPlease help us find the missing\nweather shards!\pYou are our only help!")
 		case 1: // amber
 			msgbox("That's the Amber Shard!\nFantastic!\pLet me help you unleash its power!")
 			fadescreen(FADE_TO_WHITE)

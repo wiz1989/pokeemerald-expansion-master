@@ -130,6 +130,10 @@ static void SetDefaultFlagsAndSettings(void)
     VarSet(VAR_TRANSFORM_MON, SPECIES_CASTFORM_NORMAL);
     FlagSet(FLAG_SMART_WILD_MONS);
 
+    // first-time Xatu event
+    VarSet(VAR_TRIGGER_XATU_EVENT, 1);
+    FlagSet(FLAG_RUN_XATU_BASE);
+
     // object visibility flags
     FlagSet(FLAG_LAPRAS1_DEST_INVISIBLE);
     FlagSet(FLAG_LAPRAS2_DEST_INVISIBLE);

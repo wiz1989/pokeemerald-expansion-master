@@ -88,14 +88,14 @@
 #define FLAG_BASE_GASTRODON_BEATEN    0x42
 #define FLAG_BASE_FLYGON_BEATEN       0x43
 #define FLAG_BASE_SLOWKING_BEATEN     0x44
-#define FLAG_ITEM_AMBER_SHARD         0x45 // Unused Flag
-#define FLAG_ITEM_AZURE_SHARD         0x46 // Unused Flag
-#define FLAG_ITEM_GLACIAL_SHARD       0x47 // Unused Flag
-#define FLAG_RUN_XATU_AMBER           0x48 // Unused Flag
-#define FLAG_RUN_XATU_AZURE           0x49 // Unused Flag
-#define FLAG_RUN_XATU_GLACIAL         0x4A // Unused Flag
-#define FLAG_AUDINO_GAVE_HERBICIDE    0x4B // Unused Flag
-#define FLAG_UNUSED_0x04C    0x4C // Unused Flag
+#define FLAG_ITEM_AMBER_SHARD         0x45
+#define FLAG_ITEM_AZURE_SHARD         0x46
+#define FLAG_ITEM_GLACIAL_SHARD       0x47
+#define FLAG_RUN_XATU_AMBER           0x48
+#define FLAG_RUN_XATU_AZURE           0x49
+#define FLAG_RUN_XATU_GLACIAL         0x4A
+#define FLAG_AUDINO_GAVE_HERBICIDE    0x4B
+#define FLAG_RUN_XATU_BASE            0x4C
 #define FLAG_UNUSED_0x04D    0x4D // Unused Flag
 #define FLAG_UNUSED_0x04E    0x4E // Unused Flag
 #define FLAG_UNUSED_0x04F    0x4F // Unused Flag
