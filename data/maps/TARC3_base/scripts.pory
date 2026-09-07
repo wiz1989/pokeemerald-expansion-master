@@ -275,8 +275,23 @@ script TARC3_Amber_Observer {
 			msgbox("Thank you for helping me!")
 			fadescreen(FADE_TO_BLACK)
 			special(HealPlayerParty)
-			removeobject(34)
-			removeobject(35)
+
+			callnative(GetCurrentTransformationSpecies)
+			switch (var(VAR_RESULT))
+			{
+				case SPECIES_CASTFORM:
+					removeobject(LOCALID_BASE_FOMANTIS)
+					removeobject(LOCALID_BASE_HELIOPTILE)
+				case SPECIES_CASTFORM_RAINY:
+					removeobject(LOCALID_RAINY_FOMANTIS)
+					removeobject(LOCALID_RAINY_HELIOPTILE)
+				case SPECIES_CASTFORM_SUNNY:
+					removeobject(LOCALID_SUNNY_FOMANTIS)
+					removeobject(LOCALID_SUNNY_HELIOPTILE)
+				case SPECIES_CASTFORM_SNOWY:
+					removeobject(LOCALID_SNOWY_FOMANTIS)
+					removeobject(LOCALID_SNOWY_HELIOPTILE)
+			}
 			delay(60)
 			fadescreen(FADE_FROM_BLACK)
 

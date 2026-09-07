@@ -25,6 +25,8 @@ BerryTree_EventScript_CheckSoil::
 	faceplayer
 	specialvar VAR_RESULT, PlayerHasBerries
 	goto_if_eq VAR_RESULT, TRUE, BerryTree_EventScript_WantToPlant
+	checkitem ITEM_WEPEAR_BERRY
+	goto_if_eq VAR_RESULT, TRUE, BerryTree_EventScript_WantToPlant
 	specialvar VAR_RESULT, PlayerHasMulch
 	goto_if_eq VAR_RESULT, TRUE, BerryTree_EventScript_WantToMulch
 	message BerryTree_Text_ItsSoftLoamySoil
@@ -75,7 +77,6 @@ BerryTree_EventScript_ChooseBerryToPlant::
 	closemessage
 	special Bag_ChooseBerry
 	goto_if_eq VAR_ITEM_ID, 0, BerryTree_EventScript_CancelPlanting
-	removeitem VAR_ITEM_ID
 	call BerryTree_EventScript_PlantBerry
 
 BerryTree_EventScript_CancelPlanting::
@@ -270,11 +271,19 @@ BerryTree_EventScript_UseHerbicide::
 	end
 
 BerryTree_EventScript_PlantBerry::
+	goto_if_ne VAR_ITEM_ID, ITEM_WEPEAR_BERRY, BerryTree_EventScript_NotASeed
+	removeitem ITEM_WEPEAR_BERRY
 	special ObjectEventInteractionPlantBerryTree
 	incrementgamestat GAME_STAT_PLANTED_BERRIES
 	special IncrementDailyPlantedBerries
 	special ObjectEventInteractionGetBerryCountString
 	message BerryTree_Text_PlantedOneBerry
+	waitmessage
+	waitbuttonpress
+	return
+
+BerryTree_EventScript_NotASeed::
+	message BerryTree_Text_NotASeed
 	waitmessage
 	waitbuttonpress
 	return
@@ -289,6 +298,9 @@ BerryTree_Text_WantToPlant:
 BerryTree_Text_PlantedOneBerry:
 	.string "{PLAYER} planted one {STR_VAR_1} in\n"
 	.string "the soft, loamy soil.$"
+
+BerryTree_Text_NotASeed:
+	.string "This is not a SEED, dummy!$"
 
 BerryTree_Text_BerryGrowthStage1:
 .if OW_BERRY_SIX_STAGES == TRUE

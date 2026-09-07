@@ -314,6 +314,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_RAINY_FOMANTIS",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(FOMANTIS)",
       "x": 15,
       "y": 30,
@@ -327,6 +328,7 @@
       "flag": "FLAG_BASE_HELIOPTILE_BEATEN"
     },
     {
+      "local_id": "LOCALID_RAINY_HELIOPTILE",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(HELIOPTILE)",
       "x": 18,
       "y": 30,
@@ -340,9 +342,9 @@
       "flag": "FLAG_BASE_HELIOPTILE_BEATEN"
     },
     {
-      "local_id": "LOCALID_TARC3_RAINY_SLIGGOO",
+      "local_id": "LOCALID_RAINY_SLIGGOO",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(SLIGGOO)",
-      "x": 7,
+      "x": 8,
       "y": 84,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
@@ -354,9 +356,9 @@
       "flag": "FLAG_SLIGGOO_EVOLVED"
     },
     {
-      "local_id": "LOCALID_TARC3_RAINY_GOODRA",
+      "local_id": "LOCALID_RAINY_GOODRA",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(GOODRA)",
-      "x": 7,
+      "x": 8,
       "y": 84,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",

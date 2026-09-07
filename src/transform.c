@@ -962,13 +962,13 @@ static void EvolveSligooDuringRain(void)
         return;
 
     // only run the visibility changes if Sliggoo is currently visible
-    if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_TARC3_RAINY_SLIGGOO, mapNum, mapGroup, &objectEventId))
+    if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_RAINY_SLIGGOO, mapNum, mapGroup, &objectEventId))
         return;
 
     FlagSet(FLAG_SLIGGOO_EVOLVED);
     FlagClear(FLAG_HIDE_GOODRA);
-    RemoveObjectEventByLocalIdAndMap(LOCALID_TARC3_RAINY_SLIGGOO, mapNum, mapGroup);
-    TrySpawnObjectEvent(LOCALID_TARC3_RAINY_GOODRA, mapNum, mapGroup);
+    RemoveObjectEventByLocalIdAndMap(LOCALID_RAINY_SLIGGOO, mapNum, mapGroup);
+    TrySpawnObjectEvent(LOCALID_RAINY_GOODRA, mapNum, mapGroup);
 }
 
 static void RunWeatherChangeOverworldEffects(void)

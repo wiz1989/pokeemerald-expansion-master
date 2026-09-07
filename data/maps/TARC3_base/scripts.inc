@@ -401,7 +401,7 @@ TARC3_Amber_Observer::
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Amber_Observer_5
 TARC3_Amber_Observer_1:
-# 285 "data/maps/TARC3_base/scripts.pory"
+# 300 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
@@ -421,748 +421,785 @@ TARC3_Amber_Observer_5:
 	fadescreen FADE_TO_BLACK
 # 277 "data/maps/TARC3_base/scripts.pory"
 	special HealPlayerParty
-# 278 "data/maps/TARC3_base/scripts.pory"
-	removeobject 34
 # 279 "data/maps/TARC3_base/scripts.pory"
-	removeobject 35
+	callnative GetCurrentTransformationSpecies
 # 280 "data/maps/TARC3_base/scripts.pory"
+	switch VAR_RESULT
+# 282 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM, TARC3_Amber_Observer_9
+# 285 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM_RAINY, TARC3_Amber_Observer_10
+# 288 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM_SUNNY, TARC3_Amber_Observer_11
+# 291 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM_SNOWY, TARC3_Amber_Observer_12
+TARC3_Amber_Observer_7:
+# 295 "data/maps/TARC3_base/scripts.pory"
 	delay 60
-# 281 "data/maps/TARC3_base/scripts.pory"
+# 296 "data/maps/TARC3_base/scripts.pory"
 	fadescreen FADE_FROM_BLACK
 	goto TARC3_Amber_Observer_1
 
+TARC3_Amber_Observer_9:
+# 283 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_BASE_FOMANTIS
+# 284 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_BASE_HELIOPTILE
+	goto TARC3_Amber_Observer_7
+
+TARC3_Amber_Observer_10:
+# 286 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_RAINY_FOMANTIS
+# 287 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_RAINY_HELIOPTILE
+	goto TARC3_Amber_Observer_7
+
+TARC3_Amber_Observer_11:
+# 289 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_SUNNY_FOMANTIS
+# 290 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_SUNNY_HELIOPTILE
+	goto TARC3_Amber_Observer_7
+
+TARC3_Amber_Observer_12:
+# 292 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_SNOWY_FOMANTIS
+# 293 "data/maps/TARC3_base/scripts.pory"
+	removeobject LOCALID_SNOWY_HELIOPTILE
+	goto TARC3_Amber_Observer_7
+
 
 TARC3_Amber_Torkoal::
-# 290 "data/maps/TARC3_base/scripts.pory"
-	cant_see_if_set FLAG_BASE_TORKOAL_BEATEN
-# 291 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 292 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
-# 294 "data/maps/TARC3_base/scripts.pory"
-	setrespawn HEAL_LOCATION_TARC3_TORKOAL
-# 295 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Amber_Torkoal_Text_0
-# 297 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_BASE_TORKOAL_BEATEN, TARC3_Amber_Torkoal_2
-# 303 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Amber_Torkoal_Text_1
-# 304 "data/maps/TARC3_base/scripts.pory"
-	setwildbattle SPECIES_TORKOAL, 25
 # 305 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_TORKOAL, CRY_MODE_ENCOUNTER
+	cant_see_if_set FLAG_BASE_TORKOAL_BEATEN
 # 306 "data/maps/TARC3_base/scripts.pory"
-	delay 40
+	lock
 # 307 "data/maps/TARC3_base/scripts.pory"
-	waitmoncry
-# 308 "data/maps/TARC3_base/scripts.pory"
-	dowildbattle
+	faceplayer
 # 309 "data/maps/TARC3_base/scripts.pory"
-	callnative WasBattleWon
+	setrespawn HEAL_LOCATION_TARC3_TORKOAL
 # 310 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Amber_Torkoal_Text_0
+# 312 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_BASE_TORKOAL_BEATEN, TARC3_Amber_Torkoal_2
+# 318 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Amber_Torkoal_Text_1
+# 319 "data/maps/TARC3_base/scripts.pory"
+	setwildbattle SPECIES_TORKOAL, 25
+# 320 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_TORKOAL, CRY_MODE_ENCOUNTER
+# 321 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 322 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 323 "data/maps/TARC3_base/scripts.pory"
+	dowildbattle
+# 324 "data/maps/TARC3_base/scripts.pory"
+	callnative WasBattleWon
+# 325 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Amber_Torkoal_5
 TARC3_Amber_Torkoal_1:
-# 328 "data/maps/TARC3_base/scripts.pory"
+# 343 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Amber_Torkoal_2:
-# 299 "data/maps/TARC3_base/scripts.pory"
+# 314 "data/maps/TARC3_base/scripts.pory"
 	goto TARC3_Torkoal_Post
 	goto TARC3_Amber_Torkoal_1
 
 TARC3_Amber_Torkoal_5:
-# 312 "data/maps/TARC3_base/scripts.pory"
+# 327 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 313 "data/maps/TARC3_base/scripts.pory"
+# 328 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 314 "data/maps/TARC3_base/scripts.pory"
+# 329 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_BASE_TORKOAL_BEATEN
-# 315 "data/maps/TARC3_base/scripts.pory"
+# 330 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_START
-# 316 "data/maps/TARC3_base/scripts.pory"
+# 331 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Amber_Torkoal_Text_2
-# 317 "data/maps/TARC3_base/scripts.pory"
+# 332 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_CASTFORM_PHASE, 2
-# 318 "data/maps/TARC3_base/scripts.pory"
+# 333 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_TRIGGER_XATU_EVENT, 1
-# 319 "data/maps/TARC3_base/scripts.pory"
+# 334 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_DAMP_ROCK, 1
-# 320 "data/maps/TARC3_base/scripts.pory"
+# 335 "data/maps/TARC3_base/scripts.pory"
 	givemon SPECIES_CASTFORM_RAINY, 25
-# 321 "data/maps/TARC3_base/scripts.pory"
+# 336 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_ITEM_AZURE_SHARD
-# 322 "data/maps/TARC3_base/scripts.pory"
+# 337 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_RUN_XATU_AZURE
-# 323 "data/maps/TARC3_base/scripts.pory"
+# 338 "data/maps/TARC3_base/scripts.pory"
 	releaseall
-# 324 "data/maps/TARC3_base/scripts.pory"
+# 339 "data/maps/TARC3_base/scripts.pory"
 	warp MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8
-# 325 "data/maps/TARC3_base/scripts.pory"
+# 340 "data/maps/TARC3_base/scripts.pory"
 	waitstate
 	goto TARC3_Amber_Torkoal_1
 
 
 TARC3_Azure_Toxicroak::
-# 333 "data/maps/TARC3_base/scripts.pory"
-	cant_see_if_set FLAG_BASE_TOXICROAK_BEATEN
-# 334 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 335 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
-# 337 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Azure_Toxicroak_Text_0
-# 338 "data/maps/TARC3_base/scripts.pory"
-	setrespawn HEAL_LOCATION_TARC3_TOXICROAK
-# 340 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_BASE_TOXICROAK_BEATEN, TARC3_Azure_Toxicroak_2
-# 346 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Azure_Toxicroak_Text_2
-# 347 "data/maps/TARC3_base/scripts.pory"
-	setwildbattle SPECIES_TOXICROAK, 25
 # 348 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_TOXICROAK, CRY_MODE_ENCOUNTER
+	cant_see_if_set FLAG_BASE_TOXICROAK_BEATEN
 # 349 "data/maps/TARC3_base/scripts.pory"
-	delay 40
+	lock
 # 350 "data/maps/TARC3_base/scripts.pory"
-	waitmoncry
-# 351 "data/maps/TARC3_base/scripts.pory"
-	dowildbattle
+	faceplayer
 # 352 "data/maps/TARC3_base/scripts.pory"
-	callnative WasBattleWon
+	setspeaker TARC3_Azure_Toxicroak_Text_0
 # 353 "data/maps/TARC3_base/scripts.pory"
+	setrespawn HEAL_LOCATION_TARC3_TOXICROAK
+# 355 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_BASE_TOXICROAK_BEATEN, TARC3_Azure_Toxicroak_2
+# 361 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Azure_Toxicroak_Text_2
+# 362 "data/maps/TARC3_base/scripts.pory"
+	setwildbattle SPECIES_TOXICROAK, 25
+# 363 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_TOXICROAK, CRY_MODE_ENCOUNTER
+# 364 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 365 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 366 "data/maps/TARC3_base/scripts.pory"
+	dowildbattle
+# 367 "data/maps/TARC3_base/scripts.pory"
+	callnative WasBattleWon
+# 368 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Azure_Toxicroak_5
 TARC3_Azure_Toxicroak_1:
-# 359 "data/maps/TARC3_base/scripts.pory"
+# 374 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Azure_Toxicroak_2:
-# 342 "data/maps/TARC3_base/scripts.pory"
+# 357 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Azure_Toxicroak_Text_1
 	goto TARC3_Azure_Toxicroak_1
 
 TARC3_Azure_Toxicroak_5:
-# 355 "data/maps/TARC3_base/scripts.pory"
+# 370 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_BASE_TOXICROAK_BEATEN
-# 356 "data/maps/TARC3_base/scripts.pory"
+# 371 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_START
 	goto TARC3_Azure_Toxicroak_1
 
 
 TARC3_Azure_Gastrodon::
-# 364 "data/maps/TARC3_base/scripts.pory"
-	cant_see_if_set FLAG_BASE_GASTRODON_BEATEN
-# 365 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 366 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
-# 368 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Azure_Gastrodon_Text_0
-# 369 "data/maps/TARC3_base/scripts.pory"
-	setrespawn HEAL_LOCATION_TARC3_GASTRODON
-# 371 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_BASE_GASTRODON_BEATEN, TARC3_Azure_Gastrodon_2
-# 377 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Azure_Gastrodon_Text_1
-# 378 "data/maps/TARC3_base/scripts.pory"
-	setwildbattle SPECIES_GASTRODON, 25
 # 379 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_GASTRODON, CRY_MODE_ENCOUNTER
+	cant_see_if_set FLAG_BASE_GASTRODON_BEATEN
 # 380 "data/maps/TARC3_base/scripts.pory"
-	delay 40
+	lock
 # 381 "data/maps/TARC3_base/scripts.pory"
-	waitmoncry
-# 382 "data/maps/TARC3_base/scripts.pory"
-	dowildbattle
+	faceplayer
 # 383 "data/maps/TARC3_base/scripts.pory"
-	callnative WasBattleWon
+	setspeaker TARC3_Azure_Gastrodon_Text_0
 # 384 "data/maps/TARC3_base/scripts.pory"
+	setrespawn HEAL_LOCATION_TARC3_GASTRODON
+# 386 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_BASE_GASTRODON_BEATEN, TARC3_Azure_Gastrodon_2
+# 392 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Azure_Gastrodon_Text_1
+# 393 "data/maps/TARC3_base/scripts.pory"
+	setwildbattle SPECIES_GASTRODON, 25
+# 394 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_GASTRODON, CRY_MODE_ENCOUNTER
+# 395 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 396 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 397 "data/maps/TARC3_base/scripts.pory"
+	dowildbattle
+# 398 "data/maps/TARC3_base/scripts.pory"
+	callnative WasBattleWon
+# 399 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Azure_Gastrodon_5
 TARC3_Azure_Gastrodon_1:
-# 390 "data/maps/TARC3_base/scripts.pory"
+# 405 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Azure_Gastrodon_2:
-# 373 "data/maps/TARC3_base/scripts.pory"
+# 388 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Azure_Toxicroak_Text_1
 	goto TARC3_Azure_Gastrodon_1
 
 TARC3_Azure_Gastrodon_5:
-# 386 "data/maps/TARC3_base/scripts.pory"
+# 401 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_BASE_GASTRODON_BEATEN
-# 387 "data/maps/TARC3_base/scripts.pory"
+# 402 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_START
 	goto TARC3_Azure_Gastrodon_1
 
 
 TARC3_Azure_Observer::
-# 395 "data/maps/TARC3_base/scripts.pory"
-	cant_see_if_set FLAG_BASE_SLOWKING_BEATEN
-# 396 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 397 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
-# 399 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Azure_Observer_Text_0
-# 400 "data/maps/TARC3_base/scripts.pory"
-	setrespawn HEAL_LOCATION_TARC3_SLOWKING
-# 402 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_BASE_SLOWKING_BEATEN, TARC3_Azure_Observer_2
-# 408 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Azure_Observer_Text_1
-# 409 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_SLOWKING, CRY_MODE_ENCOUNTER
 # 410 "data/maps/TARC3_base/scripts.pory"
-	delay 40
+	cant_see_if_set FLAG_BASE_SLOWKING_BEATEN
 # 411 "data/maps/TARC3_base/scripts.pory"
-	waitmoncry
+	lock
 # 412 "data/maps/TARC3_base/scripts.pory"
-	ai_vs_ai_wild_battle SPECIES_DRAMPA, SPECIES_SLOWKING, 25
-# 413 "data/maps/TARC3_base/scripts.pory"
-	callnative WasBattleWon
+	faceplayer
 # 414 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Azure_Observer_Text_0
+# 415 "data/maps/TARC3_base/scripts.pory"
+	setrespawn HEAL_LOCATION_TARC3_SLOWKING
+# 417 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_BASE_SLOWKING_BEATEN, TARC3_Azure_Observer_2
+# 423 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Azure_Observer_Text_1
+# 424 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_SLOWKING, CRY_MODE_ENCOUNTER
+# 425 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 426 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 427 "data/maps/TARC3_base/scripts.pory"
+	ai_vs_ai_wild_battle SPECIES_DRAMPA, SPECIES_SLOWKING, 25
+# 428 "data/maps/TARC3_base/scripts.pory"
+	callnative WasBattleWon
+# 429 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Azure_Observer_5
 TARC3_Azure_Observer_1:
-# 420 "data/maps/TARC3_base/scripts.pory"
+# 435 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Azure_Observer_2:
-# 404 "data/maps/TARC3_base/scripts.pory"
+# 419 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Amber_Observer_Text_1
 	goto TARC3_Azure_Observer_1
 
 TARC3_Azure_Observer_5:
-# 416 "data/maps/TARC3_base/scripts.pory"
+# 431 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_BASE_SLOWKING_BEATEN
-# 417 "data/maps/TARC3_base/scripts.pory"
+# 432 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_START
 	goto TARC3_Azure_Observer_1
 
 
 TARC3_Azure_Flygon::
-# 425 "data/maps/TARC3_base/scripts.pory"
-	cant_see_if_set FLAG_BASE_FLYGON_BEATEN
-# 426 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 427 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
-# 429 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Azure_Flygon_Text_0
-# 430 "data/maps/TARC3_base/scripts.pory"
-	setrespawn HEAL_LOCATION_TARC3_FLYGON
-# 432 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_BASE_FLYGON_BEATEN, TARC3_Azure_Flygon_2
-# 438 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Azure_Flygon_Text_1
-# 439 "data/maps/TARC3_base/scripts.pory"
-	setwildbattle SPECIES_FLYGON, 25
 # 440 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_FLYGON, CRY_MODE_ENCOUNTER
+	cant_see_if_set FLAG_BASE_FLYGON_BEATEN
 # 441 "data/maps/TARC3_base/scripts.pory"
-	delay 40
+	lock
 # 442 "data/maps/TARC3_base/scripts.pory"
-	waitmoncry
-# 443 "data/maps/TARC3_base/scripts.pory"
-	dowildbattle
+	faceplayer
 # 444 "data/maps/TARC3_base/scripts.pory"
-	callnative WasBattleWon
+	setspeaker TARC3_Azure_Flygon_Text_0
 # 445 "data/maps/TARC3_base/scripts.pory"
+	setrespawn HEAL_LOCATION_TARC3_FLYGON
+# 447 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_BASE_FLYGON_BEATEN, TARC3_Azure_Flygon_2
+# 453 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Azure_Flygon_Text_1
+# 454 "data/maps/TARC3_base/scripts.pory"
+	setwildbattle SPECIES_FLYGON, 25
+# 455 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_FLYGON, CRY_MODE_ENCOUNTER
+# 456 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 457 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 458 "data/maps/TARC3_base/scripts.pory"
+	dowildbattle
+# 459 "data/maps/TARC3_base/scripts.pory"
+	callnative WasBattleWon
+# 460 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Azure_Flygon_5
 TARC3_Azure_Flygon_1:
-# 451 "data/maps/TARC3_base/scripts.pory"
+# 466 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Azure_Flygon_2:
-# 434 "data/maps/TARC3_base/scripts.pory"
+# 449 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Azure_Toxicroak_Text_1
 	goto TARC3_Azure_Flygon_1
 
 TARC3_Azure_Flygon_5:
-# 447 "data/maps/TARC3_base/scripts.pory"
+# 462 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_BASE_FLYGON_BEATEN
-# 448 "data/maps/TARC3_base/scripts.pory"
+# 463 "data/maps/TARC3_base/scripts.pory"
 	setrespawn HEAL_LOCATION_TARC3_START
 	goto TARC3_Azure_Flygon_1
 
 
 TARC3_Paras_Post::
-# 458 "data/maps/TARC3_base/scripts.pory"
+# 473 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_SURSKIT, CRY_MODE_NORMAL
-# 460 "data/maps/TARC3_base/scripts.pory"
+# 475 "data/maps/TARC3_base/scripts.pory"
 	callnative GetCurrentTransformationSpecies
-# 461 "data/maps/TARC3_base/scripts.pory"
+# 476 "data/maps/TARC3_base/scripts.pory"
 	switch VAR_RESULT
-# 463 "data/maps/TARC3_base/scripts.pory"
+# 478 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM_SUNNY, TARC3_Paras_Post_3
-# 465 "data/maps/TARC3_base/scripts.pory"
+# 480 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM_RAINY, TARC3_Paras_Post_4
-# 466 "data/maps/TARC3_base/scripts.pory"
+# 481 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM_SNOWY, TARC3_Paras_Post_4
-# 468 "data/maps/TARC3_base/scripts.pory"
+# 483 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM, TARC3_Paras_Post_5
 TARC3_Paras_Post_5:
-# 470 "data/maps/TARC3_base/scripts.pory"
+# 485 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Paras_Post_Text_2
 TARC3_Paras_Post_1:
-# 472 "data/maps/TARC3_base/scripts.pory"
+# 487 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Paras_Post_3:
-# 464 "data/maps/TARC3_base/scripts.pory"
+# 479 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Paras_Post_Text_0
 	goto TARC3_Paras_Post_1
 
 TARC3_Paras_Post_4:
-# 467 "data/maps/TARC3_base/scripts.pory"
+# 482 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Paras_Post_Text_1
 	goto TARC3_Paras_Post_1
 
 
 TARC3_Surskit::
-# 477 "data/maps/TARC3_base/scripts.pory"
+# 492 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 478 "data/maps/TARC3_base/scripts.pory"
+# 493 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 479 "data/maps/TARC3_base/scripts.pory"
+# 494 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_SURSKIT, CRY_MODE_NORMAL
-# 480 "data/maps/TARC3_base/scripts.pory"
+# 495 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Surskit_Text_0
-# 481 "data/maps/TARC3_base/scripts.pory"
+# 496 "data/maps/TARC3_base/scripts.pory"
 	callnative GetCurrentTransformationSpecies
-# 482 "data/maps/TARC3_base/scripts.pory"
+# 497 "data/maps/TARC3_base/scripts.pory"
 	switch VAR_RESULT
-# 484 "data/maps/TARC3_base/scripts.pory"
+# 499 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM_SUNNY, TARC3_Surskit_3
-# 486 "data/maps/TARC3_base/scripts.pory"
+# 501 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM_RAINY, TARC3_Surskit_4
-# 488 "data/maps/TARC3_base/scripts.pory"
+# 503 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM_SNOWY, TARC3_Surskit_5
-# 489 "data/maps/TARC3_base/scripts.pory"
+# 504 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM, TARC3_Surskit_5
 TARC3_Surskit_5:
-# 491 "data/maps/TARC3_base/scripts.pory"
+# 506 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Surskit_Text_3
 TARC3_Surskit_1:
-# 493 "data/maps/TARC3_base/scripts.pory"
+# 508 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Surskit_3:
-# 485 "data/maps/TARC3_base/scripts.pory"
+# 500 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Surskit_Text_1
 	goto TARC3_Surskit_1
 
 TARC3_Surskit_4:
-# 487 "data/maps/TARC3_base/scripts.pory"
+# 502 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Surskit_Text_2
 	goto TARC3_Surskit_1
 
 
 TARC3_Vulpix_Post::
-# 498 "data/maps/TARC3_base/scripts.pory"
+# 513 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_VULPIX, CRY_MODE_NORMAL
-# 500 "data/maps/TARC3_base/scripts.pory"
+# 515 "data/maps/TARC3_base/scripts.pory"
 	callnative GetCurrentTransformationSpecies
-# 501 "data/maps/TARC3_base/scripts.pory"
+# 516 "data/maps/TARC3_base/scripts.pory"
 	switch VAR_RESULT
-# 504 "data/maps/TARC3_base/scripts.pory"
+# 519 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Vulpix_Post_Text_0
-# 506 "data/maps/TARC3_base/scripts.pory"
+# 521 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Dewpider_Post::
-# 511 "data/maps/TARC3_base/scripts.pory"
+# 526 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_DEWPIDER, CRY_MODE_NORMAL
-# 513 "data/maps/TARC3_base/scripts.pory"
+# 528 "data/maps/TARC3_base/scripts.pory"
 	callnative GetCurrentTransformationSpecies
-# 514 "data/maps/TARC3_base/scripts.pory"
+# 529 "data/maps/TARC3_base/scripts.pory"
 	switch VAR_RESULT
-# 516 "data/maps/TARC3_base/scripts.pory"
+# 531 "data/maps/TARC3_base/scripts.pory"
 	case SPECIES_CASTFORM_SUNNY, TARC3_Dewpider_Post_3
-# 519 "data/maps/TARC3_base/scripts.pory"
+# 534 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Dewpider_Post_Text_1
 TARC3_Dewpider_Post_1:
-# 521 "data/maps/TARC3_base/scripts.pory"
+# 536 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Dewpider_Post_3:
-# 517 "data/maps/TARC3_base/scripts.pory"
+# 532 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Dewpider_Post_Text_0
 	goto TARC3_Dewpider_Post_1
 
 
 TARC3_Munchlax_Post::
-# 526 "data/maps/TARC3_base/scripts.pory"
+# 541 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_MUNCHLAX, CRY_MODE_NORMAL
-# 528 "data/maps/TARC3_base/scripts.pory"
+# 543 "data/maps/TARC3_base/scripts.pory"
 	callnative GetCurrentTransformationSpecies
-# 529 "data/maps/TARC3_base/scripts.pory"
+# 544 "data/maps/TARC3_base/scripts.pory"
 	switch VAR_RESULT
-# 532 "data/maps/TARC3_base/scripts.pory"
+# 547 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Munchlax_Post_Text_0
-# 534 "data/maps/TARC3_base/scripts.pory"
+# 549 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Combusken_Post::
-# 539 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_COMBUSKEN, CRY_MODE_NORMAL
-# 541 "data/maps/TARC3_base/scripts.pory"
-	callnative GetCurrentTransformationSpecies
-# 542 "data/maps/TARC3_base/scripts.pory"
-	switch VAR_RESULT
-# 544 "data/maps/TARC3_base/scripts.pory"
-	case SPECIES_CASTFORM_RAINY, TARC3_Combusken_Post_3
-# 547 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Combusken_Post_Text_1
-TARC3_Combusken_Post_1:
-# 549 "data/maps/TARC3_base/scripts.pory"
-	release
-	end
-
-TARC3_Combusken_Post_3:
-# 545 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Combusken_Post_Text_0
-	goto TARC3_Combusken_Post_1
-
-
-TARC3_Torkoal_Post::
 # 554 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_TORKOAL, CRY_MODE_NORMAL
+	playmoncry SPECIES_COMBUSKEN, CRY_MODE_NORMAL
 # 556 "data/maps/TARC3_base/scripts.pory"
 	callnative GetCurrentTransformationSpecies
 # 557 "data/maps/TARC3_base/scripts.pory"
 	switch VAR_RESULT
 # 559 "data/maps/TARC3_base/scripts.pory"
-	case SPECIES_CASTFORM_RAINY, TARC3_Torkoal_Post_3
+	case SPECIES_CASTFORM_RAINY, TARC3_Combusken_Post_3
 # 562 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Torkoal_Post_Text_1
-TARC3_Torkoal_Post_1:
+	msgbox TARC3_Combusken_Post_Text_1
+TARC3_Combusken_Post_1:
 # 564 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
-TARC3_Torkoal_Post_3:
+TARC3_Combusken_Post_3:
 # 560 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Combusken_Post_Text_0
+	goto TARC3_Combusken_Post_1
+
+
+TARC3_Torkoal_Post::
+# 569 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_TORKOAL, CRY_MODE_NORMAL
+# 571 "data/maps/TARC3_base/scripts.pory"
+	callnative GetCurrentTransformationSpecies
+# 572 "data/maps/TARC3_base/scripts.pory"
+	switch VAR_RESULT
+# 574 "data/maps/TARC3_base/scripts.pory"
+	case SPECIES_CASTFORM_RAINY, TARC3_Torkoal_Post_3
+# 577 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Torkoal_Post_Text_1
+TARC3_Torkoal_Post_1:
+# 579 "data/maps/TARC3_base/scripts.pory"
+	release
+	end
+
+TARC3_Torkoal_Post_3:
+# 575 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Torkoal_Post_Text_0
 	goto TARC3_Torkoal_Post_1
 
 
 TARC3_Whimsicott::
-# 569 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 570 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
-# 571 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Whimsicott_Text_0
-# 573 "data/maps/TARC3_base/scripts.pory"
-	goto_if_set FLAG_WHIMSICOTT_GAVE_SEED, TARC3_Whimsicott_2
-# 579 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Whimsicott_Text_2
-# 580 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_WHIMSICOTT, CRY_MODE_NORMAL
-# 581 "data/maps/TARC3_base/scripts.pory"
-	delay 40
-# 582 "data/maps/TARC3_base/scripts.pory"
-	waitmoncry
-# 583 "data/maps/TARC3_base/scripts.pory"
-	giveitem ITEM_WEPEAR_BERRY, 1
 # 584 "data/maps/TARC3_base/scripts.pory"
-	setflag FLAG_WHIMSICOTT_GAVE_SEED
+	lock
 # 585 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 586 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Whimsicott_Text_0
+# 588 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_WHIMSICOTT_GAVE_SEED, TARC3_Whimsicott_2
+# 594 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Whimsicott_Text_2
+# 595 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_WHIMSICOTT, CRY_MODE_NORMAL
+# 596 "data/maps/TARC3_base/scripts.pory"
+	delay 40
+# 597 "data/maps/TARC3_base/scripts.pory"
+	waitmoncry
+# 598 "data/maps/TARC3_base/scripts.pory"
+	giveitem ITEM_WEPEAR_BERRY, 1
+# 599 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_WHIMSICOTT_GAVE_SEED
+# 600 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Whimsicott_Text_1
 TARC3_Whimsicott_1:
-# 587 "data/maps/TARC3_base/scripts.pory"
+# 602 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Whimsicott_2:
-# 575 "data/maps/TARC3_base/scripts.pory"
+# 590 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Whimsicott_Text_1
 	goto TARC3_Whimsicott_1
 
 
 TARC3_Feebas::
-# 592 "data/maps/TARC3_base/scripts.pory"
+# 607 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 593 "data/maps/TARC3_base/scripts.pory"
+# 608 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 594 "data/maps/TARC3_base/scripts.pory"
+# 609 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Feebas_Text_0
-# 596 "data/maps/TARC3_base/scripts.pory"
+# 611 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_FEEBAS, CRY_MODE_NORMAL
-# 597 "data/maps/TARC3_base/scripts.pory"
+# 612 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Feebas_Text_1
-# 598 "data/maps/TARC3_base/scripts.pory"
+# 613 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Chatot1::
-# 603 "data/maps/TARC3_base/scripts.pory"
+# 618 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 604 "data/maps/TARC3_base/scripts.pory"
+# 619 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 605 "data/maps/TARC3_base/scripts.pory"
+# 620 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Chatot1_Text_0
-# 607 "data/maps/TARC3_base/scripts.pory"
+# 622 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_CHATOT, CRY_MODE_NORMAL
-# 608 "data/maps/TARC3_base/scripts.pory"
+# 623 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Chatot1_Text_1
-# 609 "data/maps/TARC3_base/scripts.pory"
+# 624 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Chatot2::
-# 614 "data/maps/TARC3_base/scripts.pory"
+# 629 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 615 "data/maps/TARC3_base/scripts.pory"
+# 630 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 616 "data/maps/TARC3_base/scripts.pory"
+# 631 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Chatot1_Text_0
-# 618 "data/maps/TARC3_base/scripts.pory"
+# 633 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_CHATOT, CRY_MODE_NORMAL
-# 619 "data/maps/TARC3_base/scripts.pory"
+# 634 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Chatot2_Text_0
-# 620 "data/maps/TARC3_base/scripts.pory"
+# 635 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Audino::
-# 625 "data/maps/TARC3_base/scripts.pory"
+# 640 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 626 "data/maps/TARC3_base/scripts.pory"
+# 641 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 627 "data/maps/TARC3_base/scripts.pory"
+# 642 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Audino_Text_0
-# 629 "data/maps/TARC3_base/scripts.pory"
+# 644 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_AUDINO, CRY_MODE_NORMAL
-# 630 "data/maps/TARC3_base/scripts.pory"
+# 645 "data/maps/TARC3_base/scripts.pory"
 	goto_if_set FLAG_AUDINO_GAVE_HERBICIDE, TARC3_Audino_1
-# 634 "data/maps/TARC3_base/scripts.pory"
+# 649 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Audino_Text_1
-# 635 "data/maps/TARC3_base/scripts.pory"
+# 650 "data/maps/TARC3_base/scripts.pory"
 	giveitem ITEM_HYPER_POTION
-# 636 "data/maps/TARC3_base/scripts.pory"
+# 651 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_AUDINO_GAVE_HERBICIDE
-# 637 "data/maps/TARC3_base/scripts.pory"
+# 652 "data/maps/TARC3_base/scripts.pory"
 	goto TARC3_Audino_Post
 	return
 
 TARC3_Audino_1:
-# 631 "data/maps/TARC3_base/scripts.pory"
+# 646 "data/maps/TARC3_base/scripts.pory"
 	goto TARC3_Audino_Post
 	return
 
 
 TARC3_Audino_Post::
-# 642 "data/maps/TARC3_base/scripts.pory"
+# 657 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Audino_Post_Text_0
-# 643 "data/maps/TARC3_base/scripts.pory"
+# 658 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Minccino::
-# 648 "data/maps/TARC3_base/scripts.pory"
+# 663 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 649 "data/maps/TARC3_base/scripts.pory"
+# 664 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 650 "data/maps/TARC3_base/scripts.pory"
+# 665 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Minccino_Text_0
-# 652 "data/maps/TARC3_base/scripts.pory"
+# 667 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_MINCCINO, CRY_MODE_NORMAL
-# 653 "data/maps/TARC3_base/scripts.pory"
+# 668 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Minccino_Text_1
-# 654 "data/maps/TARC3_base/scripts.pory"
+# 669 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Smeargle::
-# 659 "data/maps/TARC3_base/scripts.pory"
+# 674 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 660 "data/maps/TARC3_base/scripts.pory"
+# 675 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 661 "data/maps/TARC3_base/scripts.pory"
+# 676 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Smeargle_Text_0
-# 663 "data/maps/TARC3_base/scripts.pory"
+# 678 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_SMEARGLE, CRY_MODE_NORMAL
-# 664 "data/maps/TARC3_base/scripts.pory"
+# 679 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Smeargle_Text_1
-# 665 "data/maps/TARC3_base/scripts.pory"
+# 680 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Nosepass::
-# 670 "data/maps/TARC3_base/scripts.pory"
+# 685 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 671 "data/maps/TARC3_base/scripts.pory"
+# 686 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 672 "data/maps/TARC3_base/scripts.pory"
+# 687 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Nosepass_Text_0
-# 674 "data/maps/TARC3_base/scripts.pory"
+# 689 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_NOSEPASS, CRY_MODE_NORMAL
-# 675 "data/maps/TARC3_base/scripts.pory"
+# 690 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Nosepass_Text_1
-# 676 "data/maps/TARC3_base/scripts.pory"
+# 691 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Sliggoo::
-# 681 "data/maps/TARC3_base/scripts.pory"
+# 696 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 682 "data/maps/TARC3_base/scripts.pory"
+# 697 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 683 "data/maps/TARC3_base/scripts.pory"
+# 698 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Sliggoo_Text_0
-# 685 "data/maps/TARC3_base/scripts.pory"
+# 700 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_SLIGGOO, CRY_MODE_NORMAL
-# 686 "data/maps/TARC3_base/scripts.pory"
+# 701 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Sliggoo_Text_1
-# 687 "data/maps/TARC3_base/scripts.pory"
+# 702 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Goodra::
-# 692 "data/maps/TARC3_base/scripts.pory"
+# 707 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 693 "data/maps/TARC3_base/scripts.pory"
+# 708 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 694 "data/maps/TARC3_base/scripts.pory"
+# 709 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Goodra_Text_0
-# 696 "data/maps/TARC3_base/scripts.pory"
+# 711 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_GOODRA, CRY_MODE_NORMAL
-# 697 "data/maps/TARC3_base/scripts.pory"
+# 712 "data/maps/TARC3_base/scripts.pory"
 	goto_if_set FLAG_GOODRA_GAVE_ITEM, TARC3_Goodra_2
-# 701 "data/maps/TARC3_base/scripts.pory"
+# 716 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Goodra_Text_2
-# 702 "data/maps/TARC3_base/scripts.pory"
+# 717 "data/maps/TARC3_base/scripts.pory"
 	giveitem ITEM_MIRACLE_SEED
-# 703 "data/maps/TARC3_base/scripts.pory"
+# 718 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_GOODRA_GAVE_ITEM
-# 704 "data/maps/TARC3_base/scripts.pory"
+# 719 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Goodra_Text_1
 TARC3_Goodra_1:
-# 706 "data/maps/TARC3_base/scripts.pory"
+# 721 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 TARC3_Goodra_2:
-# 698 "data/maps/TARC3_base/scripts.pory"
+# 713 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Goodra_Text_1
 	goto TARC3_Goodra_1
 
 
 TARC3_Lapras1_Source::
-# 711 "data/maps/TARC3_base/scripts.pory"
-	lock
-# 712 "data/maps/TARC3_base/scripts.pory"
-	faceplayer
-# 713 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Lapras1_Source_Text_0
-# 715 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_LAPRAS, CRY_MODE_NORMAL
-# 716 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Lapras1_Source_Text_1
-# 717 "data/maps/TARC3_base/scripts.pory"
-	applymovement VAR_LAST_TALKED, TARC3_Lapras1_Source_Movement_0
-# 722 "data/maps/TARC3_base/scripts.pory"
-	waitmovement 0
-# 723 "data/maps/TARC3_base/scripts.pory"
-	removeobject VAR_LAST_TALKED
-# 724 "data/maps/TARC3_base/scripts.pory"
-	setflag FLAG_LAPRAS1_SOURCE_INVISIBLE
-# 725 "data/maps/TARC3_base/scripts.pory"
-	clearflag FLAG_LAPRAS1_DEST_INVISIBLE
 # 726 "data/maps/TARC3_base/scripts.pory"
+	lock
+# 727 "data/maps/TARC3_base/scripts.pory"
+	faceplayer
+# 728 "data/maps/TARC3_base/scripts.pory"
+	setspeaker TARC3_Lapras1_Source_Text_0
+# 730 "data/maps/TARC3_base/scripts.pory"
+	playmoncry SPECIES_LAPRAS, CRY_MODE_NORMAL
+# 731 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Lapras1_Source_Text_1
+# 732 "data/maps/TARC3_base/scripts.pory"
+	applymovement VAR_LAST_TALKED, TARC3_Lapras1_Source_Movement_0
+# 737 "data/maps/TARC3_base/scripts.pory"
+	waitmovement 0
+# 738 "data/maps/TARC3_base/scripts.pory"
+	removeobject VAR_LAST_TALKED
+# 739 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_LAPRAS1_SOURCE_INVISIBLE
+# 740 "data/maps/TARC3_base/scripts.pory"
+	clearflag FLAG_LAPRAS1_DEST_INVISIBLE
+# 741 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Lapras2_Source::
-# 731 "data/maps/TARC3_base/scripts.pory"
+# 746 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 732 "data/maps/TARC3_base/scripts.pory"
+# 747 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 733 "data/maps/TARC3_base/scripts.pory"
-	setspeaker TARC3_Lapras1_Source_Text_0
-# 735 "data/maps/TARC3_base/scripts.pory"
-	playmoncry SPECIES_LAPRAS, CRY_MODE_NORMAL
-# 736 "data/maps/TARC3_base/scripts.pory"
-	msgbox TARC3_Lapras2_Source_Text_0
-# 737 "data/maps/TARC3_base/scripts.pory"
-	applymovement VAR_LAST_TALKED, TARC3_Lapras2_Source_Movement_0
 # 748 "data/maps/TARC3_base/scripts.pory"
-	waitmovement 0
-# 749 "data/maps/TARC3_base/scripts.pory"
-	removeobject VAR_LAST_TALKED
+	setspeaker TARC3_Lapras1_Source_Text_0
 # 750 "data/maps/TARC3_base/scripts.pory"
-	setflag FLAG_LAPRAS2_SOURCE_INVISIBLE
+	playmoncry SPECIES_LAPRAS, CRY_MODE_NORMAL
 # 751 "data/maps/TARC3_base/scripts.pory"
-	clearflag FLAG_LAPRAS2_DEST_INVISIBLE
+	msgbox TARC3_Lapras2_Source_Text_0
 # 752 "data/maps/TARC3_base/scripts.pory"
+	applymovement VAR_LAST_TALKED, TARC3_Lapras2_Source_Movement_0
+# 763 "data/maps/TARC3_base/scripts.pory"
+	waitmovement 0
+# 764 "data/maps/TARC3_base/scripts.pory"
+	removeobject VAR_LAST_TALKED
+# 765 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_LAPRAS2_SOURCE_INVISIBLE
+# 766 "data/maps/TARC3_base/scripts.pory"
+	clearflag FLAG_LAPRAS2_DEST_INVISIBLE
+# 767 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Sign_TreeOfLife::
-# 757 "data/maps/TARC3_base/scripts.pory"
+# 772 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Sign_TreeOfLife_Text_0, MSGBOX_SIGN
 	end
 
 
 TARC3_Sign_ApricornTree::
-# 762 "data/maps/TARC3_base/scripts.pory"
+# 777 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Sign_ApricornTree_Text_0, MSGBOX_SIGN
 	end
 
 
 TARC3_Find_IceClimb::
-# 767 "data/maps/TARC3_base/scripts.pory"
+# 782 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_TM01, 1
 	end
 
 
 TARC3_Dummy_Start_Amber::
-# 772 "data/maps/TARC3_base/scripts.pory"
+# 787 "data/maps/TARC3_base/scripts.pory"
 	lockall
-# 773 "data/maps/TARC3_base/scripts.pory"
+# 788 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_CASTFORM_PHASE, 1
-# 774 "data/maps/TARC3_base/scripts.pory"
+# 789 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_TRIGGER_XATU_EVENT, 1
-# 775 "data/maps/TARC3_base/scripts.pory"
+# 790 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_HEAT_ROCK, 1
-# 776 "data/maps/TARC3_base/scripts.pory"
+# 791 "data/maps/TARC3_base/scripts.pory"
 	givemon SPECIES_CASTFORM_SUNNY, 25
-# 777 "data/maps/TARC3_base/scripts.pory"
+# 792 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_ITEM_AMBER_SHARD
-# 778 "data/maps/TARC3_base/scripts.pory"
+# 793 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_RUN_XATU_AMBER
-# 779 "data/maps/TARC3_base/scripts.pory"
+# 794 "data/maps/TARC3_base/scripts.pory"
 	releaseall
-# 780 "data/maps/TARC3_base/scripts.pory"
+# 795 "data/maps/TARC3_base/scripts.pory"
 	warp MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8
-# 781 "data/maps/TARC3_base/scripts.pory"
+# 796 "data/maps/TARC3_base/scripts.pory"
 	waitstate
 	end
 
@@ -1177,53 +1214,53 @@ TARC3_Amber_Munchlax_Movement_0:
 	face_down
 	step_end
 
-# 717 "data/maps/TARC3_base/scripts.pory"
+# 732 "data/maps/TARC3_base/scripts.pory"
 TARC3_Lapras1_Source_Movement_0:
-# 718 "data/maps/TARC3_base/scripts.pory"
+# 733 "data/maps/TARC3_base/scripts.pory"
 	walk_down
-# 718 "data/maps/TARC3_base/scripts.pory"
+# 733 "data/maps/TARC3_base/scripts.pory"
 	walk_down
-# 718 "data/maps/TARC3_base/scripts.pory"
+# 733 "data/maps/TARC3_base/scripts.pory"
 	walk_down
-# 719 "data/maps/TARC3_base/scripts.pory"
+# 734 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 719 "data/maps/TARC3_base/scripts.pory"
+# 734 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 720 "data/maps/TARC3_base/scripts.pory"
+# 735 "data/maps/TARC3_base/scripts.pory"
 	walk_down
-# 720 "data/maps/TARC3_base/scripts.pory"
+# 735 "data/maps/TARC3_base/scripts.pory"
 	walk_down
-# 720 "data/maps/TARC3_base/scripts.pory"
+# 735 "data/maps/TARC3_base/scripts.pory"
 	walk_down
 	step_end
 
-# 737 "data/maps/TARC3_base/scripts.pory"
+# 752 "data/maps/TARC3_base/scripts.pory"
 TARC3_Lapras2_Source_Movement_0:
-# 738 "data/maps/TARC3_base/scripts.pory"
+# 753 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 738 "data/maps/TARC3_base/scripts.pory"
+# 753 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 738 "data/maps/TARC3_base/scripts.pory"
+# 753 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 738 "data/maps/TARC3_base/scripts.pory"
+# 753 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 738 "data/maps/TARC3_base/scripts.pory"
+# 753 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 739 "data/maps/TARC3_base/scripts.pory"
+# 754 "data/maps/TARC3_base/scripts.pory"
 	walk_up
-# 740 "data/maps/TARC3_base/scripts.pory"
+# 755 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 741 "data/maps/TARC3_base/scripts.pory"
+# 756 "data/maps/TARC3_base/scripts.pory"
 	walk_up
-# 742 "data/maps/TARC3_base/scripts.pory"
+# 757 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 743 "data/maps/TARC3_base/scripts.pory"
+# 758 "data/maps/TARC3_base/scripts.pory"
 	walk_up
-# 744 "data/maps/TARC3_base/scripts.pory"
+# 759 "data/maps/TARC3_base/scripts.pory"
 	walk_right
-# 745 "data/maps/TARC3_base/scripts.pory"
+# 760 "data/maps/TARC3_base/scripts.pory"
 	walk_up
-# 746 "data/maps/TARC3_base/scripts.pory"
+# 761 "data/maps/TARC3_base/scripts.pory"
 	walk_right
 	step_end
 
@@ -1300,217 +1337,217 @@ TARC3_Amber_Observer_Text_3:
 	.string "Thank you for helping me!$"
 
 TARC3_Amber_Torkoal_Text_0:
-# 295 "data/maps/TARC3_base/scripts.pory"
+# 310 "data/maps/TARC3_base/scripts.pory"
 	.string "Torkoal$"
 
 TARC3_Amber_Torkoal_Text_1:
-# 303 "data/maps/TARC3_base/scripts.pory"
+# 318 "data/maps/TARC3_base/scripts.pory"
 	.string "Who dares to bother me during my nap?\p...\pAre you after that stone?\pYou cannot have it, it's dangerous!\nIt will turn the world into endless rain!$"
 
 TARC3_Amber_Torkoal_Text_2:
-# 316 "data/maps/TARC3_base/scripts.pory"
+# 331 "data/maps/TARC3_base/scripts.pory"
 	.string "Defeated. Like it was nothing.\pMaybe you are able to save us\nfrom the chaos!\pHere, I found it behind the lava pool!$"
 
 TARC3_Azure_Toxicroak_Text_0:
-# 337 "data/maps/TARC3_base/scripts.pory"
+# 352 "data/maps/TARC3_base/scripts.pory"
 	.string "Toxicroak$"
 
 TARC3_Azure_Toxicroak_Text_1:
-# 342 "data/maps/TARC3_base/scripts.pory"
+# 357 "data/maps/TARC3_base/scripts.pory"
 	.string "I still like you!$"
 
 TARC3_Azure_Toxicroak_Text_2:
-# 346 "data/maps/TARC3_base/scripts.pory"
+# 361 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm TOXICROAK.\nLet's battle!$"
 
 TARC3_Azure_Gastrodon_Text_0:
-# 368 "data/maps/TARC3_base/scripts.pory"
+# 383 "data/maps/TARC3_base/scripts.pory"
 	.string "Gastrodon$"
 
 TARC3_Azure_Gastrodon_Text_1:
-# 377 "data/maps/TARC3_base/scripts.pory"
+# 392 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm GASTRODON.\nLet's battle!$"
 
 TARC3_Azure_Observer_Text_0:
-# 399 "data/maps/TARC3_base/scripts.pory"
+# 414 "data/maps/TARC3_base/scripts.pory"
 	.string "Drampa$"
 
 TARC3_Azure_Observer_Text_1:
-# 408 "data/maps/TARC3_base/scripts.pory"
+# 423 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm DRAMPA.\nPlease help me!$"
 
 TARC3_Azure_Flygon_Text_0:
-# 429 "data/maps/TARC3_base/scripts.pory"
+# 444 "data/maps/TARC3_base/scripts.pory"
 	.string "Flygon$"
 
 TARC3_Azure_Flygon_Text_1:
-# 438 "data/maps/TARC3_base/scripts.pory"
+# 453 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi, I'm FLYGON.\nLet's battle!$"
 
 TARC3_Paras_Post_Text_0:
-# 464 "data/maps/TARC3_base/scripts.pory"
+# 479 "data/maps/TARC3_base/scripts.pory"
 	.string "I am enjoying the warmth!\pJust keep any Fire Types away!$"
 
 TARC3_Paras_Post_Text_1:
-# 467 "data/maps/TARC3_base/scripts.pory"
+# 482 "data/maps/TARC3_base/scripts.pory"
 	.string "What's this weather?\pThis is miserable, I can't stand it!$"
 
 TARC3_Paras_Post_Text_2:
-# 470 "data/maps/TARC3_base/scripts.pory"
+# 485 "data/maps/TARC3_base/scripts.pory"
 	.string "You can make it sunny?\pI am rooting for you!$"
 
 TARC3_Surskit_Text_0:
-# 480 "data/maps/TARC3_base/scripts.pory"
+# 495 "data/maps/TARC3_base/scripts.pory"
 	.string "Surskit$"
 
 TARC3_Surskit_Text_1:
-# 485 "data/maps/TARC3_base/scripts.pory"
+# 500 "data/maps/TARC3_base/scripts.pory"
 	.string "My pond!\nWhere did it go???$"
 
 TARC3_Surskit_Text_2:
-# 487 "data/maps/TARC3_base/scripts.pory"
+# 502 "data/maps/TARC3_base/scripts.pory"
 	.string "You made this rain?\pI LOVE IT!\nPlease never make it stop.$"
 
 TARC3_Surskit_Text_3:
-# 491 "data/maps/TARC3_base/scripts.pory"
+# 506 "data/maps/TARC3_base/scripts.pory"
 	.string "The weather has been crazy lately!\pI hope it calms down soon.$"
 
 TARC3_Vulpix_Post_Text_0:
-# 504 "data/maps/TARC3_base/scripts.pory"
+# 519 "data/maps/TARC3_base/scripts.pory"
 	.string "You transformed and even\nchanged your moveset?\pThat is so cool!\nHow did you do that?$"
 
 TARC3_Dewpider_Post_Text_0:
-# 517 "data/maps/TARC3_base/scripts.pory"
+# 532 "data/maps/TARC3_base/scripts.pory"
 	.string "What did you do???\pWhere did my home go???$"
 
 TARC3_Dewpider_Post_Text_1:
-# 519 "data/maps/TARC3_base/scripts.pory"
+# 534 "data/maps/TARC3_base/scripts.pory"
 	.string "Please be careful!$"
 
 TARC3_Munchlax_Post_Text_0:
-# 532 "data/maps/TARC3_base/scripts.pory"
+# 547 "data/maps/TARC3_base/scripts.pory"
 	.string "I heard there is a mysterious\nobject on top of the mountain.\pThey say it can make it rain.\pAnd rain makes berries grow.\nYummy!$"
 
 TARC3_Combusken_Post_Text_0:
-# 545 "data/maps/TARC3_base/scripts.pory"
+# 560 "data/maps/TARC3_base/scripts.pory"
 	.string "Now this is unfair!$"
 
 TARC3_Combusken_Post_Text_1:
-# 547 "data/maps/TARC3_base/scripts.pory"
+# 562 "data/maps/TARC3_base/scripts.pory"
 	.string "I clearly should have won!$"
 
 TARC3_Torkoal_Post_Text_0:
-# 560 "data/maps/TARC3_base/scripts.pory"
+# 575 "data/maps/TARC3_base/scripts.pory"
 	.string "Woah! I didn't know you could\nturn the lava into stone!$"
 
 TARC3_Torkoal_Post_Text_1:
-# 562 "data/maps/TARC3_base/scripts.pory"
+# 577 "data/maps/TARC3_base/scripts.pory"
 	.string "Please help us bring back normality!$"
 
 TARC3_Whimsicott_Text_0:
-# 571 "data/maps/TARC3_base/scripts.pory"
+# 586 "data/maps/TARC3_base/scripts.pory"
 	.string "Whimsicott$"
 
 TARC3_Whimsicott_Text_1:
-# 575 "data/maps/TARC3_base/scripts.pory"
+# 590 "data/maps/TARC3_base/scripts.pory"
 	.string "When you plant and water it,\nit will grow!\pBut don't expect much from these\nApricorn trees.\lThey haven't changed in ages.$"
 
 TARC3_Whimsicott_Text_2:
-# 579 "data/maps/TARC3_base/scripts.pory"
+# 594 "data/maps/TARC3_base/scripts.pory"
 	.string "Hi there, glad you found me!\pMy name is Whimsicott and\nI am the gardener of this town.\pHere, you can have a seed, too.$"
 
 TARC3_Feebas_Text_0:
-# 594 "data/maps/TARC3_base/scripts.pory"
+# 609 "data/maps/TARC3_base/scripts.pory"
 	.string "Feebas$"
 
 TARC3_Feebas_Text_1:
-# 597 "data/maps/TARC3_base/scripts.pory"
+# 612 "data/maps/TARC3_base/scripts.pory"
 	.string "If you ever get stuck,\nswim on the river and\lswitch to your Base form.\pThis will respawn you in front\nof the institute.$"
 
 TARC3_Chatot1_Text_0:
-# 605 "data/maps/TARC3_base/scripts.pory"
+# 620 "data/maps/TARC3_base/scripts.pory"
 	.string "Chatot$"
 
 TARC3_Chatot1_Text_1:
-# 608 "data/maps/TARC3_base/scripts.pory"
+# 623 "data/maps/TARC3_base/scripts.pory"
 	.string "Have you met Whimsicott, yet?\pShe is really friendly and\nprovides the town with crops.$"
 
 TARC3_Chatot2_Text_0:
-# 619 "data/maps/TARC3_base/scripts.pory"
+# 634 "data/maps/TARC3_base/scripts.pory"
 	.string "Remember, if you get stuck,\nswim on the river and\lswitch to your Base form.\pRIP$"
 
 TARC3_Audino_Text_0:
-# 627 "data/maps/TARC3_base/scripts.pory"
+# 642 "data/maps/TARC3_base/scripts.pory"
 	.string "Audino$"
 
 TARC3_Audino_Text_1:
-# 634 "data/maps/TARC3_base/scripts.pory"
+# 649 "data/maps/TARC3_base/scripts.pory"
 	.string "Whimsicott taught me how to\nreverse-grow plants.\pBut I am no gardener myself.\nYou can have this.$"
 
 TARC3_Audino_Post_Text_0:
-# 642 "data/maps/TARC3_base/scripts.pory"
+# 657 "data/maps/TARC3_base/scripts.pory"
 	.string "You can use this on grown vines.$"
 
 TARC3_Minccino_Text_0:
-# 650 "data/maps/TARC3_base/scripts.pory"
+# 665 "data/maps/TARC3_base/scripts.pory"
 	.string "Minccino$"
 
 TARC3_Minccino_Text_1:
-# 653 "data/maps/TARC3_base/scripts.pory"
+# 668 "data/maps/TARC3_base/scripts.pory"
 	.string "The top of the volcano is hard\nto reach.\pI tried it before, but it was\ntoo steep and slippery.$"
 
 TARC3_Smeargle_Text_0:
-# 661 "data/maps/TARC3_base/scripts.pory"
+# 676 "data/maps/TARC3_base/scripts.pory"
 	.string "Smeargle$"
 
 TARC3_Smeargle_Text_1:
-# 664 "data/maps/TARC3_base/scripts.pory"
+# 679 "data/maps/TARC3_base/scripts.pory"
 	.string "Did you notice the palette changes\nduring sunny weather?\pThat's me recoloring everything\nin an instant!$"
 
 TARC3_Nosepass_Text_0:
-# 672 "data/maps/TARC3_base/scripts.pory"
+# 687 "data/maps/TARC3_base/scripts.pory"
 	.string "Nosepass$"
 
 TARC3_Nosepass_Text_1:
-# 675 "data/maps/TARC3_base/scripts.pory"
+# 690 "data/maps/TARC3_base/scripts.pory"
 	.string "I tried this shortcut,\nbut it didn't work out.$"
 
 TARC3_Sliggoo_Text_0:
-# 683 "data/maps/TARC3_base/scripts.pory"
+# 698 "data/maps/TARC3_base/scripts.pory"
 	.string "Sliggoo$"
 
 TARC3_Sliggoo_Text_1:
-# 686 "data/maps/TARC3_base/scripts.pory"
+# 701 "data/maps/TARC3_base/scripts.pory"
 	.string "Heya, guess what level I am now!\pIt's already 69, but I just don't\nevolve.\pSo sad...$"
 
 TARC3_Goodra_Text_0:
-# 694 "data/maps/TARC3_base/scripts.pory"
+# 709 "data/maps/TARC3_base/scripts.pory"
 	.string "Goodra$"
 
 TARC3_Goodra_Text_1:
-# 698 "data/maps/TARC3_base/scripts.pory"
+# 713 "data/maps/TARC3_base/scripts.pory"
 	.string "I tried evolving for so long,\nbut I had no idea how...$"
 
 TARC3_Goodra_Text_2:
-# 701 "data/maps/TARC3_base/scripts.pory"
+# 716 "data/maps/TARC3_base/scripts.pory"
 	.string "You made it rain.\nThat was it!\pThank you so much for the help!\pHere, takes this.$"
 
 TARC3_Lapras1_Source_Text_0:
-# 713 "data/maps/TARC3_base/scripts.pory"
+# 728 "data/maps/TARC3_base/scripts.pory"
 	.string "Lapras$"
 
 TARC3_Lapras1_Source_Text_1:
-# 716 "data/maps/TARC3_base/scripts.pory"
+# 731 "data/maps/TARC3_base/scripts.pory"
 	.string "Hello my friend!\nYou are trying to save us all?\pIf you find me and my friend\nwe might be able to assist\lyou on the mission.$"
 
 TARC3_Lapras2_Source_Text_0:
-# 736 "data/maps/TARC3_base/scripts.pory"
+# 751 "data/maps/TARC3_base/scripts.pory"
 	.string "Yay, a new friend!\pLet's meet at the little island\nWEST from here.$"
 
 TARC3_Sign_TreeOfLife_Text_0:
-# 757 "data/maps/TARC3_base/scripts.pory"
+# 772 "data/maps/TARC3_base/scripts.pory"
 	.string "Tree of Life\pOnly Arceus may enter.$"
 
 TARC3_Sign_ApricornTree_Text_0:
-# 762 "data/maps/TARC3_base/scripts.pory"
+# 777 "data/maps/TARC3_base/scripts.pory"
 	.string "An Apricorn Tree blocks\nthe entrance.\pPost game area.$"

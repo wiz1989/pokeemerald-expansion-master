@@ -778,7 +778,7 @@ void CB2_BagMenuFromBattle(void)
 // Choosing berry to plant
 void CB2_ChooseBerry(void)
 {
-    GoToBagMenu(ITEMMENULOCATION_BERRY_TREE, POCKET_BERRIES, CB2_ReturnToFieldContinueScript);
+    GoToBagMenu(ITEMMENULOCATION_BERRY_TREE, POCKET_ITEMS, CB2_ReturnToFieldContinueScript);
 }
 
 // Choosing mulch to use

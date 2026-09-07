@@ -366,6 +366,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_SNOWY_FOMANTIS",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(FOMANTIS)",
       "x": 14,
       "y": 30,
@@ -379,6 +380,7 @@
       "flag": "FLAG_BASE_HELIOPTILE_BEATEN"
     },
     {
+      "local_id": "LOCALID_SNOWY_HELIOPTILE",
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(HELIOPTILE)",
       "x": 17,
       "y": 30,
