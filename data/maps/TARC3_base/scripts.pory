@@ -545,7 +545,7 @@ script TARC3_Munchlax_Post {
 	switch (var(VAR_RESULT))
 	{
 		default:
-			msgbox("I heard there is a mysterious\nobject on top of the mountain.\pThey say it can make it rain.\pAnd rain makes berries grow\nYummy!")
+			msgbox("I heard there is a mysterious\nobject on top of the mountain.\pThey say it can make it rain.\pAnd rain makes berries grow.\nYummy!")
 	}
 	release
     end
@@ -648,7 +648,7 @@ script TARC3_Audino {
 	}
 	else {
 		msgbox("Whimsicott taught me how to\nreverse-grow plants.\pBut I am no gardener myself.\nYou can have this.")
-		giveitem(ITEM_HERBICIDE)
+		giveitem(ITEM_HYPER_POTION)
 		setflag(FLAG_AUDINO_GAVE_HERBICIDE)
 		goto(TARC3_Audino_Post)
 	}
@@ -688,7 +688,7 @@ script TARC3_Nosepass {
 	setspeaker("Nosepass")
 	// createfieldmugshot(MUGSHOT_NOSEPASS, EMOTE_NORMAL)
 	playmoncry(SPECIES_NOSEPASS, CRY_MODE_NORMAL)
-	msgbox("I tried this shortcut, but it didn't work out.")
+	msgbox("I tried this shortcut,\nbut it didn't work out.")
 	release
     end
 }

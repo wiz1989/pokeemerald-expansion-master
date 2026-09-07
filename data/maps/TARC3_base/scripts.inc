@@ -987,98 +987,117 @@ TARC3_Audino::
 # 645 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_AUDINO, CRY_MODE_NORMAL
 # 646 "data/maps/TARC3_base/scripts.pory"
+	goto_if_set FLAG_AUDINO_GAVE_HERBICIDE, TARC3_Audino_1
+# 650 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Audino_Text_1
+# 651 "data/maps/TARC3_base/scripts.pory"
+	giveitem ITEM_HYPER_POTION
+# 652 "data/maps/TARC3_base/scripts.pory"
+	setflag FLAG_AUDINO_GAVE_HERBICIDE
+# 653 "data/maps/TARC3_base/scripts.pory"
+	goto TARC3_Audino_Post
+	return
+
+TARC3_Audino_1:
 # 647 "data/maps/TARC3_base/scripts.pory"
+	goto TARC3_Audino_Post
+	return
+
+
+TARC3_Audino_Post::
+# 658 "data/maps/TARC3_base/scripts.pory"
+	msgbox TARC3_Audino_Post_Text_0
+# 659 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Minccino::
-# 652 "data/maps/TARC3_base/scripts.pory"
+# 664 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 653 "data/maps/TARC3_base/scripts.pory"
+# 665 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 654 "data/maps/TARC3_base/scripts.pory"
+# 666 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Minccino_Text_0
-# 656 "data/maps/TARC3_base/scripts.pory"
+# 668 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_MINCCINO, CRY_MODE_NORMAL
-# 657 "data/maps/TARC3_base/scripts.pory"
+# 669 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Minccino_Text_1
-# 658 "data/maps/TARC3_base/scripts.pory"
+# 670 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Smeargle::
-# 663 "data/maps/TARC3_base/scripts.pory"
+# 675 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 664 "data/maps/TARC3_base/scripts.pory"
+# 676 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 665 "data/maps/TARC3_base/scripts.pory"
+# 677 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Smeargle_Text_0
-# 667 "data/maps/TARC3_base/scripts.pory"
+# 679 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_SMEARGLE, CRY_MODE_NORMAL
-# 668 "data/maps/TARC3_base/scripts.pory"
+# 680 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Smeargle_Text_1
-# 669 "data/maps/TARC3_base/scripts.pory"
+# 681 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Nosepass::
-# 674 "data/maps/TARC3_base/scripts.pory"
+# 686 "data/maps/TARC3_base/scripts.pory"
 	lock
-# 675 "data/maps/TARC3_base/scripts.pory"
+# 687 "data/maps/TARC3_base/scripts.pory"
 	faceplayer
-# 676 "data/maps/TARC3_base/scripts.pory"
+# 688 "data/maps/TARC3_base/scripts.pory"
 	setspeaker TARC3_Nosepass_Text_0
-# 678 "data/maps/TARC3_base/scripts.pory"
+# 690 "data/maps/TARC3_base/scripts.pory"
 	playmoncry SPECIES_NOSEPASS, CRY_MODE_NORMAL
-# 679 "data/maps/TARC3_base/scripts.pory"
+# 691 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Nosepass_Text_1
-# 680 "data/maps/TARC3_base/scripts.pory"
+# 692 "data/maps/TARC3_base/scripts.pory"
 	release
 	end
 
 
 TARC3_Sign_TreeOfLife::
-# 685 "data/maps/TARC3_base/scripts.pory"
+# 697 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Sign_TreeOfLife_Text_0, MSGBOX_SIGN
 	end
 
 
 TARC3_Sign_ApricornTree::
-# 690 "data/maps/TARC3_base/scripts.pory"
+# 702 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Sign_ApricornTree_Text_0, MSGBOX_SIGN
 	end
 
 
 TARC3_Find_IceClimb::
-# 695 "data/maps/TARC3_base/scripts.pory"
+# 707 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_TM01, 1
 	end
 
 
 TARC3_Dummy_Start_Amber::
-# 700 "data/maps/TARC3_base/scripts.pory"
+# 712 "data/maps/TARC3_base/scripts.pory"
 	lockall
-# 701 "data/maps/TARC3_base/scripts.pory"
+# 713 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_CASTFORM_PHASE, 1
-# 702 "data/maps/TARC3_base/scripts.pory"
+# 714 "data/maps/TARC3_base/scripts.pory"
 	setvar VAR_TRIGGER_XATU_EVENT, 1
-# 703 "data/maps/TARC3_base/scripts.pory"
+# 715 "data/maps/TARC3_base/scripts.pory"
 	finditem ITEM_HEAT_ROCK, 1
-# 704 "data/maps/TARC3_base/scripts.pory"
+# 716 "data/maps/TARC3_base/scripts.pory"
 	givemon SPECIES_CASTFORM_SUNNY, 25
-# 705 "data/maps/TARC3_base/scripts.pory"
+# 717 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_ITEM_AMBER_SHARD
-# 706 "data/maps/TARC3_base/scripts.pory"
+# 718 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_RUN_XATU_AMBER
-# 707 "data/maps/TARC3_base/scripts.pory"
+# 719 "data/maps/TARC3_base/scripts.pory"
 	releaseall
-# 708 "data/maps/TARC3_base/scripts.pory"
+# 720 "data/maps/TARC3_base/scripts.pory"
 	warp MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8
-# 709 "data/maps/TARC3_base/scripts.pory"
+# 721 "data/maps/TARC3_base/scripts.pory"
 	waitstate
 	end
 
@@ -1255,7 +1274,7 @@ TARC3_Dewpider_Post_Text_1:
 
 TARC3_Munchlax_Post_Text_0:
 # 548 "data/maps/TARC3_base/scripts.pory"
-	.string "I heard there is a mysterious\nobject on top of the mountain.\pThey say it can make it rain.\pAnd rain makes berries grow\nYummy!$"
+	.string "I heard there is a mysterious\nobject on top of the mountain.\pThey say it can make it rain.\pAnd rain makes berries grow.\nYummy!$"
 
 TARC3_Combusken_Post_Text_0:
 # 561 "data/maps/TARC3_base/scripts.pory"
@@ -1310,37 +1329,41 @@ TARC3_Audino_Text_0:
 	.string "Audino$"
 
 TARC3_Audino_Text_1:
-# 646 "data/maps/TARC3_base/scripts.pory"
-	.string "Isn't our town pretty?$"
+# 650 "data/maps/TARC3_base/scripts.pory"
+	.string "Whimsicott taught me how to\nreverse-grow plants.\pBut I am no gardener myself.\nYou can have this.$"
+
+TARC3_Audino_Post_Text_0:
+# 658 "data/maps/TARC3_base/scripts.pory"
+	.string "You can use this on grown vines$"
 
 TARC3_Minccino_Text_0:
-# 654 "data/maps/TARC3_base/scripts.pory"
+# 666 "data/maps/TARC3_base/scripts.pory"
 	.string "Minccino$"
 
 TARC3_Minccino_Text_1:
-# 657 "data/maps/TARC3_base/scripts.pory"
+# 669 "data/maps/TARC3_base/scripts.pory"
 	.string "The top of the volcano is hard\nto reach.\pI tried it before, but it was\ntoo steep and slippery.$"
 
 TARC3_Smeargle_Text_0:
-# 665 "data/maps/TARC3_base/scripts.pory"
+# 677 "data/maps/TARC3_base/scripts.pory"
 	.string "Smeargle$"
 
 TARC3_Smeargle_Text_1:
-# 668 "data/maps/TARC3_base/scripts.pory"
+# 680 "data/maps/TARC3_base/scripts.pory"
 	.string "Did you notice the palette changes\nduring sunny weather?\pThat's me recoloring everything\nin an instant!$"
 
 TARC3_Nosepass_Text_0:
-# 676 "data/maps/TARC3_base/scripts.pory"
+# 688 "data/maps/TARC3_base/scripts.pory"
 	.string "Nosepass$"
 
 TARC3_Nosepass_Text_1:
-# 679 "data/maps/TARC3_base/scripts.pory"
-	.string "I tried this shortcut, but it didn't work out.$"
+# 691 "data/maps/TARC3_base/scripts.pory"
+	.string "I tried this shortcut,\nbut it didn't work out.$"
 
 TARC3_Sign_TreeOfLife_Text_0:
-# 685 "data/maps/TARC3_base/scripts.pory"
+# 697 "data/maps/TARC3_base/scripts.pory"
 	.string "Tree of Life\pOnly Arceus may enter.$"
 
 TARC3_Sign_ApricornTree_Text_0:
-# 690 "data/maps/TARC3_base/scripts.pory"
+# 702 "data/maps/TARC3_base/scripts.pory"
 	.string "An Apricorn Tree blocks\nthe entrance.\pPost game area.$"
