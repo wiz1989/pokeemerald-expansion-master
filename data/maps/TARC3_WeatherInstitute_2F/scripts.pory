@@ -73,7 +73,7 @@ script TARC3_Lab_F2_Xatu_Manual {
 		case 2: // azure
 			msgbox("That's the Azure Shard!\pNow you can also summon the rain.")
 		case 3: // glacial
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("That's the Glacial Shard!\pIt grants you the power to summon snow.")
 		default:
 			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
 	}

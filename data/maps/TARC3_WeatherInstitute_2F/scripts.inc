@@ -160,7 +160,7 @@ TARC3_Lab_F2_Xatu_Manual_5:
 
 TARC3_Lab_F2_Xatu_Manual_6:
 # 76 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	msgbox TARC3_Lab_F2_Xatu_Manual_Text_1
+	msgbox TARC3_Lab_F2_Xatu_Manual_Text_4
 	goto TARC3_Lab_F2_Xatu_Manual_1
 
 
@@ -258,6 +258,10 @@ TARC3_Lab_F2_Xatu_Manual_Text_2:
 TARC3_Lab_F2_Xatu_Manual_Text_3:
 # 74 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
 	.string "That's the Azure Shard!\pNow you can also summon the rain.$"
+
+TARC3_Lab_F2_Xatu_Manual_Text_4:
+# 76 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
+	.string "That's the Glacial Shard!\pIt grants you the power to summon snow.$"
 
 TARC3_Lab_F2_Xatu_Text_0:
 # 94 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
