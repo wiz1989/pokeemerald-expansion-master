@@ -294,7 +294,6 @@ script TARC3_Amber_Observer {
 			}
 			delay(60)
 			fadescreen(FADE_FROM_BLACK)
-
 		}
 	}
 	release
