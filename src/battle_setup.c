@@ -674,6 +674,14 @@ static void CB2_EndScriptedWildBattle(void)
     CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
     ResetOamRange(0, 128);
 
+    // restore original player party after the observer battle (e.g. end of ai_vs_ai_wild_battle)
+    if (IsObserverBattle())
+    {
+        DebugPrintf("Restoring player party after observer battle\n");
+        LoadPlayerParty();
+        FlagClear(B_FLAG_AI_VS_AI_BATTLE);
+    }
+
     if (IsPlayerDefeated(gBattleOutcome) == TRUE)
     {
         if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
