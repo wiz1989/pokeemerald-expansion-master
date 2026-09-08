@@ -846,21 +846,21 @@
       "y": 18,
       "elevation": 0,
       "dest_map": "MAP_TARC3_BASE",
-      "dest_warp_id": "4"
+      "dest_warp_id": "3"
     },
     {
       "x": 41,
       "y": 14,
       "elevation": 0,
       "dest_map": "MAP_TARC3_BASE",
-      "dest_warp_id": "5"
+      "dest_warp_id": "4"
     },
     {
       "x": 42,
       "y": 22,
       "elevation": 0,
       "dest_map": "MAP_TARC3_BASE",
-      "dest_warp_id": "6"
+      "dest_warp_id": "5"
     }
   ],
   "coord_events": [],

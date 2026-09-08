@@ -1685,7 +1685,7 @@ TARC3_Audino_Text_1:
 
 TARC3_Audino_Post_Text_0:
 # 747 "data/maps/TARC3_base/scripts.pory"
-	.string "You can use this on grown vines.$"
+	.string "If you interact with withered plants\nyou can finish them off with it.$"
 
 TARC3_Minccino_Text_0:
 # 755 "data/maps/TARC3_base/scripts.pory"

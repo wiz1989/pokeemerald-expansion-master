@@ -744,7 +744,7 @@ script TARC3_Audino {
 }
 
 script TARC3_Audino_Post {
-	msgbox("You can use this on grown vines.")
+	msgbox("If you interact with withered plants\nyou can finish them off with it.")
 	release
     end
 }
