@@ -10510,7 +10510,7 @@ static const struct LevelUpMove sShellosLevelUpLearnset[] = {
 
 static const struct LevelUpMove sGastrodonLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_MUDDY_WATER),
-    LEVEL_UP_MOVE( 1, MOVE_RECOVER),
+    // LEVEL_UP_MOVE( 1, MOVE_RECOVER),
     LEVEL_UP_MOVE( 1, MOVE_STOCKPILE),
     // LEVEL_UP_MOVE( 1, MOVE_MUD_SLAP),
     // LEVEL_UP_MOVE(15, MOVE_WATER_PULSE),
