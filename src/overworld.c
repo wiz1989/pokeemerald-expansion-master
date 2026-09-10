@@ -80,7 +80,9 @@
 #include "constants/region_map_sections.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "constants/species.h"
 #include "constants/trainer_hill.h"
+#include "constants/vars.h"
 #include "constants/weather.h"
 
 STATIC_ASSERT((B_FLAG_FOLLOWERS_DISABLED == 0 || OW_FOLLOWERS_ENABLED), FollowersFlagAssignedWithoutEnablingThem);
@@ -395,6 +397,9 @@ void DoWhiteOut(void)
     HealPlayerParty();
     Overworld_ResetStateAfterWhiteOut();
     SetWarpDestinationToLastHealLocation();
+    // always respawn as Base form
+    gSaveBlock2Ptr->pokemonAvatarSpecies = SPECIES_CASTFORM;
+    VarSet(VAR_TRANSFORM_MON, SPECIES_CASTFORM);
     WarpIntoMap();
 }
 
