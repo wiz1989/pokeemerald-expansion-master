@@ -84,7 +84,7 @@ BerryTree_EventScript_CancelPlanting::
 	end
 
 BerryTree_EventScript_CheckBerryStage1::
-	lockall
+	lock
 	special ObjectEventInteractionGetBerryCountString
 	message BerryTree_Text_BerryGrowthStage1
 	waitmessage
@@ -100,11 +100,11 @@ BerryTree_EventScript_ReturnBerryToBag::
 	message BerryTree_Text_TookBerryBack
 	waitmessage
 	waitbuttonpress
-	releaseall
+	release
 	end
 
 BerryTree_EventScript_CheckBerryStage2::
-	lockall
+	lock
 	special ObjectEventInteractionGetBerryName
 	message BerryTree_Text_BerryGrowthStage2
 	waitmessage
@@ -112,7 +112,7 @@ BerryTree_EventScript_CheckBerryStage2::
 	goto BerryTree_EventScript_WantToUseHerbicide
 
 BerryTree_EventScript_CheckBerryStage3::
-	lockall
+	lock
 	special ObjectEventInteractionGetBerryName
 	message BerryTree_Text_BerryGrowthStage3
 	waitmessage
@@ -120,7 +120,7 @@ BerryTree_EventScript_CheckBerryStage3::
 	goto BerryTree_EventScript_WantToUseHerbicide
 
 BerryTree_EventScript_CheckBerryStageTrunk::
-	lockall
+	lock
 	special ObjectEventInteractionGetBerryName
 	message BerryTree_Text_BerryGrowthStageTrunk
 	waitmessage
@@ -128,7 +128,7 @@ BerryTree_EventScript_CheckBerryStageTrunk::
 	goto BerryTree_EventScript_WantToUseHerbicide
 
 BerryTree_EventScript_CheckBerryStageBudding::
-	lockall
+	lock
 	special ObjectEventInteractionGetBerryName
 	message BerryTree_Text_BerryGrowthStageBudding
 	waitmessage
@@ -137,7 +137,7 @@ BerryTree_EventScript_CheckBerryStageBudding::
 
 BerryTree_EventScript_CheckBerryStage4::
 	call BerryTree_EventScript_GetCareAdverb
-	lockall
+	lock
 	special ObjectEventInteractionGetBerryName
 	message BerryTree_Text_BerryGrowthStage4
 	waitmessage
@@ -241,7 +241,7 @@ BerryTree_EventScript_WantToWater::
 	goto_if_eq VAR_RESULT, NO, BerryTree_EventScript_DontWater
 
 BerryTree_EventScript_DontWater::
-	releaseall
+	release
 	end
 
 BerryTree_EventScript_ItemUseWailmerPail::
@@ -263,11 +263,13 @@ BerryTree_EventScript_UseHerbicide::
 	message BerryTree_Text_UsedHerbicide
 	waitmessage
 	special ObjectEventInteractionResetBerryTree
+	unfreezeselectedobject
 	special DoWateringBerryTreeAnim
+	waitberrytreeanimation
 	message BerryTree_Text_PlantTurnedIntoSeed
 	waitmessage
 	waitbuttonpress
-	releaseall
+	release
 	end
 
 BerryTree_EventScript_PlantBerry::

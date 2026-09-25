@@ -642,3 +642,5 @@ gSpecials::
 	def_special CheckAddCoins
 	def_special ObjectEventInteractionReturnBerry
 	def_special StartCastformSurf
+	def_special ScriptUnfreezeSelectedObjectEvent
+	def_special WaitForBerryTreeAnim, waitstate=1

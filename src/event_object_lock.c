@@ -3,6 +3,7 @@
 #include "event_object_lock.h"
 #include "event_object_movement.h"
 #include "field_player_avatar.h"
+#include "script.h"
 #include "script_movement.h"
 #include "task.h"
 #include "trainer_see.h"
@@ -102,6 +103,63 @@ void ScriptUnfreezeObjectEvents(void)
     ObjectEventClearHeldMovementIfFinished(&gObjectEvents[playerObjectId]);
     ScriptMovement_UnfreezeObjectEvents();
     UnfreezeObjectEvents();
+}
+
+void ScriptUnfreezeSelectedObjectEvent(void)
+{
+    if (gObjectEvents[gSelectedObjectEvent].active)
+        UnfreezeObjectEvent(&gObjectEvents[gSelectedObjectEvent]);
+}
+
+#define tWaitFrames data[0]
+#define tSparkleStarted data[1]
+static void Task_WaitForBerryTreeAnim(u8 taskId)
+{
+    struct ObjectEvent *objectEvent = &gObjectEvents[gSelectedObjectEvent];
+    bool8 finished = FALSE;
+
+    if (!objectEvent->active) // fail save
+    {
+        DestroyTask(taskId);
+        ScriptContext_Enable();
+        return;
+    }
+
+    if (objectEvent->movementType == MOVEMENT_TYPE_BERRY_TREE_GROWTH)
+    {
+        // check if sparkling animation is already running
+        bool8 sparkling = IsBerryTreeSparkling(objectEvent->localId, objectEvent->mapNum, objectEvent->mapGroup);
+
+        if (sparkling)
+            gTasks[taskId].tSparkleStarted = TRUE;
+
+        if (gTasks[taskId].tSparkleStarted)
+            finished = !sparkling; // check if sparkling anim still running
+        else
+        {
+            // wait a couple frames, because sparkle anim does not always start immediately
+            gTasks[taskId].tWaitFrames++;
+
+            if (gTasks[taskId].tWaitFrames >= 90)
+                finished = TRUE;
+        }
+    }
+    else // macro doesn't handle non-berry tree anims
+        finished = TRUE;
+
+    if (finished)
+    {
+        DestroyTask(taskId);
+        ScriptContext_Enable();
+    }
+}
+#undef tWaitFrames
+#undef tSparkleStarted
+
+void WaitForBerryTreeAnim(void)
+{
+    // script continuation is triggered from the task
+    CreateTask(Task_WaitForBerryTreeAnim, 80);
 }
 
 void UnionRoom_UnlockPlayerAndChatPartner(void)
