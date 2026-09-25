@@ -1167,7 +1167,8 @@ static bool8 CanStopSwimming(s16 x, s16 y, enum Direction direction)
 {
     if (GetCurrentTransformationSpecies() == SPECIES_CASTFORM_RAINY
         && MapGridGetElevationAt(x, y) == 3 
-        && GetObjectEventIdByPosition(x, y, 3) == OBJECT_EVENTS_COUNT)
+        && GetObjectEventIdByPosition(x, y, 3) == OBJECT_EVENTS_COUNT
+        && PlayerGetElevation() == ELEVATION_SURF)
     {
         return TRUE;
     }
