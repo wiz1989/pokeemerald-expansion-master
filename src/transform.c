@@ -55,10 +55,12 @@
 #include "constants/battle.h"
 #include "constants/decorations.h"
 #include "constants/event_objects.h"
+#include "constants/field_effects.h"
 #include "constants/layouts.h"
 #include "constants/map_event_ids.h"
 #include "constants/map_scripts.h"
 #include "constants/metatile_labels.h"
+#include "constants/rgb.h"
 #include "constants/songs.h"
 #include "constants/species.h"
 #include "constants/trainers.h"
@@ -85,6 +87,8 @@ static void ReloadMapObjectEvents(void);
 EWRAM_DATA u8 gPlayerTransformEffectActive = FALSE;
 static EWRAM_DATA u16 sPendingTransformWarpSpecies = SPECIES_NONE;
 static EWRAM_DATA bool8 sResumeMapWeatherAtMosaicEnd = FALSE;
+static EWRAM_DATA u8 sGoodraPaletteNum;
+static EWRAM_DATA bool8 sGoodraPaletteWasSaved;
 
 struct PitAvatarInfo {
     u16 mugshotId;
@@ -952,23 +956,152 @@ static void BerryTreeResetToWithered(void)
     BerryTreeGrowToStage(BERRY_STAGE_TALLER);
 }
 
-static void EvolveSligooDuringRain(void)
+// Sliggoo overworld evolution
+#define tWaitFrames data[0]
+#define tWaitSpriteSwapFrames data[1]
+#define MOSAICFRAMESOFFSET 90
+#define EVOLUTIONFRAMES 180
+#define SPRITESWAPFRAMES 15
+
+static void SetObjectEventSpriteWhitePalette(struct ObjectEvent *objectEvent, bool8 saveOriginalPalette)
+{
+    u8 paletteNum;
+    struct Sprite *sprite;
+    u16 paletteData[16];
+    struct SpritePalette spritePalette = {.tag = OBJ_EVENT_PAL_TAG_WHITE, .data = paletteData};
+
+    if (!objectEvent || !objectEvent->active || objectEvent->spriteId >= MAX_SPRITES)
+        return;
+
+    ObjectEventTurn(objectEvent, DIR_EAST);
+
+    sprite = &gSprites[objectEvent->spriteId];
+    if (saveOriginalPalette && !sGoodraPaletteWasSaved)
+    {
+        sGoodraPaletteNum = sprite->oam.paletteNum;
+        sGoodraPaletteWasSaved = TRUE;
+    }
+
+    // check if white pal already exists and load it if not
+    paletteNum = IndexOfSpritePaletteTag(OBJ_EVENT_PAL_TAG_WHITE);
+    if (paletteNum > 15)
+    {
+        CpuFill16(RGB_WHITE, paletteData, PLTT_SIZE_4BPP);
+        paletteNum = LoadSpritePalette(&spritePalette);
+    }
+
+    sprite->oam.paletteNum = paletteNum;
+}
+
+static void RestoreGoodraPal(struct ObjectEvent *objectEvent)
+{
+    struct Sprite *sprite;
+
+    if (!objectEvent || !objectEvent->active || objectEvent->spriteId >= MAX_SPRITES)
+        return;
+
+    if (sGoodraPaletteWasSaved)
+    {
+        sprite = &gSprites[objectEvent->spriteId];
+        sprite->oam.paletteNum = sGoodraPaletteNum;
+        UpdateSpritePaletteWithWeather(sprite->oam.paletteNum, FALSE);
+        sGoodraPaletteWasSaved = FALSE;
+    }
+
+    objectEvent->invisible = FALSE;
+    ObjectEventTurn(objectEvent, DIR_EAST);
+}
+
+static void Task_EvolveSligooDuringRain(u8 taskId)
 {
     u8 mapNum = gSaveBlock1Ptr->location.mapNum;
     u8 mapGroup = gSaveBlock1Ptr->location.mapGroup;
-    u8 objectEventId;
+    u8 sliggooId;
+    u8 goodraId;
+    bool8 showSliggoo;
 
     if (mapGroup != MAP_GROUP(MAP_TARC3_RAINY) || mapNum != MAP_NUM(MAP_TARC3_RAINY))
+    {
+        DestroyTask(taskId);
         return;
+    }
 
     // only run the visibility changes if Sliggoo is currently visible
-    if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_RAINY_SLIGGOO, mapNum, mapGroup, &objectEventId))
+    if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_RAINY_SLIGGOO, mapNum, mapGroup, &sliggooId))
+    {
+        DestroyTask(taskId);
         return;
+    }
 
-    FlagSet(FLAG_SLIGGOO_EVOLVED);
-    FlagClear(FLAG_HIDE_GOODRA);
-    RemoveObjectEventByLocalIdAndMap(LOCALID_RAINY_SLIGGOO, mapNum, mapGroup);
-    TrySpawnObjectEvent(LOCALID_RAINY_GOODRA, mapNum, mapGroup);
+    gTasks[taskId].tWaitFrames++;
+
+    if (gTasks[taskId].tWaitFrames >= MOSAICFRAMESOFFSET)
+    {
+        // show Goodra sprite for the evo effect to work
+        if (TryGetObjectEventIdByLocalIdAndMap(LOCALID_RAINY_GOODRA, mapNum, mapGroup, &goodraId))
+        {
+            FlagClear(FLAG_HIDE_GOODRA);
+            TrySpawnObjectEvent(LOCALID_RAINY_GOODRA, mapNum, mapGroup);
+        }
+
+        gTasks[taskId].tWaitSpriteSwapFrames++;
+
+        if (((gTasks[taskId].tWaitSpriteSwapFrames / SPRITESWAPFRAMES) & 1) == 0)
+            showSliggoo = TRUE;
+        else
+            showSliggoo = FALSE;
+
+        if (gTasks[taskId].tWaitFrames < (MOSAICFRAMESOFFSET + EVOLUTIONFRAMES + SPRITESWAPFRAMES))
+        {
+            struct ObjectEvent *sliggoo = &gObjectEvents[sliggooId];
+            struct ObjectEvent *goodra = NULL;
+
+            if (!TryGetObjectEventIdByLocalIdAndMap(LOCALID_RAINY_GOODRA, mapNum, mapGroup, &goodraId))
+                goodra = &gObjectEvents[goodraId];
+
+            if (sliggoo->active)
+            {
+                ClearObjectEventMovement(sliggoo, &gSprites[sliggoo->spriteId]);
+                sliggoo->invisible = !showSliggoo;
+                SetObjectEventSpriteWhitePalette(sliggoo, FALSE);
+            }
+
+            if (goodra != NULL && goodra->active)
+            {
+                ClearObjectEventMovement(goodra, &gSprites[goodra->spriteId]);
+                goodra->invisible = showSliggoo;
+                SetObjectEventSpriteWhitePalette(goodra, TRUE);
+            }
+        }
+
+        if (gTasks[taskId].tWaitFrames >= (MOSAICFRAMESOFFSET + EVOLUTIONFRAMES + SPRITESWAPFRAMES))
+        {
+            struct ObjectEvent *sliggoo = &gObjectEvents[sliggooId];
+
+            if (sliggoo->active)
+            {
+                RemoveObjectEventByLocalIdAndMap(LOCALID_RAINY_SLIGGOO, mapNum, mapGroup);
+            }
+
+            FlagSet(FLAG_SLIGGOO_EVOLVED);
+            FlagClear(FLAG_HIDE_GOODRA);
+            TrySpawnObjectEvent(LOCALID_RAINY_GOODRA, mapNum, mapGroup);
+
+            if (!TryGetObjectEventIdByLocalIdAndMap(LOCALID_RAINY_GOODRA, mapNum, mapGroup, &goodraId))
+                RestoreGoodraPal(&gObjectEvents[goodraId]);
+
+            FreeSpritePaletteByTag(OBJ_EVENT_PAL_TAG_WHITE);
+            DestroyTask(taskId);
+        }
+    }
+}
+#undef tWaitFrames
+#undef tWaitSpriteSwapFrames
+
+static void EvolveSligooDuringRain(void)
+{
+    sGoodraPaletteWasSaved = FALSE;
+    CreateTask(Task_EvolveSligooDuringRain, 80);
 }
 
 static void RunWeatherChangeOverworldEffects(void)
