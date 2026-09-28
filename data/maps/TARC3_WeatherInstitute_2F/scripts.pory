@@ -77,7 +77,7 @@ script TARC3_Lab_F2_Xatu_Manual {
 	switch (var(VAR_CASTFORM_PHASE))
 	{
 		case 0: // base
-			msgbox("Please help us find the\nweather shards!\pYou are our only help!")
+			msgbox("Please help us find the\nweather shards!\pYou are our only hope!")
 		case 1: // amber
 			msgbox("That's the Amber Shard!\nFantastic!\pYou can now change the weather to sun\nwhenever you want!\pJust press SELECT when you are\noutside or L/R in battle.")
 		case 2: // azure
@@ -85,7 +85,7 @@ script TARC3_Lab_F2_Xatu_Manual {
 		case 3: // glacial
 			msgbox("That's the Glacial Shard!\pIt grants you the power to summon snow.")
 		default:
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only hope!")
 	}
 	
 	release
@@ -99,7 +99,7 @@ script TARC3_Lab_F2_Xatu {
 	switch (var(VAR_CASTFORM_PHASE))
 	{
 		case 0: // base
-			msgbox("Hi Stormy,\nas you've probably heard,\lthere was an incident in the lab.\pThe weather crystal shattered\nand its pieces were scattered\lall over the world.\pPlease help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("Hi Stormy,\nas you've probably heard,\lthere was an incident in the lab.\pThe weather crystal shattered\nand its pieces were scattered\lall over the world.\pPlease help us find the missing\nweather shards!\pYou are our only hope!")
 		case 1: // amber
 			msgbox("That's the Amber Shard!\nFantastic!\pLet me help you unleash its power!")
 			fadescreen(FADE_TO_WHITE)
@@ -115,9 +115,9 @@ script TARC3_Lab_F2_Xatu {
 			fadescreen(FADE_FROM_WHITE)
 			msgbox("You are making great progress!\pI believe you can also find\nthe last missing piece!")
 		case 3: // glacial
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only hope!")
 		default:
-			msgbox("Please help us find the missing\nweather shards!\pYou are our only help!")
+			msgbox("Please help us find the missing\nweather shards!\pYou are our only hope!")
 	}
 	
 	release
