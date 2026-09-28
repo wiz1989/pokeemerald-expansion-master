@@ -12,7 +12,7 @@
 #define NDEBUG
 #endif
 
-#define NDEBUG // no debug!
+// #define NDEBUG // no debug!
 
 // printf debugging is now enabled by default. This allows
 // the various AGBPrint functions to be used. (See include/gba/isagbprint.h).
