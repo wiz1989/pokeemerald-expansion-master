@@ -1035,6 +1035,9 @@ static void Task_EvolveSligooDuringRain(u8 taskId)
 
     gTasks[taskId].tWaitFrames++;
 
+    if (gTasks[taskId].tWaitFrames == MOSAICFRAMESOFFSET)
+        PlayNewMapMusic(MUS_EVOLUTION);
+
     if (gTasks[taskId].tWaitFrames >= MOSAICFRAMESOFFSET)
     {
         // show Goodra sprite for the evo effect to work
@@ -1089,6 +1092,9 @@ static void Task_EvolveSligooDuringRain(u8 taskId)
 
             if (!TryGetObjectEventIdByLocalIdAndMap(LOCALID_RAINY_GOODRA, mapNum, mapGroup, &goodraId))
                 RestoreGoodraPal(&gObjectEvents[goodraId]);
+
+            PlayFanfare(MUS_EVOLVED);
+            PlayNewMapMusic(GetCurrLocationDefaultMusic());
 
             FreeSpritePaletteByTag(OBJ_EVENT_PAL_TAG_WHITE);
             DestroyTask(taskId);
