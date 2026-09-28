@@ -480,8 +480,10 @@ u32 ScriptGiveMon(enum Species species, u8 level, enum Item item)
 {
     struct Pokemon mon;
     u8 heldItem[2];
+    bool32 isShiny = FALSE;
 
     CreateRandomMon(&mon, species, level);
+    SetMonData(&mon, MON_DATA_IS_SHINY, &isShiny);
     if (item)
     {
         heldItem[0] = item;
@@ -572,6 +574,7 @@ void ScrCmd_createmon(struct ScriptContext *ctx)
     {
         Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
         origin = GIFTMON_ORIGIN;
+        shinyMode = SHINY_MODE_NEVER;
     }
     else
     {
