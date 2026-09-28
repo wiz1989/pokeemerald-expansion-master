@@ -791,7 +791,7 @@ static void UNUSED HeatStartMenu_UpdateClockDisplay(void)
 
 static const u8 gText_Poketch[] = _("  PokeNav");
 static const u8 gText_Pokedex[] = _("  Pokédex");
-static const u8 gText_Party[]   = _("    Party ");
+static const u8 gText_Party[]   = _("    Forms ");
 static const u8 gText_Bag[]     = _("      Bag  ");
 // static const u8 gText_Trainer[] = _("   Trainer");
 static const u8 gText_Save[]    = _("     Save  ");
