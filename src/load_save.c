@@ -213,6 +213,8 @@ void SaveObjectEvents(void)
         // To avoid crash on vanilla, save follower as inactive
         if (gObjectEvents[i].localId == OBJ_EVENT_ID_FOLLOWER)
             gSaveBlock1Ptr->objectEvents[i].active = FALSE;
+        // reset trainer icon state, so it shows again after reloading
+        gObjectEvents[i].battleIconShown = FALSE;
     }
 }
 
@@ -237,6 +239,8 @@ void LoadObjectEvents(void)
             !gObjectEvents[i].active &&
             gObjectEvents[i].graphicsId & OBJ_EVENT_MON)
             gObjectEvents[i].active = TRUE;
+        // reset trainer icon state, so it shows again after reloading
+        gObjectEvents[i].battleIconShown = FALSE;
     }
     SetMinimumOWESpawnTimer();
 }
