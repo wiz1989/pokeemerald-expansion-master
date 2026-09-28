@@ -10999,7 +10999,10 @@ bool32 CanUseMoveConsecutively(enum BattlerId battler)
     u32 failChances;
 
     // make sure that Protect-like moves can't repeat
-    return FALSE;
+    if (gBattleMons[battler].volatiles.consecutiveMoveUses == 0)
+        return TRUE;
+    else
+        return FALSE;
 
     if (B_PROTECT_FAILURE_RATE < GEN_5)
         failChances = sProtectFailChances[moveUses];

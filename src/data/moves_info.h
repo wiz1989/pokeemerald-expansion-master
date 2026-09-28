@@ -4987,7 +4987,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
     {
         .name = COMPOUND_STRING("Protect"),
         .description = COMPOUND_STRING(
-            "Evades attack, but may fail\n"
+            "Evades attack, but fails\n"
             "if used in succession."),
         .effect = EFFECT_PROTECT,
         .power = 0,
