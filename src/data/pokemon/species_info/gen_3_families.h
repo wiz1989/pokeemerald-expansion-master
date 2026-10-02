@@ -7016,7 +7016,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
 #if P_FAMILY_TORKOAL
     [SPECIES_TORKOAL] =
     {
-        .baseHP        = 60,
+        .baseHP        = 70,
         .baseAttack    = 85,
         .baseDefense   = 140,
         .baseSpeed     = 20,

@@ -33,10 +33,6 @@ script TARC3_Base_Wooper {
 	goto(TARC3_Base_Dewpider)
 }
 
-script TARC3_Base_Torkoal {
-	goto(TARC3_Amber_Torkoal)
-}
-
 // ### object scripts ###
 
 // Base phase

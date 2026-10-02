@@ -1417,7 +1417,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
             "A weak fire attack that may\n"
             "inflict a burn."),
         .effect = EFFECT_HIT,
-        .power = 40,
+        .power = 45,
         .type = TYPE_FIRE,
         .accuracy = 0,
         .pp = 25,
