@@ -211,8 +211,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(MUNCHLAX)",
-      "x": 45,
-      "y": 34,
+      "x": 44,
+      "y": 35,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
@@ -921,26 +921,7 @@
       "dest_warp_id": "5"
     }
   ],
-  "coord_events": [
-    {
-      "type": "trigger",
-      "x": 45,
-      "y": 35,
-      "elevation": 0,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "TARC3_Amber_Munchlax_Left"
-    },
-    {
-      "type": "trigger",
-      "x": 47,
-      "y": 35,
-      "elevation": 0,
-      "var": "VAR_TEMP_0",
-      "var_value": "0",
-      "script": "TARC3_Amber_Munchlax_Right"
-    }
-  ],
+  "coord_events": [],
   "bg_events": [
     {
       "type": "sign",

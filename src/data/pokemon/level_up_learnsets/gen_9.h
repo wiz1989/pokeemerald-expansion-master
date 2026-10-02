@@ -4375,6 +4375,7 @@ static const struct LevelUpMove sAerodactylLevelUpLearnset[] = {
 static const struct LevelUpMove sMunchlaxLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_BELLY_DRUM),
     LEVEL_UP_MOVE( 1, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE( 1, MOVE_COVET),
     // LEVEL_UP_MOVE( 4, MOVE_DEFENSE_CURL),
     // LEVEL_UP_MOVE( 8, MOVE_RECYCLE),
     // LEVEL_UP_MOVE(12, MOVE_COVET),
