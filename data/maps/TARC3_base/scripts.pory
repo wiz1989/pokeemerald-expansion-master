@@ -522,7 +522,7 @@ script TARC3_Paras_Post {
 			msgbox("What's this weather?\pThis is miserable, I can't stand it!")
 		case SPECIES_CASTFORM:
 		default:
-			msgbox("You can make it sunny?\pI am rooting for you!")
+			msgbox("Noticed that the icon above my\nhead is gone now?\pIt shows if a Pokémon wants to fight.")
 	}
 	release
     end

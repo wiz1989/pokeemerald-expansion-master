@@ -1575,7 +1575,7 @@ TARC3_Paras_Post_Text_1:
 
 TARC3_Paras_Post_Text_2:
 # 525 "data/maps/TARC3_base/scripts.pory"
-	.string "You can make it sunny?\pI am rooting for you!$"
+	.string "Noticed that the icon above my\nhead is gone now?\pIt shows if a Pokémon wants to fight.$"
 
 TARC3_Surskit_Text_0:
 # 535 "data/maps/TARC3_base/scripts.pory"
