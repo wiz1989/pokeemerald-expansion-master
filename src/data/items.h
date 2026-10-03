@@ -2853,11 +2853,13 @@ const struct ItemInfo gItemsInfo[] =
     [ITEM_STARDUST] =
     {
         .name = ITEM_NAME("Stardust"),
-        .price = (I_PRICE >= GEN_7) ? 3000 * TREASURE_FACTOR: 2000,
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_TYPE_POWER,
+        .holdEffectParam = TYPE_BOOST_PARAM,
         .description = COMPOUND_STRING(
-            "Beautiful red sand.\n"
-            "Can be sold at a\n"
-            "high price."),
+            "Miraculous sand\n"
+            "that you feel the\n"
+            "urge to collect."),
         .pocket = POCKET_ITEMS,
         .sortType = ITEM_TYPE_SELLABLE,
         .type = ITEM_USE_BAG_MENU,

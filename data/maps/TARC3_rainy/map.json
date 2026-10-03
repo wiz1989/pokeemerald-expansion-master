@@ -140,7 +140,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
+      "trainer_sight_or_berry_tree_id": "ITEM_STARDUST",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_COLLECTIBLE_1"
     },
@@ -430,7 +430,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
+      "trainer_sight_or_berry_tree_id": "ITEM_STARDUST",
       "script": "Common_EventScript_FindUnderwater_ItemBall",
       "flag": "FLAG_HIDE_ITEM_UNDERWATER"
     },
@@ -443,7 +443,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
+      "trainer_sight_or_berry_tree_id": "ITEM_STARDUST",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_COLLECTIBLE_4"
     },
@@ -456,7 +456,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
+      "trainer_sight_or_berry_tree_id": "ITEM_STARDUST",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_COLLECTIBLE_5"
     },
@@ -573,7 +573,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
+      "trainer_sight_or_berry_tree_id": "ITEM_STARDUST",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_COLLECTIBLE_6"
     },
@@ -586,7 +586,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
+      "trainer_sight_or_berry_tree_id": "ITEM_STARDUST",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_COLLECTIBLE_7"
     },
@@ -599,7 +599,7 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_MIRACLE_SEED",
+      "trainer_sight_or_berry_tree_id": "ITEM_STARDUST",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_COLLECTIBLE_8"
     },

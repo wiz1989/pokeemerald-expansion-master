@@ -491,12 +491,12 @@ script TARC3_Azure_Flygon {
 			setflag(FLAG_ITEM_GLACIAL_SHARD)
 			// setflag(FLAG_RUN_XATU_AZURE)
 			msgbox("...\p...\pThis is the end of this beta.\pThe final release will feature another\nsegment with snowy weather,\lnew puzzles and a final boss fight.")
-			checkitem(ITEM_MIRACLE_SEED, 8)
+			checkitem(ITEM_STARDUST, 9)
 			if (var(VAR_RESULT) == TRUE) {
-				msgbox("You have found all eight\nMIRACLE SEEDS already!\pGreat job!\nThis is all for now.")
+				msgbox("You have found all nine\nSTARDUSTS already!\pGreat job!\nThis is all for now.")
 			}
 			else {
-				msgbox("There is eight MIRACLE SEEDS\nto be found.\lKeep looking!")
+				msgbox("There is nine STARDUSTS\nto be found.\lKeep looking!")
 			}
 			releaseall
 			// warp(MAP_TARC3_WEATHER_INSTITUTE_2F, 9, 8)
@@ -654,12 +654,12 @@ script TARC3_Flygon_Post {
 	{
 		default:
 			msgbox("...\p...\pThis is the end of this beta.\pThe final release will feature\nanother segment with snowy weather,\lnew puzzles and a final boss fight.")
-			checkitem(ITEM_MIRACLE_SEED, 8)
+			checkitem(ITEM_STARDUST, 9)
 			if (var(VAR_RESULT) == TRUE) {
-				msgbox("You have found all eight\nMIRACLE SEEDS already!\pGreat job!\nThis is all for now.")
+				msgbox("You have found all nine\nSTARDUSTS already!\pGreat job!\nThis is all for now.")
 			}
 			else {
-				msgbox("There is eight MIRACLE SEEDS\nto be found.\lKeep looking!")
+				msgbox("There is nine STARDUSTS\nto be found.\lKeep looking!")
 			}
 	}
 	release
@@ -811,7 +811,7 @@ script TARC3_Goodra {
 	}
 	else {
 		msgbox("You made it rain.\nThat was it!\pThank you so much for the help!\pHere, takes this.")
-		giveitem(ITEM_MIRACLE_SEED)
+		giveitem(ITEM_STARDUST)
 		setflag(FLAG_GOODRA_GAVE_ITEM)
 		msgbox("I tried evolving for so long,\nbut I had no idea how...")
 	}

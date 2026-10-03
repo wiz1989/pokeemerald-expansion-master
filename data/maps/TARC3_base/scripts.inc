@@ -804,7 +804,7 @@ TARC3_Azure_Flygon_5:
 # 493 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Azure_Flygon_Text_3
 # 494 "data/maps/TARC3_base/scripts.pory"
-	checkitem ITEM_MIRACLE_SEED, 8
+	checkitem ITEM_STARDUST, 9
 # 495 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Azure_Flygon_8
@@ -1027,7 +1027,7 @@ TARC3_Flygon_Post::
 # 656 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Flygon_Post_Text_0
 # 657 "data/maps/TARC3_base/scripts.pory"
-	checkitem ITEM_MIRACLE_SEED, 8
+	checkitem ITEM_STARDUST, 9
 # 658 "data/maps/TARC3_base/scripts.pory"
 	compare VAR_RESULT, TRUE
 	goto_if_eq TARC3_Flygon_Post_4
@@ -1255,7 +1255,7 @@ TARC3_Goodra::
 # 813 "data/maps/TARC3_base/scripts.pory"
 	msgbox TARC3_Goodra_Text_2
 # 814 "data/maps/TARC3_base/scripts.pory"
-	giveitem ITEM_MIRACLE_SEED
+	giveitem ITEM_STARDUST
 # 815 "data/maps/TARC3_base/scripts.pory"
 	setflag FLAG_GOODRA_GAVE_ITEM
 # 816 "data/maps/TARC3_base/scripts.pory"
@@ -1559,11 +1559,11 @@ TARC3_Azure_Flygon_Text_3:
 
 TARC3_Azure_Flygon_Text_4:
 # 496 "data/maps/TARC3_base/scripts.pory"
-	.string "You have found all eight\nMIRACLE SEEDS already!\pGreat job!\nThis is all for now.$"
+	.string "You have found all nine\nSTARDUSTS already!\pGreat job!\nThis is all for now.$"
 
 TARC3_Azure_Flygon_Text_5:
 # 499 "data/maps/TARC3_base/scripts.pory"
-	.string "There is eight MIRACLE SEEDS\nto be found.\lKeep looking!$"
+	.string "There is nine STARDUSTS\nto be found.\lKeep looking!$"
 
 TARC3_Paras_Post_Text_0:
 # 519 "data/maps/TARC3_base/scripts.pory"
