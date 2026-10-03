@@ -613,7 +613,9 @@ struct SaveBlock2
              u16 pokemonAvatarSpecies;
              u8 playerGfxType;
             // END Castform vars
-    /*0x90*/ u8 filler_90[0x5];
+    /*0x90*/ u8 optionsBattleSpeed:1;
+             u8 optionsPadding:7;
+    /*0x91*/ u8 filler_90[0x4];
     /*0x98*/ struct Time localTimeOffset;
     /*0xA0*/ struct Time lastBerryTreeUpdate;
     /*0xA8*/ u32 gcnLinkFlags; // Read by Pokémon Colosseum/XD

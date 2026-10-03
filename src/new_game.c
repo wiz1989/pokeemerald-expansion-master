@@ -106,7 +106,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;
     gSaveBlock2Ptr->optionsWindowFrameType = 0;
     gSaveBlock2Ptr->optionsSound = OPTIONS_SOUND_MONO;
-    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SHIFT;
+    gSaveBlock2Ptr->optionsBattleStyle = OPTIONS_BATTLE_STYLE_SET;
     gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
     gSaveBlock2Ptr->regionMapZoom = FALSE;
     gSaveBlock2Ptr->optionsUnitSystem = 0;  //tx_optionsPlus
@@ -114,15 +114,17 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->optionsExpBarSpeed = 0; //tx_optionsPlus
     gSaveBlock2Ptr->optionsDisableMatchCall = 0;    //tx_optionsPlus
     gSaveBlock2Ptr->optionsCurrentFont = 0;         //tx_optionsPlus
+
+    gSaveBlock2Ptr->optionsBattleSpeed = 1;
+    VarSet(VAR_BATTLE_SPEED, OPTIONS_BATTLE_SCENE_2X); // Set battle speed to 2x by default
 }
 
 static void SetDefaultFlagsAndSettings(void)
 {
     ScriptGiveMon(SPECIES_CASTFORM, 25, ITEM_NONE);
-    // gSaveBlock2Ptr->optionsBattleSpeed = 1;
-    // VarSet(VAR_BATTLE_SPEED, 1); // Set battle speed to 2x by default, press L to slow down to 1x
     gSaveBlock2Ptr->playerGfxType = AVATAR_POKEMON_CHOICE;
     gSaveBlock2Ptr->pokemonAvatarSpecies = SPECIES_CASTFORM_NORMAL;
+
     FlagSet(FLAG_SYS_B_DASH);
     // FlagClear(FLAG_RUNNING_SHOES_TOGGLE);
     // FlagSet(FLAG_AUTORUN_MENU_TOGGLE);
@@ -139,7 +141,9 @@ static void SetDefaultFlagsAndSettings(void)
     FlagSet(FLAG_LAPRAS2_DEST_INVISIBLE);
     FlagSet(FLAG_HIDE_GOODRA);
 
-    VarSet(VAR_BATTLE_SPEED, OPTIONS_BATTLE_SCENE_2X);
+    // options
+    gSaveBlock2Ptr->optionsBattleSpeed = 1;
+    VarSet(VAR_BATTLE_SPEED, OPTIONS_BATTLE_SCENE_2X); // Set battle speed to 2x by default
 }
 
 static void ClearPokedexFlags(void)
