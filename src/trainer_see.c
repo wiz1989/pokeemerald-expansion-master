@@ -824,6 +824,7 @@ static void InitTrainerApproachTask(struct ObjectEvent *trainerObj, u8 range)
     gApproachingTrainers[gNoOfApproachingTrainers].taskId = CreateTask(Task_RunTrainerSeeFuncList, 0x50);
     task = &gTasks[gApproachingTrainers[gNoOfApproachingTrainers].taskId];
     task->tTrainerRange = range;
+    VarSet(VAR_TEMP_E, range); // used for TARC3_Amber_Munchlax movement script
     task->tTrainerObjectEventId = gApproachingTrainers[gNoOfApproachingTrainers].objectEventId;
 }
 

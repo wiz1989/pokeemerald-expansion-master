@@ -132,19 +132,6 @@ script TARC3_Base_Dewpider {
     end
 }
 
-script TARC3_Base_Wooper_backup {
-    end
-}
-
-// Amber phase
-script TARC3_Amber_Munchlax_Left {
-	end
-}
-
-script TARC3_Amber_Munchlax_Right {
-	end
-}
-
 script TARC3_Amber_Munchlax {
 	cant_see_if_set(FLAG_BASE_MUNCHLAX_BEATEN)
     lock
@@ -165,6 +152,22 @@ script TARC3_Amber_Munchlax {
 				walk_up * 2
 				face_down
 			))
+			waitmovement(0)
+			// move Munchlax back (VAR_TEMP_E is written in InitTrainerApproachTask())
+			switch (var(VAR_TEMP_E))
+			{
+				case 1:
+					applymovement(LOCALID_MUNCHLAX, moves(
+						walk_left
+						face_right
+					))
+				case 2:
+					applymovement(LOCALID_MUNCHLAX, moves(
+						walk_left * 2
+						face_right
+					))
+			}
+			
 			waitmovement(0)
 			release
 			end
