@@ -111,7 +111,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->announceRules = FALSE;
     gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_1;
     gSaveBlock2Ptr->instaRuleTrigger = TRUE;
-    gSaveBlock2Ptr->activateNoCritRule = TRUE;
+    gSaveBlock2Ptr->activateNoCritRule = FALSE;
     // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->leadersUpgrade = FALSE;
@@ -143,7 +143,7 @@ static void SetDefaultOptions_FlygonHG(void)
     gSaveBlock2Ptr->announceRules = TRUE;
     gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_3;
     gSaveBlock2Ptr->instaRuleTrigger = FALSE;
-    gSaveBlock2Ptr->activateNoCritRule = TRUE;
+    gSaveBlock2Ptr->activateNoCritRule = FALSE;
     // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->leadersUpgrade = TRUE;
