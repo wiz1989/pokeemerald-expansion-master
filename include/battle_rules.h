@@ -18,7 +18,7 @@ u8 GetBattleRuleCount(void);
 
 struct BattleRule
 {
-    u8 weight; // currently not used;
+    u8 impact;
     bool8 enabled;
     u8 category;
 };

@@ -12,6 +12,7 @@ static bool8 IsInArray(u8 value, const u8 *array, u8 size);
 static bool8 IsBossRule(u8 battleRule);
 static bool8 IsRandomTypeRule(u8 rule);
 static bool8 IsBannedMoveCatRule(u8 rule);
+static u8 GetRuleImpactValue(u8 rule);
 static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount);
 static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 excludedCount, u32 *outIncrement, bool8 excludeBossRules);
 
@@ -27,174 +28,178 @@ static const u8 sInvalidTypes[] =
     TYPE_FAIRY
 };
 
+#define IMPACT_LOW  0
+#define IMPACT_MED  1
+#define IMPACT_HIGH 2
+
 #define BATTLE_RULES_COUNT ARRAY_COUNT(gBattleRules)
 const struct BattleRule gBattleRules[] = 
 {
     [BATTLERULE_BANNEDTYPE] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_BANNEDMOVETYPE] =
     {
-        .weight = 1,
+        .impact = IMPACT_MED,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOHEALING] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MULTIPLE,
     },
     [BATTLERULE_NOCRITS] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     },
     [BATTLERULE_NORECOIL] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     },
     [BATTLERULE_NOSTAB] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_ONLYSTAB] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOSUPEREFFECTIVE] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_1HP] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = FALSE, // rule is too impactful
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_1PP] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_NOSAMESEX] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SENDOUT,
     },
     [BATTLERULE_NOSWITCHING] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_SWITCHOUT,
     },
     [BATTLERULE_PERISHCOUNT] =
     {
-        .weight = 1,
+        .impact = IMPACT_MED,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_SWITCHMOVES] =
     {
-        .weight = 1,
+        .impact = IMPACT_MED,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOPRIO] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_NOHELDITEMS] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_ACTIVATE_ITEM,
     },
     [BATTLERULE_NOABILITY] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_ACTIVATE_ABILITY,
     },
     [BATTLERULE_NOSTATUS] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     },
     // [BATTLERULE_SHAREDDAMAGE] =
     // {
-    //     .weight = 1,
+    //     .impact = 1,
     //     .enabled = FALSE,
     //     .category = BATTLERULE_CATEGORY_GENERAL,
     // },
     [BATTLERULE_NOSETUP] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_TRICKROOM] =
     {
-        .weight = 1,
+        .impact = IMPACT_MED,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_BANNEDMOVECAT_PHYSICAL] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVECAT_SPECIAL] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_BANNEDMOVECAT_STATUS] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_INVERSE] =
     {
-        .weight = 1,
+        .impact = IMPACT_MED,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_FIRSTMOVEONLY] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_USEMOVE,
     },
     [BATTLERULE_TRUANT] =
     {
-        .weight = 1,
+        .impact = IMPACT_HIGH,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_GENERAL,
     },
     [BATTLERULE_NOMISSES] =
     {
-        .weight = 1,
+        .impact = IMPACT_LOW,
         .enabled = TRUE,
         .category = BATTLERULE_CATEGORY_MOVEEFFECT,
     }
@@ -236,6 +241,21 @@ static bool8 IsBannedMoveCatRule(u8 rule)
     return (rule == BATTLERULE_BANNEDMOVECAT_PHYSICAL
          || rule == BATTLERULE_BANNEDMOVECAT_SPECIAL
          || rule == BATTLERULE_BANNEDMOVECAT_STATUS);
+}
+
+static u8 GetRuleImpactValue(u8 rule)
+{
+    return gBattleRules[rule].impact;
+}
+
+static bool8 ArrayHoldsRuleAboveImpactValue(const u8 *array, u8 size, u8 impact)
+{
+    for (u8 i = 0; i < size; i++)
+    {
+        if (GetRuleImpactValue(array[i]) > impact)
+            return TRUE;
+    }
+    return FALSE;
 }
 
 // handles mutually-exclusive rule combinations
@@ -305,6 +325,14 @@ static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount)
       || IsInArray(BATTLERULE_BANNEDMOVECAT_STATUS, excluded, excludedCount)))
         return FALSE;
     if (IsBannedMoveCatRule(value) && IsInArray(BATTLERULE_FIRSTMOVEONLY, excluded, excludedCount))
+        return FALSE;
+    
+    // FirstMoveOnly must only be paired with low impact rules
+    if (value == BATTLERULE_FIRSTMOVEONLY
+     && ArrayHoldsRuleAboveImpactValue(excluded, excludedCount, IMPACT_LOW))
+        return FALSE;
+    if (GetRuleImpactValue(value) > IMPACT_LOW
+     && IsInArray(BATTLERULE_FIRSTMOVEONLY, excluded, excludedCount))
         return FALSE;
 
     return TRUE;
