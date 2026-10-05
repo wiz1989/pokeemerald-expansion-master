@@ -275,7 +275,7 @@ TARC3_Lab_F2_Xatu_Manual_Text_0:
 
 TARC3_Lab_F2_Xatu_Manual_Text_1:
 # 80 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	.string "Please help us find the\nweather shards!\pYou are our only help!$"
+	.string "Please help us find the\nweather shards!\pYou are our only hope!$"
 
 TARC3_Lab_F2_Xatu_Manual_Text_2:
 # 82 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
@@ -291,11 +291,11 @@ TARC3_Lab_F2_Xatu_Manual_Text_4:
 
 TARC3_Lab_F2_Xatu_Manual_Text_5:
 # 88 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	.string "Please help us find the missing\nweather shards!\pYou are our only help!$"
+	.string "Please help us find the missing\nweather shards!\pYou are our only hope!$"
 
 TARC3_Lab_F2_Xatu_Text_0:
 # 102 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
-	.string "Hi Stormy,\nas you've probably heard,\lthere was an incident in the lab.\pThe weather crystal shattered\nand its pieces were scattered\lall over the world.\pPlease help us find the missing\nweather shards!\pYou are our only help!$"
+	.string "Hi Stormy,\nas you've probably heard,\lthere was an incident in the lab.\pThe weather crystal shattered\nand its pieces were scattered\lall over the world.\pPlease help us find the missing\nweather shards!\pYou are our only hope!$"
 
 TARC3_Lab_F2_Xatu_Text_1:
 # 104 "data/maps/TARC3_WeatherInstitute_2F/scripts.pory"
