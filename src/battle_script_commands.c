@@ -1261,17 +1261,32 @@ static void Cmd_attackcanceler(void)
         }
     }
 
+    u8 useMoveRuleCursor = gBattleStruct->useMoveRuleCursor[gBattlerAttacker];
     if (BattleRuleViolated_USEMOVE(gCurrentMove))
     {
+        s16 damage;
+
         gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
         gBattleRuleBattler = gBattlerAttacker;
 
         if (gSaveBlock2Ptr->halfDamage)
-            gBattleStruct->moveDamage[gBattlerAttacker] = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
+            damage = max(1, ((gBattleMons[gBattlerAttacker].maxHP + 1) / 2)); // +1 to always round the dmg up
         else
-            gBattleStruct->moveDamage[gBattlerAttacker] = gBattleMons[gBattlerAttacker].maxHP;
-        
-        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_End;
+            damage = gBattleMons[gBattlerAttacker].maxHP;
+
+        gBattleStruct->moveDamage[gBattlerAttacker] = damage;
+        if (damage >= gBattleMons[gBattlerAttacker].hp)
+            gBattlerFainted = gBattlerAttacker;
+
+        // loop move scripts to handle multiple USEMOVE violations
+        BattleScriptPush(gBattlescriptCurrInstr);
+        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_NoStackReset_RetIfAlive;
+        return;
+    }
+    else if (useMoveRuleCursor != 0) // end script after all checks
+    {
+        gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
+        gBattlescriptCurrInstr = BattleScript_MoveEnd;
         return;
     }
 

@@ -785,6 +785,7 @@ struct BattleStruct
     u8 hazardsCounter:4; // Counter for applying hazard on switch in
     u8 padding2:4;
     u8 sendoutRuleCursor[MAX_BATTLERS_COUNT];
+    u8 useMoveRuleCursor[MAX_BATTLERS_COUNT];
     bool8 firstTurnCheckStarted;
 };
 

@@ -3177,6 +3177,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->lastTakenMoveFrom[i][3] = MOVE_NONE;
         gBattleStruct->AI_monToSwitchIntoId[i] = PARTY_SIZE;
         gBattleStruct->skyDropTargets[i] = SKY_DROP_NO_TARGET;
+        gBattleStruct->sendoutRuleCursor[i] = 0;
+        gBattleStruct->useMoveRuleCursor[i] = 0;
     }
 
     gLastUsedMove = 0;
@@ -3370,6 +3372,7 @@ void SwitchInClearSetData(u32 battler, struct Volatiles *volatilesCopy)
     gBattleStruct->palaceFlags &= ~(1u << battler);
     gBattleStruct->battlerState[battler].canPickupItem = FALSE;
     gBattleStruct->sendoutRuleCursor[battler] = 0;
+    gBattleStruct->useMoveRuleCursor[battler] = 0;
 
     ClearPursuitValuesIfSet(battler);
 
@@ -3495,6 +3498,7 @@ const u8* FaintClearSetData(u32 battler)
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
     gBattleStruct->palaceFlags &= ~(1u << battler);
     gBattleStruct->sendoutRuleCursor[battler] = 0;
+    gBattleStruct->useMoveRuleCursor[battler] = 0;
 
     ClearPursuitValuesIfSet(battler);
 
@@ -6471,10 +6475,11 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
     u8 moveType = GetRandomMoveTypeSeeded();
     bool8 faint = FALSE;
     u8 i;
+    u8 useMoveRuleCursor = gBattleStruct->useMoveRuleCursor[gBattlerAttacker];
 
     ComputeActiveBattleRules();
 
-    for (i = 0; i < MAX_CONCURRENT_RULES && !faint; i++)
+    for (i = useMoveRuleCursor; i < MAX_CONCURRENT_RULES; i++)
     {
         u8 rule = gActiveBattleRules[i];
 
@@ -6545,8 +6550,15 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
         }
 
         if (faint)
+        {
+            gBattleStruct->useMoveRuleCursor[gBattlerAttacker] = i + 1;
             gBattleRuleViolated = rule; // save the violated rule for battle scripts to use
+            break;
+        }
     }
+
+    if (!faint)
+        gBattleStruct->useMoveRuleCursor[gBattlerAttacker] = 0;
 
     return faint;
 }
