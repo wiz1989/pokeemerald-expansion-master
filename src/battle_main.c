@@ -3262,6 +3262,8 @@ static void BattleStartClearSetData(void)
         gBattleStruct->monCausingSleepClause[B_SIDE_PLAYER] = PARTY_SIZE;
         gBattleStruct->monCausingSleepClause[B_SIDE_OPPONENT] = PARTY_SIZE;
     }
+
+    gBattleStruct->firstTurnCheckStarted = FALSE;
 }
 
 #define UNPACK_VOLATILE_BATON_PASSABLES(_enum, _fieldName, _typeMaxValue, ...) __VA_OPT__(if ((FIRST(__VA_ARGS__)) & V_BATON_PASSABLE) gBattleMons[battler].volatiles._fieldName = volatilesCopy->_fieldName;)
@@ -3367,6 +3369,7 @@ void SwitchInClearSetData(u32 battler, struct Volatiles *volatilesCopy)
     gBattleStruct->battlerState[battler].stompingTantrumTimer = 0;
     gBattleStruct->palaceFlags &= ~(1u << battler);
     gBattleStruct->battlerState[battler].canPickupItem = FALSE;
+    gBattleStruct->sendoutRuleCursor[battler] = 0;
 
     ClearPursuitValuesIfSet(battler);
 
@@ -3491,6 +3494,7 @@ const u8* FaintClearSetData(u32 battler)
     gBattleStruct->lastTakenMoveFrom[battler][2] = 0;
     gBattleStruct->lastTakenMoveFrom[battler][3] = 0;
     gBattleStruct->palaceFlags &= ~(1u << battler);
+    gBattleStruct->sendoutRuleCursor[battler] = 0;
 
     ClearPursuitValuesIfSet(battler);
 
@@ -4050,6 +4054,14 @@ static void TryDoEventsBeforeFirstTurn(void)
             return;
         break;
     case FIRST_TURN_EVENTS_BATTLERULE_FAINT:
+        // reset cursor for all battlers only once, because this function is executed multiple times
+        if (!gBattleStruct->firstTurnCheckStarted)
+        {
+            for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+                gBattleStruct->sendoutRuleCursor[i] = 0;
+            gBattleStruct->firstTurnCheckStarted = TRUE;
+        }
+
         while (gBattleStruct->switchInBattlerCounter < gBattlersCount) // From fastest to slowest
         {
             if (BattleRuleViolated_SENDOUT(gBattlerByTurnOrder[gBattleStruct->switchInBattlerCounter], FALSE))
@@ -4062,6 +4074,7 @@ static void TryDoEventsBeforeFirstTurn(void)
             gBattleStruct->switchInBattlerCounter++;
         }
         gBattleStruct->switchInBattlerCounter = 0;
+        gBattleStruct->firstTurnCheckStarted = FALSE;
         gBattleStruct->eventsBeforeFirstTurnState++;
         break;
     case FIRST_TURN_EVENTS_END:
@@ -6371,7 +6384,9 @@ void BattleDebug_LostBattle(void)
 bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
 {
     bool8 faint = FALSE;
+    bool8 midScript = FALSE;
     u8 i;
+    u8 sendoutRuleCursor = gBattleStruct->sendoutRuleCursor[battler];
 
     ComputeActiveBattleRules();
 
@@ -6379,7 +6394,13 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
     if (!midBattle && gBattleMainFunc != TryDoEventsBeforeFirstTurn)
         midBattle = TRUE;
 
-    for (i = 0; i < MAX_CONCURRENT_RULES && !faint; i++)
+    // check if we're currently inside script execution phase
+    if (gBattleMainFunc == RunBattleScriptCommands
+     || gBattleMainFunc == RunBattleScriptCommands_PopCallbacksStack
+     || (gBattleMainFunc == RunTurnActionsFunctions && gCurrentActionFuncId == B_ACTION_EXEC_SCRIPT))
+        midScript = TRUE;
+
+    for (i = sendoutRuleCursor; i < MAX_CONCURRENT_RULES; i++)
     {
         u8 rule = gActiveBattleRules[i];
 
@@ -6388,6 +6409,7 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
 
         if (rule == BATTLERULE_PERISHCOUNT)
         {
+            gBattleStruct->sendoutRuleCursor[battler] = i + 1;
             gBattleRuleViolated = rule;
             BattleScriptExecute(BattleScript_BattleRule_Perish);
             return TRUE;
@@ -6407,13 +6429,17 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
             else if (rule == BATTLERULE_BANNEDTYPE && SpeciesHasType(gBattleMons[battler].species, GetRandomSpeciesTypeSeeded()))
                 faint = TRUE;
 
-            // do not enforce the rule violation if instaRuleTrigger is OFF and it's the setup turn of the battle 
+            // do not enforce the rule violation if instaRuleTrigger is OFF and it's the setup turn of the battle
             if (!midBattle && gSaveBlock2Ptr->instaRuleTrigger == FALSE)
                 faint = FALSE;
         }
 
         if (faint)
+        {
+            gBattleStruct->sendoutRuleCursor[battler] = i + 1;
             gBattleRuleViolated = rule; // save the violated rule for battle scripts to use
+            break;
+        }
     }
 
     if (faint)
@@ -6426,15 +6452,15 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
         else
             gBattleStruct->moveDamage[battler] = gBattleMons[battler].maxHP;
 
-        // if (midBattle)
-        // {
-        //     // gBattleRuleBattler = gBattlerAttacker;
-        //     BattleScriptExecute(BattleScript_BattleRule_FaintMon_End);
-        // }
-        // else
-        // {
+        if (midBattle && midScript)
+        {
+            BattleScriptPush(gBattlescriptCurrInstr);
+            gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_NoStackReset_RetIfAlive;
+        }
+        else
+        {
             BattleScriptExecute(BattleScript_BattleRule_FaintMon_NoStackReset);
-        // }
+        }
     }
     
     return faint;

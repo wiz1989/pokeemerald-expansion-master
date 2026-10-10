@@ -9883,6 +9883,21 @@ BattleScript_BattleRule_FaintMon_NoStackReset::
 	jumpiffainted BS_BATTLERULE_BATTLER, FALSE, BattleScript_BattleRule_FaintMon_End2
 	goto BattleScript_HandleFaintedMon
 
+@ SENDOUT rule violations need to iterate through multiple rule checks
+BattleScript_BattleRule_FaintMon_NoStackReset_RetIfAlive::
+	restoreallattackers
+	restorealltargets
+	call BattleScript_RuleWasViolated
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_HP_UPDATE
+	healthbarupdate BS_BATTLERULE_BATTLER
+	datahpupdate BS_BATTLERULE_BATTLER
+	tryfaintmon BS_BATTLERULE_BATTLER
+	moveendcase MOVEEND_CLEAR_BITS
+	jumpiffainted BS_BATTLERULE_BATTLER, FALSE, BattleScript_BattleRule_FaintMon_RetIfAlive
+	goto BattleScript_HandleFaintedMon
+BattleScript_BattleRule_FaintMon_RetIfAlive:
+	return
+
 @ This variant is only used if the rule triggers from statusing
 @ the opponent. Return required.
 BattleScript_BattleRule_FaintMon_Ret::

@@ -7969,6 +7969,7 @@ static bool32 DoSwitchInEffectsForBattler(u32 battler)
 
         gDisableStructs[battler].hazardsDone = FALSE;
         gBattleStruct->battlerState[battler].forcedSwitch = FALSE;
+        gBattleStruct->sendoutRuleCursor[battler] = 0;
         return FALSE;
     }
 
