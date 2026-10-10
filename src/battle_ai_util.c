@@ -3362,7 +3362,7 @@ bool32 IsBattlerIncapacitated(u32 battler, u32 ability)
     if (gBattleMons[battler].status1 & STATUS1_SLEEP && !HasMoveWithEffect(battler, EFFECT_SLEEP_TALK))
         return TRUE;
 
-    if (gBattleMons[battler].volatiles.recharge || (ability == ABILITY_TRUANT && gDisableStructs[battler].truantCounter != 0))
+    if (gBattleMons[battler].volatiles.recharge || ((ability == ABILITY_TRUANT || IsTruantBattleRule(battler)) && gDisableStructs[battler].truantCounter != 0))
         return TRUE;
 
     return FALSE;
