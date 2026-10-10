@@ -9467,6 +9467,21 @@ s32 ApplyModifiersAfterDmgRoll(struct DamageContext *ctx, s32 dmg)
     return dmg;
 }
 
+bool8 IsFixedDamageMove(u16 move)
+{
+    switch (GetMoveEffect(move))
+    {
+    case EFFECT_LEVEL_DAMAGE:
+    case EFFECT_PSYWAVE:
+    case EFFECT_FIXED_HP_DAMAGE:
+    case EFFECT_FIXED_PERCENT_DAMAGE:
+    case EFFECT_FINAL_GAMBIT:
+        return TRUE;
+    default:
+        return FALSE;
+    }
+}
+
 s32 DoFixedDamageMoveCalc(struct DamageContext *ctx)
 {
     s32 dmg = 0;
