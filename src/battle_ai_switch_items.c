@@ -1119,6 +1119,10 @@ bool32 ShouldSwitch(u32 battler)
     // Sequence Switching AI never switches mid-battle
     if (gAiThinkingStruct->aiFlags[battler] & AI_FLAG_SEQUENCE_SWITCHING)
         return FALSE;
+    
+    // stop partner AI from switching
+    if (IsOnPlayerSide(battler) && !CanPartnerAiSwitch())
+        return FALSE;
 
     availableToSwitch = 0;
 
@@ -1353,6 +1357,10 @@ void AI_TrySwitchOrUseItem(u32 battler)
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
     {
+        // stop partner AI from switching
+        if (IsOnPlayerSide(battler) && !CanPartnerAiSwitch())
+            gAiLogicData->shouldSwitch &= ~(1u << battler);
+        
         if (gAiLogicData->shouldSwitch & (1u << battler) && IsSwitchinValid(battler))
         {
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_SWITCH, 0);

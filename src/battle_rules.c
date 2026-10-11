@@ -9,7 +9,6 @@
 #include "constants/battle_rules.h"
 
 static bool8 IsInArray(u8 value, const u8 *array, u8 size);
-static bool8 IsBossRule(u8 battleRule);
 static bool8 IsRandomTypeRule(u8 rule);
 static bool8 IsBannedMoveCatRule(u8 rule);
 static u8 GetRuleImpactValue(u8 rule);
@@ -594,7 +593,7 @@ static bool8 IsInArray(u8 value, const u8 *array, u8 size)
     return FALSE;
 }
 
-static bool8 IsBossRule(u8 battleRule)
+bool8 IsBossRule(u8 battleRule)
 {
     switch (battleRule)
     {

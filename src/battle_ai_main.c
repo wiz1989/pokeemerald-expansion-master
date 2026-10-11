@@ -1105,6 +1105,46 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
     SetTypeBeforeUsingMove(move, battlerAtk);
     moveType = GetBattleMoveType(move);
 
+    // special handling for tag battle boss battles
+    if (IsBossBattle() && IsBossRule(gActiveBattleRules[0]) && IsOnPlayerSide(battlerAtk))
+    {
+        switch (gActiveBattleRules[0])
+        {
+            case BATTLERULE_NOHEALING:
+                if (IsHealingMove(move))
+                    RETURN_SCORE_MINUS(20);
+                break;
+            case BATTLERULE_NOSTAB:
+                if (IS_BATTLER_OF_TYPE(battlerAtk, moveType) && !IsBattleMoveStatus(move))
+                    RETURN_SCORE_MINUS(20);
+                break;
+            case BATTLERULE_NOSUPEREFFECTIVE:
+                if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
+                    RETURN_SCORE_MINUS(20);
+                break;
+            case BATTLERULE_SWITCHMOVES:
+                if (move == gLastResultingMoves[battlerAtk] && gAlreadyChecked[battlerAtk] == FALSE)
+                {
+                    if (gDisableStructs[battlerAtk].lastTurnWasChargingTurn && !gProtectStructs[battlerAtk].chargingTurn)
+                        break;
+                    RETURN_SCORE_MINUS(20);
+                }
+                break;
+            case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
+                if (IsBattleMovePhysical(move))
+                    RETURN_SCORE_MINUS(20);
+                break;
+            case BATTLERULE_BANNEDMOVECAT_SPECIAL:
+                if (IsBattleMoveSpecial(move))
+                    RETURN_SCORE_MINUS(20);
+                break;
+            case BATTLERULE_BANNEDMOVECAT_STATUS:
+                if (IsBattleMoveStatus(move))
+                    RETURN_SCORE_MINUS(20);
+                break;
+        }
+    }
+
     if (IsPowderMove(move) && !IsAffectedByPowder(battlerDef, aiData->abilities[battlerDef], aiData->holdEffects[battlerDef]))
         RETURN_SCORE_MINUS(10);
 

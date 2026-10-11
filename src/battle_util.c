@@ -11994,3 +11994,26 @@ bool8 IsBossTrainer(u16 trainerId)
     else
         return FALSE;
 }
+
+bool8 IsBossBattle(void)
+{
+    if (IsBossTrainer(TRAINER_BATTLE_PARAM.opponentA) || IsBossTrainer(TRAINER_BATTLE_PARAM.opponentB))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 CanPartnerAiSwitch(void)
+{
+    if (IsBossBattle()
+      && (gActiveBattleRules[0] == BATTLERULE_NOSWITCHING
+       || gActiveBattleRules[0] == BATTLERULE_BANNEDTYPE
+       || gActiveBattleRules[0] == BATTLERULE_NOSTAB
+       || gActiveBattleRules[0] == BATTLERULE_NOSUPEREFFECTIVE
+       || gActiveBattleRules[0] == BATTLERULE_SWITCHMOVES
+       || gActiveBattleRules[0] == BATTLERULE_BANNEDMOVECAT_PHYSICAL
+       || gActiveBattleRules[0] == BATTLERULE_BANNEDMOVECAT_SPECIAL
+       || gActiveBattleRules[0] == BATTLERULE_BANNEDMOVECAT_STATUS))
+        return FALSE;
+    return TRUE;
+}

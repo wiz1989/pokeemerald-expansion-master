@@ -15,6 +15,7 @@ u8 GetRandomSpeciesTypeSeeded(void);
 u8 GetRandomMoveTypeSeeded(void);
 bool8 IsTruantBattleRule(u32 battler);
 u8 GetBattleRuleCount(void);
+bool8 IsBossRule(u8 battleRule);
 
 struct BattleRule
 {

@@ -416,5 +416,7 @@ bool8 BattleRuleViolated_USEMOVE(u32 move);
 bool8 IsSetupMove(u32 move);
 bool8 IsMidTurn(void);
 bool8 IsBossTrainer(u16 trainerId);
+bool8 IsBossBattle(void);
+bool8 CanPartnerAiSwitch(void);
 
 #endif // GUARD_BATTLE_UTIL_H
