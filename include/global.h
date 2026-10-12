@@ -594,7 +594,8 @@ struct SaveBlock2
     /*0x93*/ u8 firstRun:1;
              u8 concurrentRules:2;
              u8 announceRules:1;
-             u8 padding3:4;
+             u8 padding3:3;
+             u8 dayNightTint:1;
              u8 battleSpeed;
              u8 revealRule:1;
              u8 harderTrainers:1;

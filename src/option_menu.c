@@ -37,6 +37,7 @@
 #define tConcurrentRules data[16]
 #define tInstaRuleTrigger data[17]
 #define tActivateNoCrits data[18]
+#define tDayNightTint data[19]
 
 enum menuItems_pg1
 {
@@ -66,6 +67,7 @@ enum menuItems_pg3
 {
     MENUITEM_HARDERTRAINERS,
     MENUITEM_LEADERS_UPGRADE,
+    MENUITEM_DAYNIGHT_TINT,
     MENUITEM_CANCEL_PG3,
     MENUITEM_COUNT_PG3,
 };
@@ -103,6 +105,7 @@ enum
 // page 3
 #define YPOS_HARDERTRAINERS   (MENUITEM_HARDERTRAINERS * 16)
 #define YPOS_LEADERS_UPGRADE  (MENUITEM_LEADERS_UPGRADE * 16)
+#define YPOS_DAYNIGHT_TINT    (MENUITEM_DAYNIGHT_TINT * 16)
 // page 4
 #define YPOS_PERMADEATH       (MENUITEM_PERMADEATH * 16)
 #define YPOS_NOBAGINBATTLE    (MENUITEM_NOBAGINBATTLE * 16)
@@ -133,6 +136,8 @@ static u8 HarderTrainers_ProcessInput(u8 selection);
 static void HarderTrainers_DrawChoices(u8 selection);
 static u8 LeadersUpgrade_ProcessInput(u8 selection);
 static void LeadersUpgrade_DrawChoices(u8 selection);
+static u8 DayNightTint_ProcessInput(u8 selection);
+static void DayNightTint_DrawChoices(u8 selection);
 static u8 ConcurrentRules_ProcessInput(u8 selection);
 static void ConcurrentRules_DrawChoices(u8 selection);
 static u8 InstaTrigger_ProcessInput(u8 selection);
@@ -196,6 +201,7 @@ static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
 {
     [MENUITEM_HARDERTRAINERS]   = gText_HarderTrainers,
     [MENUITEM_LEADERS_UPGRADE]  = gText_LeadersE4Upgrade,
+    [MENUITEM_DAYNIGHT_TINT]    = gText_DayNightTint,
     [MENUITEM_CANCEL_PG3]       = gText_OptionMenuCancel,
 };
 
@@ -284,6 +290,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tNoBagInBattleOn = gSaveBlock2Ptr->noBagInBattle;
     gTasks[taskId].tHarderTrainersOn = gSaveBlock2Ptr->harderTrainers;
     gTasks[taskId].tLeadersUpgrade = gSaveBlock2Ptr->leadersUpgrade;
+    gTasks[taskId].tDayNightTint = gSaveBlock2Ptr->dayNightTint;
     gTasks[taskId].t50DamageOn = gSaveBlock2Ptr->halfDamage;
     gTasks[taskId].tDupeClause = gSaveBlock2Ptr->dupeClause;
     gTasks[taskId].tMetLocClause = gSaveBlock2Ptr->metLocClause;
@@ -324,6 +331,7 @@ static void DrawOptionsPg3(u8 taskId)
     ReadAllCurrentSettings(taskId);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
     LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
+    DayNightTint_DrawChoices(gTasks[taskId].tDayNightTint);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -756,6 +764,13 @@ static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
             if (previousOption != gTasks[taskId].tLeadersUpgrade)
                 LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
             break;
+        case MENUITEM_DAYNIGHT_TINT:
+            previousOption = gTasks[taskId].tDayNightTint;
+            gTasks[taskId].tDayNightTint = DayNightTint_ProcessInput(gTasks[taskId].tDayNightTint);
+
+            if (previousOption != gTasks[taskId].tDayNightTint)
+                DayNightTint_DrawChoices(gTasks[taskId].tDayNightTint);
+            break;
         default:
             return;
         }
@@ -868,6 +883,7 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->noBagInBattle = gTasks[taskId].tNoBagInBattleOn;
     gSaveBlock2Ptr->harderTrainers = gTasks[taskId].tHarderTrainersOn;
     gSaveBlock2Ptr->leadersUpgrade = gTasks[taskId].tLeadersUpgrade;
+    gSaveBlock2Ptr->dayNightTint = gTasks[taskId].tDayNightTint;
     gSaveBlock2Ptr->halfDamage = gTasks[taskId].t50DamageOn;
     gSaveBlock2Ptr->dupeClause = gTasks[taskId].tDupeClause;
     gSaveBlock2Ptr->revealRule = (gTasks[taskId].tRevealRule > 0);
@@ -878,6 +894,7 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->activateNoCritRule = gTasks[taskId].tActivateNoCrits;
 
     VarSet(VAR_BATTLE_SPEED, gTasks[taskId].tBattleSpeedUp);
+    VarSet(VAR_ENABLE_DNS, gTasks[taskId].tDayNightTint);
 
     if (gSaveBlock2Ptr->revealRule)
         FlagSet(FLAG_REVEAL_RULE);
@@ -1226,6 +1243,27 @@ static void LeadersUpgrade_DrawChoices(u8 selection)
     styles[selection] = 1;
     DrawOptionMenuChoice(gText_OptionOff, 104, YPOS_LEADERS_UPGRADE, styles[0]);
     DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_LEADERS_UPGRADE, styles[1]);
+}
+
+static u8 DayNightTint_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+
+    return selection;
+}
+
+static void DayNightTint_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+    DrawOptionMenuChoice(gText_OptionOff, 104, YPOS_DAYNIGHT_TINT, styles[0]);
+    DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_DAYNIGHT_TINT, styles[1]);
 }
 
 static u8 ConcurrentRules_ProcessInput(u8 selection)

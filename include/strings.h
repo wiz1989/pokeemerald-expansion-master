@@ -301,6 +301,7 @@ extern const u8 gText_PermaDeath[];
 extern const u8 gText_NoBagInBattle[];
 extern const u8 gText_HarderTrainers[];
 extern const u8 gText_LeadersE4Upgrade[];
+extern const u8 gText_DayNightTint[];
 extern const u8 gText_50Damage[];
 extern const u8 gText_RevealRule[];
 extern const u8 gText_AnnounceRules[];
