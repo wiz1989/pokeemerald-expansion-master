@@ -745,7 +745,7 @@ PetalburgCity_Gym_EventScript_SpeedRoomDoor::
 	goto_if_lt VAR_PETALBURG_GYM_STATE, 6, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 7
 	setvar VAR_0x8009, 85
-	msgbox PetalburgCity_Gym_Text_EnterSpeedRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterShuffleRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -773,7 +773,7 @@ PetalburgCity_Gym_EventScript_AccuracyRoomDoor::
 	goto_if_lt VAR_PETALBURG_GYM_STATE, 6, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 1
 	setvar VAR_0x8009, 98
-	msgbox PetalburgCity_Gym_Text_EnterAccuracyRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterTrickRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -783,7 +783,7 @@ PetalburgCity_Gym_EventScript_ConfusionRoomDoor::
 	goto_if_not_defeated TRAINER_RANDALL, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 7
 	setvar VAR_0x8009, 46
-	msgbox PetalburgCity_Gym_Text_EnterConfusionRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterWolfeRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -793,7 +793,7 @@ PetalburgCity_Gym_EventScript_LeftDefenseRoomDoor::
 	goto_if_not_defeated TRAINER_RANDALL, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 1
 	setvar VAR_0x8009, 59
-	msgbox PetalburgCity_Gym_Text_EnterDefenseRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterDodgeRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -803,7 +803,7 @@ PetalburgCity_Gym_EventScript_RightDefenseRoomDoor::
 	goto_if_not_defeated TRAINER_MARY, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 7
 	setvar VAR_0x8009, 59
-	msgbox PetalburgCity_Gym_Text_EnterDefenseRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterDodgeRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -813,7 +813,7 @@ PetalburgCity_Gym_EventScript_RecoveryRoomDoor::
 	goto_if_not_defeated TRAINER_MARY, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 1
 	setvar VAR_0x8009, 72
-	msgbox PetalburgCity_Gym_Text_EnterRecoveryRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterRepositionRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -823,7 +823,7 @@ PetalburgCity_Gym_EventScript_LeftStrengthRoomDoor::
 	goto_if_not_defeated TRAINER_PARKER, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 1
 	setvar VAR_0x8009, 20
-	msgbox PetalburgCity_Gym_Text_EnterStrengthRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterPowerRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -833,7 +833,7 @@ PetalburgCity_Gym_EventScript_RightStrengthRoomDoor::
 	goto_if_not_defeated TRAINER_ALEXIA, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 7
 	setvar VAR_0x8009, 20
-	msgbox PetalburgCity_Gym_Text_EnterStrengthRoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterPowerRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -843,7 +843,7 @@ PetalburgCity_Gym_EventScript_LeftOHKORoomDoor::
 	goto_if_not_defeated TRAINER_ALEXIA, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 1
 	setvar VAR_0x8009, 33
-	msgbox PetalburgCity_Gym_Text_EnterOHKORoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterInverseRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -853,7 +853,7 @@ PetalburgCity_Gym_EventScript_RightOHKORoomDoor::
 	goto_if_not_defeated TRAINER_GEORGE, PetalburgCity_Gym_EventScript_DoorLocked
 	setvar VAR_0x8008, 7
 	setvar VAR_0x8009, 33
-	msgbox PetalburgCity_Gym_Text_EnterOHKORoom, MSGBOX_YESNO
+	msgbox PetalburgCity_Gym_Text_EnterInverseRoom, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, YES, PetalburgCity_Gym_EventScript_EnterRoom
 	goto_if_eq VAR_RESULT, NO, PetalburgCity_Gym_EventScript_DontEnterRoom
 	end
@@ -1344,9 +1344,9 @@ PetalburgCity_Gym_Text_GymGuideAdvice:
 	.string "The TRAINERS of PETALBURG GYM\n"
 	.string "use all kinds of items.\p"
 	.string "The door at the left leads to\n"
-	.string "the SPEED ROOM.\p"
+	.string "the SHUFFLE ROOM.\p"
 	.string "The door at the right leads to\n"
-	.string "the ACCURACY ROOM.\p"
+	.string "the TRICK ROOM.\p"
 	.string "The room's name will be on\n"
 	.string "the door, so choose carefully.\p"
 	.string "Once you've chosen the door…\n"
@@ -1359,8 +1359,8 @@ PetalburgCity_Gym_Text_GymGuidePostVictory:
 	.string "What a stunning turn of events!$"
 
 PetalburgCity_Gym_Text_RandallIntro:
-	.string "The ability to attack before the\n"
-	.string "opponent…\p"
+	.string "Do you like to lose control\n"
+	.string "over your switches?"
 	.string "Just that alone puts me at a great\n"
 	.string "advantage, don't you agree?$"
 
@@ -1370,8 +1370,8 @@ PetalburgCity_Gym_Text_RandallDefeat:
 PetalburgCity_Gym_Text_RandallPostBattle:
 	.string "Go on to the next room where a new\n"
 	.string "challenge awaits you.\p"
-	.string "At the left is the CONFUSION ROOM.\p"
-	.string "The right door leads to the DEFENSE\n"
+	.string "At the left is the WOLFE ROOM.\p"
+	.string "The right door leads to the DODGE\n"
 	.string "ROOM.$"
 
 PetalburgCity_Gym_Text_RandallPostBadge:
@@ -1382,12 +1382,11 @@ PetalburgCity_Gym_Text_RandallPostBadge:
 	.string "GYM LEADER is all about.$"
 
 PetalburgCity_Gym_Text_ParkerIntro:
-	.string "This is the CONFUSION ROOM.\p"
-	.string "Let me see how well bonded you are\n"
-	.string "with your POKéMON!$"
+	.string "This is the WOLFE ROOM.\p"
+	.string "Let me see how well you know VGC!$"
 
 PetalburgCity_Gym_Text_ParkerDefeat:
-	.string "I couldn't confuse your team enough…\n"
+	.string "I couldn't trap your team enough…\n"
 	.string "You share a strong bond together.$"
 
 PetalburgCity_Gym_Text_ParkerPostBattle:
@@ -1400,15 +1399,14 @@ PetalburgCity_Gym_Text_ParkerPostBadge:
 
 PetalburgCity_Gym_Text_GeorgeIntro:
 	.string "Just when you think you're going to\n"
-	.string "win, your opponent restores HP…\p"
+	.string "win, you're forced to switch.\p"
 	.string "Can you just imagine how awful that\n"
 	.string "must feel?\p"
 	.string "I'll show you exactly how awful it\n"
 	.string "feels!$"
 
 PetalburgCity_Gym_Text_GeorgeDefeat:
-	.string "I couldn't restore HP enough…\n"
-	.string "What ATTACK power…$"
+	.string "You outsmarted me…$"
 
 PetalburgCity_Gym_Text_GeorgePostBattle:
 	.string "I should have expected no less from\n"
@@ -1417,7 +1415,7 @@ PetalburgCity_Gym_Text_GeorgePostBattle:
 	.string "earned only through effort.\p"
 	.string "I lost because my own efforts\n"
 	.string "weren't enough.\p"
-	.string "Go on! The ONE-HIT KO ROOM is next.$"
+	.string "Go on! The INVERSE ROOM is next.$"
 
 PetalburgCity_Gym_Text_GeorgePostBadge:
 	.string "I'm going to keep training at GYMS.\n"
@@ -1448,9 +1446,8 @@ PetalburgCity_Gym_Text_BerkePostBadge:
 
 PetalburgCity_Gym_Text_MaryIntro:
 	.string "Giggle…\n"
-	.string "This is the ACCURACY ROOM.\p"
-	.string "It's pretty nasty when every attack\n"
-	.string "lands without fail.$"
+	.string "This is the TRICK ROOM.\p"
+	.string "I hope you won't be caught off guard.$"
 
 PetalburgCity_Gym_Text_MaryDefeat:
 	.string "You were a cut above me…$"
@@ -1458,9 +1455,9 @@ PetalburgCity_Gym_Text_MaryDefeat:
 PetalburgCity_Gym_Text_MaryPostBattle:
 	.string "There are some even stronger\n"
 	.string "TRAINERS waiting for you.\p"
-	.string "The left is the DEFENSE ROOM, and\n"
-	.string "the right is the RECOVERY ROOM.\p"
-	.string "Your POKéMON's ATTACK power will be\n"
+	.string "The left is the DODGE ROOM, and\n"
+	.string "the right is the REPOSITION ROOM.\p"
+	.string "Your strategic skill will be\n"
 	.string "on trial either way.$"
 
 PetalburgCity_Gym_Text_MaryPostBadge:
@@ -1470,19 +1467,19 @@ PetalburgCity_Gym_Text_MaryPostBadge:
 	.string "with our POKéMON.$"
 
 PetalburgCity_Gym_Text_AlexiaIntro:
-	.string "The higher the DEFENSE, the more\n"
-	.string "reckless I can be in attack.$"
+	.string "Me and my POKéMON are fast!\n"
+	.string "Do you think you can hit us?$"
 
 PetalburgCity_Gym_Text_AlexiaDefeat:
-	.string "Our defenses weren't enough…$"
+	.string "We weren't fast enough…$"
 
 PetalburgCity_Gym_Text_AlexiaPostBattle:
 	.string "I think you've taught me a valuable\n"
 	.string "lesson here.\p"
 	.string "Now, go on! The left door goes to\n"
-	.string "the STRENGTH ROOM.\p"
+	.string "the POWER ROOM.\p"
 	.string "The right door opens to\n"
-	.string "the ONE-HIT KO ROOM.\p"
+	.string "the INVERSE ROOM.\p"
 	.string "Both of them have TRAINERS who are\n"
 	.string "skilled at offense.$"
 
@@ -1599,3 +1596,37 @@ PetalburgCity_Gym_Text_NormanRematchNeedTwoMons:
 	.string "Sorry, but you'll have to come back\n"
 	.string "with at least two POKéMON.$"
 
+PetalburgCity_Gym_Text_EnterDodgeRoom:
+	.string "“DODGE ROOM,” the sign says.\n"
+	.string "No Misses rule active.\p"
+	.string "Do you want to go through?$"
+	
+PetalburgCity_Gym_Text_EnterShuffleRoom:
+	.string "“SHUFFLE ROOM,” the sign says.\n"
+	.string "No Same Sex rule active.\p"
+	.string "Do you want to go through?$"
+	
+PetalburgCity_Gym_Text_EnterWolfeRoom:
+	.string "“WOLFE ROOM,” the sign says.\n"
+	.string "Perish rule active.\p"
+	.string "Do you want to go through?$"
+	
+PetalburgCity_Gym_Text_EnterTrickRoom:
+	.string "“TRICK ROOM,” the sign says.\n"
+	.string "Trick Room rule active.\p"
+	.string "Do you want to go through?$"
+	
+PetalburgCity_Gym_Text_EnterRepositionRoom:
+	.string "“REPOSITION ROOM,” the sign says.\n"
+	.string "First Move Only rule active.\p"
+	.string "Do you want to go through?$"
+	
+PetalburgCity_Gym_Text_EnterInverseRoom:
+	.string "“INVERSE ROOM,” the sign says.\n"
+	.string "Inverse Battle rule active.\p"
+	.string "Do you want to go through?$"
+	
+PetalburgCity_Gym_Text_EnterPowerRoom:
+	.string "“POWER ROOM,” the sign says.\n"
+	.string "No Status Moves rule active.\p"
+	.string "Do you want to go through?$"

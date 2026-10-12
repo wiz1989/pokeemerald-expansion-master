@@ -1972,6 +1972,72 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
     }
 }
 
+static void SetMoveInSlot(struct Pokemon *mon, u16 move, u32 slot)
+{
+    u32 pp = GetMovePP(move);
+    SetMonData(mon, MON_DATA_MOVE1 + slot, &move);
+    SetMonData(mon, MON_DATA_PP1 + slot, &pp);
+}
+
+// used for Petalburg Gym trainers
+static void HardOverrideMonMoves(struct Pokemon *mon, const struct TrainerMon *partyEntry)
+{
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_RANDALL && partyEntry->species == SPECIES_SHARPEDO)
+    {
+        u16 move = MOVE_ROAR;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_RANDALL && partyEntry->species == SPECIES_THROH)
+    {
+        u16 move = MOVE_CIRCLE_THROW;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_RANDALL && partyEntry->species == SPECIES_ARBOK)
+    {
+        u16 move = MOVE_DRAGON_TAIL;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_PARKER && partyEntry->species == SPECIES_MAGMAR)
+    {
+        u16 move = MOVE_FIRE_SPIN;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_PARKER && partyEntry->species == SPECIES_DUGTRIO)
+    {
+        u16 move = MOVE_DIG;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_GEORGE && partyEntry->species == SPECIES_BISHARP)
+    {
+        u16 move = MOVE_TORMENT;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_GEORGE && partyEntry->species == SPECIES_HYPNO)
+    {
+        u16 move = MOVE_DISABLE;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_ALEXIA && partyEntry->species == SPECIES_SCYTHER)
+    {
+        u16 move = MOVE_DOUBLE_TEAM;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_ALEXIA && partyEntry->species == SPECIES_SWELLOW)
+    {
+        u16 move = MOVE_DOUBLE_TEAM;
+        if (!MonKnowsMove(mon, move))
+            SetMoveInSlot(mon, move, 0);
+    }
+}
+
 u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer *trainer, bool32 firstTrainer, u32 battleTypeFlags)
 {
     u32 personalityValue;
@@ -2059,6 +2125,11 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
 
             CustomTrainerPartyAssignMoves(&party[i], &partyData[monIndex]);
             SetMonData(&party[i], MON_DATA_IVS, &(partyData[monIndex].iv));
+
+            if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_PETALBURG_CITY_GYM)
+              && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_PETALBURG_CITY_GYM))
+                HardOverrideMonMoves(&party[i], &partyData[monIndex]);
+            
             if (partyData[monIndex].ev != NULL)
             {
                 SetMonData(&party[i], MON_DATA_HP_EV, &(partyData[monIndex].ev[0]));

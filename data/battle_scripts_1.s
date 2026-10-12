@@ -6867,6 +6867,12 @@ BattleScript_ThrashConfuses::
 	volatileanimation BS_ATTACKER, VOLATILE_CONFUSION
 	printstring STRINGID_PKMNFATIGUECONFUSION
 	waitmessage B_WAIT_TIME_LONG
+	jumpifability BS_ATTACKER, ABILITY_TANGLED_FEET, BattleScript_ThrashConfusesTangledFeet
+	end2
+
+BattleScript_ThrashConfusesTangledFeet:
+	copybyte gBattlerAbility, gBattlerAttacker
+	call BattleScript_AbilityPopUp
 	end2
 
 BattleScript_MoveUsedIsConfused::
@@ -7093,6 +7099,13 @@ BattleScript_MoveEffectConfusion::
 	volatileanimation BS_EFFECT_BATTLER, VOLATILE_CONFUSION
 	printstring STRINGID_PKMNWASCONFUSED
 	waitmessage B_WAIT_TIME_LONG
+	jumpifability BS_EFFECT_BATTLER, ABILITY_TANGLED_FEET, BattleScript_MoveEffectConfusionTangledFeet
+	goto BattleScript_MoveEffectConfusionRet
+
+BattleScript_MoveEffectConfusionTangledFeet:
+	copybyte gBattlerAbility, gEffectBattler
+	call BattleScript_AbilityPopUp
+BattleScript_MoveEffectConfusionRet:
 	setbattlerulebattler BS_ATTACKER
 	jumpifbattlerule BattleScript_BattleRule_FaintMon_Ret BATTLERULE_NOSTATUS
 	return
@@ -9548,6 +9561,11 @@ BattleScript_ConfuseSideLoop:
 BattleScript_ConfuseSidePrintMessage:
 	printstring STRINGID_PKMNWASCONFUSED
 	waitmessage B_WAIT_TIME_LONG
+	jumpifability BS_EFFECT_BATTLER, ABILITY_TANGLED_FEET, BattleScript_ConfuseSideTangledFeet
+	goto BattleScript_ConfuseSideIncrement
+BattleScript_ConfuseSideTangledFeet:
+	copybyte gBattlerAbility, gEffectBattler
+	call BattleScript_AbilityPopUp
 BattleScript_ConfuseSideIncrement:
 	jumpifbytenotequal gBattlerTarget, sBATTLER, BattleScript_ConfuseSideEnd
 	setallytonexttarget BattleScript_ConfuseSideLoop

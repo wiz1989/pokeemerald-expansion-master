@@ -1843,7 +1843,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                     if (gLastMoves[battlerDef] == MOVE_NONE || gLastMoves[battlerDef] == 0xFFFF)
                         ADJUST_SCORE(-10);    // no anticipated move to disable
                 }
-                else if (predictedMove == MOVE_NONE)
+                else if (predictedMove == MOVE_NONE && TRAINER_BATTLE_PARAM.opponentA != TRAINER_GEORGE)
                 {
                     ADJUST_SCORE(-10);
                 }
@@ -4283,6 +4283,8 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         else if (GetActiveGimmick(battlerDef) == GIMMICK_DYNAMAX)
             break;
         score += AI_TryToClearStats(battlerAtk, battlerDef, moveTargetsBothOpponents);
+        if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_RANDALL)
+            ADJUST_SCORE(GOOD_EFFECT);
         break;
     case EFFECT_MULTI_HIT:
     case EFFECT_TRIPLE_KICK:
@@ -4412,6 +4414,10 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
     case EFFECT_HAPPY_HOUR:
         //todo - check z splash, z celebrate, z happy hour (lol)
         break;
+    case EFFECT_HIT_SWITCH_TARGET:
+        if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_RANDALL)
+            ADJUST_SCORE(GOOD_EFFECT);
+        break;
     case EFFECT_TELEPORT: // Either remove or add better logic
         if (!(gBattleTypeFlags & BATTLE_TYPE_TRAINER) || !IsOnPlayerSide(battlerAtk))
             break;
@@ -4462,6 +4468,15 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         {
             if (CanTargetMoveFaintAi(gLastMoves[battlerDef], battlerDef, battlerAtk, 1))
                 ADJUST_SCORE(GOOD_EFFECT); // Disable move that can kill attacker
+            else if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_GEORGE)
+                ADJUST_SCORE(GOOD_EFFECT);
+        }
+        else if (gDisableStructs[battlerDef].disableTimer == 0
+        && (B_MENTAL_HERB < GEN_5 || aiData->holdEffects[battlerDef] != HOLD_EFFECT_MENTAL_HERB)
+        && (AI_IsSlower(battlerAtk, battlerDef, move, predictedMoveSpeedCheck, CONSIDER_PRIORITY)))
+        {
+            if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_GEORGE)
+                ADJUST_SCORE(GOOD_EFFECT);
         }
         break;
     case EFFECT_ENCORE:
@@ -4819,6 +4834,8 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         }
         break;
     case EFFECT_TORMENT:
+        if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_GEORGE)
+            ADJUST_SCORE(GOOD_EFFECT);
         break;
     case EFFECT_FOLLOW_ME:
         if (hasPartner
@@ -5713,8 +5730,13 @@ case EFFECT_GUARD_SPLIT:
                 }
                 break;
             case MOVE_EFFECT_WRAP:
-                if (!HasMoveWithEffect(battlerDef, EFFECT_RAPID_SPIN) && ShouldTrap(battlerAtk, battlerDef, move))
-                    ADJUST_SCORE(BEST_EFFECT);
+                if (!HasMoveWithEffect(battlerDef, EFFECT_RAPID_SPIN))
+                {
+                    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_PARKER && !AI_CanBattlerEscape(battlerDef) && !IsBattlerTrapped(battlerAtk, battlerDef))
+                        ADJUST_SCORE(GOOD_EFFECT);
+                    else if (ShouldTrap(battlerAtk, battlerDef, move))
+                        ADJUST_SCORE(BEST_EFFECT);
+                }
                 break;
             case MOVE_EFFECT_SALT_CURE:
                 if (IS_BATTLER_OF_TYPE(battlerDef, TYPE_WATER) || IS_BATTLER_OF_TYPE(battlerDef, TYPE_STEEL))

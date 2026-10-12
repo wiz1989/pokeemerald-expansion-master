@@ -423,6 +423,46 @@ void ComputeActiveBattleRules(void)
     
     // ### post handling of calculated rules below ###
 
+    // Norman's gym
+    switch (gSaveBlock1Ptr->lastTrainerId)
+    {
+        case TRAINER_MARY: // Trick Room
+            gActiveBattleRules[0] = BATTLERULE_TRICKROOM;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+            break;
+        case TRAINER_RANDALL: // Shuffle Room
+            gActiveBattleRules[0] = BATTLERULE_NOSAMESEX;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+            break;
+        case TRAINER_ALEXIA: // Dodge Room
+            gActiveBattleRules[0] = BATTLERULE_NOMISSES;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+            break;
+        case TRAINER_PARKER: // Wolfe Room
+            gActiveBattleRules[0] = BATTLERULE_PERISHCOUNT;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+            break;
+        case TRAINER_GEORGE: // Reposition Room
+            gActiveBattleRules[0] = BATTLERULE_FIRSTMOVEONLY;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+            break;
+        case TRAINER_BERKE: // Inverse Room
+            gActiveBattleRules[0] = BATTLERULE_INVERSE;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+            break;
+        case TRAINER_JODY: // Power Room
+            gActiveBattleRules[0] = BATTLERULE_BANNEDMOVECAT_STATUS;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+            break;
+    }
+
     // battle debug
     if (FlagGet(FLAG_DEBUG_BATTLERULE))
     {
