@@ -1446,6 +1446,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
         case EFFECT_MINIMIZE:
             if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_EVASION))
                 ADJUST_SCORE(-10);
+            else if (OpponentKnowsNoMissMove(battlerAtk, battlerDef, aiData))
+                ADJUST_SCORE(-10);
             break;
         case EFFECT_COSMIC_POWER:
             if (!BattlerStatCanRise(battlerAtk, aiData->abilities[battlerAtk], STAT_DEF))
@@ -1751,6 +1753,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             else if (aiData->abilities[battlerDef] == ABILITY_SUCTION_CUPS)
                 ADJUST_SCORE(-10);
             else if (GetActiveGimmick(battlerDef) == GIMMICK_DYNAMAX)
+                ADJUST_SCORE(-10);
+            else if (CanTargetFaintAi(battlerDef, battlerAtk))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_TOXIC_THREAD:
@@ -2195,6 +2199,8 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
             else if (aiData->hpPercents[battlerDef] < 10 && GetBattlerSecondaryDamage(battlerDef))
                 ADJUST_SCORE(-10);    // don't blow away mon that will faint soon
             else if (gBattleMons[battlerDef].volatiles.perishSong)
+                ADJUST_SCORE(-10);
+            else if (CanTargetFaintAi(battlerDef, battlerAtk))
                 ADJUST_SCORE(-10);
             break;
         case EFFECT_CONVERSION:

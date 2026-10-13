@@ -2024,7 +2024,7 @@ static void HardOverrideMonMoves(struct Pokemon *mon, const struct TrainerMon *p
         if (!MonKnowsMove(mon, move))
             SetMoveInSlot(mon, move, 0);
     }
-    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_ALEXIA && partyEntry->species == SPECIES_SCYTHER)
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_ALEXIA && partyEntry->species == SPECIES_PIKACHU)
     {
         u16 move = MOVE_DOUBLE_TEAM;
         if (!MonKnowsMove(mon, move))

@@ -1360,7 +1360,7 @@ PetalburgCity_Gym_Text_GymGuidePostVictory:
 
 PetalburgCity_Gym_Text_RandallIntro:
 	.string "Do you like to lose control\n"
-	.string "over your switches?"
+	.string "over your switches?\p"
 	.string "Just that alone puts me at a great\n"
 	.string "advantage, don't you agree?$"
 

@@ -4522,8 +4522,12 @@ static enum AIScore IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, 
     if (HasBattlerSideAbility(battlerDef, ABILITY_UNAWARE, gAiLogicData))
         return NO_INCREASE;
 
-    // Don't increase stat if AI is at +4
-    if (gBattleMons[battlerAtk].statStages[statId] >= MAX_STAT_STAGE - 2)
+    // Don't increase stat if AI is at +3
+    if (gBattleMons[battlerAtk].statStages[statId] >= MAX_STAT_STAGE - 3)
+        return NO_INCREASE;
+
+    // don't increase evasion if AI is at +2
+    if (gBattleMons[battlerAtk].statStages[statId] >= (MAX_STAT_STAGE - 4) && statId == STAT_EVASION)
         return NO_INCREASE;
 
     // Don't increase stat if AI has less then 70% HP and number of hits isn't known
@@ -5762,5 +5766,24 @@ bool32 IsNaturalEnemy(u32 speciesAttacker, u32 speciesTarget)
     default:
         return FALSE;
     }
+    return FALSE;
+}
+
+
+bool32 OpponentKnowsNoMissMove(u32 battlerAtk, u32 battlerDef, struct AiLogicData *aiData)
+{
+    u16 *moves = gBattleHistory->usedMoves[battlerDef];
+    u32 abilityAtk = aiData->abilities[battlerDef];
+    u32 abilityDef = aiData->abilities[battlerAtk];
+
+    for (u8 i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (moves[i] == MOVE_NONE || moves[i] == MOVE_UNAVAILABLE)
+            continue;
+
+        if (CanMoveSkipAccuracyCalc(battlerDef, battlerAtk, abilityAtk, abilityDef, moves[i], AI_CHECK))
+            return TRUE;
+    }
+
     return FALSE;
 }

@@ -300,6 +300,7 @@ u32 GetIncomingMoveSpeedCheck(u32 battler, u32 opposingBattler, struct AiLogicDa
 bool32 HasLowAccuracyMove(u32 battlerAtk, u32 battlerDef);
 bool32 HasBattlerSideAbility(u32 battlerDef, u32 ability, struct AiLogicData *aiData);
 bool32 IsNaturalEnemy(u32 speciesAttacker, u32 speciesTarget);
+bool32 OpponentKnowsNoMissMove(u32 battlerAtk, u32 battlerDef, struct AiLogicData *aiData);
 
 // These are for the purpose of not doubling up on moves during double battles.
 // Used in GetAIEffectGroup for move effects and GetAIEffectGroupFromMove for additional effects
