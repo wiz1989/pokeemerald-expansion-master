@@ -495,7 +495,9 @@ void CreateWildMon(u16 species, u8 level)
         offsetFixed = 5;
 
     offsetRandom = Random() % 4;
-    level = currentLevelCap - offsetFixed - offsetRandom;
+
+    if (gSaveBlock2Ptr->harderTrainers)
+        level = currentLevelCap - offsetFixed - offsetRandom;
     ZeroEnemyPartyMons();
 
     switch (gSpeciesInfo[species].genderRatio)
