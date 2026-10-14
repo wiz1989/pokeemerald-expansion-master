@@ -4598,8 +4598,12 @@ static enum AIScore IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, 
         }
         break;
     case STAT_CHANGE_SPEED:
-        if ((noOfHitsToFaint >= 3 && !aiIsFaster) || noOfHitsToFaint == UNKNOWN_NO_OF_HITS)
+        if (noOfHitsToFaint >= 3 && !aiIsFaster)
             tempScore += DECENT_EFFECT;
+        else if (noOfHitsToFaint == UNKNOWN_NO_OF_HITS && !aiIsFaster)
+            tempScore += DECENT_EFFECT;
+        else if (noOfHitsToFaint == UNKNOWN_NO_OF_HITS && aiIsFaster)
+            tempScore += WEAK_EFFECT;
         break;
     case STAT_CHANGE_SPATK:
         if (HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_SPECIAL) && shouldSetUp)
@@ -4628,8 +4632,12 @@ static enum AIScore IncreaseStatUpScoreInternal(u32 battlerAtk, u32 battlerDef, 
         }
         break;
     case STAT_CHANGE_SPEED_2:
-        if ((noOfHitsToFaint >= 3 && !aiIsFaster) || noOfHitsToFaint == UNKNOWN_NO_OF_HITS)
+        if (noOfHitsToFaint >= 3 && !aiIsFaster)
             tempScore += GOOD_EFFECT;
+        else if (noOfHitsToFaint == UNKNOWN_NO_OF_HITS && !aiIsFaster)
+            tempScore += GOOD_EFFECT;
+        else if (noOfHitsToFaint == UNKNOWN_NO_OF_HITS && aiIsFaster)
+            tempScore += DECENT_EFFECT;
         break;
     case STAT_CHANGE_SPATK_2:
         if (HasMoveWithCategory(battlerAtk, DAMAGE_CATEGORY_SPECIAL) && shouldSetUp)

@@ -12017,3 +12017,12 @@ bool8 CanPartnerAiSwitch(void)
         return FALSE;
     return TRUE;
 }
+
+bool8 InPetalburgGym(void)
+{
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_PETALBURG_CITY_GYM)
+              && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_PETALBURG_CITY_GYM))
+        return TRUE;
+    else
+        return FALSE;
+}

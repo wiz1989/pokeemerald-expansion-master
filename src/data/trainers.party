@@ -1269,15 +1269,30 @@ AI: Basic Trainer
 
 Throh
 Level: 26
+Ability: Inner Focus
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Arbok
-Level: 26
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Circle Throw
+- Vital Throw
+- Seismic Toss
+- Storm Throw
 
 Sharpedo
 Level: 26
+Ability: Speed Boost
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Roar
+- Swagger
+- Assurance
+- Crunch
+
+Arbok
+Level: 26
+Ability: Intimidate
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Tail
+- Crunch
+- Glare
+- Ice Fang
 
 === TRAINER_PARKER ===
 Name: PARKER
@@ -1290,17 +1305,30 @@ AI: Basic Trainer
 
 Magmar @ Leftovers
 Level: 26
+Ability: Flame Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Wobbuffet
-Level: 26
-Ability: Shadow Tag
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Spin
+- Clear Smog
+- Flame Burst
+- Confuse Ray
 
 Dugtrio @ Focus Sash
 Level: 26
 Ability: Arena Trap
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dig
+- Sucker Punch
+- Sand Tomb
+- Mud Bomb
+
+Wobbuffet
+Level: 26
+Ability: Shadow Tag
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Counter
+- Mirror Coat
+- Safeguard
+- Destiny Bond
 
 === TRAINER_GEORGE ===
 Name: GEORGE
@@ -1315,14 +1343,28 @@ Jellicent
 Level: 26
 Ability: Cursed Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Bubble Beam
+- Recover
+- Water Pulse
+- Ominous Wind
 
-Bisharp
+Dusknoir
 Level: 26
+Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Pain Split
+- Will-o-Wisp
+- Shadow Sneak
+- Pursuit
 
-Hypno
+Aerodactyl
 Level: 26
+Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Torment
+- Roost
+- Protect
+- Ancient Power
 
 === TRAINER_BERKE ===
 Name: BERKE
@@ -1333,17 +1375,31 @@ Music: Cool
 Double Battle: No
 AI: Basic Trainer
 
-Cloyster
+Porygon2 @ Eviolite
+Ability: Analytic
 Level: 26
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Ursaring
-Level: 26
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psybeam
+- Tri Attack
+- Recover
+- Magnet Rise
 
 Snorlax
+Ability: Immunity
 Level: 26
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Yawn
+- Chip Away
+- Rest
+- Snore
+
+Shedinja @ Lum Berry
+Level: 26
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Sand Attack
+- Confuse Ray
+- Leech Life
+- Shadow Ball
 
 === TRAINER_BRAXTON ===
 Name: BRAXTON
@@ -1703,15 +1759,28 @@ Pikachu @ Light Ball
 Level: 26
 Ability: Lightning Rod
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Quick Attack
+- Electro Ball
+- Double Team
+- Slam
 
 Swellow
 Level: 26
+Ability: Scrappy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Quick Attack
+- Wing Attack
+- Double Team
+- Endeavor
 
 Spinda @ Berserk Gene
 Level: 26
 Ability: Tangled Feet
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Feint Attack
+- Psybeam
+- Hypnosis
+- Dizzy Punch
 
 === TRAINER_JODY ===
 Name: JODY
@@ -1722,17 +1791,32 @@ Music: Cool
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Force Setup First Turn
 
-Bastiodon
+Shuckle @ Sitrus Berry
 Level: 26
+Ability: Sturdy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Toxic
+- Rock Throw
+- Encore
+
+Bastiodon @ Air Balloon
+Level: 26
+Ability: Sturdy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Take Down
+- Iron Defense
+- Swagger
+- Ancient Power
 
 Cofagrigus
 Level: 26
+Ability: Mummy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-
-Shuckle @ Leftovers
-Level: 26
-IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Night Shade
+- Hex
+- Will-o-Wisp
+- Ominous Wind
 
 === TRAINER_WENDY ===
 Name: WENDY
