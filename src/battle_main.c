@@ -1972,7 +1972,7 @@ void CustomTrainerPartyAssignMoves(struct Pokemon *mon, const struct TrainerMon 
     }
 }
 
-static void SetMoveInSlot(struct Pokemon *mon, u16 move, u32 slot)
+static UNUSED void SetMoveInSlot(struct Pokemon *mon, u16 move, u32 slot)
 {
     u32 pp = GetMovePP(move);
     SetMonData(mon, MON_DATA_MOVE1 + slot, &move);
@@ -2109,8 +2109,13 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             level = partyData[monIndex].lvl;
             if (gSaveBlock2Ptr->harderTrainers)
             {
-                if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_WINSTRATE 
-                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_RIVAL)
+                if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_WINSTRATE
+                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_RIVAL
+                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_AQUA_LEADER
+                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_MAGMA_LEADER
+                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentB) == TRAINER_CLASS_RIVAL
+                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentB) == TRAINER_CLASS_AQUA_LEADER
+                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentB) == TRAINER_CLASS_MAGMA_LEADER)
                 {
                     level = currentLevelCap;
                 }
