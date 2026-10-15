@@ -17161,8 +17161,9 @@ Wobbuffet
 Level: 41
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
-=== TRAINER_SIDNEY_HARD ===
+=== TRAINER_SIDNEY ===
 Name: SIDNEY
+Difficulty: Hard
 Class: Elite Four
 Pic: Elite Four Sidney
 Gender: Male
@@ -17217,8 +17218,9 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Swords Dance
 - Night Slash
 
-=== TRAINER_PHOEBE_HARD ===
+=== TRAINER_PHOEBE ===
 Name: PHOEBE
+Difficulty: Hard
 Class: Elite Four
 Pic: Elite Four Phoebe
 Gender: Female
@@ -17273,8 +17275,9 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Dark Pulse
 - Hex
 
-=== TRAINER_GLACIA_HARD ===
+=== TRAINER_GLACIA ===
 Name: GLACIA
+Difficulty: Hard
 Class: Elite Four
 Pic: Elite Four Glacia
 Gender: Female
@@ -17329,8 +17332,9 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Ice Beam
 - Sheer Cold
 
-=== TRAINER_DRAKE_HARD ===
+=== TRAINER_DRAKE ===
 Name: DRAKE
+Difficulty: Hard
 Class: Elite Four
 Pic: Elite Four Drake
 Gender: Male
@@ -17385,8 +17389,9 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Rock Slide
 - Roost
 
-=== TRAINER_ROXANNE_1_HARD ===
+=== TRAINER_ROXANNE_1 ===
 Name: ROXANNE
+Difficulty: Hard
 Class: Leader
 Pic: Leader Roxanne
 Gender: Female
@@ -17422,8 +17427,9 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Tackle
 - Rock Tomb
 
-=== TRAINER_BRAWLY_1_HARD ===
+=== TRAINER_BRAWLY_1 ===
 Name: BRAWLY
+Difficulty: Hard
 Class: Leader
 Pic: Leader Brawly
 Gender: Male
@@ -17459,8 +17465,9 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Reversal
 - Bulk Up
 
-=== TRAINER_WATTSON_1_HARD ===
+=== TRAINER_WATTSON_1 ===
 Name: WATTSON
+Difficulty: Hard
 Class: Leader
 Pic: Leader Wattson
 Gender: Male
@@ -17505,8 +17512,9 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Discharge
 - Fire Fang
 
-=== TRAINER_FLANNERY_1_HARD ===
+=== TRAINER_FLANNERY_1 ===
 Name: FLANNERY
+Difficulty: Hard
 Class: Leader
 Pic: Leader Flannery
 Gender: Female
@@ -17551,8 +17559,9 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Body Slam
 - Incinerate
 
-=== TRAINER_NORMAN_1_HARD ===
+=== TRAINER_NORMAN_1 ===
 Name: NORMAN
+Difficulty: Hard
 Class: Leader
 Pic: Leader Norman
 Gender: Male
@@ -17597,8 +17606,9 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Facade
 - Shadow Claw
 
-=== TRAINER_WINONA_1_HARD ===
+=== TRAINER_WINONA_1 ===
 Name: WINONA
+Difficulty: Hard
 Class: Leader
 Pic: Leader Winona
 Gender: Female
@@ -17652,8 +17662,9 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Dragon Dance
 - Aerial Ace
 
-=== TRAINER_TATE_AND_LIZA_1_HARD ===
+=== TRAINER_TATE_AND_LIZA_1 ===
 Name: TATE&LIZA
+Difficulty: Hard
 Class: Leader
 Pic: Leader Tate And Liza
 Gender: Male
@@ -17698,8 +17709,9 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Helping Hand
 - Rock Slide
 
-=== TRAINER_JUAN_1_HARD ===
+=== TRAINER_JUAN_1 ===
 Name: JUAN
+Difficulty: Hard
 Class: Leader
 Pic: Leader Juan
 Gender: Male
@@ -17753,8 +17765,9 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Waterfall
 - Ice Beam
 
-=== TRAINER_WALLACE_HARD ===
+=== TRAINER_WALLACE ===
 Name: STEVEN
+Difficulty: Hard
 Class: Champion
 Pic: Steven
 Gender: Male
@@ -17816,3 +17829,246 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Zen Headbutt
 - Hone Claws
 - Earthquake
+
+=== TRAINER_RANDALL ===
+Name: RANDALL
+Difficulty: Hard
+Class: Cooltrainer
+Pic: Cooltrainer M
+Gender: Male
+Music: Cool
+Double Battle: No
+AI: Basic Trainer
+
+Throh
+Level: 26
+Ability: Inner Focus
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Circle Throw
+- Vital Throw
+- Seismic Toss
+- Storm Throw
+
+Sharpedo
+Level: 26
+Ability: Speed Boost
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Roar
+- Swagger
+- Assurance
+- Crunch
+
+Arbok
+Level: 26
+Ability: Intimidate
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dragon Tail
+- Crunch
+- Glare
+- Ice Fang
+
+=== TRAINER_PARKER ===
+Name: PARKER
+Difficulty: Hard
+Class: Cooltrainer
+Pic: Cooltrainer M
+Gender: Male
+Music: Cool
+Double Battle: No
+AI: Basic Trainer
+
+Magmar @ Leftovers
+Level: 26
+Ability: Flame Body
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Fire Spin
+- Clear Smog
+- Flame Burst
+- Confuse Ray
+
+Dugtrio @ Focus Sash
+Level: 26
+Ability: Arena Trap
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Dig
+- Sucker Punch
+- Sand Tomb
+- Mud Bomb
+
+Wobbuffet
+Level: 26
+Ability: Shadow Tag
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Counter
+- Mirror Coat
+- Safeguard
+- Destiny Bond
+
+=== TRAINER_GEORGE ===
+Name: GEORGE
+Difficulty: Hard
+Class: Cooltrainer
+Pic: Cooltrainer M
+Gender: Male
+Music: Cool
+Double Battle: No
+AI: Basic Trainer
+
+Jellicent
+Level: 26
+Ability: Cursed Body
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Bubble Beam
+- Recover
+- Water Pulse
+- Ominous Wind
+
+Dusknoir
+Level: 26
+Ability: Pressure
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Pain Split
+- Will-o-Wisp
+- Shadow Sneak
+- Pursuit
+
+Aerodactyl
+Level: 26
+Ability: Pressure
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Torment
+- Roost
+- Protect
+- Ancient Power
+
+=== TRAINER_BERKE ===
+Name: BERKE
+Difficulty: Hard
+Class: Cooltrainer
+Pic: Cooltrainer M
+Gender: Male
+Music: Cool
+Double Battle: No
+AI: Basic Trainer
+
+Porygon2 @ Eviolite
+Ability: Analytic
+Level: 26
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Psybeam
+- Tri Attack
+- Recover
+- Magnet Rise
+
+Snorlax
+Ability: Immunity
+Level: 26
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Yawn
+- Chip Away
+- Rest
+- Snore
+
+Shedinja @ Lum Berry
+Level: 26
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Sand Attack
+- Confuse Ray
+- Leech Life
+- Shadow Ball
+
+=== TRAINER_MARY ===
+Name: MARY
+Difficulty: Hard
+Class: Cooltrainer
+Pic: Cooltrainer F
+Gender: Female
+Music: Cool
+Double Battle: No
+AI: Basic Trainer
+
+Rhydon
+Level: 26
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+
+Amoonguss
+Level: 26
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+
+Throh
+Level: 26
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+
+=== TRAINER_ALEXIA ===
+Name: ALEXIA
+Difficulty: Hard
+Class: Cooltrainer
+Pic: Cooltrainer F
+Gender: Female
+Music: Cool
+Double Battle: No
+AI: Basic Trainer
+
+Pikachu @ Light Ball
+Level: 26
+Ability: Lightning Rod
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Quick Attack
+- Electro Ball
+- Double Team
+- Slam
+
+Swellow
+Level: 26
+Ability: Scrappy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Quick Attack
+- Wing Attack
+- Double Team
+- Endeavor
+
+Spinda @ Berserk Gene
+Level: 26
+Ability: Tangled Feet
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Feint Attack
+- Psybeam
+- Hypnosis
+- Dizzy Punch
+
+=== TRAINER_JODY ===
+Name: JODY
+Difficulty: Hard
+Class: Cooltrainer
+Pic: Cooltrainer F
+Gender: Female
+Music: Cool
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Force Setup First Turn
+
+Shuckle @ Sitrus Berry
+Level: 26
+Ability: Sturdy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Toxic
+- Rock Throw
+- Encore
+
+Bastiodon @ Air Balloon
+Level: 26
+Ability: Sturdy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Take Down
+- Iron Defense
+- Swagger
+- Ancient Power
+
+Cofagrigus
+Level: 26
+Ability: Mummy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Night Shade
+- Hex
+- Will-o-Wisp
+- Ominous Wind

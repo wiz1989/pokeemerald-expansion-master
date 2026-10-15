@@ -854,27 +854,13 @@
 #define TRAINER_MARIELA                     848
 #define TRAINER_ALVARO                      849
 #define TRAINER_EVERETT                     850
-#define TRAINER_SIDNEY_HARD                 851
-#define TRAINER_PHOEBE_HARD                 852
-#define TRAINER_GLACIA_HARD                 853
-#define TRAINER_DRAKE_HARD                  854
-#define TRAINER_ROXANNE_1_HARD              855
-#define TRAINER_BRAWLY_1_HARD               856
-#define TRAINER_WATTSON_1_HARD              857
-#define TRAINER_FLANNERY_1_HARD             858
-#define TRAINER_NORMAN_1_HARD               859
-#define TRAINER_WINONA_1_HARD               860
-#define TRAINER_TATE_AND_LIZA_1_HARD        861
-#define TRAINER_JUAN_1_HARD                 862
-#define TRAINER_WALLACE_HARD                863
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      864
-#define MAX_TRAINERS_COUNT                  864
+#define TRAINERS_COUNT                      851
+#define MAX_TRAINERS_COUNT                  851
 #define TRAINER_PARTNER(partner)            (MAX_TRAINERS_COUNT + partner)
-#define HARDER_TRAINERS_OFFSET              TRAINER_SIDNEY_HARD - TRAINER_SIDNEY
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

@@ -2217,15 +2217,56 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
     return trainer->partySize;
 }
 
+static bool8 HasHardTrainerSet(u16 trainerNum)
+{
+    switch (trainerNum)
+    {
+        case TRAINER_SIDNEY:
+        case TRAINER_PHOEBE:
+        case TRAINER_GLACIA:
+        case TRAINER_DRAKE:
+        case TRAINER_ROXANNE_1:
+        case TRAINER_BRAWLY_1:
+        case TRAINER_WATTSON_1:
+        case TRAINER_FLANNERY_1:
+        case TRAINER_NORMAN_1:
+        case TRAINER_WINONA_1:
+        case TRAINER_TATE_AND_LIZA_1:
+        case TRAINER_JUAN_1:
+        case TRAINER_WALLACE:
+        case TRAINER_RANDALL:
+        case TRAINER_PARKER:
+        case TRAINER_GEORGE:
+        case TRAINER_BERKE:
+        case TRAINER_MARY:
+        case TRAINER_ALEXIA:
+        case TRAINER_JODY:
+            return TRUE;    
+    }
+
+    return FALSE;
+}
+
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u8 retVal;
+    enum DifficultyLevel difficulty = DIFFICULTY_NORMAL;
+    const struct Trainer *baseTrainer;
+
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
-    if (GetTrainerStructFromId(trainerNum)->overrideTrainer)
+
+    if (gSaveBlock2Ptr->leadersUpgrade && HasHardTrainerSet(trainerNum))
+        difficulty = DIFFICULTY_HARD;
+
+    SetCurrentDifficultyLevel(difficulty);
+
+    baseTrainer = GetTrainerStructFromId(trainerNum);
+
+    if (baseTrainer->overrideTrainer)
     {
         struct Trainer tempTrainer;
-        memcpy(&tempTrainer, GetTrainerStructFromId(trainerNum), sizeof(struct Trainer));
+        memcpy(&tempTrainer, baseTrainer, sizeof(struct Trainer));
         const struct Trainer *origTrainer = GetTrainerStructFromId(tempTrainer.overrideTrainer);
 
         tempTrainer.party = origTrainer->party;
@@ -2238,14 +2279,12 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     }
     else
     {
-        if (gSaveBlock2Ptr->leadersUpgrade && trainerNum >= TRAINER_SIDNEY && (trainerNum + HARDER_TRAINERS_OFFSET) < TRAINERS_COUNT)
-        {
-            // u16 trainerNumOld = trainerNum;
-            trainerNum = trainerNum + HARDER_TRAINERS_OFFSET;
-            // DebugPrintf("updated trainerNum from %d to %d", trainerNumOld, trainerNum);
-        }
-        retVal = CreateNPCTrainerPartyFromTrainer(party, GetTrainerStructFromId(trainerNum), firstTrainer, gBattleTypeFlags);
+        retVal = CreateNPCTrainerPartyFromTrainer(party, baseTrainer, firstTrainer, gBattleTypeFlags);
     }
+
+    // reset difficulty
+    SetCurrentDifficultyLevel(DIFFICULTY_NORMAL);
+    
     return retVal;
 }
 
