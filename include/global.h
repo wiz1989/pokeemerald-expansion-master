@@ -604,7 +604,7 @@ struct SaveBlock2
              u8 dupeClause:1;
              u8 metLocClause:1;
              u8 halfDamage:1;
-             u8 leadersUpgrade:1;
+             u8 bossUpgrade:1;
              u8 DebugRandomSpeciesType;
              u8 DebugRandomMoveType;
     /*0x98*/ struct Time localTimeOffset;

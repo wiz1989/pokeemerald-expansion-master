@@ -114,7 +114,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->activateNoCritRule = FALSE;
     // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
-    gSaveBlock2Ptr->leadersUpgrade = FALSE;
+    gSaveBlock2Ptr->bossUpgrade = FALSE;
 
     // nuzlocke
     gSaveBlock2Ptr->permadeath = TRUE;
@@ -146,7 +146,7 @@ static void SetDefaultOptions_FlygonHG(void)
     gSaveBlock2Ptr->activateNoCritRule = FALSE;
     // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
-    gSaveBlock2Ptr->leadersUpgrade = TRUE;
+    gSaveBlock2Ptr->bossUpgrade = TRUE;
 
     // nuzlocke
     gSaveBlock2Ptr->permadeath = TRUE;

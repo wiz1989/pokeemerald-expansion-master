@@ -2360,7 +2360,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
 
-    if (gSaveBlock2Ptr->leadersUpgrade && HasHardTrainerSet(trainerNum))
+    if (gSaveBlock2Ptr->bossUpgrade && HasHardTrainerSet(trainerNum))
         difficulty = DIFFICULTY_HARD;
 
     SetCurrentDifficultyLevel(difficulty);

@@ -33,7 +33,7 @@
 #define tDupeClause data[12]
 #define tMetLocClause data[13]
 #define tRevealRule data[14]
-#define tLeadersUpgrade data[15]
+#define tBossUpgrade data[15]
 #define tConcurrentRules data[16]
 #define tInstaRuleTrigger data[17]
 #define tActivateNoCrits data[18]
@@ -134,8 +134,8 @@ static u8 NoBagInBattle_ProcessInput(u8 selection);
 static void NoBagInBattle_DrawChoices(u8 selection);
 static u8 HarderTrainers_ProcessInput(u8 selection);
 static void HarderTrainers_DrawChoices(u8 selection);
-static u8 LeadersUpgrade_ProcessInput(u8 selection);
-static void LeadersUpgrade_DrawChoices(u8 selection);
+static u8 BossUpgrade_ProcessInput(u8 selection);
+static void BossUpgrade_DrawChoices(u8 selection);
 static u8 DayNightTint_ProcessInput(u8 selection);
 static void DayNightTint_DrawChoices(u8 selection);
 static u8 ConcurrentRules_ProcessInput(u8 selection);
@@ -289,7 +289,7 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tPermaDeathOn = gSaveBlock2Ptr->permadeath;
     gTasks[taskId].tNoBagInBattleOn = gSaveBlock2Ptr->noBagInBattle;
     gTasks[taskId].tHarderTrainersOn = gSaveBlock2Ptr->harderTrainers;
-    gTasks[taskId].tLeadersUpgrade = gSaveBlock2Ptr->leadersUpgrade;
+    gTasks[taskId].tBossUpgrade = gSaveBlock2Ptr->bossUpgrade;
     gTasks[taskId].tDayNightTint = gSaveBlock2Ptr->dayNightTint;
     gTasks[taskId].t50DamageOn = gSaveBlock2Ptr->halfDamage;
     gTasks[taskId].tDupeClause = gSaveBlock2Ptr->dupeClause;
@@ -330,7 +330,7 @@ static void DrawOptionsPg3(u8 taskId)
 {
     ReadAllCurrentSettings(taskId);
     HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
-    LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
+    BossUpgrade_DrawChoices(gTasks[taskId].tBossUpgrade);
     DayNightTint_DrawChoices(gTasks[taskId].tDayNightTint);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
     CopyWindowToVram(WIN_OPTIONS, COPYWIN_FULL);
@@ -758,11 +758,11 @@ static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
                 HarderTrainers_DrawChoices(gTasks[taskId].tHarderTrainersOn);
             break;
         case MENUITEM_LEADERS_UPGRADE:
-            previousOption = gTasks[taskId].tLeadersUpgrade;
-            gTasks[taskId].tLeadersUpgrade = LeadersUpgrade_ProcessInput(gTasks[taskId].tLeadersUpgrade);
+            previousOption = gTasks[taskId].tBossUpgrade;
+            gTasks[taskId].tBossUpgrade = BossUpgrade_ProcessInput(gTasks[taskId].tBossUpgrade);
 
-            if (previousOption != gTasks[taskId].tLeadersUpgrade)
-                LeadersUpgrade_DrawChoices(gTasks[taskId].tLeadersUpgrade);
+            if (previousOption != gTasks[taskId].tBossUpgrade)
+                BossUpgrade_DrawChoices(gTasks[taskId].tBossUpgrade);
             break;
         case MENUITEM_DAYNIGHT_TINT:
             previousOption = gTasks[taskId].tDayNightTint;
@@ -882,7 +882,7 @@ static void SaveOptions(u8 taskId)
     gSaveBlock2Ptr->permadeath = gTasks[taskId].tPermaDeathOn;
     gSaveBlock2Ptr->noBagInBattle = gTasks[taskId].tNoBagInBattleOn;
     gSaveBlock2Ptr->harderTrainers = gTasks[taskId].tHarderTrainersOn;
-    gSaveBlock2Ptr->leadersUpgrade = gTasks[taskId].tLeadersUpgrade;
+    gSaveBlock2Ptr->bossUpgrade = gTasks[taskId].tBossUpgrade;
     gSaveBlock2Ptr->dayNightTint = gTasks[taskId].tDayNightTint;
     gSaveBlock2Ptr->halfDamage = gTasks[taskId].t50DamageOn;
     gSaveBlock2Ptr->dupeClause = gTasks[taskId].tDupeClause;
@@ -1224,7 +1224,7 @@ static void HarderTrainers_DrawChoices(u8 selection)
     DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), YPOS_HARDERTRAINERS, styles[1]);
 }
 
-static u8 LeadersUpgrade_ProcessInput(u8 selection)
+static u8 BossUpgrade_ProcessInput(u8 selection)
 {
     if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
     {
@@ -1235,7 +1235,7 @@ static u8 LeadersUpgrade_ProcessInput(u8 selection)
     return selection;
 }
 
-static void LeadersUpgrade_DrawChoices(u8 selection)
+static void BossUpgrade_DrawChoices(u8 selection)
 {
     u8 styles[2];
     styles[0] = 0;

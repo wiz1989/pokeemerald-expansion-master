@@ -264,7 +264,7 @@ static const u8 gJPText_No1MSubCircuit[] = _("1Mサブきばんが ささって�
 static const u8 gText_BatteryRunDry[] = _("The internal battery has run dry.\nThe game can be played.\pHowever, clock-based events will\nno longer occur.");
 
 static const u8 gText_MainMenuNewGame[] = _("MYSTERY MODE - 1 hidden rule, 50% dmg");
-static const u8 gText_MainMenuNewGame2[] = _("MASTERY MODE - 3 rules, 100% dmg, E4+");
+static const u8 gText_MainMenuNewGame2[] = _("MASTERY MODE - 3 rules, 100% dmg, Boss+");
 static const u8 gText_MainMenuContinue[] = _("CONTINUE");
 static const u8 gText_MainMenuOption[] = _("PLS CHECK OPTIONS IN-GAME            v"GAME_VERSION_STRING);
 static const u8 gText_MainMenuMysteryGift[] = _("MYSTERY GIFT");
