@@ -2247,6 +2247,110 @@ static bool8 HasHardTrainerSet(u16 trainerNum)
     return FALSE;
 }
 
+#define AQUA_POOL_SIZE ARRAY_COUNT(sAquaGruntSpecies)
+static const u16 sAquaGruntSpecies[] =
+{
+    SPECIES_CARVANHA,
+    SPECIES_CORPHISH,
+    SPECIES_TENTACOOL,
+    SPECIES_WAILMER,
+    SPECIES_BASCULIN,
+    SPECIES_TIRTOUGA,
+    SPECIES_DUCKLETT,
+    SPECIES_CHINCHOU,
+    SPECIES_QWILFISH,
+    SPECIES_REMORAID,
+    SPECIES_CLAMPERL,
+    SPECIES_SHELLDER,
+    SPECIES_CROAGUNK,
+    SPECIES_SKRELP,
+    SPECIES_GRIMER,
+    SPECIES_KOFFING,
+    SPECIES_EKANS,
+    SPECIES_ZUBAT,
+    SPECIES_POOCHYENA,
+};
+
+#define MAGMA_POOL_SIZE ARRAY_COUNT(sMagmaGruntSpecies)
+static const u16 sMagmaGruntSpecies[] =
+{
+    SPECIES_NUMEL,
+    SPECIES_SLUGMA,
+    SPECIES_HOUNDOUR,
+    SPECIES_VULPIX,
+    SPECIES_GROWLITHE,
+    SPECIES_TORKOAL,
+    SPECIES_SANDSHREW,
+    SPECIES_DIGLETT,
+    SPECIES_BALTOY,
+    SPECIES_RHYHORN,
+    SPECIES_LARVITAR,
+    SPECIES_CACNEA,
+    SPECIES_HIPPOPOTAS,
+    SPECIES_SANDILE,
+    SPECIES_GRIMER,
+    SPECIES_KOFFING,
+    SPECIES_EKANS,
+    SPECIES_MURKROW,
+    SPECIES_ZUBAT,
+    SPECIES_POOCHYENA,
+};
+
+static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *party)
+{
+    const u16 *speciesList = NULL;
+    u8 speciesCount = 0;
+    u8 i;
+    u8 level = trainer->party[0].lvl;
+
+    if (IsAquaGrunt(trainer->trainerClass))
+    {
+        speciesList = sAquaGruntSpecies;
+        speciesCount = AQUA_POOL_SIZE;
+    }
+    else if (IsMagmaGrunt(trainer->trainerClass))
+    {
+        speciesList = sMagmaGruntSpecies;
+        speciesCount = MAGMA_POOL_SIZE;
+    }
+
+    memset(party, 0, sizeof(struct TrainerMon) * GRUNT_MON_COUNT);
+
+    for (i = 0; i < GRUNT_MON_COUNT; i++)
+    {
+        u16 species;
+        u8 j;
+
+        species = speciesList[Random() % speciesCount];
+        // uncomment to remove duplicates
+        // do
+        // {
+        //     species = speciesList[Random() % speciesCount];
+        //     for (j = 0; j < i; j++)
+        //     {
+        //         if (party[j].species == species)
+        //             break;
+        //     }
+        // } while (j < i);
+
+        party[i].species = species;
+        party[i].lvl = level;
+        party[i].gender = TRAINER_MON_RANDOM_GENDER;
+        party[i].nature = NATURE_HARDY;
+        party[i].iv = TRAINER_PARTY_IVS(0, 0, 0, 0, 0, 0);
+        party[i].heldItem = ITEM_NONE;
+        party[i].friendship = 70;
+        party[i].ball = ITEM_POKE_BALL;
+        party[i].ability = ABILITY_NONE;
+        for (j = 0; j < 4; j++)
+            party[i].moves[j] = MOVE_NONE;
+    }
+
+    trainer->party = party;
+    trainer->partySize = GRUNT_MON_COUNT;
+    trainer->poolSize = 0; // not using trainer pools
+}
+
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u8 retVal;
@@ -2263,7 +2367,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
     baseTrainer = GetTrainerStructFromId(trainerNum);
 
-    if (baseTrainer->overrideTrainer)
+    if (gSaveBlock2Ptr->harderTrainers && (IsAquaGrunt(trainerNum) || IsMagmaGrunt(trainerNum)))
+    {
+        struct Trainer tempTrainer;
+        struct TrainerMon tempParty[GRUNT_MON_COUNT];
+
+        memcpy(&tempTrainer, baseTrainer, sizeof(struct Trainer));
+        CreateRandomGruntParty(&tempTrainer, tempParty);
+
+        retVal = CreateNPCTrainerPartyFromTrainer(party, (const struct Trainer *)(&tempTrainer), firstTrainer, gBattleTypeFlags);
+    }
+    else if (baseTrainer->overrideTrainer)
     {
         struct Trainer tempTrainer;
         memcpy(&tempTrainer, baseTrainer, sizeof(struct Trainer));

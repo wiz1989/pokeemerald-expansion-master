@@ -24,6 +24,8 @@ struct MultiPartnerMenuPokemon
 #define BOUNCE_MON          0x0
 #define BOUNCE_HEALTHBOX    0x1
 
+#define GRUNT_MON_COUNT 3
+
 enum BattleIntroStates
 {
     BATTLE_INTRO_STATE_GET_MON_DATA,

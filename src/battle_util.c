@@ -12026,3 +12026,21 @@ bool8 InPetalburgGym(void)
     else
         return FALSE;
 }
+
+bool8 IsMagmaGrunt(u16 trainerId)
+{
+    if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_TEAM_MAGMA)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 IsAquaGrunt(u16 trainerId)
+{
+    if (trainerId == TRAINER_GRUNT_PETALBURG_WOODS)
+        return FALSE;
+    else if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_TEAM_AQUA)
+        return TRUE;
+    else
+        return FALSE;
+}
