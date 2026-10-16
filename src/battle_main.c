@@ -6053,8 +6053,11 @@ static void HandleEndTurn_FinishBattle(void)
                 CalculateMonStats(&gPlayerParty[i]);
         }
 
-        // auto heal Pokemon after every trainer battle
-        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        // auto heal Pokemon after trainer battles
+        if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+         && gBattleOutcome != B_OUTCOME_LOST
+         && gBattleOutcome != B_OUTCOME_DREW
+         && gBattleOutcome != B_OUTCOME_FORFEITED)
         {
             for (i = 0; i < gPlayerPartyCount; i++)
             {
