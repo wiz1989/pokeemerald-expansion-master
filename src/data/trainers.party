@@ -1734,17 +1734,32 @@ Music: Cool
 Double Battle: No
 AI: Basic Trainer
 
-Rhydon
+Steelix
 Level: 26
+Ability: Sturdy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Stealth Rock
+- Earthquake
+- Heavy Slam
+- Harden
 
-Amoonguss
-Level: 26
+Scrafty
+Level: 26 @ Leftovers
+Ability: Intimidate
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Drain Punch
+- Bulk Up
+- Crunch
+- Zen Headbutt
 
-Throh
+Aggron
 Level: 26
+Ability: Sturdy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Heavy Slam
+- Iron Defense
+- Aqua Tail
+- Aerial Ace
 
 === TRAINER_ALEXIA ===
 Name: ALEXIA

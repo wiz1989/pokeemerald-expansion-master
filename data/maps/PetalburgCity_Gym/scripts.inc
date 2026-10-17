@@ -1346,7 +1346,7 @@ PetalburgCity_Gym_Text_GymGuideAdvice:
 	.string "The door at the left leads to\n"
 	.string "the SHUFFLE ROOM.\p"
 	.string "The door at the right leads to\n"
-	.string "the TRICK ROOM.\p"
+	.string "the PHYSICAL ROOM.\p"
 	.string "The room's name will be on\n"
 	.string "the door, so choose carefully.\p"
 	.string "Once you've chosen the door…\n"
@@ -1446,7 +1446,7 @@ PetalburgCity_Gym_Text_BerkePostBadge:
 
 PetalburgCity_Gym_Text_MaryIntro:
 	.string "Giggle…\n"
-	.string "This is the TRICK ROOM.\p"
+	.string "This is the PHYSICAL ROOM.\p"
 	.string "I hope you won't be caught off guard.$"
 
 PetalburgCity_Gym_Text_MaryDefeat:
@@ -1612,8 +1612,8 @@ PetalburgCity_Gym_Text_EnterWolfeRoom:
 	.string "Do you want to go through?$"
 	
 PetalburgCity_Gym_Text_EnterTrickRoom:
-	.string "“TRICK ROOM,” the sign says.\n"
-	.string "Trick Room rule active.\p"
+	.string "“PHYSICAL ROOM,” the sign says.\n"
+	.string "No Special Moves rule active.\p"
 	.string "Do you want to go through?$"
 	
 PetalburgCity_Gym_Text_EnterRepositionRoom:
