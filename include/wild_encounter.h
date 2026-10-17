@@ -43,6 +43,14 @@ struct WildPokemonHeader
     const struct WildEncounterTypes encounterTypes[TIMES_OF_DAY_COUNT];
 };
 
+struct FishingEncounter
+{
+    u16 species;
+    // u8 minLevel;
+    // u8 maxLevel;
+    u8 weight;
+};
+
 
 extern const struct WildPokemonHeader gWildMonHeaders[];
 extern bool8 gIsFishingEncounter;

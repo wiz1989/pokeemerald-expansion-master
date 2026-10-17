@@ -56,6 +56,9 @@ static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildM
 static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildMon, u8 type, u16 ability, u8 *monIndex);
 #endif
 static bool8 IsAbilityAllowingEncounter(u8 level);
+static u16 GetFishingEncounterSpecies(u8 rod);
+static u8 GetEncounterCountPerRod(u8 rod);
+static u32 GetLevelByRod(u8 rod);
 
 EWRAM_DATA static u8 sWildEncountersDisabled = 0;
 EWRAM_DATA static u32 sFeebasRngValue = 0;
@@ -277,7 +280,7 @@ u32 ChooseWildMonIndex_Rocks(void)
 }
 
 // FISH_WILD_COUNT
-static u32 ChooseWildMonIndex_Fishing(u8 rod) //wiz1989
+static UNUSED u32 ChooseWildMonIndex_Fishing(u8 rod)
 {
     u8 wildMonIndex = 0;
     bool8 swap = FALSE;
@@ -804,45 +807,11 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, enum 
     return TRUE;
 }
 
-static u16 GenerateFishingWildMon(const struct WildPokemonInfo *wildMonInfo, u8 rod)
+static u16 GenerateFishingWildMon(u8 rod)
 {
-    u8 level = 0;
-    u8 wildMonIndex = 0;
-    u16 wildMonSpecies = SPECIES_NONE;
-    u8 validEncountersLeftOnMap = 0;
-    bool8 dupeEncounter = TRUE;
-    // Count valid encounters for the map
-    validEncountersLeftOnMap = GetValidEncountersforMap(wildMonInfo, WILD_AREA_FISHING, rod);
-    do
-    {
-        if (!gSaveBlock2Ptr->dupeClause)
-            wildMonIndex = ChooseWildMonIndex_Fishing(rod);
-        else if (validEncountersLeftOnMap != 1)
-            wildMonIndex = ChooseWildMonIndex_Fishing(rod);
-        else
-            wildMonIndex = GetEncounterIndexBySpecies(gValidEncounters[0], wildMonInfo, WILD_AREA_FISHING, rod);
-        for (u8 i = 0; i < validEncountersLeftOnMap; i++)
-        {
-            u16 checkSpecies = gValidEncounters[i];
-            if (wildMonInfo->wildPokemon[wildMonIndex].species == checkSpecies)
-            {
-                dupeEncounter = FALSE;
-                break;
-            }
-        }
-        if (dupeEncounter)
-        {
-            gIsDupe = TRUE;
-        }
-        else
-            gIsDupe = FALSE;
-    }
-    while (gSaveBlock2Ptr->dupeClause && dupeEncounter && validEncountersLeftOnMap > 1);
-    // u8 wildMonIndex = ChooseWildMonIndex_Fishing(rod);
-
-    wildMonSpecies = wildMonInfo->wildPokemon[wildMonIndex].species;
-    level = ChooseWildMonLevel(wildMonInfo->wildPokemon, wildMonIndex, WILD_AREA_FISHING);
-
+    u8 level = GetLevelByRod(rod);
+    u16 wildMonSpecies = GetFishingEncounterSpecies(rod);
+    
     UpdateChainFishingStreak();
     CreateWildMon(wildMonSpecies, level);
     return wildMonSpecies;
@@ -1213,6 +1182,7 @@ bool8 SweetScentWildEncounter(void)
     return FALSE;
 }
 
+// this function still works with the encounter JSON to determine if a map has fishing encounters
 bool8 DoesCurrentMapHaveFishingMons(void)
 {
     u32 headerId = GetCurrentMapWildMonHeaderId();
@@ -1243,13 +1213,9 @@ static void UpdateChainFishingStreak()
 void FishingWildEncounter(u8 rod)
 {
     u16 species;
-    u32 headerId;
-    enum TimeOfDay timeOfDay;
 
     gIsFishingEncounter = TRUE;
-    headerId = GetCurrentMapWildMonHeaderId();
-    timeOfDay = GetTimeOfDayForEncounters(headerId, WILD_AREA_FISHING);
-    species = GenerateFishingWildMon(gWildMonHeaders[headerId].encounterTypes[timeOfDay].fishingMonsInfo, rod);
+    species = GenerateFishingWildMon(rod);
 
     IncrementGameStat(GAME_STAT_FISHING_ENCOUNTERS);
     SetPokemonAnglerSpecies(species);
@@ -1522,4 +1488,180 @@ u32 ChooseHiddenMonIndex(void)
 bool32 MapHasNoEncounterData(void)
 {
     return (GetCurrentMapWildMonHeaderId() == HEADER_NONE);
+}
+
+static const struct FishingEncounter sFishingOldRod[] =
+{
+    {SPECIES_FEEBAS, 25},
+    {SPECIES_GOLDEEN, 25},
+    {SPECIES_TENTACOOL, 25},
+    {SPECIES_REMORAID, 25},
+};
+
+static const struct FishingEncounter sFishingGoodRod[] =
+{
+    {SPECIES_FEEBAS, 21},
+    {SPECIES_GOLDEEN, 21},
+    {SPECIES_TENTACOOL, 21},
+    {SPECIES_REMORAID, 21},
+    {SPECIES_BARBOACH, 5},
+    {SPECIES_CARVANHA, 5},
+    {SPECIES_SPHEAL, 5},
+};
+
+static const struct FishingEncounter sFishingSuperRod[] =
+{
+    {SPECIES_FEEBAS, 20},
+    {SPECIES_GOLDEEN, 20},
+    {SPECIES_TENTACOOL, 20},
+    {SPECIES_REMORAID, 20},
+    {SPECIES_BARBOACH, 6},
+    {SPECIES_CARVANHA, 6},
+    {SPECIES_SPHEAL, 6},
+    {SPECIES_EMPOLEON, 1},
+    {SPECIES_GYARADOS, 1},
+};
+
+static u16 RollSpecies(const struct FishingEncounter *table, u8 count, u8 totalWeight)
+{
+    u8 roll = Random() % totalWeight;
+
+    for (u8 i = 0; i < count; i++)
+    {
+        if (roll < table[i].weight)
+            return table[i].species;
+        roll -= table[i].weight;
+    }
+
+    return table[count - 1].species;
+}
+
+static u16 GetFishingEncounterSpecies(u8 rod)
+{
+    const struct FishingEncounter *table = NULL;
+    u8 i = 0;
+    u8 j = 0;
+    u8 count = 0;
+    u8 totalWeight = 0;
+    u16 species = SPECIES_NONE;
+    u8 validEncountersLeft = 0;
+    bool8 dupeEncounter = TRUE;
+
+    switch (rod)
+    {
+    case OLD_ROD:
+        table = sFishingOldRod;
+        break;
+    case GOOD_ROD:
+        table = sFishingGoodRod;
+        break;
+    case SUPER_ROD:
+        table = sFishingSuperRod;
+        break;
+    default:
+        return species;
+    }
+
+    count = GetEncounterCountPerRod(rod);
+
+    // calc total weight since they don't all add up to 100
+    for (i = 0; i < count; i++)
+        totalWeight += table[i].weight;
+
+    // calc remaining valid encounters
+    for (i = 0; i < count; i++)
+    {
+        // Clear the list on first iteration
+        if (i == 0)
+        {
+            for (j = 0; j < LAND_WILD_COUNT; j++)
+                gValidEncounters[j] = 0;
+        }
+
+        species = table[i].species;
+        if (species != SPECIES_NONE && CheckDupes(species) != INVALID_ENCOUNTER_DUPE)
+        {
+            for (u8 j = 0; j < count; j++)
+            {
+                if (gValidEncounters[j] == 0)
+                {
+                    gValidEncounters[j] = species;
+                    validEncountersLeft++;
+                    break;
+                }
+            }
+        }
+    }
+
+    // calc final encounter
+    do
+    {
+        if (!gSaveBlock2Ptr->dupeClause)
+            species = RollSpecies(table, count, totalWeight);
+        else if (validEncountersLeft != 1)
+            species = RollSpecies(table, count, totalWeight);
+        else
+            species = gValidEncounters[0];
+        
+        for (u8 i = 0; i < validEncountersLeft; i++)
+        {
+            if (species == gValidEncounters[i])
+            {
+                dupeEncounter = FALSE;
+                break;
+            }
+        }
+
+        // set dupe flag
+        if (dupeEncounter)
+        {
+            gIsDupe = TRUE;
+        }
+        else
+            gIsDupe = FALSE;
+    }
+    while (gSaveBlock2Ptr->dupeClause && dupeEncounter && validEncountersLeft > 1);
+
+    return species;
+}
+
+static u8 GetEncounterCountPerRod(u8 rod)
+{
+    switch (rod)
+    {
+    case OLD_ROD:
+        return ARRAY_COUNT(sFishingOldRod);
+    case GOOD_ROD:
+        return ARRAY_COUNT(sFishingGoodRod);
+    case SUPER_ROD:
+        return ARRAY_COUNT(sFishingSuperRod);
+    default:
+        return 0;
+    }
+}
+
+static u32 GetLevelByRod(u8 rod)
+{
+    u8 levelMin = 0;
+    u8 levelMax = 0;
+
+    switch (rod)
+    {
+    case OLD_ROD:
+        levelMin = 15;
+        levelMax = 20;
+        break;
+    case GOOD_ROD:
+        levelMin = 20;
+        levelMax = 25;
+        break;
+    case SUPER_ROD:
+        levelMin = 25;
+        levelMax = 30;
+        break;
+    default:
+        return 15;
+    }
+
+    return RandomUniform(RNG_NONE, levelMin, levelMax);
 }
