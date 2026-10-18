@@ -426,8 +426,8 @@ void ComputeActiveBattleRules(void)
     // Norman's gym
     switch (gSaveBlock1Ptr->lastTrainerId)
     {
-        case TRAINER_MARY: // Trick Room
-            gActiveBattleRules[0] = BATTLERULE_TRICKROOM;
+        case TRAINER_MARY: // Physical Room
+            gActiveBattleRules[0] = BATTLERULE_BANNEDMOVECAT_SPECIAL;
             gActiveBattleRules[1] = BATTLERULE_NONE;
             gActiveBattleRules[2] = BATTLERULE_NONE;
             break;
