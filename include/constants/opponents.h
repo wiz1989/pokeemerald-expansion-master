@@ -860,7 +860,7 @@
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
 #define TRAINERS_COUNT                      851
-#define MAX_TRAINERS_COUNT                  851
+#define MAX_TRAINERS_COUNT                  864 // keep to not mess with flags.h
 #define TRAINER_PARTNER(partner)            (MAX_TRAINERS_COUNT + partner)
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H
