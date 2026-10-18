@@ -1354,6 +1354,11 @@ static void CB2_EndTrainerBattle(void)
             RegisterTrainerInMatchCall();
             SetBattledTrainersFlags();
         }
+        if (InPetalburgGym() && gBattleOutcome == B_OUTCOME_WON)
+        {
+            u8 wins = VarGet(VAR_PETALBURG_GYM_CHALLENGE_WINS);
+            VarSet(VAR_PETALBURG_GYM_CHALLENGE_WINS, wins + 1);
+        }
     }
 }
 

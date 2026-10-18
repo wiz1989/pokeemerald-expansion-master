@@ -378,6 +378,8 @@ PetalburgCity_Gym_EventScript_GiveEnigmaBerry::
 	end
 
 PetalburgCity_Gym_EventScript_NormanBattle::
+	goto_if_set FLAG_PETALBURG_GYM_CHALLENGE, NormanBattle_CheckTrainers
+PetalburgCity_Gym_EventScript_NormanBattle_Continue:
 	msgbox PetalburgCity_Gym_Text_NormanIntro, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanDefeat
 	message PetalburgCity_Gym_Text_ReceivedBalanceBadge
@@ -409,6 +411,21 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	case DIR_WEST, PetalburgCity_Gym_EventScript_WallysDadArrivesWest
 	case DIR_EAST, PetalburgCity_Gym_EventScript_WallysDadArrivesEast
 	end
+
+NormanBattle_CheckTrainers::
+	compare VAR_PETALBURG_GYM_CHALLENGE_WINS, 7
+	goto_if_lt NormanBattle_ComeBack
+	goto PetalburgCity_Gym_EventScript_NormanBattle_Continue
+
+NormanBattle_ComeBack::
+	msgbox PetalburgCity_Gym_Text_NormanComeBack, MSGBOX_DEFAULT
+	closemessage
+	end
+
+PetalburgCity_Gym_Text_NormanComeBack:
+	.string "Oh, trying to catch a shortcut?\p"
+	.string "Come back later when you've defeated\n"
+	.string "all the trainers in my gym, son.$"
 
 PetalburgCity_Gym_EventScript_GiveFacade::
 	giveitem ITEM_TM_FACADE

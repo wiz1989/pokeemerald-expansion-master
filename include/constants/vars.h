@@ -267,7 +267,7 @@
 #define VAR_BATTLE_SPEED                                 0x40F7 // Unused Var
 #define VAR_ENABLE_DNS                                   0x40F8 // Unused Var
 #define VAR_TRAINER_DIFFICULTY                           0x40F9 // Unused Var
-#define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
+#define VAR_PETALBURG_GYM_CHALLENGE_WINS                 0x40FA // Unused Var
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
