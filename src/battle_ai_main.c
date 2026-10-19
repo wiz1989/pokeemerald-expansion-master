@@ -359,9 +359,17 @@ void SetupAIPredictionData(u32 battler, enum SwitchType switchType)
     // Switch prediction
     if ((gAiThinkingStruct->aiFlags[battler] & AI_FLAG_PREDICT_SWITCH))
     {
-        gAiLogicData->mostSuitableMonId[opposingBattler] = GetMostSuitableMonToSwitchInto(opposingBattler, switchType);
-        if (ShouldSwitch(opposingBattler))
-            gAiLogicData->shouldSwitch |= (1u << opposingBattler);
+        if (IsOnPlayerSide(opposingBattler) && IsActiveBattleRule(BATTLERULE_NOSWITCHING)) // player cannot switch
+        {
+            gAiLogicData->mostSuitableMonId[opposingBattler] = PARTY_SIZE;
+            gAiLogicData->shouldSwitch &= ~(1u << opposingBattler);
+        }
+        else
+        {
+            gAiLogicData->mostSuitableMonId[opposingBattler] = GetMostSuitableMonToSwitchInto(opposingBattler, switchType);
+            if (ShouldSwitch(opposingBattler))
+                gAiLogicData->shouldSwitch |= (1u << opposingBattler);
+        }
         gBattleStruct->prevTurnSpecies[opposingBattler] = gBattleMons[opposingBattler].species;
     }
 

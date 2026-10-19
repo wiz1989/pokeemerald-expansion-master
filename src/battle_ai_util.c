@@ -187,6 +187,9 @@ bool32 CanAiPredictMove(void)
 
 bool32 IsBattlerPredictedToSwitch(u32 battler)
 {
+    if (IsOnPlayerSide(battler) && IsActiveBattleRule(BATTLERULE_NOSWITCHING))
+        return FALSE;
+
     // Check for prediction flag on AI, whether they're using those predictions this turn, and whether the AI thinks the player should switch
     if (gAiThinkingStruct->aiFlags[B_POSITION_OPPONENT_LEFT] & AI_FLAG_PREDICT_SWITCH
      || gAiThinkingStruct->aiFlags[B_POSITION_OPPONENT_RIGHT] & AI_FLAG_PREDICT_SWITCH)
