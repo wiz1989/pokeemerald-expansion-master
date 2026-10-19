@@ -6652,7 +6652,12 @@ bool32 IsMoveBlockedByBattleRules(u32 battlerAtk, u32 battlerDef, u32 move)
     {
         u8 rule = gActiveBattleRules[i];
 
-        if (rule == BATTLERULE_NONE || gBattleRules[rule].category != BATTLERULE_CATEGORY_USEMOVE)
+        if (rule == BATTLERULE_NONE)
+            continue;
+
+        if (gBattleRules[rule].category != BATTLERULE_CATEGORY_USEMOVE
+          && rule != BATTLERULE_NOHEALING
+          && rule != BATTLERULE_NORECOIL)
             continue;
 
         switch (rule)
@@ -6694,6 +6699,17 @@ bool32 IsMoveBlockedByBattleRules(u32 battlerAtk, u32 battlerDef, u32 move)
             break;
         case BATTLERULE_NOSETUP:
             if (IsSetupMove(move))
+                return TRUE;
+            break;
+        case BATTLERULE_NOHEALING:
+            if (IsHealingMove(move))
+                return TRUE;
+            break;
+        case BATTLERULE_NORECOIL:
+            if (move == MOVE_STRUGGLE
+              || GetMoveEffect(move) == EFFECT_RECOIL
+            //   || GetMoveEffect(move) == EFFECT_RECOIL_IF_MISS
+              || GetMoveEffect(move) == EFFECT_MAX_HP_50_RECOIL)
                 return TRUE;
             break;
         case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
