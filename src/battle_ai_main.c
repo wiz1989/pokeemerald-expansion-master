@@ -9,6 +9,7 @@
 #include "battle_ai_main.h"
 #include "battle_controllers.h"
 #include "battle_factory.h"
+#include "battle_rules.h"
 #include "battle_setup.h"
 #include "battle_util.h"
 #include "battle_z_move.h"
@@ -944,7 +945,8 @@ static inline void BattleAI_DoAIProcessing(struct AiThinkingStruct *aiThink, u32
         // There is no point in calculating scores for all 3 battlers(2 opponents + 1 ally) with certain moves.
         if (aiThink->moveConsidered != MOVE_NONE
           && aiThink->score[aiThink->movesetIndex] > 0
-          && ShouldConsiderMoveForBattler(battlerAtk, battlerDef, aiThink->moveConsidered))
+          && ShouldConsiderMoveForBattler(battlerAtk, battlerDef, aiThink->moveConsidered)
+          && !IsMoveBlockedByBattleRules(battlerAtk, battlerDef, aiThink->moveConsidered))
         {
             if (aiThink->aiLogicId < ARRAY_COUNT(sBattleAiFuncTable)
               && sBattleAiFuncTable[aiThink->aiLogicId] != NULL)
@@ -1008,7 +1010,8 @@ void BattleAI_DoAIProcessing_PredictedSwitchin(struct AiThinkingStruct *aiThink,
         // There is no point in calculating scores for all 3 battlers(2 opponents + 1 ally) with certain moves.
         if (aiThink->moveConsidered != MOVE_NONE
           && aiThink->score[aiThink->movesetIndex] > 0
-          && ShouldConsiderMoveForBattler(battlerAtk, battlerDef, aiThink->moveConsidered))
+          && ShouldConsiderMoveForBattler(battlerAtk, battlerDef, aiThink->moveConsidered)
+          && !IsMoveBlockedByBattleRules(battlerAtk, battlerDef, aiThink->moveConsidered))
         {
             if (IsChaseEffect(GetMoveEffect(aiThink->moveConsidered)))
             {
@@ -6631,4 +6634,86 @@ void ScriptSetDynamicAiFunc(struct ScriptContext *ctx)
 void ResetDynamicAiFunc(void)
 {
     sDynamicAiFunc = NULL;
+}
+bool32 IsMoveBlockedByBattleRules(u32 battlerAtk, u32 battlerDef, u32 move)
+{
+    u8 i;
+    u8 bannedMoveType = TYPE_NONE;
+
+    // make sure to only consider move limitations on player side
+    if (!IsOnPlayerSide(battlerAtk)
+      || !IsBattlerValidSpecies(battlerAtk)
+      || move == MOVE_NONE)
+        return FALSE;
+
+    ComputeActiveBattleRules();
+
+    for (i = 0; i < MAX_CONCURRENT_RULES; i++)
+    {
+        u8 rule = gActiveBattleRules[i];
+
+        if (rule == BATTLERULE_NONE || gBattleRules[rule].category != BATTLERULE_CATEGORY_USEMOVE)
+            continue;
+
+        switch (rule)
+        {
+        case BATTLERULE_BANNEDMOVETYPE:
+            if (bannedMoveType == TYPE_NONE)
+                bannedMoveType = GetRandomMoveTypeSeeded();
+            if (GetBattleMoveType(move) == bannedMoveType)
+                return TRUE;
+            break;
+        case BATTLERULE_NOSTAB:
+            if (IS_BATTLER_OF_TYPE(battlerAtk, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                return TRUE;
+            break;
+        case BATTLERULE_ONLYSTAB:
+            if (!IS_BATTLER_OF_TYPE(battlerAtk, GetBattleMoveType(move)) && !IsBattleMoveStatus(move))
+                return TRUE;
+            break;
+        case BATTLERULE_NOSUPEREFFECTIVE:
+        {
+            u16 effectiveness = CalcTypeEffectivenessMultiplierHelper(move, GetBattleMoveType(move), battlerAtk, battlerDef,
+                                                                      gBattleMons[battlerAtk].ability, gBattleMons[battlerDef].ability, TRUE);
+            if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
+                return TRUE;
+            break;
+        }
+        case BATTLERULE_SWITCHMOVES:
+            if (move == gLastResultingMoves[battlerAtk] && gAlreadyChecked[battlerAtk] == FALSE)
+            {
+                if (gDisableStructs[battlerAtk].lastTurnWasChargingTurn && !gProtectStructs[battlerAtk].chargingTurn)
+                    break;
+
+                return TRUE;
+            }
+            break;
+        case BATTLERULE_NOPRIO:
+            if (gMovesInfo[move].priority > 0)
+                return TRUE;
+            break;
+        case BATTLERULE_NOSETUP:
+            if (IsSetupMove(move))
+                return TRUE;
+            break;
+        case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
+            if (gMovesInfo[move].category == DAMAGE_CATEGORY_PHYSICAL)
+                return TRUE;
+            break;
+        case BATTLERULE_BANNEDMOVECAT_SPECIAL:
+            if (gMovesInfo[move].category == DAMAGE_CATEGORY_SPECIAL)
+                return TRUE;
+            break;
+        case BATTLERULE_BANNEDMOVECAT_STATUS:
+            if (gMovesInfo[move].category == DAMAGE_CATEGORY_STATUS)
+                return TRUE;
+            break;
+        case BATTLERULE_FIRSTMOVEONLY:
+            if (gBattleMons[battlerAtk].moves[0] != move)
+                return TRUE;
+            break;
+        }
+    }
+
+    return FALSE;
 }

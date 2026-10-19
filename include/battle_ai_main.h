@@ -126,6 +126,7 @@ void Ai_InitPartyStruct(void);
 void Ai_UpdateSwitchInData(u32 battler);
 void Ai_UpdateFaintData(u32 battler);
 void SetAiLogicDataForTurn(struct AiLogicData *aiData);
+bool32 IsMoveBlockedByBattleRules(u32 battlerAtk, u32 battlerDef, u32 move);
 void ResetDynamicAiFunc(void);
 
 #endif // GUARD_BATTLE_AI_MAIN_H

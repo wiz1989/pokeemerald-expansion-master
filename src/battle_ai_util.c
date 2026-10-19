@@ -56,6 +56,12 @@ static bool32 AI_IsDoubleSpreadMove(u32 battlerAtk, u32 move)
 
 u32 AI_GetDamage(u32 battlerAtk, u32 battlerDef, u32 moveIndex, enum DamageCalcContext calcContext, struct AiLogicData *aiData)
 {
+    u16 *moves = GetMovesArray(battlerAtk);
+    u32 move = moves[moveIndex];
+
+    if (move != MOVE_NONE && IsMoveBlockedByBattleRules(battlerAtk, battlerDef, move))
+        return 0;
+
     if (calcContext == AI_ATTACKING && BattlerHasAi(battlerAtk))
     {
 
