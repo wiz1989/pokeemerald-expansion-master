@@ -1441,12 +1441,12 @@ PetalburgCity_Gym_Text_GeorgePostBadge:
 PetalburgCity_Gym_Text_BerkeIntro:
 	.string "I'm not going to take it easy just\n"
 	.string "because you're our LEADER's kid.\p"
-	.string "I'll show you how horrid it is for\n"
-	.string "a POKéMON to take a critical hit!$"
+	.string "Let's see how well you actually know\n"
+	.string "the type chart, haha!$"
 
 PetalburgCity_Gym_Text_BerkeDefeat:
-	.string "Your power…\n"
-	.string "You're the real deal.$"
+	.string "Looks like…\n"
+	.string "You did good in school.$"
 
 PetalburgCity_Gym_Text_BerkePostBattle:
 	.string "Your father really is strong.\n"
@@ -1464,7 +1464,8 @@ PetalburgCity_Gym_Text_BerkePostBadge:
 PetalburgCity_Gym_Text_MaryIntro:
 	.string "Giggle…\n"
 	.string "This is the PHYSICAL ROOM.\p"
-	.string "I hope you won't be caught off guard.$"
+	.string "I know you think you're special,\n"
+	.string "but I promise you're not.$"
 
 PetalburgCity_Gym_Text_MaryDefeat:
 	.string "You were a cut above me…$"
