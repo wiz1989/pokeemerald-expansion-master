@@ -5728,6 +5728,21 @@ u8 CanLearnTeachableMove(u16 species, u16 move)
     }
 }
 
+static bool8 IsMonZeesar(struct Pokemon *mon, u16 species)
+{
+    u32 playerOtId = (gSaveBlock2Ptr->playerTrainerId[0]
+                | (gSaveBlock2Ptr->playerTrainerId[1] << 8)
+                | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
+                | (gSaveBlock2Ptr->playerTrainerId[3] << 24));
+
+    u32 monOtId = GetMonData(mon, MON_DATA_OT_ID, 0);
+
+    if ((species == SPECIES_DROWZEE || species == SPECIES_HYPNO)
+      && monOtId != playerOtId)
+        return TRUE;
+    return FALSE;
+}
+
 u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
 {
     u16 learnedMoves[4];
@@ -5736,31 +5751,56 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     int i, j, k;
+    struct LevelUpMove learnsetBuffer[MAX_LEVEL_UP_MOVES + 3]; // +2 injected moves + END
+    u8 localCount = 0;
+
+    // add Night Shade and Skill Swap to Zeesar's learnset
+    if (IsMonZeesar(mon, species))
+    {
+        learnsetBuffer[localCount++] = (struct LevelUpMove){ .level = 1, .move = MOVE_NIGHT_SHADE };
+        learnsetBuffer[localCount++] = (struct LevelUpMove){ .level = 1, .move = MOVE_SKILL_SWAP };
+
+        // add remaining learnset
+        for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
+        {
+            learnsetBuffer[localCount++] = learnset[i];
+        }
+        // add END line
+        learnsetBuffer[localCount++] = (struct LevelUpMove){ .level = 0, .move = LEVEL_UP_MOVE_END };
+    }
+    else
+    {
+        for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
+        {
+            learnsetBuffer[i] = learnset[i];
+        }
+        localCount = i;
+    }
 
     for (i = 0; i < MAX_MON_MOVES; i++)
         learnedMoves[i] = GetMonData(mon, MON_DATA_MOVE1 + i, 0);
 
-    for (i = 0; i < MAX_LEVEL_UP_MOVES; i++)
+    for (i = 0; i < localCount; i++)
     {
         u16 moveLevel;
 
-        if (learnset[i].move == LEVEL_UP_MOVE_END)
+        if (learnsetBuffer[i].move == LEVEL_UP_MOVE_END)
             break;
 
-        moveLevel = learnset[i].level;
+        moveLevel = learnsetBuffer[i].level;
 
         if (moveLevel <= level)
         {
-            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != learnset[i].move; j++)
+            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != learnsetBuffer[i].move; j++)
                 ;
 
             if (j == MAX_MON_MOVES)
             {
-                for (k = 0; k < numMoves && moves[k] != learnset[i].move; k++)
+                for (k = 0; k < numMoves && moves[k] != learnsetBuffer[i].move; k++)
                     ;
 
                 if (k == numMoves)
-                    moves[numMoves++] = learnset[i].move;
+                    moves[numMoves++] = learnsetBuffer[i].move;
             }
         }
     }
@@ -5789,6 +5829,31 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
     const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(species);
     int i, j, k;
+    struct LevelUpMove learnsetBuffer[MAX_LEVEL_UP_MOVES + 3]; // +2 injected moves + END
+    u8 localCount = 0;
+
+    // add Night Shade and Skill Swap to Zeesar's learnset
+    if (IsMonZeesar(mon, species))
+    {
+        learnsetBuffer[localCount++] = (struct LevelUpMove){ .level = 1, .move = MOVE_NIGHT_SHADE };
+        learnsetBuffer[localCount++] = (struct LevelUpMove){ .level = 1, .move = MOVE_SKILL_SWAP };
+
+        // add remaining learnset
+        for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
+        {
+            learnsetBuffer[localCount++] = learnset[i];
+        }
+        // add END line
+        learnsetBuffer[localCount++] = (struct LevelUpMove){ .level = 0, .move = LEVEL_UP_MOVE_END };
+    }
+    else
+    {
+        for (i = 0; i < MAX_LEVEL_UP_MOVES && learnset[i].move != LEVEL_UP_MOVE_END; i++)
+        {
+            learnsetBuffer[i] = learnset[i];
+        }
+        localCount = i;
+    }
 
     if (species == SPECIES_EGG)
         return 0;
@@ -5796,27 +5861,27 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
     for (i = 0; i < MAX_MON_MOVES; i++)
         learnedMoves[i] = GetMonData(mon, MON_DATA_MOVE1 + i, 0);
 
-    for (i = 0; i < MAX_LEVEL_UP_MOVES; i++)
+    for (i = 0; i < localCount; i++)
     {
         u16 moveLevel;
 
-        if (learnset[i].move == LEVEL_UP_MOVE_END)
+        if (learnsetBuffer[i].move == LEVEL_UP_MOVE_END)
             break;
 
-        moveLevel = learnset[i].level;
+        moveLevel = learnsetBuffer[i].level;
 
         if (moveLevel <= level)
         {
-            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != learnset[i].move; j++)
+            for (j = 0; j < MAX_MON_MOVES && learnedMoves[j] != learnsetBuffer[i].move; j++)
                 ;
 
             if (j == MAX_MON_MOVES)
             {
-                for (k = 0; k < numMoves && moves[k] != learnset[i].move; k++)
+                for (k = 0; k < numMoves && moves[k] != learnsetBuffer[i].move; k++)
                     ;
 
                 if (k == numMoves)
-                    moves[numMoves++] = learnset[i].move;
+                    moves[numMoves++] = learnsetBuffer[i].move;
             }
         }
     }
