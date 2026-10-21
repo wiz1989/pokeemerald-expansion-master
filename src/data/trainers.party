@@ -1273,7 +1273,7 @@ Ability: Inner Focus
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Circle Throw
 - Vital Throw
-- Seismic Toss
+- Payback
 - Storm Throw
 
 Sharpedo
@@ -1282,7 +1282,7 @@ Ability: Speed Boost
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Roar
 - Swagger
-- Assurance
+- Water Pulse
 - Crunch
 
 Arbok
@@ -1345,7 +1345,7 @@ Ability: Cursed Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Bubble Beam
 - Recover
-- Water Pulse
+- Confuse Ray
 - Ominous Wind
 
 Dusclops @ Eviolite
@@ -1354,7 +1354,7 @@ Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Pain Split
 - Will-o-Wisp
-- Shadow Sneak
+- Night Shade
 - Pursuit
 
 Aerodactyl
@@ -1363,7 +1363,7 @@ Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Torment
 - Roost
-- Protect
+- Sandstorm
 - Ancient Power
 
 === TRAINER_BERKE ===
@@ -1734,14 +1734,14 @@ Music: Cool
 Double Battle: No
 AI: Basic Trainer
 
-Steelix
+Garchomp @ Rocky Helmet
 Level: 26
-Ability: Sturdy
+Ability: Rough Skin
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Stealth Rock
-- Earthquake
-- Heavy Slam
-- Harden
+- Sandstorm
+- Dragon Rage
+- Dig
 
 Scrafty @ Leftovers
 Level: 26
@@ -1806,14 +1806,14 @@ Music: Cool
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Force Setup First Turn
 
-Shuckle @ Sitrus Berry
+Milotic @ Flame Orb
 Level: 26
-Ability: Sturdy
+Ability: Marvel Scale
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Stealth Rock
-- Toxic
-- Power Split
-- Encore
+- Water Pulse
+- Ice Beam
+- Recover
+- Attract
 
 Bastiodon @ Air Balloon
 Level: 26
@@ -1828,7 +1828,7 @@ Cofagrigus
 Level: 26
 Ability: Mummy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Night Shade
+- Thief
 - Hex
 - Will-o-Wisp
 - Ominous Wind
@@ -17861,7 +17861,7 @@ Ability: Inner Focus
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Circle Throw
 - Vital Throw
-- Seismic Toss
+- Payback
 - Storm Throw
 
 Sharpedo
@@ -17870,7 +17870,7 @@ Ability: Speed Boost
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Roar
 - Swagger
-- Assurance
+- Water Pulse
 - Crunch
 
 Arbok
@@ -17935,7 +17935,7 @@ Ability: Cursed Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Bubble Beam
 - Recover
-- Water Pulse
+- Confuse Ray
 - Ominous Wind
 
 Dusclops @ Eviolite
@@ -17944,16 +17944,16 @@ Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Pain Split
 - Will-o-Wisp
-- Shadow Sneak
+- Night Shade
 - Pursuit
 
-Aerodactyl
+Aerodactyl @ Smooth Rock
 Level: 26
 Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Torment
 - Roost
-- Protect
+- Stealth Rock
 - Ancient Power
 
 === TRAINER_BERKE ===
@@ -18002,14 +18002,14 @@ Music: Cool
 Double Battle: No
 AI: Basic Trainer
 
-Steelix
+Garchomp @ Rocky Helmet
 Level: 26
-Ability: Sturdy
+Ability: Rough Skin
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Stealth Rock
-- Earthquake
-- Heavy Slam
-- Harden
+- Sandstorm
+- Dragon Rage
+- Dig
 
 Scrafty @ Leftovers
 Level: 26
@@ -18076,14 +18076,14 @@ Music: Cool
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Force Setup First Turn
 
-Shuckle @ Sitrus Berry
+Milotic @ Flame Orb
 Level: 26
-Ability: Sturdy
+Ability: Marvel Scale
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Stealth Rock
-- Toxic
-- Power Split
-- Encore
+- Water Pulse
+- Ice Beam
+- Recover
+- Attract
 
 Bastiodon @ Air Balloon
 Level: 26
@@ -18098,7 +18098,7 @@ Cofagrigus
 Level: 26
 Ability: Mummy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
-- Night Shade
+- Thief
 - Hex
 - Will-o-Wisp
 - Ominous Wind
