@@ -17251,7 +17251,7 @@ Ability: Pressure
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Shadow Punch
 - Confuse Ray
-- Curse
+- Brick Break
 - Protect
 
 Sableye @ Flame Orb
@@ -17260,7 +17260,7 @@ Ability: Prankster
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Trick
 - Will O Wisp
-- Recover
+- Signal Beam
 - Foul Play
 
 Froslass @ Focus Sash
@@ -17327,7 +17327,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Nasty Plot
 - Psyshock
 - Lovely Kiss
-- Focus Punch
+- Focus Blast
 
 Lapras @ Wide Lens
 Level: 52
@@ -17372,9 +17372,9 @@ Altaria @ Leftovers
 Level: 54
 Ability: Natural Cure
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Fly
+- Steel Wing
 - Dragon Claw
-- Heal Bell
+- Dragon Dance
 - Roost
 
 Kingdra @ Lum Berry
@@ -17753,14 +17753,14 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Waterfall
 - Earthquake
 
-Gorebyss
+Gorebyss @ Life Orb
 Level: 43
 Ability: Swift Swim
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Rain Dance
 - Surf
 - Signal Beam
-- Shell Smash
+- Ice Beam
 
 Crawdaunt @ Expert Belt
 Level: 43
