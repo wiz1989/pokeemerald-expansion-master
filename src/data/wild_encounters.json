@@ -4292,12 +4292,12 @@
               {
                 "min_level": 27,
                 "max_level": 27,
-                "species": "SPECIES_AERODACTYL"
+                "species": "SPECIES_GASTLY"
               },
               {
                 "min_level": 26,
                 "max_level": 26,
-                "species": "SPECIES_AERODACTYL"
+                "species": "SPECIES_GASTLY"
               },
               {
                 "min_level": 28,
@@ -4341,12 +4341,12 @@
               {
                 "min_level": 25,
                 "max_level": 25,
-                "species": "SPECIES_SHUPPET"
+                "species": "SPECIES_AERODACTYL"
               },
               {
                 "min_level": 24,
                 "max_level": 24,
-                "species": "SPECIES_CHIMECHO"
+                "species": "SPECIES_DUSKULL"
               },
               {
                 "min_level": 28,
@@ -4356,12 +4356,12 @@
               {
                 "min_level": 26,
                 "max_level": 26,
-                "species": "SPECIES_DUSKULL"
+                "species": "SPECIES_CHIMECHO"
               },
               {
                 "min_level": 30,
                 "max_level": 30,
-                "species": "SPECIES_DUSKULL"
+                "species": "SPECIES_CHIMECHO"
               },
               {
                 "min_level": 28,
