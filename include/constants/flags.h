@@ -1263,16 +1263,16 @@
 #define FLAG_ITEM_ROCKY_HELMET                                      0x4B8
 #define FLAG_ITEM_ROOM_SERVICE                                      0x4B9
 #define FLAG_ITEM_SAFETY_GOGGLES                                    0x4BA
-#define FLAG_ITEM_SCOPE_LENSE                                       0x4BB
+#define FLAG_ITEM_SCOPE_LENS                                        0x4BB
 #define FLAG_ITEM_STICKY_BARB                                       0x4BC
 #define FLAG_ITEM_THROAT_SPRAY                                      0x4BD
 #define FLAG_ITEM_WHITE_HERB                                        0x4BE
-#define FLAG_ITEM_WIDE_LENSE                                        0x4BF
-#define FLAG_ITEM_ZOOM_LENSE                                        0x4C0
+#define FLAG_ITEM_WIDE_LENS                                         0x4BF
+#define FLAG_ITEM_ZOOM_LENS                                         0x4C0
 #define FLAG_ITEM_POWER_HERB                                        0x4C1
 #define FLAG_ITEM_LEFTOVERS                                         0x4C2
 #define FLAG_ITEM_SHELL_BELL                                        0x4C3
-#define FLAG_UNUSED_0x4C3                                           0x4C4 // Unused Flag
+#define FLAG_ITEM_MOON_STONE                                        0x4C4
 #define FLAG_ITEM_FLAME_ORB                                         0x4C5
 #define FLAG_ITEM_BLACK_SLUDGE                                      0x4C6
 #define FLAG_ITEM_WEAKNESS_POLICY                                   0x4C7
@@ -1300,10 +1300,10 @@
 #define FLAG_ITEM_CHOICE_BAND                                       0x4DD
 #define FLAG_ITEM_CHOICE_SCARF                                      0x4DE
 #define FLAG_ITEM_CHOICE_SPECS                                      0x4DF
-#define FLAG_UNUSED_0x4E0                                           0x4E0 // Unused Flag
-#define FLAG_UNUSED_0x4E1                                           0x4E1 // Unused Flag
-#define FLAG_UNUSED_0x4E2                                           0x4E2 // Unused Flag
-#define FLAG_UNUSED_0x4E3                                           0x4E3 // Unused Flag
+#define FLAG_ITEM_WATER_STONE                                       0x4E0
+#define FLAG_ITEM_THUNDER_STONE                                     0x4E1
+#define FLAG_ITEM_FIRE_STONE                                        0x4E2
+#define FLAG_ITEM_LEAF_STONE                                        0x4E3
 #define FLAG_UNUSED_0x4E4                                           0x4E4 // Unused Flag
 #define FLAG_UNUSED_0x4E5                                           0x4E5 // Unused Flag
 #define FLAG_UNUSED_0x4E6                                           0x4E6 // Unused Flag

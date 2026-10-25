@@ -115,9 +115,9 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_ETHER",
+      "trainer_sight_or_berry_tree_id": "ITEM_SHARP_BEAK",
       "script": "Common_EventScript_FindItem",
-      "flag": "FLAG_ITEM_PETALBURG_CITY_ETHER"
+      "flag": "FLAG_ITEM_SHARP_BEAK"
     },
     {
       "local_id": "LOCALID_GYM_BOY",

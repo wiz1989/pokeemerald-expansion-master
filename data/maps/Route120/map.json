@@ -600,9 +600,22 @@
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_REVIVE",
+      "trainer_sight_or_berry_tree_id": "ITEM_SCOPE_LENSE",
       "script": "Common_EventScript_FindItem",
-      "flag": "FLAG_ITEM_ROUTE_120_REVIVE"
+      "flag": "FLAG_ITEM_SCOPE_LENSE"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 30,
+      "y": 63,
+      "elevation": 5,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "ITEM_TM_LOW_SWEEP",
+      "script": "Common_EventScript_FindItem",
+      "flag": "FLAG_ITEM_TM_LOW_SWEEP"
     }
   ],
   "warp_events": [
@@ -827,16 +840,16 @@
       "x": 9,
       "y": 1,
       "elevation": 3,
-      "item": "ITEM_RARE_CANDY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_120_RARE_CANDY_1"
+      "item": "ITEM_BLACK_SLUDGE",
+      "flag": "FLAG_ITEM_BLACK_SLUDGE"
     },
     {
       "type": "hidden_item",
       "x": 31,
       "y": 11,
       "elevation": 3,
-      "item": "ITEM_REVIVE",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_120_REVIVE"
+      "item": "ITEM_BIG_ROOT",
+      "flag": "FLAG_ITEM_BIG_ROOT"
     },
     {
       "type": "hidden_item",

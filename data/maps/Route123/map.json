@@ -294,9 +294,9 @@
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_CALCIUM",
+      "trainer_sight_or_berry_tree_id": "ITEM_EXPERT_BELT",
       "script": "Common_EventScript_FindItem",
-      "flag": "FLAG_ITEM_ROUTE_123_CALCIUM"
+      "flag": "FLAG_ITEM_EXPERT_BELT"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
@@ -535,15 +535,15 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
       "x": 43,
-      "y": 15,
+      "y": 14,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_PP_UP",
+      "trainer_sight_or_berry_tree_id": "ITEM_TM_FROST_BREATH",
       "script": "Common_EventScript_FindItem",
-      "flag": "FLAG_ITEM_ROUTE_123_PP_UP"
+      "flag": "FLAG_ITEM_TM_FROST_BREATH"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_5",
@@ -817,16 +817,16 @@
       "x": 139,
       "y": 15,
       "elevation": 3,
-      "item": "ITEM_PP_UP",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_123_PP_UP"
+      "item": "ITEM_TM_FLASH_CANNON",
+      "flag": "FLAG_ITEM_TM_FLASH_CANNON"
     },
     {
       "type": "hidden_item",
       "x": 138,
       "y": 18,
       "elevation": 3,
-      "item": "ITEM_RARE_CANDY",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_123_RARE_CANDY"
+      "item": "ITEM_STICKY_BARB",
+      "flag": "FLAG_ITEM_STICKY_BARB"
     }
   ]
 }

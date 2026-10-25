@@ -219,8 +219,8 @@
       "x": 37,
       "y": 7,
       "elevation": 3,
-      "item": "ITEM_RARE_CANDY",
-      "flag": "FLAG_HIDDEN_ITEM_MT_PYRE_SUMMIT_RARE_CANDY"
+      "item": "ITEM_TM_FLAME_CHARGE",
+      "flag": "FLAG_ITEM_TM_FLAME_CHARGE"
     }
   ]
 }
