@@ -866,6 +866,7 @@ RustboroCity_EventScript_BattleMay::
 	end
 
 RustboroCity_EventScript_MayBrineyHint::
+	call RustboroCity_EventScript_TryGiveChoiceScarf
 	msgbox RustboroCity_Text_MayMrBrineyHint, MSGBOX_DEFAULT
 	call_if_eq VAR_0x8008, 0, RustboroCity_EventScript_RestoreBgm
 	releaseall
@@ -874,6 +875,20 @@ RustboroCity_EventScript_MayBrineyHint::
 RustboroCity_EventScript_RestoreBgm::
 	savebgm MUS_DUMMY
 	fadedefaultbgm
+	return
+
+RustboroCity_EventScript_TryGiveChoiceScarf::
+	goto_if_set FLAG_ITEM_CHOICE_SCARF, RustboroCity_EventScript_Return
+	msgbox RustboroCity_Text_RivalValuableGiftPromise, MSGBOX_DEFAULT
+	giveitem ITEM_CHOICE_SCARF
+	goto_if_eq VAR_RESULT, FALSE, RustboroCity_EventScript_ChoiceScarfBagFull
+	setflag FLAG_ITEM_CHOICE_SCARF
+	msgbox RustboroCity_Text_ReceivedChoiceScarf, MSGBOX_DEFAULT
+RustboroCity_EventScript_Return::
+	return
+
+RustboroCity_EventScript_ChoiceScarfBagFull::
+	msgbox RustboroCity_Text_NoRoomForChoiceScarf, MSGBOX_DEFAULT
 	return
 
 RustboroCity_EventScript_BattleMayTreecko::
@@ -932,6 +947,7 @@ RustboroCity_EventScript_BattleBrendan::
 	end
 
 RustboroCity_EventScript_BrendanBrineyHint::
+	call RustboroCity_EventScript_TryGiveChoiceScarf
 	msgbox RustboroCity_Text_BrendanMrBrineyHint, MSGBOX_DEFAULT
 	call_if_eq VAR_0x8008, 0, RustboroCity_EventScript_RestoreBgm
 	releaseall
@@ -1148,7 +1164,9 @@ RustboroCity_Text_MayPassedBrineyWantToBattle:
 	.string "How's your POKéDEX coming along,\n"
 	.string "{PLAYER}{KUN}? Mine's looking pretty decent!\p"
 	.string "So…\n"
-	.string "How about a little battle?$"
+	.string "How about a little battle?\p"
+	.string "If you beat me, I'll give you\n"
+	.string "a valuable gift!$"
 
 RustboroCity_Text_MayOhHaventRaisedPokemonEnough:
 	.string "{RIVAL}: Oh, what's the matter?\p"
@@ -1158,7 +1176,9 @@ RustboroCity_Text_MayOhHaventRaisedPokemonEnough:
 
 RustboroCity_Text_MayWantToBattle:
 	.string "{RIVAL}: So, what do you think?\n"
-	.string "How about a little battle here?$"
+	.string "How about a little battle here?\p"
+	.string "If you beat me, I'll give you\n"
+	.string "a valuable gift!$"
 
 RustboroCity_Text_MayImNotGoingToLose:
 	.string "{RIVAL}: You just became a TRAINER,\n"
@@ -1196,7 +1216,9 @@ RustboroCity_Text_BrendanPassedBrineyWantToBattle:
 	.string "Have you filled in any pages yet?\p"
 	.string "Mine rules.\p"
 	.string "Want to have a battle to test how\n"
-	.string "far you've progressed?$"
+	.string "far you've progressed?\p"
+	.string "If you beat me, I'll give you\n"
+	.string "a valuable gift!$"
 
 RustboroCity_Text_BrendanNoConfidenceInPokemon:
 	.string "{RIVAL}: What's the matter? Don't have\n"
@@ -1204,7 +1226,9 @@ RustboroCity_Text_BrendanNoConfidenceInPokemon:
 
 RustboroCity_Text_BrendanWantToBattle:
 	.string "{RIVAL}: What's up?\n"
-	.string "Want to have a battle with me?$"
+	.string "Want to have a battle with me?\p"
+	.string "If you beat me, I'll give you\n"
+	.string "a valuable gift!$"
 
 RustboroCity_Text_BrendanIWontGoEasy:
 	.string "{RIVAL}: I know you just became\n"
@@ -1213,6 +1237,19 @@ RustboroCity_Text_BrendanIWontGoEasy:
 RustboroCity_Text_BrendanDefeat:
 	.string "Hmm…\n"
 	.string "You're pretty good.$"
+
+RustboroCity_Text_RivalValuableGiftPromise:
+	.string "{RIVAL}: You won, fair and square!\n"
+	.string "I hope you make good use of this!$"
+
+RustboroCity_Text_ReceivedChoiceScarf:
+	.string "{PLAYER} received the\n"
+	.string "{COLOR BLUE}CHOICE SCARF{COLOR DARK_GRAY}!$"
+
+RustboroCity_Text_NoRoomForChoiceScarf:
+	.string "{RIVAL}: Your BAG is too full for\n"
+	.string "this CHOICE SCARF.\p"
+	.string "Make room and talk to me again!$"
 
 RustboroCity_Text_BrendanMrBrineyHint:
 	.string "{RIVAL}: By the way, you know\n"
