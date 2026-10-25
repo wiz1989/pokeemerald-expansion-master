@@ -52,7 +52,26 @@
     F(SKILL_SWAP) \
     F(SNATCH) \
     F(OVERHEAT) \
-    F(SCALD)
+    F(SCALD) \
+    F(ROCK_SLIDE) \
+    F(THUNDER_WAVE) \
+    F(VENOSHOCK) \
+    F(CHARGE_BEAM) \
+    F(FROST_BREATH) \
+    F(GRASS_KNOT) \
+    F(WILL_O_WISP) \
+    F(LOW_SWEEP) \
+    F(PAYBACK) \
+    F(POISON_JAB) \
+    F(FLAME_CHARGE) \
+    F(SNARL) \
+    F(STONE_EDGE) \
+    F(X_SCISSOR) \
+    F(STRUGGLE_BUG) \
+    F(WILD_CHARGE) \
+    F(FLASH_CANNON) \
+    F(ENERGY_BALL) \
+    F(SHADOW_CLAW)
 
 #define FOREACH_HM(F) \
     F(CUT) \
