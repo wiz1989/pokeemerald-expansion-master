@@ -1304,12 +1304,12 @@
 #define FLAG_ITEM_THUNDER_STONE                                     0x4E1
 #define FLAG_ITEM_FIRE_STONE                                        0x4E2
 #define FLAG_ITEM_LEAF_STONE                                        0x4E3
-#define FLAG_UNUSED_0x4E4                                           0x4E4 // Unused Flag
-#define FLAG_UNUSED_0x4E5                                           0x4E5 // Unused Flag
-#define FLAG_UNUSED_0x4E6                                           0x4E6 // Unused Flag
-#define FLAG_UNUSED_0x4E7                                           0x4E7 // Unused Flag
-#define FLAG_UNUSED_0x4E8                                           0x4E8 // Unused Flag
-#define FLAG_UNUSED_0x4E9                                           0x4E9 // Unused Flag
+#define FLAG_ITEM_HEAT_ROCK                                         0x4E4
+#define FLAG_ITEM_DAMP_ROCK                                         0x4E5
+#define FLAG_ITEM_SMOOTH_ROCK                                       0x4E6
+#define FLAG_ITEM_ICY_ROCK                                          0x4E7
+#define FLAG_ITEM_TM_SNATCH                                         0x4E8
+#define FLAG_ITEM_TM_TAUNT                                          0x4E9
 #define FLAG_UNUSED_0x4EA                                           0x4EA // Unused Flag
 #define FLAG_UNUSED_0x4EB                                           0x4EB // Unused Flag
 #define FLAG_UNUSED_0x4EC                                           0x4EC // Unused Flag
