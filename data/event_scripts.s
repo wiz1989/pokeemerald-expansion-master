@@ -591,6 +591,10 @@ gStdScripts_End::
 
 EventScript_WhiteOut::
 	call EverGrandeCity_HallOfFame_EventScript_ResetEliteFour
+	@ failsave checks for Briney state. Had a bug where he disappeared from Dewford after a WhiteOut; not sure why.
+	goto_if_unset FLAG_HIDE_ROUTE_104_MR_BRINEY_BOAT, EventScript_MoveMrBrineyToHouse
+	goto_if_unset FLAG_HIDE_MR_BRINEY_DEWFORD_TOWN, EventScript_MoveMrBrineyToDewford
+	goto_if_unset FLAG_HIDE_ROUTE_109_MR_BRINEY, EventScript_MoveMrBrineyToRoute109
 	goto EventScript_ResetMrBriney
 	end
 
