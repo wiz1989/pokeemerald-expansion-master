@@ -526,7 +526,7 @@
     },
     {
       "x": 11,
-      "y": 66,
+      "y": 65,
       "elevation": 0,
       "dest_map": "MAP_ROUTE110_TRICK_HOUSE_ENTRANCE",
       "dest_warp_id": "0"
@@ -777,6 +777,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route110_EventScript_CyclingRoadSign"
+    },
+    {
+      "type": "sign",
+      "x": 11,
+      "y": 66,
+      "elevation": 0,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
+      "script": "Route110_EventScript_TrickHouseSign"
     }
   ]
 }

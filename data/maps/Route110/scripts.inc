@@ -946,8 +946,7 @@ Route110_Text_TrainerTipsRegisterItems:
 	.string "by pressing SELECT.$"
 
 Route110_Text_TrickHouseSign:
-	.string "“Three steps {RIGHT_ARROW} and two steps {UP_ARROW}\n"
-	.string "to reach the wondrous TRICK HOUSE.”$"
+	.string "The TRICK HOUSE has been closed.$"
 
 Route110_Text_BestRecord:
 	.string "THE BEST RECORD TO DATE…\p"
