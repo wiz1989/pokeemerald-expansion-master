@@ -652,6 +652,23 @@ Chikorita
 Level: 14
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
+Cottonee
+Level: 14
+Ability: Prankster
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Leech Seed
+- Mega Drain
+- Stun Spore
+- Cotton Spore
+
+Skiploom
+Level: 14
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Poison Powder
+- Synthesis
+- Bullet Seed
+- Aerial Ace
+
 === TRAINER_ROSE_1 ===
 Name: ROSE
 Class: Aroma Lady
@@ -5915,6 +5932,11 @@ Skitty @ Oran Berry
 Level: 15
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
+Clefairy
+Level: 15
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Metronome
+
 === TRAINER_COLTON ===
 Name: COLTON
 Class: Pokefan
@@ -9345,6 +9367,14 @@ Level: 15
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
 Minun
+Level: 15
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+Pikachu
+Level: 15
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+Emolga
 Level: 15
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
@@ -13877,6 +13907,14 @@ Voltorb
 Level: 15
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
+Jigglypuff
+Level: 15
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Sing
+- Round
+- Disable
+- Rollout
+
 === TRAINER_RHETT ===
 Name: RHETT
 Class: Black Belt
@@ -13887,6 +13925,10 @@ Double Battle: No
 AI: Check Bad Move
 
 Makuhita
+Level: 15
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+
+Mienfoo
 Level: 15
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
