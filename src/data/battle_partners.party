@@ -44,3 +44,43 @@ EVs: 252 Atk / 252 SpA / 6 SpD
 - Protect
 - Solar Beam
 - Dragon Claw
+
+=== PARTNER_STEVEN ===
+Name: STEVEN
+Difficulty: Hard
+Class: Rival
+Pic: Steven
+Gender: Male
+Music: Male
+Back Pic: Steven
+AI: Basic Trainer
+
+Metagross @ Lum Berry
+Brave Nature
+Level: 52
+Ability: Clear Body
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Light Screen
+- Reflect
+- Bullet Punch
+- Zen Headbutt
+
+Bronzong @ Leftovers
+Relaxed Nature
+Level: 53
+Ability: Levitate
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Gyro Ball
+- Toxic
+- Earthquake
+- Zen Headbutt
+
+Aggron @ Air Balloon
+Adamant Nature
+Level: 54
+Ability: Sturdy
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
+- Heavy Slam
+- Thunderbolt
+- Aqua Tail
+- Protect

@@ -27,6 +27,11 @@ enum DifficultyLevel GetBattlePartnerDifficultyLevel(u16 partnerId)
 {
     enum DifficultyLevel difficulty = GetCurrentDifficultyLevel();
 
+    if (gSaveBlock2Ptr->bossUpgrade)
+        difficulty = DIFFICULTY_HARD;
+    else
+        difficulty = DIFFICULTY_NORMAL;
+
     if (partnerId > TRAINER_PARTNER(PARTNER_NONE))
         partnerId -= TRAINER_PARTNER(PARTNER_NONE);
 
