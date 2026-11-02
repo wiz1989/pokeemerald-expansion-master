@@ -386,6 +386,14 @@
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
       "script": "Route117_EventScript_DayCareSign"
+    },
+    {
+      "type": "hidden_item",
+      "x": 44,
+      "y": 17,
+      "elevation": 0,
+      "item": "ITEM_TM_TAUNT",
+      "flag": "FLAG_ITEM_TM_TAUNT"
     }
   ]
 }

@@ -1246,7 +1246,7 @@
 #define FLAG_ITEM_BINDING_BAND                                      0x4A7
 #define FLAG_ITEM_BIG_ROOT                                          0x4A8
 #define FLAG_ITEM_BRIGHT_POWDER                                     0x4A9
-#define FLAG_ITEM_FOCUS_BAND                                        0x4AA
+#define FLAG_ITEM_UNUSED                                            0x4AA // Unused Flag
 #define FLAG_ITEM_FOCUS_SASH                                        0x4AB
 #define FLAG_ITEM_GRIP_CLAW                                         0x4AC
 #define FLAG_ITEM_MENTAL_HERB                                       0x4AD
@@ -1310,7 +1310,7 @@
 #define FLAG_ITEM_ICY_ROCK                                          0x4E7
 #define FLAG_ITEM_TM_SNATCH                                         0x4E8
 #define FLAG_ITEM_TM_TAUNT                                          0x4E9
-#define FLAG_UNUSED_0x4EA                                           0x4EA // Unused Flag
+#define FLAG_ITEM_TM_PROTECT                                        0x4EA
 #define FLAG_UNUSED_0x4EB                                           0x4EB // Unused Flag
 #define FLAG_UNUSED_0x4EC                                           0x4EC // Unused Flag
 #define FLAG_UNUSED_0x4ED                                           0x4ED // Unused Flag
