@@ -8402,6 +8402,10 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
     if (trainerId == TRAINER_SECRET_BASE)
     {
         moneyReward = 20 * gBattleResources->secretBase->party.levels[0] * gBattleStruct->moneyMultiplier;
+        
+        // adjust multiplier to 1.5x from 2x for Amulet Coin
+        if (gBattleStruct->moneyMultiplierItem)
+            moneyReward = (moneyReward * 3) / 4;
     }
     else
     {
@@ -8418,6 +8422,10 @@ static u32 GetTrainerMoneyToGive(u16 trainerId)
         else
             moneyReward = 4 * lastMonLevel * gBattleStruct->moneyMultiplier * trainerMoney;
     }
+
+    // adjust multiplier to 1.5x from 2x for Amulet Coin
+    if (gBattleStruct->moneyMultiplierItem)
+        moneyReward = (moneyReward * 3) / 4;
 
     return moneyReward;
 }
@@ -10971,6 +10979,11 @@ static void Cmd_givepaydaymoney(void)
     if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK)) && gPaydayMoney != 0)
     {
         u32 bonusMoney = gPaydayMoney * gBattleStruct->moneyMultiplier;
+
+        // adjust multiplier to 1.5x from 2x for Amulet Coin
+        if (gBattleStruct->moneyMultiplierItem)
+            bonusMoney = (bonusMoney * 3) / 4;
+        
         AddMoney(&gSaveBlock1Ptr->money, bonusMoney);
 
         PREPARE_HWORD_NUMBER_BUFFER(gBattleTextBuff1, 5, bonusMoney)

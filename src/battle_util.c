@@ -6625,7 +6625,7 @@ u32 ItemBattleEffects(enum ItemCaseId caseID, u32 battler)
                 if (IsOnPlayerSide(battler) && !gBattleStruct->moneyMultiplierItem)
                 {
                     gBattleStruct->moneyMultiplier *= 2;
-                    gBattleStruct->moneyMultiplierItem = 1;
+                    gBattleStruct->moneyMultiplierItem = TRUE;
                 }
                 break;
             case HOLD_EFFECT_WHITE_HERB:
