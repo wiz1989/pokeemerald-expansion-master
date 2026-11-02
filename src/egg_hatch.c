@@ -80,6 +80,7 @@ static void SpriteCB_EggShard(struct Sprite *);
 static void EggHatchPrintMessage(u8, u8 *, u8, u8, u8);
 static void CreateRandomEggShardSprite(void);
 static void CreateEggShardSprite(u8, u8, s16, s16, s16, u8);
+static u16 GetLavaridgeWynautEggSpecies(void);
 
 static struct EggHatchData *sEggHatchData;
 
@@ -310,6 +311,38 @@ static const s16 sEggShardVelocities[][2] =
     {Q_8_8(2.5),        Q_8_8(-7.5)},
 };
 
+static const u16 sBabySpecies[] =
+{
+    SPECIES_MANTYKE,
+    SPECIES_MUNCHLAX,
+    SPECIES_RIOLU,
+    SPECIES_HAPPINY,
+    SPECIES_MIME_JR,
+    SPECIES_BONSLY,
+    SPECIES_CHINGLING,
+    SPECIES_BUDEW
+};
+
+static u16 GetLavaridgeWynautEggSpecies(void)
+{
+    u16 validSpecies[ARRAY_COUNT(sBabySpecies)];
+    u8 validCount = 0;
+
+    if (!gSaveBlock2Ptr->dupeClause)
+        return sBabySpecies[Random() % ARRAY_COUNT(sBabySpecies)];
+
+    for (u8 i = 0; i < ARRAY_COUNT(sBabySpecies); i++)
+    {
+        if (CheckDupes(sBabySpecies[i]) != INVALID_ENCOUNTER_DUPE)
+            validSpecies[validCount++] = sBabySpecies[i];
+    }
+
+    if (validCount == 0)
+        return sBabySpecies[Random() % ARRAY_COUNT(sBabySpecies)];
+
+    return validSpecies[Random() % validCount];
+}
+
 static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
 {
     u16 species;
@@ -336,6 +369,13 @@ static void CreateHatchedMon(struct Pokemon *egg, struct Pokemon *temp)
     pokerus = GetMonData(egg, MON_DATA_POKERUS);
     isModernFatefulEncounter = GetMonData(egg, MON_DATA_MODERN_FATEFUL_ENCOUNTER);
     ball = GetMonData(egg, MON_DATA_POKEBALL);
+
+    // random hatch species for the gifted Wynaut egg
+    if (species == SPECIES_WYNAUT && isModernFatefulEncounter)
+    {
+        species = GetLavaridgeWynautEggSpecies();
+        isModernFatefulEncounter = FALSE;
+    }
 
     CreateMon(temp, species, EGG_HATCH_LEVEL, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
 

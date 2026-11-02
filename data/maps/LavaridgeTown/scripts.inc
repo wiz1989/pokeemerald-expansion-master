@@ -243,7 +243,10 @@ LavaridgeTown_EventScript_EggWoman::
 	playfanfare MUS_OBTAIN_ITEM
 	message LavaridgeTown_Text_ReceivedTheEgg
 	waitfanfare
+	getpartysize
+	copyvar VAR_0x8004, VAR_RESULT
 	giveegg SPECIES_WYNAUT
+	setmodernfatefulencounter VAR_0x8004
 	release
 	end
 
@@ -404,4 +407,3 @@ LavaridgeTown_Text_GymSign:
 LavaridgeTown_Text_HerbShopSign:
 	.string "POKéMON HERB SHOP\n"
 	.string "“Bitter taste--better cure!”$"
-
