@@ -1395,7 +1395,7 @@ Level: 26
 Ability: Pressure
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Pain Split
-- Will-o-Wisp
+- Will O Wisp
 - Night Shade
 - Pursuit
 
@@ -1876,7 +1876,7 @@ Ability: Mummy
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Thief
 - Hex
-- Will-o-Wisp
+- Will O Wisp
 - Ominous Wind
 
 === TRAINER_WENDY ===
@@ -18571,7 +18571,7 @@ Level: 26
 Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Pain Split
-- Will-o-Wisp
+- Will O Wisp
 - Night Shade
 - Pursuit
 
@@ -18728,7 +18728,7 @@ Ability: Mummy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Thief
 - Hex
-- Will-o-Wisp
+- Will O Wisp
 - Ominous Wind
 
 === TRAINER_MAXIE_MAGMA_HIDEOUT ===
@@ -18765,17 +18765,41 @@ Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
-Mightyena
+Mightyena @ Black Glasses
 Level: 28
+Ability: Intimidate
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Yawn
+- Swagger
+- Sand Attack
+- Crunch
 
-Zubat
+Gabite @ Smooth Rock
 Level: 28
+Ability: Sand Veil
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Sandstorm
+- Dual Chop
+- Bulldoze
+- Toxic
 
-Camerupt
+Boldore @ Wide Lens
 Level: 28
+Ability: Sand Force
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Sandstorm
+- Magnitude
+- Rock Slide
+- Heavy Slam
+
+Camerupt @ Sitrus Berry
+Level: 29
+Ability: Solid Rock
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Amnesia
+- Lava Plume
+- Earth Power
+- Yawn
 
 === TRAINER_MAXIE_MOSSDEEP ===
 Name: MAXIE
@@ -18787,17 +18811,61 @@ Music: Magma
 Double Battle: No
 AI: Basic Trainer
 
-Mightyena
-Level: 42
+Gigalith @ Smooth Rock
+Level: 52
+Ability: Sand Force
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Sandstorm
+- Earthquake
+- Rock Slide
+- Heavy Slam
 
-Crobat
-Level: 43
+Crobat @ Black Sludge
+Level: 52
+Ability: Inner Focus
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Confuse Ray
+- Roost
+- Aerial Ace
+- Poison Fang
 
-Camerupt
-Level: 44
+Camerupt @ Sitrus Berry
+Level: 54
+Ability: Solid Rock
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Sandstorm
+- Lava Plume
+- Earthquake
+- Yawn
+
+=== TRAINER_TABITHA_MOSSDEEP ===
+Name: TABITHA
+Difficulty: Hard
+Class: Magma Admin
+Pic: Magma Admin
+Gender: Male
+Music: Magma
+Double Battle: No
+AI: Check Bad Move
+
+Solrock
+Level: 52
+Ability: Levitate
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Trick Room
+- Will O Wisp
+- Psychic
+- Stone Edge
+
+Rotom Heat @ Safety Goggles
+Level: 53
+Ability: Levitate
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+Adamant Nature
+- Overheat
+- Electroweb
+- Hex
+- Thunder Wave
 
 === TRAINER_ARCHIE ===
 Name: ARCHIE

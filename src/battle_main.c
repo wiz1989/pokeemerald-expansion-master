@@ -2241,6 +2241,9 @@ static bool8 HasHardTrainerSet(u16 trainerNum)
         case TRAINER_MARY:
         case TRAINER_ALEXIA:
         case TRAINER_JODY:
+        case TRAINER_MAXIE_MT_CHIMNEY:
+        case TRAINER_MAXIE_MOSSDEEP:
+        case TRAINER_TABITHA_MOSSDEEP:
             return TRUE;    
     }
 
