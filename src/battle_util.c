@@ -12027,19 +12027,19 @@ bool8 InPetalburgGym(void)
         return FALSE;
 }
 
-bool8 IsMagmaGrunt(u16 trainerId)
+bool8 IsMagmaGrunt(u8 trainerClass)
 {
-    if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_TEAM_MAGMA)
+    if (trainerClass == TRAINER_CLASS_TEAM_MAGMA)
         return TRUE;
     else
         return FALSE;
 }
 
-bool8 IsAquaGrunt(u16 trainerId)
+bool8 IsAquaGrunt(u8 trainerClass)
 {
-    if (trainerId == TRAINER_GRUNT_PETALBURG_WOODS)
+    if (TRAINER_BATTLE_PARAM.opponentA == TRAINER_GRUNT_PETALBURG_WOODS)
         return FALSE;
-    else if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_TEAM_AQUA)
+    else if (trainerClass == TRAINER_CLASS_TEAM_AQUA)
         return TRUE;
     else
         return FALSE;

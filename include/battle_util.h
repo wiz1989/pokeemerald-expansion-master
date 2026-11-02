@@ -419,7 +419,7 @@ bool8 IsBossTrainer(u16 trainerId);
 bool8 IsBossBattle(void);
 bool8 CanPartnerAiSwitch(void);
 bool8 InPetalburgGym(void);
-bool8 IsMagmaGrunt(u16 trainerId);
-bool8 IsAquaGrunt(u16 trainerId);
+bool8 IsMagmaGrunt(u8 trainerClass);
+bool8 IsAquaGrunt(u8 trainerClass);
 
 #endif // GUARD_BATTLE_UTIL_H

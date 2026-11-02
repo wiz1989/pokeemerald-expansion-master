@@ -2305,6 +2305,11 @@ static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *p
     u8 speciesCount = 0;
     u8 i;
     u8 level = trainer->party[0].lvl;
+    u8 maxMembers = GRUNT_MON_COUNT;
+    u8 currentLevelCap = GetCurrentLevelCap();
+
+    if (IsDoubleBattle())
+        maxMembers = 2; // only 4 mon doubles!
 
     if (IsAquaGrunt(trainer->trainerClass))
     {
@@ -2316,10 +2321,17 @@ static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *p
         speciesList = sMagmaGruntSpecies;
         speciesCount = MAGMA_POOL_SIZE;
     }
+    
+    // update level
+    if (gSaveBlock2Ptr->harderTrainers)
+    {
+        if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
+            level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
+    }
 
-    memset(party, 0, sizeof(struct TrainerMon) * GRUNT_MON_COUNT);
+    memset(party, 0, sizeof(struct TrainerMon) * maxMembers);
 
-    for (i = 0; i < GRUNT_MON_COUNT; i++)
+    for (i = 0; i < maxMembers; i++)
     {
         u16 species;
         u8 j;
@@ -2350,7 +2362,7 @@ static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *p
     }
 
     trainer->party = party;
-    trainer->partySize = GRUNT_MON_COUNT;
+    trainer->partySize = maxMembers;
     trainer->poolSize = 0; // not using trainer pools
 }
 
@@ -2370,7 +2382,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
     baseTrainer = GetTrainerStructFromId(trainerNum);
 
-    if (gSaveBlock2Ptr->harderTrainers && (IsAquaGrunt(trainerNum) || IsMagmaGrunt(trainerNum)))
+    if (gSaveBlock2Ptr->harderTrainers && (IsAquaGrunt(baseTrainer->trainerClass) || IsMagmaGrunt(baseTrainer->trainerClass)))
     {
         struct Trainer tempTrainer;
         struct TrainerMon tempParty[GRUNT_MON_COUNT];
