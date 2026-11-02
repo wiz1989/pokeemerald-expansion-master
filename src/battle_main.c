@@ -2242,8 +2242,18 @@ static bool8 HasHardTrainerSet(u16 trainerNum)
         case TRAINER_ALEXIA:
         case TRAINER_JODY:
         case TRAINER_MAXIE_MT_CHIMNEY:
+        case TRAINER_MAXIE_MAGMA_HIDEOUT:
         case TRAINER_MAXIE_MOSSDEEP:
         case TRAINER_TABITHA_MOSSDEEP:
+        case TRAINER_ARCHIE:
+        case TRAINER_BRENDAN_RUSTBORO_TORCHIC:
+        case TRAINER_MAY_RUSTBORO_TORCHIC:
+        case TRAINER_BRENDAN_ROUTE_110_TORCHIC:
+        case TRAINER_MAY_ROUTE_110_TORCHIC:
+        case TRAINER_BRENDAN_ROUTE_119_TORCHIC:
+        case TRAINER_MAY_ROUTE_119_TORCHIC:
+        case TRAINER_BRENDAN_LILYCOVE_TORCHIC:
+        case TRAINER_MAY_LILYCOVE_TORCHIC:
             return TRUE;    
     }
 

@@ -18897,3 +18897,419 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 Sharpedo
 Level: 43
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+
+=== TRAINER_BRENDAN_RUSTBORO_TORCHIC ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Torkoal @ Snowball  
+Ability: White Smoke  
+Level: 13
+Sassy Nature
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Clear Smog  
+- Ember  
+- Yawn  
+- Stealth Rock
+
+Natu @ Oran Berry  
+Ability: Magic Bounce  
+Level: 17
+Bold Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Confuse Ray  
+- Night Shade  
+- Calm Mind  
+- Stored Power
+
+Marshtomp @ Focus Sash  
+Ability: Torrent  
+Level: 19
+Quiet Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Water Gun  
+- Mud Shot  
+- Bite  
+- Rock Throw  
+
+=== TRAINER_MAY_RUSTBORO_TORCHIC ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Torkoal @ Snowball  
+Ability: White Smoke  
+Level: 13
+Sassy Nature
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Clear Smog  
+- Ember  
+- Yawn  
+- Stealth Rock
+
+Natu @ Oran Berry  
+Ability: Magic Bounce  
+Level: 17
+Bold Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Confuse Ray  
+- Night Shade  
+- Calm Mind  
+- Stored Power
+
+Marshtomp @ Focus Sash  
+Ability: Torrent  
+Level: 19
+Quiet Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Water Gun  
+- Mud Shot  
+- Bite  
+- Rock Throw
+
+=== TRAINER_BRENDAN_ROUTE_110_TORCHIC ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Natu @ Focus Sash  
+Ability: Synchronize  
+Level: 22  
+Bold Nature  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Trick Room  
+- Confuse Ray  
+- Night Shade  
+- Guard Swap  
+
+Torkoal @ Oran Berry  
+Ability: White Smoke  
+Level: 22  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Fire Spin  
+- Yawn  
+- Will-O-Wisp  
+- Clear Smog  
+
+Glaceon @ Oran Berry  
+Ability: Ice Body  
+Level: 22  
+Quirky Nature  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Hail  
+- Ice Shard  
+- Icy Wind  
+- Charm  
+
+Marshtomp @ Rindo Berry  
+Ability: Torrent  
+Level: 24  
+Quiet Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Water Pulse  
+- Mud Shot  
+- Supersonic  
+- Rock Throw
+
+=== TRAINER_MAY_ROUTE_110_TORCHIC ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Natu @ Focus Sash  
+Ability: Synchronize  
+Level: 22  
+Bold Nature  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Trick Room  
+- Confuse Ray  
+- Night Shade  
+- Guard Swap  
+
+Torkoal @ Oran Berry  
+Ability: White Smoke  
+Level: 22  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Fire Spin  
+- Yawn  
+- Will-O-Wisp  
+- Clear Smog  
+
+Glaceon @ Oran Berry  
+Ability: Ice Body  
+Level: 22  
+Quirky Nature  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Hail  
+- Ice Shard  
+- Icy Wind  
+- Charm  
+
+Marshtomp @ Rindo Berry  
+Ability: Torrent  
+Level: 24  
+Quiet Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Water Pulse  
+- Mud Shot  
+- Supersonic  
+- Rock Throw
+
+=== TRAINER_BRENDAN_ROUTE_119_TORCHIC ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Xatu @ Sitrus Berry  
+Ability: Magic Bounce  
+Level: 38  
+Relaxed Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Trick Room  
+- U-turn  
+- Calm Mind  
+- Stored Power  
+
+Torkoal @ Air Balloon  
+Ability: Shell Armor  
+Level: 38  
+Adamant Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Lava Plume  
+- Body Slam  
+- Yawn  
+- Scorching Sands  
+
+Glaceon @ Room Service  
+Ability: Ice Body  
+Level: 38  
+Brave Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Hail  
+- Ice Shard  
+- Icy Wind  
+- Ice Fang  
+
+Rotom-Mow  
+Ability: Levitate  
+Level: 38  
+Adamant Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Confuse Ray  
+- Thief  
+- Substitute  
+- Shock Wave  
+
+Swampert @ Rindo Berry  
+Ability: Torrent  
+Level: 40  
+Sassy Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Water Pulse  
+- Dig  
+- Smack Down  
+- Take Down
+
+=== TRAINER_MAY_ROUTE_119_TORCHIC ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Xatu @ Sitrus Berry  
+Ability: Magic Bounce  
+Level: 38  
+Relaxed Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Trick Room  
+- U-turn  
+- Calm Mind  
+- Stored Power  
+
+Torkoal @ Air Balloon  
+Ability: Shell Armor  
+Level: 38  
+Adamant Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Lava Plume  
+- Body Slam  
+- Yawn  
+- Scorching Sands  
+
+Glaceon @ Room Service  
+Ability: Ice Body  
+Level: 38  
+Brave Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Hail  
+- Ice Shard  
+- Icy Wind  
+- Ice Fang  
+
+Rotom-Mow  
+Ability: Levitate  
+Level: 38  
+Adamant Nature  
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Confuse Ray  
+- Thief  
+- Substitute  
+- Shock Wave  
+
+Swampert @ Rindo Berry  
+Ability: Torrent  
+Level: 40  
+Sassy Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Water Pulse  
+- Dig  
+- Smack Down  
+- Take Down
+
+=== TRAINER_BRENDAN_LILYCOVE_TORCHIC ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Xatu @ Sitrus Berry  
+Ability: Magic Bounce  
+Level: 44  
+Adamant Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Trick Room  
+- U-turn  
+- Night Shade  
+- Psychic  
+
+Torkoal @ Eject Pack  
+Ability: Shell Armor  
+Level: 44  
+Serious Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Flamethrower  
+- Body Slam  
+- Heavy Slam  
+- Scorching Sands  
+
+Glaceon @ Eject Button  
+Ability: Ice Body  
+Level: 44  
+Relaxed Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Hail  
+- Ice Shard  
+- Icy Wind  
+- Ice Fang  
+
+Rotom-Mow @ Sticky Barb  
+Ability: Levitate  
+Level: 44  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Volt Switch  
+- Trick  
+- Confuse Ray  
+- Night Shade  
+
+Swampert @ Rindo Berry  
+Ability: Torrent  
+Level: 46  
+Sassy Nature  
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Earthquake  
+- Muddy Water  
+- Take Down  
+- Flip Turn
+
+=== TRAINER_MAY_LILYCOVE_TORCHIC ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Xatu @ Sitrus Berry  
+Ability: Magic Bounce  
+Level: 44  
+Adamant Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Trick Room  
+- U-turn  
+- Night Shade  
+- Psychic  
+
+Torkoal @ Eject Pack  
+Ability: Shell Armor  
+Level: 44  
+Serious Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Flamethrower  
+- Body Slam  
+- Heavy Slam  
+- Scorching Sands  
+
+Glaceon @ Eject Button  
+Ability: Ice Body  
+Level: 44  
+Relaxed Nature  
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Hail  
+- Ice Shard  
+- Icy Wind  
+- Ice Fang  
+
+Rotom-Mow @ Sticky Barb  
+Ability: Levitate  
+Level: 44  
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Volt Switch  
+- Trick  
+- Confuse Ray  
+- Night Shade  
+
+Swampert @ Rindo Berry  
+Ability: Torrent  
+Level: 46  
+Sassy Nature  
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Earthquake  
+- Muddy Water  
+- Take Down  
+- Flip Turn
