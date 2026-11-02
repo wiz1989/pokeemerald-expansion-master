@@ -395,8 +395,8 @@ bool8 CheckForTrainersWantingBattle(void)
 
         if (gNoOfApproachingTrainers > 1)
             break;
-        if (GetMonsStateToDoubles_2() != PLAYER_HAS_TWO_USABLE_MONS) // one trainer found and cant have a double battle
-            break;
+        // if (GetMonsStateToDoubles_2() != PLAYER_HAS_TWO_USABLE_MONS) // one trainer found and cant have a double battle
+        //     break;
     }
 
     if (gNoOfApproachingTrainers == 1)
@@ -484,8 +484,8 @@ static u8 CheckTrainer(u8 objectEventId)
             || temp->params.mode == TRAINER_BATTLE_REMATCH_DOUBLE
             || temp->params.mode == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE)
         {
-            if (GetMonsStateToDoubles_2() != PLAYER_HAS_TWO_USABLE_MONS)
-                return 0;
+            // if (GetMonsStateToDoubles_2() != PLAYER_HAS_TWO_USABLE_MONS)
+            //     return 0;
 
             numTrainers = 2;
         }
