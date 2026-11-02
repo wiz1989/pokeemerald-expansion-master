@@ -26,19 +26,6 @@
       "trainer_sight_or_berry_tree_id": "ITEM_SPELL_TAG",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_SPELL_TAG"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 19,
-      "y": 40,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_TM_SKILL_SWAP",
-      "script": "Common_EventScript_FindItem",
-      "flag": "FLAG_ITEM_MT_PYRE_EXTERIOR_TM_SKILL_SWAP"
     }
   ],
   "warp_events": [
@@ -125,7 +112,7 @@
       "x": 16,
       "y": 22,
       "elevation": 0,
-      "item": "ITEM_MAX_ETHER",
+      "item": "ITEM_LUM_BERRY",
       "flag": "FLAG_HIDDEN_ITEM_MT_PYRE_EXTERIOR_MAX_ETHER"
     }
   ]

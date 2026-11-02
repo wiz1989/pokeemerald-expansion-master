@@ -1246,7 +1246,7 @@
 #define FLAG_ITEM_BINDING_BAND                                      0x4A7
 #define FLAG_ITEM_BIG_ROOT                                          0x4A8
 #define FLAG_ITEM_BRIGHT_POWDER                                     0x4A9
-#define FLAG_ITEM_UNUSED                                            0x4AA // Unused Flag
+#define FLAG_ITEM_MT_PYRE_EXTERIOR_ULTRA_BALL                       0x4AA
 #define FLAG_ITEM_FOCUS_SASH                                        0x4AB
 #define FLAG_ITEM_GRIP_CLAW                                         0x4AC
 #define FLAG_ITEM_MENTAL_HERB                                       0x4AD
