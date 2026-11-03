@@ -2246,6 +2246,7 @@ static bool8 HasHardTrainerSet(u16 trainerNum)
         case TRAINER_MAXIE_MOSSDEEP:
         case TRAINER_TABITHA_MOSSDEEP:
         case TRAINER_ARCHIE:
+        case TRAINER_WALLY_MAUVILLE:
         case TRAINER_BRENDAN_RUSTBORO_TORCHIC:
         case TRAINER_MAY_RUSTBORO_TORCHIC:
         case TRAINER_BRENDAN_ROUTE_110_TORCHIC:

@@ -3884,7 +3884,7 @@ Slugma
 Level: 23
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Darumaka
+Gulpin
 Level: 23
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
@@ -9831,7 +9831,7 @@ Numel
 Level: 23
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Mankey
+Timburr
 Level: 23
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
@@ -17849,7 +17849,7 @@ AI: Basic Trainer / Force Setup First Turn
 Mugshot: Purple
 
 Mightyena @ Black Glasses
-Level: 48
+Level: 62
 Ability: Intimidate
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Roar
@@ -17858,7 +17858,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Crunch
 
 Cacturne @ Focus Sash
-Level: 48
+Level: 62
 Ability: Water Absorb
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Leech Seed
@@ -17867,7 +17867,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Cotton Spore
 
 Crawdaunt @ Life Orb
-Level: 48
+Level: 62
 Ability: Adaptability
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Waterfall
@@ -17876,7 +17876,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Facade
 
 Mandibuzz @ Leftovers
-Level: 48
+Level: 62
 Ability: Weak Armor
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Brave Bird
@@ -17885,7 +17885,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Toxic
 
 Absol @ Sitrus Berry
-Level: 49
+Level: 62
 Ability: Super Luck
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Sucker Punch
@@ -17906,7 +17906,7 @@ AI: Basic Trainer
 Mugshot: Green
 
 Dusclops @ Eviolite
-Level: 50
+Level: 62
 Ability: Pressure
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Shadow Punch
@@ -17915,7 +17915,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Protect
 
 Sableye @ Flame Orb
-Level: 50
+Level: 62
 Ability: Prankster
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Trick
@@ -17924,7 +17924,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Foul Play
 
 Froslass @ Focus Sash
-Level: 50
+Level: 62
 Ability: Cursed Body
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Shadow Ball
@@ -17933,7 +17933,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Destiny Bond
 
 Drifblim @ Sitrus Berry
-Level: 50
+Level: 62
 Ability: Aftermath
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Shadow Ball
@@ -17942,7 +17942,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Substitute
 
 Gengar @ Black Sludge
-Level: 51
+Level: 62
 Ability: Levitate
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Shadow Ball
@@ -17963,7 +17963,7 @@ AI: Basic Trainer
 Mugshot: Pink
 
 Abomasnow @ Leftovers
-Level: 52
+Level: 62
 Ability: Snow Warning
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Leech Seed
@@ -17972,7 +17972,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Ice Shard
 
 Glalie @ Lum Berry
-Level: 52
+Level: 62
 Ability: Ice Body
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Earthquake
@@ -17981,7 +17981,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Ice Beam
 
 Jynx @ Twisted Spoon
-Level: 52
+Level: 62
 Ability: Oblivious
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Nasty Plot
@@ -17990,7 +17990,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Focus Blast
 
 Lapras @ Wide Lens
-Level: 52
+Level: 62
 Ability: Shell Armor
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Hydro Pump
@@ -17999,7 +17999,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Sing
 
 Walrein @ Sitrus Berry
-Level: 53
+Level: 62
 Ability: Thick Fat
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Surf
@@ -18020,7 +18020,7 @@ AI: Basic Trainer
 Mugshot: Blue
 
 Druddigon @ Rocky Helmet
-Level: 54
+Level: 62
 Ability: Rough Skin
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Stealth Rock
@@ -18029,7 +18029,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Dragon Tail
 
 Altaria @ Leftovers
-Level: 54
+Level: 62
 Ability: Natural Cure
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Steel Wing
@@ -18038,7 +18038,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Roost
 
 Kingdra @ Lum Berry
-Level: 54
+Level: 62
 Ability: Sniper
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Rest
@@ -18047,7 +18047,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Body Slam
 
 Flygon @ Yache Berry
-Level: 54
+Level: 62
 Ability: Levitate
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Fire Punch
@@ -18056,7 +18056,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Earthquake
 
 Salamence @ Sitrus Berry
-Level: 55
+Level: 62
 Ability: Intimidate
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Brick Break
@@ -18152,7 +18152,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Voltorb
-Level: 20
+Level: 21
 Ability: Static
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Rollout
@@ -18161,7 +18161,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Shock Wave
 
 Flaaffy
-Level: 20
+Level: 21
 Ability: Static
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Shock Wave
@@ -18198,17 +18198,17 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer
 
-Numel
-Level: 24
-Ability: Own Tempo
+Vulpix @ Wide Lens
+Level: 26
+Ability: Drought
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Overheat
-- Take Down
-- Magnitude
-- Sunny Day
+- Will O Wisp
+- Confuse Ray
+- Hex
 
 Magcargo
-Level: 24
+Level: 26
 Ability: Flame Body
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Overheat
@@ -18230,7 +18230,7 @@ Level: 29
 Ability: Drought
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Overheat
-- Sunny Day
+- Gyro Ball
 - Body Slam
 - Incinerate
 
@@ -18246,7 +18246,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Spinda @ Toxic Orb
-Level: 27
+Level: 31
 Ability: Contrary
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Teeter Dance
@@ -18254,17 +18254,17 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Facade
 - Trick
 
-Vigoroth @ Eviolite
-Level: 27
-Ability: Vital Spirit
+Purugly
+Level: 31
+Ability: Thick Fat
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Slash
-- Aerial Ace
-- Encore
-- Feint Attack
+- Fake Out
+- Swagger
+- U Turn
+- Sucker Punch
 
 Linoone
-Level: 29
+Level: 32
 Ability: Pickup
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Slash
@@ -18273,7 +18273,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Headbutt
 
 Slaking @ Leftovers
-Level: 31
+Level: 34
 Ability: Truant
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Counter
@@ -18293,7 +18293,7 @@ Double Battle: No
 AI: Basic Trainer / Risky
 
 Swablu @ Eviolite
-Level: 29
+Level: 37
 Ability: Natural Cure
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Perish Song
@@ -18302,7 +18302,7 @@ IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Aerial Ace
 
 Tropius @ Sitrus Berry
-Level: 29
+Level: 37
 Ability: Harvest
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Sunny Day
@@ -18311,7 +18311,7 @@ IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Synthesis
 
 Pelipper
-Level: 30
+Level: 37
 Ability: Rain Dish
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Rain Dance
@@ -18320,7 +18320,7 @@ IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 - Air Slash
 
 Skarmory @ Rocky Helmet
-Level: 31
+Level: 38
 Ability: Sturdy
 IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
 - Spikes
@@ -18329,7 +18329,7 @@ IVs: 26 HP / 26 Atk / 26 Def / 26 SpA / 26 SpD / 26 Spe
 - Roost
 
 Altaria @ Sitrus Berry
-Level: 33
+Level: 40
 Ability: Natural Cure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Earthquake
@@ -18349,7 +18349,7 @@ Double Battle: Yes
 AI: Basic Trainer
 
 Claydol @ Soft Sand
-Level: 41
+Level: 45
 Ability: Levitate
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Earthquake
@@ -18358,7 +18358,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Stealth Rock
 
 Xatu @ Leftovers
-Level: 41
+Level: 45
 Ability: Synchronize
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Psychic
@@ -18367,7 +18367,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Calm Mind
 
 Lunatone @ Sitrus Berry
-Level: 42
+Level: 46
 Ability: Levitate
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Moonlight
@@ -18376,7 +18376,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Calm Mind
 
 Solrock @ Light Clay
-Level: 42
+Level: 46
 Ability: Levitate
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Reflect
@@ -18396,7 +18396,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Qwilfish @ Black Sludge
-Level: 41
+Level: 52
 Ability: Poison Point
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Spikes
@@ -18405,7 +18405,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Toxic
 
 Whiscash
-Level: 41
+Level: 52
 Ability: Hydration
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Dragon Dance
@@ -18414,7 +18414,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Earthquake
 
 Gorebyss @ Life Orb
-Level: 43
+Level: 53
 Ability: Swift Swim
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Rain Dance
@@ -18423,7 +18423,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Ice Beam
 
 Crawdaunt @ Expert Belt
-Level: 43
+Level: 53
 Ability: Adaptability
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Waterfall
@@ -18432,7 +18432,7 @@ IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Sludge Bomb
 
 Kingdra @ Lum Berry
-Level: 46
+Level: 55
 Ability: Sniper
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Rest
@@ -18453,7 +18453,7 @@ AI: Basic Trainer
 Mugshot: Yellow
 
 Skarmory @ Rocky Helmet
-Level: 56
+Level: 62
 Ability: Sturdy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Roost
@@ -18462,7 +18462,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Steel Wing
 
 Claydol @ Leftovers
-Level: 56
+Level: 62
 Ability: Levitate
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Reflect
@@ -18471,7 +18471,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Earthquake
 
 Aggron @ Sitrus Berry
-Level: 57
+Level: 63
 Ability: Rock Head
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Thunder
@@ -18480,7 +18480,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Rock Polish
 
 Cradily @ Big Root
-Level: 57
+Level: 63
 Ability: Storm Drain
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Giga Drain
@@ -18489,7 +18489,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Toxic
 
 Archeops
-Level: 57
+Level: 64
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Earth Power
 - Roost
@@ -18497,7 +18497,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - U Turn
 
 Metagross @ Custap Berry
-Level: 58
+Level: 65
 Ability: Clear Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Bullet Punch
@@ -18516,7 +18516,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Throh
-Level: 26
+Level: 31
 Ability: Inner Focus
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Circle Throw
@@ -18525,7 +18525,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Storm Throw
 
 Sharpedo
-Level: 26
+Level: 31
 Ability: Speed Boost
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Roar
@@ -18534,7 +18534,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Crunch
 
 Arbok
-Level: 26
+Level: 31
 Ability: Intimidate
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Dragon Tail
@@ -18553,7 +18553,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Magmar @ Leftovers
-Level: 26
+Level: 31
 Ability: Flame Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Fire Spin
@@ -18562,7 +18562,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Confuse Ray
 
 Dugtrio @ Focus Sash
-Level: 26
+Level: 31
 Ability: Arena Trap
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Dig
@@ -18571,7 +18571,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Mud Bomb
 
 Wobbuffet
-Level: 26
+Level: 31
 Ability: Shadow Tag
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Counter
@@ -18590,7 +18590,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Jellicent
-Level: 26
+Level: 31
 Ability: Cursed Body
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Bubble Beam
@@ -18599,7 +18599,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Ominous Wind
 
 Dusclops @ Eviolite
-Level: 26
+Level: 31
 Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Pain Split
@@ -18608,7 +18608,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Pursuit
 
 Aerodactyl @ Smooth Rock
-Level: 26
+Level: 31
 Ability: Pressure
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Torment
@@ -18628,7 +18628,7 @@ AI: Basic Trainer
 
 Porygon2 @ Eviolite
 Ability: Analytic
-Level: 26
+Level: 31
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Psybeam
 - Tri Attack
@@ -18637,7 +18637,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 
 Snorlax
 Ability: Immunity
-Level: 26
+Level: 31
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Yawn
 - Chip Away
@@ -18645,7 +18645,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Snore
 
 Shedinja @ Lum Berry
-Level: 26
+Level: 31
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Sand Attack
 - Confuse Ray
@@ -18663,7 +18663,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Garchomp @ Rocky Helmet
-Level: 26
+Level: 31
 Ability: Rough Skin
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Stealth Rock
@@ -18672,7 +18672,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Dig
 
 Scrafty @ Leftovers
-Level: 26
+Level: 31
 Ability: Intimidate
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Drain Punch
@@ -18681,7 +18681,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Zen Headbutt
 
 Aggron
-Level: 26
+Level: 31
 Ability: Sturdy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Heavy Slam
@@ -18700,7 +18700,7 @@ Double Battle: No
 AI: Basic Trainer
 
 Pikachu @ Light Ball
-Level: 26
+Level: 31
 Ability: Lightning Rod
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Quick Attack
@@ -18709,7 +18709,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Slam
 
 Swellow
-Level: 26
+Level: 31
 Ability: Scrappy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Quick Attack
@@ -18718,7 +18718,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Endeavor
 
 Spinda @ Berserk Gene
-Level: 26
+Level: 31
 Ability: Tangled Feet
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Faint Attack
@@ -18737,7 +18737,7 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Force Setup First Turn
 
 Milotic @ Flame Orb
-Level: 26
+Level: 31
 Ability: Marvel Scale
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Water Pulse
@@ -18746,7 +18746,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Attract
 
 Bastiodon @ Air Balloon
-Level: 26
+Level: 31
 Ability: Sturdy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Take Down
@@ -18755,7 +18755,7 @@ IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Ancient Power
 
 Cofagrigus
-Level: 26
+Level: 31
 Ability: Mummy
 IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 31 Spe
 - Thief
@@ -18808,7 +18808,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 
 Gabite @ Smooth Rock
 Level: 28
-Ability: Sand Veil
+Ability: Rough Skin
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Sandstorm
 - Dual Chop
@@ -18921,6 +18921,43 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 Sharpedo
 Level: 43
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+
+=== TRAINER_WALLY_MAUVILLE ===
+Name: WALLY
+Difficulty: Hard
+Class: Rival
+Pic: Wally
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Swablu @ Apicot Berry
+Level: 24
+Ability: Natural Cure
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Natural Gift
+- Sing
+- Safeguard
+- Toxic
+
+Roselia @ Wide Lens
+Level: 24
+Ability: Poison Point
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Leech Seed
+- Stun Spore
+- Giga Drain
+- Grass Whistle
+
+Kirlia @ Sitrus Berry
+Level: 24
+Ability: Synchronize
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Confusion
+- Magical Leaf
+- Signal Beam
+- Double Team
 
 === TRAINER_BRENDAN_RUSTBORO_TORCHIC ===
 Name: BRENDAN
