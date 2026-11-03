@@ -231,7 +231,8 @@ u8 GetBattleRuleCount(void)
 
 void IncrementBattleRuleRerollCounter(void)
 {
-    gSaveBlock1Ptr->battleRuleRerollCounter++;
+    // increment +10 to jump further in the seed sequence
+    gSaveBlock1Ptr->battleRuleRerollCounter = (gSaveBlock1Ptr->battleRuleRerollCounter + 10);
     if (gSaveBlock1Ptr->battleRuleRerollCounter > 65000)
         gSaveBlock1Ptr->battleRuleRerollCounter = 0;
 }
