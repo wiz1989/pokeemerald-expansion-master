@@ -2311,11 +2311,22 @@ bool8 ScrCmd_checkfieldmove(struct ScriptContext *ctx)
             break;
         }
     }
-    // If no mon has the move, but the player has the HM in bag, use the first mon
+    // If no mon has the move, but the player has the HM in bag, use the first non-egg mon
     if (gSpecialVar_Result == PARTY_SIZE && PlayerHasMove(move))
     {
-        gSpecialVar_Result = 0;
-        gSpecialVar_0x8004 = GetMonData(&gPlayerParty[0], MON_DATA_SPECIES, NULL);
+        for (u32 i = 0; i < PARTY_SIZE; i++)
+        {
+            u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+            if (!species)
+                break;
+
+            if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+            {
+                gSpecialVar_Result = i;
+                gSpecialVar_0x8004 = species;
+                break;
+            }
+        }
     }
 
     return FALSE;

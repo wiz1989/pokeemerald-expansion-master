@@ -2822,9 +2822,32 @@ bool8 FldEff_FieldMoveShowMon(void)
 bool8 FldEff_FieldMoveShowMonInit(void)
 {
     struct Pokemon *pokemon;
+    u8 slot;
     bool32 noDucking = gFieldEffectArguments[0] & SHOW_MON_CRY_NO_DUCKING;
-    pokemon = &gPlayerParty[(u8)gFieldEffectArguments[0]];
-    gFieldEffectArguments[0] = GetMonData(pokemon, MON_DATA_SPECIES);
+    slot = (u8)gFieldEffectArguments[0];
+
+    // find the first valid mon in the party
+    if (GetMonData(&gPlayerParty[slot], MON_DATA_SPECIES) == SPECIES_NONE
+        || GetMonData(&gPlayerParty[slot], MON_DATA_IS_EGG))
+    {
+        for (u8 i = 0; i < PARTY_SIZE; i++)
+        {
+            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE
+                && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+            {
+                slot = i;
+                break;
+            }
+        }
+    }
+
+    pokemon = &gPlayerParty[slot];
+
+    // fallback
+    if (GetMonData(pokemon, MON_DATA_IS_EGG))
+        gFieldEffectArguments[0] = GetMonData(pokemon, MON_DATA_SPECIES_OR_EGG);
+    else
+        gFieldEffectArguments[0] = GetMonData(pokemon, MON_DATA_SPECIES);
     gFieldEffectArguments[1] = GetMonData(pokemon, MON_DATA_IS_SHINY);
     gFieldEffectArguments[2] = GetMonData(pokemon, MON_DATA_PERSONALITY);
     gFieldEffectArguments[0] |= noDucking;
