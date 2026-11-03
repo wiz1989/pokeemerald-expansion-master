@@ -13,10 +13,30 @@ static bool8 IsRandomTypeRule(u8 rule);
 static bool8 IsBannedMoveCatRule(u8 rule);
 static u8 GetRuleImpactValue(u8 rule);
 static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount);
-static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 excludedCount, u32 *outIncrement, bool8 excludeBossRules);
+static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 excludedCount, u32 *outIncrement);
+static u8 PickNextBossRule(void);
 
 u8 gActiveBattleRules[MAX_CONCURRENT_RULES];
 u8 gBattleRuleViolated = BATTLERULE_NONE;
+
+#define SEED_MULTIPLIER 2654435761u // Knuth's constant
+
+static const u8 sBossRules[] =
+{
+    BATTLERULE_BANNEDTYPE,
+    BATTLERULE_NOHEALING,
+    BATTLERULE_NOSTAB,
+    BATTLERULE_NOSUPEREFFECTIVE,
+    BATTLERULE_NOSWITCHING,
+    BATTLERULE_PERISHCOUNT,
+    BATTLERULE_SWITCHMOVES,
+    BATTLERULE_TRICKROOM,
+    BATTLERULE_BANNEDMOVECAT_PHYSICAL,
+    BATTLERULE_BANNEDMOVECAT_SPECIAL,
+    BATTLERULE_BANNEDMOVECAT_STATUS,
+    BATTLERULE_INVERSE,
+    BATTLERULE_TRUANT,
+};
 
 #define INVALID_TYPES_COUNT ARRAY_COUNT(sInvalidTypes)
 static const u8 sInvalidTypes[] = 
@@ -216,6 +236,18 @@ void IncrementBattleRuleRerollCounter(void)
         gSaveBlock1Ptr->battleRuleRerollCounter = 0;
 }
 
+void IncrementBossRuleRerollCounter(void)
+{
+    gSaveBlock1Ptr->bossRuleRerollCounter++;
+    if (gSaveBlock1Ptr->bossRuleRerollCounter > 50)
+        gSaveBlock1Ptr->bossRuleRerollCounter = 0;
+}
+
+void ResetBossRuleRerollCounter(void)
+{
+    gSaveBlock1Ptr->bossRuleRerollCounter = 0;
+}
+
 void IncrementTypeRerollCounter(void)
 {
     gSaveBlock1Ptr->typeRerollCounter++;
@@ -342,7 +374,7 @@ static bool8 IsValidPairing(u8 value, const u8 *excluded, u8 excludedCount)
 //  - special pairing exceptions
 //  - boss rule exceptions
 // updates *outIncrement at the end (for multiple calls in case of multiple concurrent rules)
-static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 excludedCount, u32 *outIncrement, bool8 excludeBossRules)
+static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 excludedCount, u32 *outIncrement)
 {
     u16 value;
     u32 increment = startIncrement;
@@ -357,8 +389,6 @@ static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 exclud
         || (gSaveBlock2Ptr->activateNoCritRule == FALSE && value == BATTLERULE_NOCRITS)
         || (value == BATTLERULE_1PP && startIncrement != 0) // 1PP rule can only be picked as the first rule, IsValidPairing() won't allow pairing later on
         || (value == BATTLERULE_1PP && CalculateEnemyPartyCount() > 4) // don't use 1PP rule if opponent has more than 4 mons
-        || (B_BOSS_LIMITED_RULES && !IsBossRule(value) && IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))
-        || (excludeBossRules && IsBossRule(value)) // one boss rule at max!
         || IsInArray(value, excluded, excludedCount) // rule was already picked in previous iteration
         || !IsValidPairing(value, excluded, excludedCount)) // handle special rule combination exceptions
         && currentAttempts < maxAttempts)
@@ -380,40 +410,76 @@ static u8 PickNextRule(u32 baseSeed, u32 startIncrement, u8 *excluded, u8 exclud
     return value;
 }
 
-#define SEED_MULTIPLIER 2654435761u // Knuth's multiplicative hash constant
+static u8 PickNextBossRule(void)
+{
+    u8 validRules[ARRAY_COUNT(sBossRules)];
+    u8 validCount = 0;
+    u8 i;
+    u8 ruleIndex;
+    u32 baseSeed = (u32)gSaveBlock1Ptr->lastTrainerId * SEED_MULTIPLIER
+                 + gSaveBlock1Ptr->battleRuleRerollCounter
+                 + gSaveBlock1Ptr->bossRuleRerollCounter;
+
+    for (i = 0; i < ARRAY_COUNT(sBossRules); i++)
+    {
+        u8 rule = sBossRules[i];
+
+        if (!gBattleRules[rule].enabled)
+            continue;
+        if (IsDoubleBattle() && rule == BATTLERULE_NOSAMESEX)
+            continue;
+        if (gSaveBlock2Ptr->activateNoCritRule == FALSE && rule == BATTLERULE_NOCRITS)
+            continue;
+        if (rule == BATTLERULE_1PP && CalculateEnemyPartyCount() > 4)
+            continue;
+
+        validRules[validCount++] = rule;
+    }
+
+    if (validCount == 0)
+        return BATTLERULE_NONE;
+
+    ruleIndex = RandomSeededModulo2(baseSeed, validCount);
+    ruleIndex = (ruleIndex + gSaveBlock1Ptr->bossRuleRerollCounter) % validCount;
+
+    return validRules[ruleIndex];
+}
+
 // calculate current battle rules based on a Trainer ID seed
 void ComputeActiveBattleRules(void)
 {
     u8 i;
-    
+
     u32 baseSeed = (u32)(gSaveBlock1Ptr->lastTrainerId) * SEED_MULTIPLIER
                  + gSaveBlock1Ptr->battleRuleRerollCounter;
     u8 count = gSaveBlock2Ptr->concurrentRules + 1;
     u32 nextIncrement = 0;
-    bool8 bossRulePicked = FALSE;
-
-    // Boss trainers always get exactly one rule (from the harder boss pool)
-    if (IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))
-        count = 1;
 
     FlagClear(FLAG_INVERSE_BATTLE);
 
-    // reset gActiveBattleRules before calculation
-    for (i = 0; i < MAX_CONCURRENT_RULES; i++)
-        gActiveBattleRules[i] = BATTLERULE_NONE;
-
-    // calculate gActiveBattleRules based on how many concurrent rules are currently set
-    for (i = 0; i < count; i++)
+    if (IsBossTrainer(gSaveBlock1Ptr->lastTrainerId) && B_BOSS_LIMITED_RULES)
     {
-        // PickNextRule() gets an increment value and updates this value for the next call, ensuring different results
-        // required for special handling of concurrent rules and boss rules
-        gActiveBattleRules[i] = PickNextRule(baseSeed, nextIncrement, gActiveBattleRules, i, &nextIncrement, bossRulePicked);
-        if (IsBossRule(gActiveBattleRules[i]))
-            bossRulePicked = TRUE;
+        gActiveBattleRules[0] = PickNextBossRule();
+        gActiveBattleRules[1] = BATTLERULE_NONE;
+        gActiveBattleRules[2] = BATTLERULE_NONE;
+    }
+    else
+    {
+        // reset gActiveBattleRules before calculation
+        for (i = 0; i < MAX_CONCURRENT_RULES; i++)
+            gActiveBattleRules[i] = BATTLERULE_NONE;
 
-        // 1PP rule must not be combined, it's too influential on its own
-        if (gActiveBattleRules[0] == BATTLERULE_1PP)
-            break;
+        // calculate gActiveBattleRules based on how many concurrent rules are currently set
+        for (i = 0; i < count; i++)
+        {
+            // PickNextRule() gets an increment value and updates this value for the next call, ensuring different results
+            // required for special handling of concurrent rules
+            gActiveBattleRules[i] = PickNextRule(baseSeed, nextIncrement, gActiveBattleRules, i, &nextIncrement);
+
+            // 1PP rule must not be combined, it's too influential on its own
+            if (gActiveBattleRules[0] == BATTLERULE_1PP)
+                break;
+        }
     }
 
     // gActiveBattleRules[0] = BATTLERULE_NOMISSES; // test line
@@ -635,26 +701,13 @@ static bool8 IsInArray(u8 value, const u8 *array, u8 size)
 
 bool8 IsBossRule(u8 battleRule)
 {
-    switch (battleRule)
+    u8 i;
+
+    for (i = 0; i < ARRAY_COUNT(sBossRules); i++)
     {
-        case BATTLERULE_BANNEDTYPE:
-        case BATTLERULE_NOHEALING:
-        case BATTLERULE_NOSTAB:
-        case BATTLERULE_NOSUPEREFFECTIVE:
-        case BATTLERULE_NOSWITCHING:
-        case BATTLERULE_PERISHCOUNT:
-        case BATTLERULE_SWITCHMOVES:
-        // case BATTLERULE_1HP:
-        // case BATTLERULE_1PP:
-        case BATTLERULE_TRICKROOM:
-        case BATTLERULE_BANNEDMOVECAT_PHYSICAL:
-        case BATTLERULE_BANNEDMOVECAT_SPECIAL:
-        case BATTLERULE_BANNEDMOVECAT_STATUS:
-        case BATTLERULE_INVERSE:
-        // case BATTLERULE_FIRSTMOVEONLY:
-        case BATTLERULE_TRUANT:
+        if (sBossRules[i] == battleRule)
             return TRUE;
-        default:
-            return FALSE;
     }
+
+    return FALSE;
 }

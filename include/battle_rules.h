@@ -8,6 +8,8 @@ extern u8 gActiveBattleRules[MAX_CONCURRENT_RULES];
 extern u8 gBattleRuleViolated;
 
 void IncrementBattleRuleRerollCounter(void);
+void IncrementBossRuleRerollCounter(void);
+void ResetBossRuleRerollCounter(void);
 void IncrementTypeRerollCounter(void);
 void ComputeActiveBattleRules(void);
 bool8 IsActiveBattleRule(u8 rule);

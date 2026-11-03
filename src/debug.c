@@ -1705,6 +1705,8 @@ static void DebugAction_IncreaseRerollCounter(u8 taskId)
 {
     IncrementBattleRuleRerollCounter();
     IncrementTypeRerollCounter();
+    if (IsBossTrainer(gSaveBlock1Ptr->lastTrainerId))
+        IncrementBossRuleRerollCounter();
     Debug_DestroyMenu_Full(taskId);
     ScriptContext_Enable();
 }

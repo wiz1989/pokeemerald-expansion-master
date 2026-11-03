@@ -1110,7 +1110,7 @@ struct SaveBlock1
               u8 filler1[0x31]; // Previously Dex Flags, feel free to remove.
 #endif //FREE_EXTRA_SEEN_FLAGS_SAVEBLOCK1
     /*0x9BC*/ u16 berryBlenderRecords[3];
-    /*0x9C2*/ u8 filler2;
+    /*0x9C2*/ u8 bossRuleRerollCounter;
               u16 battleRuleRerollCounter;
               u8 typeRerollCounter;
               u16 lastTrainerId;
