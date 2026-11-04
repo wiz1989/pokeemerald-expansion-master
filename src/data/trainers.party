@@ -18773,53 +18773,53 @@ Music: Magma
 Double Battle: No
 AI: Basic Trainer
 
-Sableye @ Heat Rock  
-Ability: Prankster  
+Sableye @ Heat Rock
+Ability: Prankster
 Level: 43
-Careful Nature  
+Careful Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Sunny Day  
-- Will O Wisp  
-- Fire Punch  
-- Sucker Punch  
+- Sunny Day
+- Will O Wisp
+- Fire Punch
+- Sucker Punch
 
-Volcarona @ Rocky Helmet  
-Ability: Flame Body  
+Volcarona @ Rocky Helmet
+Ability: Flame Body
 Level: 43
-Adamant Nature  
+Adamant Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Fire Spin  
-- Giga Drain  
-- Leech Life  
-- Sunny Day  
+- Fire Spin
+- Giga Drain
+- Leech Life
+- Sunny Day
 
-Crobat @ Lum Berry  
-Ability: Inner Focus  
+Crobat @ Lum Berry
+Ability: Inner Focus
 Level: 43
-Careful Nature  
+Careful Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - U Turn 
-- Acrobatics  
-- Confuse Ray  
-- Heat Wave  
+- Acrobatics
+- Confuse Ray
+- Heat Wave
 
-Heatmor @ Leftovers  
-Ability: White Smoke  
+Heatmor @ Leftovers
+Ability: White Smoke
 Level: 44
-Sassy Nature  
+Sassy Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Fire Punch  
-- Thunder Punch  
-- Tickle  
-- Sunny Day  
+- Fire Punch
+- Thunder Punch
+- Tickle
+- Sunny Day
 
-Camerupt @ Passho Berry  
-Ability: Solid Rock  
+Camerupt @ Passho Berry
+Ability: Solid Rock
 Level: 45
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Earthquake  
-- Heat Wave  
-- Curse  
+- Earthquake
+- Heat Wave
+- Curse
 - Sunny Day
 
 === TRAINER_MAXIE_MT_CHIMNEY ===
@@ -18944,55 +18944,55 @@ Music: Aqua
 Double Battle: No
 AI: Basic Trainer
 
-Politoed @ Damp Rock  
-Ability: Drizzle  
+Politoed @ Damp Rock
+Ability: Drizzle
 Level: 52
-Shiny: Yes  
-Adamant Nature  
+Shiny: Yes
+Adamant Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Icy Wind  
+- Icy Wind
 - Water Pulse 
-- Bounce  
-- Mud Shot  
+- Bounce
+- Mud Shot
 
-Durant @ Clear Amulet  
-Ability: Swarm  
+Durant @ Clear Amulet
+Ability: Swarm
 Level: 52
-Jolly Nature  
+Jolly Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- X-Scissor  
-- Iron Head  
-- Rock Tomb  
-- Attract  
+- X-Scissor
+- Iron Head
+- Rock Tomb
+- Attract
 
-Lanturn @ Leftovers  
-Ability: Volt Absorb  
-Level: 53  
-Timid Nature  
+Lanturn @ Leftovers
+Ability: Volt Absorb
+Level: 53
+Timid Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Thunder Wave  
-- Electro Ball  
-- Electroweb  
-- Rain Dance  
+- Thunder Wave
+- Electro Ball
+- Electroweb
+- Rain Dance
 
-Crobat @ Lum Berry  
-Ability: Inner Focus  
-Level: 53  
+Crobat @ Lum Berry
+Ability: Inner Focus
+Level: 53
 Modest Nature 
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Air Slash  
-- Air Cutter  
-- Sludge Bomb  
-- Confuse Ray  
+- Air Slash
+- Air Cutter
+- Sludge Bomb
+- Confuse Ray
 
-Sharpedo @ Focus Sash  
-Ability: Speed Boost  
+Sharpedo @ Focus Sash
+Ability: Speed Boost
 Level: 54 
-Modest Nature  
+Modest Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Aqua Jet  
-- Snarl  
-- Dark Pulse  
+- Aqua Jet
+- Snarl
+- Dark Pulse
 - Taunt
 
 === TRAINER_WALLY_MAUVILLE ===
@@ -19042,35 +19042,35 @@ Music: Male
 Double Battle: No
 AI: Basic Trainer
 
-Torkoal @ Snowball  
-Ability: White Smoke  
+Torkoal @ Snowball
+Ability: White Smoke
 Level: 13
 Sassy Nature
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Clear Smog  
-- Ember  
-- Yawn  
+- Clear Smog
+- Ember
+- Yawn
 - Stealth Rock
 
-Natu @ Oran Berry  
-Ability: Magic Bounce  
+Natu @ Oran Berry
+Ability: Magic Bounce
 Level: 17
 Bold Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
-- Confuse Ray  
-- Night Shade  
-- Calm Mind  
+- Confuse Ray
+- Night Shade
+- Calm Mind
 - Stored Power
 
-Marshtomp @ Focus Sash  
-Ability: Torrent  
+Marshtomp @ Focus Sash
+Ability: Torrent
 Level: 19
 Quiet Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Water Gun  
-- Mud Shot  
-- Bite  
-- Rock Throw  
+- Water Gun
+- Mud Shot
+- Bite
+- Rock Throw
 
 === TRAINER_MAY_RUSTBORO_TORCHIC ===
 Name: MAY
@@ -19082,34 +19082,34 @@ Music: Female
 Double Battle: No
 AI: Basic Trainer
 
-Torkoal @ Snowball  
-Ability: White Smoke  
+Torkoal @ Snowball
+Ability: White Smoke
 Level: 13
 Sassy Nature
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Clear Smog  
-- Ember  
-- Yawn  
+- Clear Smog
+- Ember
+- Yawn
 - Stealth Rock
 
-Natu @ Oran Berry  
-Ability: Magic Bounce  
+Natu @ Oran Berry
+Ability: Magic Bounce
 Level: 17
 Bold Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
-- Confuse Ray  
-- Night Shade  
-- Calm Mind  
+- Confuse Ray
+- Night Shade
+- Calm Mind
 - Stored Power
 
-Marshtomp @ Focus Sash  
-Ability: Torrent  
+Marshtomp @ Focus Sash
+Ability: Torrent
 Level: 19
 Quiet Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Water Gun  
-- Mud Shot  
-- Bite  
+- Water Gun
+- Mud Shot
+- Bite
 - Rock Throw
 
 === TRAINER_BRENDAN_ROUTE_110_TORCHIC ===
@@ -19122,43 +19122,43 @@ Music: Male
 Double Battle: No
 AI: Basic Trainer
 
-Natu @ Focus Sash  
-Ability: Synchronize  
-Level: 22  
-Bold Nature  
+Natu @ Focus Sash
+Ability: Synchronize
+Level: 22
+Bold Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Trick Room  
-- Confuse Ray  
-- Night Shade  
-- Guard Swap  
+- Trick Room
+- Confuse Ray
+- Night Shade
+- Guard Swap
 
-Torkoal @ Oran Berry  
-Ability: White Smoke  
-Level: 22  
+Torkoal @ Oran Berry
+Ability: White Smoke
+Level: 22
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Fire Spin  
-- Yawn  
-- Will-O-Wisp  
-- Clear Smog  
+- Fire Spin
+- Yawn
+- Will-O-Wisp
+- Clear Smog
 
-Glaceon @ Oran Berry  
-Ability: Ice Body  
-Level: 22  
-Quirky Nature  
+Glaceon @ Oran Berry
+Ability: Ice Body
+Level: 22
+Quirky Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Hail  
-- Ice Shard  
-- Icy Wind  
-- Charm  
+- Hail
+- Ice Shard
+- Icy Wind
+- Charm
 
-Marshtomp @ Rindo Berry  
-Ability: Torrent  
-Level: 24  
-Quiet Nature  
+Marshtomp @ Rindo Berry
+Ability: Torrent
+Level: 24
+Quiet Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Water Pulse  
-- Mud Shot  
-- Supersonic  
+- Water Pulse
+- Mud Shot
+- Supersonic
 - Rock Throw
 
 === TRAINER_MAY_ROUTE_110_TORCHIC ===
@@ -19171,43 +19171,43 @@ Music: Female
 Double Battle: No
 AI: Basic Trainer
 
-Natu @ Focus Sash  
-Ability: Synchronize  
-Level: 22  
-Bold Nature  
+Natu @ Focus Sash
+Ability: Synchronize
+Level: 22
+Bold Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Trick Room  
-- Confuse Ray  
-- Night Shade  
-- Guard Swap  
+- Trick Room
+- Confuse Ray
+- Night Shade
+- Guard Swap
 
-Torkoal @ Oran Berry  
-Ability: White Smoke  
-Level: 22  
+Torkoal @ Oran Berry
+Ability: White Smoke
+Level: 22
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Fire Spin  
-- Yawn  
-- Will-O-Wisp  
-- Clear Smog  
+- Fire Spin
+- Yawn
+- Will-O-Wisp
+- Clear Smog
 
-Glaceon @ Oran Berry  
-Ability: Ice Body  
-Level: 22  
-Quirky Nature  
+Glaceon @ Oran Berry
+Ability: Ice Body
+Level: 22
+Quirky Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Hail  
-- Ice Shard  
-- Icy Wind  
-- Charm  
+- Hail
+- Ice Shard
+- Icy Wind
+- Charm
 
-Marshtomp @ Rindo Berry  
-Ability: Torrent  
-Level: 24  
-Quiet Nature  
+Marshtomp @ Rindo Berry
+Ability: Torrent
+Level: 24
+Quiet Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Water Pulse  
-- Mud Shot  
-- Supersonic  
+- Water Pulse
+- Mud Shot
+- Supersonic
 - Rock Throw
 
 === TRAINER_BRENDAN_ROUTE_119_TORCHIC ===
@@ -19220,54 +19220,54 @@ Music: Male
 Double Battle: No
 AI: Basic Trainer
 
-Xatu @ Sitrus Berry  
-Ability: Magic Bounce  
-Level: 38  
-Relaxed Nature  
+Xatu @ Sitrus Berry
+Ability: Magic Bounce
+Level: 38
+Relaxed Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Trick Room  
-- U-turn  
-- Calm Mind  
-- Stored Power  
+- Trick Room
+- U-turn
+- Calm Mind
+- Stored Power
 
-Torkoal @ Air Balloon  
-Ability: Shell Armor  
-Level: 38  
-Adamant Nature  
+Torkoal @ Air Balloon
+Ability: Shell Armor
+Level: 38
+Adamant Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Lava Plume  
-- Body Slam  
-- Yawn  
-- Scorching Sands  
+- Lava Plume
+- Body Slam
+- Yawn
+- Scorching Sands
 
-Glaceon @ Room Service  
-Ability: Ice Body  
-Level: 38  
-Brave Nature  
+Glaceon @ Room Service
+Ability: Ice Body
+Level: 38
+Brave Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Hail  
-- Ice Shard  
-- Icy Wind  
-- Ice Fang  
+- Hail
+- Ice Shard
+- Icy Wind
+- Ice Fang
 
-Rotom-Mow  
-Ability: Levitate  
-Level: 38  
-Adamant Nature  
+Rotom-Mow
+Ability: Levitate
+Level: 38
+Adamant Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Confuse Ray  
-- Thief  
-- Substitute  
-- Shock Wave  
+- Confuse Ray
+- Thief
+- Substitute
+- Shock Wave
 
-Swampert @ Rindo Berry  
-Ability: Torrent  
-Level: 40  
-Sassy Nature  
+Swampert @ Rindo Berry
+Ability: Torrent
+Level: 40
+Sassy Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Water Pulse  
-- Dig  
-- Smack Down  
+- Water Pulse
+- Dig
+- Smack Down
 - Take Down
 
 === TRAINER_MAY_ROUTE_119_TORCHIC ===
@@ -19280,54 +19280,54 @@ Music: Female
 Double Battle: No
 AI: Basic Trainer
 
-Xatu @ Sitrus Berry  
-Ability: Magic Bounce  
-Level: 38  
-Relaxed Nature  
+Xatu @ Sitrus Berry
+Ability: Magic Bounce
+Level: 38
+Relaxed Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Trick Room  
-- U-turn  
-- Calm Mind  
-- Stored Power  
+- Trick Room
+- U-turn
+- Calm Mind
+- Stored Power
 
-Torkoal @ Air Balloon  
-Ability: Shell Armor  
-Level: 38  
-Adamant Nature  
+Torkoal @ Air Balloon
+Ability: Shell Armor
+Level: 38
+Adamant Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Lava Plume  
-- Body Slam  
-- Yawn  
-- Scorching Sands  
+- Lava Plume
+- Body Slam
+- Yawn
+- Scorching Sands
 
-Glaceon @ Room Service  
-Ability: Ice Body  
-Level: 38  
-Brave Nature  
+Glaceon @ Room Service
+Ability: Ice Body
+Level: 38
+Brave Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Hail  
-- Ice Shard  
-- Icy Wind  
-- Ice Fang  
+- Hail
+- Ice Shard
+- Icy Wind
+- Ice Fang
 
-Rotom-Mow  
-Ability: Levitate  
-Level: 38  
-Adamant Nature  
+Rotom-Mow
+Ability: Levitate
+Level: 38
+Adamant Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Confuse Ray  
-- Thief  
-- Substitute  
-- Shock Wave  
+- Confuse Ray
+- Thief
+- Substitute
+- Shock Wave
 
-Swampert @ Rindo Berry  
-Ability: Torrent  
-Level: 40  
-Sassy Nature  
+Swampert @ Rindo Berry
+Ability: Torrent
+Level: 40
+Sassy Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Water Pulse  
-- Dig  
-- Smack Down  
+- Water Pulse
+- Dig
+- Smack Down
 - Take Down
 
 === TRAINER_BRENDAN_LILYCOVE_TORCHIC ===
@@ -19340,53 +19340,53 @@ Music: Male
 Double Battle: No
 AI: Basic Trainer
 
-Xatu @ Sitrus Berry  
-Ability: Magic Bounce  
-Level: 44  
-Adamant Nature  
+Xatu @ Sitrus Berry
+Ability: Magic Bounce
+Level: 44
+Adamant Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Trick Room  
-- U-turn  
-- Night Shade  
-- Psychic  
+- Trick Room
+- U-turn
+- Night Shade
+- Psychic
 
-Torkoal @ Eject Pack  
-Ability: Shell Armor  
-Level: 44  
-Serious Nature  
+Torkoal @ Eject Pack
+Ability: Shell Armor
+Level: 44
+Serious Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Flamethrower  
-- Body Slam  
-- Heavy Slam  
-- Scorching Sands  
+- Flamethrower
+- Body Slam
+- Heavy Slam
+- Scorching Sands
 
-Glaceon @ Eject Button  
-Ability: Ice Body  
-Level: 44  
-Relaxed Nature  
+Glaceon @ Eject Button
+Ability: Ice Body
+Level: 44
+Relaxed Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Hail  
-- Ice Shard  
-- Icy Wind  
-- Ice Fang  
+- Hail
+- Ice Shard
+- Icy Wind
+- Ice Fang
 
-Rotom-Mow @ Sticky Barb  
-Ability: Levitate  
-Level: 44  
+Rotom-Mow @ Sticky Barb
+Ability: Levitate
+Level: 44
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Volt Switch  
-- Trick  
-- Confuse Ray  
-- Night Shade  
+- Volt Switch
+- Trick
+- Confuse Ray
+- Night Shade
 
-Swampert @ Rindo Berry  
-Ability: Torrent  
-Level: 46  
-Sassy Nature  
+Swampert @ Rindo Berry
+Ability: Torrent
+Level: 46
+Sassy Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Earthquake  
-- Muddy Water  
-- Take Down  
+- Earthquake
+- Muddy Water
+- Take Down
 - Flip Turn
 
 === TRAINER_MAY_LILYCOVE_TORCHIC ===
@@ -19399,51 +19399,471 @@ Music: Female
 Double Battle: No
 AI: Basic Trainer
 
-Xatu @ Sitrus Berry  
-Ability: Magic Bounce  
-Level: 44  
-Adamant Nature  
+Xatu @ Sitrus Berry
+Ability: Magic Bounce
+Level: 44
+Adamant Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Trick Room  
-- U-turn  
-- Night Shade  
-- Psychic  
+- Trick Room
+- U-turn
+- Night Shade
+- Psychic
 
-Torkoal @ Eject Pack  
-Ability: Shell Armor  
-Level: 44  
-Serious Nature  
+Torkoal @ Eject Pack
+Ability: Shell Armor
+Level: 44
+Serious Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Flamethrower  
-- Body Slam  
-- Heavy Slam  
-- Scorching Sands  
+- Flamethrower
+- Body Slam
+- Heavy Slam
+- Scorching Sands
 
-Glaceon @ Eject Button  
-Ability: Ice Body  
-Level: 44  
-Relaxed Nature  
+Glaceon @ Eject Button
+Ability: Ice Body
+Level: 44
+Relaxed Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Hail  
-- Ice Shard  
-- Icy Wind  
-- Ice Fang  
+- Hail
+- Ice Shard
+- Icy Wind
+- Ice Fang
 
-Rotom-Mow @ Sticky Barb  
-Ability: Levitate  
-Level: 44  
+Rotom-Mow @ Sticky Barb
+Ability: Levitate
+Level: 44
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Volt Switch  
-- Trick  
-- Confuse Ray  
-- Night Shade  
+- Volt Switch
+- Trick
+- Confuse Ray
+- Night Shade
 
-Swampert @ Rindo Berry  
-Ability: Torrent  
-Level: 46  
-Sassy Nature  
+Swampert @ Rindo Berry
+Ability: Torrent
+Level: 46
+Sassy Nature
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Earthquake  
-- Muddy Water  
-- Take Down  
+- Earthquake
+- Muddy Water
+- Take Down
 - Flip Turn
+
+=== TRAINER_BRENDAN_RUSTBORO_TREECKO ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Oddish @ Focus Sash
+Ability: Run Away
+Level: 17
+Bold Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Acid Spray
+- Mega Drain
+- Leech Seed
+- Teeter Dance
+
+Murkrow @ Covert Cloak
+Ability: Super Luck
+Level: 17
+Timid Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Wing Attack
+- U-turn
+- Night Shade
+- Flatter
+
+Combusken @ Oran Berry
+Ability: Blaze
+Level: 19
+Modest Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Flame Charge
+- Quick Attack
+- Sand Attack
+- Double Kick
+
+=== TRAINER_MAY_RUSTBORO_TREECKO ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Oddish @ Focus Sash
+Ability: Run Away
+Level: 17
+Bold Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Acid Spray
+- Mega Drain
+- Leech Seed
+- Teeter Dance
+
+Murkrow @ Covert Cloak
+Ability: Super Luck
+Level: 17
+Timid Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Wing Attack
+- U-turn
+- Night Shade
+- Flatter
+
+Combusken @ Oran Berry
+Ability: Blaze
+Level: 19
+Modest Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Flame Charge
+- Quick Attack
+- Sand Attack
+- Double Kick
+
+=== TRAINER_BRENDAN_ROUTE_110_TREECKO ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Murkrow @ Eject Button
+Ability: Prankster
+Level: 22
+Sassy Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Tailwind
+- U-turn
+- Thunder Wave
+- Snarl
+
+Gloom @ Shell Bell
+Ability: Stench
+Level: 22
+Impish Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Giga Drain
+- Poison Powder
+- Acid Spray
+- Bullet Seed
+
+Espeon
+Ability: Synchronize
+Level: 22 
+Adamant Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Baby-Doll Eyes
+- Confuse Ray
+- Mud-Slap
+- Swift
+
+Combusken @ Lum Berry
+Ability: Blaze
+Level: 24
+Modest Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Flame Charge
+- Aerial Ace
+- Double Kick
+- Sand Attack
+
+=== TRAINER_MAY_ROUTE_110_TREECKO ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Murkrow @ Eject Button
+Ability: Prankster
+Level: 22
+Sassy Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Tailwind
+- U-turn
+- Thunder Wave
+- Snarl
+
+Gloom @ Shell Bell
+Ability: Stench
+Level: 22
+Impish Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Giga Drain
+- Poison Powder
+- Acid Spray
+- Bullet Seed
+
+Espeon
+Ability: Synchronize
+Level: 22 
+Adamant Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Baby-Doll Eyes
+- Confuse Ray
+- Mud-Slap
+- Swift
+
+Combusken @ Lum Berry
+Ability: Blaze
+Level: 24
+Modest Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Flame Charge
+- Aerial Ace
+- Double Kick
+- Sand Attack
+
+=== TRAINER_BRENDAN_ROUTE_119_TREECKO ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Murkrow @ Eviolite
+Ability: Prankster
+Level: 38 
+Timid Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Tailwind
+- U-turn
+- Night Shade
+- Confuse Ray
+
+Vileplume @ Black Sludge
+Ability: Effect Spore
+Level: 38 
+Jolly Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Grass Knot
+- Petal Blizzard
+- Venoshock
+- Body Slam
+
+Espeon @ Sticky Barb
+Ability: Synchronize
+Level: 38 
+Adamant Nature 
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Psybeam
+- Magical Leaf
+- Trick
+- Tickle
+
+Rotom-Wash @ Air Balloon
+Ability: Levitate
+Level: 38
+Jolly Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Volt Switch
+- Thunder Wave
+- Eerie Impulse
+- Pain Split
+
+Blaziken @ Lum Berry
+Ability: Speed Boost
+Level: 40
+Modest Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Fire Punch
+- U-turn
+- Feather Dance
+- Double Kick
+
+=== TRAINER_MAY_ROUTE_119_TREECKO ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Murkrow @ Eviolite
+Ability: Prankster
+Level: 38 
+Timid Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Tailwind
+- U-turn
+- Night Shade
+- Confuse Ray
+
+Vileplume @ Black Sludge
+Ability: Effect Spore
+Level: 38 
+Jolly Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Grass Knot
+- Petal Blizzard
+- Venoshock
+- Body Slam
+
+Espeon @ Sticky Barb
+Ability: Synchronize
+Level: 38 
+Adamant Nature 
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Psybeam
+- Magical Leaf
+- Trick
+- Tickle
+
+Rotom-Wash @ Air Balloon
+Ability: Levitate
+Level: 38
+Jolly Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Volt Switch
+- Thunder Wave
+- Eerie Impulse
+- Pain Split
+
+Blaziken @ Lum Berry
+Ability: Speed Boost
+Level: 40
+Modest Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Fire Punch
+- U-turn
+- Feather Dance
+- Double Kick
+
+=== TRAINER_BRENDAN_LILYCOVE_TREECKO ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Honchkrow @ Covert Cloak
+Ability: Super Luck
+Level: 44 
+Careful Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Tailwind
+- U-turn
+- Sucker Punch
+- Torment
+
+Vileplume @ Black Sludge
+Ability: Effect Spore
+Level: 44
+Naive Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Leaf Storm
+- Petal Blizzard
+- Venoshock
+- Teeter Dance
+
+Espeon @ Rocky Helmet
+Ability: Synchronize
+Level: 44 
+Impish Nature 
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Psyshock
+- Grass Knot
+- Reflect
+- Light Screen
+
+Rotom-Wash @ Lagging Tail
+Ability: Levitate
+Level: 44
+Jolly Nature 
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Discharge
+- Uproar
+- Spite
+- Trick
+
+Blaziken
+Ability: Speed Boost
+Level: 46
+Modest Nature
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Blaze Kick
+- Low Kick
+- Thief
+- Baton Pass
+
+=== TRAINER_MAY_LILYCOVE_TREECKO ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Honchkrow @ Covert Cloak
+Ability: Super Luck
+Level: 44 
+Careful Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Tailwind
+- U-turn
+- Sucker Punch
+- Torment
+
+Vileplume @ Black Sludge
+Ability: Effect Spore
+Level: 44
+Naive Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Leaf Storm
+- Petal Blizzard
+- Venoshock
+- Teeter Dance
+
+Espeon @ Rocky Helmet
+Ability: Synchronize
+Level: 44 
+Impish Nature 
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Psyshock
+- Grass Knot
+- Reflect
+- Light Screen
+
+Rotom-Wash @ Lagging Tail
+Ability: Levitate
+Level: 44
+Jolly Nature 
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Discharge
+- Uproar
+- Spite
+- Trick
+
+Blaziken
+Ability: Speed Boost
+Level: 46
+Modest Nature
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Blaze Kick
+- Low Kick
+- Thief
+- Baton Pass
