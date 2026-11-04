@@ -19070,7 +19070,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Water Gun
 - Mud Shot
 - Bite
-- Rock Throw
+- Ancient Power
 
 === TRAINER_MAY_RUSTBORO_TORCHIC ===
 Name: MAY
@@ -19110,7 +19110,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Water Gun
 - Mud Shot
 - Bite
-- Rock Throw
+- Ancient Power
 
 === TRAINER_BRENDAN_ROUTE_110_TORCHIC ===
 Name: BRENDAN
@@ -19158,8 +19158,8 @@ Quiet Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Water Pulse
 - Mud Shot
-- Supersonic
-- Rock Throw
+- Swagger
+- Ancient Power
 
 === TRAINER_MAY_ROUTE_110_TORCHIC ===
 Name: MAY
@@ -19207,8 +19207,8 @@ Quiet Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Water Pulse
 - Mud Shot
-- Supersonic
-- Rock Throw
+- Swagger
+- Ancient Power
 
 === TRAINER_BRENDAN_ROUTE_119_TORCHIC ===
 Name: BRENDAN
@@ -19238,7 +19238,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Lava Plume
 - Body Slam
 - Yawn
-- Scorching Sands
+- Earth Power
 
 Glaceon @ Room Service
 Ability: Ice Body
@@ -19267,7 +19267,7 @@ Sassy Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Water Pulse
 - Dig
-- Smack Down
+- Rock Slide
 - Take Down
 
 === TRAINER_MAY_ROUTE_119_TORCHIC ===
@@ -19298,7 +19298,7 @@ IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Lava Plume
 - Body Slam
 - Yawn
-- Scorching Sands
+- Earth Power
 
 Glaceon @ Room Service
 Ability: Ice Body
@@ -19327,7 +19327,7 @@ Sassy Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Water Pulse
 - Dig
-- Smack Down
+- Rock Slide
 - Take Down
 
 === TRAINER_BRENDAN_LILYCOVE_TORCHIC ===
@@ -19357,8 +19357,8 @@ Serious Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Flamethrower
 - Body Slam
-- Heavy Slam
-- Scorching Sands
+- Iron Tail
+- Earth Power
 
 Glaceon @ Eject Button
 Ability: Ice Body
@@ -19377,7 +19377,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Volt Switch
 - Trick
 - Confuse Ray
-- Night Shade
+- Ominous Wind
 
 Swampert @ Rindo Berry
 Ability: Torrent
@@ -19387,7 +19387,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Earthquake
 - Muddy Water
 - Take Down
-- Flip Turn
+- Ice Punch
 
 === TRAINER_MAY_LILYCOVE_TORCHIC ===
 Name: MAY
@@ -19416,8 +19416,8 @@ Serious Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Flamethrower
 - Body Slam
-- Heavy Slam
-- Scorching Sands
+- Iron Tail
+- Earth Power
 
 Glaceon @ Eject Button
 Ability: Ice Body
@@ -19436,7 +19436,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Volt Switch
 - Trick
 - Confuse Ray
-- Night Shade
+- Ominous Wind
 
 Swampert @ Rindo Berry
 Ability: Torrent
@@ -19446,7 +19446,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Earthquake
 - Muddy Water
 - Take Down
-- Flip Turn
+- Ice Punch
 
 === TRAINER_BRENDAN_RUSTBORO_TREECKO ===
 Name: BRENDAN
@@ -19459,14 +19459,14 @@ Double Battle: No
 AI: Basic Trainer
 
 Oddish @ Focus Sash
-Ability: Run Away
+Ability: Chlorophyll
 Level: 17
 Bold Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
-- Acid Spray
+- Sunny Day
 - Mega Drain
-- Leech Seed
-- Teeter Dance
+- Sleep Powder
+- Venoshock
 
 Murkrow @ Covert Cloak
 Ability: Super Luck
@@ -19474,9 +19474,9 @@ Level: 17
 Timid Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 - Wing Attack
-- U-turn
+- Roost
 - Night Shade
-- Flatter
+- Swagger
 
 Combusken @ Oran Berry
 Ability: Blaze
@@ -19499,14 +19499,14 @@ Double Battle: No
 AI: Basic Trainer
 
 Oddish @ Focus Sash
-Ability: Run Away
+Ability: Chlorophyll
 Level: 17
 Bold Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
-- Acid Spray
+- Sunny Day
 - Mega Drain
-- Leech Seed
-- Teeter Dance
+- Sleep Powder
+- Venoshock
 
 Murkrow @ Covert Cloak
 Ability: Super Luck
@@ -19514,9 +19514,9 @@ Level: 17
 Timid Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 - Wing Attack
-- U-turn
+- Roost
 - Night Shade
-- Flatter
+- Swagger
 
 Combusken @ Oran Berry
 Ability: Blaze
@@ -19544,7 +19544,7 @@ Level: 22
 Sassy Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Tailwind
-- U-turn
+- Pluck
 - Thunder Wave
 - Snarl
 
@@ -19555,7 +19555,7 @@ Impish Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Giga Drain
 - Poison Powder
-- Acid Spray
+- Venoshock
 - Bullet Seed
 
 Espeon
@@ -19563,8 +19563,8 @@ Ability: Synchronize
 Level: 22 
 Adamant Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Baby-Doll Eyes
-- Confuse Ray
+- Charm
+- Yawn
 - Mud-Slap
 - Swift
 
@@ -19594,7 +19594,7 @@ Level: 22
 Sassy Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Tailwind
-- U-turn
+- Pluck
 - Thunder Wave
 - Snarl
 
@@ -19605,7 +19605,7 @@ Impish Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Giga Drain
 - Poison Powder
-- Acid Spray
+- Venoshock
 - Bullet Seed
 
 Espeon
@@ -19613,8 +19613,8 @@ Ability: Synchronize
 Level: 22 
 Adamant Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
-- Baby-Doll Eyes
-- Confuse Ray
+- Charm
+- Yawn
 - Mud-Slap
 - Swift
 
@@ -19644,7 +19644,7 @@ Level: 38
 Timid Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Tailwind
-- U-turn
+- Pluck
 - Night Shade
 - Confuse Ray
 
@@ -19654,9 +19654,9 @@ Level: 38
 Jolly Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Grass Knot
-- Petal Blizzard
-- Venoshock
 - Body Slam
+- Venoshock
+- Teeter Dance
 
 Espeon @ Sticky Barb
 Ability: Synchronize
@@ -19664,7 +19664,7 @@ Level: 38
 Adamant Nature 
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Psybeam
-- Magical Leaf
+- Signal Beam
 - Trick
 - Tickle
 
@@ -19675,7 +19675,7 @@ Jolly Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Volt Switch
 - Thunder Wave
-- Eerie Impulse
+- Will O Wisp
 - Pain Split
 
 Blaziken @ Lum Berry
@@ -19684,7 +19684,7 @@ Level: 40
 Modest Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Fire Punch
-- U-turn
+- Baton Pass
 - Feather Dance
 - Double Kick
 
@@ -19704,7 +19704,7 @@ Level: 38
 Timid Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Tailwind
-- U-turn
+- Pluck
 - Night Shade
 - Confuse Ray
 
@@ -19714,9 +19714,9 @@ Level: 38
 Jolly Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Grass Knot
-- Petal Blizzard
-- Venoshock
 - Body Slam
+- Venoshock
+- Teeter Dance
 
 Espeon @ Sticky Barb
 Ability: Synchronize
@@ -19724,7 +19724,7 @@ Level: 38
 Adamant Nature 
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Psybeam
-- Magical Leaf
+- Signal Beam
 - Trick
 - Tickle
 
@@ -19735,7 +19735,7 @@ Jolly Nature
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 - Volt Switch
 - Thunder Wave
-- Eerie Impulse
+- Will O Wisp
 - Pain Split
 
 Blaziken @ Lum Berry
@@ -19744,7 +19744,7 @@ Level: 40
 Modest Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Fire Punch
-- U-turn
+- Baton Pass
 - Feather Dance
 - Double Kick
 
@@ -19764,7 +19764,7 @@ Level: 44
 Careful Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Tailwind
-- U-turn
+- Pursuit
 - Sucker Punch
 - Torment
 
@@ -19773,8 +19773,8 @@ Ability: Effect Spore
 Level: 44
 Naive Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Leaf Storm
-- Petal Blizzard
+- Giga Drain
+- Body Slam
 - Venoshock
 - Teeter Dance
 
@@ -19824,7 +19824,7 @@ Level: 44
 Careful Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 - Tailwind
-- U-turn
+- Pursuit
 - Sucker Punch
 - Torment
 
@@ -19833,8 +19833,8 @@ Ability: Effect Spore
 Level: 44
 Naive Nature
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
-- Leaf Storm
-- Petal Blizzard
+- Giga Drain
+- Body Slam
 - Venoshock
 - Teeter Dance
 
@@ -19867,3 +19867,423 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Low Kick
 - Thief
 - Baton Pass
+
+=== TRAINER_BRENDAN_RUSTBORO_MUDKIP ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Wingull @ Focus Sash
+Ability: Rain Dish
+Level: 17
+Modest Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Rain Dance
+- Gust
+- Twister
+- Water Gun
+
+Lombre @ Coba Berry
+Ability: Swift Swim
+Level: 17
+Bold Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Water Gun
+- Mega Drain
+- Fake Out
+- Teeter Dance
+
+Grovyle @ Loaded Dice
+Ability: Overgrow
+Level: 19
+Lax Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Bullet Seed
+- Mega Drain
+- Leer
+- Rock Tomb
+
+=== TRAINER_MAY_RUSTBORO_MUDKIP ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Wingull @ Focus Sash
+Ability: Rain Dish
+Level: 17
+Modest Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Rain Dance
+- Gust
+- Twister
+- Water Gun
+
+Lombre @ Coba Berry
+Ability: Swift Swim
+Level: 17
+Bold Nature
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
+- Water Gun
+- Mega Drain
+- Fake Out
+- Teeter Dance
+
+Grovyle @ Loaded Dice
+Ability: Overgrow
+Level: 19
+Lax Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Bullet Seed
+- Mega Drain
+- Leer
+- Rock Tomb
+
+=== TRAINER_BRENDAN_ROUTE_110_MUDKIP ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Wingull @ Eviolite
+Ability: Rain Dish
+Level: 22
+Modest Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Rain Dance
+- Water Pulse
+- Air Cutter
+- U-turn
+
+Lombre @ Coba Berry
+Ability: Swift Swim
+Level: 22
+Modest Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Water Pulse
+- Mega Drain
+- Fake Out
+- Teeter Dance
+
+Umbreon @ Chople Berry
+Ability: Synchronize
+Level: 22
+Adamant Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Bite
+- Confuse Ray
+- Rain Dance
+- Charm
+
+Grovyle @ Oran Berry
+Ability: Unburden
+Level: 24
+Quirky Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Mega Drain
+- Aerial Ace
+- Fury Cutter
+- Substitute
+
+=== TRAINER_MAY_ROUTE_110_MUDKIP ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Wingull @ Eviolite
+Ability: Rain Dish
+Level: 22
+Modest Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Rain Dance
+- Water Pulse
+- Air Cutter
+- U-turn
+
+Lombre @ Coba Berry
+Ability: Swift Swim
+Level: 22
+Modest Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Water Pulse
+- Mega Drain
+- Fake Out
+- Teeter Dance
+
+Umbreon @ Chople Berry
+Ability: Synchronize
+Level: 22
+Adamant Nature
+IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+- Bite
+- Confuse Ray
+- Rain Dance
+- Charm
+
+Grovyle @ Oran Berry
+Ability: Unburden
+Level: 24
+Quirky Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Mega Drain
+- Aerial Ace
+- Fury Cutter
+- Substitute
+
+=== TRAINER_BRENDAN_ROUTE_119_MUDKIP ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 38
+Careful Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Air Slash
+- Water Pulse
+- U-turn
+- Icy Wind
+
+Ludicolo @ Coba Berry
+Ability: Swift Swim
+Level: 38
+Impish Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Bubble Beam
+- Fake Out
+- Giga Drain
+- Rain Dance
+
+Umbreon @ Lum Berry
+Ability: Inner Focus
+Level: 38
+Adamant Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Toxic
+- Pursuit
+- Confuse Ray
+- Torment
+
+Rotom-Frost @ Sticky Barb
+Ability: Levitate
+Level: 38
+Jolly Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Shock Wave
+- Will-O-Wisp
+- Trick
+- Signal Beam
+
+Sceptile @ Sitrus Berry
+Ability: Unburden
+Level: 40
+Impish Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Magical Leaf
+- Dragon Breath
+- Swagger
+- Pursuit
+
+=== TRAINER_MAY_ROUTE_119_MUDKIP ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 38
+Careful Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Air Slash
+- Water Pulse
+- U-turn
+- Icy Wind
+
+Ludicolo @ Coba Berry
+Ability: Swift Swim
+Level: 38
+Impish Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Bubble Beam
+- Fake Out
+- Giga Drain
+- Rain Dance
+
+Umbreon @ Lum Berry
+Ability: Inner Focus
+Level: 38
+Adamant Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Toxic
+- Pursuit
+- Confuse Ray
+- Torment
+
+Rotom-Frost @ Sticky Barb
+Ability: Levitate
+Level: 38
+Jolly Nature
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+- Shock Wave
+- Will-O-Wisp
+- Trick
+- Signal Beam
+
+Sceptile @ Sitrus Berry
+Ability: Unburden
+Level: 40
+Impish Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Magical Leaf
+- Dragon Breath
+- Swagger
+- Pursuit
+
+=== TRAINER_BRENDAN_LILYCOVE_MUDKIP ===
+Name: BRENDAN
+Difficulty: Hard
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 44
+Careful Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Scald
+- Air Slash
+- Icy Wind
+- U-turn
+
+Ludicolo @ Lum Berry
+Ability: Swift Swim
+Level: 44
+Bold Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Whirlpool
+- Leech Seed
+- Fake Out
+- Teeter Dance
+
+Umbreon @ Rocky Helmet
+Ability: Inner Focus
+Level: 44
+Timid Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Pursuit
+- Sucker Punch
+- Yawn
+- Mimic
+
+Rotom-Frost @ Leftovers
+Ability: Levitate
+Level: 44
+Jolly Nature
+IVs: 18 HP / 18 Atk / 18 Def / 19 SpA / 19 SpD / 19 Spe
+- Hidden Power
+- Will-O-Wisp
+- Discharge
+- Rain Dance
+
+Sceptile @ Sitrus Berry
+Ability: Unburden
+Level: 46
+Quirky Nature
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Dragon Claw
+- Leaf Blade
+- Dig
+- Attract
+
+=== TRAINER_MAY_LILYCOVE_MUDKIP ===
+Name: MAY
+Difficulty: Hard
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Basic Trainer
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 44
+Careful Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Scald
+- Air Slash
+- Icy Wind
+- U-turn
+
+Ludicolo @ Lum Berry
+Ability: Swift Swim
+Level: 44
+Bold Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Whirlpool
+- Leech Seed
+- Fake Out
+- Teeter Dance
+
+Umbreon @ Rocky Helmet
+Ability: Inner Focus
+Level: 44
+Timid Nature
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Pursuit
+- Sucker Punch
+- Yawn
+- Mimic
+
+Rotom-Frost @ Leftovers
+Ability: Levitate
+Level: 44
+Jolly Nature
+IVs: 18 HP / 18 Atk / 18 Def / 19 SpA / 19 SpD / 19 Spe
+- Hidden Power
+- Will-O-Wisp
+- Discharge
+- Rain Dance
+
+Sceptile @ Sitrus Berry
+Ability: Unburden
+Level: 46
+Quirky Nature
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Dragon Claw
+- Leaf Blade
+- Dig
+- Attract
