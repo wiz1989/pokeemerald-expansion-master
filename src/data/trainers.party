@@ -18770,21 +18770,57 @@ Class: Magma Leader
 Pic: Magma Leader Maxie
 Gender: Male
 Music: Magma
-Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
-Mightyena
-Level: 41
+Sableye @ Heat Rock  
+Ability: Prankster  
+Level: 43
+Careful Nature  
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Sunny Day  
+- Will O Wisp  
+- Fire Punch  
+- Sucker Punch  
 
-Crobat
-Level: 41
+Volcarona @ Rocky Helmet  
+Ability: Flame Body  
+Level: 43
+Adamant Nature  
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Fire Spin  
+- Giga Drain  
+- Leech Life  
+- Sunny Day  
 
-Camerupt
-Level: 41
+Crobat @ Lum Berry  
+Ability: Inner Focus  
+Level: 43
+Careful Nature  
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- U Turn 
+- Acrobatics  
+- Confuse Ray  
+- Heat Wave  
+
+Heatmor @ Leftovers  
+Ability: White Smoke  
+Level: 44
+Sassy Nature  
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Fire Punch  
+- Thunder Punch  
+- Tickle  
+- Sunny Day  
+
+Camerupt @ Passho Berry  
+Ability: Solid Rock  
+Level: 45
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Earthquake  
+- Heat Wave  
+- Curse  
+- Sunny Day
 
 === TRAINER_MAXIE_MT_CHIMNEY ===
 Name: MAXIE
@@ -18793,12 +18829,11 @@ Class: Magma Leader
 Pic: Magma Leader Maxie
 Gender: Male
 Music: Magma
-Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
 Mightyena @ Black Glasses
-Level: 28
+Level: 26
 Ability: Intimidate
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Yawn
@@ -18807,7 +18842,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Crunch
 
 Gabite @ Smooth Rock
-Level: 28
+Level: 27
 Ability: Rough Skin
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Sandstorm
@@ -18816,7 +18851,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Toxic
 
 Boldore @ Wide Lens
-Level: 28
+Level: 27
 Ability: Sand Force
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Sandstorm
@@ -18825,7 +18860,7 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Heavy Slam
 
 Camerupt @ Sitrus Berry
-Level: 29
+Level: 28
 Ability: Solid Rock
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Amnesia
@@ -18906,21 +18941,59 @@ Class: Aqua Leader
 Pic: Aqua Leader Archie
 Gender: Male
 Music: Aqua
-Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
-Mightyena
-Level: 41
+Politoed @ Damp Rock  
+Ability: Drizzle  
+Level: 52
+Shiny: Yes  
+Adamant Nature  
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Icy Wind  
+- Water Pulse 
+- Bounce  
+- Mud Shot  
 
-Crobat
-Level: 41
+Durant @ Clear Amulet  
+Ability: Swarm  
+Level: 52
+Jolly Nature  
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- X-Scissor  
+- Iron Head  
+- Rock Tomb  
+- Attract  
 
-Sharpedo
-Level: 43
+Lanturn @ Leftovers  
+Ability: Volt Absorb  
+Level: 53  
+Timid Nature  
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Thunder Wave  
+- Electro Ball  
+- Electroweb  
+- Rain Dance  
+
+Crobat @ Lum Berry  
+Ability: Inner Focus  
+Level: 53  
+Modest Nature 
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Air Slash  
+- Air Cutter  
+- Sludge Bomb  
+- Confuse Ray  
+
+Sharpedo @ Focus Sash  
+Ability: Speed Boost  
+Level: 54 
+Modest Nature  
+IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
+- Aqua Jet  
+- Snarl  
+- Dark Pulse  
+- Taunt
 
 === TRAINER_WALLY_MAUVILLE ===
 Name: WALLY
