@@ -44,20 +44,20 @@
 #define NUM_TEMP_FLAGS   (TEMP_FLAGS_END - TEMP_FLAGS_START + 1)
 
 #define FLAG_FOREVER_REPEL   0x20
-#define FLAG_INVERSE_BATTLE  0x21 // Unused Flag
-#define FLAG_DEBUG_BATTLERULE 0x22 // Unused Flag
-#define FLAG_DEBUG_RANDOMSPECIESTYPE 0x23 // Unused Flag
-#define FLAG_NO_COLLISION    0x24 // Unused Flag
-#define FLAG_NO_BAG_IN_BATTLE 0x25 // Unused Flag
+#define FLAG_INVERSE_BATTLE  0x21
+#define FLAG_DEBUG_BATTLERULE 0x22
+#define FLAG_DEBUG_RANDOMSPECIESTYPE 0x23
+#define FLAG_NO_COLLISION    0x24
+#define FLAG_NO_BAG_IN_BATTLE 0x25
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag
-#define FLAG_DEBUG_RANDOMMOVETYPE 0x27 // Unused Flag
-#define FLAG_DROWZEE_TRADED  0x28 // Unused Flag
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
+#define FLAG_DEBUG_RANDOMMOVETYPE 0x27
+#define FLAG_DROWZEE_TRADED  0x28
+#define FLAG_AUTO_RUN        0x29
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
-#define FLAG_REVEAL_RULE     0x2B // Unused Flag
+#define FLAG_REVEAL_RULE     0x2B
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag
-#define FLAG_APPROACHED_FIRST_RIVAL 0x2D // Unused Flag
-#define FLAG_SKIP_INTRO      0x2E // Unused Flag
+#define FLAG_APPROACHED_FIRST_RIVAL 0x2D
+#define FLAG_SKIP_INTRO      0x2E
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag
 #define FLAG_UNUSED_0x030    0x30 // Unused Flag
 #define FLAG_UNUSED_0x031    0x31 // Unused Flag

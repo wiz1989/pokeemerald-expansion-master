@@ -858,18 +858,33 @@ static void PlayerNotOnBikeMoving(u8 direction, u16 heldKeys)
         return;
     }
 
-    if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER) && (heldKeys & B_BUTTON) && FlagGet(FLAG_SYS_B_DASH)
+    if (!(gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_UNDERWATER) && FlagGet(FLAG_SYS_B_DASH)
      && IsRunningDisallowed(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior) == 0 && !FollowerNPCComingThroughDoor())
     {
-        if (ObjectMovingOnRockStairs(&gObjectEvents[gPlayerAvatar.objectEventId], direction))
-            PlayerRunSlow(direction);
-        else
-            PlayerRun(direction);
+        // walk slow when pressing B while Auto Run is active
+        if (FlagGet(OW_FLAG_AUTO_RUN) && (heldKeys & B_BUTTON))
+        {
+            if (ObjectMovingOnRockStairs(&gObjectEvents[gPlayerAvatar.objectEventId], direction))
+                PlayerWalkSlowStairs(direction);
+            else
+                PlayerWalkNormal(direction);
+            return;
+        }
 
-        gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_DASH;
-        return;
+        // run fast when pressing B or Auto Run is active
+        if ((heldKeys & B_BUTTON) || FlagGet(OW_FLAG_AUTO_RUN))
+        {
+            if (ObjectMovingOnRockStairs(&gObjectEvents[gPlayerAvatar.objectEventId], direction))
+                PlayerRunSlow(direction);
+            else
+                PlayerRun(direction);
+
+            gPlayerAvatar.flags |= PLAYER_AVATAR_FLAG_DASH;
+            return;
+        }
     }
-    else if (FlagGet(DN_FLAG_SEARCHING) && (heldKeys & A_BUTTON))
+
+    if (FlagGet(DN_FLAG_SEARCHING) && (heldKeys & A_BUTTON))
     {
         gPlayerAvatar.creeping = TRUE;
         PlayerWalkSlow(direction);

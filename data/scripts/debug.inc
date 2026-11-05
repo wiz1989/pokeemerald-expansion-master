@@ -292,6 +292,24 @@ Debug_ForeverRepel_Active:
 Debug_ForeverRepel_Inactive:
 	.string "Forever-Repel was deactivated.$"
 
+Debug_MsgAutoRun_Active::
+	msgbox Debug_AutoRun_Active, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_MsgAutoRun_Inactive::
+	msgbox Debug_AutoRun_Inactive, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_AutoRun_Active:
+	.string "Auto-Run was activated.$"
+
+Debug_AutoRun_Inactive:
+	.string "Auto-Run was deactivated.$"
+
 Debug_LevelUp_Event:
 	.string "{STR_VAR_1} was leveled up\n"
 	.string "to the next event or cap.$"
