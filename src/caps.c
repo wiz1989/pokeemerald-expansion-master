@@ -10,16 +10,16 @@ u32 GetCurrentLevelCap(void)
 {
     static const u32 sLevelCapFlagMap[][2] =
     {
-        {FLAG_APPROACHED_FIRST_RIVAL, 5},
-        {FLAG_BADGE01_GET, 15}, // Roxanne
-        {FLAG_BADGE02_GET, 19}, // Brawly
-        {FLAG_BADGE03_GET, 24}, // Wattson
-        {FLAG_BADGE04_GET, 29}, // Flannery
-        {FLAG_BADGE05_GET, 34}, // Norman
-        {FLAG_BADGE06_GET, 40}, // Winona
-        {FLAG_BADGE07_GET, 46}, // Tate & Liza
-        {FLAG_BADGE08_GET, 55}, // Wallace
-        {FLAG_IS_CHAMPION, 65},
+        {FLAG_APPROACHED_FIRST_RIVAL, CAP_START},
+        {FLAG_BADGE01_GET,            CAP_ROXANNE},
+        {FLAG_BADGE02_GET,            CAP_BRAWLY},
+        {FLAG_BADGE03_GET,            CAP_WATTSON},
+        {FLAG_BADGE04_GET,            CAP_FLANNERY},
+        {FLAG_BADGE05_GET,            CAP_NORMAN},
+        {FLAG_BADGE06_GET,            CAP_WINONA},
+        {FLAG_BADGE07_GET,            CAP_TATE_LIZA},
+        {FLAG_BADGE08_GET,            CAP_WALLACE},
+        {FLAG_IS_CHAMPION,            CAP_CHAMPION},
     };
 
     u32 i;

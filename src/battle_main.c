@@ -2122,6 +2122,36 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                 else if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
                     level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
             }
+            else
+            {
+                // Levels of individual trainers have not been adjusted after raising the level caps starting at Norman split.
+                // this offset handles these trainers to save myself a lot of time.
+                u8 levelOffsetToLevelCapAdjustment = 0;
+                
+                switch (currentLevelCap)
+                {
+                    case CAP_NORMAN:
+                        levelOffsetToLevelCapAdjustment = CAP_NORMAN - CAP_VANILLA_NORMAN;
+                        break;
+                    case CAP_WINONA:
+                        levelOffsetToLevelCapAdjustment = CAP_WINONA - CAP_VANILLA_WINONA;
+                        break;
+                    case CAP_TATE_LIZA:
+                        levelOffsetToLevelCapAdjustment = CAP_TATE_LIZA - CAP_VANILLA_TATE_LIZA;
+                        break;
+                    case CAP_WALLACE:
+                        levelOffsetToLevelCapAdjustment = CAP_WALLACE - CAP_VANILLA_WALLACE;
+                        break;
+                    case CAP_CHAMPION:
+                        levelOffsetToLevelCapAdjustment = CAP_CHAMPION - CAP_VANILLA_CHAMPION;
+                        break;
+                }
+
+                level = level + levelOffsetToLevelCapAdjustment;
+
+                if (level > currentLevelCap)
+                    level = currentLevelCap;
+            }
 
             // update species if evolved form is available at this level
             species = partyData[monIndex].species;

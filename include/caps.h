@@ -1,6 +1,28 @@
 #ifndef GUARD_CAPS_H
 #define GUARD_CAPS_H
 
+#define CAP_START      5
+#define CAP_ROXANNE   15
+#define CAP_BRAWLY    19
+#define CAP_WATTSON   24
+#define CAP_FLANNERY  29
+#define CAP_NORMAN    34
+#define CAP_WINONA    40
+#define CAP_TATE_LIZA 46
+#define CAP_WALLACE   55
+#define CAP_CHAMPION  65
+
+#define CAP_VANILLA_START      5
+#define CAP_VANILLA_ROXANNE   15
+#define CAP_VANILLA_BRAWLY    19
+#define CAP_VANILLA_WATTSON   24
+#define CAP_VANILLA_FLANNERY  29
+#define CAP_VANILLA_NORMAN    31
+#define CAP_VANILLA_WINONA    33
+#define CAP_VANILLA_TATE_LIZA 42
+#define CAP_VANILLA_WALLACE   46
+#define CAP_VANILLA_CHAMPION  58
+
 #if B_EXP_CAP_TYPE != EXP_CAP_NONE && B_EXP_CAP_TYPE != EXP_CAP_HARD && B_EXP_CAP_TYPE != EXP_CAP_SOFT
 #error "Invalid choice for B_EXP_CAP_TYPE, must be of [EXP_CAP_NONE, EXP_CAP_HARD, EXP_CAP_SOFT]"
 #endif
