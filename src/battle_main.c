@@ -2109,17 +2109,9 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             level = partyData[monIndex].lvl;
             if (gSaveBlock2Ptr->harderTrainers)
             {
-                if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_WINSTRATE
-                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_RIVAL
-                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_AQUA_LEADER
-                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_MAGMA_LEADER
-                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentB) == TRAINER_CLASS_RIVAL
-                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentB) == TRAINER_CLASS_AQUA_LEADER
-                  || GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentB) == TRAINER_CLASS_MAGMA_LEADER)
-                {
+                if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_WINSTRATE)
                     level = currentLevelCap;
-                }
-                else if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
+                else if (currentLevelCap > (level + NPC_LEVEL_OFFSET_FROM_CAP))
                     level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
             }
             else

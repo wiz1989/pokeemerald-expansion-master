@@ -1596,7 +1596,7 @@ static u16 GetFishingEncounterSpecies(u8 rod)
     // calc final encounter
     do
     {
-        if (!gSaveBlock2Ptr->dupeClause)
+        if (!gSaveBlock2Ptr->dupeClause && !gIsFishingEncounter)
             species = RollSpecies(table, count, totalWeight);
         else if (validEncountersLeft != 1)
             species = RollSpecies(table, count, totalWeight);

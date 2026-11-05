@@ -94,6 +94,7 @@ static void InitPlayerTrainerId(void)
 }
 
 // L=A isnt set here for some reason.
+// MYSTERY MODE
 static void SetDefaultOptions(void)
 {
     // vanilla
@@ -110,7 +111,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->revealRule = TRUE;
     gSaveBlock2Ptr->announceRules = FALSE;
     gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_1;
-    gSaveBlock2Ptr->instaRuleTrigger = TRUE;
+    gSaveBlock2Ptr->instaRuleTrigger = FALSE;
     gSaveBlock2Ptr->activateNoCritRule = FALSE;
     // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
@@ -126,6 +127,7 @@ static void SetDefaultOptions(void)
     gSaveBlock3Ptr->metLocsInitialized = 1;
 }
 
+// MASTERY MODE
 static void SetDefaultOptions_FlygonHG(void)
 {
     // vanilla
