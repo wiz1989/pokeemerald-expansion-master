@@ -19044,9 +19044,9 @@ AI: Basic Trainer
 
 Torkoal @ Snowball
 Ability: White Smoke
-Level: 13
+Level: 16
 Sassy Nature
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 - Clear Smog
 - Ember
 - Yawn
@@ -19084,9 +19084,9 @@ AI: Basic Trainer
 
 Torkoal @ Snowball
 Ability: White Smoke
-Level: 13
+Level: 16
 Sassy Nature
-IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 - Clear Smog
 - Ember
 - Yawn
@@ -19135,6 +19135,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 Torkoal @ Oran Berry
 Ability: White Smoke
 Level: 22
+Sassy Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Fire Spin
 - Yawn
@@ -19184,6 +19185,7 @@ IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 Torkoal @ Oran Berry
 Ability: White Smoke
 Level: 22
+Sassy Nature
 IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
 - Fire Spin
 - Yawn
@@ -19373,11 +19375,12 @@ IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 Rotom-Mow @ Sticky Barb
 Ability: Levitate
 Level: 44
-IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+Adamant Nature
+IVs: 18 HP / 18 Atk / 19 Def / 18 SpA / 19 SpD / 19 Spe
 - Volt Switch
 - Trick
 - Confuse Ray
-- Ominous Wind
+- Hidden Power
 
 Swampert @ Rindo Berry
 Ability: Torrent
@@ -19432,11 +19435,12 @@ IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 Rotom-Mow @ Sticky Barb
 Ability: Levitate
 Level: 44
-IVs: 6 HP / 6 Atk / 6 Def / 6 SpA / 6 SpD / 6 Spe
+Adamant Nature
+IVs: 18 HP / 18 Atk / 19 Def / 18 SpA / 19 SpD / 19 Spe
 - Volt Switch
 - Trick
 - Confuse Ray
-- Ominous Wind
+- Hidden Power
 
 Swampert @ Rindo Berry
 Ability: Torrent
@@ -19458,9 +19462,9 @@ Music: Male
 Double Battle: No
 AI: Basic Trainer
 
-Oddish @ Focus Sash
+Gloom @ Focus Sash
 Ability: Chlorophyll
-Level: 17
+Level: 16
 Bold Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 - Sunny Day
@@ -19498,9 +19502,9 @@ Music: Female
 Double Battle: No
 AI: Basic Trainer
 
-Oddish @ Focus Sash
+Gloom @ Focus Sash
 Ability: Chlorophyll
-Level: 17
+Level: 16
 Bold Nature
 IVs: 3 HP / 3 Atk / 3 Def / 3 SpA / 3 SpD / 3 Spe
 - Sunny Day
@@ -19792,9 +19796,9 @@ Rotom-Wash @ Lagging Tail
 Ability: Levitate
 Level: 44
 Jolly Nature 
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 19 SpD / 19 Spe
 - Discharge
-- Uproar
+- Hidden Power
 - Spite
 - Trick
 
@@ -19852,9 +19856,9 @@ Rotom-Wash @ Lagging Tail
 Ability: Levitate
 Level: 44
 Jolly Nature 
-IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 19 SpD / 19 Spe
 - Discharge
-- Uproar
+- Hidden Power
 - Spite
 - Trick
 
