@@ -2271,6 +2271,7 @@ static bool8 HasHardTrainerSet(u16 trainerNum)
         case TRAINER_MAY_ROUTE_119_MUDKIP:
         case TRAINER_BRENDAN_LILYCOVE_MUDKIP:
         case TRAINER_MAY_LILYCOVE_MUDKIP:
+        case TRAINER_WALLY_VR_1:
             return TRUE;    
     }
 

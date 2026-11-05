@@ -11879,9 +11879,9 @@ Music: Female
 Double Battle: No
 AI: Basic Trainer
 
-Marill @ Oran Berry
+Numel @ Oran Berry
 Level: 15
-Ability: Huge Power
+Ability: Own Tempo
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 
 Shroomish @ Oran Berry
@@ -11889,9 +11889,9 @@ Level: 15
 Ability: Effect Spore
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 
-Numel @ Oran Berry
+Marill @ Oran Berry
 Level: 15
-Ability: Own Tempo
+Ability: Huge Power
 IVs: 25 HP / 25 Atk / 25 Def / 25 SpA / 25 SpD / 25 Spe
 
 === TRAINER_HALEY_2 ===
@@ -20291,3 +20291,54 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Leaf Blade
 - Dig
 - Attract
+
+=== TRAINER_WALLY_VR_1 ===
+Name: WALLY
+Difficulty: Hard
+Class: Rival
+Pic: Wally
+Gender: Male
+Music: Male
+Items: Full Restore / Full Restore
+Double Battle: No
+AI: Basic Trainer
+
+Altaria
+Level: 62
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Aerial Ace
+- Safeguard
+- Dragon Breath
+- Dragon Dance
+
+Delcatty
+Level: 62
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Sing
+- Assist
+- Charm
+- Feint Attack
+
+Roselia
+Level: 62
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Magical Leaf
+- Leech Seed
+- Giga Drain
+- Toxic
+
+Magnezone
+Level: 62
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+- Supersonic
+- Thunderbolt
+- Tri Attack
+- Screech
+
+Gardevoir
+Level: 65
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Double Team
+- Calm Mind
+- Psychic
+- Future Sight
