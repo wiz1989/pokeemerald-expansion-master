@@ -1205,10 +1205,37 @@ static void Debug_RefreshListMenu(u8 taskId)
     gMultiuseListMenuTemplate.cursorKind = 0;
 }
 
+static s32 ListMenuProcessInput_Debug(u8 listTaskId) // wraps the list at the beginning/end
+{
+    u16 scrollOffset, row;
+    u16 totalItems;
+    u16 index;
+    struct ListMenu *list = (void *)gTasks[listTaskId].data;
+
+    ListMenuGetScrollAndRow(listTaskId, &scrollOffset, &row);
+    totalItems = ListMenuGetTemplateField(listTaskId, LISTFIELD_TOTALITEMS);
+    index = scrollOffset + row;
+
+    // handle wrapping first or fall through to regular ListMenu handling
+    if (totalItems > 1 && JOY_REPEAT(DPAD_UP) && index == 0)
+    {
+        ListMenuChangeSelection(list, TRUE, totalItems - 1, TRUE);
+        return LIST_NOTHING_CHOSEN;
+    }
+
+    if (totalItems > 1 && JOY_REPEAT(DPAD_DOWN) && index == totalItems - 1)
+    {
+        ListMenuChangeSelection(list, TRUE, totalItems - 1, FALSE);
+        return LIST_NOTHING_CHOSEN;
+    }
+
+    return ListMenu_ProcessInput(listTaskId);
+}
+
 static void DebugTask_HandleMenuInput_General(u8 taskId)
 {
     const struct DebugMenuOption *options = Debug_GetCurrentCallbackMenu();
-    u32 input = ListMenu_ProcessInput(gTasks[taskId].tMenuTaskId);
+    u32 input = ListMenuProcessInput_Debug(gTasks[taskId].tMenuTaskId);
     struct DebugMenuOption option = options[input];
 
     if (JOY_NEW(A_BUTTON))

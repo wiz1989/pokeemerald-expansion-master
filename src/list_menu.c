@@ -949,7 +949,6 @@ void ListMenuDefaultCursorMoveFunc(s32 itemIndex, bool8 onInit, struct ListMenu 
         PlaySE(SE_SELECT);
 }
 
-// unused
 s32 ListMenuGetTemplateField(u8 taskId, u8 field)
 {
     struct ListMenu *data = (void *) gTasks[taskId].data;
