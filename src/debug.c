@@ -717,11 +717,11 @@ static const struct DebugMenuOption sDebugMenu_Actions_Main[] =
 static const struct DebugMenuOption sDebugMenu_Actions_QoLHub[] =
 {
     { COMPOUND_STRING("Heal Party"),      DebugAction_Party_HealParty },
-    { COMPOUND_STRING("Forever-Repel"),   DebugAction_FlagsVars_EncounterOnOff },
+    { COMPOUND_STRING("{STR_VAR_1}Forever-Repel"),   DebugAction_ToggleFlag, DebugAction_FlagsVars_EncounterOnOff },
     { COMPOUND_STRING("Level Up"),        DebugAction_OpenSubMenu, sDebugMenu_Actions_LevelUp, },
     { COMPOUND_STRING("Access PC"),       DebugAction_ExecuteScript, EventScript_PC, },
     { COMPOUND_STRING("Inflict Status"),  DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
-    { COMPOUND_STRING("Auto Run"),        DebugAction_AutoRunOnOff },
+    { COMPOUND_STRING("{STR_VAR_1}Auto Run"),        DebugAction_ToggleFlag, DebugAction_AutoRunOnOff },
     { COMPOUND_STRING("Move Reminder"),   DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
     { COMPOUND_STRING("Fly to map"),      DebugAction_Util_FlyWithCheck },
     { COMPOUND_STRING("Reroll Rule"),     DebugAction_IncreaseRerollCounter },
@@ -799,7 +799,7 @@ void Debug_ShowMainMenu(void)
 void Debug_ShowQoLHub(void)
 {
     sDebugMenuListData = AllocZeroed(sizeof(*sDebugMenuListData));
-    sDebugMenuListData->listId = 0;
+    sDebugMenuListData->listId = 2;
     Debug_ShowMenu(DebugTask_HandleMenuInput_General, sDebugMenu_Actions_QoLHub);
 }
 
@@ -881,7 +881,7 @@ static void Debug_ShowMenu(DebugFunc HandleInput, const struct DebugMenuOption *
 
     u32 totalItems = 0;
 
-    if (sDebugMenuListData->listId == 1)
+    if (sDebugMenuListData->listId >= 1)
     {
         totalItems = Debug_GenerateListMenuNames();
     }
@@ -1033,79 +1033,97 @@ static u8 Debug_CheckToggleFlags(u8 id)
 {
     u8 result = FALSE;
 
-    switch (id)
+    if (sDebugMenuListData->listId == 1)
     {
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_POKEDEX:
-            result = FlagGet(FLAG_SYS_POKEDEX_GET);
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_NATDEX:
-            result = IsNationalPokedexEnabled();
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_POKENAV:
-            result = FlagGet(FLAG_SYS_POKENAV_GET);
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_MATCH_CALL:
-            result = FlagGet(FLAG_ADDED_MATCH_CALL_TO_POKENAV) && FlagGet(FLAG_HAS_MATCH_CALL);
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_RUN_SHOES:
-            result = FlagGet(FLAG_SYS_B_DASH);
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_LOCATIONS:
-            result = TRUE;
-            for (u32 i = 0; i < ARRAY_COUNT(sLocationFlags); i++)
-            {
-                if (!FlagGet(sLocationFlags[i]))
+        switch (id)
+        {
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_POKEDEX:
+                result = FlagGet(FLAG_SYS_POKEDEX_GET);
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_NATDEX:
+                result = IsNationalPokedexEnabled();
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_POKENAV:
+                result = FlagGet(FLAG_SYS_POKENAV_GET);
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_MATCH_CALL:
+                result = FlagGet(FLAG_ADDED_MATCH_CALL_TO_POKENAV) && FlagGet(FLAG_HAS_MATCH_CALL);
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_RUN_SHOES:
+                result = FlagGet(FLAG_SYS_B_DASH);
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_LOCATIONS:
+                result = TRUE;
+                for (u32 i = 0; i < ARRAY_COUNT(sLocationFlags); i++)
                 {
-                    result = FALSE;
-                    break;
+                    if (!FlagGet(sLocationFlags[i]))
+                    {
+                        result = FALSE;
+                        break;
+                    }
                 }
-            }
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_BADGES_ALL:
-            result = TRUE;
-            for (u32 i = 0; i < ARRAY_COUNT(gBadgeFlags); i++)
-            {
-                if (!FlagGet(gBadgeFlags[i]))
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_BADGES_ALL:
+                result = TRUE;
+                for (u32 i = 0; i < ARRAY_COUNT(gBadgeFlags); i++)
                 {
-                    result = FALSE;
-                    break;
+                    if (!FlagGet(gBadgeFlags[i]))
+                    {
+                        result = FALSE;
+                        break;
+                    }
                 }
-            }
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_GAME_CLEAR:
-            result = FlagGet(FLAG_SYS_GAME_CLEAR);
-            break;
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_FRONTIER_PASS:
-            result = FlagGet(FLAG_SYS_FRONTIER_PASS);
-            break;
-    #if OW_FLAG_NO_COLLISION != 0
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_COLLISION:
-            result = FlagGet(OW_FLAG_NO_COLLISION);
-            break;
-    #endif
-    #if OW_FLAG_NO_ENCOUNTER != 0
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_ENCOUNTER:
-            result = FlagGet(OW_FLAG_NO_ENCOUNTER);
-            break;
-    #endif
-    #if OW_FLAG_NO_TRAINER_SEE != 0
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_TRAINER_SEE:
-            result = FlagGet(OW_FLAG_NO_TRAINER_SEE);
-            break;
-    #endif
-    #if B_FLAG_NO_BAG_USE != 0
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_BAG_USE:
-            result = FlagGet(B_FLAG_NO_BAG_USE);
-            break;
-    #endif
-    #if B_FLAG_NO_CATCHING != 0
-        case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_CATCHING:
-            result = FlagGet(B_FLAG_NO_CATCHING);
-            break;
-    #endif
-        default:
-            result = 0xFF;
-            break;
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_GAME_CLEAR:
+                result = FlagGet(FLAG_SYS_GAME_CLEAR);
+                break;
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_FRONTIER_PASS:
+                result = FlagGet(FLAG_SYS_FRONTIER_PASS);
+                break;
+        #if OW_FLAG_NO_COLLISION != 0
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_COLLISION:
+                result = FlagGet(OW_FLAG_NO_COLLISION);
+                break;
+        #endif
+        #if OW_FLAG_NO_ENCOUNTER != 0
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_ENCOUNTER:
+                result = FlagGet(OW_FLAG_NO_ENCOUNTER);
+                break;
+        #endif
+        #if OW_FLAG_NO_TRAINER_SEE != 0
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_TRAINER_SEE:
+                result = FlagGet(OW_FLAG_NO_TRAINER_SEE);
+                break;
+        #endif
+        #if B_FLAG_NO_BAG_USE != 0
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_BAG_USE:
+                result = FlagGet(B_FLAG_NO_BAG_USE);
+                break;
+        #endif
+        #if B_FLAG_NO_CATCHING != 0
+            case DEBUG_FLAGVAR_MENU_ITEM_TOGGLE_CATCHING:
+                result = FlagGet(B_FLAG_NO_CATCHING);
+                break;
+        #endif
+            default:
+                result = 0xFF;
+                break;
+        }
+    }
+    else if (sDebugMenuListData->listId == 2)
+    {
+        switch (id)
+        {
+            case 1:
+                result = FlagGet(OW_FLAG_NO_ENCOUNTER);
+                break;
+            case 5:
+                result = FlagGet(OW_FLAG_AUTO_RUN);
+                break;
+            default:
+                result = 0xFF;
+                break;
+        }
     }
 
     return result;
@@ -1123,6 +1141,10 @@ static u8 Debug_GenerateListMenuNames(void)
         // Failsafe to prevent memory corruption
         totalItems = min(ARRAY_COUNT(sDebugMenu_Actions_Flags) - 1, DEBUG_MAX_MENU_ITEMS);
 
+    if (sDebugMenuListData->listId == 2)
+        // Failsafe to prevent memory corruption
+        totalItems = min(ARRAY_COUNT(sDebugMenu_Actions_QoLHub) - 1, DEBUG_MAX_MENU_ITEMS);
+
     // Copy item names for all entries but the last (which is Cancel)
     for (i = 0; i < totalItems; i++)
     {
@@ -1130,6 +1152,11 @@ static u8 Debug_GenerateListMenuNames(void)
         {
             flagResult = Debug_CheckToggleFlags(i);
             name = sDebugMenu_Actions_Flags[i].text;
+        }
+        else if (sDebugMenuListData->listId == 2)
+        {
+            flagResult = Debug_CheckToggleFlags(i);
+            name = sDebugMenu_Actions_QoLHub[i].text;
         }
 
         if (flagResult == 0xFF)
@@ -1214,7 +1241,7 @@ static void DebugTask_HandleMenuInput_General(u8 taskId)
         if (Debug_GetCurrentCallbackMenu() != NULL && Debug_RemoveCallbackMenu() != 0)
         {
             Debug_DestroyMenu(taskId);
-            if (sDebugMenuListData->listId != 0)
+            if (sDebugMenuListData->listId == 1)
                 sDebugMenuListData->listId = 0;
             Debug_ShowMenu(DebugTask_HandleMenuInput_General, NULL);
         }
