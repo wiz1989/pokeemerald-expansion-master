@@ -393,6 +393,7 @@ extern const u8 Debug_MsgForeverRepel_Active[];
 extern const u8 Debug_MsgForeverRepel_Inactive[];
 extern const u8 Debug_MsgAutoRun_Active[];
 extern const u8 Debug_MsgAutoRun_Inactive[];
+extern const u8 Debug_MsgMoveReminderInfo[];
 extern const u8 Debug_MsgLevelUp_Cap_Party[];
 extern const u8 Debug_MsgLevelUp_Cap_Boxes[];
 extern const u8 Debug_EventScript_EWRAMCounters[];
@@ -716,15 +717,16 @@ static const struct DebugMenuOption sDebugMenu_Actions_Main[] =
 
 static const struct DebugMenuOption sDebugMenu_Actions_QoLHub[] =
 {
-    { COMPOUND_STRING("Heal Party"),      DebugAction_Party_HealParty },
-    { COMPOUND_STRING("{STR_VAR_1}Forever-Repel"),   DebugAction_ToggleFlag, DebugAction_FlagsVars_EncounterOnOff },
-    { COMPOUND_STRING("Level Up"),        DebugAction_OpenSubMenu, sDebugMenu_Actions_LevelUp, },
-    { COMPOUND_STRING("Access PC"),       DebugAction_ExecuteScript, EventScript_PC, },
-    { COMPOUND_STRING("Inflict Status"),  DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
-    { COMPOUND_STRING("{STR_VAR_1}Auto Run"),        DebugAction_ToggleFlag, DebugAction_AutoRunOnOff },
-    { COMPOUND_STRING("Move Reminder"),   DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
-    { COMPOUND_STRING("Fly to map"),      DebugAction_Util_FlyWithCheck },
-    { COMPOUND_STRING("Reroll Rule"),     DebugAction_IncreaseRerollCounter },
+    { COMPOUND_STRING("Heal Party"),                DebugAction_Party_HealParty },
+    { COMPOUND_STRING("{STR_VAR_1}Forever-Repel"),  DebugAction_ToggleFlag, DebugAction_FlagsVars_EncounterOnOff },
+    { COMPOUND_STRING("Level Up"),                  DebugAction_OpenSubMenu, sDebugMenu_Actions_LevelUp, },
+    { COMPOUND_STRING("Access PC"),                 DebugAction_ExecuteScript, EventScript_PC, },
+    { COMPOUND_STRING("Inflict Status"),            DebugAction_ExecuteScript, Debug_EventScript_InflictStatus1 },
+    { COMPOUND_STRING("{STR_VAR_1}Auto Run"),       DebugAction_ToggleFlag, DebugAction_AutoRunOnOff },
+    // { COMPOUND_STRING("Move Reminder"),              DebugAction_ExecuteScript, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon },
+    { COMPOUND_STRING("Move Reminder"),             DebugAction_ExecuteScript, Debug_MsgMoveReminderInfo },
+    { COMPOUND_STRING("Fly to map"),                DebugAction_Util_FlyWithCheck },
+    { COMPOUND_STRING("Reroll Rule"),               DebugAction_IncreaseRerollCounter },
     { NULL }
 };
 

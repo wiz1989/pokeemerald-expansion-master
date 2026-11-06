@@ -310,6 +310,17 @@ Debug_AutoRun_Active:
 Debug_AutoRun_Inactive:
 	.string "Auto-Run was deactivated.$"
 
+Debug_MsgMoveReminderInfo::
+	msgbox Debug_Move_Reminder_Info, MSGBOX_AUTOCLOSE
+	waitmessage
+	releaseall
+	end
+
+Debug_Move_Reminder_Info:
+	.string "To relearn moves, go to the moves\n"
+	.string "section of the party member\l"
+	.string "summary screen and press START.$"
+
 Debug_LevelUp_Event:
 	.string "{STR_VAR_1} was leveled up\n"
 	.string "to the next event or cap.$"
