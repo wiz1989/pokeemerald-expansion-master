@@ -2324,6 +2324,40 @@ static const u16 sAquaGruntSpecies[] =
     SPECIES_POOCHYENA,
 };
 
+#define AQUA_POOL_SIZE_ENHANCED ARRAY_COUNT(sAquaGruntSpeciesEnhanced)
+static const u16 sAquaGruntSpeciesEnhanced[] =
+{
+    SPECIES_CARVANHA,
+    SPECIES_CORPHISH,
+    SPECIES_TENTACOOL,
+    SPECIES_WAILMER,
+    SPECIES_BASCULIN,
+    SPECIES_TIRTOUGA,
+    SPECIES_DUCKLETT,
+    SPECIES_CHINCHOU,
+    SPECIES_QWILFISH,
+    SPECIES_REMORAID,
+    SPECIES_CLAMPERL,
+    SPECIES_SHELLDER,
+    SPECIES_CROAGUNK,
+    SPECIES_TYNAMO,
+    SPECIES_GRIMER,
+    SPECIES_KOFFING,
+    SPECIES_EKANS,
+    SPECIES_ZUBAT,
+    SPECIES_POOCHYENA,
+    // enhanced pool additions
+    SPECIES_FRILLISH,
+    SPECIES_STUNFISK,
+    SPECIES_WOOPER,
+    SPECIES_ABSOL,
+    SPECIES_SABLEYE,
+    SPECIES_STUNKY,
+    SPECIES_SEVIPER,
+    SPECIES_TRUBBISH,
+    SPECIES_WEAVILE
+};
+
 #define MAGMA_POOL_SIZE ARRAY_COUNT(sMagmaGruntSpecies)
 static const u16 sMagmaGruntSpecies[] =
 {
@@ -2349,6 +2383,40 @@ static const u16 sMagmaGruntSpecies[] =
     SPECIES_POOCHYENA,
 };
 
+#define MAGMA_POOL_SIZE_ENHANCED ARRAY_COUNT(sMagmaGruntSpeciesEnhanced)
+static const u16 sMagmaGruntSpeciesEnhanced[] =
+{
+    SPECIES_NUMEL,
+    SPECIES_SLUGMA,
+    SPECIES_HOUNDOUR,
+    SPECIES_VULPIX,
+    SPECIES_GROWLITHE,
+    SPECIES_TORKOAL,
+    SPECIES_SANDSHREW,
+    SPECIES_DIGLETT,
+    SPECIES_BALTOY,
+    SPECIES_RHYHORN,
+    SPECIES_LARVITAR,
+    SPECIES_CACNEA,
+    SPECIES_HIPPOPOTAS,
+    SPECIES_SANDILE,
+    SPECIES_GRIMER,
+    SPECIES_KOFFING,
+    SPECIES_EKANS,
+    SPECIES_MURKROW,
+    SPECIES_ZUBAT,
+    SPECIES_POOCHYENA,
+    // enhanced pool additions
+    SPECIES_DRILBUR,
+    SPECIES_SKORUPI,
+    SPECIES_ARON,
+    SPECIES_ABSOL,
+    SPECIES_SABLEYE,
+    SPECIES_STUNKY,
+    SPECIES_SCRAGGY,
+    SPECIES_PAWNIARD,
+};
+
 static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *party)
 {
     const u16 *speciesList = NULL;
@@ -2363,13 +2431,29 @@ static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *p
 
     if (IsAquaGrunt(trainer->trainerClass))
     {
-        speciesList = sAquaGruntSpecies;
-        speciesCount = AQUA_POOL_SIZE;
+        if (FlagGet(FLAG_MET_RIVAL_LILYCOVE))
+        {
+            speciesList = sAquaGruntSpeciesEnhanced;
+            speciesCount = AQUA_POOL_SIZE_ENHANCED;
+        }
+        else
+        {
+            speciesList = sAquaGruntSpecies;
+            speciesCount = AQUA_POOL_SIZE;
+        }
     }
     else if (IsMagmaGrunt(trainer->trainerClass))
     {
-        speciesList = sMagmaGruntSpecies;
-        speciesCount = MAGMA_POOL_SIZE;
+        if (FlagGet(FLAG_MET_RIVAL_LILYCOVE))
+        {
+            speciesList = sMagmaGruntSpeciesEnhanced;
+            speciesCount = MAGMA_POOL_SIZE_ENHANCED;
+        }
+        else
+        {
+            speciesList = sMagmaGruntSpecies;
+            speciesCount = MAGMA_POOL_SIZE;
+        }
     }
     
     // update level
