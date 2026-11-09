@@ -13525,7 +13525,7 @@ static void Cmd_pickup(void)
     u16 species, heldItem, ability;
     u8 lvlDivBy10;
 
-    if (!InBattlePike()) // No items in Battle Pike.
+    if (FALSE) // never trigger ow pickup //!InBattlePike()) // No items in Battle Pike.
     {
         bool32 isInPyramid = CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE;
         for (i = 0; i < PARTY_SIZE; i++)
