@@ -2119,6 +2119,9 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 ADJUST_SCORE(-20);
             break;
         case EFFECT_TRICK:
+            if (aiData->abilities[battlerDef] == ABILITY_STICKY_HOLD || aiData->items[battlerAtk] == ITEM_NONE) //TRICKAI
+                ADJUST_SCORE(-10);
+            break;
         case EFFECT_KNOCK_OFF:
         case EFFECT_CORROSIVE_GAS:
             if (aiData->abilities[battlerDef] == ABILITY_STICKY_HOLD)
@@ -4883,35 +4886,35 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         switch (aiData->holdEffects[battlerAtk])
         {
         case HOLD_EFFECT_CHOICE_SCARF:
-            ADJUST_SCORE(DECENT_EFFECT); // assume its beneficial
+            ADJUST_SCORE(GOOD_EFFECT); // assume its beneficial
             break;
         case HOLD_EFFECT_CHOICE_BAND:
             if (!HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_PHYSICAL))
-                ADJUST_SCORE(DECENT_EFFECT);
+                ADJUST_SCORE(GOOD_EFFECT);
             break;
         case HOLD_EFFECT_CHOICE_SPECS:
             if (!HasMoveWithCategory(battlerDef, DAMAGE_CATEGORY_SPECIAL))
-                ADJUST_SCORE(DECENT_EFFECT);
+                ADJUST_SCORE(GOOD_EFFECT);
             break;
         case HOLD_EFFECT_TOXIC_ORB:
             if (!ShouldPoison(battlerAtk, battlerAtk))
-                ADJUST_SCORE(DECENT_EFFECT);
+                ADJUST_SCORE(GOOD_EFFECT);
             break;
         case HOLD_EFFECT_FLAME_ORB:
             if (!ShouldBurn(battlerAtk, battlerAtk, aiData->abilities[battlerAtk]))
-                ADJUST_SCORE(DECENT_EFFECT);
+                ADJUST_SCORE(GOOD_EFFECT);
             break;
         case HOLD_EFFECT_BLACK_SLUDGE:
             if (!IS_BATTLER_OF_TYPE(battlerDef, TYPE_POISON) && aiData->abilities[battlerDef] != ABILITY_MAGIC_GUARD)
-                ADJUST_SCORE(DECENT_EFFECT);
+                ADJUST_SCORE(GOOD_EFFECT);
             break;
         case HOLD_EFFECT_IRON_BALL:
             if (!HasMoveWithEffect(battlerDef, EFFECT_FLING) || !IsBattlerGrounded(battlerDef))
-                ADJUST_SCORE(DECENT_EFFECT);
+                ADJUST_SCORE(GOOD_EFFECT);
             break;
         case HOLD_EFFECT_LAGGING_TAIL:
         case HOLD_EFFECT_STICKY_BARB:
-            ADJUST_SCORE(DECENT_EFFECT);
+            ADJUST_SCORE(GOOD_EFFECT);
             break;
         case HOLD_EFFECT_UTILITY_UMBRELLA:
             if (aiData->abilities[battlerAtk] != ABILITY_SOLAR_POWER && aiData->abilities[battlerAtk] != ABILITY_DRY_SKIN)
@@ -4920,12 +4923,12 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
                 {
                 case ABILITY_SWIFT_SWIM:
                     if (AI_GetWeather() & B_WEATHER_RAIN)
-                        ADJUST_SCORE(DECENT_EFFECT); // Slow 'em down
+                        ADJUST_SCORE(GOOD_EFFECT); // Slow 'em down
                     break;
                 case ABILITY_CHLOROPHYLL:
                 case ABILITY_FLOWER_GIFT:
                     if (AI_GetWeather() & B_WEATHER_SUN)
-                        ADJUST_SCORE(DECENT_EFFECT); // Slow 'em down
+                        ADJUST_SCORE(GOOD_EFFECT); // Slow 'em down
                     break;
                 }
             }
@@ -4934,7 +4937,7 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
             //if (!IsRaidBattle() && GetActiveGimmick(battlerDef) == GIMMICK_DYNAMAX && gNewBS->dynamaxData.timer[battlerDef] > 1 &&
             if (HasDamagingMove(battlerAtk)
              || (hasPartner && HasDamagingMove(BATTLE_PARTNER(battlerAtk))))
-                ADJUST_SCORE(DECENT_EFFECT); // Force 'em out next turn
+                ADJUST_SCORE(GOOD_EFFECT); // Force 'em out next turn
             break;
         default:
             if (GetMoveEffect(move) != EFFECT_BESTOW && aiData->items[battlerAtk] == ITEM_NONE && aiData->items[battlerDef] != ITEM_NONE)
@@ -4945,19 +4948,19 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
                     break;
                 case HOLD_EFFECT_TOXIC_ORB:
                     if (ShouldPoison(battlerAtk, battlerAtk))
-                        ADJUST_SCORE(DECENT_EFFECT);
+                        ADJUST_SCORE(GOOD_EFFECT);
                     break;
                 case HOLD_EFFECT_FLAME_ORB:
                     if (ShouldBurn(battlerAtk, battlerAtk, aiData->abilities[battlerAtk]))
-                        ADJUST_SCORE(DECENT_EFFECT);
+                        ADJUST_SCORE(GOOD_EFFECT);
                     break;
                 case HOLD_EFFECT_BLACK_SLUDGE:
                     if (IS_BATTLER_OF_TYPE(battlerAtk, TYPE_POISON) || aiData->abilities[battlerAtk] == ABILITY_MAGIC_GUARD)
-                        ADJUST_SCORE(DECENT_EFFECT);
+                        ADJUST_SCORE(GOOD_EFFECT);
                     break;
                 case HOLD_EFFECT_IRON_BALL:
                     if (HasMoveWithEffect(battlerAtk, EFFECT_FLING))
-                        ADJUST_SCORE(DECENT_EFFECT);
+                        ADJUST_SCORE(GOOD_EFFECT);
                     break;
                 case HOLD_EFFECT_LAGGING_TAIL:
                 case HOLD_EFFECT_STICKY_BARB:
