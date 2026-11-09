@@ -18743,41 +18743,45 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: Yes
 AI: Basic Trainer
 
-Claydol @ Soft Sand
-Level: 45
-Ability: Levitate
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Earthquake
-- Ancient Power
-- Psychic
-- Stealth Rock
-
-Xatu @ Leftovers
-Level: 45
-Ability: Synchronize
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Psychic
-- Roost
-- Thunder Wave
-- Calm Mind
-
-Lunatone @ Sitrus Berry
-Level: 46
-Ability: Levitate
-IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
-- Moonlight
-- Psychic
-- Earth Power
-- Calm Mind
-
 Solrock @ Light Clay
-Level: 46
+Level: 45
 Ability: Levitate
+Impish Nature
 IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
 - Reflect
 - Light Screen
 - Helping Hand
 - Rock Slide
+
+Gothitelle @ Leftovers
+Level: 45
+Ability: Shadow Tag
+Calm Nature
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Psychic
+- Charm
+- Thunder Wave
+- Dark Pulse
+
+Darmanitan @ Life Orb
+Level: 46
+Ability: Zen Mode
+Hasty Nature
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Flare Blitz
+- Superpower
+- Psychic
+- Overheat
+
+Gallade @ Lum Berry
+Level: 46
+Ability: Justified
+Adamant Nature
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Swords Dance
+- Drain Punch
+- Psycho Cut
+- Leaf Blade
 
 === TRAINER_JUAN_1 ===
 Name: JUAN
