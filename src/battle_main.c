@@ -2371,7 +2371,6 @@ static const u16 sMagmaGruntSpecies[] =
     SPECIES_DIGLETT,
     SPECIES_BALTOY,
     SPECIES_RHYHORN,
-    SPECIES_LARVITAR,
     SPECIES_CACNEA,
     SPECIES_HIPPOPOTAS,
     SPECIES_SANDILE,
@@ -2381,6 +2380,7 @@ static const u16 sMagmaGruntSpecies[] =
     SPECIES_MURKROW,
     SPECIES_ZUBAT,
     SPECIES_POOCHYENA,
+    SPECIES_VULLABY,
 };
 
 #define MAGMA_POOL_SIZE_ENHANCED ARRAY_COUNT(sMagmaGruntSpeciesEnhanced)
@@ -2396,7 +2396,6 @@ static const u16 sMagmaGruntSpeciesEnhanced[] =
     SPECIES_DIGLETT,
     SPECIES_BALTOY,
     SPECIES_RHYHORN,
-    SPECIES_LARVITAR,
     SPECIES_CACNEA,
     SPECIES_HIPPOPOTAS,
     SPECIES_SANDILE,
@@ -2406,6 +2405,7 @@ static const u16 sMagmaGruntSpeciesEnhanced[] =
     SPECIES_MURKROW,
     SPECIES_ZUBAT,
     SPECIES_POOCHYENA,
+    SPECIES_VULLABY,
     // enhanced pool additions
     SPECIES_DRILBUR,
     SPECIES_SKORUPI,
