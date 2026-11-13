@@ -5804,3 +5804,31 @@ bool32 OpponentKnowsNoMissMove(u32 battlerAtk, u32 battlerDef, struct AiLogicDat
 
     return FALSE;
 }
+
+bool32 WouldAbsorbLockedMove(u32 battler, u32 opposingBattler, u32 lockedMove)
+{
+    u32 abilityDef = gAiLogicData->abilities[battler];
+    u32 abilityAtk = gAiLogicData->abilities[opposingBattler];
+    u32 moveType;
+
+    if (abilityDef == ABILITY_NONE || gBattleMons[battler].volatiles.gastroAcid)
+        return FALSE;
+
+    if (gBattleMons[opposingBattler].volatiles.gastroAcid)
+        abilityAtk = ABILITY_NONE;
+
+    if (gAiLogicData->holdEffects[battler] != HOLD_EFFECT_ABILITY_SHIELD
+     && gAbilitiesInfo[abilityDef].breakable
+     && (abilityAtk == ABILITY_MOLD_BREAKER
+      || abilityAtk == ABILITY_TERAVOLT
+      || abilityAtk == ABILITY_TURBOBLAZE
+      || MoveIgnoresTargetAbility(lockedMove)))
+        return FALSE;
+
+    if (abilityAtk == ABILITY_NORMALIZE)
+        moveType = TYPE_NORMAL;
+    else
+        moveType = GetMoveType(lockedMove);
+
+    return CanAbilityAbsorbMove(opposingBattler, battler, abilityDef, lockedMove, moveType, AI_CHECK);
+}

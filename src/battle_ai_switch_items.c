@@ -620,6 +620,17 @@ static bool32 ShouldSwitchIfOpponentChargingOrInvulnerable(u32 battler)
 
     if (IsDoubleBattle() || !(gAiThinkingStruct->aiFlags[battler] & AI_FLAG_SMART_SWITCHING))
         return FALSE;
+    
+    // additional check for locked moves that could be absorbed
+    // had a test constellation where the AI was stuck in a switch loop due to free switch attempts (Dive) and storm drain switches
+    if (gBattleMons[opposingBattler].volatiles.multipleTurns
+    && gDisableStructs[opposingBattler].lastTurnWasChargingTurn)
+    {
+        u32 lockedMove = gLockedMoves[opposingBattler];
+
+        if (WouldAbsorbLockedMove(battler, opposingBattler, lockedMove))
+            return FALSE;
+    }
 
     if (isOpposingBattlerChargingOrInvulnerable && gAiLogicData->mostSuitableMonId[battler] != PARTY_SIZE && RandomPercentage(RNG_AI_SWITCH_FREE_TURN, GetSwitchChance(SHOULD_SWITCH_FREE_TURN)))
         return SetSwitchinAndSwitch(battler, PARTY_SIZE);
