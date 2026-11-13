@@ -564,6 +564,9 @@ static void CB2_InitBattleInternal(void)
     else
         SetMainCallback2(CB2_HandleStartBattle);
 
+    // reset battle rules
+    gBattleRulesInitialized = FALSE;
+
     if (!DEBUG_OVERWORLD_MENU || (DEBUG_OVERWORLD_MENU && !gIsDebugBattle))
     {
         if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED)))
@@ -574,6 +577,9 @@ static void CB2_InitBattleInternal(void)
             SetWildMonHeldItem();
             CalculateEnemyPartyCount();
         }
+
+        // recalulate battle rules
+        ComputeActiveBattleRules();
         if (IsActiveBattleRule(BATTLERULE_1HP))
         {
             u8 hp = 1;

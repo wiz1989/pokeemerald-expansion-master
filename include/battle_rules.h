@@ -5,6 +5,7 @@
 #define MAX_CONCURRENT_RULES 3
 
 extern u8 gActiveBattleRules[MAX_CONCURRENT_RULES];
+extern bool8 gBattleRulesInitialized;
 extern u8 gBattleRuleViolated;
 
 void IncrementBattleRuleRerollCounter(void);
