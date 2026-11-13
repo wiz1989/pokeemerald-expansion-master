@@ -585,7 +585,7 @@ static bool8 IsBattleRuleAvailable(u8 rule)
 #define BUDGET_3R_4 44   // 4,4%
 #define BUDGET_3R_5 230  // 23%
 #define BUDGET_3R_6 400  // 40%
-#define BUDGET_3R_7 280  // 28%
+#define BUDGET_3R_7 290  // 29%
 // roll the difficulty bucket (4-7 points); also handles 1PP rule
 static u8 RollBattleRuleBudget(u8 ruleCount, bool8 onePPRuleAllowed, u32 *seed)
 {
