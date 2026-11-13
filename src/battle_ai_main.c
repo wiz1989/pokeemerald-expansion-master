@@ -6690,7 +6690,7 @@ bool32 IsMoveBlockedByBattleRules(u32 battlerAtk, u32 battlerDef, u32 move)
         case BATTLERULE_NOSUPEREFFECTIVE:
         {
             u16 effectiveness = CalcTypeEffectivenessMultiplierHelper(move, GetBattleMoveType(move), battlerAtk, battlerDef,
-                                                                      gBattleMons[battlerAtk].ability, gBattleMons[battlerDef].ability, TRUE);
+                                                                      gBattleMons[battlerAtk].ability, gBattleMons[battlerDef].ability, FALSE);
             if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
                 return TRUE;
             break;
