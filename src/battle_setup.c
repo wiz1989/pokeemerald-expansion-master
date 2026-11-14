@@ -1348,7 +1348,6 @@ static void CB2_EndTrainerBattle(void)
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         DowngradeBadPoison();
-        IncrementBattleRuleRerollCounter();
         if (gBattleOutcome == B_OUTCOME_WON)
             ResetBossRuleRerollCounter();
         if (CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InTrainerHillChallenge())
