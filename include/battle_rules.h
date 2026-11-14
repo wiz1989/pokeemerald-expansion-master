@@ -13,11 +13,14 @@ void IncrementBossRuleRerollCounter(void);
 void ResetBossRuleRerollCounter(void);
 void IncrementTypeRerollCounter(void);
 void ComputeActiveBattleRules(void);
+u32 RandomSeededNonModulo(u32 *inputValue, u32 limit);
 bool8 IsActiveBattleRule(u8 rule);
 u8 GetRandomSpeciesTypeSeeded(void);
 u8 GetRandomMoveTypeSeeded(void);
 bool8 IsTruantBattleRule(u32 battler);
 u8 GetBattleRuleCount(void);
+u8 GetBossPoolsCount(void);
+bool8 HasLimitedRulesPool(u16 trainerId);
 bool8 IsBossRule(u8 battleRule);
 
 struct BattleRule
@@ -28,5 +31,15 @@ struct BattleRule
 };
 
 extern const struct BattleRule gBattleRules[];
+
+#define BOSS_RULE_POOL_SIZE 3
+
+struct BossRulePool
+{
+    u16 trainerId;
+    u8 rules[BOSS_RULE_POOL_SIZE];
+};
+
+extern const struct BossRulePool gBossRulePools[];
 
 #endif // GUARD_BATTLE_RULES_H

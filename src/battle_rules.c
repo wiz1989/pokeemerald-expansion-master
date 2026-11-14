@@ -233,6 +233,221 @@ u8 GetBattleRuleCount(void)
     return BATTLE_RULES_COUNT;
 }
 
+#define BOSS_POOLS_COUNT ARRAY_COUNT(gBossRulePools)
+const struct BossRulePool gBossRulePools[] =
+{
+    // Elite Four
+    {
+        .trainerId = TRAINER_SIDNEY,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_PHOEBE,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_GLACIA,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_DRAKE,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Gym Leaders
+    {
+        .trainerId = TRAINER_ROXANNE_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRAWLY_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_WATTSON_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_FLANNERY_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_NORMAN_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_WINONA_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_TATE_AND_LIZA_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_JUAN_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Champion
+    {
+        .trainerId = TRAINER_WALLACE,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Team Magma
+    {
+        .trainerId = TRAINER_MAXIE_MAGMA_HIDEOUT,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAXIE_MT_CHIMNEY,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAXIE_MOSSDEEP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_TABITHA_MOSSDEEP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Team Aqua
+    {
+        .trainerId = TRAINER_ARCHIE,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Wally
+    {
+        .trainerId = TRAINER_WALLY_MAUVILLE,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_WALLY_VR_1,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Brendan and May - Torchic
+    {
+        .trainerId = TRAINER_BRENDAN_RUSTBORO_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_RUSTBORO_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_ROUTE_110_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_ROUTE_110_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_ROUTE_119_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_ROUTE_119_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_LILYCOVE_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_LILYCOVE_TORCHIC,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Brendan and May - Treecko
+    {
+        .trainerId = TRAINER_BRENDAN_RUSTBORO_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_RUSTBORO_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_ROUTE_110_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_ROUTE_110_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_ROUTE_119_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_ROUTE_119_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_LILYCOVE_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_LILYCOVE_TREECKO,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+
+    // Brendan and May - Mudkip
+    {
+        .trainerId = TRAINER_BRENDAN_RUSTBORO_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_RUSTBORO_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_ROUTE_110_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_ROUTE_110_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_ROUTE_119_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_ROUTE_119_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_BRENDAN_LILYCOVE_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    },
+    {
+        .trainerId = TRAINER_MAY_LILYCOVE_MUDKIP,
+        .rules = {BATTLERULE_NONE, BATTLERULE_NONE, BATTLERULE_NONE},
+    }
+};
+
+u8 GetBossPoolsCount(void)
+{
+    return BOSS_POOLS_COUNT;
+}
+
+bool8 HasLimitedRulesPool(u16 trainerId)
+{
+    u8 i;
+
+    for (i = 0; i < BOSS_POOLS_COUNT; i++)
+    {
+        if (gBossRulePools[i].trainerId == trainerId)
+            return TRUE;
+    }
+    return FALSE;
+}
+
 void IncrementBattleRuleRerollCounter(void)
 {
     // increment +10 to jump further in the seed sequence
@@ -380,10 +595,28 @@ static u8 PickNextBossRule(void)
     u8 validCount = 0;
     u8 i;
     u8 ruleIndex;
-    u32 baseSeed = (u32)gSaveBlock1Ptr->lastTrainerId * SEED_MULTIPLIER
+    u16 trainerId = gSaveBlock1Ptr->lastTrainerId;
+    u32 baseSeed = (u32)trainerId * SEED_MULTIPLIER
                  + gSaveBlock1Ptr->battleRuleRerollCounter
                  + gSaveBlock1Ptr->bossRuleRerollCounter
                  + GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
+
+    if (HasLimitedRulesPool(trainerId))
+    {
+        for (i = 0; i < BOSS_POOLS_COUNT; i++)
+        {
+            if (gBossRulePools[i].trainerId == trainerId)
+            {
+                u8 index = RandomSeededNonModulo(&baseSeed, BOSS_RULE_POOL_SIZE);
+                u8 rule = gBossRulePools[i].rules[index];
+
+                if (!IsBattleRuleAvailable(rule))
+                    continue;
+
+                return rule;
+            }
+        }
+    } // fall-through if no rule was found
 
     for (i = 0; i < ARRAY_COUNT(sBossRules); i++)
     {
@@ -488,10 +721,64 @@ static void OverwriteActiveBattleRules(void)
     }
 }
 
+#define E4_RULES_COUNT ARRAY_COUNT(sEliteFourRules)
+static const u8 sEliteFourRules[] =
+{
+    BATTLERULE_NOSTAB,
+    BATTLERULE_NOSUPEREFFECTIVE,
+    BATTLERULE_BANNEDMOVECAT_PHYSICAL,
+    BATTLERULE_BANNEDMOVECAT_SPECIAL,
+};
+
+static u8 GetEliteFourRule(u16 trainerId)
+{
+    u8 rules[E4_RULES_COUNT];
+    u8 i;
+    // separate base seed without trainerId required for a shared E4 shuffle
+    u32 baseSeed = (u32)gSaveBlock1Ptr->battleRuleRerollCounter
+                 + gSaveBlock1Ptr->bossRuleRerollCounter
+                 + (GetTrainerId(gSaveBlock2Ptr->playerTrainerId) * SEED_MULTIPLIER);
+    u8 e4Member = 0;
+
+    switch (trainerId)
+    {
+    case TRAINER_SIDNEY:
+        e4Member = 0;
+        break;
+    case TRAINER_PHOEBE:
+        e4Member = 1;
+        break;
+    case TRAINER_GLACIA:
+        e4Member = 2;
+        break;
+    case TRAINER_DRAKE:
+        e4Member = 3;
+        break;
+    default:
+        break;
+    }
+
+    for (i = 0; i < E4_RULES_COUNT; i++)
+        rules[i] = sEliteFourRules[i];
+
+    // Fisher Yates shuffle
+    for (i = E4_RULES_COUNT - 1; i > 0; i--)
+    {
+        u8 j = RandomSeededNonModulo(&baseSeed, i + 1);
+        u8 temp = rules[i];
+
+        rules[i] = rules[j];
+        rules[j] = temp;
+    }
+
+    return rules[e4Member];
+}
+
 // calculate current battle rules based on a Trainer ID seed
 void ComputeActiveBattleRules(void)
 {
     u8 i;
+    u16 trainerId = gSaveBlock1Ptr->lastTrainerId;
 
     if (gBattleRulesInitialized)
     {
@@ -499,11 +786,27 @@ void ComputeActiveBattleRules(void)
         return;
     }
 
-    if (IsBossTrainer(gSaveBlock1Ptr->lastTrainerId) && B_BOSS_LIMITED_RULES)
+    if (IsBossTrainer(trainerId))
     {
-        gActiveBattleRules[0] = PickNextBossRule();
-        gActiveBattleRules[1] = BATTLERULE_NONE;
-        gActiveBattleRules[2] = BATTLERULE_NONE;
+        if (IsE4Trainer(trainerId))
+        {
+            // ToDo
+            gActiveBattleRules[0] = GetEliteFourRule(trainerId);
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+        }
+        else if (IsChampion(trainerId)) // wiz1989: ToDo - decision still open
+        {
+            gActiveBattleRules[0] = BATTLERULE_NOSTAB;
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+        }
+        else
+        {
+            gActiveBattleRules[0] = PickNextBossRule();
+            gActiveBattleRules[1] = BATTLERULE_NONE;
+            gActiveBattleRules[2] = BATTLERULE_NONE;
+        }
     }
     else
     {
@@ -537,7 +840,7 @@ static u32 NextBattleRuleRandom(u32 *seed)
 
 // RNG function without modulo bias
 // returns value in the range [0 - <limit]
-static u32 RandomSeededNonModulo(u32 *inputValue, u32 limit)
+u32 RandomSeededNonModulo(u32 *inputValue, u32 limit)
 {
     u32 value;
     u32 threshold;

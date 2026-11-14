@@ -416,6 +416,8 @@ bool8 BattleRuleViolated_USEMOVE(u32 move);
 bool8 IsSetupMove(u32 move);
 bool8 IsMidTurn(void);
 bool8 IsBossTrainer(u16 trainerId);
+bool8 IsE4Trainer(u16 trainerId);
+bool8 IsChampion(u16 trainerId);
 bool8 IsBossBattle(void);
 bool8 CanPartnerAiSwitch(void);
 bool8 InPetalburgGym(void);

@@ -11989,7 +11989,24 @@ bool8 IsBossTrainer(u16 trainerId)
       || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_MAGMA_LEADER
       || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_ELITE_FOUR
       || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_CHAMPION
-      || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_RIVAL)
+      || GetTrainerClassFromId(trainerId) == TRAINER_CLASS_RIVAL
+      || trainerId == TRAINER_TABITHA_MOSSDEEP)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 IsE4Trainer(u16 trainerId)
+{
+    if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_ELITE_FOUR)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+bool8 IsChampion(u16 trainerId)
+{
+    if (GetTrainerClassFromId(trainerId) == TRAINER_CLASS_CHAMPION)
         return TRUE;
     else
         return FALSE;
