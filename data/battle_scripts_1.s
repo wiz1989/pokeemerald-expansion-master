@@ -7197,8 +7197,6 @@ BattleScript_AbilityPopUpOverwriteThenNormal:
 	recordability BS_ABILITY_BATTLER
 	destroyabilitypopup
 	setbyte sFIXED_ABILITY_POPUP, FALSE
-	setbattlerulebattler BS_ABILITY_BATTLER
-	jumpifbattlerule BattleScript_BattleRule_FaintMon_End BATTLERULE_NOABILITY
 	return
 
 BattleScript_SpeedBoostActivates::
