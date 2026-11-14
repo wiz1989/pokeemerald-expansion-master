@@ -6582,7 +6582,7 @@ static s32 AI_Roaming(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 // Safari pokemon logic
 static s32 AI_Safari(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 {
-    u32 safariFleeRate = gBattleStruct->safariEscapeFactor * 5; // Safari flee rate, from 0-20.
+    u32 safariFleeRate = gBattleStruct->safariEscapeFactor * 3; // Safari flee rate, from 0-20.
 
     if ((Random() % 100) < safariFleeRate)
         AI_Flee();
