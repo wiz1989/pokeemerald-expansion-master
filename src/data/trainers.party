@@ -4676,6 +4676,10 @@ Gothorita
 Level: 36
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
+Meditite
+Level: 36
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+
 === TRAINER_VIRGIL ===
 Name: VIRGIL
 Class: Psychic
@@ -4864,7 +4868,7 @@ Kirlia
 Level: 36
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Bronzor
+Baltoy
 Level: 36
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
@@ -4895,6 +4899,10 @@ Double Battle: No
 AI: Check Bad Move
 
 Kadabra @ Eviolite
+Level: 36
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+
+Lunatone
 Level: 36
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
@@ -5664,7 +5672,7 @@ Class: Leader
 Pic: Leader Tate And Liza
 Gender: Male
 Music: Female
-Items: Hyper Potion / Hyper Potion / Hyper Potion / Hyper Potion
+Items: Hyper Potion / Hyper Potion
 Double Battle: Yes
 AI: Basic Trainer
 
@@ -11826,7 +11834,7 @@ Jynx
 Level: 36
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Slowbro
+Slowking
 Level: 36
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
@@ -11839,7 +11847,7 @@ Music: Rich
 Double Battle: No
 AI: Check Bad Move
 
-Starmie
+Grumpig
 Level: 36
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
@@ -11856,11 +11864,11 @@ Music: Intense
 Double Battle: No
 AI: Check Bad Move
 
-Elgyem
+Beheeyem
 Level: 36
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
-Grumpig
+Slowbro
 Level: 36
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
 
