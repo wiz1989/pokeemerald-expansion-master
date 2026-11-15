@@ -99,7 +99,7 @@
       "x": 19,
       "y": 36,
       "elevation": 3,
-      "item": "ITEM_PP_UP",
+      "item": "ITEM_HP_UP",
       "flag": "FLAG_HIDDEN_ITEM_SAFARI_ZONE_SOUTH_EAST_PP_UP"
     },
     {

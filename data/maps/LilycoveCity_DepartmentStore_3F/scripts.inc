@@ -4,10 +4,10 @@ LilycoveCity_DepartmentStore_3F_MapScripts::
 LilycoveCity_DepartmentStore_3F_EventScript_ClerkLeft::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
+	msgbox gText_SorryWereClosed, MSGBOX_DEFAULT
 	waitmessage
-	pokemart LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	// pokemart LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins
+	// msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
 	release
 	end
 

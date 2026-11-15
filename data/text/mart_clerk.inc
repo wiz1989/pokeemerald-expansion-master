@@ -8,3 +8,8 @@ gText_PleaseComeAgain::
 gText_PlayerWhatCanIDoForYou::
 	.string "{PLAYER}{STRING 5}, welcome!\p"
 	.string "What can I do for you?$"
+
+gText_SorryWereClosed::
+	.string "Sorry, we're closed.\p"
+	.string "Vitamins were deemed too\n"
+	.string "powerful to be sold in public.$"
