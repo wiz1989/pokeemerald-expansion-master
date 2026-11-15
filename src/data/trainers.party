@@ -622,7 +622,6 @@ Class: Aqua Leader
 Pic: Aqua Leader Archie
 Gender: Male
 Music: Aqua
-Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
@@ -2407,11 +2406,10 @@ Class: Lady
 Pic: Lady
 Gender: Female
 Music: Female
-Items: Full Restore
 Double Battle: No
 AI: Check Bad Move
 
-Seaking @ Life Orb
+Seaking
 Level: 39
 Ability: Lightning Rod
 - Rain Dance
@@ -2466,15 +2464,19 @@ Class: Lady
 Pic: Lady
 Gender: Female
 Music: Female
-Items: Full Restore
 Double Battle: No
 AI: Check Bad Move
 
-Seaking @ Nugget
+Starmie
 Level: 40
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 
-Kingler @ Nugget
+Cradily
+Level: 40
+Ability: Storm Drain
+IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
+
+Vaporeon
 Level: 40
 IVs: 18 HP / 18 Atk / 18 Def / 18 SpA / 18 SpD / 18 Spe
 
@@ -2728,11 +2730,19 @@ Double Battle: No
 AI: Check Bad Move
 
 Carvanha
-Level: 39
+Level: 40
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Sharpedo
-Level: 39
+Seismitoad
+Level: 40
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+
+Rotom Wash
+Level: 40
+IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
+
+Mantine
+Level: 40
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_JESSICA_2 ===
@@ -6341,16 +6351,17 @@ Music: Twins
 Double Battle: No
 AI: Check Bad Move
 
-Azurill @ Oran Berry
-Level: 35
+Stunfisk @ Sitrus Berry
+Level: 40
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Marill @ Oran Berry
-Level: 37
+Politoed
+Level: 40
+Ability: Drizzle
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
-Azumarill @ Oran Berry
-Level: 39
+Slowbro
+Level: 40
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
 
 === TRAINER_ISABEL_1 ===
@@ -10198,7 +10209,7 @@ Music: Twins
 Double Battle: No
 AI: Check Bad Move
 
-Chinchou @ Leftovers
+Chinchou @ Toxic Orb
 Level: 39
 Ability: Volt Absorb
 - Scald
@@ -10505,7 +10516,7 @@ Class: Rival
 Pic: Wally
 Gender: Male
 Music: Male
-Items: Full Restore / Full Restore
+Items: Full Restore
 Double Battle: No
 AI: Basic Trainer
 
@@ -12126,7 +12137,6 @@ Class: Magma Leader
 Pic: Magma Leader Maxie
 Gender: Male
 Music: Magma
-Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
@@ -12148,7 +12158,6 @@ Class: Magma Leader
 Pic: Magma Leader Maxie
 Gender: Male
 Music: Magma
-Items: Super Potion / Super Potion
 Double Battle: No
 AI: Basic Trainer
 
