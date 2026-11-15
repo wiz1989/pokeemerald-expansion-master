@@ -2502,4 +2502,6 @@ extern const u8 gText_FirstSlot[];
 extern const u8 gText_Truant[];
 extern const u8 gText_NoMisses[];
 
+extern const u8 gText_GenderChanged[];
+
 #endif // GUARD_STRINGS_H

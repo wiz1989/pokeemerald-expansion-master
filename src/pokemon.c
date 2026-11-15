@@ -3953,7 +3953,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
                         // Check use validity.
                         if ((effectFlags & (ITEM4_REVIVE >> 2) && currentHP != 0)
                               || (!(effectFlags & (ITEM4_REVIVE >> 2)) && currentHP == 0)
-                              || ((effectFlags & (ITEM4_REVIVE >> 2)) && currentHP == 0 && gSaveBlock2Ptr->permadeath))
+                              || ((effectFlags & (ITEM4_REVIVE >> 2)) && currentHP == 0
+                               && item != ITEM_SUPER_REVIVE && gSaveBlock2Ptr->permadeath))
                         {
                             itemEffectParam++;
                             break;
@@ -7555,4 +7556,16 @@ void ScriptCheckMetlocClauseChecked(struct ScriptContext *ctx)
         if (CheckMetLocation(metLocation) == INVALID_ENCOUNTER_METLOC)
             gSpecialVar_Result = TRUE;
     }
+}
+
+bool8 hasMultipleGenders(u16 species)
+{
+    if (gSpeciesInfo[species].genderRatio == MON_GENDERLESS)
+        return FALSE;
+    if (gSpeciesInfo[species].genderRatio == MON_MALE)
+        return FALSE;
+    if (gSpeciesInfo[species].genderRatio == MON_FEMALE)
+        return FALSE;
+    
+    return TRUE;
 }

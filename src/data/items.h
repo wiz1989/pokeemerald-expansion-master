@@ -14652,6 +14652,43 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_PokeshiDoll,
         .iconPalette = gItemIconPalette_PokeshiDoll,
     },
+
+    [ITEM_SUPER_REVIVE] =
+    {
+        .name = ITEM_NAME("Super Revive"),
+        .price = 5000,
+        .description = COMPOUND_STRING(
+            "Revives a fainted\n"
+            "Pokémon in a Nuzlocke\n"
+            "challenge."),
+        .pocket = POCKET_ITEMS,
+        .sortType = ITEM_TYPE_HEALTH_RECOVERY,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_Medicine,
+        .battleUsage = EFFECT_ITEM_REVIVE,
+        .effect = gItemEffect_MaxRevive,
+        .flingPower = 30,
+        .iconPic = gItemIcon_MaxRevive,
+        .iconPalette = gItemIconPalette_Revive,
+    },
+
+    [ITEM_GENDER_FLUID] =
+    {
+        .name = ITEM_NAME("Gender Fluid"),
+        .price = 2000,
+        .description = COMPOUND_STRING(
+            "A mysterious fluid\n"
+            "that changes the\n"
+            "gender of a Pokémon."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_GenderFluid,
+        .battleUsage = 0,
+        // .effect = gItemEffect_GenderFluid,
+        .flingPower = 30,
+        .iconPic = gItemIcon_Ether,
+        .iconPalette = gItemIconPalette_MaxEther,
+    },
 };
 
 #undef ITEM_NAME

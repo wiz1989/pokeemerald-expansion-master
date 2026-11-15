@@ -2056,6 +2056,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
     s32 i;
     u8 monsCount;
     u8 currentLevelCap = GetCurrentLevelCap();
+    u8 levelOffsetFromCap = (currentLevelCap / 10 <= 3) ? 3 : (currentLevelCap / 10);
+
     if (battleTypeFlags & BATTLE_TYPE_TRAINER && !(battleTypeFlags & (BATTLE_TYPE_FRONTIER
                                                                         | BATTLE_TYPE_EREADER_TRAINER
                                                                         | BATTLE_TYPE_TRAINER_HILL)))
@@ -2117,8 +2119,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
             {
                 if (GetTrainerClassFromId(TRAINER_BATTLE_PARAM.opponentA) == TRAINER_CLASS_WINSTRATE)
                     level = currentLevelCap;
-                else if (currentLevelCap > (level + NPC_LEVEL_OFFSET_FROM_CAP))
-                    level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
+                else if (currentLevelCap > (level + levelOffsetFromCap))
+                    level = currentLevelCap - levelOffsetFromCap;
             }
             else
             {
@@ -2431,6 +2433,7 @@ static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *p
     u8 level = trainer->party[0].lvl;
     u8 maxMembers = GRUNT_MON_COUNT;
     u8 currentLevelCap = GetCurrentLevelCap();
+    u8 levelOffsetFromCap = (currentLevelCap / 10 <= 3) ? 3 : (currentLevelCap / 10);
 
     if (IsDoubleBattle())
         maxMembers = 2; // only 4 mon doubles!
@@ -2465,8 +2468,8 @@ static void CreateRandomGruntParty(struct Trainer *trainer, struct TrainerMon *p
     // update level
     if (gSaveBlock2Ptr->harderTrainers)
     {
-        if (currentLevelCap > level + NPC_LEVEL_OFFSET_FROM_CAP)
-            level = currentLevelCap - NPC_LEVEL_OFFSET_FROM_CAP;
+        if (currentLevelCap > level + levelOffsetFromCap)
+            level = currentLevelCap - levelOffsetFromCap;
     }
 
     memset(party, 0, sizeof(struct TrainerMon) * maxMembers);

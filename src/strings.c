@@ -1381,3 +1381,5 @@ const u8 gText_InverseBattle[] = _("Inverse Battle");
 const u8 gText_FirstSlot[] = _("First Move Slot");
 const u8 gText_Truant[] = _("Truant");
 const u8 gText_NoMisses[] = _("No Misses");
+
+const u8 gText_GenderChanged[] = _("{STR_VAR_1}'s gender was changed!{PAUSE_UNTIL_PRESS}");

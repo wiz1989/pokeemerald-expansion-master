@@ -4848,6 +4848,65 @@ void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
     }
 }
 
+void ItemUseCB_GenderFluid(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u8 newGender = MON_GENDERLESS;     
+    u32 personality = 0; 
+    u16 oldNature = 0;
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    bool8 isShiny = IsMonShiny(mon);
+
+    if (!hasMultipleGenders(species))
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+    else
+    {
+        // get opposite Gender
+        switch (GetMonGender(mon))
+        {
+        case MON_MALE:
+            newGender = MON_FEMALE;
+            break;
+        case MON_FEMALE:
+            newGender = MON_MALE;
+            break;
+        }
+
+        // calc personality for new gender
+        personality = GetMonData(mon, MON_DATA_PERSONALITY);
+        oldNature = GetNatureFromPersonality(personality);
+        do
+        {
+            personality = Random32();
+        }
+        while (GetGenderFromSpeciesAndPersonality(species, personality) != newGender
+        || GetNatureFromPersonality(personality) != oldNature);
+
+        // set new data
+        UpdateMonPersonality(&mon->box, personality);
+        SetMonData(mon, MON_DATA_IS_SHINY, &isShiny);
+        CalculateMonStats(mon);
+        DisplayPartyPokemonGenderNidoranCheck(mon, &sPartyMenuBoxes[gPartyMenu.slotId], 1);
+
+        gPartyMenuUseExitCallback = TRUE;
+        PlaySE(SE_USE_ITEM);
+        RemoveBagItem(ITEM_GENDER_FLUID, 1);
+
+        GetMonNickname(mon, gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_GenderChanged);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+    }
+}
+
 #define tState      data[0]
 #define tSpecies    data[1]
 #define tAbilityNum data[2]

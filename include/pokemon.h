@@ -894,5 +894,6 @@ u8 IsTargetValidEncounter(u16 species);
 u16 GetEvolutionFamily(u16 species, u16 *buffer, u16 bufCapacity);
 u8 CheckDupes(u16 species_catch);
 u8 CheckMetLocation(u8 metLoc);
+bool8 hasMultipleGenders(u16 species);
 
 #endif // GUARD_POKEMON_H
