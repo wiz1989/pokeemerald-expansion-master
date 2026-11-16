@@ -86,7 +86,7 @@
       "x": 12,
       "y": 35,
       "elevation": 3,
-      "item": "ITEM_YELLOW_SHARD",
+      "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_126_YELLOW_SHARD"
     },
     {
@@ -102,7 +102,7 @@
       "x": 9,
       "y": 77,
       "elevation": 3,
-      "item": "ITEM_BLUE_SHARD",
+      "item": "ITEM_QUICK_BALL",
       "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_126_BLUE_SHARD"
     }
   ]

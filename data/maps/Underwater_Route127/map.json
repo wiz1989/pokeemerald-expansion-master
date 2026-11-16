@@ -77,7 +77,7 @@
       "x": 72,
       "y": 20,
       "elevation": 3,
-      "item": "ITEM_RED_SHARD",
+      "item": "ITEM_HEART_SCALE",
       "flag": "FLAG_HIDDEN_ITEM_UNDERWATER_127_RED_SHARD"
     }
   ]
