@@ -7137,7 +7137,12 @@ void HealPokemon(struct Pokemon *mon)
         data = GetMonData(mon, MON_DATA_MAX_HP);
         SetMonData(mon, MON_DATA_HP, &data);
 
-        data = STATUS1_NONE;
+        if (GetMonData(mon, MON_DATA_HELD_ITEM) == ITEM_FLAME_ORB)
+            data = STATUS1_BURN;
+        else if (GetMonData(mon, MON_DATA_HELD_ITEM) == ITEM_TOXIC_ORB)
+            data = STATUS1_TOXIC_POISON;
+        else
+            data = STATUS1_NONE;
         SetMonData(mon, MON_DATA_STATUS, &data);
 
         MonRestorePP(mon);
