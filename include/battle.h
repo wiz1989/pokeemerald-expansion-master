@@ -785,6 +785,7 @@ struct BattleStruct
     u8 sendoutRuleCursor[MAX_BATTLERS_COUNT];
     u8 useMoveRuleCursor[MAX_BATTLERS_COUNT];
     bool8 firstTurnCheckStarted;
+    u8 revealedBattleRuleSlots;
 };
 
 struct AiBattleData

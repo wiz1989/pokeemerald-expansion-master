@@ -2848,11 +2848,24 @@ static void Cmd_printfromtable(void)
     if (gBattleControllerExecFlags == 0)
     {
         const u16 *ptr = cmd->ptr;
-        ptr += gBattleCommunication[MULTISTRING_CHOOSER];
+        u16 stringId;
+        u8 slot;
 
+        ptr += gBattleCommunication[MULTISTRING_CHOOSER];
+        stringId = *ptr;
         gBattlescriptCurrInstr = cmd->nextInstr;
-        PrepareStringBattle(*ptr, gBattlerAttacker);
+        PrepareStringBattle(stringId, gBattlerAttacker);
         gBattleCommunication[MSG_DISPLAY] = 1;
+
+        // mark Truant rule as revealed
+        if (stringId == STRINGID_LOAFINGBATTLERULE)
+        {
+            for (slot = 0; slot < MAX_CONCURRENT_RULES; slot++)
+            {
+                if (gActiveBattleRules[slot] == BATTLERULE_TRUANT)
+                    gBattleStruct->revealedBattleRuleSlots |= (1u << slot);
+            }
+        }
     }
 }
 
@@ -18676,8 +18689,15 @@ void BS_PrintBattlerule(void)
     if (gBattleControllerExecFlags == 0)
     {
         u8 rule = gBattleRuleViolated;
+        u8 slot;
 
         BufferCurrentBattleRule(rule);
+        // record which rule has been revealed so far
+        for (slot = 0; rule != BATTLERULE_NONE && slot < MAX_CONCURRENT_RULES; slot++)
+        {
+            if (gActiveBattleRules[slot] == rule)
+                gBattleStruct->revealedBattleRuleSlots |= (1u << slot);
+        }
 
         gBattleCommunication[MULTISTRING_CHOOSER] = rule;
         gBattlescriptCurrInstr = cmd->nextInstr;

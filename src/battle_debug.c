@@ -1561,6 +1561,34 @@ static void PadString(const u8 *src, u8 *dst)
 
 static const u8 sTextAll[] = _("All");
 
+static bool8 IsBattleRuleRevealed(u8 rule)
+{
+    u8 slot;
+
+    if (gSaveBlock2Ptr->announceRules)
+        return TRUE;
+
+    switch (rule)
+    {
+    case BATTLERULE_1HP:
+    case BATTLERULE_1PP:
+    case BATTLERULE_PERISHCOUNT:
+    case BATTLERULE_TRICKROOM:
+    case BATTLERULE_INVERSE:
+        return TRUE;
+    default:
+        break;
+    }
+
+    for (slot = 0; slot < MAX_CONCURRENT_RULES; slot++)
+    {
+        if (gActiveBattleRules[slot] == rule && (gBattleStruct->revealedBattleRuleSlots & (1u << slot)))
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
 static void PrintSecondaryEntries(struct BattleDebugMenu *data)
 {
     u8 text[20];
@@ -1595,21 +1623,36 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
 
             for (slot = 0; slot < ruleCount; slot++)
             {
-                PadString(GetBattleRuleName(gActiveBattleRules[slot]), text);
+                u8 rule = gActiveBattleRules[slot];
+
+                if (IsBattleRuleRevealed(rule))
+                    PadString(GetBattleRuleName(rule), text);
+                else
+                    PadString(gText_ThreeQuestionMarks, text);
                 printer.currentY = printer.y = (slot * yMultiplier) + sSecondaryListTemplate.upText_Y;
                 AddTextPrinter(&printer, 0, NULL);
             }
             if (IsActiveBattleRule(BATTLERULE_BANNEDTYPE))
             {
-                StringCopy(text, gText_Type);
-                StringAppend(text, gTypesInfo[GetRandomSpeciesTypeSeeded()].name);
-                PadString(text, text);
+                if (IsBattleRuleRevealed(BATTLERULE_BANNEDTYPE))
+                {
+                    StringCopy(text, gText_Type);
+                    StringAppend(text, gTypesInfo[GetRandomSpeciesTypeSeeded()].name);
+                    PadString(text, text);
+                }
+                else
+                    PadString(gText_Blank, text);
             }
             else if (IsActiveBattleRule(BATTLERULE_BANNEDMOVETYPE))
             {
-                StringCopy(text, gText_Type);
-                StringAppend(text, gTypesInfo[GetRandomMoveTypeSeeded()].name);
-                PadString(text, text);
+                if (IsBattleRuleRevealed(BATTLERULE_BANNEDMOVETYPE))
+                {
+                    StringCopy(text, gText_Type);
+                    StringAppend(text, gTypesInfo[GetRandomMoveTypeSeeded()].name);
+                    PadString(text, text);
+                }
+                else
+                    PadString(gText_Blank, text);
             }
             else
                 PadString(gText_Blank, text);
