@@ -6854,7 +6854,7 @@ bool8 BattleRuleViolated_SENDOUT(u32 battler, bool8 midBattle)
         if (midBattle && midScript)
         {
             BattleScriptPush(gBattlescriptCurrInstr);
-            gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_NoStackReset_RetIfAlive;
+            gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_SendoutViolation;
         }
         else
         {

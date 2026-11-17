@@ -1280,7 +1280,7 @@ static void Cmd_attackcanceler(void)
 
         // loop move scripts to handle multiple USEMOVE violations
         BattleScriptPush(gBattlescriptCurrInstr);
-        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_NoStackReset_RetIfAlive;
+        gBattlescriptCurrInstr = BattleScript_BattleRule_FaintMon_MoveViolation;
         return;
     }
     else if (useMoveRuleCursor != 0) // end script after all checks
