@@ -355,6 +355,36 @@ static const struct ListMenuItem sMainListItems[] =
 #endif
 };
 
+static const struct ListMenuItem sMainListItemsWithRules[] =
+{
+#if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == FALSE
+    {COMPOUND_STRING("Battlerules"),  LIST_ITEM_BATTLERULES},
+    {COMPOUND_STRING("Moves"),        LIST_ITEM_MOVES},
+    {sText_Ability,                   LIST_ITEM_ABILITY},
+    {sText_HeldItem,                  LIST_ITEM_HELD_ITEM},
+    {COMPOUND_STRING("PP"),           LIST_ITEM_PP},
+    {COMPOUND_STRING("Types"),        LIST_ITEM_TYPES},
+    {COMPOUND_STRING("Stats"),        LIST_ITEM_STATS},
+    {COMPOUND_STRING("Stat Stages"),  LIST_ITEM_STAT_STAGES},
+    {COMPOUND_STRING("Status1"),      LIST_ITEM_STATUS1},
+    {COMPOUND_STRING("Volatiles"),    LIST_ITEM_VOLATILE},
+    {COMPOUND_STRING("Hazards"),      LIST_ITEM_HAZARDS},
+    {COMPOUND_STRING("Side Status"),  LIST_ITEM_SIDE_STATUS},
+    {COMPOUND_STRING("AI"),           LIST_ITEM_AI},
+    {COMPOUND_STRING("AI Pts/Dmg"),   LIST_ITEM_AI_MOVES_PTS},
+    {COMPOUND_STRING("AI Info"),      LIST_ITEM_AI_INFO},
+    {COMPOUND_STRING("AI Party"),     LIST_ITEM_AI_PARTY},
+    {COMPOUND_STRING("Various"),      LIST_ITEM_VARIOUS},
+    {COMPOUND_STRING("Instant Win"),  LIST_ITEM_INSTANT_WIN},
+#else
+    {COMPOUND_STRING("Battlerules"),  LIST_ITEM_BATTLERULES},
+    {COMPOUND_STRING("Moves & PP"),   LIST_ITEM_PP},
+    {COMPOUND_STRING("Base Stats"),   LIST_ITEM_STATS},
+    {COMPOUND_STRING("Abilities"),    LIST_ITEM_ABILITY},
+    {COMPOUND_STRING("Types"),        LIST_ITEM_TYPES},
+#endif
+};
+
 static const struct ListMenuItem sStatsListItems[] =
 {
     {COMPOUND_STRING("HP Current"), LIST_STAT_HP_CURRENT},
@@ -508,13 +538,34 @@ static const struct ListMenuItem sSecondaryListItems[] =
     {sText_EmptyString, 8},
 };
 
-
 static const struct ListMenuTemplate sMainListTemplate =
 {
     .items = sMainListItems,
     .moveCursorFunc = NULL,
     .itemPrintFunc = NULL,
     .totalItems = ARRAY_COUNT(sMainListItems),
+    .maxShowed = 6,
+    .windowId = 0,
+    .header_X = 0,
+    .item_X = 8,
+    .cursor_X = 0,
+    .upText_Y = 1,
+    .cursorPal = 2,
+    .fillValue = 1,
+    .cursorShadowPal = 3,
+    .lettersSpacing = 1,
+    .itemVerticalPadding = 0,
+    .scrollMultiple = LIST_NO_MULTIPLE_SCROLL,
+    .fontId = 1,
+    .cursorKind = 0
+};
+
+static const struct ListMenuTemplate sMainListTemplateWithRules =
+{
+    .items = sMainListItemsWithRules,
+    .moveCursorFunc = NULL,
+    .itemPrintFunc = NULL,
+    .totalItems = ARRAY_COUNT(sMainListItemsWithRules),
     .maxShowed = 6,
     .windowId = 0,
     .header_X = 0,
@@ -746,7 +797,10 @@ void CB2_BattleDebugMenu(void)
 
         data->mainListWindowId = AddWindow(&sMainListWindowTemplate);
 
-        gMultiuseListMenuTemplate = sMainListTemplate;
+        if (gSaveBlock2Ptr->rulesInfo)
+            gMultiuseListMenuTemplate = sMainListTemplateWithRules;
+        else
+            gMultiuseListMenuTemplate = sMainListTemplate;
         gMultiuseListMenuTemplate.windowId = data->mainListWindowId;
         data->mainListTaskId = ListMenuInit(&gMultiuseListMenuTemplate, 0, 0);
 
@@ -757,7 +811,10 @@ void CB2_BattleDebugMenu(void)
 
 #if DEBUG_BATTLE_BASE_DATA_DISPLAY_ONLY == TRUE
         // Create the secondary menu list immediately.
-        data->currentMainListItemId = LIST_ITEM_PP; // first item to show
+        if (gSaveBlock2Ptr->rulesInfo)
+            data->currentMainListItemId = LIST_ITEM_BATTLERULES; // first item to show
+        else
+            data->currentMainListItemId = LIST_ITEM_PP; // first item to show
         CreateSecondaryListMenu(data);
         PrintSecondaryEntries(data);
 #endif
@@ -1543,9 +1600,17 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
                 AddTextPrinter(&printer, 0, NULL);
             }
             if (IsActiveBattleRule(BATTLERULE_BANNEDTYPE))
-                PadString(gTypesInfo[GetRandomSpeciesTypeSeeded()].name, text);
+            {
+                StringCopy(text, gText_Type);
+                StringAppend(text, gTypesInfo[GetRandomSpeciesTypeSeeded()].name);
+                PadString(text, text);
+            }
             else if (IsActiveBattleRule(BATTLERULE_BANNEDMOVETYPE))
-                PadString(gTypesInfo[GetRandomMoveTypeSeeded()].name, text);
+            {
+                StringCopy(text, gText_Type);
+                StringAppend(text, gTypesInfo[GetRandomMoveTypeSeeded()].name);
+                PadString(text, text);
+            }
             else
                 PadString(gText_Blank, text);
             printer.currentY = printer.y = (ruleCount * yMultiplier) + sSecondaryListTemplate.upText_Y;

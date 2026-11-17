@@ -116,6 +116,8 @@ static void SetDefaultOptions(void)
     // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->bossUpgrade = FALSE;
+    gSaveBlock2Ptr->dayNightTint = FALSE;
+    gSaveBlock2Ptr->rulesInfo = FALSE;
 
     // nuzlocke
     gSaveBlock2Ptr->permadeath = TRUE;
@@ -149,6 +151,8 @@ static void SetDefaultOptions_FlygonHG(void)
     // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->bossUpgrade = TRUE;
+    gSaveBlock2Ptr->dayNightTint = FALSE;
+    gSaveBlock2Ptr->rulesInfo = FALSE;
 
     // nuzlocke
     gSaveBlock2Ptr->permadeath = TRUE;
