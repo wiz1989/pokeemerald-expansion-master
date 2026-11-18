@@ -72,6 +72,7 @@ LilycoveCity_DepartmentStore_4F_Pokemart_EvoItems:
     .2byte ITEM_RAZOR_FANG
     .2byte ITEM_DUBIOUS_DISC
     .2byte ITEM_REAPER_CLOTH
+    .2byte ITEM_ROTOM_CATALOG
 	pokemartlistend
 
 LilycoveCity_DepartmentStore_4F_Text_AttackOrDefenseTM:
