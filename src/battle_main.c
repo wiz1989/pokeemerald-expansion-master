@@ -2330,6 +2330,7 @@ static const u16 sAquaGruntSpecies[] =
     SPECIES_EKANS,
     SPECIES_ZUBAT,
     SPECIES_POOCHYENA,
+    SPECIES_FRILLISH,
 };
 
 #define AQUA_POOL_SIZE_ENHANCED ARRAY_COUNT(sAquaGruntSpeciesEnhanced)
@@ -2354,8 +2355,8 @@ static const u16 sAquaGruntSpeciesEnhanced[] =
     SPECIES_EKANS,
     SPECIES_ZUBAT,
     SPECIES_POOCHYENA,
-    // enhanced pool additions
     SPECIES_FRILLISH,
+    // enhanced pool additions
     SPECIES_STUNFISK,
     SPECIES_WOOPER,
     SPECIES_ABSOL,
@@ -2363,7 +2364,7 @@ static const u16 sAquaGruntSpeciesEnhanced[] =
     SPECIES_STUNKY,
     SPECIES_SEVIPER,
     SPECIES_TRUBBISH,
-    SPECIES_WEAVILE
+    SPECIES_SNEASEL
 };
 
 #define MAGMA_POOL_SIZE ARRAY_COUNT(sMagmaGruntSpecies)

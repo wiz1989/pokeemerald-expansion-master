@@ -18811,32 +18811,32 @@ Items: Hyper Potion / Hyper Potion
 Double Battle: No
 AI: Basic Trainer
 
-Qwilfish @ Black Sludge
+Qwilfish @ Damp Rock
 Level: 52
-Ability: Poison Point
+Ability: Intimidate
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Spikes
+- Rain Dance
 - Waterfall
 - Thunder Wave
-- Toxic
+- Poison Jab
 
 Whiscash
 Level: 52
 Ability: Hydration
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Dragon Dance
-- Substitute
+- Rest
 - Waterfall
 - Earthquake
 
-Gorebyss @ Life Orb
+Azumarill @ Assault Vest
 Level: 53
-Ability: Swift Swim
-IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Rain Dance
-- Surf
-- Signal Beam
-- Ice Beam
+Ability: Sap Sipper
+IVs: 30 HP / 30 Atk / 30 Def / 30 SpA / 30 SpD / 30 Spe
+- Waterfall
+- Aqua Jet
+- Superpower
+- Ice Punch
 
 Crawdaunt @ Expert Belt
 Level: 53
@@ -19303,16 +19303,16 @@ IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
 - Rock Slide
 - Heavy Slam
 
-Crobat @ Black Sludge
+Gastrodon @ Leftovers
 Level: 52
-Ability: Inner Focus
+Ability: Storm Drain
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
-- Confuse Ray
-- Roost
-- Aerial Ace
-- Poison Fang
+- Recover
+- Earth Power
+- Scald
+- Ice Beam
 
-Camerupt @ Sitrus Berry
+Camerupt @ Passho Berry
 Level: 54
 Ability: Solid Rock
 IVs: 24 HP / 24 Atk / 24 Def / 24 SpA / 24 SpD / 24 Spe
@@ -19331,14 +19331,14 @@ Music: Magma
 Double Battle: No
 AI: Check Bad Move
 
-Solrock
+Lunatone @ Light Clay
 Level: 52
 Ability: Levitate
 IVs: 12 HP / 12 Atk / 12 Def / 12 SpA / 12 SpD / 12 Spe
-- Trick Room
-- Will O Wisp
+- Light Screen
+- Reflect
 - Psychic
-- Stone Edge
+- Trick Room
 
 Rotom Heat @ Safety Goggles
 Level: 53
