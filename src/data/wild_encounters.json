@@ -1221,12 +1221,12 @@
               {
                 "min_level": 16,
                 "max_level": 16,
-                "species": "SPECIES_LOTAD"
+                "species": "SPECIES_LOMBRE"
               },
               {
                 "min_level": 17,
                 "max_level": 17,
-                "species": "SPECIES_SWABLU"
+                "species": "SPECIES_NUZLEAF"
               },
               {
                 "min_level": 15,
@@ -1251,12 +1251,12 @@
               {
                 "min_level": 18,
                 "max_level": 18,
-                "species": "SPECIES_LOMBRE"
+                "species": "SPECIES_VULPIX"
               },
               {
                 "min_level": 17,
                 "max_level": 17,
-                "species": "SPECIES_NUZLEAF"
+                "species": "SPECIES_VULPIX"
               },
               {
                 "min_level": 15,
@@ -1271,7 +1271,7 @@
               {
                 "min_level": 15,
                 "max_level": 15,
-                "species": "SPECIES_NUZLEAF"
+                "species": "SPECIES_VULPIX"
               }
             ]
           },
@@ -4532,7 +4532,7 @@
               {
                 "min_level": 27,
                 "max_level": 27,
-                "species": "SPECIES_VULPIX"
+                "species": "SPECIES_DEINO"
               },
               {
                 "min_level": 29,
