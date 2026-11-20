@@ -984,10 +984,10 @@ static const union AffineAnimCmd *const sAffineAnims_CrossingMonPics[] =
 
 static const struct InGameTrade sIngameTrades[] =
 {
-    [INGAME_TRADE_SEEDOT] =
+    [INGAME_TRADE_VULLABY] =
     {
-        .nickname = _("DOTS"),
-        .species = SPECIES_SEEDOT,
+        .nickname = _("Vullarie"),
+        .species = SPECIES_VULLABY,
         .ivs = {5, 4, 5, 4, 4, 4},
         .abilityNum = 1,
         .otId = 38726,
@@ -1000,32 +1000,32 @@ static const struct InGameTrade sIngameTrades[] =
         .sheen = 10,
         .requestedSpecies = SPECIES_RALTS
     },
-    [INGAME_TRADE_PLUSLE] =
+    [INGAME_TRADE_SNOVER] =
     {
-        .nickname = _("PLUSES"),
-        .species = SPECIES_PLUSLE,
+        .nickname = _("Snorman"),
+        .species = SPECIES_SNOVER,
         .ivs = {4, 4, 4, 5, 5, 4},
         .abilityNum = 0,
         .otId = 73996,
         .conditions = {5, 5, 30, 5, 5},
         .personality = 0x6F,
-        .heldItem = ITEM_WOOD_MAIL,
+        .heldItem = ITEM_ULTRA_BALL,
         .mailNum = 0,
         .otName = _("ROMAN"),
         .otGender = MALE,
         .sheen = 10,
         .requestedSpecies = SPECIES_VOLBEAT
     },
-    [INGAME_TRADE_HORSEA] =
+    [INGAME_TRADE_YAMASK] =
     {
-        .nickname = _("SEASOR"),
-        .species = SPECIES_HORSEA,
+        .nickname = _("Osiris"),
+        .species = SPECIES_YAMASK,
         .ivs = {5, 4, 4, 4, 5, 4},
         .abilityNum = 0,
         .otId = 46285,
         .conditions = {5, 5, 5, 5, 30},
         .personality = 0x7F,
-        .heldItem = ITEM_WAVE_MAIL,
+        .heldItem = ITEM_NET_BALL,
         .mailNum = 1,
         .otName = _("SKYLAR"),
         .otGender = MALE,
@@ -1050,7 +1050,7 @@ static const struct InGameTrade sIngameTrades[] =
     },
     [INGAME_TRADE_DROWZEE] =
     {
-        .nickname = _("ZEESAR"),
+        .nickname = _("Zeesar"),
         .species = SPECIES_DROWZEE,
         .ivs = {4, 5, 4, 5, 4, 4},
         .abilityNum = 2,

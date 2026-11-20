@@ -4538,7 +4538,8 @@ static void CreateInGameTradePokemonInternal(u8 whichPlayerMon, u8 whichInGameTr
     u8 i;
 
     struct Mail mail;
-    u8 metLocation = METLOC_IN_GAME_TRADE;
+    u8 metLocation = GetCurrentRegionMapSectionId();
+    bool8 isInGameTrade = TRUE;
     u8 mailNum;
     struct Pokemon *pokemon = &gEnemyParty[0];
 
@@ -4576,6 +4577,7 @@ static void CreateInGameTradePokemonInternal(u8 whichPlayerMon, u8 whichInGameTr
     SetMonData(pokemon, MON_DATA_TOUGH, &inGameTrade->conditions[4]);
     SetMonData(pokemon, MON_DATA_SHEEN, &inGameTrade->sheen);
     SetMonData(pokemon, MON_DATA_MET_LOCATION, &metLocation);
+    SetMonData(pokemon, MON_DATA_IS_IN_GAME_TRADE, &isInGameTrade);
 
     mailNum = 0;
     if (inGameTrade->heldItem != ITEM_NONE)

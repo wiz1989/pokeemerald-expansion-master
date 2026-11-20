@@ -81,22 +81,28 @@ EventScript_Drowzee_Trade::
 	lockall
 	faceplayer
 	goto_if_set FLAG_DROWZEE_TRADED, Drowzee_TradeCompleted
-	setvar VAR_0x8008, INGAME_TRADE_DROWZEE
-	copyvar VAR_0x8004, VAR_0x8008
 	msgbox Drowzee_WouldYouLikeToTrade, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Drowzee_DeclineTrade
 	special ChoosePartyMon
 	waitstate
-	copyvar VAR_0x800A, VAR_0x8004
 	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, Drowzee_DeclineTrade
-	copyvar VAR_0x8004, VAR_0x8008
-	copyvar VAR_0x8005, VAR_0x800A
+	copyvar VAR_0x8005, VAR_0x8004
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, Drowzee_TradeIneligible
+	special IsSelectedMonFainted
+	goto_if_eq VAR_RESULT, TRUE, Drowzee_TradeIneligible
+	setvar VAR_0x8004, INGAME_TRADE_DROWZEE
 	special CreateInGameTradePokemon
 	special DoInGameTradeScene
 	hideobjectat 37, MAP_SLATEPORT_CITY @ hide the Drowzee object
 	setflag FLAG_DROWZEE_TRADED @ set flag while overworld is hidden, so the Drowzee object is gone when returning
 	waitstate
 	msgbox Drowzee_SoMuchMoreAwake, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Drowzee_TradeIneligible::
+	msgbox Drowzee_CantTradeIneligibleMon, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -126,6 +132,10 @@ Drowzee_WellThatsFineToo:
 	.string "Oh, you won't?\p"
 	.string "Well, I can understand that.\p"
 	.string "Maybe another time.$"
+
+Drowzee_CantTradeIneligibleMon:
+	.string "Sorry, I won't trade for an EGG\n"
+	.string "or a fainted POKéMON.$"
 
 EventScript_Drowzee_Cry::
 	playmoncry SPECIES_DROWZEE, CRY_MODE_NORMAL

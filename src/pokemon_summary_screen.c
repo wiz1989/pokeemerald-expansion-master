@@ -3506,7 +3506,11 @@ static void BufferMonTrainerMemo(void)
             DynamicPlaceholderTextUtil_SetPlaceholderPtr(4, gText_StarterPkmn);
         }
 
-        if (DoesMonOTMatchOwner() == TRUE)
+        if (GetMonData(&sMonSummaryScreen->currentMon, MON_DATA_IS_IN_GAME_TRADE))
+        {
+            text = gText_XNatureObtainedInTradeAt;
+        }
+        else if (DoesMonOTMatchOwner() == TRUE)
         {
             if (sum->metLevel == 0)
                 text = (sum->metLocation >= MAPSEC_NONE) ? gText_XNatureHatchedSomewhereAt : gText_XNatureHatchedAtYZ;

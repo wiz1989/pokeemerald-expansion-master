@@ -760,6 +760,7 @@ extern const u8 gText_XNatureMetSomewhereAt[];
 extern const u8 gText_XNatureFatefulEncounter[];
 extern const u8 gText_XNatureProbablyMetAt[];
 extern const u8 gText_XNatureObtainedInTrade[];
+extern const u8 gText_XNatureObtainedInTradeAt[];
 extern const u8 gText_StarterPkmn[];
 extern const u8 gText_EmptyString5[];
 extern const u8 gText_EggWillTakeALongTime[];

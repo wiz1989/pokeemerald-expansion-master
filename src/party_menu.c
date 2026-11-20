@@ -8006,6 +8006,14 @@ void IsSelectedMonEgg(void)
         gSpecialVar_Result = FALSE;
 }
 
+void IsSelectedMonFainted(void)
+{
+    if (GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP) == 0)
+        gSpecialVar_Result = TRUE;
+    else
+        gSpecialVar_Result = FALSE;
+}
+
 void IsLastMonThatKnowsSurf(void)
 {
     u16 move;

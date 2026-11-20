@@ -2618,6 +2618,9 @@ u32 GetBoxMonData3(struct BoxPokemon *boxMon, s32 field, u8 *data)
         case MON_DATA_MODERN_FATEFUL_ENCOUNTER:
             retVal = GetSubstruct3(boxMon)->modernFatefulEncounter;
             break;
+        case MON_DATA_IS_IN_GAME_TRADE:
+            retVal = GetSubstruct3(boxMon)->isInGameTrade;
+            break;
         case MON_DATA_SPECIES_OR_EGG:
             retVal = GetSubstruct0(boxMon)->species;
             if (retVal && IsEggOrBadEgg(boxMon))
@@ -3114,6 +3117,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
             break;
         case MON_DATA_MODERN_FATEFUL_ENCOUNTER:
             SET8(GetSubstruct3(boxMon)->modernFatefulEncounter);
+            break;
+        case MON_DATA_IS_IN_GAME_TRADE:
+            SET8(GetSubstruct3(boxMon)->isInGameTrade);
             break;
         case MON_DATA_IVS:
         {
