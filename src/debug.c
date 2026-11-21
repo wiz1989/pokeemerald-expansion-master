@@ -4427,7 +4427,7 @@ const u8 *GetBattleRuleName(u8 rule)
     case BATTLERULE_NOSAMESEX:             return gText_DifferentGender;
     case BATTLERULE_NOSWITCHING:           return gText_NoSwitching;
     case BATTLERULE_PERISHCOUNT:           return gText_PerishCount;
-    case BATTLERULE_SWITCHMOVES:           return gText_SwitchMoves;
+    case BATTLERULE_NOREPEATINGMOVES:           return gText_SwitchMoves;
     case BATTLERULE_NOPRIO:                return gText_NoPrioMoves;
     case BATTLERULE_NOHELDITEMS:           return gText_NoHeldItems;
     case BATTLERULE_NOABILITY:             return gText_NoAbilities;

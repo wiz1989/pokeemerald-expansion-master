@@ -6905,7 +6905,7 @@ bool8 BattleRuleViolated_USEMOVE(u32 move)
                     if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
                         faint = TRUE;
                     break;
-                case BATTLERULE_SWITCHMOVES:
+                case BATTLERULE_NOREPEATINGMOVES:
                     if (move == gLastResultingMoves[gBattlerAttacker] && gAlreadyChecked[gBattlerAttacker] == FALSE)
                     {
                         if (gDisableStructs[gBattlerAttacker].lastTurnWasChargingTurn && !gProtectStructs[gBattlerAttacker].chargingTurn)

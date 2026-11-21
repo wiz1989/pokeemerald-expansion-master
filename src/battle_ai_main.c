@@ -1133,7 +1133,7 @@ static s32 AI_CheckBadMove(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
                 if (effectiveness >= UQ_4_12(2.0) && !IsBattleMoveStatus(move))
                     RETURN_SCORE_MINUS(20);
                 break;
-            case BATTLERULE_SWITCHMOVES:
+            case BATTLERULE_NOREPEATINGMOVES:
                 if (move == gLastResultingMoves[battlerAtk] && gAlreadyChecked[battlerAtk] == FALSE)
                 {
                     if (gDisableStructs[battlerAtk].lastTurnWasChargingTurn && !gProtectStructs[battlerAtk].chargingTurn)
@@ -6695,7 +6695,7 @@ bool32 IsMoveBlockedByBattleRules(u32 battlerAtk, u32 battlerDef, u32 move)
                 return TRUE;
             break;
         }
-        case BATTLERULE_SWITCHMOVES:
+        case BATTLERULE_NOREPEATINGMOVES:
             if (move == gLastResultingMoves[battlerAtk] && gAlreadyChecked[battlerAtk] == FALSE)
             {
                 if (gDisableStructs[battlerAtk].lastTurnWasChargingTurn && !gProtectStructs[battlerAtk].chargingTurn)

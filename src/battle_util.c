@@ -12027,7 +12027,7 @@ bool8 CanPartnerAiSwitch(void)
        || gActiveBattleRules[0] == BATTLERULE_BANNEDTYPE
        || gActiveBattleRules[0] == BATTLERULE_NOSTAB
        || gActiveBattleRules[0] == BATTLERULE_NOSUPEREFFECTIVE
-       || gActiveBattleRules[0] == BATTLERULE_SWITCHMOVES
+       || gActiveBattleRules[0] == BATTLERULE_NOREPEATINGMOVES
        || gActiveBattleRules[0] == BATTLERULE_BANNEDMOVECAT_PHYSICAL
        || gActiveBattleRules[0] == BATTLERULE_BANNEDMOVECAT_SPECIAL
        || gActiveBattleRules[0] == BATTLERULE_BANNEDMOVECAT_STATUS))

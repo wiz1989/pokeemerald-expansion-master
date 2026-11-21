@@ -2086,11 +2086,13 @@ void DoSpecialTrainerBattle(void)
         }
         else if (gSpecialVar_0x8005 & MULTI_BATTLE_2_VS_1) // Player + AI against one trainer
         {
+            gSaveBlock1Ptr->lastTrainerId = TRAINER_BATTLE_PARAM.opponentA;
             TRAINER_BATTLE_PARAM.opponentB = 0xFFFF;
             gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER;
         }
         else // MULTI_BATTLE_2_VS_2
         {
+            gSaveBlock1Ptr->lastTrainerId = TRAINER_BATTLE_PARAM.opponentA;
             gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_MULTI | BATTLE_TYPE_INGAME_PARTNER;
         }
 
