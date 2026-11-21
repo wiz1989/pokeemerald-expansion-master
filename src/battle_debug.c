@@ -1565,7 +1565,8 @@ static bool8 IsBattleRuleRevealed(u8 rule)
 {
     u8 slot;
 
-    if (gSaveBlock2Ptr->announceRules)
+    if (gSaveBlock2Ptr->announceRules == ANNOUNCE_RULES_ALWAYS
+     || (gSaveBlock2Ptr->announceRules == ANNOUNCE_RULES_BOSSES_ONLY && IsBossBattle()))
         return TRUE;
 
     switch (rule)

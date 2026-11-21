@@ -1053,6 +1053,7 @@ const u8 gText_NoBagInBattleOn[] = _("ON");
 const u8 gText_OptionOff[] = _("OFF");
 const u8 gText_OptionOn[] = _("ON");
 const u8 gText_OptionAnnounce[] = _("ANNOUNCE");
+const u8 gText_AnnounceRulesBosses[] = _("BOSSES");
 const u8 gText_ViolationDamage100[] = _("100%");
 const u8 gText_ViolationDamage50[] = _("50%");
 const u8 gText_OptionActive[] = _("ACTIVE");

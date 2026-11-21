@@ -109,7 +109,7 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->battleSpeed = OPTIONS_BATTLE_SCENE_1X;
     gSaveBlock2Ptr->halfDamage = TRUE;
     gSaveBlock2Ptr->revealRule = TRUE;
-    gSaveBlock2Ptr->announceRules = FALSE;
+    gSaveBlock2Ptr->announceRules = ANNOUNCE_RULES_BOSSES_ONLY;
     gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_1;
     gSaveBlock2Ptr->instaRuleTrigger = FALSE;
     gSaveBlock2Ptr->activateNoCritRule = FALSE;
@@ -144,7 +144,7 @@ static void SetDefaultOptions_FlygonHG(void)
     gSaveBlock2Ptr->battleSpeed = OPTIONS_BATTLE_SCENE_1X;
     gSaveBlock2Ptr->halfDamage = FALSE;
     gSaveBlock2Ptr->revealRule = TRUE;
-    gSaveBlock2Ptr->announceRules = TRUE;
+    gSaveBlock2Ptr->announceRules = ANNOUNCE_RULES_ALWAYS;
     gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_3;
     gSaveBlock2Ptr->instaRuleTrigger = FALSE;
     gSaveBlock2Ptr->activateNoCritRule = FALSE;

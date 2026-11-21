@@ -4347,7 +4347,8 @@ static void TryDoEventsBeforeFirstTurn(void)
         gBattleStruct->eventsBeforeFirstTurnState++;
         break;
     case FIRST_TURN_EVENTS_ANNOUNCE_RULES:
-        if (gSaveBlock2Ptr->announceRules)
+        if (gSaveBlock2Ptr->announceRules == ANNOUNCE_RULES_ALWAYS
+         || (gSaveBlock2Ptr->announceRules == ANNOUNCE_RULES_BOSSES_ONLY && IsBossBattle()))
         {
             while (gBattleStruct->switchInBattlerCounter < MAX_CONCURRENT_RULES)
             {

@@ -276,6 +276,7 @@ extern const u8 gText_NoBagInBattleOn[];
 extern const u8 gText_OptionOff[];
 extern const u8 gText_OptionOn[];
 extern const u8 gText_OptionAnnounce[];
+extern const u8 gText_AnnounceRulesBosses[];
 extern const u8 gText_ViolationDamage100[];
 extern const u8 gText_ViolationDamage50[];
 extern const u8 gText_OptionActive[];

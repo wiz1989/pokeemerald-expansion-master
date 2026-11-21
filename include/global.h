@@ -593,8 +593,8 @@ struct SaveBlock2
              u8 activateNoCritRule:1;
     /*0x93*/ u8 firstRun:1;
              u8 concurrentRules:2;
-             u8 announceRules:1;
-             u8 padding3:2;
+             u8 announceRules:2;
+             u8 padding3:1;
              u8 rulesInfo:1;
              u8 dayNightTint:1;
              u8 battleSpeed;

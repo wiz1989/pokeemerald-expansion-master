@@ -166,6 +166,10 @@
 #define OPTIONS_CONCURRENT_RULES_2      1
 #define OPTIONS_CONCURRENT_RULES_3      2
 
+#define ANNOUNCE_RULES_NEVER            0
+#define ANNOUNCE_RULES_ALWAYS           1
+#define ANNOUNCE_RULES_BOSSES_ONLY      2
+
 #define DIR_NONE        0
 #define DIR_SOUTH       1
 #define DIR_NORTH       2

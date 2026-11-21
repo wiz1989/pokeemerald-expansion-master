@@ -44,6 +44,7 @@ enum
     MENUITEM_HACK_BATTLE_SPEEDUP,
     MENUITEM_HACK_50DAMAGE,
     MENUITEM_HACK_REVEAL_RULE,
+    MENUITEM_HACK_ANNOUNCE_RULES,
     MENUITEM_HACK_CONCURRENT_RULES,
     MENUITEM_HACK_INSTA_TRIGGER,
     MENUITEM_HACK_ACTIVATE_NOCRITS,
@@ -165,7 +166,6 @@ static int ProcessInput_Options_Three(int selection);
 static int ProcessInput_Options_Four(int selection);
 static int ProcessInput_Sound(int selection);
 static int ProcessInput_FrameType(int selection);
-static int ProcessInput_RevealRule(int selection);
 static const u8 *const OptionTextDescription(void);
 static const u8 *const OptionTextRight(u8 menuItem);
 static u8 MenuItemCount(void);
@@ -182,6 +182,7 @@ static void DrawChoices_FrameType(int selection, int y);
 static void DrawChoices_BattleSpeedup(int selection, int y);
 static void DrawChoices_HalfDamage(int selection, int y);
 static void DrawChoices_RevealRule(int selection, int y);
+static void DrawChoices_AnnounceRules(int selection, int y);
 static void DrawChoices_ConcurrentRules(int selection, int y);
 static void DrawChoices_OptionOnOff(int selection, int y);
 static void DrawChoices_NoCrits(int selection, int y);
@@ -231,7 +232,8 @@ static const struct ItemFunctions sItemFunctionsHack[MENUITEM_HACK_COUNT] =
 {
     [MENUITEM_HACK_BATTLE_SPEEDUP]     = {DrawChoices_BattleSpeedup,    ProcessInput_Options_Four},
     [MENUITEM_HACK_50DAMAGE]           = {DrawChoices_HalfDamage,       ProcessInput_Options_Two},
-    [MENUITEM_HACK_REVEAL_RULE]        = {DrawChoices_RevealRule,        ProcessInput_RevealRule},
+    [MENUITEM_HACK_REVEAL_RULE]        = {DrawChoices_RevealRule,        ProcessInput_Options_Two},
+    [MENUITEM_HACK_ANNOUNCE_RULES]     = {DrawChoices_AnnounceRules,     ProcessInput_Options_Three},
     [MENUITEM_HACK_CONCURRENT_RULES]   = {DrawChoices_ConcurrentRules,   ProcessInput_Options_Three},
     [MENUITEM_HACK_INSTA_TRIGGER]      = {DrawChoices_OptionOnOff,       ProcessInput_Options_Two},
     [MENUITEM_HACK_ACTIVATE_NOCRITS]   = {DrawChoices_NoCrits,           ProcessInput_Options_Two},
@@ -265,6 +267,7 @@ static const u8 *const sOptionMenuItemsNamesHack[MENUITEM_HACK_COUNT] =
     [MENUITEM_HACK_BATTLE_SPEEDUP]     = gText_BattleSpeedup,
     [MENUITEM_HACK_50DAMAGE]           = gText_50Damage,
     [MENUITEM_HACK_REVEAL_RULE]        = gText_RevealRule,
+    [MENUITEM_HACK_ANNOUNCE_RULES]     = gText_AnnounceRules,
     [MENUITEM_HACK_CONCURRENT_RULES]   = gText_ConcurrentRules,
     [MENUITEM_HACK_INSTA_TRIGGER]      = gText_InstaTrigger,
     [MENUITEM_HACK_ACTIVATE_NOCRITS]   = gText_ActivateNoCrits,
@@ -318,6 +321,7 @@ static bool8 CheckConditions(int selection)
         case MENUITEM_HACK_BATTLE_SPEEDUP:     return TRUE;
         case MENUITEM_HACK_50DAMAGE:           return TRUE;
         case MENUITEM_HACK_REVEAL_RULE:        return TRUE;
+        case MENUITEM_HACK_ANNOUNCE_RULES:     return TRUE;
         case MENUITEM_HACK_CONCURRENT_RULES:   return TRUE;
         case MENUITEM_HACK_INSTA_TRIGGER:      return TRUE;
         case MENUITEM_HACK_ACTIVATE_NOCRITS:   return TRUE;
@@ -371,9 +375,11 @@ static const u8 *const sOptionMenuItemDescriptionsVanilla[MENUITEM_VANILLA_COUNT
 // Hack and Nuzlocke descriptions
 static const u8 sText_Desc_BattleSpeedup[]      = _("Change the battle animation speed.");
 static const u8 sText_Desc_HalfDamage[]         = _("Change the damage from battle\nrule violations.");
-static const u8 sText_Desc_RevealRuleNo[]       = _("Battle rules are never revealed,\neven after a violation.");
+static const u8 sText_Desc_RevealRuleNo[]       = _("Battle rules are not revealed\nafter a violation.");
 static const u8 sText_Desc_RevealRuleYes[]      = _("Battle rules are revealed after a\nviolation.");
-static const u8 sText_Desc_RevealRuleAnnounce[] = _("Battle rules are announced at\nthe start of a battle.");
+static const u8 sText_Desc_AnnounceRulesNever[] = _("Battle rules are not announced at\nthe start of a battle.");
+static const u8 sText_Desc_AnnounceRulesAlways[] = _("Battle rules are announced at\nthe start of a battle.");
+static const u8 sText_Desc_AnnounceRulesBosses[] = _("Battle rules are only announced\nat the start of a BOSS battle.");
 static const u8 sText_Desc_ConcurrentRules[]    = _("Set how many rules can be active\nat the same time.");
 static const u8 sText_Desc_InstaTrigger[]       = _("Trigger rule violations immediately\nat the start of a battle.");
 static const u8 sText_Desc_NoCritsOn[]          = _("Play with no-critical-hits\nrule violations.");
@@ -391,7 +397,8 @@ static const u8 *const sOptionMenuItemDescriptionsHack[MENUITEM_HACK_COUNT][3] =
 {
     [MENUITEM_HACK_BATTLE_SPEEDUP]     = {sText_Desc_BattleSpeedup,    sText_Empty,                sText_Empty},
     [MENUITEM_HACK_50DAMAGE]           = {sText_Desc_HalfDamage,       sText_Desc_HalfDamage,      sText_Empty},
-    [MENUITEM_HACK_REVEAL_RULE]        = {sText_Desc_RevealRuleNo,     sText_Desc_RevealRuleYes,   sText_Desc_RevealRuleAnnounce},
+    [MENUITEM_HACK_REVEAL_RULE]        = {sText_Desc_RevealRuleNo,     sText_Desc_RevealRuleYes,   sText_Empty},
+    [MENUITEM_HACK_ANNOUNCE_RULES]     = {sText_Desc_AnnounceRulesNever, sText_Desc_AnnounceRulesAlways, sText_Desc_AnnounceRulesBosses},
     [MENUITEM_HACK_CONCURRENT_RULES]   = {sText_Desc_ConcurrentRules,  sText_Desc_ConcurrentRules, sText_Desc_ConcurrentRules},
     [MENUITEM_HACK_INSTA_TRIGGER]      = {sText_Desc_InstaTrigger,     sText_Desc_InstaTrigger,    sText_Empty},
     [MENUITEM_HACK_ACTIVATE_NOCRITS]   = {sText_Desc_NoCritsOff,       sText_Desc_NoCritsOn,       sText_Empty},
@@ -665,7 +672,8 @@ void CB2_InitOptionPlusMenu(void)
 
         sOptions->sel[MENU_HACK][MENUITEM_HACK_BATTLE_SPEEDUP]   = gSaveBlock2Ptr->battleSpeed;
         sOptions->sel[MENU_HACK][MENUITEM_HACK_50DAMAGE]         = gSaveBlock2Ptr->halfDamage;
-        sOptions->sel[MENU_HACK][MENUITEM_HACK_REVEAL_RULE]      = gSaveBlock2Ptr->announceRules ? 2 : gSaveBlock2Ptr->revealRule;
+        sOptions->sel[MENU_HACK][MENUITEM_HACK_REVEAL_RULE]      = gSaveBlock2Ptr->revealRule;
+        sOptions->sel[MENU_HACK][MENUITEM_HACK_ANNOUNCE_RULES]   = gSaveBlock2Ptr->announceRules;
         sOptions->sel[MENU_HACK][MENUITEM_HACK_CONCURRENT_RULES] = gSaveBlock2Ptr->concurrentRules;
         sOptions->sel[MENU_HACK][MENUITEM_HACK_INSTA_TRIGGER]    = gSaveBlock2Ptr->instaRuleTrigger;
         sOptions->sel[MENU_HACK][MENUITEM_HACK_ACTIVATE_NOCRITS] = gSaveBlock2Ptr->activateNoCritRule;
@@ -851,8 +859,8 @@ static void Task_OptionMenuSave(u8 taskId)
 
     gSaveBlock2Ptr->battleSpeed        = sOptions->sel[MENU_HACK][MENUITEM_HACK_BATTLE_SPEEDUP];
     gSaveBlock2Ptr->halfDamage         = sOptions->sel[MENU_HACK][MENUITEM_HACK_50DAMAGE];
-    gSaveBlock2Ptr->revealRule         = sOptions->sel[MENU_HACK][MENUITEM_HACK_REVEAL_RULE] > 0;
-    gSaveBlock2Ptr->announceRules      = sOptions->sel[MENU_HACK][MENUITEM_HACK_REVEAL_RULE] == 2;
+    gSaveBlock2Ptr->revealRule         = sOptions->sel[MENU_HACK][MENUITEM_HACK_REVEAL_RULE];
+    gSaveBlock2Ptr->announceRules      = sOptions->sel[MENU_HACK][MENUITEM_HACK_ANNOUNCE_RULES];
     gSaveBlock2Ptr->concurrentRules    = sOptions->sel[MENU_HACK][MENUITEM_HACK_CONCURRENT_RULES];
     gSaveBlock2Ptr->instaRuleTrigger   = sOptions->sel[MENU_HACK][MENUITEM_HACK_INSTA_TRIGGER];
     gSaveBlock2Ptr->activateNoCritRule = sOptions->sel[MENU_HACK][MENUITEM_HACK_ACTIVATE_NOCRITS];
@@ -1034,11 +1042,6 @@ static int ProcessInput_FrameType(int selection)
     return selection;
 }
 
-static int ProcessInput_RevealRule(int selection)
-{
-    return XOptions_ProcessInput(3, selection);
-}
-
 // Draw Choices functions ****GENERIC****
 static void DrawOptionMenuChoice(const u8 *text, u8 x, u8 y, u8 style, bool8 active)
 {
@@ -1194,8 +1197,14 @@ static void DrawChoices_HalfDamage(int selection, int y)
 static void DrawChoices_RevealRule(int selection, int y)
 {
     DrawOptionMenuChoice(gText_OptionOff, 104, y, selection == 0, TRUE);
-    DrawOptionMenuChoice(gText_OptionOn, 129, y, selection == 1, TRUE);
-    DrawOptionMenuChoice(gText_OptionAnnounce, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionAnnounce, 198), y, selection == 2, TRUE);
+    DrawOptionMenuChoice(gText_OptionOn, GetStringRightAlignXOffset(FONT_NORMAL, gText_OptionOn, 198), y, selection == 1, TRUE);
+}
+
+static void DrawChoices_AnnounceRules(int selection, int y)
+{
+    DrawOptionMenuChoice(gText_OptionOff, 104, y, selection == ANNOUNCE_RULES_NEVER, TRUE);
+    DrawOptionMenuChoice(gText_OptionOn, 134, y, selection == ANNOUNCE_RULES_ALWAYS, TRUE);
+    DrawOptionMenuChoice(gText_AnnounceRulesBosses, GetStringRightAlignXOffset(FONT_NORMAL, gText_AnnounceRulesBosses, 198), y, selection == ANNOUNCE_RULES_BOSSES_ONLY, TRUE);
 }
 
 static void DrawChoices_ConcurrentRules(int selection, int y)
