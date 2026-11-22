@@ -71,7 +71,13 @@
     F(WILD_CHARGE) \
     F(FLASH_CANNON) \
     F(ENERGY_BALL) \
-    F(SHADOW_CLAW)
+    F(SHADOW_CLAW) \
+    F(GYRO_BALL) \
+    F(ACROBATICS) \
+    F(BULLDOZE) \
+    F(U_TURN) \
+    F(DRAGON_TAIL) \
+    F(SMACK_DOWN)
 
 #define FOREACH_HM(F) \
     F(CUT) \
