@@ -429,8 +429,8 @@
       "x": 66,
       "y": 3,
       "elevation": 3,
-      "item": "ITEM_THUNDER_STONE",
-      "flag": "FLAG_ITEM_THUNDER_STONE"
+      "item": "ITEM_TM_BULLDOZE",
+      "flag": "FLAG_ITEM_TM_BULLDOZE"
     },
     {
       "type": "hidden_item",

@@ -178,8 +178,8 @@
       "x": 2,
       "y": 15,
       "elevation": 3,
-      "item": "ITEM_NUGGET",
-      "flag": "FLAG_HIDDEN_ITEM_FALLARBOR_TOWN_NUGGET"
+      "item": "ITEM_TM_DRAGON_TAIL",
+      "flag": "FLAG_ITEM_TM_DRAGON_TAIL"
     }
   ]
 }

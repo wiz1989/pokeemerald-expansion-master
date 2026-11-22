@@ -388,8 +388,8 @@
       "x": 9,
       "y": 10,
       "elevation": 3,
-      "item": "ITEM_GREAT_BALL",
-      "flag": "FLAG_HIDDEN_ITEM_ROUTE_109_GREAT_BALL"
+      "item": "ITEM_FLAME_ORB",
+      "flag": "FLAG_ITEM_FLAME_ORB_EX"
     },
     {
       "type": "hidden_item",

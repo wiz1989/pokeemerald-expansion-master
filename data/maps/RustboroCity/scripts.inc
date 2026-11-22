@@ -866,7 +866,7 @@ RustboroCity_EventScript_BattleMay::
 	end
 
 RustboroCity_EventScript_MayBrineyHint::
-	call RustboroCity_EventScript_TryGiveChoiceScarf
+	call RustboroCity_EventScript_TryGiveGenderFLuid
 	msgbox RustboroCity_Text_MayMrBrineyHint, MSGBOX_DEFAULT
 	call_if_eq VAR_0x8008, 0, RustboroCity_EventScript_RestoreBgm
 	releaseall
@@ -877,18 +877,18 @@ RustboroCity_EventScript_RestoreBgm::
 	fadedefaultbgm
 	return
 
-RustboroCity_EventScript_TryGiveChoiceScarf::
-	goto_if_set FLAG_ITEM_CHOICE_SCARF, RustboroCity_EventScript_Return
+RustboroCity_EventScript_TryGiveGenderFLuid::
+	goto_if_set FLAG_ITEM_GENDER_FLUID_1, RustboroCity_EventScript_Return
 	msgbox RustboroCity_Text_RivalValuableGiftPromise, MSGBOX_DEFAULT
-	giveitem ITEM_CHOICE_SCARF
-	goto_if_eq VAR_RESULT, FALSE, RustboroCity_EventScript_ChoiceScarfBagFull
-	setflag FLAG_ITEM_CHOICE_SCARF
-	msgbox RustboroCity_Text_ReceivedChoiceScarf, MSGBOX_DEFAULT
+	giveitem ITEM_GENDER_FLUID
+	goto_if_eq VAR_RESULT, FALSE, RustboroCity_EventScript_GenderFLuidBagFull
+	setflag FLAG_ITEM_GENDER_FLUID_1
+	msgbox RustboroCity_Text_ReceivedGenderFLuid, MSGBOX_DEFAULT
 RustboroCity_EventScript_Return::
 	return
 
-RustboroCity_EventScript_ChoiceScarfBagFull::
-	msgbox RustboroCity_Text_NoRoomForChoiceScarf, MSGBOX_DEFAULT
+RustboroCity_EventScript_GenderFLuidBagFull::
+	msgbox RustboroCity_Text_NoRoomForGenderFLuid, MSGBOX_DEFAULT
 	return
 
 RustboroCity_EventScript_BattleMayTreecko::
@@ -947,7 +947,7 @@ RustboroCity_EventScript_BattleBrendan::
 	end
 
 RustboroCity_EventScript_BrendanBrineyHint::
-	call RustboroCity_EventScript_TryGiveChoiceScarf
+	call RustboroCity_EventScript_TryGiveGenderFLuid
 	msgbox RustboroCity_Text_BrendanMrBrineyHint, MSGBOX_DEFAULT
 	call_if_eq VAR_0x8008, 0, RustboroCity_EventScript_RestoreBgm
 	releaseall
@@ -1242,13 +1242,13 @@ RustboroCity_Text_RivalValuableGiftPromise:
 	.string "{RIVAL}: You won, fair and square!\n"
 	.string "I hope you make good use of this!$"
 
-RustboroCity_Text_ReceivedChoiceScarf:
+RustboroCity_Text_ReceivedGenderFLuid:
 	.string "{PLAYER} received the\n"
-	.string "{COLOR BLUE}CHOICE SCARF{COLOR DARK_GRAY}!$"
+	.string "{COLOR BLUE}GENDER FLUID{COLOR DARK_GRAY}!$"
 
-RustboroCity_Text_NoRoomForChoiceScarf:
+RustboroCity_Text_NoRoomForGenderFLuid:
 	.string "{RIVAL}: Your BAG is too full for\n"
-	.string "this CHOICE SCARF.\p"
+	.string "this GENDER FLUID.\p"
 	.string "Make room and talk to me again!$"
 
 RustboroCity_Text_BrendanMrBrineyHint:

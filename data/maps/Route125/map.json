@@ -32,14 +32,14 @@
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_SWIMMER_M",
-      "x": 7,
-      "y": 31,
+      "x": 4,
+      "y": 17,
       "elevation": 1,
-      "movement_type": "MOVEMENT_TYPE_WALK_RIGHT_AND_LEFT",
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NORMAL",
-      "trainer_sight_or_berry_tree_id": "2",
+      "trainer_sight_or_berry_tree_id": "1",
       "script": "Route125_EventScript_Nolen",
       "flag": "0"
     },
@@ -146,6 +146,19 @@
       "trainer_sight_or_berry_tree_id": "3",
       "script": "Route125_EventScript_Auron",
       "flag": "0"
+    },
+    {
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 2,
+      "y": 17,
+      "elevation": 5,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "ITEM_TM_U_TURN",
+      "script": "Common_EventScript_FindItem",
+      "flag": "FLAG_ITEM_TM_U_TURN"
     }
   ],
   "warp_events": [
