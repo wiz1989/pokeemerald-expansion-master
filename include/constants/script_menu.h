@@ -123,6 +123,28 @@
 #define MULTI_FALLARBOR_TENT_RULES         112
 #define MULTI_TAG_MATCH_TYPE               113
 #define MULTI_BERRY_PLOT                   114
+#define MULTI_HEART_SCALE_SERVICES         115
+
+#define HEART_SCALE_SERVICE_IVS            0
+#define HEART_SCALE_SERVICE_NATURE         1
+#define HEART_SCALE_SERVICE_ABILITY        2
+#define HEART_SCALE_SERVICE_CANCEL         3
+
+#define HEART_SCALE_IV_HP                  0
+#define HEART_SCALE_IV_ATTACK              1
+#define HEART_SCALE_IV_SP_ATTACK           2
+#define HEART_SCALE_IV_DEFENSE             3
+#define HEART_SCALE_IV_SP_DEFENSE          4
+#define HEART_SCALE_IV_SPEED               5
+#define HEART_SCALE_IV_CANCEL              6
+
+#define HEART_SCALE_NATURE_NEUTRAL         0
+#define HEART_SCALE_NATURE_CURRENT         1
+#define HEART_SCALE_NATURE_AVAILABLE       2
+
+#define HEART_SCALE_ABILITY_UNAVAILABLE    0
+#define HEART_SCALE_ABILITY_CURRENT        1
+#define HEART_SCALE_ABILITY_AVAILABLE      2
 
 // Lilycove SS Tidal Multichoice Selections
 #define SSTIDAL_SELECTION_SLATEPORT        0

@@ -12,5 +12,11 @@ void Script_GetChosenMonOffensiveEVs(void);
 void Script_GetChosenMonDefensiveEVs(void);
 void Script_GetChosenMonOffensiveIVs(void);
 void Script_GetChosenMonDefensiveIVs(void);
+void Script_BufferHeartScaleIVStat(void);
+void Script_TryMaximizeHeartScaleIV(void);
+void Script_BufferHeartScaleNature(void);
+void Script_TryChangeHeartScaleNature(void);
+void Script_BufferHeartScaleAbility(void);
+void Script_TryChangeHeartScaleAbility(void);
 
 #endif // GUARD_SCRIPT_POKEMON_UTIL_H

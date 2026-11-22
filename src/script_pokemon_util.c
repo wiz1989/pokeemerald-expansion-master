@@ -28,6 +28,7 @@
 #include "constants/abilities.h"
 #include "constants/items.h"
 #include "constants/battle_frontier.h"
+#include "constants/script_menu.h"
 
 static void CB2_ReturnFromChooseHalfParty(void);
 static void CB2_ReturnFromChooseBattleFrontierParty(void);
@@ -611,6 +612,136 @@ void Script_GetChosenMonDefensiveIVs(void)
     ConvertIntToDecimalStringN(gStringVar1, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_IV), STR_CONV_MODE_LEFT_ALIGN, 3);
     ConvertIntToDecimalStringN(gStringVar2, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV), STR_CONV_MODE_LEFT_ALIGN, 3);
     ConvertIntToDecimalStringN(gStringVar3, GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV), STR_CONV_MODE_LEFT_ALIGN, 3);
+}
+
+static const struct
+{
+    u16 field;
+    const u8 *name;
+} sHeartScaleIVStats[] =
+{
+    [HEART_SCALE_IV_HP]         = {MON_DATA_HP_IV,    COMPOUND_STRING("HP")},
+    [HEART_SCALE_IV_ATTACK]     = {MON_DATA_ATK_IV,   COMPOUND_STRING("Attack")},
+    [HEART_SCALE_IV_SP_ATTACK]  = {MON_DATA_SPATK_IV, COMPOUND_STRING("Sp. Attack")},
+    [HEART_SCALE_IV_DEFENSE]    = {MON_DATA_DEF_IV,   COMPOUND_STRING("Defense")},
+    [HEART_SCALE_IV_SP_DEFENSE] = {MON_DATA_SPDEF_IV, COMPOUND_STRING("Sp. Defense")},
+    [HEART_SCALE_IV_SPEED]      = {MON_DATA_SPEED_IV, COMPOUND_STRING("Speed")},
+};
+
+void Script_BufferHeartScaleIVStat(void)
+{
+    StringCopy(gStringVar1, sHeartScaleIVStats[gSpecialVar_0x8005].name);
+    ConvertIntToDecimalStringN(gStringVar2,
+                               GetMonData(&gPlayerParty[gSpecialVar_0x8004], sHeartScaleIVStats[gSpecialVar_0x8005].field),
+                               STR_CONV_MODE_RIGHT_ALIGN, 2);
+}
+
+void Script_TryMaximizeHeartScaleIV(void)
+{
+    struct Pokemon *mon;
+    u8 iv = MAX_PER_STAT_IVS;
+
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+    gSpecialVar_Result = FALSE;
+    if (gSpecialVar_0x8004 >= PARTY_SIZE || gSpecialVar_0x8005 >= ARRAY_COUNT(sHeartScaleIVStats))
+        return;
+
+    mon = &gPlayerParty[gSpecialVar_0x8004];
+    if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
+        return;
+    if (!RemoveBagItem(ITEM_HEART_SCALE, 2))
+        return;
+
+    SetMonData(mon, sHeartScaleIVStats[gSpecialVar_0x8005].field, &iv);
+    CalculateMonStats(mon);
+    gSpecialVar_Result = TRUE;
+}
+
+void Script_BufferHeartScaleNature(void)
+{
+    u32 nature = gSpecialVar_0x8005;
+
+    StringCopy(gStringVar1, gNaturesInfo[nature].name);
+    if (gNaturesInfo[nature].statUp == gNaturesInfo[nature].statDown)
+        gSpecialVar_Result = HEART_SCALE_NATURE_NEUTRAL;
+    else if (nature == GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HIDDEN_NATURE))
+        gSpecialVar_Result = HEART_SCALE_NATURE_CURRENT;
+    else
+        gSpecialVar_Result = HEART_SCALE_NATURE_AVAILABLE;
+}
+
+void Script_TryChangeHeartScaleNature(void)
+{
+    struct Pokemon *mon;
+    u8 nature = gSpecialVar_0x8005;
+
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+    gSpecialVar_Result = FALSE;
+    if (gSpecialVar_0x8004 >= PARTY_SIZE || gSpecialVar_0x8005 >= NUM_NATURES)
+        return;
+    if (gNaturesInfo[nature].statUp == gNaturesInfo[nature].statDown)
+        return;
+
+    mon = &gPlayerParty[gSpecialVar_0x8004];
+    if (GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG)
+     || GetMonData(mon, MON_DATA_HIDDEN_NATURE) == nature)
+        return;
+    if (!RemoveBagItem(ITEM_HEART_SCALE, 3))
+        return;
+
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &nature);
+    CalculateMonStats(mon);
+    gSpecialVar_Result = TRUE;
+}
+
+void Script_BufferHeartScaleAbility(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u32 species = GetMonData(mon, MON_DATA_SPECIES);
+    u32 slot = gSpecialVar_0x8005;
+    u32 ability = GetSpeciesAbility(species, slot);
+    u32 i;
+
+    gSpecialVar_Result = HEART_SCALE_ABILITY_UNAVAILABLE;
+    if (ability == ABILITY_NONE)
+        return;
+    for (i = 0; i < slot; i++)
+    {
+        if (GetSpeciesAbility(species, i) == ability)
+            return;
+    }
+
+    StringCopy(gStringVar1, gAbilitiesInfo[ability].name);
+    if (ability == GetMonAbility(mon))
+        gSpecialVar_Result = HEART_SCALE_ABILITY_CURRENT;
+    else
+        gSpecialVar_Result = HEART_SCALE_ABILITY_AVAILABLE;
+}
+
+void Script_TryChangeHeartScaleAbility(void)
+{
+    struct Pokemon *mon;
+    u32 species;
+    u32 ability;
+    u8 slot = gSpecialVar_0x8005;
+
+    Script_RequestEffects(SCREFF_V1 | SCREFF_SAVE);
+    gSpecialVar_Result = FALSE;
+    if (gSpecialVar_0x8004 >= PARTY_SIZE || gSpecialVar_0x8005 >= NUM_ABILITY_SLOTS)
+        return;
+
+    mon = &gPlayerParty[gSpecialVar_0x8004];
+    species = GetMonData(mon, MON_DATA_SPECIES);
+    if (species == SPECIES_NONE || GetMonData(mon, MON_DATA_IS_EGG))
+        return;
+    ability = GetSpeciesAbility(species, slot);
+    if (ability == ABILITY_NONE || ability == GetMonAbility(mon))
+        return;
+    if (!RemoveBagItem(ITEM_HEART_SCALE, 4))
+        return;
+
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &slot);
+    gSpecialVar_Result = TRUE;
 }
 
 void Script_SetStatus1(struct ScriptContext *ctx)

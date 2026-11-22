@@ -1107,6 +1107,263 @@ EventScript_VsSeekerChargingDone::
 	releaseall
 	end
 
+Common_EventScript_HeartScaleMerchant::
+	lock
+	faceplayer
+	msgbox Common_Text_HeartScaleMerchantGreeting, MSGBOX_DEFAULT
+	multichoice 17, 0, MULTI_HEART_SCALE_SERVICES, FALSE
+	copyvar VAR_0x8006, VAR_RESULT
+	switch VAR_RESULT
+	case HEART_SCALE_SERVICE_IVS, Common_EventScript_HeartScaleMerchantIVs
+	case HEART_SCALE_SERVICE_NATURE, Common_EventScript_HeartScaleMerchantNature
+	case HEART_SCALE_SERVICE_ABILITY, Common_EventScript_HeartScaleMerchantAbility
+	goto Common_EventScript_HeartScaleMerchantCancel
+
+Common_EventScript_HeartScaleMerchantIVs::
+	setvar VAR_0x8007, 2
+	goto Common_EventScript_HeartScaleMerchantCheckScales
+
+Common_EventScript_HeartScaleMerchantNature::
+	setvar VAR_0x8007, 3
+	goto Common_EventScript_HeartScaleMerchantCheckScales
+
+Common_EventScript_HeartScaleMerchantAbility::
+	setvar VAR_0x8007, 4
+	goto Common_EventScript_HeartScaleMerchantCheckScales
+
+Common_EventScript_HeartScaleMerchantCheckScales::
+	checkitem ITEM_HEART_SCALE, VAR_0x8007
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_HeartScaleMerchantNotEnoughScales
+	getpartysize
+	goto_if_eq VAR_RESULT, 0, Common_EventScript_HeartScaleMerchantNoPokemon
+
+Common_EventScript_HeartScaleMerchantChoosePokemon::
+	msgbox Common_Text_HeartScaleMerchantChoosePokemon, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	waitstate
+	goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, Common_EventScript_HeartScaleMerchantCancel
+	goto_if_eq VAR_0x8006, HEART_SCALE_SERVICE_IVS, Common_EventScript_HeartScaleMerchantChooseIV
+	goto_if_eq VAR_0x8006, HEART_SCALE_SERVICE_NATURE, Common_EventScript_HeartScaleMerchantChooseNature
+	goto_if_eq VAR_0x8006, HEART_SCALE_SERVICE_ABILITY, Common_EventScript_HeartScaleMerchantChooseAbility
+	msgbox Common_Text_HeartScaleMerchantNotAvailable, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantChooseIV::
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, Common_EventScript_HeartScaleMerchantEgg
+	msgbox Common_Text_HeartScaleMerchantChooseIV, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_0x8005, HEART_SCALE_IV_HP
+
+Common_EventScript_HeartScaleMerchantBuildIVMenu::
+	callnative Script_BufferHeartScaleIVStat
+	dynmultipush Common_Text_HeartScaleMerchantIVMenuItem, VAR_0x8005
+	addvar VAR_0x8005, 1
+	goto_if_lt VAR_0x8005, HEART_SCALE_IV_CANCEL, Common_EventScript_HeartScaleMerchantBuildIVMenu
+	dynmultipush gText_Cancel2, HEART_SCALE_IV_CANCEL
+	dynmultistack 17, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	goto_if_ge VAR_RESULT, HEART_SCALE_IV_CANCEL, Common_EventScript_HeartScaleMerchantCancel
+	copyvar VAR_0x8005, VAR_RESULT
+	callnative Script_BufferHeartScaleIVStat
+	msgbox Common_Text_HeartScaleMerchantConfirmIV, MSGBOX_YESNO
+	goto_if_ne VAR_RESULT, YES, Common_EventScript_HeartScaleMerchantCancel
+	callnative Script_TryMaximizeHeartScaleIV, 1
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_HeartScaleMerchantIVFailed
+	msgbox Common_Text_HeartScaleMerchantDone, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantChooseNature::
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, Common_EventScript_HeartScaleMerchantEgg
+	msgbox Common_Text_HeartScaleMerchantChooseNature, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_0x8005, 0
+
+Common_EventScript_HeartScaleMerchantBuildNatureMenu::
+	callnative Script_BufferHeartScaleNature
+	goto_if_eq VAR_RESULT, HEART_SCALE_NATURE_NEUTRAL, Common_EventScript_HeartScaleMerchantNextNature
+	goto_if_eq VAR_RESULT, HEART_SCALE_NATURE_CURRENT, Common_EventScript_HeartScaleMerchantPushCurrentNature
+	dynmultipush Common_Text_HeartScaleMerchantMenuItem, VAR_0x8005
+	goto Common_EventScript_HeartScaleMerchantNextNature
+
+Common_EventScript_HeartScaleMerchantPushCurrentNature::
+	dynmultipush Common_Text_HeartScaleMerchantCurrentMenuItem, VAR_0x8005
+
+Common_EventScript_HeartScaleMerchantNextNature::
+	addvar VAR_0x8005, 1
+	goto_if_lt VAR_0x8005, NUM_NATURES, Common_EventScript_HeartScaleMerchantBuildNatureMenu
+	dynmultipush gText_Cancel2, NUM_NATURES
+	dynmultistack 17, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	goto_if_ge VAR_RESULT, NUM_NATURES, Common_EventScript_HeartScaleMerchantCancel
+	copyvar VAR_0x8005, VAR_RESULT
+	callnative Script_BufferHeartScaleNature
+	msgbox Common_Text_HeartScaleMerchantConfirmNature, MSGBOX_YESNO
+	goto_if_ne VAR_RESULT, YES, Common_EventScript_HeartScaleMerchantCancel
+	callnative Script_BufferHeartScaleNature
+	goto_if_eq VAR_RESULT, HEART_SCALE_NATURE_CURRENT, Common_EventScript_HeartScaleMerchantSameNature
+	callnative Script_TryChangeHeartScaleNature, 1
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_HeartScaleMerchantNatureFailed
+	msgbox Common_Text_HeartScaleMerchantDone, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantSameNature::
+	msgbox Common_Text_HeartScaleMerchantSameNature, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantChooseNature
+
+Common_EventScript_HeartScaleMerchantNatureFailed::
+	msgbox Common_Text_HeartScaleMerchantNatureFailed, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantChooseAbility::
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, Common_EventScript_HeartScaleMerchantEgg
+	msgbox Common_Text_HeartScaleMerchantChooseAbility, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_0x8005, 0
+
+Common_EventScript_HeartScaleMerchantBuildAbilityMenu::
+	callnative Script_BufferHeartScaleAbility
+	goto_if_eq VAR_RESULT, HEART_SCALE_ABILITY_UNAVAILABLE, Common_EventScript_HeartScaleMerchantNextAbility
+	goto_if_eq VAR_RESULT, HEART_SCALE_ABILITY_CURRENT, Common_EventScript_HeartScaleMerchantPushCurrentAbility
+	dynmultipush Common_Text_HeartScaleMerchantAbilityMenuItem, VAR_0x8005
+	goto Common_EventScript_HeartScaleMerchantNextAbility
+
+Common_EventScript_HeartScaleMerchantPushCurrentAbility::
+	dynmultipush Common_Text_HeartScaleMerchantCurrentAbilityMenuItem, VAR_0x8005
+
+Common_EventScript_HeartScaleMerchantNextAbility::
+	addvar VAR_0x8005, 1
+	goto_if_lt VAR_0x8005, NUM_ABILITY_SLOTS, Common_EventScript_HeartScaleMerchantBuildAbilityMenu
+	dynmultipush gText_Cancel2, NUM_ABILITY_SLOTS
+	dynmultistack 17, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	goto_if_ge VAR_RESULT, NUM_ABILITY_SLOTS, Common_EventScript_HeartScaleMerchantCancel
+	copyvar VAR_0x8005, VAR_RESULT
+	callnative Script_BufferHeartScaleAbility
+	msgbox Common_Text_HeartScaleMerchantConfirmAbility, MSGBOX_YESNO
+	goto_if_ne VAR_RESULT, YES, Common_EventScript_HeartScaleMerchantCancel
+	callnative Script_BufferHeartScaleAbility
+	goto_if_eq VAR_RESULT, HEART_SCALE_ABILITY_CURRENT, Common_EventScript_HeartScaleMerchantSameAbility
+	callnative Script_TryChangeHeartScaleAbility, 1
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_HeartScaleMerchantAbilityFailed
+	msgbox Common_Text_HeartScaleMerchantDone, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantSameAbility::
+	msgbox Common_Text_HeartScaleMerchantSameAbility, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantChooseAbility
+
+Common_EventScript_HeartScaleMerchantAbilityFailed::
+	msgbox Common_Text_HeartScaleMerchantAbilityFailed, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantEgg::
+	msgbox Common_Text_HeartScaleMerchantEgg, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantChoosePokemon
+
+Common_EventScript_HeartScaleMerchantIVFailed::
+	msgbox Common_Text_HeartScaleMerchantIVFailed, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantCancel::
+	msgbox Common_Text_HeartScaleMerchantFarewell, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantNotEnoughScales::
+	buffernumberstring STR_VAR_1, VAR_0x8007
+	msgbox Common_Text_HeartScaleMerchantNotEnoughScales, MSGBOX_DEFAULT
+	goto Common_EventScript_HeartScaleMerchantEnd
+
+Common_EventScript_HeartScaleMerchantNoPokemon::
+	msgbox Common_Text_HeartScaleMerchantNoPokemon, MSGBOX_DEFAULT
+
+Common_EventScript_HeartScaleMerchantEnd::
+	release
+	end
+
+Common_Text_HeartScaleMerchantGreeting:
+	.string "How can I help you today?$"
+
+Common_Text_HeartScaleMerchantChoosePokemon:
+	.string "Which POKéMON should I help?$"
+
+Common_Text_HeartScaleMerchantChooseIV:
+	.string "Which IV should I maximize?$"
+
+Common_Text_HeartScaleMerchantIVMenuItem:
+	.string "{STR_VAR_1}{CLEAR_TO 0x58}{COLOR BLUE}{SHADOW LIGHT_BLUE}{STR_VAR_2}$"
+
+Common_Text_HeartScaleMerchantConfirmIV:
+	.string "You want to maximize the\n"
+	.string "{STR_VAR_1} IVs to 31?$"
+
+Common_Text_HeartScaleMerchantChooseNature:
+	.string "Which nature should I use?$"
+
+Common_Text_HeartScaleMerchantMenuItem:
+	.string "{STR_VAR_1}$"
+
+Common_Text_HeartScaleMerchantCurrentMenuItem:
+	.string "{COLOR BLUE}{SHADOW LIGHT_BLUE}{STR_VAR_1}$"
+
+Common_Text_HeartScaleMerchantConfirmNature:
+	.string "Change this POKéMON's nature\n"
+	.string "to {STR_VAR_1}?$"
+
+Common_Text_HeartScaleMerchantSameNature:
+	.string "That's already this POKéMON's nature.\p"
+	.string "Please choose another.$"
+
+Common_Text_HeartScaleMerchantNatureFailed:
+	.string "Sorry, I couldn't change that nature.$"
+
+Common_Text_HeartScaleMerchantChooseAbility:
+	.string "Which ability should I use?$"
+
+Common_Text_HeartScaleMerchantAbilityMenuItem:
+	.string "{STR_VAR_1}{CLEAR_TO 0x78}$"
+
+Common_Text_HeartScaleMerchantCurrentAbilityMenuItem:
+	.string "{COLOR BLUE}{SHADOW LIGHT_BLUE}{STR_VAR_1}{CLEAR_TO 0x78}$"
+
+Common_Text_HeartScaleMerchantConfirmAbility:
+	.string "Change this POKéMON's ability\n"
+	.string "to {STR_VAR_1}?$"
+
+Common_Text_HeartScaleMerchantSameAbility:
+	.string "That's already this POKéMON's\n"
+	.string "ability.\p"
+	.string "Please choose another.$"
+
+Common_Text_HeartScaleMerchantAbilityFailed:
+	.string "Sorry, I couldn't change that ability.$"
+
+Common_Text_HeartScaleMerchantEgg:
+	.string "I can't help an EGG.\n"
+	.string "Please choose another POKéMON.$"
+
+Common_Text_HeartScaleMerchantIVFailed:
+	.string "Sorry, I couldn't change that IV.$"
+
+Common_Text_HeartScaleMerchantDone:
+	.string "And done.\p"
+	.string "Come back when you need\n"
+	.string "something else.$"
+
+Common_Text_HeartScaleMerchantFarewell:
+	.string "Come back when you need\n"
+	.string "something else.$"
+
+Common_Text_HeartScaleMerchantNotEnoughScales:
+	.string "That service requires {STR_VAR_1} HEART SCALES.\p"
+	.string "You don't have enough.$"
+
+Common_Text_HeartScaleMerchantNoPokemon:
+	.string "Sorry, you don't have any POKéMON\n"
+	.string "with you.$"
+
+Common_Text_HeartScaleMerchantNotAvailable:
+	.string "Sorry, that service isn't available yet.$"
+
 	.include "data/scripts/pc_transfer.inc"
 	.include "data/scripts/questionnaire.inc"
 	.include "data/scripts/abnormal_weather.inc"

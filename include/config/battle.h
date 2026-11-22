@@ -251,7 +251,7 @@
 #define B_ICE_WEATHER_HAIL              1
 #define B_ICE_WEATHER_SNOW              2
 
-#define B_ABILITY_WEATHER               GEN_5 // In Gen6+, ability-induced weather lasts 5 turns. Before, it lasted until the battle ended or until it was changed by a move or a different weather-affecting ability.
+#define B_ABILITY_WEATHER               GEN_LATEST // In Gen6+, ability-induced weather lasts 5 turns. Before, it lasted until the battle ended or until it was changed by a move or a different weather-affecting ability.
 #define B_SANDSTORM_SPDEF_BOOST         GEN_5 // In Gen4+, Sandstorm weather multiplies the Sp. Defense of Rock-type Pokémon by x1.5.
 #define B_OVERWORLD_FOG                 GEN_5 // In Gen8+, overworld Fog summons Misty Terrain in battle. In Gen4 only, overworld Fog summons the unique fog weather condition in battle.
 #define B_OVERWORLD_SNOW                GEN_5 // In Gen9+, overworld Snow will summon snow instead of hail in battle.

@@ -29,12 +29,12 @@ FallarborTown_PokemonCenter_1F_EventScript_Lanette::
 	faceplayer
 	msgbox FallarborTown_PokemonCenter_1F_Text_LanetteGreeting, MSGBOX_DEFAULT
 	closemessage
-	switch VAR_FACING
-	case DIR_NORTH, FallarborTown_PokemonCenter_1F_EventScript_LanetteExitNorth
-	case DIR_WEST, FallarborTown_PokemonCenter_1F_EventScript_LanetteExitWest
+	goto FallarborTown_PokemonCenter_1F_EventScript_LanetteExitNorth
 	end
 
 FallarborTown_PokemonCenter_1F_EventScript_LanetteExitNorth::
+	applymovement LOCALID_PLAYER, FallarborTown_PokemonCenter_1F_Movement_PlayerStepBack
+	waitmovement 0
 	applymovement LOCALID_FALLARBOR_LANETTE, FallarborTown_PokemonCenter_1F_Movement_LanetteExitNorth
 	waitmovement 0
 	goto FallarborTown_PokemonCenter_1F_EventScript_LanetteExited
@@ -54,10 +54,8 @@ FallarborTown_PokemonCenter_1F_EventScript_LanetteExited::
 	end
 
 FallarborTown_PokemonCenter_1F_Movement_LanetteExitNorth:
-	walk_right
 	walk_down
 	walk_down
-	walk_left
 	walk_left
 	walk_left
 	walk_left
@@ -66,6 +64,12 @@ FallarborTown_PokemonCenter_1F_Movement_LanetteExitNorth:
 	walk_down
 	walk_down
 	delay_8
+	step_end
+
+FallarborTown_PokemonCenter_1F_Movement_PlayerStepBack:
+	walk_down
+	walk_down
+	face_up
 	step_end
 
 FallarborTown_PokemonCenter_1F_Movement_LanetteExitWest:
