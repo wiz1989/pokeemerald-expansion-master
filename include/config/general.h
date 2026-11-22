@@ -5,8 +5,8 @@
 //   - the save screen (gText_SavingVersion)
 //   - the release ROM filename (pokeemerald_release_vX.Y.Z.gba)
 #define GAME_VERSION_MAJOR 1
-#define GAME_VERSION_MINOR 0
-#define GAME_VERSION_PATCH 15
+#define GAME_VERSION_MINOR 1
+#define GAME_VERSION_PATCH 0
 // Internal helpers for stringification
 #define GAME_VER_STR_(x) #x
 #define GAME_VER_STR(x)  GAME_VER_STR_(x)
