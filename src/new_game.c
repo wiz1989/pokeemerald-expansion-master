@@ -109,11 +109,10 @@ static void SetDefaultOptions(void)
     gSaveBlock2Ptr->battleSpeed = OPTIONS_BATTLE_SCENE_1X;
     gSaveBlock2Ptr->halfDamage = TRUE;
     gSaveBlock2Ptr->revealRule = TRUE;
-    gSaveBlock2Ptr->announceRules = ANNOUNCE_RULES_BOSSES_ONLY;
+    gSaveBlock2Ptr->announceRules = ANNOUNCE_RULES_NEVER;
     gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_1;
     gSaveBlock2Ptr->instaRuleTrigger = FALSE;
     gSaveBlock2Ptr->activateNoCritRule = FALSE;
-    // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->bossUpgrade = FALSE;
     gSaveBlock2Ptr->dayNightTint = FALSE;
@@ -148,7 +147,6 @@ static void SetDefaultOptions_FlygonHG(void)
     gSaveBlock2Ptr->concurrentRules = OPTIONS_CONCURRENT_RULES_3;
     gSaveBlock2Ptr->instaRuleTrigger = FALSE;
     gSaveBlock2Ptr->activateNoCritRule = FALSE;
-    // hack 2
     gSaveBlock2Ptr->harderTrainers = TRUE;
     gSaveBlock2Ptr->bossUpgrade = TRUE;
     gSaveBlock2Ptr->dayNightTint = FALSE;

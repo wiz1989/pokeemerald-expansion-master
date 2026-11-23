@@ -576,7 +576,7 @@ static u8 PickNextBossRule(void)
                  + gSaveBlock1Ptr->bossRuleRerollCounter
                  + GetTrainerId(gSaveBlock2Ptr->playerTrainerId);
 
-    if (HasLimitedRulesPool(trainerId))
+    if (HasLimitedRulesPool(trainerId) && gSaveBlock2Ptr->bossUpgrade)
     {
         for (i = 0; i < BOSS_POOLS_COUNT; i++)
         {
@@ -766,14 +766,14 @@ void ComputeActiveBattleRules(void)
 
     if (IsBossTrainer(trainerId))
     {
-        if (IsE4Trainer(trainerId))
+        if (IsE4Trainer(trainerId) && gSaveBlock2Ptr->bossUpgrade)
         {
             // ToDo
             gActiveBattleRules[0] = GetEliteFourRule(trainerId);
             gActiveBattleRules[1] = BATTLERULE_NONE;
             gActiveBattleRules[2] = BATTLERULE_NONE;
         }
-        else if (IsChampion(trainerId)) // wiz1989: ToDo - decision still open
+        else if (IsChampion(trainerId) && gSaveBlock2Ptr->bossUpgrade) // wiz1989: ToDo - decision still open
         {
             gActiveBattleRules[0] = BATTLERULE_NOSTAB;
             gActiveBattleRules[1] = BATTLERULE_NONE;
