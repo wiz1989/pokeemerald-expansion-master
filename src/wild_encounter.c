@@ -1620,7 +1620,7 @@ static u16 GetFishingEncounterSpecies(u8 rod)
         else
             gIsDupe = FALSE;
     }
-    while (gSaveBlock2Ptr->dupeClause && dupeEncounter && validEncountersLeft > 1);
+    while ((gSaveBlock2Ptr->dupeClause || gIsFishingEncounter) && dupeEncounter && validEncountersLeft > 1);
 
     return species;
 }
