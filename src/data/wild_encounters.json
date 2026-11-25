@@ -1980,22 +1980,22 @@
               {
                 "min_level": 5,
                 "max_level": 5,
-                "species": "SPECIES_STUNFISK"
+                "species": "SPECIES_JOLTIK"
               },
               {
                 "min_level": 8,
                 "max_level": 8,
-                "species": "SPECIES_STUNFISK"
+                "species": "SPECIES_JOLTIK"
               },
               {
                 "min_level": 5,
                 "max_level": 5,
-                "species": "SPECIES_STUNFISK"
+                "species": "SPECIES_JOLTIK"
               },
               {
                 "min_level": 8,
                 "max_level": 8,
-                "species": "SPECIES_STUNFISK"
+                "species": "SPECIES_JOLTIK"
               }
             ]
           }
