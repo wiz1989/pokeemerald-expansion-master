@@ -242,7 +242,7 @@ const struct BossRulePool gBossRulePools[] =
     },
     {
         .trainerId = TRAINER_BRAWLY_1,
-        .rules = {BATTLERULE_BANNEDMOVECAT_SPECIAL, BATTLERULE_ONLYSTAB, BATTLERULE_NOREPEATINGMOVES},
+        .rules = {BATTLERULE_NOSUPEREFFECTIVE, BATTLERULE_ONLYSTAB, BATTLERULE_NOREPEATINGMOVES},
     },
     {
         .trainerId = TRAINER_WATTSON_1,
@@ -616,10 +616,6 @@ static void OverwriteActiveBattleRules(void)
 {
     u8 i;
 
-    // gActiveBattleRules[0] = BATTLERULE_NOMISSES; // test line
-    // gActiveBattleRules[1] = BATTLERULE_NONE; // test line
-    // gActiveBattleRules[2] = BATTLERULE_NONE; // test line
-
     // Norman's gym
     switch (gSaveBlock1Ptr->lastTrainerId)
     {
@@ -694,6 +690,10 @@ static void OverwriteActiveBattleRules(void)
             break;
         }
     }
+
+    // gActiveBattleRules[0] = BATTLERULE_NOSUPEREFFECTIVE; // test line
+    // gActiveBattleRules[1] = BATTLERULE_NONE; // test line
+    // gActiveBattleRules[2] = BATTLERULE_NONE; // test line
 }
 
 #define E4_RULES_COUNT ARRAY_COUNT(sEliteFourRules)

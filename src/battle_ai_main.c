@@ -5771,6 +5771,38 @@ case EFFECT_GUARD_SPLIT:
     return score;
 }
 
+static bool32 IsDefensiveSetupMove(u32 battlerAtk, u32 move)
+{
+    switch (GetMoveEffect(move))
+    {
+    case EFFECT_DEFENSE_UP:
+    case EFFECT_DEFENSE_UP_2:
+    case EFFECT_DEFENSE_UP_3:
+    case EFFECT_DEFENSE_CURL:
+    case EFFECT_SPECIAL_DEFENSE_UP:
+    case EFFECT_SPECIAL_DEFENSE_UP_2:
+    case EFFECT_COSMIC_POWER:
+    case EFFECT_BULK_UP:
+    case EFFECT_CALM_MIND:
+    case EFFECT_COIL:
+    case EFFECT_QUIVER_DANCE:
+    case EFFECT_VICTORY_DANCE:
+    case EFFECT_GEOMANCY:
+    case EFFECT_STOCKPILE:
+    case EFFECT_STUFF_CHEEKS:
+    case EFFECT_NO_RETREAT:
+    case EFFECT_CLANGOROUS_SOUL:
+    case EFFECT_TAKE_HEART:
+        return TRUE;
+    case EFFECT_CHARGE:
+        return B_CHARGE_SPDEF_RAISE >= GEN_5;
+    case EFFECT_CURSE:
+        return !IS_BATTLER_OF_TYPE(battlerAtk, TYPE_GHOST);
+    default:
+        return FALSE;
+    }
+}
+
 // AI_FLAG_CHECK_VIABILITY - Chooses best possible move to hit player
 static s32 AI_CheckViability(u32 battlerAtk, u32 battlerDef, u32 move, s32 score)
 {
@@ -5792,6 +5824,12 @@ static s32 AI_CheckViability(u32 battlerAtk, u32 battlerDef, u32 move, s32 score
 
     ADJUST_SCORE(AI_CalcMoveEffectScore(battlerAtk, battlerDef, move));
     ADJUST_SCORE(AI_CalcHoldEffectMoveScore(battlerAtk, battlerDef, move));
+
+    if (IsBattleMoveStatus(move)
+     && GetActiveGimmick(battlerAtk) != GIMMICK_DYNAMAX
+     && IsDefensiveSetupMove(battlerAtk, move)
+     && NoOfHitsForTargetToFaintBattler(battlerDef, battlerAtk) <= 2)
+        ADJUST_SCORE(AWFUL_EFFECT);
 
     return score;
 }
