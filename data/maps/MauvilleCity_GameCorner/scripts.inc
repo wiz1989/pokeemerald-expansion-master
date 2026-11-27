@@ -9,7 +9,7 @@ MauvilleCity_GameCorner_MapScripts::
 	.set TM_ICE_BEAM_COINS, 5000
 	.set DOLL_COINS, 1000
 
-	.set COINS_PRICE_500,  1000
+	.set COINS_PRICE_1000,  2000
 	.set COINS_PRICE_5000, 10000
 
 MauvilleCity_GameCorner_EventScript_CoinsClerk::
@@ -20,23 +20,24 @@ MauvilleCity_GameCorner_EventScript_CoinsClerk::
 	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_GameCorner_EventScript_NeedCoinCase
 	message MauvilleCity_GameCorner_Text_WereYouLookingForCoins
 	waitmessage
+	waitbuttonpress
 	showmoneybox 0, 0
 	showcoinsbox 1, 6
-	goto MauvilleCity_GameCorner_EventScript_ChooseCoinsDefault500
+	goto MauvilleCity_GameCorner_EventScript_ChooseCoinsDefault1000
 
-MauvilleCity_GameCorner_EventScript_ChooseCoinsDefault500::
+MauvilleCity_GameCorner_EventScript_ChooseCoinsDefault1000::
 	multichoicedefault 15, 0, MULTI_GAME_CORNER_COINS, 0, FALSE
 	switch VAR_RESULT
-	case 0, MauvilleCity_GameCorner_EventScript_Buy500Coins
+	case 0, MauvilleCity_GameCorner_EventScript_Buy1000Coins
 	case 1, MauvilleCity_GameCorner_EventScript_Buy5000Coins
 	goto MauvilleCity_GameCorner_EventScript_CancelBuyCoins
 	end
 
 @ Unused
-MauvilleCity_GameCorner_EventScript_ChooseCoinsDefault500_Unused::
+MauvilleCity_GameCorner_EventScript_ChooseCoinsDefault1000_Unused::
 	multichoicedefault 15, 0, MULTI_GAME_CORNER_COINS, 1, FALSE
 	switch VAR_RESULT
-	case 0, MauvilleCity_GameCorner_EventScript_Buy500Coins
+	case 0, MauvilleCity_GameCorner_EventScript_Buy1000Coins
 	case 1, MauvilleCity_GameCorner_EventScript_Buy5000Coins
 	goto MauvilleCity_GameCorner_EventScript_CancelBuyCoins
 	end
@@ -57,13 +58,13 @@ MauvilleCity_GameCorner_EventScript_Buy5000Coins::
 	release
 	end
 
-MauvilleCity_GameCorner_EventScript_Buy500Coins::
+MauvilleCity_GameCorner_EventScript_Buy1000Coins::
 	checkcoins VAR_TEMP_1
-	goto_if_ge VAR_TEMP_1, (MAX_COINS + 1 - 500), MauvilleCity_GameCorner_EventScript_NoRoomForCoins
-	checkmoney COINS_PRICE_500
+	goto_if_ge VAR_TEMP_1, (MAX_COINS + 1 - 1000), MauvilleCity_GameCorner_EventScript_NoRoomForCoins
+	checkmoney COINS_PRICE_1000
 	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_GameCorner_EventScript_NotEnoughMoney
-	addcoins 500
-	removemoney COINS_PRICE_500
+	addcoins 1000
+	removemoney COINS_PRICE_1000
 	updatemoneybox
 	updatecoinsbox 1, 6
 	playse SE_SHOP
@@ -111,6 +112,7 @@ MauvilleCity_GameCorner_EventScript_PrizeCornerDolls::
 MauvilleCity_GameCorner_EventScript_ChooseDollPrizeMessage::
 	message MauvilleCity_GameCorner_Text_WhichPrize
 	waitmessage
+	waitbuttonpress
 	setvar VAR_TEMP_1, 0
 	showcoinsbox 1, 1
 	goto MauvilleCity_GameCorner_EventScript_ChooseDollPrize
@@ -118,6 +120,7 @@ MauvilleCity_GameCorner_EventScript_ChooseDollPrizeMessage::
 MauvilleCity_GameCorner_EventScript_ReturnToChooseDollPrize::
 	message MauvilleCity_GameCorner_Text_WhichPrize
 	waitmessage
+	waitbuttonpress
 	goto MauvilleCity_GameCorner_EventScript_ChooseDollPrize
 
 MauvilleCity_GameCorner_EventScript_ChooseDollPrize::
@@ -224,6 +227,7 @@ MauvilleCity_GameCorner_EventScript_PrizeCornerTMs::
 MauvilleCity_GameCorner_EventScript_ChooseTMPrizeMessage::
 	message MauvilleCity_GameCorner_Text_WhichPrize
 	waitmessage
+	waitbuttonpress
 	setvar VAR_TEMP_1, 0
 	showcoinsbox 1, 1
 	goto MauvilleCity_GameCorner_EventScript_ChooseTMPrize
@@ -231,6 +235,7 @@ MauvilleCity_GameCorner_EventScript_ChooseTMPrizeMessage::
 MauvilleCity_GameCorner_EventScript_ReturnToChooseTMPrize::
 	message MauvilleCity_GameCorner_Text_WhichPrize
 	waitmessage
+	waitbuttonpress
 	goto MauvilleCity_GameCorner_EventScript_ChooseTMPrize
 
 MauvilleCity_GameCorner_EventScript_ChooseTMPrize::
@@ -637,7 +642,7 @@ MauvilleCity_GameCorner_Text_NeedCoinCaseForCoins:
 
 MauvilleCity_GameCorner_Text_WereYouLookingForCoins:
 	.string "Were you looking for COINS?\p"
-	.string "It's ¥1000 for 500 COINS.\n"
+	.string "It's ¥2000 for 1000 COINS.\n"
 	.string "Would you like some?$"
 
 MauvilleCity_GameCorner_Text_ThankYouHereAreYourCoins:

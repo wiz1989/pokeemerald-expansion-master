@@ -277,7 +277,7 @@ static const struct MenuAction MultichoiceList_GameCornerTMs[] =
 
 static const struct MenuAction MultichoiceList_GameCornerCoins[] =
 {
-    {COMPOUND_STRING("  500 COINS    ¥1,000")},
+    {COMPOUND_STRING("1000 COINS    ¥2,000")},
     {COMPOUND_STRING("5000 COINS  ¥10,000")},
     {gText_Exit},
 };
