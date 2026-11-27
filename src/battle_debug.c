@@ -1693,16 +1693,28 @@ static void PrintSecondaryEntries(struct BattleDebugMenu *data)
 #else
         for (i = 0; i < 4; i++)
         {
-            u8 stringValue[5];
-            
-            StringCopy(text, GetMoveName(gBattleMons[data->battlerId].moves[i]));
-            StringAppend(text, gText_Space);
-            
-            ConvertIntToDecimalStringN(stringValue, gBattleMons[data->battlerId].pp[i], STR_CONV_MODE_LEFT_ALIGN, 2);
-            StringAppend(text, stringValue);
-            StringAppend(text, gText_Slash);
-            ConvertIntToDecimalStringN(stringValue, gMovesInfo[gBattleMons[data->battlerId].moves[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 2);
-            StringAppend(text, stringValue);
+            u8 ppText[7];
+            const u8 *moveName = GetMoveName(gBattleMons[data->battlerId].moves[i]);
+            u8 *txtPtr = StringCopy(ppText, gText_Space);
+            u32 nameLength;
+            u32 maxWidth = min(sSecondaryListWindowTemplate.width * 8,
+                               DISPLAY_WIDTH - sSecondaryListWindowTemplate.tilemapLeft * 8) - printer.x;
+
+            txtPtr = ConvertIntToDecimalStringN(txtPtr, gBattleMons[data->battlerId].pp[i], STR_CONV_MODE_LEFT_ALIGN, 2);
+            txtPtr = StringCopy(txtPtr, gText_Slash);
+            ConvertIntToDecimalStringN(txtPtr, gMovesInfo[gBattleMons[data->battlerId].moves[i]].pp, STR_CONV_MODE_LEFT_ALIGN, 2);
+
+            nameLength = min(StringLength(moveName), sizeof(text) - 1 - StringLength(ppText));
+            txtPtr = StringCopyN(text, moveName, nameLength);
+            *txtPtr = EOS;
+            StringAppend(text, ppText);
+
+            // dynamically adjust the move name length to fit within the max display width
+            while (nameLength > 0 && GetStringWidth(printer.fontId, text, printer.letterSpacing) > maxWidth)
+            {
+                text[--nameLength] = EOS;
+                StringAppend(text, ppText);
+            }
 
             PadString(text, text);
             printer.currentY = printer.y = (i * yMultiplier) + sSecondaryListTemplate.upText_Y;
